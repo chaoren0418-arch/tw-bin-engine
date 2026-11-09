@@ -55,7 +55,10 @@
   - `SpellList.xml` 加密 SHA `6430b2a1…1d37`，解密後 SHA `5d21a9ba95f294fb5813becc7a46f02b9eb6f66b91722bad81218f7a2f1a0cc2`，共 186 個 `<spell>`。
   - XML 宣告 UTF-8，名稱實際是 CP950，所以程式以 Latin-1 解碼，只讀 ASCII 屬性。
   - 引擎 catalog 的 4 個技能（1／3／4／8）動作全部相符，delay 都是 10。
-- **待驗證（CI）**：`--module-tests`（含 `projectile-kind`、`skill-visual`）與其他 CI 步驟。依規定本機沒有執行任何編譯產物。
+- **已驗證（CI，PR #696，run 42634004552）**：
+  - dotnet、map-continuity、npc-offline 三個 job 全部通過。
+  - `--module-tests` 中 `projectile-kind` 45 項通過、`skill-visual` 47 項通過，沒有失敗項。
+  - 依規定，本機沒有執行任何編譯產物。
 
 ## 未驗證什麼
 - 實機畫面：kind 7 地裂的節奏與疊層、終點時機。需要 Codex／dot 在 P24Lab 實測（例：129→123 crust、4728→4730 沒有受擊）。
