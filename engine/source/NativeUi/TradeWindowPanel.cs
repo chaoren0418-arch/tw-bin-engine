@@ -44,7 +44,7 @@ public sealed class TradeWindowSources(params ITradeWindowSource[] sources):ITra
     public void Close()=>active?.Close();
 }
 
-public sealed class TradeWindowPanel:IUiMovablePanel {
+public sealed class TradeWindowPanel:IUiMovablePanel,IUiClosablePanel {
     [UiPanel(110)] internal static UiPanelRegistration Registration=>new(TradeWindowPanel.PanelId,TradeWindowPanel.LayoutName,root=>new TradeWindowPanel());   // M7-S (#526)
     public const string PanelId="TRADE_WINDOW";
     public const string LayoutName="uiextra86";
@@ -151,6 +151,8 @@ public sealed class TradeWindowPanel:IUiMovablePanel {
         if(Selected>=view.Items.Length)Selected=-1;
         Scroll=Math.Clamp(Scroll,0,MaxScroll);
     }
+    /// <summary>R4-C：這份清單已被使用者（或 UiRoot）關閉，窗不會再畫它（NPC 面板據此決定要不要讓位）。</summary>
+    public bool Dismissed(TradeListView v)=>(v.Mode,v.Revision)==closed;
     public int MaxScroll=>view==null?0:Math.Max(0,view.Items.Length-VisibleRows);
     /// <summary>合計＝Σ 數量×單價。</summary>
     public long TotalPrice=>view==null?0:view.Items.Select((item,i)=>(long)quantities[i]*item.Price).Sum();
@@ -219,7 +221,11 @@ public sealed class TradeWindowPanel:IUiMovablePanel {
         }
     }
 
-    void Close(){
+    /// <summary>
+    /// 關閉 X／CANCEL／Esc，也是 IUiClosablePanel（R4-C #715：UiRoot 4 層上限擠掉時 sub_A57C60 呼叫 vtable+36）：記下這份清單
+    /// （模式, 版本）不再畫，並交給來源關閉（修理清空清單、商店／學魔法走既有的關閉）。
+    /// </summary>
+    public void Close(){
         if(view==null)return;
         closed=(view.Mode,view.Revision);view=null;Selected=-1;Scroll=0;pressed=Press.None;Source?.Close();
     }

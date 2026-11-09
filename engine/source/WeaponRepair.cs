@@ -75,7 +75,7 @@ public sealed partial class WorldSession {
     public int WeaponRepairRevision { get { CheckWeaponRepair();return repairRevision; } }
     public bool NearbyRepairTarget => NearbyTarget && Actor is {} a && Target is {} t && !t.ShopActive &&
         Math.Abs(a.X-t.X) <= 3 && Math.Abs(a.Y-t.Y) <= 3;
-    public void CloseWeaponRepair() { repairRows=[];repairPhase="closed";repairNotice="修理清單已關閉；請重新查詢。";repairRevision++; }
+    public void CloseWeaponRepair() { EndWeaponRepairBatch();repairRows=[];repairPhase="closed";repairNotice="修理清單已關閉；請重新查詢。";repairRevision++; }
     void CheckWeaponRepair() {
         if (repairPhase == "closed") return;
         if (repairEpoch != WorldEpoch || repairTargetRevision != TargetRevision || repairNpc != TargetId || !NearbyRepairTarget || TradeBlocksActions || ActionLocked) {
@@ -96,6 +96,7 @@ public sealed partial class WorldSession {
         // This existing event runs after every packet, including S71. Observe each
         // message before a later packet replaces LastServerReply; no extra S71 dispatch.
         if(!repairObserving){CombatSoundStateChanged+=CheckWeaponRepair;repairObserving=true;}
+        EndWeaponRepairBatch();
         repairEpoch=WorldEpoch;repairTargetRevision=TargetRevision;repairNpc=TargetId;
         repairStarted=InteractionClock();repairRows=[];repairPhase="querying";repairRevision++;
         repairNotice="已要求損壞武器清單，等待原服回覆。";
@@ -170,10 +171,31 @@ public sealed partial class WorldSession {
         CheckWeaponRepair();return revision==repairRevision && repairPhase=="ready" &&
             repairRows.Any(r=>r.ObjectId==item && r.Damage>0) && inventory.TryGetValue(item,out var held) && held.Count>0 && held.UseType==1;
     }
-    internal void SubmitWeaponRepair() {
+    internal void SubmitWeaponRepair() => SubmitWeaponRepair([]);
+    // R4-C（T303／#715）：TRADE_WINDOW 模式 6 多選時，原版把每一列各送一包 C20（TWP§1.6，sub_A2BD10 的迴圈）。
+    // 第一包照舊驗證「清單版本＋每件都可修」並進入 submitted；後面幾包只認同一批（批號），批號在清單關閉或重新查詢時失效，
+    // 所以原服在中途回 464／189（狀態轉 review）時，剩下的包仍照原版一次送完；換目標、交易、離開世界則停止。
+    int repairBatch;uint[] repairBatchItems=[];int repairBatchSent;
+    /// <summary>目前這一批修理（多選）已送出的包數與總數；沒有批次時為 (0, 0)。給 UI 提示與測試用。</summary>
+    public (int Sent,int Total) WeaponRepairBatchProgress => (repairBatchItems.Length==0?0:repairBatchSent, repairBatchItems.Length);
+    internal int SubmitWeaponRepair(IReadOnlyList<uint> batch) {
         repairReply=LastServerReply;repairPhase="submitted";repairStarted=InteractionClock();repairRevision++;
-        repairNotice="修理請求已送出一次，尚未確認完成；不會自動重送。";
+        repairBatch++;repairBatchItems=batch.Count>1?batch.ToArray():[];repairBatchSent=batch.Count>1?1:0;
+        repairNotice=batch.Count>1 ? $"修理請求逐件送出中（每件一包 C20，共 {batch.Count} 件）；尚未確認完成，不會自動重送。" : "修理請求已送出一次，尚未確認完成；不會自動重送。";
+        return repairBatch;
     }
+    /// <summary>同一批的後續包：批號沒變（清單沒關、沒重新查詢）、是這批的物品、背包仍持有。</summary>
+    internal bool WeaponRepairBatchLive(int batch, uint item) {
+        CheckWeaponRepair();
+        return batch==repairBatch && repairBatchItems.Contains(item) && repairPhase is "submitted" or "review" &&
+            inventory.TryGetValue(item,out var held) && held.Count>0;
+    }
+    internal void WeaponRepairBatchSent(int batch) {
+        if(batch!=repairBatch||repairBatchItems.Length==0)return;
+        repairBatchSent=Math.Min(repairBatchItems.Length,repairBatchSent+1);
+        if(repairPhase=="submitted")repairNotice=$"修理請求已逐件送出 {repairBatchSent}／{repairBatchItems.Length} 包（每件一包 C20）；尚未確認完成，不會自動重送。";
+    }
+    void EndWeaponRepairBatch() {repairBatch++;repairBatchItems=[];repairBatchSent=0;}
 }
 
 public sealed partial class LoginConnection {
@@ -198,6 +220,33 @@ public sealed partial class LoginConnection {
             World.NearbyRepairTarget && !World.ActionLocked && !World.TradeBlocksActions && !MovementBusy && !interactionSending &&
             (query ? World.WeaponRepairPhase is not ("querying" or "submitted") : World.CanRepairWeapon(item,revision));
         try { return await sender(bytes,Valid,()=>{if(query)World.BeginWeaponRepair();else World.SubmitWeaponRepair();}) && session==generation; }
+        catch(Exception) { if(session==generation){Cancel();Set(LoginState.Faulted,"修理傳送失敗，已斷線；不會重送。");}return false; }
+        finally { if(repairSendingGeneration==session)repairSendingGeneration=-1; }
+    }
+    /// <summary>
+    /// R4-C（T303／#715）：TRADE_WINDOW 模式 6 多選——每一列各送一包 C20（TWP§1.6）。只有一列時同 SendWeaponRepair。
+    /// 第一包驗證整批（同一清單版本、每件都可修）；之後每包只驗連線／世界／目標／NPC 距離與批號（WorldSession.WeaponRepairBatchLive）。
+    /// 回傳 true＝每一包都送出了；中途停止回 false（已送出的包不撤回，結果以原服回報為準）。
+    /// </summary>
+    public async Task<bool> SendWeaponRepairBatch(IReadOnlyList<uint> items, int revision) {
+        var list=items.Where(i=>i!=0).Distinct().ToArray();
+        if (list.Length==0) return false;
+        if (list.Length==1) return await SendWeaponRepair(false,list[0],revision);
+        if (!RepairAccess || sendMovementGate==null || !World.NearbyRepairTarget || list.Any(i=>!World.CanRepairWeapon(i,revision))) return false;
+        int session=generation, epoch=World.WorldEpoch, target=World.TargetRevision, requestRevision=World.WeaponRepairRevision, batch=-1;
+        uint npc=World.TargetId!.Value;var sender=sendMovementGate;
+        repairSendingGeneration=session;
+        bool Common() => session==generation && epoch==World.WorldEpoch && target==World.TargetRevision && State==LoginState.InWorld &&
+            World.NearbyRepairTarget && World.TargetId==npc && !World.ActionLocked && !World.TradeBlocksActions && !MovementBusy && !interactionSending;
+        try {
+            for (int k=0; k<list.Length; k++) {
+                uint item=list[k];bool first=k==0;
+                bool Valid() => Common() && (first ? requestRevision==World.WeaponRepairRevision && list.All(i=>World.CanRepairWeapon(i,revision)) : World.WeaponRepairBatchLive(batch,item));
+                bool sent=await sender(WeaponRepairPackets.Repair(item,npc),Valid,()=>{if(first)batch=World.SubmitWeaponRepair(list);else World.WeaponRepairBatchSent(batch);});
+                if (!sent || session!=generation) return false;
+            }
+            return true;
+        }
         catch(Exception) { if(session==generation){Cancel();Set(LoginState.Faulted,"修理傳送失敗，已斷線；不會重送。");}return false; }
         finally { if(repairSendingGeneration==session)repairSendingGeneration=-1; }
     }
