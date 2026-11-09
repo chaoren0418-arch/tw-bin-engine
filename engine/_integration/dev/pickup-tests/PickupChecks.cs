@@ -53,9 +53,10 @@ partial class Checks {
             Check(await c.PickupGround(900302)&&sent.Count==2&&c.World.Actor!.Direction==4,"節流過後可再送，轉向南");
         }
         using(var c=PickupSeed()){
-            var sent=PickupSender(c);Set(c.World,"Actor",c.World.Actor! with{Speed=1});PickupGroundAt(c,900303,0,0,1);
-            Check(await c.PickupGround(900303)&&sent.Count==1,"加速旗標下可送");
-            long left=(long)typeof(LoginConnection).GetField("nextGroundAt",F)!.GetValue(c)!-Environment.TickCount64;Check(left>500&&left<=600,"旗標 0x10000（推測＝加速）節流 600 ms");
+            // T253 (#614): the flag now comes from S139 (dword_13CE514), not own haste.
+            var sent=PickupSender(c);Set(c,"serverFeatures",new ServerFeatures(0,0,3,950,ServerFeatures.FastPickupFlag,0,0));PickupGroundAt(c,900303,0,0,1);
+            Check(await c.PickupGround(900303)&&sent.Count==1,"S139 旗標下可送");
+            long left=(long)typeof(LoginConnection).GetField("nextGroundAt",F)!.GetValue(c)!-Environment.TickCount64;Check(left>500&&left<=600,"S139 旗標 0x10000 節流 600 ms");
             Check(c.World.Actor!.Direction==0,"腳下物品不轉向");
         }
 

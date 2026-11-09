@@ -60,6 +60,12 @@
   - 這是 S245，與本任務無關，main 上也一樣；沒有客戶端時這一組會通過。**完整全組以 CI 為準。**
 - `git status`：沒有新增任何 `.img`、`.xml`、`.png` 或二進位遊戲資料；scratch 與兩個 junction 都被 `.gitignore` 排除。
 
+### 2026-11-09 與 main 同步
+
+- PR #662 與 main 衝突（落後 86 個 commit），只有 `rebuild-lock.json` 衝突：取 main 版本後用 `rebuild.py --update-lock` 重產（341 個來源、350 個鎖定檔），沒有手動拼 hash。
+- 同步後 `rebuild.py --build` PASS，product DLL SHA-256 `760d9722a4ccd47b8933fcffbcc1c68934ead6e12876321e75275d56878006a0`。
+- 依 2026-11-09 本機限制，同步後**沒有在本機執行** DemoChecks 或任何建置出來的程式；同步後的檢查結果以 PR 的 CI 為準。
+
 ## 未驗證什麼（待驗證／推測）
 
 - **待驗證：**

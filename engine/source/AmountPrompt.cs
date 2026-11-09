@@ -13,6 +13,7 @@ namespace P06;
 //        每次詢問只有一張一次性票（UiOperationContext.take），所以每個詢問最多回一次。
 // 推測／待驗證：第 2 個 D 與 H(0) 的意義（3.81 一律送 0，只保存不使用）；C11 的那個 byte 原版送什麼（原服忽略，本引擎送 0）；
 // `agapply` 原版改交 CAgitAuctionUI（XML 缺），本引擎照一般 HTML 頁加數字框顯示。
+// R2-F（T261／#622）：web 面板也有同一個數字框（AmountPromptWeb → interaction.js → npcAmount → SendAmountPromptReply）。
 
 /// <summary>S136 解碼結果（欄位照 3.81 伺服器）。</summary>
 public sealed record AmountPromptPacket(uint ObjectId,uint Reserved,int Initial,int Min,int Max,ushort Flag,string Html,string Command,string[] Data);
@@ -138,6 +139,12 @@ public sealed partial class LoginConnection {
         catch(Exception){if(mine==generation){Cancel();Set(LoginState.Faulted,"數量回覆傳送失敗，已斷線；不會重送。");}return false;}
         finally{if(mine==generation)interactionSending=false;}
     }
+    /// <summary>R2-F：web 面板的 S136 數字框。epoch／page＝畫面顯示時的世界與 NPC 對話版本，prompt＝詢問版本；任何一個不符都不送。</summary>
+    public Task<bool> SendAmountPromptReply(int epoch,int page,long prompt,long value){
+        var v=AmountPromptSnapshot();
+        bool current=CaptureWorld(()=>v.WorldEpoch==epoch&&World.InteractionRevision==page&&v.Prompt is {} o&&o.Revision==prompt&&o.InteractionRevision==page);
+        return current?SendAmountReply(v,value):Task.FromResult(false);
+    }
 }
 
 // 畫面：在既有 NPC 對話面板（NpcUi.cs 的 npcPanel）底部加一列數字框與「確定」鈕，不另開 Form。
@@ -188,5 +195,10 @@ public sealed partial class ClientForm {
         try{await login.SendAmountReply(v,(long)amountInput.Value);}
         finally{amountUiSending=false;}
         SyncInteraction();lastWebState="";PublishWebState();SyncAmountPrompt();
+    }
+    // R2-F：web 面板（interaction.js）用的 S136 數字框資料；沒有有效詢問時為 null。
+    object? AmountPromptWeb(){
+        var v=login.AmountPromptSnapshot();if(v.Prompt is not {} o)return null;
+        return new{prompt=o.Revision,page=o.InteractionRevision,lower=o.Lower,max=o.Max,suggested=o.Suggested,answerable=o.Answerable,range=AmountPromptProtocol.Range(o),canSend=v.CanSend&&!World.Walking};
     }
 }

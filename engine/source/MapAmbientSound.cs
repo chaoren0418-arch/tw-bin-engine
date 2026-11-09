@@ -30,6 +30,7 @@ public sealed record MapAmbientCue(int Mode,int[] Candidates)
 // （與戰鬥音效、S22 同一份、同一時鐘 Environment.TickCount64）；未指定時用獨立表，供離線測試隔離。
 public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random,SoundCooldown? cooldownTable=null)
 {
+    readonly IAmbientLoopAudio audio=audio;
     public const int SourcesPerSound=5,CooldownMs=SoundRules.CooldownMs,Reach=SoundRules.MaxManhattan;
     readonly SoundCooldown cooldown=cooldownTable??new();
     sealed class Emitter(MapAmbientSource source)
@@ -157,10 +158,14 @@ public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random,SoundC
             model=new(backend,Random.Shared,SoundCooldown.Shared);sessions.Add(session,model);
         }
         var sources=Sources(session,now);
+        if(sources.Length>0||model.Emitters>0)model.audio.SetScale(Scale(session)); // T252：先套類別音量，已在播的循環也跟著變。
         model.Update(sources,session.Actor is {} actor?(actor.X,actor.Y):null,now,sources.Length>0&&Audible(session));
     }
     // 音量與靜音沿用 6016 host 已同步的主控制值（ClientForm 維護）。
-    static bool Audible(WorldSession session)=>session.Renderable&&session.Effects6016 is {Closed:false,Muted:false} host&&host.Gain>0;
+    // A06020：音效／環境／語音三類都是 0 時不啟動。
+    static bool Audible(WorldSession session)=>session.Renderable&&session.Effects6016 is {Closed:false,Muted:false} host&&host.Gain>0&&!ClientSoundScene.Volumes.EffectCategoriesSilent;
+    // T252：EnvSoundVolume × 主音量；靜音、關閉或不可繪製時為 0（已在播的循環降到無聲，不停止）。
+    public static double Scale(WorldSession session)=>session.Renderable&&session.Effects6016 is {Closed:false,Muted:false} host&&host.Gain>0?ClientSoundScene.Volumes[SoundCategory.EnvSound]*host.Gain:0;
     public static MapAmbientSource[] Sources(WorldSession session,long now)
     {
         if(session.MapCache is not {} cache||!session.Renderable)return [];

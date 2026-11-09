@@ -8,7 +8,7 @@ namespace P06;
 // 推定（未實機對包）：合併位元 bit0＝全體、bit2＝密語，其餘位元固定為 0x5A（伺服器接受的 90–95 區段）；
 // 0x20 位元（122–127 區段）的原版意義未查，不送。
 // 聊天列 `/on 頻道`、`/off 頻道` 的確切語法原版未查（protocol-gaps 只記字串 401「開」／402「關」），本檔的指令格式是推定；
-// 本任務只提供協定、資料與 LoginConnection API，聊天輸入框的接線留給後續任務（PlayerChat.cs 不在本任務範圍）。
+// R2-G（#616）：聊天列已接上——LoginConnection.SendPlayerChat 先用 ChatChannelCommands.IsCommand 判斷，指令改走 SendChatChannelCommand，不再當聊天送出。
 public enum ChatChannelKind : byte { World=0, Whisper=2, Trade=6 }
 
 public readonly record struct ChatChannelSettings(bool World,bool Whisper,bool Trade) {
@@ -137,6 +137,7 @@ public sealed partial class LoginConnection {
     }
     /// <summary>聊天列指令入口：`/on 頻道`、`/off 頻道`。不是指令回 false 且不動作。</summary>
     public async Task<bool> SendChatChannelCommand(string text,PlayerHudStamp stamp){
+        ChatChannelNotice=""; // 每次指令重新給回報，不沿用上一次的文字。
         ChatChannelCommand? command;
         try{command=ChatChannelCommands.Parse(text);}
         catch(ArgumentException ex){ChatChannelNotice=ex.Message;return false;}

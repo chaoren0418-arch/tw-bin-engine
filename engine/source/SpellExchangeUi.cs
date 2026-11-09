@@ -2,7 +2,8 @@ namespace P06;
 
 // M7-G（T208／#514）以物品學魔法的暫行視窗（自有 Form，不改共用的 WebView 指令分派或 Program.cs）。
 // op 175 原生視窗的版面待查證，這裡只是 WinForms 清單＋勾選＋送出一次，不冒充原版畫面。
-// 開窗時機：RequestSpellExchangeList() 成功送出 C245 後由 LoginConnection 開啟；C245 的 NPC 對話入口待查證，尚未接上。
+// 開窗時機（R2-F／#622）：NPC 頁動作 xchgspell 送出 C245 後，收到「非空」S13 清單時由 SyncSpellExchangeWindow 開啟（原版 op 175 有清單才開窗，
+// 空清單改開 HorunEv3 頁，SS2§1.2）。RequestSpellExchangeList(openWindow:true) 的舊行為保留給其他呼叫端。
 public sealed class SpellExchangeUi:Form {
     readonly LoginConnection connection;
     readonly CheckedListBox rows=new(){Dock=DockStyle.Fill,IntegralHeight=false,CheckOnClick=true};
@@ -70,6 +71,13 @@ public sealed partial class LoginConnection {
 }
 public sealed partial class ClientForm {
     internal bool OwnsSpellExchangeConnection(LoginConnection connection)=>ReferenceEquals(login,connection);
+    long spellExchangeWindowOffer;
+    /// <summary>每次 NPC 面板同步時呼叫：出現新的非空清單（OfferRevision 變了）就開視窗，同一份清單只開一次。</summary>
+    void SyncSpellExchangeWindow(){
+        var w=login.World;
+        if(w.SpellExchangePhase!="list"||w.SpellExchangeOffer is not {} offer||offer.Revision==spellExchangeWindowOffer)return;
+        spellExchangeWindowOffer=offer.Revision;ShowSpellExchangeUi(login);
+    }
     internal void ShowSpellExchangeUi(LoginConnection connection){
         if(OwnedForms.OfType<SpellExchangeUi>().FirstOrDefault() is {IsDisposed:false} open){open.Activate();return;}
         ClearInput("spell-exchange");LeaveGameFocus("spell-exchange");
