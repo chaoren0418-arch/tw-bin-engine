@@ -23,7 +23,8 @@
 
 - 已驗證：`py -3 -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config`：product／launcher 都建置成功，結果 `PASS dev`（暫時 lock，沒有寫入 `rebuild-lock.json`）。
 - 已驗證：`engine/tools/check-no-game-assets.py` 通過（errors 0）。
-- 待驗證（交給 CI）：依本機規定沒有執行 `--module-tests` 和 DemoChecks；`sound-followup` 與既有測試是否全綠，以 PR 的 CI 結果為準。
+- 已驗證（CI，PR #694）：`dotnet`、`map-continuity`（含全部 `[WorldModuleTest]`，也就是 `sound-followup` 和既有的 `background-music` 檢查）、`npc-offline` 全綠。本機依規定沒有執行任何編譯出來的程式。
+  - 第一次 CI 失敗是測試本身的問題：S158 走完整分派時會進戰鬥動畫，要讀 `engine/assets`，但 CI 沒有素材。已改成直接呼叫觀察器，另外核對 M7-A 登錄表裡有這兩個觀察器。
 
 ## 未驗證／限制
 
