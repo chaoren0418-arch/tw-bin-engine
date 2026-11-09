@@ -88,6 +88,10 @@ public static class ChatRules {
 /// <summary>One wrapped display row. Runs = the row's coloured pieces (R2-G, palette indices); their texts join to Text.</summary>
 public sealed record ChatRow(long Sequence,PlayerChatChannel Channel,string Text) {
     public IReadOnlyList<ChatRun> Runs{get;init;}=[new(Text,ChatFormat.ChannelIndex(Channel))];
+    /// <summary>
+    /// 第二色（sub_7DC850 第 3 個參數，ChatFormat.SecondColor；R3-G #675）。Q3-9（T287／#680）：原版傳下去後沒有讀取，畫面上沒有用途；只當資料帶著，不畫。
+    /// </summary>
+    public int SecondColor{get;init;}=ChatFormat.White;
 }
 
 /// <summary>Display state: tab, filters, split, height, scroll. Switching tabs/filters only changes what is shown.</summary>
@@ -119,9 +123,9 @@ public sealed class ChatViewState {
         foreach(var line in lines.Skip(Math.Max(0,lines.Count-ChatRules.MaxLines)))
             if(Shows(line,rightPane)){
                 var runs=ChatFormat.Runs(line);
-                int start=0;
+                int start=0,second=ChatFormat.SecondColor(line);
                 foreach(var r in ChatRules.Wrap(string.Concat(runs.Select(x=>x.Text)),width,charWidth)){
-                    rows.Add(new(line.Sequence,line.Channel,r){Runs=Slice(runs,start,r.Length)});start+=r.Length;
+                    rows.Add(new(line.Sequence,line.Channel,r){Runs=Slice(runs,start,r.Length),SecondColor=second});start+=r.Length;
                 }
             }
         return rows;
