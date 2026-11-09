@@ -55,7 +55,7 @@ TW16 op 201 有三個送出函式，各是一個封包類別的 `+8` 方法（vt
 
 - `engine/source/Clan.cs`：`ClanProtocol` 加 `AttentionAdd(name)`＝`[129, 0, name…, 0]`、`AttentionRemove(name)`＝`[129, 1, name…, 0]`、`AttentionGetList()`＝`[129, 2]`；名稱截到 16 byte。送出走既有的 `sendMovementGate`。
 - `engine/source/NativeUi/PledgePanel.cs`（`:198` 的註解處）：「新增」鈕開共用輸入框（字串 3361）→ 送子碼 0；清單列可勾選；「刪除」鈕確認後**每個勾選列各送一包**子碼 1。確認框文字 4118 本機沒有，先用空白或沿用「刪除」的通用字串並註明。伺服器回 S200 type 2 後重畫（現有的 `ScrollAttention` 路徑）。
-- `engine/source/PlayerChat.cs`：`/focus`（與「/注視」）指令：有參數送子碼 0、沒參數送子碼 2。`PlayerChat.cs` 由 T290 使用中，要排序。
+- `engine/source/PlayerChat.cs`：`/focus`（與「/注視」）指令：有參數送子碼 0、沒參數送子碼 2。（T290 已由 PR #744 合併，`PlayerChat.cs` 可以直接改。）
 - HTML 動作 `pledgefocusadd` 走 `NpcInteraction.cs` 的 HTML 動作分派（若有）；沒有就列為選配。
 
 ## 2. Q4-4 `byte_1542AA1`（職業碼）的來源
@@ -130,7 +130,7 @@ TW16 op 197（3.81 C227）的格式都是 `ccs`：197, 類型, 對手血盟名�
   - S84 的 `Describe` 改成 226／235／228／227／231／224／225 的字串表文字，**印到聊天欄**（`PlayerChat` 的系統行，palette[24]），不要只寫進 WinForms 盟戰窗。type 1／8 更新戰爭中旗標與對手清單，2／3／4 在清單空了時清旗標（頭上盟徽已由 `ObjectRendering.cs:236` 處理）。
   - C227 的入口改成：聊天指令 `/war`（「/宣戰」）、`/surrender`（「/投降」）、`/cease`（「/停戰」）＋血盟名；血盟窗的三態控制項＋輸入框（577／578／579）。拿掉引擎自訂的三鈕 WinForms 窗（或只在原生 UI 關閉時保留為備援，並標「引擎自訂」）。
   - 本地檢查照 3.2（478、785、272、232、234）。
-- `engine/source/PlayerChat.cs`：加三個指令（T290 使用中，要排序）。
+- `engine/source/PlayerChat.cs`：加三個指令。
 - `engine/source/NativeUi/PledgePanel.cs`：`ChangeWarState` 控制項。
 - 背景音樂 11／12／13：交給 `BackgroundMusic.cs`／`ProductSoundBackends.cs`（選配，先對 `music.def`）。
 
@@ -157,7 +157,7 @@ TW16 op 21（3.81 C50）只有兩個送出函式，格式都是 `cc`（**沒有�
 ### 4.3 對應要改的檔案
 
 - `engine/source/Marriage.cs`：`Propose()` 的 `[50, 0]` 已經正確；補 `Divorce()`＝`[50, 1]`（653 的確認走共用詢問槽）。`:122` 的註解改成「原版入口是 HTML `propose`／`divorce` 與 `/propose`、`/divorce`（「/求婚」「/離婚」）指令，3.81 的 HTML 範本沒有這兩個連結（FU6§4）」。
-- `engine/source/PlayerChat.cs`：`/propose`、`/divorce`（與中文別名）指令（T290 使用中）。
+- `engine/source/PlayerChat.cs`：`/propose`、`/divorce`（與中文別名）指令。
 - 引擎自訂的過渡頁入口（`Marriage.cs:138`）可以拿掉或標「引擎自訂」；不必等 HTML。
 
 ## 5. Q4-7 `AgitWindow` 的觸發
@@ -203,9 +203,9 @@ TW16 op 21（3.81 C50）只有兩個送出函式，格式都是 `cc`（**沒有�
 
 ### 6.3 對應要改的檔案
 
-- `engine/source/PlayerChat.cs:90–98`（S161 解碼）：文字依 6.1 的規則展開 `$n`，查表用 `assets/objects/names.json`（r29 版本有 16945 筆，第 4／431 筆與 `desc-c.tbl` 相同，是同一張表），超出範圍顯示 `???`、吃掉數字後的 `;`。可以重用 `ObjectAssets.Name`／`ItemText.Resolve` 的規則，但要補 `???` 與 `;`。
+- `engine/source/PlayerChat.cs:91–98`（S161 解碼）：文字依 6.1 的規則展開 `$n`。查表用 T290 新增的 `TextArchive.ReadDesc()`（`TextArchive.cs:94`，讀 `desc-c.tbl` 並核 pin），或 `assets/objects/names.json`（r29 版本有 16945 筆，第 4／431 筆與 `desc-c.tbl` 相同，是同一張表）；超出範圍顯示 `???`、吃掉數字後的 `;`。可以重用 `ObjectAssets.Name`／`ItemText.Resolve` 的規則，但要補 `???` 與 `;`。
 - 頭上泡泡（type 0／2／3 都畫）若引擎還沒有，列為選配。
-- `PlayerChat.cs` 由 T290 使用中，要排序。
+- （T290 已由 PR #744 合併，`PlayerChat.cs` 可以直接改。）
 
 ## 7. Q4-9 世界地圖與村莊地圖
 

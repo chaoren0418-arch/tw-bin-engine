@@ -42,5 +42,5 @@
 ## 給下一棒的提示
 
 - 可以直接開 code 任務的：Q4-4（`BlindClassBonus`／`NightVision` 用 `LoginCharacter.Class` 2／4）、Q4-8（S161 展開 `$n`）、Q4-3（R4-E 補 C129 三個送出）、Q4-6（補離婚、指令入口）。
-- Q4-5 的指令、Q4-3 的 `/focus`、Q4-6 的 `/propose`／`/divorce` 都要改 `PlayerChat.cs`，T290 還在用，合併後一起排。
+- Q4-5 的指令、Q4-3 的 `/focus`、Q4-6 的 `/propose`／`/divorce` 都要改 `PlayerChat.cs`；T290 已合併（PR #744），可以一起排成一張 code 任務。Q4-8 可直接用 T290 新增的 `TextArchive.ReadDesc()` 查 `desc-c.tbl`。
 - Q4-7、Q4-9 的結論是「原版不顯示」，下一輪盤點把 `AgitWindow`、世界／村莊地圖改成「不建議」，R5-H 的 Q4-9 依賴可以解除。
