@@ -25,7 +25,9 @@
 | `P11.ClientEngine.exe --module-tests`（全部） | `pass`：21 個測試，0 失敗，1007 項檢查。本組：`native-item-window` 40、`native-spell-window` 23、`native-warehouse-window` 34 |
 | DemoChecks `native-ui-canvas`／`native-ui-macro`／`native-ui-resources` | PASS 429／403／539 |
 | `engine/tools/check-no-game-assets.py` | `pass`，errors 0 |
-| CI | push 後看 PR |
+| CI | PR #604 第一次 push：dotnet／map-continuity／npc-offline 全綠 |
+
+**2026-11-09 同步 origin/main（落後 94 個 commit）**：只有 `rebuild-lock.json` 衝突，取 main 版本後 `--update-lock` 重產（sourceFiles 314）；`--build` 成功；`--module-tests` 全部 `pass`（31 個測試、1549 項檢查、0 失敗；本組 40／23／34 不變）；`check-no-game-assets.py` `pass`（errors 0）。
 
 離線測試只用程式合成的 XML（元素順序與屬性值照本機檔）和合成的 `UiSurface`（每個 surf 一種顏色），不讀客戶端、不用網路。測試內容：每個元件的邏輯座標、XML 繪製順序、多狀態圖只畫一張（分頁、等級、排序 UP／DOWN）、沒有座標的元素不畫、surf 缺少時矩形為空也不畫替代色塊、缺節點或只有半個座標時丟 `UiLayoutException`、拖曳後限制在 800×600 內、命中測試跟著視窗移動、關閉與捲動、窗外點擊不攔、沒有熱鍵、倉庫的開窗／重設／選取／排序／送出一次／取消／離開世界、資料穿過裝飾器，以及合成畫布上的像素顏色。
 
