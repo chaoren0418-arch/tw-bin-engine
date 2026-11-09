@@ -10,11 +10,29 @@ public static class MailUi {
 }
 
 public sealed partial class ClientForm {
+    bool mailOpen, mailQueued;
     internal void OpenMail() {
-        if (login.State != LoginState.InWorld) return;
-        LeaveGameFocus("mail"); ClearInput("mail");
-        using var dialog = new MailDialog(login, ResolveNpcText);
-        dialog.ShowDialog(this);
+        mailQueued = false;
+        if (login.State != LoginState.InWorld || mailOpen) return;
+        mailOpen = true;
+        try {
+            LeaveGameFocus("mail"); ClearInput("mail");
+            using var dialog = new MailDialog(login, ResolveNpcText);
+            dialog.ShowDialog(this);
+        } finally { mailOpen = false; }
+    }
+
+    /// <summary>
+    /// R4-A (#705): mail entry for the native menu button 1 (original NewMailWindow; RenewalMailUI XML is missing locally, WIN2§8),
+    /// usable whether or not the native UI is on. The modal dialog is opened after the current key / mouse handler returns, so
+    /// the native input never runs a nested modal loop; a second request while one is queued or open does nothing.
+    /// false = not in the world or no window handle yet (nothing queued; the caller falls back to the dev-tools window).
+    /// </summary>
+    internal bool RequestMail() {
+        if (login.State != LoginState.InWorld || !IsHandleCreated) return false;
+        if (mailOpen || mailQueued) return true;
+        mailQueued = true; BeginInvoke(new Action(OpenMail));
+        return true;
     }
 }
 

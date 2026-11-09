@@ -157,9 +157,51 @@ public sealed partial class ClientForm {
 
     /// <summary>Dev-tools page by tab title ("背包", "魔法", "NPC", …); unknown or null → the window as it is.</summary>
     void ShowDevToolsPage(string? title){
+        // R4-A (#705): there is no 「信件」 tab; the mail entry is the mail dialog (MailUi.cs), never the bare dev-tools window.
+        if(title=="信件"&&RequestMail())return;
         Control? target=null;
         if(title!=null&&normalPanels?.TabPages.Cast<TabPage>().FirstOrDefault(p=>string.Equals(p.Text,title,StringComparison.OrdinalIgnoreCase)) is {} tab){normalPanels.SelectedTab=tab;target=normalPanels;}
+        // R4-A (#705): a page hint without a tab (「小地圖」, 「血盟」, 「選項」, …) opens the window as it is; recorded as 待驗證.
+        else if(title!=null)events.Add(new{kind="native-ui-menu",page=title,status="待驗證：開發工具沒有這個分頁，只開出視窗本身"});
         ShowDevTools(target);
+    }
+
+    // R4-A (#705): menu 5／6 and Ctrl+H／V／C. The Text.pak page (dialogs/templates.json, same key as the original HTML name) is
+    // shown as a self query page in the NPC panel (dev-tools 「NPC」 tab) until R4-I's native HYPER_TEXT_WINDOW; links and
+    // actions stay disabled there (ShowQueryPage, 待驗證). Same page shown again → closed (the original toggles, FU4§1.1).
+    // The page replaces a query page already shown (one HYPER_TEXT_WINDOW); an open NPC dialog / shop is not touched.
+    string? menuLocalPage;
+    internal bool ToggleMenuLocalPage(MenuLocalPage page){
+        if(login.State!=LoginState.InWorld)return false;
+        var w=login.World;
+        if(w.DialogTemplates==null){events.Add(new{kind="native-ui-menu",page=page.ToString(),status="待驗證：dialogs/templates.json 沒有載入"});return false;}
+        int? cls=login.Characters.FirstOrDefault(c=>c.Name==w.Actor?.Name)?.Class;
+        string key=MenuButtonsPanel.PageKey(page,cls);
+        ClearInput("native-ui-menu-page");
+        if(w.QueryVisible&&menuLocalPage==key&&w.QueryHtml==key){w.CloseQueryPage();menuLocalPage=null;}
+        else{
+            w.ShowQueryPage(w.Actor?.ObjectId??0,key,[],[]);menuLocalPage=key;
+            ShowDevToolsPage("NPC");
+        }
+        SyncInteraction();lastWebState="";PublishWebState();
+        events.Add(new{kind="native-ui-menu",page=key,shown=w.QueryVisible&&w.QueryHtml==key});
+        return true;
+    }
+
+    // R4-A (#705): Ctrl+P. Saves the composed 800×600 logical frame (native canvas when active, see CaptureLogicalScene) as PNG
+    // under <stage>/runtime/Capture; the game folder is never written. The original's chat line "Saved current screen to %s"
+    // is not shown (待驗證); the path goes to the event log.
+    internal bool CaptureMenuScreen(){
+        try{
+            string path=MenuButtonsPanel.CapturePath(stageRoot,DateTime.Now,File.Exists);
+            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+            using(var bitmap=CaptureLogicalScene())bitmap.Save(path,ImageFormat.Png);
+            events.Add(new{kind="native-ui-capture",path});
+            return true;
+        }catch(Exception ex) when(ex is IOException or UnauthorizedAccessException or System.Runtime.InteropServices.ExternalException or ArgumentException){
+            events.Add(new{kind="native-ui-capture",error=ex.Message});
+            return false;
+        }
     }
 
     // R3-A (#678): menu action 7 / UserPlayStatsUI. The panel's death source (Recovery.cs) stays in charge while dead; the
@@ -183,7 +225,11 @@ public sealed partial class ClientForm {
         public void Dismiss(){bool dying=death.Current!=null;form.menuPlayStats=false;if(dying)death.Dismiss();}
     }
 
-    sealed class NativeUiCommands(ClientForm form):IUiChatCommands,IUiPartyCommands,IUiWarehouseCommands,IUiMenuCommands {
+    sealed class NativeUiCommands(ClientForm form):IUiChatCommands,IUiPartyCommands,IUiWarehouseCommands,IUiMenuCommands,IUiMenuWindowCommands {
+        // R4-A (#705): menu 1 → mail dialog; 5／6 and Ctrl+H／V／C → local HTML page; Ctrl+P → screenshot.
+        public bool OpenMail()=>form.RequestMail();
+        public bool ToggleLocalPage(MenuLocalPage page)=>form.ToggleMenuLocalPage(page);
+        public bool CaptureScreen()=>form.CaptureMenuScreen();
         // R3-A (#678): the page hint is no longer dropped; it selects the matching dev-tools service tab.
         public void ShowDevTools(string? page=null){form.ClearInput("native-ui-dev-tools");form.ShowDevToolsPage(page);}
         // R3-A (#678): WAREHOUSE_WINDOW OK / exit go through the existing NPC flow (RunInteraction → LoginConnection.Interact:

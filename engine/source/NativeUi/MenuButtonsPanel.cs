@@ -10,7 +10,9 @@ namespace P06.NativeUi;
 /// DevToolsPage = dev-tools page used when no native window takes the click (transitional, not original behaviour).
 /// PlayStats = action 7 (CUserPlayStatsUI, FU4§1.1): toggled through IUiMenuCommands.
 /// </summary>
-public sealed record MenuButtonAction(int Action,string Title,string? DevToolsPage,string? Window=null,bool PlayStats=false);
+/// R4-A (#705): Mail = action 1 (NewMailWindow → WinForms MailDialog through IUiMenuWindowCommands.OpenMail);
+/// Page = local HTML page of actions 5／6 (option2／option2p, option1; FU4§1.1) shown by IUiMenuWindowCommands.ToggleLocalPage.
+public sealed record MenuButtonAction(int Action,string Title,string? DevToolsPage,string? Window=null,bool PlayStats=false,bool Mail=false,MenuLocalPage? Page=null);
 
 /// <summary>One IMAGE_BUTTON as loaded: logical rectangle (null when the normal surf is missing) and its state surfaces.</summary>
 public sealed record MenuButton(MenuButtonAction Action,int BaseSurf,Point Location,Rectangle? Rect,UiSurface? Normal,UiSurface? Pressed);
@@ -18,6 +20,26 @@ public sealed record MenuButton(MenuButtonAction Action,int BaseSurf,Point Locat
 /// <summary>R3-A (#678): optional bridge command for menu action 7 / the play-stats window. false = not available (dev tools instead).</summary>
 public interface IUiMenuCommands {
     bool TogglePlayStats();
+}
+
+/// <summary>R4-A (#705): local HTML pages opened by the client itself (Text.pak help／option1／option2／option2p, FU4§1.1).</summary>
+public enum MenuLocalPage { Help, Option1, Option2 }
+
+/// <summary>R4-A (#705): what a non-window hotkey does (FU4§1.1 WM_CHAR table).</summary>
+public enum MenuHotkeyCommand { Status, PlayStats, Help, Option1, Option2, Screenshot }
+
+/// <summary>
+/// R4-A (#705): optional bridge commands for mail, the local HTML pages and the screenshot. Kept apart from IUiMenuCommands so
+/// command objects that only know play stats keep compiling. Every method returns false when it could not act (the caller then
+/// falls back to the dev-tools page, or does nothing for the screenshot).
+/// </summary>
+public interface IUiMenuWindowCommands {
+    /// <summary>Action 1: opens the mail window (WinForms MailDialog until a native RenewalMailUI exists, WIN2§8).</summary>
+    bool OpenMail();
+    /// <summary>Actions 5／6, Ctrl+H／V／C: shows the page, or closes it when the same page is already shown (the original toggles).</summary>
+    bool ToggleLocalPage(MenuLocalPage page);
+    /// <summary>Ctrl+P: saves the current 800×600 screen under &lt;stage&gt;/runtime/Capture (never the game folder).</summary>
+    bool CaptureScreen();
 }
 
 public sealed class MenuButtonsPanel(UiRoot? root=null):IUiPanel {
@@ -28,28 +50,62 @@ public sealed class MenuButtonsPanel(UiRoot? root=null):IUiPanel {
     /// <summary>
     /// Original action → engine (R3-A #678; TW13 off_8F023C, FU4§1.1 — TW13 verified, 3.81 LiTo.bin packed so 推測 for 3.81):
     /// 13 Map → Field_Map (same as Ctrl+M); 3 Spell → SPELL_WINDOW; 4 Item → ITEM_WINDOW; 7 → CUserPlayStatsUI (play-stats
-    /// window, NOT logout). No native counterpart registered yet (待驗證, dev tools instead): 1 NewMailWindow, 2 CRenewalStatusUI,
-    /// 5 HTML option2/option2p (社群選項), 6 HTML option1 (功能選項). Page names are the existing dev-tools tab titles.
+    /// window, NOT logout). R4-A (#705): 1 NewMailWindow → mail dialog (WinForms, RenewalMailUI XML missing locally, WIN2§8);
+    /// 5 HTML option2 (王族 option2p, 社群選項) and 6 HTML option1 (功能選項) → the same-named Text.pak page in the NPC panel until
+    /// R4-I's native HYPER_TEXT_WINDOW; 2 CRenewalStatusUI → dev-tools 「角色」 page (ReNStatusUIEx.xml missing, WIN§1.4).
+    /// DevToolsPage is the fallback when the bridge cannot act (dev-tools tab title; no such tab → logged as 待驗證 by the bridge).
     /// </summary>
     public static readonly IReadOnlyDictionary<int,MenuButtonAction> Actions=new Dictionary<int,MenuButtonAction>{
         [13]=new(13,"Map","小地圖",FieldMapPanel.PanelId),
-        [1]=new(1,"Mail","信件"),
+        [1]=new(1,"Mail","信件",Mail:true),
         [2]=new(2,"Status","角色"),
         [3]=new(3,"Spell","魔法",SpellWindowPanel.WindowId),
         [4]=new(4,"Item","背包",ItemWindowPanel.WindowId),
-        [5]=new(5,"Pledge","血盟"),
-        [6]=new(6,"Option","選項"),
+        [5]=new(5,"Pledge","血盟",Page:MenuLocalPage.Option2),
+        [6]=new(6,"Option","選項",Page:MenuLocalPage.Option1),
         [7]=new(7,"Quit",null,PlayStats:true),
     };
 
     /// <summary>
     /// Window hotkeys (FU4§1.1, TW13 sub_4D3910 WM_CHAR: Tab = Ctrl+I = 9 → InventoryWindow, Ctrl+S = 19 → SpellWindow).
     /// The original dispatches them globally after the window stack; this always-visible bar panel stands in for that dispatcher.
-    /// The warehouse has no hotkey (opened only by the server list). Ctrl+A/H/V/C/Q/P are not wired yet (待辦).
+    /// The warehouse has no hotkey (opened only by the server list). The other keys are in CommandHotkeys.
     /// </summary>
     public static readonly IReadOnlyDictionary<Keys,int> Hotkeys=new Dictionary<Keys,int>{
         [Keys.Tab]=4,[Keys.Control|Keys.I]=4,[Keys.Control|Keys.S]=3,
     };
+
+    /// <summary>
+    /// R4-A (#705), FU4§1.1 WM_CHAR table (TW13 sub_4D3910; TW16 sub_8C14F0): Ctrl+A (1) CRenewalStatusUI, Ctrl+Q (17) and
+    /// Alt+X (0x8058) CUserPlayStatsUI, Ctrl+H (8, Ctrl held — Backspace is not Ctrl+H here) HTML help, Ctrl+V (22) HTML option1,
+    /// Ctrl+C (3) HTML option2／option2p, Ctrl+P (16) screenshot. Ctrl+O／B／D／E are not wired (no engine window).
+    /// </summary>
+    public static readonly IReadOnlyDictionary<Keys,MenuHotkeyCommand> CommandHotkeys=new Dictionary<Keys,MenuHotkeyCommand>{
+        [Keys.Control|Keys.A]=MenuHotkeyCommand.Status,
+        [Keys.Control|Keys.Q]=MenuHotkeyCommand.PlayStats,[Keys.Alt|Keys.X]=MenuHotkeyCommand.PlayStats,
+        [Keys.Control|Keys.H]=MenuHotkeyCommand.Help,
+        [Keys.Control|Keys.V]=MenuHotkeyCommand.Option1,[Keys.Control|Keys.C]=MenuHotkeyCommand.Option2,
+        [Keys.Control|Keys.P]=MenuHotkeyCommand.Screenshot,
+    };
+
+    /// <summary>Text.pak page name (without "-c.html"): option2p for class type 0 (王族, FU4§1.1 menu 5), option2 otherwise.</summary>
+    public static string PageKey(MenuLocalPage page,int? classType)=>page switch{
+        MenuLocalPage.Help=>"help",MenuLocalPage.Option1=>"option1",
+        _=>classType==0?"option2p":"option2"};
+
+    /// <summary>Screenshot folder: &lt;stage&gt;/runtime/Capture (the original writes Capture\ under the game folder; we never do).</summary>
+    public static string CaptureDirectory(string stageRoot)=>Path.Combine(stageRoot,"runtime","Capture");
+
+    /// <summary>
+    /// Screenshot file: local time yyyyMMdd-HHmmss-fff.png, "-2", "-3"… when the name is taken. The original's file name and
+    /// format were not checked (it prints "Saved current screen to %s"; 待驗證).
+    /// </summary>
+    public static string CapturePath(string stageRoot,DateTime now,Func<string,bool> exists){
+        string dir=CaptureDirectory(stageRoot),stem=now.ToString("yyyyMMdd-HHmmss-fff",System.Globalization.CultureInfo.InvariantCulture);
+        string path=Path.Combine(dir,stem+".png");
+        for(int i=2;exists(path);i++)path=Path.Combine(dir,$"{stem}-{i}.png");
+        return path;
+    }
     readonly List<MenuButton> buttons=[];
     MenuButton? pressed;bool pressedInside;bool inWorld;
     public string Id=>PanelId;
@@ -139,6 +195,13 @@ public sealed class MenuButtonsPanel(UiRoot? root=null):IUiPanel {
             if(LegacyWindowPanel.FindCommands<IUiMenuCommands>(commands)?.TogglePlayStats()!=true)commands.ShowDevTools(action.DevToolsPage);
             return;
         }
+        // R4-A (#705): mail and the local HTML pages go through the bridge; not available → the dev-tools page as before.
+        if(action.Mail||action.Page!=null){
+            var bridge=LegacyWindowPanel.FindCommands<IUiMenuWindowCommands>(commands);
+            bool done=action.Mail?bridge?.OpenMail()==true:bridge?.ToggleLocalPage(action.Page!.Value)==true;
+            if(!done)commands.ShowDevTools(action.DevToolsPage);
+            return;
+        }
         if(action.Window is {} id&&root?.Find(id) is {} panel&&!root.Faulted.Contains(panel)){
             switch(panel){
                 case LegacyWindowPanel w:w.Toggle();return;
@@ -149,10 +212,35 @@ public sealed class MenuButtonsPanel(UiRoot? root=null):IUiPanel {
         commands.ShowDevTools(action.DevToolsPage);
     }
 
-    /// <summary>Window hotkeys (see Hotkeys). Down toggles once (auto-repeat ignored); the matching up is swallowed too.</summary>
+    /// <summary>
+    /// R4-A (#705): runs one CommandHotkeys entry. Ctrl+A／Ctrl+Q／Alt+X／Ctrl+V／Ctrl+C reuse the menu actions 2／7／6／5 (same
+    /// fallbacks); Ctrl+H has no menu button (action 0 is commented out in the XML) and falls back to the dev-tools NPC page;
+    /// Ctrl+P without a bridge does nothing.
+    /// </summary>
+    public static void Run(MenuHotkeyCommand command,IUiCommands commands,UiRoot? root){
+        switch(command){
+            case MenuHotkeyCommand.Status:Invoke(Actions[2],commands,root);break;
+            case MenuHotkeyCommand.PlayStats:Invoke(Actions[7],commands,root);break;
+            case MenuHotkeyCommand.Option1:Invoke(Actions[6],commands,root);break;
+            case MenuHotkeyCommand.Option2:Invoke(Actions[5],commands,root);break;
+            case MenuHotkeyCommand.Help:
+                if(LegacyWindowPanel.FindCommands<IUiMenuWindowCommands>(commands)?.ToggleLocalPage(MenuLocalPage.Help)!=true)commands.ShowDevTools("NPC");
+                break;
+            case MenuHotkeyCommand.Screenshot:LegacyWindowPanel.FindCommands<IUiMenuWindowCommands>(commands)?.CaptureScreen();break;
+        }
+    }
+
+    /// <summary>Window hotkeys (see Hotkeys, CommandHotkeys). Down acts once (auto-repeat ignored); the matching up is swallowed too.</summary>
     public bool Key(UiKeyEvent e,IUiCommands commands){
-        if(!inWorld||!Hotkeys.TryGetValue(e.KeyData,out int action))return false;
-        if(e.Down&&!e.Repeat)Invoke(Actions[action],commands,root);
-        return true;
+        if(!inWorld)return false;
+        if(Hotkeys.TryGetValue(e.KeyData,out int action)){
+            if(e.Down&&!e.Repeat)Invoke(Actions[action],commands,root);
+            return true;
+        }
+        if(CommandHotkeys.TryGetValue(e.KeyData,out var command)){
+            if(e.Down&&!e.Repeat)Run(command,commands,root);
+            return true;
+        }
+        return false;
     }
 }
