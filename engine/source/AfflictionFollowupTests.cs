@@ -23,7 +23,7 @@ static class AfflictionFollowupTests {
     }
     // S87（欄位同 AmbienceWiringTests.Appear），可指定 gfx。
     static byte[] Appear(uint id,ushort x,ushort gfx)=>P([87],Le16(x),Le16(OwnY),Le32(id),Le16(gfx),[0,0,0,0],Le32(0),Le16(0),
-        Str("o"+id),Str(""),[0],Le32(0),Str(""),Str(""),[0,100,0,0,0,255,255]);
+        Str(id==Me?"offline":"o"+id),Str(""),[0],Le32(0),Str(""),Str(""),[0,100,0,0,0,255,255]);
     static WorldSession World(){
         var w=new WorldSession();Set(w,"Entered",true);Set(w,"MapId",(ushort)4);Set(w,"CacheEnabled",false);
         Set(w,"Status",JsonSerializer.Deserialize<OwnStatus>("{\"ObjectId\":123,\"Hp\":100,\"MaxHp\":100,\"Mp\":100,\"MaxMp\":100}"));
