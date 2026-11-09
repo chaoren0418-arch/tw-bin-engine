@@ -244,3 +244,4 @@
 - 2026-11-09 — #611 T250：寵物 AC 與裝備欄（PBW-E）（code，claude-local，PR 已合併）→ [報告](reports/issue-611.md)
 - 2026-11-09 — #550 T232：S187 地圖視窗（protocol-gaps D）（code，claude-local，PR 已合併）→ [報告](reports/issue-550.md)
 - 2026-11-09 — #680 T287：查證原版——第三輪細項（開窗熱鍵、酒醉、光效、隱身例外、倉庫紀錄窗、頭目音樂、聊天第二色）（resource，claude-local，PR 已合併）→ [報告](reports/issue-680.md)
+- 2026-11-09 — #623 T262：R2-E 商店改用 `TRADE_WINDOW`（code，claude-local，PR 已合併）→ [報告](reports/issue-623.md)
