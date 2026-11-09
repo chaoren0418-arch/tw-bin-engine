@@ -1,3 +1,4 @@
+using P06.NativeUi;
 namespace P06;
 
 public sealed partial class ClientForm {
@@ -15,7 +16,7 @@ public sealed partial class ClientForm {
         // R2-K (#625): the join question (S219/97) is answered on the chat input line (shared slot, YesNoPrompt.cs), so it
         // no longer opens this window. The poll stays: it re-checks the invitation so a stale one leaves the slot promptly.
         var invitations=new System.Windows.Forms.Timer{Interval=250};
-        invitations.Tick+=(_,_)=>{if(login.State==LoginState.InWorld)login.ClanSnapshot();};
+        invitations.Tick+=(_,_)=>{AttachNativePledge();if(login.State==LoginState.InWorld)login.ClanSnapshot();};
         FormClosed+=(_,_)=>{invitations.Stop();invitations.Dispose();};invitations.Start();
     }
     void OpenClanWindow(){
@@ -31,6 +32,8 @@ public sealed partial class ClientForm {
         var attention=new TextBox{Width=475,Height=80,ReadOnly=true,Multiline=true,ScrollBars=ScrollBars.Vertical};
         var announcement=new Label{Width=475,Height=55};
         var members=new ListView{Width=475,Height=170,View=View.Details,FullRowSelect=true};
+        // R4-E: created before any handler that calls Refresh().
+        var showEmblem=new CheckBox{Text="顯示盟徽（盟主）",AutoSize=true,AutoCheck=false};var noticeBox=new TextBox{Width=475,Height=60,Multiline=true,MaxLength=PledgePanel.NoticeLimit,ScrollBars=ScrollBars.Vertical,AcceptsReturn=false};
         ClanMember[] shownMembers=[];
         ClanView view=login.ClanSnapshot();var buttons=new List<Button>();
         foreach(var entry in new[]{(ClanCommand.Create,"建立"),(ClanCommand.Join,"申請加入"),(ClanCommand.Leave,"退出／解散"),(ClanCommand.Ban,"驅逐"),(ClanCommand.Members,"查詢成員")}){
@@ -56,15 +59,19 @@ public sealed partial class ClientForm {
         };
         emblemButton.Click+=async(_,_)=>{
             var stamp=view;
-            using var dialog=new OpenFileDialog{Title="選擇 16×12 盟徽 BMP",Filter="BMP 圖檔 (*.bmp)|*.bmp",CheckFileExists=true};
-            if(dialog.ShowDialog(window)!=DialogResult.OK)return;
-            int[] pixels;
-            try{
-                var file=new FileInfo(dialog.FileName);if(file.Length>65536)throw new ArgumentException("盟徽檔太大。");
-                pixels=ClanEmblemProtocol.ReadUploadFile(File.ReadAllBytes(dialog.FileName));
-            }catch(Exception ex) when(ex is ArgumentException or IOException or UnauthorizedAccessException){MessageBox.Show(window,ex.Message,"血盟",MessageBoxButtons.OK,MessageBoxIcon.Warning);return;}
-            if(MessageBox.Show(window,"確定上傳這個盟徽？只有血盟君主能上傳，結果以伺服器回報為準。","血盟",MessageBoxButtons.YesNo,MessageBoxIcon.Question)!=DialogResult.Yes)return;
-            buttons.ForEach(b=>b.Enabled=false);await login.UploadClanEmblem(stamp,pixels);Refresh();
+            await PickAndUploadClanEmblem(window,stamp,()=>buttons.ForEach(b=>b.Enabled=false));Refresh();
+        };
+        // R4-E (#708): the same three PledgeUI actions as the native window, for when the native UI is off.
+        // "顯示盟徽" mirrors S250/173 only (AutoCheck off); a click sends C254 0x2E with the opposite value.
+        leaderActions.Controls.Add(showEmblem);
+        showEmblem.Click+=async(_,_)=>{var stamp=view;buttons.ForEach(b=>b.Enabled=false);await login.SetClanShowEmblem(stamp,login.World.ClanShowEmblem!=true);Refresh();};
+        layout.Controls.Add(new Label{Text="血盟公告（最多 160 字；盟主送出後由伺服器回送公告）",AutoSize=true});
+        layout.Controls.Add(noticeBox);
+        var noticeButton=new Button{Text="送出公告",AutoSize=true};layout.Controls.Add(noticeButton);buttons.Add(noticeButton);
+        noticeButton.Click+=async(_,_)=>{
+            string text=noticeBox.Text;
+            try{ClanMatchingProtocol.Announce(text);}catch(ArgumentException ex){MessageBox.Show(window,ex.Message,"血盟",MessageBoxButtons.OK,MessageBoxIcon.Warning);return;}
+            buttons.ForEach(b=>b.Enabled=false);await login.SendClanContent(login.ClanMatchingSnapshot(),ClanMatchingProtocol.ContentAnnounce,text);Refresh();
         };
         layout.Controls.Add(attention);
         layout.Controls.Add(announcement);
@@ -76,6 +83,8 @@ public sealed partial class ClientForm {
             string show=login.World.ClanShowEmblem switch{true=>"（顯示盟徽：開）",false=>"（顯示盟徽：關）",_=>""};
             statusLabel.Text=(view.Name.Length>0?"血盟："+view.Name+show:"尚未收到血盟名稱")+"\n"+view.Notice;
             buttons.ForEach(b=>b.Enabled=view.CanSend&&view.Invitation==null);
+            showEmblem.Checked=login.World.ClanShowEmblem==true;showEmblem.Enabled=view.CanSend&&view.Name.Length>0;
+            if(login.World.PledgeWindow.Notice is {} serverNotice&&!noticeBox.Focused&&noticeBox.Tag as string!=serverNotice){noticeBox.Tag=serverNotice;noticeBox.Text=serverNotice;}
             inviteLabel.Text=view.Invitation is {} invite?invite.Name+" 想加入你的血盟；請在聊天輸入列輸入 Y 接受、N 拒絕。":"目前沒有待處理的入盟申請。";
             attention.Text="關注血盟："+string.Join("、",view.Attention)+(login.World.LastServerMessage is {} message?"\r\n伺服器："+ResolveNpcText(message):"");
             announcement.Text=view.Announcement is {} info?"盟主："+info.Leader+"\n公告："+info.Text:"按「查詢成員」取得伺服器成員列表。";
@@ -88,4 +97,49 @@ public sealed partial class ClientForm {
         var refresh=new System.Windows.Forms.Timer{Interval=250};refresh.Tick+=(_,_)=>Refresh();window.FormClosed+=(_,_)=>{refresh.Stop();refresh.Dispose();};Refresh();refresh.Start();window.Show(this);
     }
     // The world view never draws the clan name (+244); names and emblems are painted by ObjectRendering.
+
+    /// <summary>R2-K C18 upload entry shared by the WinForms clan window and the native clan window (R4-E): pick a 16×12 BMP, confirm, send.</summary>
+    async Task<bool> PickAndUploadClanEmblem(IWin32Window owner,ClanView stamp,Action? sending=null){
+        using var dialog=new OpenFileDialog{Title="選擇 16×12 盟徽 BMP",Filter="BMP 圖檔 (*.bmp)|*.bmp",CheckFileExists=true};
+        if(dialog.ShowDialog(owner)!=DialogResult.OK)return false;
+        int[] pixels;
+        try{
+            var file=new FileInfo(dialog.FileName);if(file.Length>65536)throw new ArgumentException("盟徽檔太大。");
+            pixels=ClanEmblemProtocol.ReadUploadFile(File.ReadAllBytes(dialog.FileName));
+        }catch(Exception ex) when(ex is ArgumentException or IOException or UnauthorizedAccessException){MessageBox.Show(owner,ex.Message,"血盟",MessageBoxButtons.OK,MessageBoxIcon.Warning);return false;}
+        if(MessageBox.Show(owner,"確定上傳這個盟徽？只有血盟君主能上傳，結果以伺服器回報為準。","血盟",MessageBoxButtons.YesNo,MessageBoxIcon.Question)!=DialogResult.Yes)return false;
+        sending?.Invoke();
+        return await login.UploadClanEmblem(stamp,pixels);
+    }
+
+    /// <summary>
+    /// R4-E (#708): every 250 ms tick, while the native UI is on, connect the native clan window to this connection.
+    /// The upload dialog is posted (BeginInvoke) so it never opens inside the native mouse dispatch.
+    /// </summary>
+    void AttachNativePledge(){
+        if(!NativeUiActive||NativeUiRoot?.Find(PledgePanel.PanelId) is not PledgePanel panel||panel.Source!=null)return;
+        panel.Source=new WorldPledgeSource(login,()=>{
+            var stamp=login.ClanSnapshot();if(!stamp.CanSend||stamp.Name.Length==0)return false;
+            BeginInvoke(new Action(async()=>{try{await PickAndUploadClanEmblem(this,stamp);}catch(ObjectDisposedException){}}));return true;
+        });
+    }
+}
+
+/// <summary>R4-E (#708): the native clan window's outward actions, forwarded to the existing LoginConnection send paths (fire and forget).</summary>
+public sealed class WorldPledgeSource(LoginConnection login,Func<bool> upload):IPledgeWindowSource {
+    public bool? ShowEmblem=>login.World.ClanShowEmblem;
+    public ClanEmblem? Emblem=>login.OwnClanEmblem();
+    public bool SendNotice(string text){
+        var v=login.ClanMatchingSnapshot();if(!v.CanSend||!v.InClan)return false;
+        _=login.SendClanContent(v,ClanMatchingProtocol.ContentAnnounce,text);return true;
+    }
+    public bool SetRank(string member,byte rank){
+        var v=login.ClanSnapshot();if(!v.CanSend||v.Name.Length==0)return false;
+        _=login.SendClanRank(v,member,rank);return true;
+    }
+    public bool SetShowEmblem(bool show){
+        var v=login.ClanSnapshot();if(!v.CanSend||v.Name.Length==0)return false;
+        _=login.SetClanShowEmblem(v,show);return true;
+    }
+    public bool UploadEmblem()=>upload();
 }
