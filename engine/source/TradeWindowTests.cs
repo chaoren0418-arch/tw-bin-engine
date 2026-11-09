@@ -31,7 +31,7 @@ static class TradeWindowTests {
 
     [WorldModuleTest("trade-window")]
     static void Run(WorldModuleTestContext t){
-        Registration(t);Protocol(t);Panel(t);
+        Registration(t);Protocol(t);
     }
 
     static void Registration(WorldModuleTestContext t){
@@ -106,93 +106,5 @@ static class TradeWindowTests {
         t.Equal(125,(int)sent[^1][0],"non-repair action still C125");
     }
 
-    // ---- 面板：合成 XML（座標刻意與真實檔不同）與合成圖 ----
-    const string Xml="""
-<root>
-<OTHER_WINDOW x="1" y="1"/>
-<TRADE_WINDOW x="100" y="50">
-	<SURF_IMAGE surfName="SURF_RENEWAL_WIN_TRADE_BASE" surfNumber="11" xPos="4" yPos="5"/>
-	<SURF_IMAGE surfName="SURF_RENEWAL_WIN_TRADE_FRAME" surfNumber="12"/>
-	<IMAGE_BTN surfName="SURF_RENEWAL_BTN_QUIT_X" surfNumber="13" xPos="180" yPos="8"/>
-	<IMAGE surfName="SURF_RENEWAL_WIN_SCROLLBAR_LONG" surfNumber="14" xPos="170" yPos="40"/>
-	<IMAGE_BTN surfName="SURF_RENEWAL_WIN_DEC_BUT_OFF" surfNumber="15" xPos="170" yPos="140"/>
-	<IMAGE_BTN surfName="SURF_RENEWAL_WIN_INC_BUT_OFF" surfNumber="16" xPos="170" yPos="30"/>
-	<IMAGE_BTN surfName="SURF_RENEWAL_BTN_TRADE_OK_OFF" surfNumber="17~18" xPos="40" yPos="160"/>
-	<IMAGE_BTN surfName="SURF_RENEWAL_BTN_TRADE_CANCEL_OFF" surfNumber="19" xPos="100" yPos="160"/>
-</TRADE_WINDOW>
-</root>
-""";
-    static UiSurface Surf(int id,int w,int h,uint argb=0xFF102030)=>new(id,$"{id}.img","synthetic",new UiImage(w,h,0,0,Enumerable.Repeat(argb,w*h).ToArray()));
-    static Func<int,UiSurface?> Surfaces(bool missingQuit=false)=>id=>id switch{
-        11=>Surf(11,190,180,0xFF204080),13=>missingQuit?null:Surf(13,10,10),14=>Surf(14,10,100),15=>Surf(15,10,10),16=>Surf(16,10,10),17=>Surf(17,40,16),19=>Surf(19,40,16),_=>null};
-    sealed class FakeSource:ITradeWindowSource {
-        public TradeWindowView? Current{get;set;}
-        public List<string> Calls{get;}=[];
-        public void Submit(uint id,int revision)=>Calls.Add($"submit:{id}:{revision}");
-        public void Close()=>Calls.Add("close");
-    }
-    static UiMouseEvent Down(int x,int y)=>new(UiMouseKind.Down,new(x,y),MouseButtons.Left,1,0,Keys.None);
-    static TradeWindowView View(int revision,int rows,int disabled=-1)=>new(6,revision,Enumerable.Range(0,rows).Select(i=>new TradeWindowRow((uint)(1000+i),"item"+i,$"{i*200}",i!=disabled)).ToArray(),"");
-
-    static void Panel(WorldModuleTestContext t){
-        var layout=UiLayout.Parse(Xml,"synthetic-uiextra86.xml");
-        var p=new TradeWindowPanel();p.Load(layout,Surfaces());
-        t.Equal(new Point(100,50),p.Origin,"origin from TRADE_WINDOW x/y");
-        t.Equal(new Rectangle(104,55,190,180),p.Bounds,"bounds = union of drawn elements (base covers all)");
-        t.Equal(new Point(40,160),p.Ok!.Offset,"OK offset from XML");
-        t.Equal(17,p.Ok.Surf,"surf range uses first id");
-        t.Equal(new Rectangle(104,90,166,100),p.ListArea,"list area: base left → scrollbar left, up bottom → down top");
-        t.Equal(6,p.VisibleRows,"visible rows = 100 / 16");
-        t.Check(!p.Visible,"hidden without source");
-
-        // 缺元件或缺座標：丟 UiLayoutException，不推定。
-        t.Throws<UiLayoutException>(()=>new TradeWindowPanel().Load(UiLayout.Parse(Xml.Replace("SURF_RENEWAL_BTN_TRADE_OK_OFF","X"),"a.xml"),Surfaces()),"missing OK element throws");
-        t.Throws<UiLayoutException>(()=>new TradeWindowPanel().Load(UiLayout.Parse(Xml.Replace(" xPos=\"100\" yPos=\"160\"",""),"b.xml"),Surfaces()),"element without coordinates throws");
-        t.Throws<UiLayoutException>(()=>new TradeWindowPanel().Load(UiLayout.Parse("<root/>","c.xml"),Surfaces()),"missing TRADE_WINDOW throws");
-        var missing=new TradeWindowPanel();missing.Load(layout,Surfaces(missingQuit:true));
-        t.Check(missing.Quit!.Surface==null&&!missing.Quit.Drawn&&missing.Bounds==p.Bounds,"missing surf → element not drawn, empty hit area");
-
-        var src=new FakeSource();p.Source=src;var cmd=new UiNullCommands();
-        var world=new UiStaticGameState(InWorld:true);
-        p.Update(world);t.Check(!p.Visible,"no view → hidden");
-        src.Current=View(5,10,disabled:1);p.Update(world);
-        t.Check(p.Visible&&p.View?.Mode==6,"view → visible mode 6");
-        p.Update(new UiStaticGameState(InWorld:false));t.Check(!p.Visible,"not in world → hidden");p.Update(world);
-
-        // 選列與 OK。
-        t.Check(p.Mouse(Down(150,215),cmd)&&p.Selected==-1,"OK without selection does nothing");
-        t.Check(src.Calls.Count==0,"no submit without selection");
-        t.Check(p.Mouse(Down(120,90+16*0+3),cmd)&&p.Selected==0,"click first row selects 0");
-        t.Equal(0,p.RowAt(new(120,90)),"row 0 hit");t.Equal(-1,p.RowAt(new(120,89)),"above list → no row");t.Equal(-1,p.RowAt(new(271,95)),"scrollbar column → no row");
-        p.Mouse(Down(150,215),cmd);t.Equal("submit:1000:5",src.Calls.LastOrDefault(),"OK submits selected id and revision");
-        p.Mouse(Down(120,90+16+3),cmd);t.Equal(1,p.Selected,"select disabled row");
-        int calls=src.Calls.Count;p.Mouse(Down(150,215),cmd);t.Equal(calls,src.Calls.Count,"disabled row not submitted");
-
-        // 捲動：上下鈕與滾輪，夾在 0..rows-visible。
-        p.Mouse(Down(275,195),cmd);t.Equal(1,p.Scroll,"down button scrolls");
-        for(int i=0;i<10;i++)p.Mouse(new(UiMouseKind.Wheel,new(150,120),MouseButtons.None,0,-120,Keys.None),cmd);
-        t.Equal(4,p.Scroll,"wheel clamps at rows - visible");
-        p.Mouse(Down(275,85),cmd);t.Equal(3,p.Scroll,"up button scrolls");
-        t.Equal(3,p.RowAt(new(120,92)),"row index follows scroll");
-
-        // 新清單（revision 變）重設選取與捲動。
-        src.Current=View(6,3);p.Update(world);t.Check(p.Selected==-1&&p.Scroll==0,"new revision resets selection and scroll");
-
-        // 關閉 X：通知來源，同一份清單不再開；新 revision 才再開。
-        p.Mouse(Down(285,63),cmd);t.Equal("close",src.Calls.Last(),"quit X closes");t.Check(!p.Visible,"hidden after close");
-        p.Update(world);t.Check(!p.Visible,"same revision stays closed");
-        src.Current=View(7,3);p.Update(world);t.Check(p.Visible,"new revision reopens");
-        p.Mouse(Down(210,215),cmd);t.Equal("close",src.Calls.Last(),"CANCEL closes");
-        src.Current=View(8,3);p.Update(world);
-        t.Check(p.Key(new(Keys.Escape,true,false),cmd)&&!p.Visible,"Esc closes");
-        t.Check(!p.Key(new(Keys.Escape,true,false),cmd),"Esc ignored when hidden");
-        t.Check(!p.Mouse(Down(150,120),cmd),"hidden panel does not take mouse");
-
-        // 畫：底圖畫在 Origin＋xPos，缺圖元件不畫也不丟例外。
-        src.Current=View(9,2);missing.Source=src;missing.Update(world);
-        using var canvas=new UiCanvas();canvas.Clear(Color.Black);canvas.Restrict(missing.Bounds);missing.Paint(canvas);canvas.Release();
-        var px=canvas.Bitmap.GetPixel(105,56);
-        t.Check(px.R==0x20&&px.G==0x40&&px.B==0x80,"base surf painted at origin + offset",px);
-        t.Equal(Color.Black.ToArgb(),canvas.Bitmap.GetPixel(103,54).ToArgb(),"nothing painted outside bounds");
-    }
+    // 面板測試（合成 XML／圖）已隨 R2-E（#623）改版移到 ShopTradeTests.cs。
 }
