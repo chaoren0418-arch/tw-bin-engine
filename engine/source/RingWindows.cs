@@ -61,16 +61,44 @@ public sealed partial class LoginConnection {
 
 public sealed partial class ClientForm {
     long ringDestinationShown=-1;
-    /// <summary>由 BookmarkUi.cs 的計時器呼叫：接上 674 鈕宿主、同步書籤窗的選目的地模式（新請求時切到書籤分頁）。</summary>
+    /// <summary>
+    /// 由 BookmarkUi.cs 的計時器呼叫：接上 674 鈕與原生書籤窗的宿主、同步選目的地模式。
+    /// R4-J（#713）：原生 UI 開啟且原生書籤窗可用時，選目的地由原生窗處理（面板自己在新請求時開窗），WinForms 分頁不進入該模式；
+    /// 原生 UI 關閉（或書籤窗缺圖停用、出錯）時，WinForms「記憶座標」分頁進入選目的地模式，並在新請求時真的把分頁視窗叫出來。
+    /// </summary>
     void SyncRingWindows(){
         if(NativeUiRoot?.Find(AgitMapPanel.PanelId) is AgitMapPanel agit&&agit.Host==null)agit.Attach(new AgitMapHost(this));
+        var native=NativeBookmarkWindow();
+        if(native!=null&&native.Host==null)native.Attach(new BookmarkWindowHost(this));
         if(bookmarkPanel is not {} panel||panel.IsDisposed)return;
         var q=login.TeleportDestinationSnapshot();
-        panel.UpdateDestination(q);
+        panel.UpdateDestination(native==null?q:null);
         if(q!=null&&q.Revision!=ringDestinationShown){
             ringDestinationShown=q.Revision;
-            if(panel.Parent is TabPage page&&normalPanels!=null)normalPanels.SelectedTab=page;
+            if(native==null)ShowBookmarkTab(panel);
         }
+    }
+    /// <summary>可用的原生書籤窗（原生 UI 啟用、面板圖齊全、未因例外停用）；否則 null（走 WinForms 分頁）。</summary>
+    BookmarkWindowPanel? NativeBookmarkWindow()=>
+        NativeUiActive&&NativeUiRoot is {} root&&root.Find(BookmarkWindowPanel.PanelId) is BookmarkWindowPanel p&&p.Usable&&!root.Faulted.Contains(p)?p:null;
+    /// <summary>切到「記憶座標」分頁並把分頁所在的視窗叫出來（PR #700 只切分頁，視窗沒開時看不到）。</summary>
+    void ShowBookmarkTab(BookmarkPanel panel){
+        if(panel.Parent is not TabPage page||normalPanels==null)return;
+        normalPanels.SelectedTab=page;
+        if(PlayerHudActive)ShowPlayerService(page.Text);
+        else ShowDevTools(normalPanels);
+    }
+    sealed class BookmarkWindowHost(ClientForm form):IBookmarkWindowHost {
+        bool sending;
+        public BookmarkView Bookmarks{get{var view=form.login.BookmarkSnapshot();return view with{CanEdit=view.CanEdit&&!form.World.Walking};}}
+        public TeleportDestinationRequest? Destination=>form.login.TeleportDestinationSnapshot();
+        public bool Sending=>sending;
+        public void Teleport(TeleportDestinationRequest shown,uint bookmarkId){
+            if(sending||form.World.Walking)return;
+            sending=true;form.ClearInput("bookmark-teleport");_ = Run();
+            async Task Run(){try{await form.login.SendTeleportDestination(shown.Revision,bookmarkId);}finally{sending=false;}}
+        }
+        public void CancelTeleport(TeleportDestinationRequest shown)=>form.login.CloseTeleportDestination(shown.Revision);
     }
     sealed class AgitMapHost(ClientForm form):IAgitMapHost {
         bool sending;

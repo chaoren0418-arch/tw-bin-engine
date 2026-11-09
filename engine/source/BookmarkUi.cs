@@ -9,7 +9,9 @@ public sealed class BookmarkPanel:UserControl {
     readonly Button delete=new(){Dock=DockStyle.Bottom,Height=34,Text="刪除選取書籤"};
     // T276（#667）：選目的地模式（原版 CBookmarkWindowRenewal 的 sub_BDFE90(1) 模式，followups-3.md 第 3.1 節）。
     // 傳送控制戒指＋施放技能 5／69 時開啟：選書籤後按「傳送到此書籤」送一次 C6 HD；「取消」或 ESC 關閉、不送。
-    // 這是既有 WinForms 書籤分頁的模式切換（原生 BookmarkWindowUI 窗尚未實作）；版面不是原版。
+    // 這是既有 WinForms 書籤分頁的模式切換；版面不是原版。R4-J（#713）之後原生 UI 開啟時改由原生窗
+    // NativeUi/BookmarkPanel.cs（BookmarkWindowPanel）處理，本分頁只在原生 UI 關閉或原生窗不可用時進入此模式（RingWindows.cs）。
+    // 新增／刪除書籤目前只有本分頁有入口（原生窗沒做輸入框與刪除確認）。
     readonly Label destination=new(){Dock=DockStyle.Top,Height=40,ForeColor=Color.Gold,Visible=false,Text="傳送控制戒指：請選擇傳送目的地（ESC 取消）"};
     readonly Button teleport=new(){Dock=DockStyle.Bottom,Height=34,Text="傳送到此書籤",Visible=false};
     readonly Button cancelTeleport=new(){Dock=DockStyle.Bottom,Height=34,Text="取消傳送",Visible=false};
