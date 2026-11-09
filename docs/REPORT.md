@@ -256,3 +256,4 @@
 - 2026-11-09 — #675 T282：R3-G 聊天收尾二（code，claude-local，PR 已合併）→ [報告](reports/issue-675.md)
 - 2026-11-10 — #679 T286：R3-F 學魔法窗改用 `TRADE_WINDOW` 模式 7（code，claude-local，PR 已合併）→ [報告](reports/issue-679.md)
 - 2026-11-10 — #643 T269：技能飛行 kind 6／7 與子特效 ] 的範圍（Q-4 補做）（code，claude-local，PR 已合併）→ [報告](reports/issue-643.md)
+- 2026-11-10 — #649 T272：Q-2 補做——城主王冠、死亡統計值、座標與地圖字串（code，claude-local，PR 已合併）→ [報告](reports/issue-649.md)
