@@ -247,3 +247,4 @@
 - 2026-11-09 — #623 T262：R2-E 商店改用 `TRADE_WINDOW`（code，claude-local，PR 已合併）→ [報告](reports/issue-623.md)
 - 2026-11-09 — #672 T279：R3-C 料理窗與血盟倉庫紀錄窗（code，claude-local，PR 已合併）→ [報告](reports/issue-672.md)
 - 2026-11-09 — #674 T281：R3-E 交易窗 `TRANSACTION_WINDOW`（code，claude-local，PR 已合併）→ [報告](reports/issue-674.md)
+- 2026-11-09 — #676 T283：R3-H 盲目光源與酒醉、隱身細項（code，claude-local，PR #686 已合併）→ [報告](reports/issue-676.md)
