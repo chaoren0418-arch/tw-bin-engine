@@ -65,13 +65,26 @@ public sealed partial class WorldSession {
     readonly List<(string First,string Second)> clanWarPairs=[];
     ClanWarPrompt? clanWarPrompt;long clanWarPromptRevision;int clanWarRevision;
     string clanWarOwnClan="",clanWarNotice=ClanWarIdle;bool clanWarSubscribed;
-    void ExpireClanWarPrompt(string notice){lock(clanWarGate){if(clanWarPrompt==null)return;clanWarPrompt=null;clanWarNotice=notice;clanWarRevision++;}}
+    // R2-K (#625): 221/222 are generic S_ASK questions (WIN §2.1) and also sit in the shared input-line slot; this is
+    // the slot prompt id (0 = none). 217 is a special case of the original S_ASK switch and stays in the war window.
+    int clanWarSlot;
+    public static bool ClanWarUsesSharedSlot(ushort message)=>message is 221 or 222;
+    void ExpireClanWarPrompt(string notice){
+        int slot;
+        lock(clanWarGate){if(clanWarPrompt==null)return;clanWarPrompt=null;clanWarNotice=notice;clanWarRevision++;slot=clanWarSlot;clanWarSlot=0;}
+        RetireClanYesNo(slot,notice);
+    }
     void CheckClanWar(){
+        // Read outside clanWarGate; the slot never takes clanWarGate.
+        int slot;lock(clanWarGate)slot=clanWarSlot;bool held=ClanYesNoHeld(slot);
         lock(clanWarGate){
+            // Answered on the input line (the same C121 H0 D0 H(221/222) C) or replaced by a newer S219.
+            if(slot!=0&&slot==clanWarSlot&&!held&&clanWarPrompt!=null){clanWarPrompt=null;clanWarSlot=0;clanWarNotice="已在輸入列回覆或被新的詢問取代；結果以伺服器回報為準。";clanWarRevision++;}
             if(!clanWarSubscribed){clanWarSubscribed=true;CombatSoundStateChanged+=CheckClanWar;}
             // Reset nulls Status; S8 always precedes S84/8 in C_LoginToServer, so no login state is lost here.
             if(!Entered||Status==null){
                 if(clanWarPairs.Count>0||clanWarPrompt!=null||clanWarOwnClan.Length>0){clanWarPairs.Clear();clanWarPrompt=null;clanWarOwnClan="";clanWarNotice=ClanWarIdle;clanWarRevision++;}
+                RetireClanYesNo(clanWarSlot,"世界已更新，舊詢問已失效。");clanWarSlot=0;
                 return;
             }
             if(Actor is {} actor&&!ClanWarProtocol.Same(actor.Clan,clanWarOwnClan)){
@@ -87,7 +100,7 @@ public sealed partial class WorldSession {
     internal string ClanWarNotice {get{CheckClanWar();lock(clanWarGate)return clanWarNotice;}}
     internal int ClanWarRevision {get{CheckClanWar();lock(clanWarGate)return clanWarRevision;}}
     internal void ClanWarNote(string notice){lock(clanWarGate){clanWarNotice=notice;clanWarRevision++;}}
-    internal void ClanWarAnswered(string notice){lock(clanWarGate){clanWarPrompt=null;clanWarNotice=notice;clanWarRevision++;}}
+    internal void ClanWarAnswered(string notice){int slot;lock(clanWarGate){clanWarPrompt=null;clanWarNotice=notice;clanWarRevision++;slot=clanWarSlot;clanWarSlot=0;}RetireClanYesNo(slot,notice);}
     // Uses the retained clan: Actor is briefly null across a map change, while the war continues.
     string[] CurrentClanWarEnemies(){
         lock(clanWarGate)return clanWarPairs.Select(p=>ClanWarProtocol.Same(p.First,clanWarOwnClan)?p.Second:p.First).ToArray();
@@ -114,8 +127,9 @@ public sealed partial class WorldSession {
         if(!Ready||OwnDead||Status?.Hp<=0||string.IsNullOrEmpty(Actor?.Clan)){ExpireClanWarPrompt("收到無法回答的戰爭確認。");return true;}
         lock(clanWarGate){
             clanWarPrompt=new(++clanWarPromptRevision,message,clan,leader,WorldEpoch,InteractionRevision);
-            clanWarNotice=ClanWarProtocol.Question(clanWarPrompt);clanWarRevision++;
+            clanWarNotice=ClanWarProtocol.Question(clanWarPrompt);clanWarRevision++;clanWarSlot=0;
         }
+        if(ClanWarUsesSharedSlot(message)){int slot=OfferClanYesNo(message,[clan]);lock(clanWarGate)clanWarSlot=slot;}
         return true;
     }
     void ReceiveClanWar(byte[] plain){
@@ -187,7 +201,8 @@ public sealed partial class ClientForm {
         }
         button.Click+=(_,_)=>Open();
         var refresh=new System.Windows.Forms.Timer{Interval=250};long shown=-1;
-        refresh.Tick+=(_,_)=>{var view=login.ClanWarSnapshot();button.Text=view.Enemies.Length>0?$"血盟戰爭（交戰 {view.Enemies.Length}）":"血盟戰爭";if(view.Prompt is {} prompt&&prompt.Revision!=shown){shown=prompt.Revision;Open();}};
+        // The snapshot also keeps a 221/222 prompt and the shared slot in step. Only 217 (S_ASK special case) opens this window.
+        refresh.Tick+=(_,_)=>{var view=login.ClanWarSnapshot();button.Text=view.Enemies.Length>0?$"血盟戰爭（交戰 {view.Enemies.Length}）":"血盟戰爭";if(view.Prompt is {} prompt&&prompt.Revision!=shown&&!WorldSession.ClanWarUsesSharedSlot(prompt.Message)){shown=prompt.Revision;Open();}};
         FormClosed+=(_,_)=>refresh.Dispose();refresh.Start();
     }
     // Enemy clans have no extra label and keep their name colour (actions-and-names.md 2.7); see ClanWarFlag.
@@ -214,7 +229,10 @@ public sealed class ClanWarUi:Form {
         displayed=v;if(!prefilled&&v.Enemies.Length>0){prefilled=true;if(target.TextLength==0)target.Text=v.Enemies[0];}
         string result=ClanWarProtocol.ServerResult(connection.World.LastServerReply) is {} text?"\n伺服器："+text:"";
         notice.Text=(v.Clan.Length>0?"血盟："+v.Clan:"目前沒有血盟")+"\n交戰中："+(v.Enemies.Length>0?string.Join("、",v.Enemies):"（未收到戰爭狀態）")+"\n"+v.Notice+result;
-        declare.Enabled=surrender.Enabled=cease.Enabled=!busy&&v.CanRequest;yes.Enabled=no.Enabled=!busy&&v.CanAnswer;
+        // R2-K: 221/222 are answered on the chat input line (shared slot); the window buttons only answer 217.
+        bool own=v.Prompt is {} p&&!WorldSession.ClanWarUsesSharedSlot(p.Message);
+        yes.Visible=no.Visible=v.Prompt==null||own;
+        declare.Enabled=surrender.Enabled=cease.Enabled=!busy&&v.CanRequest;yes.Enabled=no.Enabled=!busy&&v.CanAnswer&&own;
     }
     async Task Request(ClanWarCommand command,string label){
         string name=target.Text;

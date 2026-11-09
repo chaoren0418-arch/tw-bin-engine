@@ -1,8 +1,10 @@
 using System.Buffers.Binary;
 namespace P06;
 
-// M7-H（T209／#515）：血盟推薦。只做協定與資料；TW16 的 MatchMakingUI 分支不建立物件（gap-matrix §4.1），
-// op 133 處理函式 sub_B243A0 的畫面未查證，所以本檔不做視窗，只留快照與聊天區文字通知（暫代）。
+// M7-H（T209／#515）：血盟推薦。只做協定與資料；TW16 的 MatchMakingUI 分支不建立物件（gap-matrix §4.1）。
+// R2-K（#625）依 Q-3 結論**不做推薦 UI**：op 133 的處理函式 sub_B243A0 只在 dword_153FCC4≠0 時被呼叫，而這個全域沒有任何
+// 寫入點，TW16 收到 op 133 一律丟棄；C_MATCH_MAKING 的 7 個送出點也全在這個不會建立的窗內（send-sites-2.md §2、
+// followups-3.md §7）。本檔維持資料層與聊天區文字通知（引擎自訂，原版玩家看不到），是否另做自訂畫面屬使用者決策。
 // 格式依 docs/reference/server-protocol.md（#132）：
 //   S0  S_PacketBoxPledgeRecommend（plain[1]＝type）
 //     type 0／1  C(type) C(0)                                      0＝登錄或更新推薦成功，1＝撤下推薦成功
