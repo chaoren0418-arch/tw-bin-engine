@@ -49,6 +49,8 @@
 
 ## 怎麼驗證（本機，worktree）
 
+**第二輪同步（2026-11-09）**：PR #681 與 main 衝突（只有 `rebuild-lock.json`）。已合併 origin/main，lock 取 main 版本後用 `rebuild.py --update-lock` 重新產生。`--build` 結果為 `PASS dev`（productDll `61981ddb…aadea`），`check-no-game-assets.py` 通過（errors 0）。依使用者 2026-11-09 的規定，本機不再執行任何編譯產物；合併後的單元測試與離線測試以 PR 的 GitHub Actions CI 結果為準。下表是第一輪在該規定公布前，於本機執行的紀錄：
+
 | 項目 | 結果 |
 |---|---|
 | `rebuild.py --update-lock` → `--build`（合併 origin/main 後） | `PASS dev`。productDll `e98755a1…908fa`。新增 0 個警告；MagicUi.cs 原本就有的 nullable 警告不是本次造成的 |

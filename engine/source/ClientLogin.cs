@@ -51,10 +51,24 @@ public sealed partial class ClientForm {
         enterWorld.Click+=async(_,_)=>{if(charactersBox.SelectedItem is string name)await EnterLoginCharacter(name,login.SessionGeneration,login.Revision);};
         loginConnect.Click+=(_,_)=>StartLogin();cancel.Click+=(_,_)=>CancelLogin(login.SessionGeneration,false);offline.Click+=(_,_)=>CancelLogin(login.SessionGeneration,true);
         login.MovePlanned+=(from,to)=>{if(login.World.Renderable){World.SetOnlineAppearance((objectAssets??=new(World.Assets.Root)).Get(from.Gfx,from.Weapon));World.NetworkStep(from.X,from.Y,to.Direction,NormalSpeed.AnimationMs(login.World.AppearanceProfile!.StepMs,from.Speed,from.Brave));}};
-        login.Changed+=()=>{if(IsDisposed)return;SyncWorld();lastWebState="";PublishWebState();if(evidence!=null)Json.Save(Path.Combine(evidence,"login-state.json"),login.Snapshot());};
+        // T260（#621，R2-Q）：正常操作時 S48 公告以模態訊息框顯示，按確定才回 C16；自動化情境（demoPort，非 real-interactive）維持自動確認。
+        login.NewsConfirmationRequired=demoPort==null||scenario=="real-interactive";
+        login.Changed+=()=>{if(IsDisposed)return;QueueLoginNews();SyncWorld();lastWebState="";PublishWebState();if(evidence!=null)Json.Save(Path.Combine(evidence,"login-state.json"),login.Snapshot());};
         FormClosed+=(_,_)=>login.Dispose();
         Shown+=async(_,_)=>{if(demoPort!=null){loginPort.Value=int.Parse(demoPort);if(scenario?.StartsWith("real-")==true){loginProfile.SelectedIndex=2;loginAccount.Text=Environment.GetEnvironmentVariable("P24_TEST_ACCOUNT")??"";loginPassword.Text=Environment.GetEnvironmentVariable("P24_TEST_PASSWORD")??"";}else{loginAccount.Text="engine11";loginPassword.Text="testpass";}if(scenario=="real-world-pending"){World.Teleport(32589,32930);HandleDown(Keys.Home);pendingOfflineStepTest=World.Walking;events.Add(new{kind="pending-offline-step-before-login",pendingOfflineStepTest,model=World.Snapshot()});}
                 if(scenario=="real-opacity")PrepareOpacityCapture();if(scenario=="real-magic")PrepareMagicCapture();if(scenario=="real-ranged")PrepareRangedCapture();if(scenario=="real-equipment")PrepareEquipmentCapture();if(scenario=="real-reward")PrepareRewardCapture();if(scenario=="real-ground")PrepareGroundCapture();if(scenario=="real-inventory")PrepareInventoryCapture();StartLogin();if(scenario!=null&&scenario!="real-interactive")await (scenario=="real-opacity"?OpacityDemo():scenario=="real-magic"?MagicDemo():scenario=="real-ranged"?RangedDemo():scenario=="real-equipment"?EquipmentDemo():scenario=="real-reward"?RewardDemo():scenario=="real-ground"?GroundDemo():scenario=="real-inventory"?InventoryDemo():scenario=="real-combat"?CombatDemo():scenario=="real-objects"?ObjectDemo():scenario=="real-movement"?MovementDemo():scenario.StartsWith("real-world")?WorldDemo(scenario):LoginDemo(scenario));}};
+    }
+    int shownNewsRevision;
+    void QueueLoginNews(){
+        if(!login.NewsPending||login.NewsRevision==shownNewsRevision||!IsHandleCreated)return;
+        int revision=shownNewsRevision=login.NewsRevision,session=login.SessionGeneration;
+        // BeginInvoke: Changed is raised inside the receive loop; the modal must not run re-entrantly before the loop awaits confirmation.
+        BeginInvoke(()=>{
+            if(IsDisposed||!login.NewsPending||login.NewsRevision!=revision||login.SessionGeneration!=session)return;
+            LeaveGameFocus("login-news");
+            MessageBox.Show(this,LoginNewsText.Display(login.News),"公告",MessageBoxButtons.OK,MessageBoxIcon.None);
+            if(!IsDisposed&&login.SessionGeneration==session)login.ConfirmNews(revision);
+        });
     }
     internal void BeforeLoginStart(){networkMode=false;network.Disconnect("login selected");ClearInput("login");}
     void SyncLoginControls(){if(loginControl==null)return;SyncCharacterManagement();loginConnect.Enabled=loginControl.CanLogin;loginProfile.Enabled=loginPort.Enabled=loginAccount.Enabled=loginPassword.Enabled=loginControl.CanLogin;loginCancel.Enabled=loginControl.CanCancel;charactersBox.Enabled=loginControl.CanEnter;enterWorld.Enabled=loginControl.CanEnter&&charactersBox.SelectedItem!=null;loginLabel.Text=normalProduct?(login.State is LoginState.ManagingCharacters or LoginState.SwitchingCharacter?"處理角色操作":ProductEntry.StateName(login.State))+" · "+(login.World.BonusStatsNotice.Length>0?login.World.BonusStatsNotice:login.CharacterNotice.Length>0?login.CharacterNotice:loginControl.Notice):$"{login.State} • {login.Detail}\n{loginControl.Notice}";if(characterUiNotice.Length>0)loginLabel.Text=characterUiNotice;else if(login.State==LoginState.Faulted)loginLabel.Text=login.Detail;}
@@ -85,4 +99,8 @@ public sealed partial class ClientForm {
         }catch(Exception ex){NetworkExitCode=3;Json.Save(Path.Combine(evidence!,"login-ui-result.json"),new{status="fail",scenario,error=ex.ToString()});}
         finally{login.Cancel();Close();}
     }
+}
+/// <summary>S48 公告文字轉成訊息框顯示用：伺服器用 \n 或 \r\n 斷行，統一成 Windows 斷行；空公告顯示提示字。</summary>
+static class LoginNewsText {
+    public static string Display(string news){string text=news.Replace("\r\n","\n").Replace("\r","\n").Replace("\n","\r\n");return text.Trim().Length==0?"（伺服器公告為空）":text;}
 }
