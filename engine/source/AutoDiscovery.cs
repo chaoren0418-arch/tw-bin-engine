@@ -3,7 +3,7 @@ namespace P06.NativeUi;
 
 // T270（#645）：原生 UI 面板自動發現。新面板在自己的檔案裡宣告一個帶 [UiPanel(順序)] 的 static 成員即自動註冊，
 // 不必再改 UiPanelRegistry.cs。規則見 docs/design/m6-contract.md「自動發現」。
-//   [UiPanel(140)] internal static UiPanelRegistration Registration=>new(PanelId,"uiextra86",root=>new XxxPanel());
+//   [UiPanel(150)] internal static UiPanelRegistration Registration=>new(PanelId,"uiextra86",root=>new XxxPanel());
 //   [UiPanel(120)] public static IReadOnlyList<UiPanelRegistration> Registrations{get;}=…;   // 一個模組多個視窗
 // 成員可以是 static 屬性、欄位或無參數方法，型別為 UiPanelRegistration 或 IEnumerable<UiPanelRegistration>。
 // 順序：Order 小的先註冊（同一層內較晚註冊者畫在上面、先收到點擊）；同 Order 時依宣告型別全名、成員名稱（ordinal）。
@@ -49,12 +49,12 @@ public static class UiPanelDiscovery {
                     _=>throw new InvalidOperationException("只支援 static 屬性、欄位或無參數方法"),
                 };
             }catch(Exception ex){errors.Add($"{name}: {(ex is TargetInvocationException{InnerException:{} inner}?inner.Message:ex.Message)}");continue;}
-            IEnumerable<UiPanelRegistration?> items=value switch{
+            IEnumerable<UiPanelRegistration?>? items=value switch{
                 UiPanelRegistration one=>[one],
                 IEnumerable<UiPanelRegistration?> many=>many,
-                _=>[],
+                _=>null,
             };
-            if(value is not (UiPanelRegistration or IEnumerable<UiPanelRegistration?>)){errors.Add($"{name}: 型別應為 UiPanelRegistration 或 IEnumerable<UiPanelRegistration>");continue;}
+            if(items==null){errors.Add($"{name}: 型別應為 UiPanelRegistration 或 IEnumerable<UiPanelRegistration>");continue;}
             foreach(var r in items){
                 if(r==null||string.IsNullOrWhiteSpace(r.Id)||string.IsNullOrWhiteSpace(r.Layout)||r.Create==null){errors.Add($"{name}: 註冊的 Id、Layout、Create 不可空白");continue;}
                 if(!ids.Add(r.Id)){errors.Add($"{name}: 面板 Id \"{r.Id}\" 重複註冊");continue;}
