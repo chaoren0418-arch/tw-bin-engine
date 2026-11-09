@@ -41,6 +41,11 @@ effect 名稱是在本機 `effectlist2.xml`（scratch 解密檔）查的，只�
 - `--module-tests`：pass，29 組、1514 項，0 失敗。其中 status-icon-feed 62 項、packetbox-status 86 項、ability-status 38 項、breath-status 25 項。
 - DemoChecks：native-ui-buff-icons 381、native-ui-canvas 429、native-ui-party 396、item-status 409，全部 PASS。
 - `check-no-game-assets.py`：pass，errors 0。
+- 同步 origin/main（`0edc596b`，合併無衝突）後重測：
+  - `rebuild.py --build`：PASS，product DLL `3ec5ae27c2d91e8a6bf027ae4eeab6f9a50f83811eeb8d8ff3ae91c184359658`。
+  - `--module-tests`：pass，32 組、1611 項，0 失敗。
+  - native-ui-buff-icons：381 PASS。
+  - `check-no-game-assets.py`：pass。
 - 重現反組譯只需要 repo 內已追蹤的腳本，例如 `py -3 -I docs/reference/rea-scripts/disx.py 93AB77 20`、`… 93B2E2 80`、`… 938857 60`、`… 736AC0 140`、`… 932300 44`。
 
 ## 未驗證什麼
