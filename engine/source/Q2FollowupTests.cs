@@ -259,10 +259,11 @@ static class Q2FollowupTests {
             catch(ArgumentException ex){t.Check(ex.Message.StartsWith("請輸入要接受的角色名稱。",StringComparison.Ordinal),"1785 prompt from string-c.tbl",ex.Message);}
             var w=new WorldSession();w.Receive(Share("甲",4,1),"offline");
             var line=w.PlayerChatLines[^1];
-            t.Equal("[座標] 甲：從 亞丁全大陸地區發送了座標位置情報。",PlayerChatProtocol.FormatLine(line),"received chat line");
+            // T290（#698）：有 string-c.tbl 時整行照 1784（寄件者、地名），不再加引擎的「[座標] 寄件者：」。
+            t.Equal("甲從 亞丁全大陸地區發送了座標位置情報。",PlayerChatProtocol.FormatLine(line),"received chat line");
             var view=new PlayerChatView(0,0,0,0,false,"",[line]);
             var links=LocationSharePresentation.Links(view,PlayerChatProtocol.FormatLine(line));
-            t.Check(links.Length==1&&PlayerChatProtocol.FormatLine(line).Substring(links[0].Start,links[0].Length)==LocationShareProtocol.Format(line.Location!),"link still covers the 1784 text",links);
+            t.Check(links.Length==1&&links[0].Start==0&&links[0].Length==PlayerChatProtocol.FormatLine(line).Length,"link covers the whole 1784 line",links);
             w.LocationListObjectPresent=false;w.Receive(Share("乙",4,1),"offline");
             t.Check(w.PlayerChatLines[^1].Text=="該區域的位置無法進行傳送。"&&w.PlayerChatLines[^1].Location==null,"+16 = 0 shows 2139 text from the table");
         }finally{LocationShareProtocol.Regions=savedRegions;LocationShareProtocol.Strings=savedStrings;LocationShareProtocol.MapDesc=savedDesc;}

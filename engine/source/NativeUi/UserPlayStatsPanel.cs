@@ -7,9 +7,11 @@ namespace P06.NativeUi;
 //   Moveable="20"＝頂端 20 px 可拖曳；視窗畫面位置（XML 是 0,0）照 QUIT_WINDOW 的已驗證規則水平置中、y＝150；Esc＝取消。
 // T272（#649，SS§3、FU3§4.2、SS2§14）：四列數值改由客戶端基準相減（UserPlayStatsValues，Recovery.cs）；沒有基準的列仍顯示「—」。
 //   殺怪數恆為 0（3.81 不送 S250／61）。NewItemList 鈕（5325–5327）：滑過顯示 3131 提示；清單空時送系統訊息 3127；
-//   清單不空時原版開 UserObtainUI 清單窗，本引擎沒做（待後續）。地監時間清單 DungeonTime_List：S250／159 的名稱與分鐘（1587／3344）。
-// 推測（標明）：提示文字只畫字、不畫底框；地監清單超過 XML 列數的筆數不顯示，少於列數時剩下的列留空；還沒收到 159 時顯示 XML 預設字。
-// 不做：Reset 鈕（5330–5332，原版重建基準並冷卻 1000 ms；會送的 op 55／44 在 3.81 被忽略）、NewItemList 清單窗。
+//   地監時間清單 DungeonTime_List：S250／159 的名稱與分鐘（1587／3344）。
+// T290（#698，SS§3.1）：清單不空時開關 UserObtainUI 清單窗（NativeUi/UserObtainPanel.cs，ObtainListOpen）；
+//   Reset_Button（5330–5332，sub_C0BA30）：重建基準、清空新物品清單、關閉清單窗，之後停用 1000 ms；會送的 op 55／44 在 3.81 被忽略，不送。
+// 推測（標明）：提示文字只畫字、不畫底框；地監清單超過 XML 列數的筆數不顯示，少於列數時剩下的列留空；還沒收到 159 時顯示 XML 預設字；
+//   NewItemList 再按一次＝關掉清單窗（XML Toggle="true"）；冷卻中的 Reset 鈕只畫 BaseSurf。
 
 public sealed record UserPlayStatsView(bool CanRestart,UserPlayStatsValues? Values=null);
 
@@ -23,6 +25,8 @@ public interface IUserPlayStatsSource {
     void Dismiss();
     /// <summary>系統訊息（NewItemList 清單空時的 3127）。</summary>
     void ShowMessage(string text){}
+    /// <summary>T290 重設鈕：重建基準（LoginConnection.ResetUserPlayStats）。冷卻由面板管。</summary>
+    void Reset(){}
 }
 
 public sealed class UserPlayStatsPanel:IUiMovablePanel {
@@ -56,6 +60,13 @@ public sealed class UserPlayStatsPanel:IUiMovablePanel {
     public Button? Cancel{get;private set;}
     public Button? Close{get;private set;}
     public Button? NewItemList{get;private set;}
+    public Button? Reset{get;private set;}
+    /// <summary>UserObtainUI 清單窗是否開著（UserObtainPanel 讀這個值決定 Visible）。統計窗關掉、重設時一併關。</summary>
+    public bool ObtainListOpen{get;set;}
+    /// <summary>重設鈕再次可用的時間（IUiGameState.Now 尺度）。</summary>
+    public long ResetReadyAt{get;private set;}
+    public bool ResetReady=>now>=ResetReadyAt;
+    long now;
     public Tooltip? NewItemTooltip{get;private set;}
     public UiSurface? DungeonImage{get;private set;}
     public Point DungeonImageAt{get;private set;}
@@ -75,7 +86,7 @@ public sealed class UserPlayStatsPanel:IUiMovablePanel {
         UiSurface? S(int? id)=>id is int n?surf(n):null;
         BaseSurface=S(l.BaseSurf);FrameSurface=S(l.FrameSurf);
         Button B(UserPlayStatsButton spec)=>new(spec,S(spec.BaseSurf),S(spec.HighlightSurf),S(spec.PushSurf));
-        Restart=B(l.Restart);Quit=B(l.Quit);Cancel=B(l.Cancel);Close=l.Close is {} c?B(c):null;
+        Restart=B(l.Restart);Quit=B(l.Quit);Cancel=B(l.Cancel);Close=l.Close is {} c?B(c):null;Reset=l.Reset is {} rs?B(rs):null;
         Rows=l.Rows.Select(r=>{var (text,table)=UserPlayStatsText.Label(r.StringId,r.Name);return new Row(r,S(r.IconSurf),text,table);}).ToArray();
         LoadExtras(layout,l,S);
         var rects=new List<Rectangle>();
@@ -86,7 +97,7 @@ public sealed class UserPlayStatsPanel:IUiMovablePanel {
         size=union.IsEmpty?Size.Empty:new(union.Right,union.Bottom);
         Place(new(UiRoot.LogicalWidth/2-size.Width/2+l.WindowX,ScreenY+l.WindowY));placed=false;
     }
-    IEnumerable<Button> Buttons=>new[]{Restart,Quit,Cancel,Close,NewItemList}.OfType<Button>();
+    IEnumerable<Button> Buttons=>new[]{Restart,Quit,Cancel,Close,NewItemList,Reset}.OfType<Button>();
     // T272：NewItemList 鈕（在 3126 列的數值欄之後，橫向清單同一個 Gap）與地監時間清單。都是選用節點：缺了就不畫。
     void LoadExtras(UiLayout layout,UserPlayStatsLayout l,Func<int?,UiSurface?> S){
         NewItemList=null;NewItemTooltip=null;DungeonImage=null;DungeonRows=[];
@@ -143,8 +154,8 @@ public sealed class UserPlayStatsPanel:IUiMovablePanel {
     public bool Moved=>placed;
 
     public void Update(IUiGameState state){
-        var v=Source?.Current;
-        if(v==null){Hover=null;Pressed=null;}
+        var v=Source?.Current;now=state.Now;
+        if(v==null){Hover=null;Pressed=null;ObtainListOpen=false;}
         view=v;
     }
 
@@ -153,6 +164,7 @@ public sealed class UserPlayStatsPanel:IUiMovablePanel {
     /// <summary>狀態圖（推測，見檔頭）：按下中且滑鼠在鈕上→PushSurf；停留→HighlightSurf；缺圖退回 BaseSurf。重新開始不可用時只畫 BaseSurf。</summary>
     public UiSurface? StateSurface(Button b){
         if(b==Restart&&view is {CanRestart:false})return b.Base;
+        if(b==Reset&&!ResetReady)return b.Base;
         if(Pressed==b&&Hover==b)return b.Push??b.Base;
         if(Hover==b)return b.Highlight??b.Base;
         return b.Base;
@@ -193,8 +205,16 @@ public sealed class UserPlayStatsPanel:IUiMovablePanel {
         if(Source==null)return;
         if(b==Restart){if(view is {CanRestart:true})Source.Restart();}
         else if(b==Quit)Source.Quit();
-        // sub_C0B470：新物品清單空時只顯示 3127；不空時原版開清單窗（本引擎未做，不動作）。
-        else if(b==NewItemList){if(view?.Values is not {NewItems:>0})Source.ShowMessage(UserPlayStatsText.Text(UserPlayStatsText.NoItemsMessage));}
+        // sub_C0B470：新物品清單空時只顯示 3127；不空時開關 UserObtainUI 清單窗。
+        else if(b==NewItemList){
+            if(view?.Values is not {NewItems:>0}){ObtainListOpen=false;Source.ShowMessage(UserPlayStatsText.Text(UserPlayStatsText.NoItemsMessage));}
+            else ObtainListOpen=!ObtainListOpen;
+        }
+        // sub_C0BA30：只在可用時有效；重建基準、關清單窗，停用 1000 ms。
+        else if(b==Reset){
+            if(!ResetReady)return;
+            Source.Reset();ObtainListOpen=false;ResetReadyAt=now+UserPlayStatsRules.ResetCooldownMs;
+        }
         else Source.Dismiss();
     }
 

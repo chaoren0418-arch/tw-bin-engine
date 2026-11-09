@@ -72,8 +72,10 @@ public static class PlayerChatProtocol {
         PlayerChatChannel.ChatParty=>"聊天隊伍",PlayerChatChannel.Alliance=>"同盟",PlayerChatChannel.ClanNotice=>"血盟公告",_=>"一般"};
     // Original printers (docs/reference/ui-layout.md §3) show the server-formatted string as is:
     // `name: msg`, `[name] msg`, `{name} msg`, `{{name}} msg`, `(name) msg`, `-> (target) msg`. No local channel tag.
+    // T290（#698）：座標分享行有 string-c.tbl 時整行照 1784「%s從 %s地區發送了座標位置情報。」（寄件者、地名，sub_8D43B0）；
+    // 沒有字串表時保留引擎標示的「[座標] 寄件者：」格式（LocationShareProtocol.ChatLine）。
     public static string FormatLine(PlayerChatLine line)=>line.Location is {} location
-        ?$"[座標] {line.Text}：{LocationShareProtocol.Format(location)}"
+        ?LocationShareProtocol.ChatLine(line.Text,location)
         :line.Text;
     // S243 chat types beyond whisper replies. 13/15/17 are not emitted by the d287 source; accepted for display only.
     static PlayerChatChannel? GlobalChannel(byte type)=>type switch{

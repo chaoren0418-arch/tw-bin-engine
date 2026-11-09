@@ -275,3 +275,4 @@
 - 2026-11-10 — #714 T302：R4-K 聲音：播放中隨距離改音量（code，claude-local，PR 已合併）→ [報告](reports/issue-714.md)
 - 2026-11-10 — #715 T303：R4-C 交易、商店、修理、學魔法窗收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-715.md)
 - 2026-11-10 — #730 T305：gap-matrix 第五輪——剩餘缺口、原生 UI 缺口更新，以及 M7 是否可以結案（resource，claude-local，PR 已合併）→ [報告](reports/issue-730.md)
+- 2026-11-10 — #698 T290：T272 補做——城主王冠繪製、死亡統計 Reset 與道具窗、地名備援、座標聊天行（code，claude-local，PR 已合併）→ [報告](reports/issue-698.md)
