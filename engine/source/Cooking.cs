@@ -36,6 +36,8 @@ public static class CookingProtocol {
     public static readonly (int X,int Y) LevelPosition=(116,257),GaugePosition=(35,251);
     /// <summary>推測：每一級料理書多 8 道食譜。</summary>
     public const int RecipesPerLevel=8;
+    /// <summary>recipe.tbl 裡編號 80 起是特殊食譜（80–82）；推測：不在一般清單列出。</summary>
+    public const int SpecialRecipeFirst=80;
     /// <summary>C_USE_ITEM 料理書第一個參數：1＝製作。</summary>
     public const int MakeMode=1;
 
@@ -49,8 +51,8 @@ public static class CookingProtocol {
     public static int BookItemId(byte value)=>BookItemBase+value;
     /// <summary>等級圖（推定：第 value 張）；超出 11 張回 null。</summary>
     public static int? LevelSurf(byte value)=>LevelSurfFirst+value<=LevelSurfLast?LevelSurfFirst+value:null;
-    /// <summary>推測：等級 level 的料理書列出的食譜（編號 &lt; 8×level）。</summary>
-    public static bool Listed(CookRecipe recipe,int level)=>level>0&&recipe.Index<RecipesPerLevel*level;
+    /// <summary>推測：等級 level 的料理書列出的食譜（編號 &lt; 8×level，特殊食譜 80 起不列）。</summary>
+    public static bool Listed(CookRecipe recipe,int level)=>level>0&&recipe.Index<SpecialRecipeFirst&&recipe.Index<RecipesPerLevel*level;
 }
 
 /// <summary>recipe.tbl 的一行：名稱、全名、編號（C_USE_ITEM 送的值）、欄 4（意義未查）、材料。</summary>
