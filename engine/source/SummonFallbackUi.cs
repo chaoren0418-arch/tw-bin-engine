@@ -20,8 +20,12 @@ public static class SummonFallback {
     public static bool CanChoose(SummonView view,IReadOnlyList<SummonMonster> catalog,SummonMonster monster)=>
         view.Open&&view.CanSend&&view.Level is int lv&&lv>=monster.Level&&catalog.Contains(monster)&&PetPackets.ValidSummonAction(monster.Action);
     public static string Caption(SummonMonster m)=>$"召喚編號 {m.Action} · 需等級 {m.Level} · minCha {m.MinCha}";
-    /// <summary>新的 server 請求（S39 summonlist）才自動切到寵物分頁；同一個 revision 只切一次。</summary>
-    public static bool ShouldReveal(SummonView view,bool nativeUi,long lastRevealed)=>!nativeUi&&view.Open&&view.Source=="server"&&view.Revision!=lastRevealed;
+    /// <summary>
+    /// 新的召喚請求自動切到寵物分頁；同一個 revision 只切一次。來源：server＝原服 S39 summonlist；
+    /// local＝本機請求——R4-F（#709）起包含召喚控制戒指（S36 type 5＋技能 51，AbilityStatus.cs TryOpenRingWindow）開的請求，
+    /// 原生 UI 關閉時沒有 SummonUI，不切分頁使用者看不到清單。寵物分頁上的「開啟召喚怪物選擇」鈕也是 local，切換對它沒有影響。
+    /// </summary>
+    public static bool ShouldReveal(SummonView view,bool nativeUi,long lastRevealed)=>!nativeUi&&view.Open&&(view.Source is "server" or "local")&&view.Revision!=lastRevealed;
 }
 
 public sealed partial class ClientForm {
@@ -43,7 +47,7 @@ public sealed partial class ClientForm {
         });
     }
 
-    /// <summary>每個 timer tick：原生 UI 關閉且原服送來新的 summonlist 時，先讀清單並切到寵物分頁（不再只有提示）。</summary>
+    /// <summary>每個 timer tick：原生 UI 關閉且有新的召喚請求（原服 summonlist 或召喚控制戒指的本機請求）時，先讀清單並切到寵物分頁。</summary>
     void SyncSummonFallback(){
         if(NativeUiActive||login.State!=LoginState.InWorld)return;
         var v=login.SummonSnapshot();

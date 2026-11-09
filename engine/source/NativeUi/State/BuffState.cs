@@ -5,25 +5,32 @@ namespace P06.NativeUi {
     // some packets only partially (no type byte, no duration, no neighbouring snapshot bytes); where the V3 row needs a value the
     // model does not hold, the buff is NOT mapped and is reported as unmapped with the reason — no icon is guessed (rule 5).
     // No packet parsing here; the sources are WorldSession.MagicBuffs (skill + Source tag), OwnActor.Speed/Brave/Flags and the
-    // haste timer of NormalHaste.cs.
+    // haste timer of NormalHaste.cs, and (R4-F, #709) WorldSession.PacketBoxStatusIcons for S250 75/82/180.
 
     /// <summary>
     /// One status effect to show. Seconds: remaining seconds; −1 = no limit (effect duration −1); null = the engine model has no
     /// timer for it (the server sent one, but it was not kept). Expired = the local timer ran out while the server still reports
     /// the state (V3: the original then draws offIcon). Origin is a diagnostic tag ("haste", "shield:99", …).
+    /// R4-F (T297/#709, S250 75/82/180 through PacketBoxStatusIcons):
+    ///   DisplayMode   third argument of sub_F05A90 (0 = seconds, 1 = percent; sub_9061E0 tooltip switch). In mode 1 Seconds holds the
+    ///                 percent value (the original passes it in the seconds slot, +0x50).
+    ///   IconOverride  .tbt number replacing the effect's icon (75: the original rewrites effect 135's icon to 0xC9B+3−level).
+    ///   ElapsedMs     for DefaultDuration entries: time since the icon was (re)added; the panel then counts down the table duration.
+    ///                 null = start unknown (Seconds stays null unless the duration is −1).
     /// </summary>
-    public sealed record BuffEntry(int Effect,int? Seconds,bool Expired,string Origin,bool DefaultDuration=false);
+    public sealed record BuffEntry(int Effect,int? Seconds,bool Expired,string Origin,bool DefaultDuration=false,int DisplayMode=0,int? IconOverride=null,long? ElapsedMs=null);
 
     /// <summary>A live state the original would show, but which cannot be mapped to one effect id from the engine model.</summary>
     public sealed record BuffUnmapped(string Origin,string Reason);
 
     /// <summary>
-    /// Tooltip strings from the original string table (string-c.tbl, sub_4EAFF0): 930 label, 931 unit, 2854 "time over".
+    /// Tooltip strings from the original string table (string-c.tbl, sub_4EAFF0): 930 label, 931 unit, 2854 "time over";
+    /// R4-F: 1551 = label of display mode 1 (sub_9061E0 case 1 at VA 0x9062FD: "%s: %d%%" with string 0x60F and the value).
     /// null = table not available → no tooltip text is shown (never invented).
     /// </summary>
-    public sealed record BuffTooltipText(string? Label,string? Unit,string? Over) {
+    public sealed record BuffTooltipText(string? Label,string? Unit,string? Over,string? Percent=null) {
         public static readonly BuffTooltipText None=new(null,null,null);
-        public const int LabelId=930,UnitId=931,OverId=2854;
+        public const int LabelId=930,UnitId=931,OverId=2854,PercentId=1551;
     }
 
     public sealed record BuffState(IReadOnlyList<BuffEntry> Entries,IReadOnlyList<BuffUnmapped> Unmapped,BuffTooltipText Text) {
@@ -69,6 +76,14 @@ namespace P06.NativeUi {
                 var (effect,reason)=BuffEffectRules.Map(b.Source,b.Skill,classId);
                 string origin=$"{b.Source}:{b.Skill}";
                 if(effect is int e)entries.Add(new(e,left,false,origin));else unmapped.Add(new(origin,reason!));
+            }
+            // R4-F: S250 75/82/180 (PacketBoxStatus.cs, sub_9357E0 cases 0x4B/0x52/0xB4). Effects ≥ 540 are already dropped there.
+            //   75  effect 135, mode 0, table duration counted from the last 75, icon rewritten to 3230−level
+            //   82  effect 175, mode 1 (percent = value)
+            //   180 effect = first D, mode 0, no limit (−1 → tooltip "--")
+            foreach(var i in w.PacketBoxStatusIcons){
+                long? elapsed=i.DefaultDuration&&i.ReceivedAt is long at?Math.Max(0,now-at):null;
+                entries.Add(new(i.Effect,i.Value,false,i.Origin,DefaultDuration:i.DefaultDuration,DisplayMode:i.DisplayMode,IconOverride:i.IconOverride,ElapsedMs:elapsed));
             }
             // One icon per effect (sub_F05A90 updates an existing effect instead of adding a second one).
             var unique=entries.GroupBy(x=>x.Effect).Select(g=>g.First()).ToArray();
@@ -188,7 +203,7 @@ namespace P06 {
             int? cls=login.Characters.FirstOrDefault(c=>c.Name==w.Actor?.Name)?.Class;
             var t=ServerMessageText.Table;
             string? S(int id)=>t!=null&&id<t.Count?ServerMessageText.DisplayText(t[id]):null;
-            var text=t==null?BuffTooltipText.None:new BuffTooltipText(S(BuffTooltipText.LabelId),S(BuffTooltipText.UnitId),S(BuffTooltipText.OverId));
+            var text=t==null?BuffTooltipText.None:new BuffTooltipText(S(BuffTooltipText.LabelId),S(BuffTooltipText.UnitId),S(BuffTooltipText.OverId),S(BuffTooltipText.PercentId));
             return new UiBuffGameState(state,BuffState.From(w,cls,text));
         }
     }
