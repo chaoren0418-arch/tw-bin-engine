@@ -38,7 +38,7 @@ public sealed class ChatPanel:IUiPanel,IUiTextInput {
     /// <summary>Rel = (xRPos, yRPos) or (xRPos, yPos) for Absolute. Surf-only state nodes borrow the position of their base node.</summary>
     sealed record Part(string Element,Point Rel,Anchor Anchor,int[] Surfs){public int? Surf=>Surfs.Length>0?Surfs[0]:null;}
     readonly Dictionary<string,Part> parts=new(StringComparer.Ordinal);
-    SurfCatalog? surfs;
+    Func<int,UiSurface?>? surfs;
     ChatViewState view=new(new(130,130,0));
     readonly ChatInputLine input=new();
     readonly List<ChatDraw> drawn=[];
@@ -67,7 +67,9 @@ public sealed class ChatPanel:IUiPanel,IUiTextInput {
     int TextTopY=>Top+ChatRules.TextTop;
     int TextBottomY=>Origin.Y+ChatRules.TextBottom;
 
-    public void Load(UiLayout layout,SurfCatalog surfs){
+    public void Load(UiLayout layout,SurfCatalog surfs)=>Load(layout,surfs.Get);
+    /// <summary>Same as Load(layout, catalog) with any surface source (R3-G #675: offline checks use in-memory surfaces).</summary>
+    public void Load(UiLayout layout,Func<int,UiSurface?> surfs){
         this.surfs=surfs;parts.Clear();charWidths.Clear();
         var window=layout.Root.Child(WindowName);
         Origin=new(window.Int("x"),window.Int("y"));
@@ -95,10 +97,17 @@ public sealed class ChatPanel:IUiPanel,IUiTextInput {
         if(SplitWidth==0)SplitWidth=Width;
         var tabs=Enum.GetValues<ChatTab>().Select(t=>parts[TabPart(t,false)]).Select(p=>Surface(p) is {} s?p.Rel.X+s.Width:0).ToArray();
         TextLeft=tabs.Max()>0?tabs.Max()+ChatRules.PaneMargin:ChatRules.TextLeft;
-        view=new ChatViewState(new ChatHeights(min,Math.Max(min,baseSurf?.Height??min),step));
+        // R3-G（#675）：重新載入版面（換解析度／重讀 XML）時只換高度階，保留分頁、過濾、分割與目前高度（夾到新的階）。
+        view.SetHeights(new ChatHeights(min,Math.Max(min,baseSurf?.Height??min),step));
+        view.ResetScroll();
     }
+    /// <summary>
+    /// 高度切換（R3-G #675）：設成最接近且不超過 h 的高度階（ChatViewState.SetHeight）。
+    /// 上下鈕仍是 Cycle；這是給原生 UI 宿主或設定還原用的入口。回傳實際高度。
+    /// </summary>
+    public int SetHeight(int h){view.SetHeight(h);view.ClampScroll(lastTotalRows,VisibleRows);return view.Height;}
 
-    UiSurface? Surface(Part p)=>p.Surf is int s?surfs?.Get(s):null;
+    UiSurface? Surface(Part p)=>p.Surf is int s?surfs?.Invoke(s):null;
     /// <summary>Logical top-left of a non-absolute part at the current height.</summary>
     Point At(Part p)=>new(Origin.X+p.Rel.X,(p.Anchor==Anchor.Top?Top:Origin.Y)+p.Rel.Y);
     Rectangle? Rect(string path){var p=parts[path];return Surface(p) is {} s?new Rectangle(At(p),new(s.Width,s.Height)):null;}

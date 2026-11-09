@@ -6,6 +6,12 @@ public sealed record PlayerChatLine(long Sequence,uint Speaker,string Text,Playe
     public SharedLocation? Location {get;init;}
     /// <summary>S243 type 18（黃金號角）／25（彩色）字串後的 H 色號（調色盤索引 1–95）；其他類型為 null（R2-G）。</summary>
     public int? ColorIndex {get;init;}
+    /// <summary>
+    /// R3-G（#675）：op 61 S_SAY_CODE（`sub_94AF00`；3.81 S161 NPCSHOUT，NPC／角色代碼聊天）收到的行。
+    /// 顯示仍走同類型的 Printer（UI§3），但 `*` 黃字／紅字是 S_SAY（`0x94BA36`）與 S_MESSAGE（`0x94525D`）處理函式裡的判斷，
+    /// 不在 Printer 裡，所以代碼聊天不套用（推測，S_SAY_CODE 本身未逐指令讀完）。
+    /// </summary>
+    public bool Code {get;init;}
 }
 public sealed record PlayerChatView(int Generation,int WorldEpoch,uint Actor,int Revision,bool CanSend,string Notice,PlayerChatLine[] Lines);
 public sealed record PlayerChatInput(PlayerChatChannel Channel,string Text,string Receiver="");
@@ -78,8 +84,18 @@ public static class PlayerChatProtocol {
     public static bool TryDecode(byte[] plain,out PlayerChatLine? line){
         line=null;
         if(plain.Length==0)return false;
-        var r=new LoginReader(plain);byte opcode=r.C();uint speaker=0;string text;PlayerChatChannel channel;int? color=null;
+        var r=new LoginReader(plain);byte opcode=r.C();uint speaker=0;string text;PlayerChatChannel channel;int? color=null;bool code=false;
         switch(opcode){
+        case 161:
+            // op 61 S_SAY_CODE（R3-G #675）：3.81 `C(161) C(type) D(id) S(text)`（docs/reference/server-protocol.md）：
+            // type 0 S_NpcChat `name: msg` → 一般 Printer；type 2 S_NpcChatShouting `<name> msg` → 喊話 Printer 顯示 `[name] msg`；
+            // type 3 S_NpcChatGlobal `[name] msg` → 全體 Printer。字串由伺服器組好，這裡不加前綴。
+            // id 0 是 S_ServerMessage／S_BoxMessage／S_SystemMessage 等系統文字：不當聊天，留給 Inventory（伺服器訊息）。
+            byte codeType=r.C();speaker=r.D();
+            if(speaker==0)return false;
+            PlayerChatChannel? codeChannel=codeType switch{0=>PlayerChatChannel.Normal,2=>PlayerChatChannel.Shout,3=>PlayerChatChannel.Global,_=>null};
+            if(codeChannel is not {} cc)return false;
+            channel=cc;text=r.S();code=true;break;
         case 81:
             byte localType=r.C();
             if(localType is not (0 or 2 or 14))return false;
@@ -106,7 +122,7 @@ public static class PlayerChatProtocol {
             channel=global;break;
         default:return false;
         }
-        r.Finish();line=new(0,speaker,Display(text),channel){ColorIndex=color};return true;
+        r.Finish();line=new(0,speaker,Display(text),channel){ColorIndex=color,Code=code};return true;
     }
     internal static string Display(string text)=>new(text.Where(c=>!char.IsControl(c)).Take(1024).ToArray());
 }
@@ -138,6 +154,7 @@ public static class ChatFormat {
     /// </summary>
     public static int TextColor(PlayerChatLine line){
         if(line.ColorIndex is int index&&index>0&&index<PaletteSize)return index;
+        if(line.Code)return ChannelIndex(line.Channel);
         string t=line.Text;
         switch(line.Channel){
         case PlayerChatChannel.Normal when t.Length>0&&t[0]=='*'&&(t.Length<2||t[1]!='*'):return Yellow;
@@ -148,7 +165,8 @@ public static class ChatFormat {
     }
     /// <summary>
     /// 第二色（sub_7DC850 的第 3 個參數）：血盟 Printer（sub_6BDAA0）用 7（#BDBDBD），其他都是白 14。
-    /// 第二色在畫面上的用途待驗證，目前只當資料提供，不畫。
+    /// 第二色在畫面上的用途待驗證（Q3-9），目前只當資料提供，不畫：舊 HUD 不用；原生聊天窗把它放進 ChatRow.SecondColor（R3-G #675）。
+    /// 代碼聊天（op 61）沒有血盟類型，所以一律白 14。
     /// </summary>
     public static int SecondColor(PlayerChatLine line)=>line.Channel==PlayerChatChannel.Clan?Grey:White;
     /// <summary>喊話：3.81 伺服器送 `&lt;name&gt; msg`，原版 ChatTextShoutPrinter 顯示 `[name] msg`。</summary>
