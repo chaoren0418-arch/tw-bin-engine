@@ -67,7 +67,7 @@
 | 22／0x16 | ICON_AURA（S_PacketBox、S_PacketBoxIconAura） | `chhdhdhdhhhhhhhhhc` | — | `MagicStatus.cs` |
 | 23／0x17 | MSG_TOWN_LEADER（S_PacketBox） | 另函式讀 | 764 | 缺 |
 | 27／0x1B | MSG_RANK_CHANGED（S_PacketBox） | 另函式讀（`sub_B32AB0`） | — | 缺 |
-| 30／0x1E | MSG_WIN_LASTAVARD（S_PacketBoxWar） | `dd` | 782、783、919 | 缺 |
+| 30／0x1E | MSG_WIN_LASTAVARD（S_PacketBoxWar） | `dssd`（id、角色名、血盟名、城堡；FU5§2.2） | 782、783、919 | 缺 |
 | 31／0x1F | MSG_FEEL_GOOD（S_PacketBoxHpMsg） | `d` | — | 缺 |
 | 34／0x22 | ICON_BLUEPOTION（S_PacketBox） | `hc` | 79 | `MagicStatus.cs` |
 | 35／0x23 | ICON_POLYMORPH（S_PacketBox） | `h` | — | `MagicStatus.cs` |

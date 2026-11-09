@@ -14,17 +14,18 @@ namespace P06;
 // 12    S_PacketBoxItemLv(min,max)                C(min) C(max)                      聊天欄：min>0→672「…%d以上…」、max>0→673「…%d以下…」
 // 15    S_PacketBox(MSG_ELF,n)                    C(n)                               聊天欄：字串 679，%s＝字串 679＋n（3.81 送 1 火／2 水／3 風／4 地＝680–683）
 // 23    S_PacketBox(MSG_TOWN_LEADER,name)         S(村長名)                          聊天欄：字串 764（%s＝名稱，推定）
-// 27    S_PacketBox(MSG_RANK_CHANGED[,rank,name]) 無；或 C(階級) S(名稱)              只存資料（TW16 交給 sub_B32AB0，顯示方式待驗證）
-// 30    S_PacketBoxWar(30,id,name,clan)           D(id) S(名稱) S(血盟)               只存資料（3.81 無呼叫者；TW16 讀 `dd`，寬度不同，待驗證）
-// 31    S_PacketBoxHpMsg()                        無                                 只存資料（TW16 讀 `d`、無字串 id，待驗證）
+// 27    S_PacketBox(MSG_RANK_CHANGED[,rank,name]) 無；或 C(階級) S(名稱)              聊天欄：自己 784（%s＝階級名）／別人 2125（名稱、階級名）；階級 <2、>13 不處理，11 只設自己階級（FU5§2.1）
+// 30    S_PacketBoxWar(30,id,name,clan)           D(id) S(名稱) S(血盟)               聊天欄：TW16 讀 `dssd`，城堡 ≠ 8 印 782（血盟、角色），再印 783（血盟）；3.81 無呼叫者（FU5§2.2）
+// 31    S_PacketBoxHpMsg()                        無                                 聊天欄：77；下次自己的 S87 出現時在該位置放 gfx 831（FU5§2.3）
+// 27／30／31 的行用 palette[24]（淡黃，sub_7DC850／sub_7DC800 的第 1 個色參數，FU5§2）。
 // 79    S_PacketBoxWar() MSG_WAR_OVER             C(count) S×(count−1)（無主寫 " "）    聊天欄：1511；有主城時 1513 標題＋每城一行 1514（%s＝城堡名、血盟），無主城不列（推定）
 //
 // 字串表不在（CI、沒有原客戶端）時照 ServerMessageText 慣例顯示「原服訊息 id：參數」；id ≥ 表筆數時原版不顯示，本模組照做。
 
 /// <summary>S250/27 最近一次階級變更：Rank／Name 為 null 表示 3.81 送的是不帶欄位的形式。</summary>
 public sealed record PacketBoxRankChange(byte? Rank,string? Name);
-/// <summary>S250/30 最近一次打敗反王：3.81 寫 D(id) S(名稱) S(血盟)；id 意義伺服器註解為「血盟 ID 或其他？」。</summary>
-public sealed record PacketBoxLastavard(uint Id,string Name,string Clan);
+/// <summary>S250/30 最近一次打敗反王：3.81 寫 D(id) S(名稱) S(血盟)；TW16 另讀 D(城堡)，3.81 沒寫時落在補零＝0。id 意義伺服器註解為「血盟 ID 或其他？」。</summary>
+public sealed record PacketBoxLastavard(uint Id,string Name,string Clan,uint Castle=0);
 /// <summary>本模組送進聊天欄的一行（給測試與快照）：子碼、字串 id、參數、顯示文字。</summary>
 public sealed record PacketBoxMessageLine(byte Subtype,int StringId,string[] Arguments,string Text);
 
@@ -73,6 +74,21 @@ public static class PacketBoxMessageRules {
     public static string CastleName(byte castle)=>castle is >= 1 and <= 8?Argument(CastleNameBase+castle,CastleProtocol.CastleName(castle)):CastleProtocol.CastleName(castle);
     /// <summary>S250/15 的屬性名：字串 679＋n（3.81 只送 1–4）。</summary>
     public static string ElfAttribute(byte n)=>Argument(ElfText+n,$"字串 {ElfText+n}");
+
+    // R4-H（T299／#711，FU5§2）：27／30／31 的字串 id 與顏色。
+    public const int RankSelfText=784,RankOtherText=2125,LastavardText=782,LastavardOwnerText=783,FeelGoodText=77,FeelGoodGfx=831,ChatColorIndex=24;
+    /// <summary>城堡 8 不印 782（sub_9357E0 case 30）。</summary>
+    public const uint LastavardSilentCastle=8;
+    /// <summary>27 的階級：&lt; 2 或 &gt; 13 時 sub_B32AB0 直接返回。</summary>
+    public static bool RankHandled(byte rank)=>rank is >= 2 and <= 13;
+    /// <summary>27 的階級 11：只把自己的階級設成 11，不比對名稱、不印字。</summary>
+    public const byte RankSilent=11;
+    /// <summary>
+    /// 階級名的字串 id（FU5§2.1）：2、7＝773；3＝1878；4、10＝771；5、8＝1879；6、9＝772；12、13＝3503（本機表只有 3484 筆，查不到時參數為空字串，待驗證）。
+    /// 11 與範圍外回 -1。
+    /// </summary>
+    public static int RankNameId(byte rank)=>rank switch{2 or 7=>773,3=>1878,4 or 10=>771,5 or 8=>1879,6 or 9=>772,12 or 13=>3503,_=>-1};
+    public static string RankName(byte rank)=>RankNameId(rank) is var id&&id>=0?Argument(id,$"字串 {id}"):"";
 }
 
 public sealed partial class WorldSession {
@@ -82,7 +98,29 @@ public sealed partial class WorldSession {
     PacketBoxRankChange? packetBoxRank;
     PacketBoxLastavard? packetBoxLastavard;
     string[]? packetBoxWarOverClans;
-    int packetBoxFeelGood,packetBoxDroppedMessages;
+    int packetBoxFeelGood,packetBoxDroppedMessages,packetBoxFeelGoodEffects;
+    uint packetBoxFeelGoodTarget;
+    // byte_13D4401：S250/31 設 1，下次自己的物件建立（sub_A50F20／sub_A4E1C0）時放 gfx 831 後清掉（FU5§2.3）。
+    bool packetBoxFeelGoodEffectPending;
+    /// <summary>S250/31 的 gfx 831 是否在等下一次自己的 S87。</summary>
+    public bool FeelGoodEffectPending{get{lock(packetBoxMessageGate)return packetBoxFeelGoodEffectPending;}}
+
+    // S87 觀察器先於物件處理器執行：物件 id＝自己（Actor 或 Status）時在封包座標放 gfx 831（經 S106 同一條特效路徑），然後清旗標。
+    // 格式錯誤留給原處理器。實際觸發時機（推測傳送後）待真機驗證。
+    [WorldReceive(87,Observe=true)]
+    void ObserveFeelGoodSelfAppear(byte[] plain){
+        ushort x,y;uint id;
+        try{var r=new LoginReader(plain);r.C();x=r.H();y=r.H();id=r.D();}
+        catch(ProtocolException){return;}
+        lock(packetBoxMessageGate){
+            if(!packetBoxFeelGoodEffectPending||id==0||(id!=Actor?.ObjectId&&id!=Status?.ObjectId))return;
+            packetBoxFeelGoodEffectPending=false;packetBoxFeelGoodEffects++;
+        }
+        EnsurePacketMedia();
+        long now=PacketMediaClock();
+        packetEffects.Add(new(++packetEffectNumber,WorldEpoch,new ServerEffect(null,x,y,PacketBoxMessageRules.FeelGoodGfx,null),now,now+15000));
+        if(packetEffects.Count>256)packetEffects.RemoveAt(0);
+    }
 
     /// <summary>B1 子碼套用後觸發（參數＝子碼）。</summary>
     public event Action<int>? PacketBoxMessageReceived;
@@ -130,18 +168,41 @@ public sealed partial class WorldSession {
             break;}
         case PacketBoxMessageRules.RankChanged:{
             // 兩種 3.81 寫法：S_PacketBox(27,rank)（兩參數建構子沒有 27 的 case，只寫子碼）；S_PacketBox(27,rank,name)＝C S。
+            // TW16 case 27 讀 `cs` 交給 sub_B32AB0（FU5§2.1）：兩參數形式讀到階級 0 → 什麼都不做。
             PacketBoxRankChange change;
             if(r.Remaining==0||plain.AsSpan(2).IndexOfAnyExcept((byte)0)<0){r.Finish();change=new(null,null);}
             else{byte rank=r.C();string name=PlayerChatProtocol.Display(r.S());r.Finish();change=new(rank,name);}
-            apply=()=>{lock(packetBoxMessageGate)packetBoxRank=change;};
+            Action? rankApply=null;
+            if(change is {Rank:byte rk,Name:string who}&&PacketBoxMessageRules.RankHandled(rk)){
+                if(rk==PacketBoxMessageRules.RankSilent)rankApply=()=>{if(Actor is {} a)Actor=a with{Rank=rk};};
+                else{
+                    // 先更新血盟成員清單中同名者的階級；名稱等於自己時也更新自己的階級並印 784，否則印 2125。
+                    bool self=Actor is {} own&&string.Equals(own.Name,who,StringComparison.Ordinal);
+                    string rankName=PacketBoxMessageRules.RankName(rk);
+                    if(self)lines.Add((PacketBoxMessageRules.RankSelfText,[rankName]));
+                    else lines.Add((PacketBoxMessageRules.RankOtherText,[who,rankName]));
+                    rankApply=()=>{
+                        if(clanMembers.Any(m=>m.Name==who))clanMembers=clanMembers.Select(m=>m.Name==who?m with{Rank=rk}:m).ToArray();
+                        if(self&&Actor is {} a)Actor=a with{Rank=rk};
+                    };
+                }
+            }
+            apply=()=>{lock(packetBoxMessageGate)packetBoxRank=change;rankApply?.Invoke();};
             break;}
         case PacketBoxMessageRules.WinLastavard:{
-            uint id=r.D();string name=PlayerChatProtocol.Display(r.S()),clan=PlayerChatProtocol.Display(r.S());r.Finish();
-            apply=()=>{lock(packetBoxMessageGate)packetBoxLastavard=new(id,name,clan);};
+            // TW16 case 30 讀 `dssd`（FU5§2.2）；3.81 只寫 D S S，城堡落在補零＝0。剩不到 4 byte 時也視為補零。
+            uint id=r.D();string name=PlayerChatProtocol.Display(r.S()),clan=PlayerChatProtocol.Display(r.S());
+            uint castle=r.Remaining>=4?r.D():0;r.Finish();
+            if(castle!=PacketBoxMessageRules.LastavardSilentCastle)lines.Add((PacketBoxMessageRules.LastavardText,[clan,name]));
+            lines.Add((PacketBoxMessageRules.LastavardOwnerText,[clan]));
+            apply=()=>{lock(packetBoxMessageGate)packetBoxLastavard=new(id,name,clan,castle);};
             break;}
-        case PacketBoxMessageRules.FeelGood:
-            r.Finish();apply=()=>{lock(packetBoxMessageGate)packetBoxFeelGood++;};
-            break;
+        case PacketBoxMessageRules.FeelGood:{
+            // TW16 case 31 讀 `d`（物件 id）；3.81 只寫子碼 → id 0。找得到物件時原版先印 284，3.81 不會發生，本模組不印（FU5§2.3）。
+            uint target=r.Remaining>=4?r.D():0;r.Finish();
+            lines.Add((PacketBoxMessageRules.FeelGoodText,[]));
+            apply=()=>{lock(packetBoxMessageGate){packetBoxFeelGood++;packetBoxFeelGoodTarget=target;packetBoxFeelGoodEffectPending=true;}};
+            break;}
         case PacketBoxMessageRules.WarOver:{
             int count=r.C();
             if(count==0)throw new ProtocolException("war-over count 0");
@@ -164,8 +225,9 @@ public sealed partial class WorldSession {
             if(PacketBoxMessageRules.Text(id,args) is {} text)shown.Add(new(sub,id,args,text));else dropped++;
         }
         apply?.Invoke();
+        int? color=sub is PacketBoxMessageRules.RankChanged or PacketBoxMessageRules.WinLastavard or PacketBoxMessageRules.FeelGood?PacketBoxMessageRules.ChatColorIndex:null;
         foreach(var line in shown){
-            playerChatLines.Enqueue(new(++playerChatSequence,0,line.Text));
+            playerChatLines.Enqueue(new(++playerChatSequence,0,line.Text){ColorIndex=color});
             while(playerChatLines.Count>100)playerChatLines.Dequeue();
         }
         if(shown.Count>0)playerChatRevision++;
@@ -184,6 +246,7 @@ public sealed partial class WorldSession {
         lock(packetBoxMessageGate){
             packetBoxMessageCounts.Clear();packetBoxMessageLines.Clear();
             packetBoxRank=null;packetBoxLastavard=null;packetBoxWarOverClans=null;packetBoxFeelGood=0;packetBoxDroppedMessages=0;
+            packetBoxFeelGoodTarget=0;packetBoxFeelGoodEffectPending=false;packetBoxFeelGoodEffects=0;
         }
     }
 
@@ -194,9 +257,12 @@ public sealed partial class WorldSession {
             lines=packetBoxMessageLines.Select(l=>new{subtype=l.Subtype,stringId=l.StringId,args=l.Arguments,text=l.Text}).ToArray(),
             dropped=packetBoxDroppedMessages,
             rank=packetBoxRank is {} rk?new{rank=rk.Rank,name=rk.Name}:null,
-            lastavard=packetBoxLastavard is {} lv?new{id=lv.Id,name=lv.Name,clan=lv.Clan}:null,
+            lastavard=packetBoxLastavard is {} lv?new{id=lv.Id,name=lv.Name,clan=lv.Clan,castle=lv.Castle}:null,
             warOverClans=packetBoxWarOverClans,
             feelGood=packetBoxFeelGood,
+            feelGoodTarget=packetBoxFeelGoodTarget,
+            feelGoodEffectPending=packetBoxFeelGoodEffectPending,
+            feelGoodEffects=packetBoxFeelGoodEffects,
             table=ServerMessageText.Table is null?"fallback":"string-c.tbl",
         };
     }
