@@ -7,8 +7,12 @@
 2. **只動自己模組的檔案**（見下表）。必須修改共用分派點時，只在下列位置加最小的掛接，不要重排或改寫既有分支：
    - 接收：`WorldSession.cs` 的 `ReceiveCore` switch，**一個 opcode 加一個 case**，內容只呼叫自己模組的方法。
    - 送出：`LoginConnection.cs` 只加一個呼叫自己模組編碼器的方法。
-3. **驗收**：編譯通過（`rebuild.py --build`；改了程式就先 `--update-lock`）、自己模組的離線單元測試綠燈（合成封包，放在 `engine/_integration/dev/<模組>-tests/` 或既有 demo-tests 新增一個檔案）、`check-no-game-assets.py` 通過、CI 綠燈、短報告。**不需要真機**，真機集中在 M6 smoke。
-4. **在 worktree 中進行**：`scratch/wt/task-<本號>`。dev lock 衝突交給調度器的同步輪處理，**不要手動拼接 hash**。
+3. **驗收**：編譯通過（`rebuild.py --build`）、自己模組的離線單元測試綠燈（合成封包，放在 `engine/_integration/dev/<模組>-tests/` 或既有 demo-tests 新增一個檔案）、`check-no-game-assets.py` 通過、CI 綠燈、短報告。**不需要真機**，真機集中在 M6 smoke。
+4. **在 worktree 中進行**：`scratch/wt/task-<本號>`。**PR 不修改 `engine/_integration/dev/rebuild-lock.json`**（#646）：
+   - 改了程式也**不要**跑 `--update-lock`，也不要 commit lock。`rebuild.py --build` 發現 lock 過時時會印 `WARN: rebuild-lock.json is stale…`，改用記憶體中的暫時 lock 繼續建置（`result.json` 的 `lock` 為 `temporary`，並列出 added／removed／changed），**不寫回 lock**。
+   - 與 main 同步時若 lock 有衝突，一律取 main 版本（`git checkout --theirs`／`origin/main` 的那份），**不要手動拼接 hash**。
+   - lock 在**合併進 main 之後**才由調度器用 `rebuild.py --update-lock` 重產並 commit（調度器端見 #644）。main 的 CI 會跑嚴格核驗（不帶參數的 `rebuild.py`）；lock 過時時這一步失敗，並把重產好的 lock 上傳成 artifact `rebuild-lock-candidate`，**CI 不自動 commit**。
+   - 嚴格模式仍保留：不帶參數、`--verify`、`--build --strict` 遇到 lock 不一致一律拒絕。
 5. **禁止**：不啟動遊戲、伺服器或 DB；不複製伺服器原始碼或遊戲資源；不改 releases 與封存 lock；任何刪除都不可遞迴。
 
 ## 模組歸屬（第一波）

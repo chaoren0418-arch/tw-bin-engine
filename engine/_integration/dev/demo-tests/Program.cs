@@ -300,9 +300,10 @@ partial class Checks {
                 case "pets":break;
                 case "display-notices":DisplayNoticeChecks();break;
                 case "name-display":await NameDisplayChecks();break;
-                case "map-continuity":await MapContinuity();await BookmarkChecks();DisplayNoticeChecks();await NameDisplayChecks();await BoardChecks();NativeUiBoardChecks(args[0]);await ClanChecks();await ClanEmblemChecks();await ClanWarChecks();await MarriageChecks();await YesNoPromptChecks();await CharResetChecks();await PlayerQueryChecks();await HyperTextChecks(args[1]);await CharacterConfigChecks();HotbarChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();MapAmbientChecks();BackgroundMusicChecks();InvisibilityChecks();await GhostModeChecks();await GhostLimitsChecks();await PortalChecks();MinimapChecks();TimedBuffChecks();break;
+                case "map-continuity":await MapContinuity();await BookmarkChecks();DisplayNoticeChecks();await NameDisplayChecks();await BoardChecks();NativeUiBoardChecks(args[0]);await ClanChecks();await ClanEmblemChecks();await ClanWarChecks();await MarriageChecks();await YesNoPromptChecks();await TradeYesNoChecks();await CharResetChecks();await PlayerQueryChecks();await HyperTextChecks(args[1]);await CharacterConfigChecks();HotbarChecks();await LocationShareChecks();await FishingChecks();AmbienceChecks();MapAmbientChecks();BackgroundMusicChecks();InvisibilityChecks();await GhostModeChecks();await GhostLimitsChecks();await PortalChecks();MinimapChecks();TimedBuffChecks();break;
                 case "marriage":await MarriageChecks();break;
-                case "yes-no":await YesNoPromptChecks();break;
+                case "yes-no":await YesNoPromptChecks();await TradeYesNoChecks();break;
+                case "trade-yes-no":await TradeYesNoChecks();break;
                 case "ghost-mode":await GhostModeChecks();await GhostLimitsChecks();break;
                 case "ghost-limits":await GhostLimitsChecks();break;
                 case "fishing":await FishingChecks();break;
@@ -340,7 +341,11 @@ partial class Checks {
                 case "native-ui-left-status":NativeUiLeftStatusRealRender(args[0]);NativeUiLeftStatusChecks(args[0]);break;
                 case "native-ui-macro":NativeUiMacroChecks(args[0]);break;
                 case "native-ui-hpmp":NativeUiHpMpChecks(args[0]);NativeUiHpMpRealClientChecks(args[0]);break;
+                case "native-ui-party":NativeUiPartyChecks(args[0]);break;
                 case "native-ui-chat-window":NativeUiChatWindowChecks(args[0]);NativeUiChatWindowRealRender(args[0]);break;
+                case "native-ui-menu-buttons":NativeUiMenuButtonsChecks(args[0]);NativeUiMenuButtonsRealClient(args[0]);break;
+                case "native-ui-minimap":NativeUiMiniMapChecks(args[0]);break;
+                case "native-ui-buff-icons":NativeUiBuffIconsChecks(args[0]);NativeUiBuffIconsRealClientChecks(args[0]);break;
                 case "keyboard":await KeyboardMovement123();break;
                 case "busy":KeyboardBusy123();break;
                 case "world":await KeyboardWorld123();break;
@@ -348,9 +353,9 @@ partial class Checks {
             }
         }else{
             await BookmarkChecks();
-            ItemStatusChecks();NativeUiResourceChecks(args[0]);NativeUiCanvasChecks(args[0]);NativeUiLeftStatusChecks(args[0]);NativeUiHpMpChecks(args[0]);NativeUiMacroChecks(args[0]);NativeUiChatWindowChecks(args[0]);NativeUiBoardChecks(args[0]);
+            ItemStatusChecks();NativeUiResourceChecks(args[0]);NativeUiCanvasChecks(args[0]);NativeUiLeftStatusChecks(args[0]);NativeUiHpMpChecks(args[0]);NativeUiMacroChecks(args[0]);NativeUiChatWindowChecks(args[0]);NativeUiBoardChecks(args[0]);NativeUiMenuButtonsChecks(args[0]);NativeUiMiniMapChecks(args[0]);NativeUiPartyChecks(args[0]);NativeUiBuffIconsChecks(args[0]);
             MinimapChecks();await CharacterConfigChecks();HotbarChecks();NativeTargetUi();await Movement123();await KeyboardMovement123();KeyboardBusy123();await KeyboardWorld123();
-            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();DisplayNoticeChecks();await NameDisplayChecks();await BoardChecks();await ClanChecks();await ClanEmblemChecks();await ClanWarChecks();await MarriageChecks();await YesNoPromptChecks();await CharResetChecks();await LocationShareChecks();HitReactionSuppression();await TitleAndEmoteChecks();await PlayerQueryChecks();await HyperTextChecks(args[1]);await FishingChecks();AmbienceChecks();MapAmbientChecks();BackgroundMusicChecks();InvisibilityChecks();await GhostModeChecks();await GhostLimitsChecks();TimedBuffChecks();
+            await Combat();await Magic();await Quantity();await PickupCorrection();Position();await CombatLoop();DisplayNoticeChecks();await NameDisplayChecks();await BoardChecks();await ClanChecks();await ClanEmblemChecks();await ClanWarChecks();await MarriageChecks();await YesNoPromptChecks();await TradeYesNoChecks();await CharResetChecks();await LocationShareChecks();HitReactionSuppression();await TitleAndEmoteChecks();await PlayerQueryChecks();await HyperTextChecks(args[1]);await FishingChecks();AmbienceChecks();MapAmbientChecks();BackgroundMusicChecks();InvisibilityChecks();await GhostModeChecks();await GhostLimitsChecks();TimedBuffChecks();
         }
         File.WriteAllText(args[1],JsonSerializer.Serialize(new{status=petsFailure==null?"pass":"fail",checks,scope="本次產品 DLL；合成封包與記憶體 sender；非真機",labels},new JsonSerializerOptions{WriteIndented=true}));
         if(petsFailure!=null)throw new InvalidOperationException("Pets failed; subsequent groups completed.",petsFailure);

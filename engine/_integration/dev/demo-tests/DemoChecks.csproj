@@ -12,6 +12,7 @@
     <Compile Include="../char-reset-tests/CharResetChecks.cs" Link="CharResetChecks.cs" />
     <Compile Include="../marriage-tests/MarriageChecks.cs" Link="MarriageChecks.cs" />
     <Compile Include="../yes-no-tests/YesNoPromptTests.cs" Link="YesNoPromptTests.cs" />
+    <Compile Include="../trade-tests/TradeYesNoChecks.cs" Link="TradeYesNoChecks.cs" />
     <Compile Include="../clan-tests/ClanChecks.cs" Link="ClanChecks.cs" />
     <Compile Include="../clan-emblem-tests/ClanEmblemChecks.cs" Link="ClanEmblemChecks.cs" />
     <Compile Include="../clan-war-tests/ClanWarChecks.cs" Link="ClanWarChecks.cs" />
@@ -46,6 +47,11 @@
     <Compile Include="../native-ui-tests/LeftStatusChecks.cs" Link="LeftStatusChecks.cs" />
     <Compile Include="../native-ui-tests/MacroChecks.cs" Link="MacroChecks.cs" />
     <Compile Include="../native-ui-tests/HpMpChecks.cs" Link="HpMpChecks.cs" />
+    <Compile Include="../native-ui-tests/PartyPanelChecks.cs" Link="PartyPanelChecks.cs" />
+    <Compile Include="../native-ui-tests/MenuButtonsChecks.cs" Link="MenuButtonsChecks.cs" />
+    <Compile Include="../native-ui-tests/MiniMapChecks.cs" Link="NativeMiniMapChecks.cs" />
+    <Compile Include="../native-ui-tests/BuffIconsChecks.cs" Link="BuffIconsChecks.cs" />
+
     <Reference Include="P11.ClientEngine"><HintPath>../../../build/client-product-dev/P11.ClientEngine.dll</HintPath></Reference>
     <Reference Include="P24.Audio"><HintPath>../../../build/client-product-dev/P24.Audio.dll</HintPath></Reference>
   </ItemGroup>

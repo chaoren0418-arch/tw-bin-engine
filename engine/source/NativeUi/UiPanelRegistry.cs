@@ -11,9 +11,14 @@ public static class UiPanelRegistry {
     public static IReadOnlyList<UiPanelRegistration> Panels{get;}=[
         new("LEFT_WINDOW","uistatus86",root=>new LeftStatusPanel()),
         new("CENTER_WINDOW","uistatus86",root=>new ChatPanel()),
+        new(SummonPanel.PanelId,SummonPanel.LayoutName,root=>new SummonPanel(root.Resources)),   // ui-summon (M7-W, #530)
         new(HpMpPanel.PanelId,"uistatus86",root=>new HpMpPanel()),new(HpMpHeadBarPanel.PanelId,"uistatus86",root=>new HpMpHeadBarPanel(()=>(root.Find(HpMpPanel.PanelId) as HpMpPanel)?.Settings??HpMpSettings.Default)),   // ui-hpmp #465 (no XML: V1 hard-coded layout)
+        new(MiniMapPanel.PanelId,"uistatus86",root=>MiniMapPanel.Create(root)),   // ui-minimap (#470); also adds Field_Map; BAR_485 member, before RIGHT_WINDOW
         new(ExMacroPanel.WindowId,"uistatus86",root=>new ExMacroPanel(root.SlotGroup(UiSlotGroup.Bar485))),new(MacroPanel.WindowId,"uistatus86",_=>new MacroPanel()),   // ui-macro-bar #466 (RIGHT_WINDOW last: MACRO_LOCK overlaps BAR_485)
+        new(PartyPanel.WindowId,"uiextra86",root=>new PartyPanel(root.SlotGroup(UiSlotGroup.Bar485))),new(PartyRtPanel.WindowId,"uiextra86",root=>new PartyRtPanel(root.SlotGroup(UiSlotGroup.Bar485))),   // ui-party #471 (keep AFTER LEFT_WINDOW: the party base covers it)
         new(TradeWindowPanel.PanelId,TradeWindowPanel.LayoutName,root=>new TradeWindowPanel()),   // M7-S (#526)
         ..FriendPanels.Registrations,   // M7-V (#529): Friend_Window／Exclude_Window／Mailexclude_Window
+        new(MenuButtonsPanel.PanelId,"uistatus86",_=>new MenuButtonsPanel()),   // ui-menu-buttons #467: after MacroPanel (buttons y=567 lie inside the 3176 frame; later Bar = painted/hit on top)
+        new(BuffIconsPanel.PanelId,BuffEffectTable.FileName,root=>new BuffIconsPanel(root.Resources?.Sprites)),   // ui-buff-icons #473 (layout = Tile.pak effectlist2.xml; icons = <n>.tbt)
     ];
 }
