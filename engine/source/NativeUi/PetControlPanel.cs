@@ -56,7 +56,7 @@ public sealed class PetControlTracker {
     public void Dismiss(long shownRevision){if(Current?.Revision==shownRevision)Current=null;}
 }
 
-public sealed class PetControlPanel:IUiPanel {
+public sealed class PetControlPanel:IUiClosablePanel {
     [UiPanel(35)] internal static UiPanelRegistration Registration=>new(PetControlPanel.PanelId,PetControlPanel.LayoutName,_=>new PetControlPanel());   // R3-B (#671): PetControl (hard-coded, no XML)
     public const string PanelId="PET_CONTROL";
     public const string LayoutName="uiextra86";   // 舊式寫死窗，不讀 XML；只借既有版面檔名讓註冊表能建立（同 YesNoPanel）
@@ -138,4 +138,6 @@ public sealed class PetControlPanel:IUiPanel {
         }
     }
     public bool Key(UiKeyEvent e,IUiCommands commands)=>false;
+    /// <summary>視窗堆疊滿時（UiRoot，#677）關閉：只關本次開窗，不送封包；下一次 anicom／moncom 再開。</summary>
+    public void Close(){if(view is {} v)dismissed=v.Revision;view=null;pressed=null;}
 }

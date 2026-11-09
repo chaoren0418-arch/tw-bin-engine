@@ -6,7 +6,7 @@
 
 | 檔案 | 內容 |
 |---|---|
-| `engine/source/NativeUi/PetControlPanel.cs`（新） | 舊式寵物指令窗 `PetControl` 的原生面板 `PET_CONTROL`（`[UiPanel(35)]` 自動註冊，Window 層，不讀 XML）。兩顆鈕：第 0 鈕 surf 1159／886 在錨點 +(6,30)，第 1 鈕 surf 1156／885 在錨點 +(−31,20)。另有 `PetControlTracker`：原服每回一次 `anicom`／`moncom` 就開一次窗。 |
+| `engine/source/NativeUi/PetControlPanel.cs`（新） | 舊式寵物指令窗 `PetControl` 的原生面板 `PET_CONTROL`（`[UiPanel(35)]` 自動註冊，Window 層，不讀 XML）。兩顆鈕：第 0 鈕 surf 1159／886 在錨點 +(6,30)，第 1 鈕 surf 1156／885 在錨點 +(−31,20)。實作 `IUiClosablePanel`：視窗堆疊（#677）滿的時候只關本次開窗，不送封包。另有 `PetControlTracker`：原服每回一次 `anicom`／`moncom` 就開一次窗。 |
 | `engine/source/SummonFallbackUi.cs`（新） | 原生 UI 關閉時的召喚暫行清單：讀原客戶端 `summonList.xml`（`SummonCatalog`，背景讀取），放在 WinForms「寵物」分頁，依等級由高到低分組；選定後呼叫同一個 `LoginConnection.SendSummonChoice`（server＝C125 `D(自己) S(action)`）。收到新的 S39 `summonlist` 時自動切到寵物分頁（`ShowPlayerService("寵物")`）。 |
 | `engine/source/PetUi.cs` | 掛上 `PetControlHost`（第 0 鈕 → 既有 `refresh`＝C103；第 1 鈕 → 既有 `attackchr`＝C125，只對寵物）；原來那一行「召喚選擇窗需開啟原生 UI」的提示改成暫行清單；本機召喚入口（技能 51）兩種模式都可以用。WinForms 寵物分頁保留。 |
 | `engine/source/PetControlTests.cs`（新） | 3 組離線測試：`pet-control`、`pet-control-tracker`、`summon-fallback`（`[WorldModuleTest]` 自動發現）。 |
@@ -42,8 +42,8 @@
 
 | 項目 | 結果 |
 |---|---|
-| `rebuild.py --update-lock`（暫用 lock，只在本機）→ `rebuild.py --build --configfile .github/nuget.ci.config` | **PASS dev**，product、launcher 的 restore／build 都退出 0，productDll `876a3a5c…372d`；之後 `git checkout` 還原 lock，**PR 沒有改 `rebuild-lock.json`** |
-| `engine/tools/check-no-game-assets.py` | pass（4007 檔，0 錯誤） |
+| `rebuild.py --update-lock`（暫用 lock，只在本機）→ `rebuild.py --build --configfile .github/nuget.ci.config`（已合併 main，含 R3-I 視窗堆疊 #677） | **PASS dev**，product、launcher 的 restore／build 都退出 0，productDll `719d5ddb…fad8`；之後 `git checkout` 還原 lock，**PR 沒有改 `rebuild-lock.json`** |
+| `engine/tools/check-no-game-assets.py` | pass（4015 檔，0 錯誤） |
 | 新增的 3 組離線測試、既有單元測試 | 依本機限制**沒有在本機執行**，交給 PR 的 GitHub Actions CI |
 
 新測試涵蓋：

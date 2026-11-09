@@ -102,6 +102,11 @@ static class PetControlTests {
         t.Check(host.Calls.Count==2&&p.Visible,"nothing fires while the host cannot send");
         t.Check(!p.Mouse(M(UiMouseKind.Down,new(10,10)),cmd),"click outside passes through to the world");
         t.Check(!p.Key(new UiKeyEvent(Keys.Escape,true,false),cmd),"Esc not handled (unverified)");
+        // 視窗堆疊（#677）關閉：只關本次，不送封包；下一次開窗照常。
+        int calls=host.Calls.Count;p.Close();
+        t.Check(!p.Visible&&host.Calls.Count==calls,"Close (window stack) hides without sending");
+        p.Update(InWorld);t.Check(!p.Visible,"closed revision stays closed");
+        host.Current=host.Current with{Revision=5,CanSend=true};p.Update(InWorld);t.Check(p.Visible,"next open after Close shows again");
 
         // 5. 缺 surf：整個面板停用（不畫替代圖）。
         var noTarget=Surfaces();noTarget.Remove(1156);
