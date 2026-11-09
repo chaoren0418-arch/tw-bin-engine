@@ -49,6 +49,7 @@ partial class Checks {
     static IUiGameState LeftState(LeftStatusState s)=>new UiLeftStatusGameState(new UiStaticGameState(InWorld:true,Level:s.Level),s);
     static readonly LeftStatusState LeftSample=new(Level:52,ExpPercent:50m,Ac:-37,Mr:45,Lawful:600,Sp:12,Weight:120,Food:112,Adena:1234567);
 
+    [CheckGroup("native-ui-left-status",Order=2),CheckGroup(CheckGroups.Default,Order=50)]
     static void NativeUiLeftStatusChecks(string repo){
         string root=Path.Combine(Path.GetFullPath(repo),"scratch","issue-464","synthetic");Directory.CreateDirectory(root);
         int Px(UiCanvas c,int x,int y)=>c.Bitmap.GetPixel(x,y).ToArgb();
@@ -180,6 +181,7 @@ partial class Checks {
     }
 
     /// <summary>Optional: real client (TW_CLIENT_ROOT). Writes PNGs + the component table to scratch/issue-464/real only.</summary>
+    [CheckGroup("native-ui-left-status",Order=1)]
     static void NativeUiLeftStatusRealRender(string repo){
         string? client=Environment.GetEnvironmentVariable("TW_CLIENT_ROOT");
         if(string.IsNullOrEmpty(client)){Console.WriteLine("SKIP native-ui left-status real render (TW_CLIENT_ROOT not set)");return;}

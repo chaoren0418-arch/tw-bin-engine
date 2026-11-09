@@ -46,6 +46,7 @@ partial class Checks {
     }
     static int Hn(string name)=>1+SurfCatalog.NameHash(name);
 
+    [CheckGroup("native-ui-buff-icons",Order=1),CheckGroup(CheckGroups.Default,Order=125)]
     static void NativeUiBuffIconsChecks(string repo){
         string root=Path.Combine(Path.GetFullPath(repo),"scratch","issue-473","synthetic");Directory.CreateDirectory(root);
 
@@ -181,6 +182,7 @@ partial class Checks {
     }
 
     /// <summary>Optional: TW_CLIENT_ROOT set → check the V3 table against the real effectlist2.xml and .tbt files, render to scratch/.</summary>
+    [CheckGroup("native-ui-buff-icons",Order=2)]
     static void NativeUiBuffIconsRealClientChecks(string repo){
         string? client=Environment.GetEnvironmentVariable("TW_CLIENT_ROOT");
         if(string.IsNullOrEmpty(client)){Console.WriteLine("SKIP native-ui buff-icons real client checks (TW_CLIENT_ROOT not set)");return;}

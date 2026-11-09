@@ -19,6 +19,7 @@ partial class Checks {
         try{Feed(c,packet);}catch(ProtocolException){refused=true;}
         Check(refused&&c.World.DuelSnapshot==before,"duel malformed atomic: "+label);
     }
+    [CheckGroup("duel",Order=2),CheckGroup("combat-admission",Order=5)]
     static async Task DuelChecks(){
         Check(DuelPackets.Invite().SequenceEqual(new byte[]{5,0,0,0,0,0,0,0}),"C5 no conditional tail / zero padding");
         foreach(bool yes in new[]{false,true})Check(DuelPackets.Answer(yes).SequenceEqual(new byte[]{121,0,0,0,0,0,0,118,2,(byte)(yes?1:0),0,0,0,0,0,0}),"C121 H0 D0 H630 answer "+yes);

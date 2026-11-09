@@ -45,7 +45,7 @@ public sealed partial class ClientForm {
     // Keyboard P = Action_Loot (WO §2): first item within 1 tile, whole stack. Drop keeps the explicit count.
     Task<bool> NativeGroundQuantity(bool pickup)=>World.Walking?Task.FromResult(false):pickup?login.LootNearby():login.SendGroundQuantity(false,dropCount.Text,dropSelection);
     // Object click on a ground item (sub_F112F0): walk to 1 tile, then whole stack or the quantity prompt.
-    // Hook for pointer clicks (PlayerPointerUi is outside this task; see docs/reports/issue-518.md).
+    // Used by the scene double-click (PlayerPointerUi → PlayerPointerController.ClickGroundAsync, R2-C) and the pickup button.
     internal Task<bool> PickupGroundClicked(uint id)=>login.PickupGround(id,()=>World.Walking);
     void BeginInvokeIfReady(Action action){if(IsDisposed)return;if(IsHandleCreated&&InvokeRequired)BeginInvoke(action);else action();}
     object GroundWeb()=>new{epoch=login.World.WorldEpoch,selectionRevision=login.World.GroundSelectionRevision,revision=login.World.GroundRevision,selectedId=login.World.SelectedGroundId,notice=login.World.GroundStatus,busy=login.MovementBusy,items=login.World.Ground.Select(i=>new{id=i.ObjectId,name=GroundName(i),count=i.Count,x=i.X,y=i.Y,selected=i.ObjectId==login.World.SelectedGroundId,image=GroundCatalog.Find(i.Gfx)!=null?$"https://p08.example/ground/{i.Gfx}.png":null}).ToArray()};

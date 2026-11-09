@@ -11,6 +11,7 @@ public sealed record LeftStatusDraw(string Element,int? Surf,Rectangle Rect,stri
 /// food bar + %, adena. Not in scope (later tasks / unverified behaviour): LEVEL_BTN, KARMA_WINDOW, warn/shout buttons.
 /// </summary>
 public sealed class LeftStatusPanel:IUiPanel {
+    [UiPanel(10)] internal static UiPanelRegistration Registration=>new("LEFT_WINDOW","uistatus86",root=>new LeftStatusPanel());   // ui-left-status #464
     public const string WindowName="LEFT_WINDOW";
     public string Id=>WindowName;
     public UiLayer Layer=>UiLayer.Bar;

@@ -8,6 +8,7 @@ namespace P06.NativeUi;
 /// tabs, and the buttons land exactly inside the 8th (button) cell of the 3220 artwork.
 /// </summary>
 public sealed class PartyRtPanel:IUiPanel {
+    [UiPanel(100)] internal static UiPanelRegistration Registration=>new(PartyRtPanel.WindowId,"uiextra86",root=>new PartyRtPanel(root.SlotGroup(UiSlotGroup.Bar485)));   // ui-party #471
     public const string WindowId="PARTY_PET_RT_WINDOW";
     public enum Page { Party=0, Pet=1 }
     /// <summary>Member cells 64×27, 2 columns × 4 rows, measured from the 3220 artwork (columns 15..78 / 80..143, rows every 26 px from 18; 推測).</summary>

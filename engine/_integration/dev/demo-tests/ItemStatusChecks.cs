@@ -3,6 +3,7 @@ using System.Text.Json;
 
 partial class Checks {
     static byte[] StatusBlob(Action<BinaryWriter> write){using var stream=new MemoryStream();using var writer=new BinaryWriter(stream);write(writer);return stream.ToArray();}
+    [CheckGroup("item-status"),CheckGroup(CheckGroups.Default,Order=20)]
     static void ItemStatusChecks(){
         // Hand-authored wire contracts, not production serializer output or server assets.
         byte[] weapon=[1,8,12,10,100,0,0,0,2,253,3,7,4,7,127,8,254,9,2,10,3,11,4,12,5,13,6,14,0,255,15,30,0,33,214,15,251,255,33,1,17,253,18,27,10,28,246,29,20,30,30,32,251];

@@ -161,6 +161,7 @@ public sealed class BuffIconOrder {
 }
 
 public sealed class BuffIconsPanel(IReadOnlyList<ClientArchive>? sprites=null):IUiPanel {
+    [UiPanel(140)] internal static UiPanelRegistration Registration=>new(BuffIconsPanel.PanelId,BuffEffectTable.FileName,root=>new BuffIconsPanel(root.Resources?.Sprites));   // ui-buff-icons #473 (layout = Tile.pak effectlist2.xml; icons = <n>.tbt)
     public const string PanelId="STATUS_EFFECT_ICONS";
     public const int PerRow=22,Pitch=35,IconSize=32,RightEdge=798,Top=5,TooltipWidth=160,TooltipMargin=5;
     public static Point Cell(int n)=>new(RightEdge-Pitch*(n%PerRow+1),Top+Pitch*(n/PerRow));

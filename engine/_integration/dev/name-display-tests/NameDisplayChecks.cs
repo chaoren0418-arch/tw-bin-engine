@@ -17,6 +17,7 @@ partial class Checks {
     static byte[] RawEmblemPacket(uint id,Func<int,ushort> pixel)=>Packet(b=>{b.Write((byte)118);b.Write(id);for(int i=0;i<192;i++)b.Write(pixel(i));});
     static void NameReject(Action action,string label){bool failed=false;try{action();}catch(ProtocolException){failed=true;}Check(failed,label);}
 
+    [CheckGroup("name-display"),CheckGroup("map-continuity",Order=40),CheckGroup(CheckGroups.Default,Order=280)]
     static async Task NameDisplayChecks(){
         string scratch=Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"..","..","..","scratch","name-display-tests"));Directory.CreateDirectory(scratch);
         string disk=Path.Combine(scratch,"emblems.bin"),options=Path.Combine(scratch,"name-display.txt");

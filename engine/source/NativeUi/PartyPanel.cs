@@ -8,6 +8,7 @@ namespace P06.NativeUi;
 /// Must paint after LEFT_WINDOW (same bar layer: registration order decides, see UiPanelRegistry).
 /// </summary>
 public sealed class PartyPanel:IUiPanel {
+    [UiPanel(90)] internal static UiPanelRegistration Registration=>new(PartyPanel.WindowId,"uiextra86",root=>new PartyPanel(root.SlotGroup(UiSlotGroup.Bar485)));   // ui-party #471 (keep AFTER LEFT_WINDOW: the party base covers it)
     public const string WindowId="PARTY_INTERFACE";
     public enum Page { Character=0, Party=1, Pet=2 }
     /// <summary>

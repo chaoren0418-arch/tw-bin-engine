@@ -53,11 +53,16 @@ public sealed partial class Renderer {
             var effect=NativeEffect(p.Gfx);if(effect==null)continue;
             if(v==null){
                 // The kind 3 arrow class (7C36C0) never reads the 109 param: 2349 does not draw 219 (SV#10).
-                if(now>=flight.Impact&&effect.Kind!=3&&effect.Impact>=0)DrawNativeEffect(effect.Impact,p.Heading,flight.X,flight.Y,now-flight.Impact,session,draws,"projectile");
+                if(now>=flight.Impact&&effect.Kind!=3&&effect.Impact>=0){
+                    DrawNativeEffect(effect.Impact,p.Heading,flight.X,flight.Y,now-flight.Impact,session,draws,"projectile");
+                    // R2-H: the landing effect's own `]` frames spawn children (default Effect class).
+                    ObserveLandingFrames(session,$"projectile-impact:{p.Number}",NativeEffect(effect.Impact),now-flight.Impact,flight.X,flight.Y,p.Heading,now);
+                }
                 continue;
             }
             // Arrow class 3 uses the original fly sequence, including one-frame arrows.
             int? step=effect.Kind==3&&effect.Steps.Length==3?(v.Remaining==1?2:1):null;
+            WithholdFlightFrames(session,$"projectile-fly:{p.Number}",effect,now-flight.Release,v.X,v.Y,v.Direction,now);
             var native=DrawNativeEffect(p.Gfx,v.Direction,v.X,v.Y,now-flight.Release,session,draws,"projectile",true,step);
             if(native!=null){v=v with{Frame=native.Key};CurrentProjectileVisual=v;visuals.Add(v);}continue;
         }

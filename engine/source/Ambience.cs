@@ -378,8 +378,8 @@ public sealed class AmbienceLightImages {
     public const int Slots = 16, HeaderBytes = 192;
     public const string EntryName = "Source.lmp", PayloadSha256 = "30cf051fe516a053ac494b8054e5a320bab1f3f3dd7b0010e0cf0c74aacce5aa";
     // Sprite.idx / Sprite.pak identity (same pins as GroundSpriteReader; AM§3.1).
-    const string IndexSha256 = "327c06372d87f6cf6d5176da51da5ef1f94dbf388d1588b735c5965b96b6a52b";
-    const long PakSize = 1904012586L;
+    internal const string IndexSha256 = "327c06372d87f6cf6d5176da51da5ef1f94dbf388d1588b735c5965b96b6a52b";
+    internal const long PakSize = 1904012586L;
     readonly byte[] payload;
     readonly (int Offset, int Width, int Height)[] slots;
     AmbienceLightImages(byte[] payload, (int, int, int)[] slots) { this.payload = payload; this.slots = slots; }
@@ -477,7 +477,12 @@ public sealed partial class Renderer {
     public static Rectangle AmbienceWindowAt(PointF foot) =>
         new((int)MathF.Floor(foot.X) - AmbienceLightMap.Width, (int)MathF.Floor(foot.Y) - AmbienceLightMap.Height, AmbienceLightMap.ViewWidth, AmbienceLightMap.ViewHeight);
 
+    /// <summary>Replaces the client Source.lmp for the light map and the blind light (tests).</summary>
+    public AmbienceLightImages? AmbienceImagesOverride { get; set; }
+    /// <summary>Source.lmp if it has already been read (never triggers a read); used by the blind composition.</summary>
+    internal AmbienceLightImages? LoadedAmbienceImages => AmbienceImagesOverride ?? (ambienceImagesTried ? ambienceImages : null);
     AmbienceLightImages? AmbienceImages() {
+        if (AmbienceImagesOverride is { } images) return images;
         if (ambienceImagesTried) return ambienceImages;
         ambienceImagesTried = true;
         try { ambienceImages = AmbienceLightImages.Load(); AmbienceLightNotice = null; }
@@ -498,6 +503,78 @@ public sealed partial class Renderer {
         images ??= AmbienceImages();
         if (images == null) AmbienceLightMap.Clear(); else AmbienceLightMap.Render(lights, images);
         return AmbienceLightSources = lights;
+    }
+
+    // ---- R2-A (T251/#612): per-frame wiring used by ClientForm.PaintScene. ----
+    long weatherStepAt = -1; PointF? weatherFoot; float weatherShiftRemainder;
+    WeatherSpriteSet? weatherSprites; bool weatherSpritesTried;
+    /// <summary>Why the rain images are not drawn (Sprite.pak 924–927 unreadable); null when loaded or not yet needed.</summary>
+    public string? WeatherSpriteNotice { get; private set; }
+    /// <summary>Overrides the client rain images (tests). When null the product reads Sprite.pak once on first rain.</summary>
+    public WeatherSpriteSet? WeatherSpritesOverride { get; set; }
+    /// <summary>Last frame prepared by PrepareAmbience (diagnostics and tests).</summary>
+    public AmbienceFrame? LastAmbienceFrame { get; private set; }
+    /// <summary>True when the scene must go through an off-screen bitmap this frame (darkened, raining/snowing).</summary>
+    public static bool AmbienceVisible(AmbienceFrame frame) => frame.Shaded || frame.Precipitation;
+
+    WeatherSprite? WeatherSprites() {
+        if (WeatherSpritesOverride is { } fixedSet) return fixedSet.Sprite;
+        if (!weatherSpritesTried) {
+            weatherSpritesTried = true;
+            try { weatherSprites = WeatherSpriteSet.Load(); WeatherSpriteNotice = null; }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidDataException or ArgumentException or OverflowException) {
+                // Rain layers 0/1 need the original images; the procedural layers (2/3, snow) still draw.
+                weatherSprites = WeatherSpriteSet.ProceduralOnly;
+                WeatherSpriteNotice = "雨圖 924–927 無法讀取，只畫程序圖樣：" + ex.Message;
+                System.Diagnostics.Trace.WriteLine(WeatherSpriteNotice);
+            }
+        }
+        return weatherSprites?.Sprite;
+    }
+
+    /// <summary>Once per painted frame: read the ambience state, stamp the light map (only while shaded, AM§1(i)) and
+    /// advance the weather pools (sub_F0E290 / sub_F0E0D0). Call after ComposeObjects with its visuals; now is a
+    /// millisecond clock. Returns the frame to paint.</summary>
+    public AmbienceFrame PrepareAmbience(WorldSession session, IReadOnlyList<ObjectVisual> visuals, long now, AmbienceLightImages? images = null) {
+        var frame = session.Ambience.At(now);
+        // The blind light (AM§4(b), own k=5) is stamped from Source.lmp too; make sure it is read even in daylight.
+        if (session.BlindMode != 0) AmbienceImages();
+        if (frame.Shaded) ComposeAmbienceLights(session, visuals, images);
+        else { AmbienceLightMap.Clear(); AmbienceLightSources = []; AmbienceWindow = OwnCombatVisual is { } own ? AmbienceWindowAt(own.Foot) : Rectangle.Empty; }
+        StepWeather(session.Ambience.Particles, frame, now);
+        return LastAmbienceFrame = frame;
+    }
+
+    /// <summary>Advance the particles by the time since the previous call (the pools cap one frame at 500 ms). The camera
+    /// compensation is the own displayed foot's horizontal movement in 800-wide screen pixels, with the opposite sign so
+    /// rain stays put in the world while the view scrolls (推測: the native sign is not pinned). Jumps of a full screen
+    /// or more (teleport, map change) shift nothing.</summary>
+    public void StepWeather(WeatherParticles particles, AmbienceFrame frame, long now) {
+        long elapsed = weatherStepAt < 0 ? 0 : Math.Max(0, now - weatherStepAt); weatherStepAt = now;
+        int shift = 0;
+        if (OwnCombatVisual is { } own) {
+            if (weatherFoot is PointF last) {
+                float dx = own.Foot.X - last.X;
+                if (Math.Abs(dx) < WeatherParticles.Width) { float wanted = weatherShiftRemainder - dx; shift = (int)MathF.Truncate(wanted); weatherShiftRemainder = wanted - shift; }
+                else weatherShiftRemainder = 0;
+            }
+            weatherFoot = own.Foot;
+        } else { weatherFoot = null; weatherShiftRemainder = 0; }
+        particles.Step(frame, elapsed, shift);
+    }
+
+    /// <summary>AM§2(b) order on an off-screen scene bitmap covering sceneArea (1 bitmap pixel = 1 scene pixel): rain or
+    /// snow inside the 800×480 AmbienceWindow first, then the day/night shading over everything. While blind (S47 ≠ 0)
+    /// the affliction composition already went through the lighting table with the blind level (AM§4(b)), so the
+    /// day/night pass is skipped to avoid darkening twice.</summary>
+    public void PaintAmbienceScene(Bitmap scene, Rectangle sceneArea, AmbienceFrame frame, WeatherParticles particles, ushort blindMode = 0, WeatherSprite? sprite = null) {
+        if (frame.Precipitation && !AmbienceWindow.IsEmpty && (sprite ?? WeatherSprites()) is { } draw) {
+            var viewport = AmbienceWindow; viewport.Offset(-sceneArea.X, -sceneArea.Y);
+            using var graphics = Graphics.FromImage(scene);
+            graphics.SetClip(viewport);
+            AmbiencePainter.DrawWeather(graphics, viewport, frame, particles, draw);
+        }
+        if (blindMode == 0) ShadeAmbience(scene, sceneArea, frame);
     }
 
     /// <summary>Shade a scene bitmap covering sceneArea (1 bitmap pixel = 1 scene pixel, e.g. SceneView) with the light
@@ -569,7 +646,7 @@ public static class AmbiencePainter {
 
     /// <summary>Particles in TW16 800×480 coordinates, scaled to the viewport. Without a sprite source nothing is drawn:
     /// the original rain/snow art is not available (T167) and no substitute is used.</summary>
-    static void DrawWeather(Graphics graphics, Rectangle viewport, AmbienceFrame frame, WeatherParticles? particles, WeatherSprite? sprite) {
+    internal static void DrawWeather(Graphics graphics, Rectangle viewport, AmbienceFrame frame, WeatherParticles? particles, WeatherSprite? sprite) {
         if (particles == null || sprite == null || !frame.Precipitation) return;
         float sx = (float)viewport.Width / WeatherParticles.Width, sy = (float)viewport.Height / WeatherParticles.Height;
         foreach (var particle in particles.Active(frame))
