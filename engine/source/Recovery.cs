@@ -102,9 +102,20 @@ public static class UserPlayStatsText {
 /// T272（#649）死亡統計窗的數值（SS§3.1、FU3§4.2）。ExpGain＝(等級×100＋經驗%) 差；AdenaGain＝金幣差；Kills 恆為 0（3.81 不送 S250／61）；
 /// NewItems＝新物品清單筆數；Baseline＝已有登入背包基準。DungeonTimes＝最近一次 S250／159（null＝還沒收到）。
 /// </summary>
-public sealed record UserPlayStatsValues(decimal? ExpGain,long? AdenaGain,int Kills,int NewItems,bool Baseline,IReadOnlyList<PacketBoxMapTime>? DungeonTimes);
+public sealed record UserPlayStatsValues(decimal? ExpGain,long? AdenaGain,int Kills,int NewItems,bool Baseline,IReadOnlyList<PacketBoxMapTime>? DungeonTimes){
+    /// <summary>T290：新物品清單（UserObtainUI 的列），依第一次記入的順序；NewItems＝筆數。</summary>
+    public IReadOnlyList<UserObtainEntry> Obtained {get;init;}=[];
+}
+/// <summary>新物品清單的一列：Gain＝高於基準的數量（差額）；Name＝伺服器原字串（"$n" 未解析，已去掉尾端 " (數量)"）；Icon＝背包圖示 gfx。</summary>
+public sealed record UserObtainEntry(uint Id,uint Gain,string Name,int Icon);
 
 public static class UserPlayStatsRules {
+    /// <summary>SS§3.1 sub_C0BA30：重設後停用 1000 ms（計時器 sub_C0AE50 再設回可用）。</summary>
+    public const int ResetCooldownMs=1000;
+    /// <summary>FU3§4.2 sub_C038D0 的名稱備援只在旗標 0x80 時成立（3.81 S_AddItem 的祝福 byte 封印時 +128，推測就是這一位）。</summary>
+    public const byte NameFallbackFlag=0x80;
+    /// <summary>"$26 (5)" → "$26"：去掉伺服器在名稱尾端加的 " (數量)"（與 ItemText.Name 相同規則）。</summary>
+    public static string BareName(string name,uint count){string suffix=" ("+count+")";return name.EndsWith(suffix,StringComparison.Ordinal)?name[..^suffix.Length]:name;}
     /// <summary>FU3§4.2 / SS§3.1：統計窗顯示時送 TW16 op 10 子碼 9＝3.81 C63 `C(9)`（SS2§14），伺服器回 S250／159。</summary>
     public const byte DungeonTimeOpcode=63,DungeonTimeSubtype=9;
     public static byte[] DungeonTimeRequest()=>LoginPackets.Pad([DungeonTimeOpcode,DungeonTimeSubtype]);
@@ -115,7 +126,8 @@ public static class UserPlayStatsRules {
 public sealed record UserPlayStatsButton(string Name,int X,int Y,int? BaseSurf,string MouseEvent,int? HighlightSurf=null,int? PushSurf=null);
 public sealed record UserPlayStatsRow(string Name,int? IconSurf,int IconY,int? StringId,int LabelWidth,int ValueWidth,int Height,int Gap,Color LabelColor,Color ValueColor);
 /// <summary>執行期由原客戶端 Tile.pak 的 UserPlayUI.xml 解析；缺節點或屬性丟 UiLayoutException，不補預設座標。</summary>
-public sealed record UserPlayStatsLayout(int? BaseSurf,int? FrameSurf,bool Toggle,UserPlayStatsButton Restart,UserPlayStatsButton Quit,UserPlayStatsButton Cancel,UserPlayStatsButton? Close,int ListX,int ListY,int RowHeight,IReadOnlyList<UserPlayStatsRow> Rows,int WindowX=0,int WindowY=0,int? Moveable=null) {
+/// <remarks>Reset＝Window 下的 Reset_Button（選用；T290）。</remarks>
+public sealed record UserPlayStatsLayout(int? BaseSurf,int? FrameSurf,bool Toggle,UserPlayStatsButton Restart,UserPlayStatsButton Quit,UserPlayStatsButton Cancel,UserPlayStatsButton? Close,int ListX,int ListY,int RowHeight,IReadOnlyList<UserPlayStatsRow> Rows,int WindowX=0,int WindowY=0,int? Moveable=null,UserPlayStatsButton? Reset=null) {
     public const string FileName="UserPlayUI";
     public const string RootName="UserPlayStatsUI";
     public static UserPlayStatsLayout From(UiLayout layout){
@@ -140,7 +152,7 @@ public sealed record UserPlayStatsLayout(int? BaseSurf,int? FrameSurf,bool Toggl
         }).ToArray();
         int rowHeight=rows.Length==0?0:rows[0].Height;
         return new(FirstSurf(window,"BaseSurf"),FirstSurf(window,"FrameSurf"),string.Equals(root.Attr("Toggle"),"true",StringComparison.OrdinalIgnoreCase),
-            Find("Restart_Button",true)!,Find("Quit_Button",true)!,Find("Cancel_Button",true)!,Find("CloseWindow_Button",false),list.Int("X"),list.Int("Y"),rowHeight,rows,window.Int("X"),window.Int("Y"),window.TryInt("Moveable"));
+            Find("Restart_Button",true)!,Find("Quit_Button",true)!,Find("Cancel_Button",true)!,Find("CloseWindow_Button",false),list.Int("X"),list.Int("Y"),rowHeight,rows,window.Int("X"),window.Int("Y"),window.TryInt("Moveable"),Find("Reset_Button",false));
     }
     /// <summary>"5322;1" → 5322；原版解析只取第一個數字（V4 (b)）。沒有屬性或空值＝不畫。</summary>
     public static int? FirstSurf(UiNode node,string name){
@@ -200,35 +212,54 @@ public sealed partial class WorldSession {
     // 進入世界後第一個 S8 記等級與經驗%（原版 S_STATUS 每次都呼叫，只在旗標為假時記一次）。WorldSession.Reset 在每次進入世界時跑。
     // 金幣：3.81 的金幣是背包物品，不在 S8；改以登入時整批背包（S5）裡的金幣當基準（推測的對應，原版取 S_STATUS 的 +16）。
     // 獲得道具：S5 建基準清單；S15 數量高於基準記差額；S24 數量回到基準以下移除、否則更新差額；S57 移除。
-    //   只用物品 id 比對；原版 S15 另有「名稱＋第 6 參數（推測祝福）、旗標 0x80」的備援比對，沒有做（FU3§4.2 允許）。
+    //   S15 先用物品 id 比對；T290（#698）補上 sub_C038D0 的備援：基準沒有這個 id 時，用「名稱（去掉尾端數量）＋第 6 參數」找
+    //   基準清單，旗標 0x80 成立才沿用該筆的基準數量。第 6 參數＝S15 的第 6 個欄位（祝福 byte），旗標取同一個 byte 的 0x80
+    //   （3.81 S_AddItem 封印時 +128）——這個對應是推測（FU3§9：第 6 參數沒追到封包欄位）。
     // 這些都用 M7-A 觀察器（在核心處理前、看同一個封包），自己讀欄位；格式錯誤時不動狀態，交給核心處理器拒絕。
     byte? statsBaseLevel;decimal? statsBaseExp;bool statsExpBaseline,statsInventoryBaseline;long statsBaseAdena;
     readonly Dictionary<uint,uint> statsBaseItems=[],statsNewItems=[];
-    [WorldReset] void ResetUserPlayStats(){statsBaseLevel=null;statsBaseExp=null;statsExpBaseline=false;statsInventoryBaseline=false;statsBaseAdena=0;statsBaseItems.Clear();statsNewItems.Clear();}
+    readonly Dictionary<(string Name,byte Bless),uint> statsBaseNamed=[];
+    // 新物品清單的顯示資料（S15 當下的名稱與圖示；背包仍有時以背包為準）與第一次記入的順序（原版 vector 依加入順序）。
+    readonly Dictionary<uint,(string Name,int Icon,long Order)> statsNewItemInfo=[];long statsNewItemOrder;
+    [WorldReset] void ResetUserPlayStats(){statsBaseLevel=null;statsBaseExp=null;statsExpBaseline=false;statsInventoryBaseline=false;statsBaseAdena=0;statsBaseItems.Clear();statsBaseNamed.Clear();statsNewItems.Clear();statsNewItemInfo.Clear();}
+    /// <summary>
+    /// T290 重設鈕（SS§3.1 sub_C0BA30）：清空新物品清單、殺怪數歸 0（本來就恆為 0）、重建基準（sub_C0A800：等級、經驗%、金幣取目前值）。
+    /// 基準清單不動（FU3§4.2：只在整批背包封包時建立）。原版會送的 op 55／44 在 3.81 被忽略，不送。回傳 false＝沒有任何基準可重建。
+    /// </summary>
+    internal bool ResetUserPlayStatsBaseline(){
+        statsNewItems.Clear();statsNewItemInfo.Clear();
+        bool any=false;
+        if(Experience is {Percent:decimal cur} e){statsBaseLevel=e.Level;statsBaseExp=cur;statsExpBaseline=true;any=true;}
+        else{statsBaseLevel=null;statsBaseExp=null;statsExpBaseline=false;}   // 沒有目前經驗：下一個 S8 重新記
+        if(StatsInventoryBaseline){statsBaseAdena=CastleGoldHeld();statsInventoryBaseline=true;any=true;}
+        return any;
+    }
     [WorldReceive(8,Observe=true)]
     void ObserveStatsBaseline(byte[] plain){
         if(statsExpBaseline)return;
         try{var r=new LoginReader(plain);r.C();r.D();byte level=r.C();uint exp=r.D();statsExpBaseline=true;statsBaseLevel=level;statsBaseExp=DecodeExperience(level,exp,"S8").Percent;}
         catch(Exception e) when(e is ProtocolException or System.Text.DecoderFallbackException){}
     }
-    static (uint Id,uint Count,bool Adena) ObservedItem(LoginReader r){
-        uint id=r.D();ushort desc=r.H();r.C();r.C();ushort icon=r.H();r.C();uint count=r.D();r.C();string name=r.S();
+    sealed record ObservedStatsItem(uint Id,uint Count,bool Adena,string Name,ushort Icon,byte Bless);
+    static ObservedStatsItem ObservedItem(LoginReader r){
+        uint id=r.D();ushort desc=r.H();r.C();r.C();ushort icon=r.H();byte bless=r.C();uint count=r.D();r.C();string name=r.S();
         int status=r.C();for(int i=0;i<status;i++)r.C();for(int i=0;i<11;i++)r.C();
-        return (id,count,UserPlayStatsRules.IsAdena(desc,icon,name));
+        return new(id,count,UserPlayStatsRules.IsAdena(desc,icon,name),name,icon,bless);
     }
     [WorldReceive(5,Observe=true)]
     void ObserveObtainBaseline(byte[] plain){
-        var items=new List<(uint Id,uint Count,bool Adena)>();
+        var items=new List<ObservedStatsItem>();
         try{var r=new LoginReader(plain);r.C();int count=r.C();for(int i=0;i<count;i++)items.Add(ObservedItem(r));r.Finish();}catch(Exception e) when(e is ProtocolException or System.Text.DecoderFallbackException){return;}
-        // sub_C03720：每筆加進基準清單（同 id 以新數量為準）；金幣基準＝這份清單的金幣。
-        long adena=0;foreach(var (id,count,isAdena) in items){statsBaseItems[id]=count;if(isAdena)adena+=count;}
+        // sub_C03720：每筆加進基準清單（同 id 以新數量為準）；金幣基準＝這份清單的金幣。名稱＋第 6 參數另建一份給 S15 備援用。
+        long adena=0;
+        foreach(var i in items){statsBaseItems[i.Id]=i.Count;statsBaseNamed[(UserPlayStatsRules.BareName(i.Name,i.Count),i.Bless)]=i.Count;if(i.Adena)adena+=i.Count;}
         statsBaseAdena=statsInventoryBaseline?statsBaseAdena:adena;statsInventoryBaseline=true;
     }
     [WorldReceive(15,Observe=true)]
     void ObserveObtainAdd(byte[] plain){
-        (uint Id,uint Count,bool Adena) item;
+        ObservedStatsItem item;
         try{var r=new LoginReader(plain);r.C();item=ObservedItem(r);r.Finish();}catch(Exception e) when(e is ProtocolException or System.Text.DecoderFallbackException){return;}
-        ObtainAdded(item.Id,item.Count);
+        ObtainAdded(item.Id,item.Count,UserPlayStatsRules.BareName(item.Name,item.Count),item.Bless,NativeUi.ItemIconSource.IconOf(item.Icon,item.Bless));
     }
     [WorldReceive(24,Observe=true)]
     void ObserveObtainChange(byte[] plain){
@@ -239,26 +270,45 @@ public sealed partial class WorldSession {
     [WorldReceive(57,Observe=true)]
     void ObserveObtainRemove(byte[] plain){
         uint id;try{var r=new LoginReader(plain);r.C();id=r.D();r.Finish();}catch(Exception e) when(e is ProtocolException or System.Text.DecoderFallbackException){return;}
-        statsNewItems.Remove(id);
+        RemoveObtained(id);
     }
-    /// <summary>sub_C038D0（S15）：基準數量 ≥ 新數量不計；基準較少記差額；基準沒有記全部數量。</summary>
-    internal void ObtainAdded(uint id,uint count){
+    void SetObtained(uint id,uint gain){
+        statsNewItems[id]=gain;
+        if(!statsNewItemInfo.ContainsKey(id))statsNewItemInfo[id]=("",0,++statsNewItemOrder);
+    }
+    void RemoveObtained(uint id){statsNewItems.Remove(id);statsNewItemInfo.Remove(id);}
+    /// <summary>
+    /// sub_C038D0（S15）：基準有同 id→數量 ≥ 新數量不計、較少記差額；基準沒有這個 id→用名稱＋第 6 參數找基準，旗標 0x80 成立時沿用
+    /// 該筆基準數量（同上比較）；都沒有→記全部數量。name 是去掉尾端數量的伺服器名稱；bless＝第 6 參數；icon 只用來顯示。
+    /// </summary>
+    internal void ObtainAdded(uint id,uint count,string name="",byte bless=0,int icon=0){
         if(id==0||count==0)return;
-        if(statsBaseItems.TryGetValue(id,out uint b)){if(b>=count)return;statsNewItems[id]=count-b;}
-        else statsNewItems[id]=count;
+        uint? baseCount=statsBaseItems.TryGetValue(id,out uint b)?b
+            :(bless&UserPlayStatsRules.NameFallbackFlag)!=0&&name.Length>0&&statsBaseNamed.TryGetValue((name,bless),out uint nb)?nb:null;
+        if(baseCount is uint bc){if(bc>=count)return;SetObtained(id,count-bc);}
+        else SetObtained(id,count);
+        if(name.Length>0||icon>0)statsNewItemInfo[id]=(name,icon,statsNewItemInfo[id].Order);
     }
     /// <summary>sub_C04B00（S24）：新數量 ≤ 基準→移除；新清單已有→改差額；只有基準→新增差額；兩邊都沒有→不動。</summary>
     internal void ObtainChanged(uint id,uint count){
         bool hasBase=statsBaseItems.TryGetValue(id,out uint b);
-        if(count<=b){statsNewItems.Remove(id);return;}
-        if(statsNewItems.ContainsKey(id)||hasBase)statsNewItems[id]=count-b;
+        if(count<=b){RemoveObtained(id);return;}
+        if(statsNewItems.ContainsKey(id)||hasBase)SetObtained(id,count-b);
     }
     bool StatsInventoryBaseline=>statsInventoryBaseline||InventoryLoaded;
+    /// <summary>UserObtainUI 的列：背包裡還有這個物品時用背包的名稱與圖示，否則用 S15 當下記下的。</summary>
+    IReadOnlyList<UserObtainEntry> ObtainedEntries()=>statsNewItems.Select(kv=>{
+        var info=statsNewItemInfo.GetValueOrDefault(kv.Key);
+        var entry=inventory.TryGetValue(kv.Key,out var item)
+            ?new UserObtainEntry(kv.Key,kv.Value,UserPlayStatsRules.BareName(item.Name,item.Count),NativeUi.ItemIconSource.IconOf(item.IconId,item.Bless))
+            :new UserObtainEntry(kv.Key,kv.Value,info.Name??"",info.Icon);
+        return (entry,info.Order);
+    }).OrderBy(x=>x.Order).Select(x=>x.entry).ToArray();
     /// <summary>目前的死亡統計值；沒有基準的欄位為 null。</summary>
     internal UserPlayStatsValues UserPlayStats(){
         decimal? exp=statsExpBaseline&&statsBaseLevel is byte bl&&statsBaseExp is decimal be&&Experience is {Percent:decimal cur} e?(e.Level*100m+cur)-(bl*100m+be):null;
         bool items=StatsInventoryBaseline;
-        return new(exp,items?CastleGoldHeld()-statsBaseAdena:null,0,statsNewItems.Count,items,MapTimes);
+        return new(exp,items?CastleGoldHeld()-statsBaseAdena:null,0,statsNewItems.Count,items,MapTimes){Obtained=ObtainedEntries()};
     }
     [WorldSnapshot("userPlayStats")]
     object UserPlayStatsSnapshotModel(){var v=UserPlayStats();return new{expGain=v.ExpGain,adenaGain=v.AdenaGain,kills=v.Kills,newItems=v.NewItems,baseline=v.Baseline,baseLevel=statsBaseLevel,baseExp=statsBaseExp,baseAdena=statsBaseAdena,newItemIds=statsNewItems.Keys.Order().ToArray()};}
@@ -287,6 +337,8 @@ public sealed partial class LoginConnection {
     public DeathView DeathSnapshot()=>CaptureWorld(()=>State==LoginState.InWorld?World.DeathSnapshot():new DeathView("alive",null,null,null,null,null,false,false,false));
     /// <summary>T272：死亡統計窗的數值（世界鎖內複製）。不在世界中為 null。</summary>
     public UserPlayStatsValues? UserPlayStatsSnapshot()=>State==LoginState.InWorld?CaptureWorld(World.UserPlayStats):null;
+    /// <summary>T290 重設鈕：在世界鎖內重建基準（不送封包；冷卻由呼叫端的視窗管）。不在世界中回 false。</summary>
+    public bool ResetUserPlayStats()=>State==LoginState.InWorld&&CaptureWorld(World.ResetUserPlayStatsBaseline);
     bool statsWindowShown;int statsWindowGeneration=-1;
     /// <summary>
     /// T272（SS2§14）：死亡統計窗每次由關變開（vtable sub_C0AED0）送一次 C63 `C(9)`，伺服器回 S250／159 地監時間清單。
@@ -361,6 +413,8 @@ public sealed partial class ClientForm {
     readonly Label recoveryNotice=new(){AutoSize=false,ForeColor=Color.White,BackColor=Color.Transparent};
     readonly Button restartButton=new(){Text="重新開始"},deathQuitButton=new(){Text="結束"},deathCancelButton=new(){Text="取消"},deathCloseButton=new(){Text="×",Visible=false};
     readonly Button deathReopenButton=new(){Text="死亡選單",Size=new(96,26),Visible=false};
+    // T290：Reset_Button（XML 有時才顯示）；按下重建基準並停用 1000 ms（SS§3.1 sub_C0BA30）。
+    readonly Button deathResetButton=new(){Text="重設",Visible=false};long deathResetReadyAt;
     readonly List<Label> deathStatLabels=[];readonly List<(Label Label,int? StringId)> deathValueLabels=[];
     readonly System.Windows.Forms.Timer deathTimer=new(){Interval=250};
     volatile UserPlayStatsLayout? deathLayout;volatile string deathLayoutNotice="正在讀取原客戶端 UserPlayUI.xml。";
@@ -368,7 +422,11 @@ public sealed partial class ClientForm {
     internal string? DeathLayoutError {get;private set;}
     bool nativeRecoveryShown;
     void InitRecovery(){
-        recoveryPanel.Controls.AddRange([recoveryNotice,restartButton,deathQuitButton,deathCancelButton,deathCloseButton]);Controls.Add(recoveryPanel);Controls.Add(deathReopenButton);
+        recoveryPanel.Controls.AddRange([recoveryNotice,restartButton,deathQuitButton,deathCancelButton,deathCloseButton,deathResetButton]);Controls.Add(recoveryPanel);Controls.Add(deathReopenButton);
+        deathResetButton.Click+=(_,_)=>{
+            long now=Environment.TickCount64;if(now<deathResetReadyAt)return;
+            login.ResetUserPlayStats();deathResetReadyAt=now+UserPlayStatsRules.ResetCooldownMs;SyncRecovery();
+        };
         restartButton.Click+=async(_,_)=>await DeathRestart();
         deathQuitButton.Click+=(_,_)=>DeathQuit();
         deathCancelButton.Click+=(_,_)=>DeathDismiss();
@@ -386,7 +444,7 @@ public sealed partial class ClientForm {
             var resources=UiResources.Shared;
             var layout=UserPlayStatsLayout.From(resources.Xml.Load(UserPlayStatsLayout.FileName));
             var surfs=new Dictionary<int,Bitmap>();
-            foreach(int? id in new[]{layout.BaseSurf,layout.Restart.BaseSurf,layout.Quit.BaseSurf,layout.Cancel.BaseSurf,layout.Close?.BaseSurf}.Concat(layout.Rows.Select(r=>r.IconSurf)))
+            foreach(int? id in new[]{layout.BaseSurf,layout.Restart.BaseSurf,layout.Quit.BaseSurf,layout.Cancel.BaseSurf,layout.Close?.BaseSurf,layout.Reset?.BaseSurf}.Concat(layout.Rows.Select(r=>r.IconSurf)))
                 if(id is int surf&&!surfs.ContainsKey(surf)&&resources.Surfs.Get(surf) is {} s)surfs[surf]=new Bitmap(s.Bitmap); // Own a copy: catalog bitmaps may be evicted.
             deathSurfs=surfs;deathLayout=layout;deathLayoutNotice="";
         }catch(Exception ex){deathLayoutNotice="（引擎面板：原客戶端 UserPlayUI 不可用）";DeathLayoutError=ex.GetType().Name+": "+ex.Message;}
@@ -408,6 +466,7 @@ public sealed partial class ClientForm {
         }
         Place(restartButton,layout.Restart);Place(deathQuitButton,layout.Quit);Place(deathCancelButton,layout.Cancel);
         if(layout.Close is {} close){Place(deathCloseButton,close);deathCloseButton.Visible=true;}
+        if(layout.Reset is {} reset){Place(deathResetButton,reset);deathResetButton.Visible=true;}
         // Rows of UserPlayStats_List (Vertical list, Horizontal rows: icon, name, value). The list's exact flow rule is inferred.
         foreach(var l in deathStatLabels){recoveryPanel.Controls.Remove(l);l.Dispose();}deathStatLabels.Clear();deathValueLabels.Clear();
         for(int i=0;i<layout.Rows.Count;i++){
@@ -447,6 +506,7 @@ public sealed partial class ClientForm {
         public void Quit()=>form.DeathQuit();
         public void Dismiss()=>form.DeathDismiss();
         public void ShowMessage(string text)=>form.SetSingleActionNotice(text);
+        public void Reset()=>form.login.ResetUserPlayStats();
     }
     sealed class QuitWindowSource(ClientForm form):IQuitWindowSource {
         public QuitWindowView? Current=>form.login.QuitWindowSnapshot();
@@ -491,6 +551,6 @@ public sealed partial class ClientForm {
         recoveryNotice.Text=(login.World.RestartRequested?"已送出重新開始，等待伺服器恢復。":"角色已死亡。")+(deathLayoutNotice.Length>0?"\n"+deathLayoutNotice:"");
         var stats=login.UserPlayStatsSnapshot();
         foreach(var (label,id) in deathValueLabels){string text=UserPlayStatsText.Value(stats,id)??UserPlayStatsPanel.ValuePlaceholder;if(label.Text!=text)label.Text=text;}
-        restartButton.Enabled=login.CanRestart;recoveryPanel.BringToFront();
+        restartButton.Enabled=login.CanRestart;deathResetButton.Enabled=Environment.TickCount64>=deathResetReadyAt;recoveryPanel.BringToFront();
     }
 }

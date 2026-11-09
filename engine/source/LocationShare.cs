@@ -12,9 +12,10 @@ namespace P06;
 //   string-c.tbl (same ids there are unrelated messages). sub_8D43B0 fills 1784 "%s從 %s地區…" with the sender and the
 //   region record +8 as the two %s. Both tables are installed by LocationRegionLoader at run time (read-only from the client);
 //   without them (CI, tests) the numbered placeholders 〔訊息1784〕 / 〔訊息1785〕 / 〔訊息2139〕 / 〔字串N〕 stay.
-//   The chat line keeps PlayerChat.cs's "[座標] sender：" prefix (outside this task), so the first %s (sender) is left empty in
-//   Format and the link covers the rest of 1784. mapDesc ids past MapDesc-c.tbl: the original uses desc-c.tbl 4266 (not loaded
-//   by the engine; 3.81 MapSystem never reaches it) — shown as the bare region number instead.
+// - T290 (#698): with 1784 from string-c.tbl the chat line is exactly 1784 filled with (sender, region) — no engine prefix —
+//   and the location link covers the whole line (ChatLine / LinkText). Without the table (CI, tests) the labelled
+//   "[座標] sender：placeholder" form stays, because the original text cannot be reproduced. mapDesc ids past MapDesc-c.tbl use
+//   desc-c.tbl record 4266 like sub_A730A0 (3.81 MapSystem never reaches it); without desc-c.tbl the bare region number is shown.
 // R2-M (#619): the 10-record list is cleared by [WorldReset] and shown by NativeUi/LocationListPanel.cs.
 public sealed record SharedLocation(ushort Map,ushort X,ushort Y,uint Zone);
 
@@ -96,12 +97,19 @@ public static class LocationShareProtocol {
     public static ServerStringTable? Strings{get=>Volatile.Read(ref strings);set=>Volatile.Write(ref strings,value);}
     /// <summary>MapDesc-c.tbl for region names (installed by LocationRegionLoader; null = 〔字串N〕 placeholders).</summary>
     public static ServerStringTable? MapDesc{get=>Volatile.Read(ref mapDesc);set=>Volatile.Write(ref mapDesc,value);}
+    static ServerStringTable? desc;
+    /// <summary>desc-c.tbl for the out-of-range mapDesc name (record 4266; installed by LocationRegionLoader; null = bare id).</summary>
+    public static ServerStringTable? Desc{get=>Volatile.Read(ref desc);set=>Volatile.Write(ref desc,value);}
+    /// <summary>sub_A730A0: mapDesc ≥ MapDesc-c.tbl count → desc-c.tbl record 4266 (SS§4.1).</summary>
+    public const int OutOfRangeMapDescId=4266;
     static string? Message(int id)=>Strings is {} t&&id<t.Count&&ServerMessageText.DisplayText(t[id]) is {Length:>0} s?s:null;
-    /// <summary>Region name: MapDesc-c.tbl[mapDesc] when loaded; the bare id when the zone or the record is unknown.</summary>
+    /// <summary>Region name: MapDesc-c.tbl[mapDesc] when loaded (desc-c.tbl 4266 past its end); the bare id when unknown.</summary>
     public static string RegionLabel(uint zone){
         if(Regions.Find(zone) is not {} region)return $"地區{zone}";
         if(MapDesc is not {} names)return $"地區{zone}〔字串{region.MapDesc}〕";
-        return region.MapDesc<names.Count&&ServerMessageText.DisplayText(names[region.MapDesc]).Trim() is {Length:>0} name?name:$"地區{zone}";
+        if(region.MapDesc>=names.Count)
+            return Desc is {} d&&OutOfRangeMapDescId<d.Count&&ServerMessageText.DisplayText(d[OutOfRangeMapDescId]).Trim() is {Length:>0} fallback?fallback:$"地區{zone}";
+        return ServerMessageText.DisplayText(names[region.MapDesc]).Trim() is {Length:>0} name?name:$"地區{zone}";
     }
     /// <summary>
     /// sub_8D43B0's C-style "%s" fill of 1784: each "%s" takes the next argument (missing ones become empty), "%%" → "%".
@@ -123,6 +131,15 @@ public static class LocationShareProtocol {
     public static string Format(SharedLocation location)=>Message(ReceivedMessageId) is {} template
         ?FormatC(template,"",RegionLabel(location.Zone))
         :$"{RegionLabel(location.Zone)}〔訊息{ReceivedMessageId}〕";
+    /// <summary>
+    /// T290: the whole chat line of a received share. With 1784 from string-c.tbl: exactly sub_8D43B0's line, 1784 filled with
+    /// (sender, region). Without the table: the engine's labelled form "[座標] sender：" + <see cref="Format"/>.
+    /// </summary>
+    public static string ChatLine(string sender,SharedLocation location)=>Message(ReceivedMessageId) is {} template
+        ?FormatC(template,sender,RegionLabel(location.Zone))
+        :$"[座標] {sender}：{Format(location)}";
+    /// <summary>The clickable part at the end of <see cref="ChatLine"/>: the whole line with the table, else the placeholder text.</summary>
+    public static string LinkText(string sender,SharedLocation location)=>Message(ReceivedMessageId)!=null?ChatLine(sender,location):Format(location);
     /// <summary>1785 (TransferMenu prompt) plus the engine's input rule.</summary>
     public static string PromptText=>Message(PromptMessageId) is {} prompt?prompt+"（不可含空白，最多 52 字）":$"〔訊息{PromptMessageId}〕請輸入收件角色名稱（不可含空白，最多 52 字）。";
     public static uint ZoneFor(ushort map)=>Regions.RegionFor(map)??0;
@@ -228,7 +245,7 @@ public static class LocationSharePresentation {
         var links=new List<LocationChatLink>();int start=0;
         for(int i=0;i<lines.Length;i++){
             if(view.Lines[i].Location is {} location){
-                int length=LocationShareProtocol.Format(location).Length;
+                int length=LocationShareProtocol.LinkText(view.Lines[i].Text,location).Length;
                 links.Add(new(start+lines[i].Length-length,length,view.Lines[i].Sequence,location));
             }
             start+=lines[i].Length+1;
@@ -363,6 +380,11 @@ public static class LocationRegionLoader {
             try{LocationShareProtocol.MapDesc=TextArchive.Open(GroundSpriteReader.ClientRoot).ReadMapDesc();}
             catch(Exception ex) when(ex is IOException or InvalidDataException or UnauthorizedAccessException or System.Security.Cryptography.CryptographicException or ArgumentException or System.Text.DecoderFallbackException){
                 System.Diagnostics.Trace.WriteLine("[location-share] "+TextArchive.MapDescFileName+" unavailable: "+ex.Message);
+            }
+            // T290: desc-c.tbl only supplies record 4266 for mapDesc ids past MapDesc-c.tbl (sub_A730A0).
+            try{LocationShareProtocol.Desc=TextArchive.Open(GroundSpriteReader.ClientRoot).ReadDesc();}
+            catch(Exception ex) when(ex is IOException or InvalidDataException or UnauthorizedAccessException or System.Security.Cryptography.CryptographicException or ArgumentException or System.Text.DecoderFallbackException){
+                System.Diagnostics.Trace.WriteLine("[location-share] "+TextArchive.DescFileName+" unavailable: "+ex.Message);
             }
             var (text,resolved)=P06.NativeUi.UiResources.Shared.Xml.ReadText("MapSystem");
             var table=LocationRegionTable.Parse(text);

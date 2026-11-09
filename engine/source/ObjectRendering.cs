@@ -37,7 +37,8 @@ public sealed partial class Renderer {
             int stepMs=shop?a.StepMs:NormalSpeed.AnimationMs(a.StepMs,o.MotionAt!=0?o.MotionSpeed:o.Speed,o.MotionAt!=0?o.MotionBrave:o.Brave);double elapsed=now-o.MotionAt;bool moving=!door&&!shop&&o.MotionAt!=0&&elapsed<stepMs;
             // 換成 1120 時原版播動作 0（走路，即姿勢動作）。
             string action=door?(o.DoorAction==28?"open":"close"):shop?"shop":moving||resolved?.Substituted==true||otherAction?"walk":"breath";double animationElapsed=door?session.DoorPlaybackElapsed(o.ObjectId,now)??double.MaxValue:shop?now-o.ShopAt:moving?elapsed*a.StepMs/stepMs:now-o.UpdatedAt;
-            long stamp=shop?o.ShopAt:moving?o.MotionAt:o.UpdatedAt;
+            // 門的動作實例＝這次開／關播放的開始時間（每次 S_DOOR 開關重新觸發一次 `]`）。
+            long stamp=door?DoorPlaybackStamp(animationElapsed,now):shop?o.ShopAt:moving?o.MotionAt:o.UpdatedAt;
             Func<ObjectAppearance?> bare=()=>catalog.Get(drawGfx,0);
             if(!door&&!shop&&WithProjectileHit(o.ObjectId,o.Combat,now,o.Dead) is {} combat){
                 string requested=combat.Action switch{1=>"attack",2=>"damage",8=>"die",18=>"spellDir",19=>"spellNoDir",_=>"unsupported"};
@@ -54,7 +55,9 @@ public sealed partial class Renderer {
             int x=moving?o.SourceX:o.X,y=moving?o.SourceY:o.Y;
             // `]`／`{`／`}` (effects-2.md §2): children take this frame's position and direction; an invisible
             // other object's state flag is copied, so its children are not drawn either.
-            if(!door)ObserveOwnerFrames(session,$"o{o.ObjectId}",o.ObjectId,a,action,o.Direction,cadence,$"{action}:{stamp}",animationElapsed,x,y,o.ObjectId!=session.Actor?.ObjectId&&(o.Flags&2)!=0,now);
+            // T290（#698，gap-matrix 13.2 第 8 點、TWP§3.4）：門在原版也是 UserObject，開關動作的 `]` 同樣由 sub_A4B060 處理，
+            // 所以門不再排除。門沒有播放中的動作時 DoorPlaybackElapsed 是 null（elapsed＝MaxValue），ObserveOwnerFrames 直接略過。
+            ObserveOwnerFrames(session,$"o{o.ObjectId}",o.ObjectId,a,action,o.Direction,cadence,$"{action}:{stamp}",animationElapsed,x,y,o.ObjectId!=session.Actor?.ObjectId&&(o.Flags&2)!=0,now);
             draws.AddRange(ShadowDraws(a,frame,x,y,o.ObjectId));
             // An authenticated original zero-tile frame is transparent, not a missing asset.
             if(frame.Blocks.Length==0){vs.Add(new(o.ObjectId,o.Gfx,a.Sprite,catalog.DisplayName(o),x,y,action,frame.Key,Coordinates.Screen(x,y),Rectangle.Empty,false,stepMs));continue;}
@@ -74,6 +77,8 @@ public sealed partial class Renderer {
         return composed;
     }
     public IReadOnlyDictionary<uint,Rectangle> ActorBounds {get;private set;}=new Dictionary<uint,Rectangle>();
+    /// <summary>T290：門播放實例的時間戳（播放開始＝now − elapsed）；沒有播放中的動作（elapsed＝MaxValue）時是 0。</summary>
+    internal static long DoorPlaybackStamp(double elapsed,long now)=>elapsed<double.MaxValue/2?now-(long)elapsed:0;
 }
 
 // Name, title and emblem placement: docs/reference/actions-and-names.md 2.2-2.4 (TW16 sub_EFF300, sub_F01380,
@@ -82,8 +87,10 @@ public sealed record NameTarget(uint ObjectId,string Name,Rectangle Bounds,bool 
 // Outline：外框色（palette[0] 黑；怪物等級差選項開啟時改成等級差色，AN§2.4）。Line252：全名模式的 +252 淺藍行。
 public sealed record NameText(uint ObjectId,bool Title,string Text,ushort Color,PointF Position){public ushort Outline {get;init;}=NameColors.Outline;public bool Line252 {get;init;}}
 public sealed record NameEmblem(uint ObjectId,uint EmblemId,PointF Position,bool OverHead);
-// 名稱旁的小圖示（AN§2.3）：Kind＝"mark181-1"／"mark181-2"／"party"／"master"。圖源沒有查證，畫面不畫，只供版面與測試。
-public sealed record NameIcon(uint ObjectId,string Kind,PointF Position);
+// 名稱旁的小圖示（AN§2.3、FU5§1）：Kind＝"mark181-1"／"mark181-2"／"party"／"master"；Surf＝要畫的 surf（&lt;id&gt;.img，0＝不畫）。
+// party：隊長 surf 8264、隊員 surf 2826（sub_9551E0 的 map&lt;索引, surf&gt; 由誰填沒查到，一律 2826）；master：surf 773。
+// mark181：icon 5199（.tbt），3.81 不送 S250/148，S87 尾端也不會是 1／2（FU5§1），所以實際不會出現，Surf＝0。
+public sealed record NameIcon(uint ObjectId,string Kind,PointF Position){public int Surf {get;init;}}
 public sealed record NamePlan(NameText[] Texts,NameEmblem[] Emblems){public NameIcon[] Icons {get;init;}=[];}
 // 繪製名稱需要、但 3.81 封包不一定有的欄位。Kind＝原版物件種類（2／3／9／10）；Listed＝種類 10 的「名單內」；
 // LevelDiff＝物件等級 − 自己等級（方向是推測）。null／預設值＝不知道，不套用對應規則。
@@ -185,13 +192,17 @@ public static class NameLayout {
     }
     public static PointF HeadEmblem(Rectangle r)=>new(r.Left+(r.Width-EmblemWidth)/2,r.Top+HeadEmblemDy);
     // AN§2.3 滑鼠指到時的圖示：+181（1 或 2）在盟徽 X −10（有血盟）或 +10（無血盟），Y 同盟徽；
-    // 隊伍圖示在名稱 X＋名稱寬＋2，主人圖示 5 在名稱 X＋名稱寬＋7，Y 同名稱。
+    // 隊伍圖示在名稱 X＋名稱寬＋2，主人圖示在名稱 X＋名稱寬＋7，Y 同名稱（FU5§1 已驗證：sub_957A80、sub_EFF300 結尾）。
     public const int Mark181WithClanDx=-10,Mark181NoClanDx=10,PartyIconDx=2,MasterIconDx=7;
-    public static NameIcon[] HoverIcons(uint id,PointF name,PointF emblem,string text,bool clan,bool partyOther,byte mark181,bool master){
+    /// <summary>FU5§1：隊長 surf 8264（0x2048）、隊員退回 surf 2826、主人 surf 773（`push 305h`）。</summary>
+    public const int PartyLeaderSurf=8264,PartyMemberSurf=2826,MasterSurf=773;
+    /// <summary>主人圖示的地圖例外（sub_EFF300：地圖 ≠ 509）。</summary>
+    public const int MasterIconExcludedMap=509;
+    public static NameIcon[] HoverIcons(uint id,PointF name,PointF emblem,string text,bool clan,bool partyOther,byte mark181,bool master,bool partyLeader=false){
         var icons=new List<NameIcon>();float right=name.X+GlyphWidth*ByteLength(text);
         if(mark181 is 1 or 2)icons.Add(new(id,"mark181-"+mark181,new(emblem.X+(clan?Mark181WithClanDx:Mark181NoClanDx),emblem.Y)));
-        if(partyOther)icons.Add(new(id,"party",new(right+PartyIconDx,name.Y)));
-        if(master)icons.Add(new(id,"master",new(right+MasterIconDx,name.Y)));
+        if(partyOther)icons.Add(new(id,"party",new(right+PartyIconDx,name.Y)){Surf=partyLeader?PartyLeaderSurf:PartyMemberSurf});
+        if(master)icons.Add(new(id,"master",new(right+MasterIconDx,name.Y)){Surf=MasterSurf});
         return icons.ToArray();
     }
     // 全名模式（sub_F01380）：+252 行在 T−16（palette[54]），有這一行時名稱移到 T−29、X −3。
@@ -202,8 +213,10 @@ public static class NameLayout {
     }
     // 全名模式不畫：+196＝1、物件種類 2／3／9；種類 10 只畫名單內的。
     public static bool AllNamesSkips(int? kind,bool listed,bool war196)=>war196||kind is 2 or 3 or 9||kind==10&&!listed;
-    // 「怪物等級差」選項（0x13CE3FE ∈ {1,5}，只對種類 10）：外框改成等級差色。產品目前沒有選項 UI，預設關閉。
-    public static int MonsterLevelOption {get;set;}
+    // 「怪物等級差」外框（只對種類 10）：不是使用者選項，是 byte_13CE3FE 地區碼（sub_8BA680 依 GetACP() 設定），只有 1／5 才畫（FU5§1）。
+    // 台版 950＝3，所以永遠不畫；不做選項 UI。屬性保留給離線測試切換規則。
+    public const int TaiwanRegionCode=3;
+    public static int MonsterLevelOption {get;set;}=TaiwanRegionCode;
     public static ushort? LevelDiffOutline(int option,int? kind,int? diff)=>option is 1 or 5&&kind==10&&diff is int d?d switch{>=10=>0x7C00,>=3=>0x4200,<=-2=>0x02E0,_=>0x001F}:null;
     public static NamePlan Plan(WorldSession w,IReadOnlyList<NameTarget> targets,uint? hovered,bool showAll,long? now=null){
         var texts=new List<NameText>();var emblems=new List<NameEmblem>();var icons=new List<NameIcon>();
@@ -218,9 +231,9 @@ public static class NameLayout {
                 string title=w.DisplayTitle(t.ObjectId);bool partyOther=!t.Self&&w.IsPartyMemberId(t.ObjectId);var p=Hover(t.Bounds,title,t.Name,hasClan,partyOther);
                 if(p.Title is {} tp)texts.Add(new(t.ObjectId,true,title,color,tp){Outline=outline});
                 texts.Add(new(t.ObjectId,false,t.Name,color,p.Name){Outline=outline});if(hasClan)emblems.Add(new(t.ObjectId,clanId,p.Emblem,false));
-                // 主人圖示：有稱號、非職業外型、+248 非空、非戰爭（+196＝0）。
-                bool master=marks.Master&&title.Length>0&&!war196&&!TitleAndEmotePackets.ClassForm(w.GfxOf(t.ObjectId));
-                icons.AddRange(HoverIcons(t.ObjectId,p.Name,p.Emblem,t.Name,hasClan,partyOther,marks.Mark181,master));
+                // 主人圖示：地圖 ≠ 509、有稱號、非職業外型、+248 非空、非戰爭（+196＝0）（FU5§1）。
+                bool master=marks.Master&&title.Length>0&&!war196&&w.MapId!=MasterIconExcludedMap&&!TitleAndEmotePackets.ClassForm(w.GfxOf(t.ObjectId));
+                icons.AddRange(HoverIcons(t.ObjectId,p.Name,p.Emblem,t.Name,hasClan,partyOther,marks.Mark181,master,partyOther&&w.IsPartyLeaderId(t.ObjectId)));
             }else if(showAll&&!AllNamesSkips(marks.Kind,marks.Listed,war196)){
                 string line=TitleAndEmotePackets.DisplayText(marks.Line252);
                 if(line.Length>0){
@@ -241,6 +254,7 @@ public static class NameLayout {
 public sealed partial class WorldSession {
     internal (string Clan,uint ClanId) ClanIdentity(uint id)=>Actor?.ObjectId==id?(Actor.Clan,Actor.ClanId):objects.TryGetValue(id,out var o)?(o.Clan,o.ClanId):("",0u);
     internal bool IsPartyMemberId(uint id)=>id!=0&&partyMembers.Values.Any(m=>m.ObjectId==id);
+    internal bool IsPartyLeaderId(uint id)=>id!=0&&partyLeader.Length>0&&partyMembers.TryGetValue(partyLeader,out var m)&&m.ObjectId==id;
     internal bool InvisibleFlagOf(uint id)=>objects.TryGetValue(id,out var o)&&(o.Flags&2)!=0;
     internal int GfxOf(uint id)=>Actor?.ObjectId==id?Actor.Gfx:objects.TryGetValue(id,out var o)?o.Gfx:-1;
     // 3.81 封包能提供的部分：+248 主人名＝S87 owner 欄；+252 行＝個人商店標題（AN§2.1 推測）；等級差＝S87 等級 − 自己等級。
@@ -320,7 +334,12 @@ public sealed partial class ClientForm {
                 var p=Camera.ToView(e.Position);g.DrawImage(bitmap,p.X,p.Y,NameLayout.EmblemWidth*zoom,NameLayout.EmblemHeight*zoom);
             }
             // MingLiU 12 px, weight 400; outline colour palette[0]（或等級差色）at +-1 px, then the name colour (+204).
-            // plan.Icons（+181、隊伍、主人圖示）的圖源沒有查證，不畫。
+            // T290（FU5§1）：隊伍／主人圖示畫 surf（sub_E538D0 → sub_542370，畫在 (x, y)，不縮放以外的處理）。
+            // 原版缺 surf 會跳「Surf[%d] Error.」並結束程式；引擎改成缺圖不畫（本機 8264.img 沒有，隊長圖示因此不會出現）。
+            foreach(var icon in plan.Icons){
+                if(icon.Surf<=0||NameIconSurface(icon.Surf) is not {} surface)continue;
+                var p=Camera.ToView(icon.Position);g.DrawImage(surface.Bitmap,p.X,p.Y,surface.Width*zoom,surface.Height*zoom);
+            }
             using var font=new Font("MingLiU",NameLayout.FontPixels*zoom,FontStyle.Regular,GraphicsUnit.Pixel);var format=StringFormat.GenericTypographic;
             foreach(var t in plan.Texts){
                 var p=Camera.ToView(t.Position);using var brush=new SolidBrush(NameColors.ToColor(dim?AfflictionColors.Darken(t.Color):t.Color));using var outline=new SolidBrush(NameColors.ToColor(t.Outline));
@@ -328,6 +347,17 @@ public sealed partial class ClientForm {
                 g.DrawString(t.Text,font,brush,p.X,p.Y,format);
             }
         }finally{g.Restore(state);}
+    }
+    // 名稱旁圖示的 surf：執行期從原客戶端 Sprite*.pak 讀（SurfList.xml 對照，與原生 UI 同一份目錄），讀不到就不畫。
+    static bool nameIconResourcesTried;static P06.NativeUi.SurfCatalog? nameIconSurfs;
+    static P06.NativeUi.UiSurface? NameIconSurface(int surf){
+        if(!nameIconResourcesTried){
+            nameIconResourcesTried=true;
+            try{nameIconSurfs=P06.NativeUi.UiResources.Shared.Surfs;}
+            catch(Exception e){nameIconSurfs=null;System.Diagnostics.Trace.WriteLine("[name-icons] client surf catalog unavailable: "+e.Message);}
+        }
+        try{return nameIconSurfs?.Get(surf);}
+        catch(Exception e) when(e is IOException or InvalidDataException or P06.NativeUi.UiResourceException or P06.NativeUi.UiLayoutException){return null;}
     }
     // 城主王冠（sub_F08880）：圖源讀不到時不畫、不退回替代圖，只記一次事件。
     static CastleCrownImages? crownImages;static bool crownLoadTried;static Bitmap?[]? crownBitmaps;
