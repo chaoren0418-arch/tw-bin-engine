@@ -20,14 +20,15 @@
 - 聊天行寫進現有 `playerChatLines`（Speaker 0，與 `Castle.cs` 同一條路），聊天視窗不必改。另有 `PacketBoxMessageLines`（子碼、字串 id、參數、文字）、`PacketBoxMessageReceived` 事件與快照 `extensions.packetBoxMessages`。
 - 格式化：字串表這幾筆是 C 格式（`%s`／`%d` 依序代入），另支援 `%數字`、`%%`；顏色控制碼用 `ServerMessageText.DisplayText` 去掉。id ≥ 表筆數時不顯示（照原版 S71 規則），計入 `dropped`。沒有字串表（CI）時顯示「原服訊息 id：參數」，和 `ServerMessageText` 一樣。
 - 新檔 `engine/source/PacketBoxMessagesTests.cs`：`[WorldModuleTest("packetbox-messages")]` 69 項，由現有 `--module-tests` 入口與 CI 步驟自動執行。用的是**合成字串表（假文字）**，沒有遊戲字串進 repo。
-- `engine/_integration/dev/rebuild-lock.json`：同步 origin/main（#529 等 10 個 commit）後 `--update-lock` 重產（299 個來源、308 個鎖定檔）。
+- `engine/_integration/dev/rebuild-lock.json`：**不改**。#646 之後的政策是 PR 不改 lock，第二次同步 origin/main（#646、#628、#629、#562、#473 等）時 lock 衝突取 main 版本；lock 由調度器在合併後重產。
 
 ## 怎麼驗證（本機 Windows）
-- `rebuild.py --update-lock` → `--build --configfile scratch/issue-547/NuGet.Config`（指到原專案 `engine/vendor`，唯讀）：PASS，productDll SHA-256 `547196dc19a9b08ee64952b94eeba76a3c3c155aa88c6fe8d203f12b343a3e9a`（同步 main 後）。
+- （第一次，#646 之前）`rebuild.py --update-lock` → `--build --configfile scratch/issue-547/NuGet.Config`（指到原專案 `engine/vendor`，唯讀）：PASS，productDll SHA-256 `547196dc19a9b08ee64952b94eeba76a3c3c155aa88c6fe8d203f12b343a3e9a`（同步 main 後）。
 - `P11.ClientEngine.exe --module-tests`：結束碼 0，同步 main 後 25 組 1330 項全過（含新的 `packetbox-messages` 69 項、`packetbox-status` 86 項、`world-extensions` 39 項），Default 登錄表沒有錯誤。
 - `packetbox-messages` 涵蓋：12 個註冊項目、各子碼依 3.81 寫法合成的封包、城名／屬性名查表、79 有主與全部無主兩種、27 兩種寫法、只存資料的子碼不寫聊天欄、id 超出表筆數不顯示、沒有字串表時的 fallback、全部被消化（沒留在 `unhandledSubtypes`）、S250/56 仍由 `PacketBoxStatus` 處理、9 種格式錯誤一律丟例外且狀態和聊天欄不變、Reset 清空。
 - 用本機原客戶端字串表跑 scratch 探針（輸出沒進 git，看完已刪），聊天欄文字正確，例如「奇岩城的攻城戰開始。」、「等級45以上才可使用此道具。」、「忽然全身充滿了火的靈力。」、「新村長由…選出」、「已佔領城堡的血盟如下：」＋「[肯特城 = … 血盟]」。這也確認了 672／673 的 min／max 對應和 679＋n 的意思。
 - `engine/tools/check-no-game-assets.py`：pass，0 錯誤。
+- **第二次同步 origin/main 後重驗**（2026-11-09）：`rebuild.py --build` 印 WARN（暫時 lock，added 只有本任務兩個新檔）→ `PASS dev`，productDll `941d1449aa5990e4f9960d0bc10b026233a0152acc0d61fd2ddd2d8b08031722`；`--module-tests` 結束碼 0，32 組 1618 項全過（`packetbox-messages` 69、`packetbox-status` 86）；`check-no-game-assets.py` pass（3925 個追蹤檔、0 錯誤）。
 
 ## 沒驗什麼／推定
 - 沒有真實伺服器封包，只用依 3.81 欄位簽章合成的封包；沒啟動遊戲、伺服器或 DB。遠端 CI 結果以 PR 頁面為準；DemoChecks 等其他 CI 步驟沒在本機跑。
@@ -37,7 +38,7 @@
 - 0–2 TW16 讀 `d`，3.81 寫 `C H(0)`，照 3.81 解析。
 
 ## 產出路徑
-- `engine/source/PacketBoxMessages.cs`、`engine/source/PacketBoxMessagesTests.cs`、`engine/_integration/dev/rebuild-lock.json`、本報告；分支 `task/547`。
+- `engine/source/PacketBoxMessages.cs`、`engine/source/PacketBoxMessagesTests.cs`、本報告（對 main 的差異只有這三個檔）；分支 `task/547`。
 
 ## 給下一棒的提示
 - 原生聊天視窗不用改，S250 訊息已經在 `PlayerChatLines` 裡。要套原版顏色的話，可以讀 `PacketBoxMessageLines` 的字串 id 和原始字串表文字（目前去掉了 `\f` 控制碼）。
