@@ -237,3 +237,4 @@
 - 2026-11-09 — #620 T259：R2-N 個人商店窗接上產品（code，claude-local，PR 已合併）→ [報告](reports/issue-620.md)
 - 2026-11-09 — #626 T265：R2-L 狀態圖示資料收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-626.md)
 - 2026-11-09 — #624 T263：R2-J Yes/No 收尾（code，claude-local，PR #647 已合併）→ [報告](reports/issue-624.md)
+- 2026-11-09 — #609 T248：血盟公告與成員備註更新（PBW-C）（code，claude-local，PR 已合併）→ [報告](reports/issue-609.md)
