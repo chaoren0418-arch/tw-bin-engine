@@ -85,17 +85,30 @@ public static class AfflictionColors {
     // The 6/31 class bonus depends on an inferred class meaning and is not applied.
     public const int BlindTwoUnlit=4;
     public static ushort Darken(ushort color)=>Scale(color,BlindTwoUnlit);
-    // Own light while blind uses light index k=5. source.lmp is unread (T167), so the disc keeps the
-    // engine's former light radius for value 5 (5*24 px, removed from AmbiencePainter in #479) and a
-    // smooth edge; the shape is a presentation stand-in until the k=5 light image is available.
+    // Own light while blind uses light index k=5 (AM§3(c), §4(b)). The product stamps Source.lmp slot 5
+    // (72×36 cells, sub_97D2F0) once the renderer has read it (R2-A, T251). Only when Source.lmp is not
+    // available (CI, missing client) the former stand-in disc below is used: 5*24 px with a smooth edge.
+    public const int BlindLightSource=5;
     public const float BlindLightRadius=5*24f;
     public static int BlindLight(double distance){
         double edge=Math.Clamp((distance/BlindLightRadius-.15)/.85,0,1);
         return (int)Math.Round((1-edge*edge*(3-2*edge))*255)>>3;
     }
-    // Mode 1 is table level 0 (coefficient = light index, verified). Mode 2 is level 1: only its unlit
-    // entry 4 is documented, so the rise to 31 is interpolated linearly (inferred).
-    public static int BlindCoefficient(ushort mode,int light)=>mode==1?light:mode==2?BlindTwoUnlit+(31-BlindTwoUnlit)*light/31:31;
+    // Mode 1 is table level 0 (coefficient = light index). Mode 2 is level 1 of table mode 0 (AM§4(b));
+    // the whole row is in AmbienceCurve's table (unlit entry 4, lit entry 31). The 3 / mode-2-table class
+    // variant rests on an inferred class meaning and is not applied.
+    public static int BlindCoefficient(ushort mode,int light)=>mode==1?light:mode==2?AmbienceCurve.Coefficient(0,1,(byte)(Math.Clamp(light,0,31)<<3)):31;
+    /// <summary>Light index (0–31, light &gt;&gt; 3) of a Source.lmp k=5 stamp centred at the own light centre, for a scene
+    /// pixel offset (dx, dy) from that centre. Same cell mapping as AmbienceLightMap: the centre sits at (400, 240) of
+    /// an 800×480 window, left ((x−w)&gt;&gt;1)&amp;~3, top (y−h)&gt;&gt;1, one cell = 2×2 pixels.</summary>
+    public static int BlindLightStamp(AmbienceLightImages images,int dx,int dy){
+        int w=images.Width(BlindLightSource),h=images.Height(BlindLightSource);if(w<=0)return 0;
+        // Centre (400, 240) in full-resolution window pixels == (AmbienceLightMap.Width, AmbienceLightMap.Height).
+        int left=((AmbienceLightMap.Width-w)>>1)&~3,top=(AmbienceLightMap.Height-h)>>1;
+        int cx=((AmbienceLightMap.Width+dx)>>1)-left,cy=((AmbienceLightMap.Height+dy)>>1)-top;
+        if((uint)cx>=(uint)w||(uint)cy>=(uint)h)return 0;
+        return images.Image(BlindLightSource)[cy*w+cx]>>3;
+    }
 }
 
 public sealed partial class Renderer {
@@ -120,20 +133,27 @@ public sealed partial class Renderer {
                 draw=draw with{Tile=draw.Tile with{Pixels=draw.Tile.Pixels.Select(p=>p with{Color=AfflictionColors.Tint(p.Color,tint,clock)}).ToArray()}};
             Blit(draw,area,colors,mask,owners,entityOwners,session.InvisibilityOpacity(command,opacity?.Get(command)));
         }
-        if(blind!=0)ApplyBlindLight(session,blind,area,colors,commands);
+        if(blind!=0)ApplyBlindLight(session,blind,area,colors,commands,LoadedAmbienceImages,OwnCombatVisual?.Foot);
         return new(area,colors,mask,owners,commands,entityOwners);
     }
 
     // AM§4(b): while blind every pixel goes through the lighting table, and the only light left is the
-    // own k=5 disc. Mode 2's extra light on some object kinds rests on an inferred kind meaning: not done.
-    static void ApplyBlindLight(WorldSession session,ushort blind,Rectangle area,ushort[] colors,List<Draw> commands){
-        var center=BlindLightCenter(session,commands);
+    // own k=5 light: the Source.lmp slot 5 stamp when it has been read, else the stand-in disc.
+    // Mode 2's extra light on some object kinds rests on an inferred kind meaning: not done.
+    // The stamp is centred on the own displayed foot, like every other light-map source (AmbienceLights).
+    static void ApplyBlindLight(WorldSession session,ushort blind,Rectangle area,ushort[] colors,List<Draw> commands,AmbienceLightImages? images,PointF? foot=null){
+        bool stamp=images!=null&&images.Width(AfflictionColors.BlindLightSource)>0;
+        var center=stamp&&foot!=null?foot:BlindLightCenter(session,commands);
         int unlit=AfflictionColors.BlindCoefficient(blind,0);
         for(int i=0;i<colors.Length;i++){
             int f=unlit;
-            if(center is PointF c){double dx=area.X+i%area.Width+.5-c.X,dy=area.Y+i/area.Width+.5-c.Y;
-                if(Math.Abs(dx)<AfflictionColors.BlindLightRadius&&Math.Abs(dy)<AfflictionColors.BlindLightRadius)
-                    f=AfflictionColors.BlindCoefficient(blind,AfflictionColors.BlindLight(Math.Sqrt(dx*dx+dy*dy)));}
+            if(center is PointF c){
+                if(stamp){int dx=area.X+i%area.Width-(int)MathF.Floor(c.X),dy=area.Y+i/area.Width-(int)MathF.Floor(c.Y);
+                    f=AfflictionColors.BlindCoefficient(blind,AfflictionColors.BlindLightStamp(images!,dx,dy));}
+                else{double dx=area.X+i%area.Width+.5-c.X,dy=area.Y+i/area.Width+.5-c.Y;
+                    if(Math.Abs(dx)<AfflictionColors.BlindLightRadius&&Math.Abs(dy)<AfflictionColors.BlindLightRadius)
+                        f=AfflictionColors.BlindCoefficient(blind,AfflictionColors.BlindLight(Math.Sqrt(dx*dx+dy*dy)));}
+            }
             colors[i]=AfflictionColors.Scale(colors[i],f);
         }
     }

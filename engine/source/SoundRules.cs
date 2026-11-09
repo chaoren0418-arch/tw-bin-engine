@@ -115,7 +115,10 @@ public sealed partial class ClientForm
     // 產品內唯一的類別音量與判定點；冷卻用全域 SoundCooldown.Shared。延遲建立，不依賴 Form 建構子。
     SoundVolumes? soundVolumes;
     SoundGate? soundGate;
-    internal SoundVolumes SoundVolumes => soundVolumes ??= new();
+    // T252（#613）：只有產品 ClientForm 會 Arm 背景音樂／環境音／`^` 後端；真正建立在第一次進入世界組畫面時（ProductSoundBackends.cs）。
+    readonly bool productSoundArmed = ProductSound.Arm();
+    // 戰鬥音效、S22 與背景音樂／環境音共用同一份 4 類音量。
+    internal SoundVolumes SoundVolumes => soundVolumes ??= ClientSoundScene.Volumes;
     internal SoundGate SharedSoundGate => soundGate ??= new(SoundVolumes, SoundCooldown.Shared, () => Environment.TickCount64);
 }
 

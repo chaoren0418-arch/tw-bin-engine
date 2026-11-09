@@ -26,14 +26,30 @@ public sealed partial class Renderer {
         var vs=new List<ObjectVisual>();var unavailable=new List<WorldObject>();
         ComposeGround(session,catalog,draws,vs);
         foreach(var o in session.Objects){
-            bool door=o.Gfx==2346||session.IsDoor(o.ObjectId),shop=!door&&o.ShopActive&&!o.Dead;var a=door?catalog.GetDoor(o.Gfx):shop?catalog.GetShop(o.Gfx):catalog.Get(o.Gfx,o.Action);
-            if(a==null||o.AppearancePending||(!shop&&(!NormalSpeed.Supported(o.Speed,o.Brave)||o.MotionAt!=0&&!NormalSpeed.Supported(o.MotionSpeed,o.MotionBrave)))||(door?(o.DoorAction is not (28 or 29)||o.Dead||o.Combat!=null):o.ReceivedAction is not (null or 0 or 1 or 2 or 3 or 8 or 18 or 19 or 70))||!(session.MapCache?.Contains(o.X,o.Y)??Coordinates.Inside(o.X,o.Y))){unavailable.Add(o);continue;}
+            bool door=o.Gfx==2346||session.IsDoor(o.ObjectId),shop=!door&&o.ShopActive&&!o.Dead;
+            // R2-I（AN§3.4）：一般物件缺 (gfx, 姿勢) 時退回姿勢 0，整個 gfx 都沒有圖時改畫 gfx 1120（只對他人；自己不在 Objects 內）。
+            // 門與個人商店維持原本的嚴格判斷：沒有查證過的圖就不畫。
+            var resolved=door||shop?null:ObjectDrawFallback.Appearance(o.Gfx,o.Action,catalog.Get);
+            var a=door?catalog.GetDoor(o.Gfx):shop?catalog.GetShop(o.Gfx):resolved?.Appearance;int drawGfx=resolved?.Gfx??o.Gfx;
+            // 引擎沒有對應原圖的 S158 動作（例如 71 釣魚），原版在缺圖時改播姿勢動作（AN§3.4 第 1 點）；商店仍照舊不畫。
+            bool otherAction=o.ReceivedAction is not (null or 0 or 1 or 2 or 3 or 8 or 18 or 19 or 70);
+            if(a==null||o.AppearancePending||(!shop&&(!NormalSpeed.Supported(o.Speed,o.Brave)||o.MotionAt!=0&&!NormalSpeed.Supported(o.MotionSpeed,o.MotionBrave)))||(door?(o.DoorAction is not (28 or 29)||o.Dead||o.Combat!=null):shop&&otherAction)||!(session.MapCache?.Contains(o.X,o.Y)??Coordinates.Inside(o.X,o.Y))){unavailable.Add(o);continue;}
             int stepMs=shop?a.StepMs:NormalSpeed.AnimationMs(a.StepMs,o.MotionAt!=0?o.MotionSpeed:o.Speed,o.MotionAt!=0?o.MotionBrave:o.Brave);double elapsed=now-o.MotionAt;bool moving=!door&&!shop&&o.MotionAt!=0&&elapsed<stepMs;
-            string action=door?(o.DoorAction==28?"open":"close"):shop?"shop":moving?"walk":"breath";double animationElapsed=door?session.DoorPlaybackElapsed(o.ObjectId,now)??double.MaxValue:shop?now-o.ShopAt:moving?elapsed*a.StepMs/stepMs:now-o.UpdatedAt;
+            // 換成 1120 時原版播動作 0（走路，即姿勢動作）。
+            string action=door?(o.DoorAction==28?"open":"close"):shop?"shop":moving||resolved?.Substituted==true||otherAction?"walk":"breath";double animationElapsed=door?session.DoorPlaybackElapsed(o.ObjectId,now)??double.MaxValue:shop?now-o.ShopAt:moving?elapsed*a.StepMs/stepMs:now-o.UpdatedAt;
             long stamp=shop?o.ShopAt:moving?o.MotionAt:o.UpdatedAt;
-            if(!door&&!shop&&WithProjectileHit(o.ObjectId,o.Combat,now,o.Dead) is {} combat){string requested=combat.Action switch{1=>"attack",2=>"damage",8=>"die",18=>"spellDir",19=>"spellNoDir",_=>"unsupported"};if(!a.Supports(requested,o.Direction)){unavailable.Add(o);continue;}double age=now-combat.At;if((combat.Timing==null||combat.Timing.Matches(o.Gfx,o.Action))&&(o.Dead||age<(combat.Timing?.AnimationMs??a.Duration(requested)))){moving=false;action=requested;animationElapsed=age;stepMs=combat.Timing?.AnimationMs??(int)a.Duration(requested);stamp=combat.At;}}
-            // Noncombat NPCs and scenery only have the actions present in their original metadata.
-            if(!a.Supports(action,o.Direction)){unavailable.Add(o);continue;}
+            Func<ObjectAppearance?> bare=()=>catalog.Get(drawGfx,0);
+            if(!door&&!shop&&WithProjectileHit(o.ObjectId,o.Combat,now,o.Dead) is {} combat){
+                string requested=combat.Action switch{1=>"attack",2=>"damage",8=>"die",18=>"spellDir",19=>"spellNoDir",_=>"unsupported"};
+                // 他人缺動作圖時逐動作退回：動作 → 同姿勢的姿勢動作 → 姿勢 0（AN§3.4 第 1 點），不再整個不畫。
+                if(ObjectDrawFallback.Action(a,bare,requested,o.Direction,(ap,n,d)=>ap.Supports(n,d)) is not {} pick){unavailable.Add(o);continue;}
+                bool exact=pick.Action==requested&&ReferenceEquals(pick.Appearance,a);var exactTiming=exact?combat.Timing:null;double age=now-combat.At;
+                if((exactTiming==null||exactTiming.Matches(o.Gfx,o.Action))&&(o.Dead||age<(exactTiming?.AnimationMs??pick.Appearance.Duration(pick.Action)))){a=pick.Appearance;moving=false;action=pick.Action;animationElapsed=age;stepMs=exactTiming?.AnimationMs??(int)a.Duration(action);stamp=combat.At;}
+            }
+            // Noncombat NPCs and scenery only have the actions present in their original metadata（門與商店不退回）。
+            if(door||shop){if(!a.Supports(action,o.Direction)){unavailable.Add(o);continue;}}
+            else if(ObjectDrawFallback.Action(a,bare,action,o.Direction,(ap,n,d)=>ap.Supports(n,d)) is {} chosen){a=chosen.Appearance;action=chosen.Action;}
+            else{unavailable.Add(o);continue;}
             var displayedCombat=WithProjectileHit(o.ObjectId,o.Combat,now,o.Dead);var cadence=displayedCombat?.Timing is {} timing&&action==ActionCadence.Name(timing.Action)?timing:null;var frame=cadence!=null?cadence.Frame(a,o.Direction,animationElapsed):a.At(action,o.Direction,animationElapsed);
             int x=moving?o.SourceX:o.X,y=moving?o.SourceY:o.Y;
             // `]`／`{`／`}` (effects-2.md §2): children take this frame's position and direction; an invisible
@@ -63,9 +79,94 @@ public sealed partial class Renderer {
 // Name, title and emblem placement: docs/reference/actions-and-names.md 2.2-2.4 (TW16 sub_EFF300, sub_F01380,
 // sub_F02810). Coordinates are scene pixels; the painter scales them with the camera like the sprites.
 public sealed record NameTarget(uint ObjectId,string Name,Rectangle Bounds,bool Self);
-public sealed record NameText(uint ObjectId,bool Title,string Text,ushort Color,PointF Position);
+// Outline：外框色（palette[0] 黑；怪物等級差選項開啟時改成等級差色，AN§2.4）。Line252：全名模式的 +252 淺藍行。
+public sealed record NameText(uint ObjectId,bool Title,string Text,ushort Color,PointF Position){public ushort Outline {get;init;}=NameColors.Outline;public bool Line252 {get;init;}}
 public sealed record NameEmblem(uint ObjectId,uint EmblemId,PointF Position,bool OverHead);
-public sealed record NamePlan(NameText[] Texts,NameEmblem[] Emblems);
+// 名稱旁的小圖示（AN§2.3）：Kind＝"mark181-1"／"mark181-2"／"party"／"master"。圖源沒有查證，畫面不畫，只供版面與測試。
+public sealed record NameIcon(uint ObjectId,string Kind,PointF Position);
+public sealed record NamePlan(NameText[] Texts,NameEmblem[] Emblems){public NameIcon[] Icons {get;init;}=[];}
+// 繪製名稱需要、但 3.81 封包不一定有的欄位。Kind＝原版物件種類（2／3／9／10）；Listed＝種類 10 的「名單內」；
+// LevelDiff＝物件等級 − 自己等級（方向是推測）。null／預設值＝不知道，不套用對應規則。
+public sealed record NameMarks(byte Mark181=0,bool Master=false,string Line252="",int? Kind=null,bool Listed=false,int? LevelDiff=null);
+// R2-I（AN§3.4）：sub_A3EF40 的缺圖退回。泛型只為了讓離線測試不必讀素材。
+public static class ObjectDrawFallback {
+    public const int MissingSpriteGfx=PlayerProfiles.MissingSpriteGfx;
+    public sealed record Resolved<T>(T Appearance,int Gfx,int Weapon,bool Substituted);
+    // 1. (gfx, 姿勢) → 2. (gfx, 0)（原版把 +194 改成 0）→ 3. 整個 gfx 沒有 sprite：改成 gfx 1120、動作 0。
+    public static Resolved<T>? Appearance<T>(int gfx,int weapon,Func<int,int,T?> get) where T:class{
+        if(get(gfx,weapon) is {} exact)return new(exact,gfx,weapon,false);
+        if(weapon!=0&&get(gfx,0) is {} bare)return new(bare,gfx,0,false);
+        return gfx!=MissingSpriteGfx&&get(MissingSpriteGfx,0) is {} substitute?new(substitute,MissingSpriteGfx,0,true):null;
+    }
+    // 缺動作：改播同姿勢的姿勢動作（引擎名稱 "walk"＝動作編號＝姿勢），再沒有就姿勢 0 的姿勢動作。
+    // 姿勢 0 的動作 0 本身缺圖時不再退（原版只對動作 > 0 退回）。
+    public static (T Appearance,string Action)? Action<T>(T appearance,Func<T?> bare,string action,int direction,Func<T,string,int,bool> supports) where T:class{
+        if(supports(appearance,action,direction))return(appearance,action);
+        if(action!="walk"&&supports(appearance,"walk",direction))return(appearance,"walk");
+        return bare() is {} b&&!ReferenceEquals(b,appearance)&&supports(b,"walk",direction)?(b,"walk"):null;
+    }
+}
+// R2-I 城主王冠（sprites-and-strings.md §1，followups-3.md §2）：crown.raw＝Sprite.pak 內 12 格 16×12 RGB555，0 透明，沒有檔頭。
+// 執行期從原客戶端唯讀讀取並核對 pin，不複製進專案。
+public sealed class CastleCrownImages {
+    public const string EntryName="crown.raw",PayloadSha256="0e6dc26b1caca1725535c76b44d215df3c850ca42fa5373c54bf7d741014a7db";
+    public const int Width=16,Height=12,FramePixels=Width*Height,PayloadBytes=CastleProtocol.CrownFrames*FramePixels*2;
+    readonly ushort[] pixels;
+    CastleCrownImages(ushort[] pixels){this.pixels=pixels;}
+    /// <summary>第 f 格（0–11）的 192 個像素（列優先）；格號越界時回空。</summary>
+    public ReadOnlySpan<ushort> Frame(int f)=>(uint)f<CastleProtocol.CrownFrames?pixels.AsSpan(f*FramePixels,FramePixels):default;
+    public static CastleCrownImages Parse(byte[] payload){
+        if(payload.Length!=PayloadBytes)throw new InvalidDataException("crown.raw 長度不符");
+        var p=new ushort[payload.Length/2];for(int i=0;i<p.Length;i++)p[i]=BitConverter.ToUInt16(payload,2*i);
+        return new(p);
+    }
+    /// <summary>照 AmbienceLightImages.Load：核對 Sprite.idx pin、Sprite.pak 長度、唯一一筆（不分大小寫）與 payload SHA-256。</summary>
+    public static CastleCrownImages Load(string? clientRoot=null){
+        string root=Path.GetFullPath(clientRoot??GroundSpriteReader.ClientRoot);
+        byte[] index=File.ReadAllBytes(Path.Combine(root,"Sprite.idx"));
+        if(!Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(index)).Equals(AmbienceLightImages.IndexSha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Sprite.idx pin 不符");
+        uint count=BitConverter.ToUInt32(index,0);
+        if(index.Length!=4+28L*count)throw new InvalidDataException("Sprite.idx 長度不符");
+        (long Offset,int Size)? found=null;
+        for(int i=0;i<count;i++){
+            int at=4+28*i,end=Array.IndexOf(index,(byte)0,at+4,20);if(end<0)end=at+24;
+            if(!System.Text.Encoding.ASCII.GetString(index,at+4,end-at-4).Equals(EntryName,StringComparison.OrdinalIgnoreCase))continue;
+            if(found!=null)throw new InvalidDataException("Sprite.idx 有重複的 crown.raw");
+            found=(BitConverter.ToUInt32(index,at),checked((int)BitConverter.ToUInt32(index,at+24)));
+        }
+        if(found is not {} entry)throw new InvalidDataException("Sprite.idx 找不到 crown.raw");
+        using var pak=new FileStream(Path.Combine(root,"Sprite.pak"),FileMode.Open,FileAccess.Read,FileShare.Read);
+        if(pak.Length!=AmbienceLightImages.PakSize||entry.Size!=PayloadBytes||entry.Offset+entry.Size>pak.Length)throw new InvalidDataException("Sprite.pak 長度或 crown.raw 範圍不符");
+        pak.Position=entry.Offset;var payload=new byte[entry.Size];pak.ReadExactly(payload);
+        if(!Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(payload)).Equals(PayloadSha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("crown.raw payload pin 不符");
+        return Parse(payload);
+    }
+}
+/// <summary>一頂要畫的王冠：Position＝場景座標的左上角（16×12）。</summary>
+public sealed record CrownDraw(uint ObjectId,byte Castle,int Frame,PointF Position,bool Self);
+public sealed record CrownTarget(uint ObjectId,int Gfx,int X,int Y,bool Self);
+public static class CrownLayout {
+    /// <summary>sub_501260：gfx 6080／6094 用高度 50，其餘 40。</summary>
+    public static bool Tall(int gfx)=>gfx is 6080 or 6094;
+    // sub_F1A750 的人物畫面點＝精靈區塊偏移的原點＝Coordinates.Screen(x,y) −(24,12)（與 Draw.Px／Py 在 A=B=0 時相同）。
+    // 王冠位置照引擎畫身體的同一個格位（ComposeObjects 的 x、y），不另套走路內插表（SS§1.3）。
+    public static PointF Position(int x,int y,int gfx){
+        var s=Coordinates.Screen(x,y);var (cx,cy)=CastleProtocol.CrownAnchor((int)s.X-24,(int)s.Y-12,Tall(gfx));return new(cx,cy);
+    }
+    /// <summary>sub_F08880 的條件：自己一律畫；他人沒有隱身旗標（Flags &amp; 2，不看同隊同盟可見，FU3§2）。
+    /// 盲目 1 不畫他人（與名稱相同，推測）。y＞0 與整格在畫面內由 <see cref="Fits"/> 在畫面座標判斷。</summary>
+    public static CrownDraw[] Plan(WorldSession w,IEnumerable<CrownTarget> targets){
+        var list=new List<CrownDraw>();bool blind=w.BlindMode==1;
+        foreach(var t in targets){
+            if(!t.Self&&(blind||w.InvisibleFlagOf(t.ObjectId)))continue;
+            foreach(var c in w.CastleCrownFrames(t.ObjectId))list.Add(new(t.ObjectId,c.Castle,c.Frame,Position(t.X,t.Y,t.Gfx),t.Self));
+        }
+        return list.ToArray();
+    }
+    /// <summary>sub_96E790 不裁切：整格要落在畫面內才畫；他人另外要 y＞0（sub_971E50）。</summary>
+    public static bool Fits(PointF view,float zoom,SizeF client,bool self)=>
+        (self||view.Y>0)&&view.X>=0&&view.Y>=0&&view.X+CastleCrownImages.Width*zoom<=client.Width&&view.Y+CastleCrownImages.Height*zoom<=client.Height;
+}
 public static class NameLayout {
     public const int GlyphWidth=6,FontPixels=12,EmblemWidth=16,EmblemHeight=12;
     public const int NameDy=-3,TitleLine=13,EmblemDx=-20,EmblemDy=-4,ClanNameShift=10,PartyDy=-9,AllNamesDy=-16,HeadEmblemDy=-23;
@@ -83,29 +184,71 @@ public static class NameLayout {
         int x=CenterX(r,name);return(new(x+(clan?ClanNameShift:0),r.Top+AllNamesDy),new(x+EmblemDx,r.Top+AllNamesDy-1));
     }
     public static PointF HeadEmblem(Rectangle r)=>new(r.Left+(r.Width-EmblemWidth)/2,r.Top+HeadEmblemDy);
+    // AN§2.3 滑鼠指到時的圖示：+181（1 或 2）在盟徽 X −10（有血盟）或 +10（無血盟），Y 同盟徽；
+    // 隊伍圖示在名稱 X＋名稱寬＋2，主人圖示 5 在名稱 X＋名稱寬＋7，Y 同名稱。
+    public const int Mark181WithClanDx=-10,Mark181NoClanDx=10,PartyIconDx=2,MasterIconDx=7;
+    public static NameIcon[] HoverIcons(uint id,PointF name,PointF emblem,string text,bool clan,bool partyOther,byte mark181,bool master){
+        var icons=new List<NameIcon>();float right=name.X+GlyphWidth*ByteLength(text);
+        if(mark181 is 1 or 2)icons.Add(new(id,"mark181-"+mark181,new(emblem.X+(clan?Mark181WithClanDx:Mark181NoClanDx),emblem.Y)));
+        if(partyOther)icons.Add(new(id,"party",new(right+PartyIconDx,name.Y)));
+        if(master)icons.Add(new(id,"master",new(right+MasterIconDx,name.Y)));
+        return icons.ToArray();
+    }
+    // 全名模式（sub_F01380）：+252 行在 T−16（palette[54]），有這一行時名稱移到 T−29、X −3。
+    public const int Line252Dy=-16,Line252NameDy=-29,Line252NameDx=-3;
+    public const ushort Line252Color=0x4B7F;
+    public static (PointF Line,PointF Name) AllNamesWithLine(Rectangle r,string line,string name,bool clan){
+        var p=AllNames(r,name,clan);return(new(CenterX(r,line),r.Top+Line252Dy),new(p.Name.X+Line252NameDx,r.Top+Line252NameDy));
+    }
+    // 全名模式不畫：+196＝1、物件種類 2／3／9；種類 10 只畫名單內的。
+    public static bool AllNamesSkips(int? kind,bool listed,bool war196)=>war196||kind is 2 or 3 or 9||kind==10&&!listed;
+    // 「怪物等級差」選項（0x13CE3FE ∈ {1,5}，只對種類 10）：外框改成等級差色。產品目前沒有選項 UI，預設關閉。
+    public static int MonsterLevelOption {get;set;}
+    public static ushort? LevelDiffOutline(int option,int? kind,int? diff)=>option is 1 or 5&&kind==10&&diff is int d?d switch{>=10=>0x7C00,>=3=>0x4200,<=-2=>0x02E0,_=>0x001F}:null;
     public static NamePlan Plan(WorldSession w,IReadOnlyList<NameTarget> targets,uint? hovered,bool showAll,long? now=null){
-        var texts=new List<NameText>();var emblems=new List<NameEmblem>();
+        var texts=new List<NameText>();var emblems=new List<NameEmblem>();var icons=new List<NameIcon>();
         // Blind mode 1 blacks out everyone else; their names must not reveal where they stand.
         bool blind=w.BlindMode==1;uint own=w.Actor?.ObjectId??0;string ownClan=w.Actor?.Clan??"";bool war=w.ClanWarMode;
         foreach(var t in targets){
             if(t.Name.Length==0||blind&&!t.Self)continue;
             var (clan,clanId)=w.ClanIdentity(t.ObjectId);bool hasClan=clanId!=0;ushort color=w.NameColor555(t.ObjectId,now);
+            var marks=w.NameMarksFor(t.ObjectId);ushort outline=LevelDiffOutline(MonsterLevelOption,marks.Kind,marks.LevelDiff)??NameColors.Outline;
+            bool war196=w.ClanWarFlag(t.ObjectId)!=0;
             if(hovered==t.ObjectId){
-                string title=w.DisplayTitle(t.ObjectId);var p=Hover(t.Bounds,title,t.Name,hasClan,!t.Self&&w.IsPartyMemberId(t.ObjectId));
-                if(p.Title is {} tp)texts.Add(new(t.ObjectId,true,title,color,tp));
-                texts.Add(new(t.ObjectId,false,t.Name,color,p.Name));if(hasClan)emblems.Add(new(t.ObjectId,clanId,p.Emblem,false));
-            }else if(showAll&&w.ClanWarFlag(t.ObjectId)==0){
-                var p=AllNames(t.Bounds,t.Name,hasClan);texts.Add(new(t.ObjectId,false,t.Name,color,p.Name));if(hasClan)emblems.Add(new(t.ObjectId,clanId,p.Emblem,false));
+                string title=w.DisplayTitle(t.ObjectId);bool partyOther=!t.Self&&w.IsPartyMemberId(t.ObjectId);var p=Hover(t.Bounds,title,t.Name,hasClan,partyOther);
+                if(p.Title is {} tp)texts.Add(new(t.ObjectId,true,title,color,tp){Outline=outline});
+                texts.Add(new(t.ObjectId,false,t.Name,color,p.Name){Outline=outline});if(hasClan)emblems.Add(new(t.ObjectId,clanId,p.Emblem,false));
+                // 主人圖示：有稱號、非職業外型、+248 非空、非戰爭（+196＝0）。
+                bool master=marks.Master&&title.Length>0&&!war196&&!TitleAndEmotePackets.ClassForm(w.GfxOf(t.ObjectId));
+                icons.AddRange(HoverIcons(t.ObjectId,p.Name,p.Emblem,t.Name,hasClan,partyOther,marks.Mark181,master));
+            }else if(showAll&&!AllNamesSkips(marks.Kind,marks.Listed,war196)){
+                string line=TitleAndEmotePackets.DisplayText(marks.Line252);
+                if(line.Length>0){
+                    var q=AllNamesWithLine(t.Bounds,line,t.Name,hasClan);texts.Add(new(t.ObjectId,false,line,Line252Color,q.Line){Outline=outline,Line252=true});
+                    texts.Add(new(t.ObjectId,false,t.Name,color,q.Name){Outline=outline});
+                    // 有 +252 行時的盟徽位置沒有反編譯（sub_F02870），沿用「名稱基準 −20、名稱上方 1 px」跟著名稱移動（推測）。
+                    if(hasClan)emblems.Add(new(t.ObjectId,clanId,new(q.Name.X-ClanNameShift+EmblemDx,q.Name.Y-1),false));
+                }else{
+                    var p=AllNames(t.Bounds,t.Name,hasClan);texts.Add(new(t.ObjectId,false,t.Name,color,p.Name){Outline=outline});if(hasClan)emblems.Add(new(t.ObjectId,clanId,p.Emblem,false));
+                }
             }
             // sub_F09070: own clan members while we have a clan; sub_F08C30: +197!=0 in war mode.
             if(hasClan&&(ownClan.Length>0&&ClanWarProtocol.Same(clan,ownClan)||war&&w.ClanWarFlag(t.ObjectId)!=0))emblems.Add(new(t.ObjectId,clanId,HeadEmblem(t.Bounds),true));
         }
-        return new(texts.ToArray(),emblems.ToArray());
+        return new(texts.ToArray(),emblems.ToArray()){Icons=icons.ToArray()};
     }
 }
 public sealed partial class WorldSession {
     internal (string Clan,uint ClanId) ClanIdentity(uint id)=>Actor?.ObjectId==id?(Actor.Clan,Actor.ClanId):objects.TryGetValue(id,out var o)?(o.Clan,o.ClanId):("",0u);
     internal bool IsPartyMemberId(uint id)=>id!=0&&partyMembers.Values.Any(m=>m.ObjectId==id);
+    internal bool InvisibleFlagOf(uint id)=>objects.TryGetValue(id,out var o)&&(o.Flags&2)!=0;
+    internal int GfxOf(uint id)=>Actor?.ObjectId==id?Actor.Gfx:objects.TryGetValue(id,out var o)?o.Gfx:-1;
+    // 3.81 封包能提供的部分：+248 主人名＝S87 owner 欄；+252 行＝個人商店標題（AN§2.1 推測）；等級差＝S87 等級 − 自己等級。
+    // +181 與物件種類在 3.81 S87 沒有對應欄位（需先查證），一律留空，對應規則不啟用。
+    internal NameMarks NameMarksFor(uint id){
+        if(Actor?.ObjectId==id||!objects.TryGetValue(id,out var o))return new();
+        return new(Master:o.Owner.Length>0,Line252:o.ShopActive?o.ShopText:"",LevelDiff:Status is {} s?o.Level-s.Level:null);
+    }
 }
 // "Show all names" option (0x138BE7F). There is no prior client settings file, so it is kept beside the
 // emblem cache in the engine user-data directory.
@@ -176,20 +319,49 @@ public sealed partial class ClientForm {
                 for(int y=0;y<NameLayout.EmblemHeight;y++)for(int x=0;x<NameLayout.EmblemWidth;x++)bitmap.SetPixel(x,y,Color.FromArgb(emblem.Pixels[y*16+x]));
                 var p=Camera.ToView(e.Position);g.DrawImage(bitmap,p.X,p.Y,NameLayout.EmblemWidth*zoom,NameLayout.EmblemHeight*zoom);
             }
-            // MingLiU 12 px, weight 400; outline colour palette[0] at +-1 px, then the name colour (+204).
-            using var font=new Font("MingLiU",NameLayout.FontPixels*zoom,FontStyle.Regular,GraphicsUnit.Pixel);
-            using var outline=new SolidBrush(NameColors.ToColor(NameColors.Outline));var format=StringFormat.GenericTypographic;
+            // MingLiU 12 px, weight 400; outline colour palette[0]（或等級差色）at +-1 px, then the name colour (+204).
+            // plan.Icons（+181、隊伍、主人圖示）的圖源沒有查證，不畫。
+            using var font=new Font("MingLiU",NameLayout.FontPixels*zoom,FontStyle.Regular,GraphicsUnit.Pixel);var format=StringFormat.GenericTypographic;
             foreach(var t in plan.Texts){
-                var p=Camera.ToView(t.Position);using var brush=new SolidBrush(NameColors.ToColor(dim?AfflictionColors.Darken(t.Color):t.Color));
+                var p=Camera.ToView(t.Position);using var brush=new SolidBrush(NameColors.ToColor(dim?AfflictionColors.Darken(t.Color):t.Color));using var outline=new SolidBrush(NameColors.ToColor(t.Outline));
                 foreach(var (dx,dy) in new[]{(-1,0),(1,0),(0,-1),(0,1)})g.DrawString(t.Text,font,outline,p.X+dx*zoom,p.Y+dy*zoom,format);
                 g.DrawString(t.Text,font,brush,p.X,p.Y,format);
             }
         }finally{g.Restore(state);}
     }
+    // 城主王冠（sub_F08880）：圖源讀不到時不畫、不退回替代圖，只記一次事件。
+    static CastleCrownImages? crownImages;static bool crownLoadTried;static Bitmap?[]? crownBitmaps;
+    static Bitmap? CrownBitmap(int frame){
+        if(!crownLoadTried){crownLoadTried=true;try{crownImages=CastleCrownImages.Load();}catch(Exception e) when(e is IOException or InvalidDataException or UnauthorizedAccessException){crownImages=null;CrownLoadError=e.Message;}}
+        if(crownImages is not {} images||(uint)frame>=CastleProtocol.CrownFrames)return null;
+        crownBitmaps??=new Bitmap?[CastleProtocol.CrownFrames];
+        if(crownBitmaps[frame] is {} cached)return cached;
+        var b=new Bitmap(CastleCrownImages.Width,CastleCrownImages.Height,System.Drawing.Imaging.PixelFormat.Format32bppArgb);var px=images.Frame(frame);
+        for(int y=0;y<CastleCrownImages.Height;y++)for(int x=0;x<CastleCrownImages.Width;x++){ushort c=px[y*CastleCrownImages.Width+x];b.SetPixel(x,y,c==0?Color.Transparent:NameColors.ToColor(c));}
+        return crownBitmaps[frame]=b;
+    }
+    static string? CrownLoadError;
+    void PaintCrowns(Graphics g){
+        if(!login.World.Renderable)return;
+        var targets=new List<CrownTarget>();
+        if(login.World.Actor is {} a&&renderer.OwnCombatVisual is {} own)targets.Add(new(a.ObjectId,a.Gfx,own.X,own.Y,true));
+        foreach(var v in objectVisuals)if(v.Action!="ground"&&objectPatch?.VisibleObjectIds.Contains(v.ObjectId)==true)targets.Add(new(v.ObjectId,v.Gfx,v.X,v.Y,false));
+        var plan=CrownLayout.Plan(login.World,targets);if(plan.Length==0)return;
+        float zoom=Camera.Zoom;var state=g.Save();
+        try{
+            g.InterpolationMode=System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;g.PixelOffsetMode=System.Drawing.Drawing2D.PixelOffsetMode.Half;
+            foreach(var c in plan){
+                var p=Camera.ToView(c.Position);if(!CrownLayout.Fits(p,zoom,ClientSize,c.Self)||CrownBitmap(c.Frame) is not {} bitmap)continue;
+                g.DrawImage(bitmap,p.X,p.Y,CastleCrownImages.Width*zoom,CastleCrownImages.Height*zoom);
+            }
+        }finally{g.Restore(state);}
+        if(CrownLoadError is {} error){CrownLoadError=null;events.Add(new{kind="crown-unavailable",error});}
+    }
     void PaintObjectSelection(Graphics g){
         if(login.World.TargetId is uint id&&objectVisuals.FirstOrDefault(v=>v.ObjectId==id) is {} v){var p=Camera.ToView(v.Foot);using var pen=new Pen(Color.Gold,2);g.DrawEllipse(pen,p.X-19*Camera.Zoom,p.Y-7*Camera.Zoom,38*Camera.Zoom,14*Camera.Zoom);}
         foreach(var groundVisual in objectVisuals.Where(v=>v.Action=="ground")){var pt=Camera.ToView(groundVisual.Foot);bool selected=login.World.SelectedGroundId==groundVisual.ObjectId;g.DrawString(groundVisual.Name,Font,selected?Brushes.Gold:Brushes.White,pt.X-20,pt.Y+17);if(selected){using var pen=new Pen(Color.Gold,2);g.DrawEllipse(pen,pt.X-16,pt.Y+3,32,12);}}
         PaintObjectPresence(g,Camera.ToView,new RectangleF(Camera.ViewOffset,Camera.View));
+        PaintCrowns(g);
         PaintNames(g);
         PaintDisplayNotices(g);
     }

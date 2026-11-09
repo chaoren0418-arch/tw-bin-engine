@@ -14,6 +14,7 @@ partial class Checks {
         b.Write((byte)30);b.Write((byte)1);b.Write(123u);b.Write(target);b.Write(damage);
         b.Write((byte)2);b.Write((ushort)0);b.Write((ushort)0);b.Write((byte)0);
     });
+    [CheckGroup("hit-reaction-suppress"),CheckGroup("combat-admission",Order=4),CheckGroup(CheckGroups.Default,Order=380)]
     static void HitReactionSuppression(){
         CombatAdmissionFixture(); // Authored metadata only; no game assets or connection.
         using var c=Seed();var w=c.World;

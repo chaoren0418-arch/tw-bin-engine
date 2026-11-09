@@ -12,7 +12,7 @@
 | 清單快照 | `LoginConnection.LocationShareSnapshot()` 在 world capture lock 下複製清單（generation、world epoch、revision、紀錄） | `LocationShare.cs` |
 | 清單畫面 | 新增原生面板 `LocationListPanel`（`IUiPanel`，Window 層）。只在原生 UI 開啟、在世界中、`Field_Map` 視窗開著、而且清單不是空的時候出現，貼在 `Field_Map` 右側；每列「寄件者：地區」，最多 10 列；只畫文字（白字、黑色 1 px 陰影，選取列青色），**不畫任何底圖或色塊** | 新檔 `NativeUi/LocationListPanel.cs` |
 | 點列的行為 | `LocationShareUi` 自己掛成面板的宿主（`ILocationListHost`）。點一列只放既有的 ⊕ 標記或「不同地圖」提示，和點聊天連結一樣；不移動角色、不送封包。清單換版（revision）或 session 重置後，舊畫面的點擊一律拒絕 | `LocationShare.cs` |
-| 註冊 | `UiPanelRegistry.cs` 只加一行 | `NativeUi/UiPanelRegistry.cs` |
+| 註冊 | main 已改成 T270（#645）自動發現，`UiPanelRegistry.cs` 不再手加；改在面板旁宣告 `[UiPanel(170)] Registration`（排在既有 10–160 之後，與原本「列在最後」一致） | `NativeUi/LocationListPanel.cs` |
 | 離線測試 | `[WorldModuleTest("location-share-followup")]`，62 項檢查，由 `--module-tests` 自動執行 | 新檔 `LocationShareFollowupTests.cs` |
 | lock | `rebuild.py --update-lock` 重產 | `engine/_integration/dev/rebuild-lock.json` |
 
@@ -29,8 +29,10 @@
 
 | 驗證 | 結果 |
 |---|---|
-| `rebuild.py --update-lock` → `rebuild.py --build` | PASS（product DLL `b151ec13…1010`） |
-| `P11.ClientEngine.exe --module-tests` | pass：28 組、0 失敗、1432 項；`location-share-followup` 62 項全過 |
+| 第二輪：同步 origin/main（#645 自動發現等）後 `rebuild.py --update-lock` → `--build` | PASS（product DLL `79d645ea…dcb3`） |
+| `P11.ClientEngine.exe --module-tests`（同步後） | pass：45 組、0 失敗、2273 項；`location-share-followup` 62 項、`auto-discovery` 28 項全過 |
+| demo-tests `location-share`（同步後） | pass，462 項 |
+| （第一輪，同步前）`--module-tests` | pass：28 組、1432 項 |
 | demo-tests `location-share` | pass，462 項（既有的座標分享與地區測試，包含舊 UI 點擊流程） |
 | demo-tests `map-continuity`（CI 也跑這組，內含 LocationShareChecks） | 沒有客戶端時 pass，33314 項。**注意**：本機如果找得到真實客戶端，S245 的一項檢查（`notice S245 unknown message stays labeled`）會失敗，原因是字串表從真實客戶端載入，跟本任務無關；CI 沒有客戶端，不受影響 |
 | demo-tests 其他 CI 組（native-ui-resources／canvas／macro／menu-buttons／minimap／hpmp／chat-window／left-status、combat-admission、item-status、afflictions、resurrection、polymorph-cadence、buddies、item-transfer、doors、pickup、door-approach、hypertext） | 全部 pass |
@@ -56,7 +58,6 @@
 - `engine/source/LocationShare.cs`
 - `engine/source/NativeUi/LocationListPanel.cs`（新）
 - `engine/source/LocationShareFollowupTests.cs`（新）
-- `engine/source/NativeUi/UiPanelRegistry.cs`（一行）
 - `engine/_integration/dev/rebuild-lock.json`（重產）
 - `docs/reports/issue-619.md`（本檔）
 
@@ -65,4 +66,5 @@
 1. **Q-2 查完後**（另一張任務）：只改 `LocationShareProtocol` 的 `Format`／`RegionLabel`／`ListUnavailableText` 和 `Encode` 的錯誤提示，改從 `ServerMessageText.Table` 取文字；沒有表的時候要保留編號占位（CI 沒有客戶端）。`demo-tests` 的 `LocationShareChecks.cs:24`、`:106` 寫死了占位格式，到時要一起改。
 2. 查到原版清單 UI 之後：只要換掉 `LocationListPanel` 的 `Bounds`／`Paint`（改讀 XML 和 surf），宿主介面 `ILocationListHost` 不用動。
 3. 查到 `+16` 的條件之後：在條件成立的地方設定 `World.LocationListObjectPresent`；這個值不是 session 資料，reset 不會改它。
-4. 本 worktree 沒有 `engine/assets`，demo-tests 全套（不指定組）會因為 `terrain0.bin` 中斷；CI 的各組可以照常跑。`engine/vendor` 是指向原專案的 junction（跟其他 worktree 一樣），已被 git 忽略。
+4. 面板註冊改在 `LocationListPanel.Registration`（`[UiPanel(170)]`）；`UiPanelRegistry.cs` 與 main 相同，未改動。
+5. 本 worktree 沒有 `engine/assets`，demo-tests 全套（不指定組）會因為 `terrain0.bin` 中斷；CI 的各組可以照常跑。`engine/vendor` 是指向原專案的 junction（跟其他 worktree 一樣），已被 git 忽略。

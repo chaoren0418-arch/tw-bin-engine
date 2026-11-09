@@ -12,6 +12,7 @@ partial class Checks {
         try{action();}catch(Exception ex) when(ex is ArgumentException or ProtocolException){Check(true,label);return;}
         throw new Exception("location accepted invalid input: "+label);
     }
+    [CheckGroup("location-share"),CheckGroup("map-continuity",Order=180),CheckGroup(CheckGroups.Default,Order=370)]
     static async Task LocationShareChecks(){
         var location=new SharedLocation(0x1234,0x5678,0x9abc,0xdef01234);
         Check(Convert.ToHexString(LocationShareProtocol.Encode("中",location))=="FE0BA4A40034127856BC9A3412F0DE00","location C254 exact CP950 + HHH/D little endian vector");

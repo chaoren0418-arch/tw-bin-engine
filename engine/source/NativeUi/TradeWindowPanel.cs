@@ -21,6 +21,7 @@ public interface ITradeWindowSource {
 }
 
 public sealed class TradeWindowPanel:IUiPanel {
+    [UiPanel(110)] internal static UiPanelRegistration Registration=>new(TradeWindowPanel.PanelId,TradeWindowPanel.LayoutName,root=>new TradeWindowPanel());   // M7-S (#526)
     public const string PanelId="TRADE_WINDOW";
     public const string LayoutName="uiextra86";
     /// <summary>推測：每列高度（原版列距未查證；UiText 9pt 一行約 12 px，另留間距）。</summary>

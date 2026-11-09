@@ -25,6 +25,8 @@ public sealed class LocationListPanel(Func<Rectangle> anchor):IUiPanel {
     /// <summary>引擎自訂的面板 Id（原版視窗名稱待查證，不借用 MapLocationSaveWindow 等原版名稱）。</summary>
     public const string PanelId="R2M_LocationShareList";
     public const int RowHeight=16,Width=200,Gap=2,Padding=2;
+    // T270（#645）自動發現：註冊宣告在面板旁，不改 UiPanelRegistry.cs。
+    [UiPanel(170)] internal static UiPanelRegistration Registration=>new(PanelId,"uistatus86",root=>new LocationListPanel(()=>root.Find(FieldMapPanel.PanelId)?.Bounds??Rectangle.Empty));   // R2-M (#619): location-share list, text only beside Field_Map (original window unverified)
     public static readonly Color TextColor=Color.White,SelectedColor=Color.Cyan,ShadowColor=Color.Black;
 
     LocationListView shown=LocationListView.Empty;bool inWorld;long? pressed;
