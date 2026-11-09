@@ -61,7 +61,7 @@ static class RingWindowsTests {
         var q=w.TeleportDestination;
         t.Check(q is {Skill:5},"destination request opened for skill 5",q);
         t.Check(!Run(c.CastSelectedMagic())&&w.TeleportDestination==q,"window already open: same request, not reopened");
-        t.Equal(5,WorldModuleTestContext.SnapshotJson(w).GetProperty("extensions").GetProperty("ability").GetProperty("teleportDestination").GetProperty("skill").GetInt32(),"snapshot shows the request");
+        t.Equal(5,JsonSerializer.SerializeToElement(typeof(WorldSession).GetMethod("AbilitySnapshot",F)!.Invoke(w,null)).GetProperty("teleportDestination").GetProperty("skill").GetInt32(),"snapshot shows the request");
         // 選定書籤 → 3.81 HD（書籤地圖、書籤 id），不是 TW16 的 hhh。
         var target=w.TeleportDestinationTarget(q!.Revision,77);
         t.Check(target is {Kind:SkillTargetKind.Bookmark,MapId:4,BookmarkId:77},"target = bookmark map 4 + id 77",target);
