@@ -20,7 +20,9 @@ public sealed partial class WorldSession {
     public bool InteractionHasResult {get;private set;}
     public string InteractionNotice {get;private set;}="選取附近目標後可開啟對話。";
     public NpcPage? InteractionPage {get;private set;}
-    public ShopRow[] ShopRows {get;private set;}=[];
+    // R2-E（#623）：原生 TRADE_WINDOW 接手商店買賣時，舊清單（WinForms／web）看到空列；內部驗證一律用 shopRows。
+    ShopRow[] shopRows=[];
+    public ShopRow[] ShopRows {get=>ShopNativeActive?[]:shopRows;private set=>shopRows=value;}
     string[] dialogArguments=[];string dialogNpcName="";ushort shopCurrency;
     // WorldInteractionGuard.npcTalk/npcAction: same visible world, Chebyshev distance <= 5.
     public bool NearbyTarget=>Ready&&!OwnDead&&Status?.Hp>0&&Actor is {} a&&Target is {Dead:false,AppearancePending:false} t&&Math.Abs(a.X-t.X)<=5&&Math.Abs(a.Y-t.Y)<=5;
@@ -116,8 +118,9 @@ public sealed partial class WorldSession {
         // Lists have no request ID: never let a duplicate reply reopen a submitted order.
         ushort currency=opcode==70&&n>0?r.H():(ushort)7;r.Finish();if(!accept||InteractionKind!="waiting"||pendingNpcReply!="")return true;InteractionRevision++;InteractionKind=opcode==70?"buy":"sell";InteractionPage=null;ShopRows=rows.ToArray();shopCurrency=currency;InteractionNotice=n==0?(opcode==65?"原服未列出可出售給此商人的物品。":"原服目前沒有列出可購買的物品。"):currency==7?"請設定數量並明確提交一次；結果以原服背包與金額為準。":"尚未支援此商店的貨幣，提交已停用。";return true;
     }
-    public bool CanSubmitShop=>InteractionValid&&InteractionKind is "buy" or "sell"&&shopCurrency==7&&ShopRows.Length>0;
-    public bool ValidateShop(IReadOnlyList<ShopChoice> choices){if(!CanSubmitShop||choices.Count is <1 or >255||choices.Select(c=>c.Id).Distinct().Count()!=choices.Count)return false;long total=0;foreach(var c in choices){var row=ShopRows.FirstOrDefault(r=>r.Id==c.Id);if(row==null||c.Count is 0 or >int.MaxValue)return false;if(InteractionKind=="sell"&&(c.Count>row.Available||!inventory.TryGetValue(c.Id,out var item)||c.Count>item.Count))return false;total+=(long)c.Count*row.Price;if(total>int.MaxValue)return false;}return true;}
+    bool ShopSubmittable=>InteractionValid&&InteractionKind is "buy" or "sell"&&shopCurrency==7&&shopRows.Length>0;
+    public bool CanSubmitShop=>!ShopNativeActive&&ShopSubmittable;
+    public bool ValidateShop(IReadOnlyList<ShopChoice> choices){if(!ShopSubmittable||choices.Count is <1 or >255||choices.Select(c=>c.Id).Distinct().Count()!=choices.Count)return false;long total=0;foreach(var c in choices){var row=shopRows.FirstOrDefault(r=>r.Id==c.Id);if(row==null||c.Count is 0 or >int.MaxValue)return false;if(InteractionKind=="sell"&&(c.Count>row.Available||!inventory.TryGetValue(c.Id,out var item)||c.Count>item.Count))return false;total+=(long)c.Count*row.Price;if(total>int.MaxValue)return false;}return true;}
     public object InteractionSnapshot()=>new{revision=InteractionRevision,epoch=WorldEpoch,targetRevision=TargetRevision,npcId=InteractionNpc,targetId=TargetId,kind=InteractionKind,hasResult=InteractionHasResult,notice=InteractionNotice,text=InteractionPage?.Text,options=InteractionPage?.Options.Select(o=>new{id=o.Id,label=o.Label,enabled=o.Enabled,kind=o.Kind}),rows=ShopRows.Select(r=>new{id=r.Id,icon=r.Icon,price=r.Price,name=r.Name,available=r.Available}),currency=shopCurrency,title=InteractionTitle,priceLabel=InteractionPriceLabel,selection=IsInteractionSelection,feePerRow=InteractionKind=="withdraw",canSubmit=CanSubmitShop||CanSubmitService,query=QueryVisible?new{revision=QueryRevision,html=QueryHtml,text=QueryPage!.Text,notice=QueryPage.Limitation,actionable=QueryActionable,options=QueryPage.Options.Select(o=>new{id=o.Id,label=o.Label,enabled=o.Enabled&&QueryActionable,kind=o.Kind})}:null};
 }
 public sealed partial class LoginConnection {

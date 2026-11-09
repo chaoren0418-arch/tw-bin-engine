@@ -4,7 +4,8 @@ namespace P06;
 // 依據：docs/reference/windows-2.md 第 7 節（原版 S_EVENT 子碼 117：`D(筆數)`＋逐筆 `scsdd`；筆數 0 顯示訊息 1889，否則開
 //       `sub_A559D0` 的視窗 `dword_153D218`）；docs/reference/server-protocol.md S_PledgeWarehouseHistory
 //       （C(250) C(117) D(n) {S(角色名) C(type) S(物品名) D(數量) D(距今分鐘)}×n），兩邊完全一致。
-// 視窗元件（按鈕 surf 9183）等原生 UI（T190），本檔不做畫面；後續面板訂閱 ClanWarehouseHistoryReceived 開窗。
+// 視窗元件（按鈕 surf 9183）等原生 UI（T190），本檔不做畫面；R3-C（#672）由 ClanWarehouseHistoryUi.cs 訂閱
+// ClanWarehouseHistoryReceived，先用 WinForms 暫行清單顯示，原生版面等 Q3-6。
 // 訊息 1889 的文字：走 ServerMessageText（T228 字串表，讀本機客戶端）；讀不到字串表時為「原服訊息 1889」編號占位。
 
 /// <summary>
@@ -79,7 +80,42 @@ public sealed partial class WorldSession {
             packets=clanWarehouseHistoryCount,
             records=clanWarehouseHistory?.Records.Select(x=>new{charName=x.CharName,type=x.Type,itemName=x.ItemName,count=x.Count,minutesAgo=x.MinutesAgo}).ToArray(),
             notice=clanWarehouseHistoryNotice is {} n?new{id=n.Id,text=n.Text,recognized=n.Recognized}:null,
-            ui="data only: window sub_A559D0 (surf 9183) needs native UI (T190); message 1889 text from T228 string table",
+            ui="transitional WinForms list (ClanWarehouseHistoryUi.cs, R3-C #672); native window sub_A559D0 (surf 9183) waits for layout Q3-6; message 1889 text from T228 string table",
         };
     }
+}
+
+/// <summary>暫行清單的一列（畫面文字）。</summary>
+public sealed record ClanWarehouseHistoryRow(string CharName,string Type,string ItemName,string Count,string When);
+
+/// <summary>
+/// R3-C（T279／#672）：把 S250/117 的紀錄轉成暫行 WinForms 清單的文字。原生窗 sub_A559D0 的版面等 Q3-6。
+/// 只顯示原服送來的值：類型 0／1 是存入還是領出未查證，照原值顯示；分鐘數不換算成時／日（原版的換算未查證）。
+/// </summary>
+public static class ClanWarehouseHistoryView {
+    public const string Title="血盟倉庫紀錄";
+    public const string Footnote="暫行清單：原版視窗版面待查證（Q3-6）；類型 0／1 的意義待查證，照原服數值顯示。";
+    public static readonly string[] Columns=["角色","類型","物品","數量","距今"];
+    public static string TypeText(byte type)=>$"類型 {type}";
+    public static string WhenText(int minutes)=>$"{minutes} 分鐘前";
+    /// <summary>resolveName：物品名的 $編號 名稱代碼轉文字（產品用客戶端字串表；轉不了時原文保留）。</summary>
+    public static IReadOnlyList<ClanWarehouseHistoryRow> Rows(ClanWarehouseHistory history,Func<string,string>? resolveName=null)=>
+        history.Records.Select(r=>new ClanWarehouseHistoryRow(r.CharName,TypeText(r.Type),resolveName?.Invoke(r.ItemName)??r.ItemName,
+            r.Count.ToString(System.Globalization.CultureInfo.InvariantCulture),WhenText(r.MinutesAgo))).ToArray();
+}
+
+/// <summary>
+/// 訂閱 ClanWarehouseHistoryReceived（在網路執行緒觸發），只留最新一份；UI 執行緒的 tick 用 Take() 取走。
+/// 0 筆不會進來（WorldSession 改顯示訊息 1889）。
+/// </summary>
+public sealed class ClanWarehouseHistoryInbox:IDisposable {
+    readonly WorldSession world;ClanWarehouseHistory? pending;int received;
+    public ClanWarehouseHistoryInbox(WorldSession world){this.world=world;world.ClanWarehouseHistoryReceived+=OnReceived;}
+    void OnReceived(ClanWarehouseHistory history){Volatile.Write(ref pending,history);Interlocked.Increment(ref received);}
+    /// <summary>收到的非空清單總數（含已被取代的）。</summary>
+    public int Received=>Volatile.Read(ref received);
+    public ClanWarehouseHistory? Take()=>Interlocked.Exchange(ref pending,null);
+    /// <summary>丟掉還沒顯示的清單（離開世界時）。</summary>
+    public void Clear()=>Interlocked.Exchange(ref pending,null);
+    public void Dispose()=>world.ClanWarehouseHistoryReceived-=OnReceived;
 }
