@@ -179,14 +179,23 @@ public sealed class BookmarkWindowPanel:IUiMovablePanel,IUiClosablePanel,IUiText
         countLabel=count==null?Rectangle.Empty:new(Pos(count,zero),new(count.Int("Width"),count.Int("Height")));
 
         // R5-B：排序鈕與區域篩選（可有可無：缺節點或缺圖只是不畫該件）。
+        // 這兩件的子節點常省略 X／Y（例如 Expand_List 只有 Y="19"），省略＝0；版面有問題只略過這兩件、記一行日誌，不停用整窗。
         UiNode? Find(UiNode parent,string element,string name)=>parent.ChildrenNamed(element).FirstOrDefault(n=>n.Attr("Name")==name);
-        sorting=Find(window,"Button","Sorting_Button") is {} sb?Button(sb,zero,"sort",false):null;
-        zoneExpand=null;zoneLabel=Rectangle.Empty;zoneRowSurf=null;zoneBack=null;zoneRowHeight=zonePageSize=zoneListWidth=0;zoneAll="ALL";
+        Point Loose(UiNode n,Point parent)=>new(parent.X+(n.TryInt("X")??0),parent.Y+(n.TryInt("Y")??0));
+        Part? LooseButton(UiNode n,Point parent,string key){
+            int b=SummonPanel.SurfId(n,"BaseSurf");
+            return new(key,new(Loose(n,parent),Measure(b)??Size.Empty),b,Optional(n,"PushSurf"),Optional(n,"DisableSurf"));
+        }
+        sorting=null;zoneExpand=null;zoneLabel=Rectangle.Empty;zoneRowSurf=null;zoneBack=null;zoneRowHeight=zonePageSize=zoneListWidth=0;zoneAll="ALL";
+        try{
+            sorting=Find(window,"Button","Sorting_Button") is {} sb?LooseButton(sb,zero,"sort"):null;
+        }catch(UiLayoutException ex){sorting=null;UiResourceLog.Write($"panel {PanelId} 排序鈕略過：{ex.Message}");}
+        try{
         if(Find(window,"ComboBox","ZoneFilter_Combobox") is {} combo&&Find(combo,"Button","Expand_Button") is {} eb&&Find(combo,"UpDownList","Expand_List") is {} el){
-            var at=Pos(combo,zero);
-            zoneExpand=Button(eb,at,"zone",false);
-            if(Find(combo,"Label","Text_Label") is {} tl)zoneLabel=new(Pos(tl,at),new(tl.TryInt("Width")??0,tl.TryInt("Height")??0));
-            zoneListAt=Pos(el,at);zoneListWidth=el.TryInt("Width")??0;zonePageSize=Math.Max(1,el.TryInt("PageSize")??1);
+            var at=Loose(combo,zero);
+            zoneExpand=LooseButton(eb,at,"zone");
+            if(Find(combo,"Label","Text_Label") is {} tl)zoneLabel=new(Loose(tl,at),new(tl.TryInt("Width")??0,tl.TryInt("Height")??0));
+            zoneListAt=Loose(el,at);zoneListWidth=el.TryInt("Width")??0;zonePageSize=Math.Max(1,el.TryInt("PageSize")??1);
             var items=el.ChildrenNamed("CheckButton").ToList();
             if(items.Count>0){
                 zoneRowHeight=items[0].TryInt("Height")??0;
@@ -197,6 +206,7 @@ public sealed class BookmarkWindowPanel:IUiMovablePanel,IUiClosablePanel,IUiText
                 zoneBack=(new(zoneListAt.X+(zb.TryInt("X")??0),zoneListAt.Y+(zb.TryInt("Y")??0)),SummonPanel.SurfId(zb,"Surf"));
             if(zoneRowHeight<=0||zoneListWidth<=0)zoneExpand=null;
         }
+        }catch(UiLayoutException ex){zoneExpand=null;UiResourceLog.Write($"panel {PanelId} 區域篩選略過：{ex.Message}");}
 
         usable=missing.Count==0;
         if(!usable)UiResourceLog.Write($"panel {PanelId} 停用：缺少版面所需的 surf（{string.Join("；",missing)}）");

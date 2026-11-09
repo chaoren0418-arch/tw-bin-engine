@@ -216,6 +216,11 @@ static class BookmarkPanelFollowupTests {
         var noSurf=Surfaces();noSurf.Remove(30);noSurf.Remove(40);
         var ns=new BookmarkWindowPanel();ns.Load(UiLayout.Parse(Layout(),"BookmarkUI.xml"),id=>noSurf.GetValueOrDefault(id));
         t.Check(ns.Usable&&ns.SortRect.IsEmpty&&ns.ZoneExpandRect.IsEmpty,"missing sorting/expand surf → those parts skipped");
+        var broken=new BookmarkWindowPanel();
+        broken.Load(UiLayout.Parse(Layout().Replace("BaseSurf=\"30\" ","").Replace("BaseSurf=\"40\" ",""),"BookmarkUI.xml"),id=>Surfaces().GetValueOrDefault(id));
+        t.Check(broken.Usable&&broken.SortRect.IsEmpty&&broken.ZoneExpandRect.IsEmpty,"sorting/expand without BaseSurf → skipped, window still usable");
+        // 真實 BookmarkUI.xml：Expand_List 沒有 X、Background_Image 沒有 Y（本檔的合成 XML 照抄這個省略）
+        t.Equal(new Rectangle(139,180,55,19),Panel(new Host(),null).ZoneRowRect(0),"omitted X/Y on Expand_List = 0");
 
         // 8. 關窗時清掉暫態（確認、命名、展開）
         var w=Panel(new Host(),new Editor());Click(w,w.RowRect(0),cmd);w.Key(K(Keys.Delete),cmd);
