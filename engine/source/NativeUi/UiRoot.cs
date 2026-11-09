@@ -39,14 +39,67 @@ public sealed class UiRoot {
     public IUiPanel? Find(string id)=>panels.FirstOrDefault(p=>p.Id==id);
 
     /// <summary>Paint order, bottom to top: layer, then (windows) z-order, then registration order.</summary>
-    public IEnumerable<IUiPanel> PaintOrder()=>panels.Select((p,i)=>(p,i)).OrderBy(t=>(int)t.p.Layer)
-        .ThenBy(t=>t.p.Layer==UiLayer.Window?windowOrder.IndexOf(t.p):t.i).Select(t=>t.p);
+    public IEnumerable<IUiPanel> PaintOrder(){
+        SyncWindows();
+        return panels.Select((p,i)=>(p,i)).OrderBy(t=>(int)t.p.Layer)
+            .ThenBy(t=>t.p.Layer==UiLayer.Window?windowOrder.IndexOf(t.p):t.i).Select(t=>t.p);
+    }
     /// <summary>Hit-test order, top to bottom (§3.3: from the float layer down).</summary>
     public IEnumerable<IUiPanel> HitOrder()=>PaintOrder().Reverse();
-    public bool Usable(IUiPanel p)=>p.Visible&&!faulted.Contains(p);
+    /// <summary>Painted, hit and given input: visible, not faulted, and not pushed out of the window stack.</summary>
+    public bool Usable(IUiPanel p)=>p.Visible&&!faulted.Contains(p)&&!evicted.Contains(p);
     public IUiPanel? HitTest(Point logical)=>HitOrder().FirstOrDefault(p=>Usable(p)&&p.Layer!=UiLayer.World&&p.Bounds.Contains(logical));
 
+    /// <summary>
+    /// Raises a window to the top of the z-order (sub_A596B0, VA 0xA596B0: moves an entry of dword_153D220 to slot 0, the
+    /// others keep their relative order). Closed windows may be reordered too; they go to the top again when they open.
+    /// </summary>
     public void BringToFront(IUiPanel panel){if(panel.Layer==UiLayer.Window&&windowOrder.Remove(panel))windowOrder.Add(panel);}
+
+    // ---- Window stack (R3-I, #677): sub_A57C60 (VA 0xA57C60 / FO 0x657060), dword_153D220[4].
+    // Original: slot 0 = newest/top; opening a window that is not in the array closes slot 3 (vtable+36), shifts 0..2 down
+    // and puts the new one in slot 0; opening one that is already there closes it and compacts the array (a toggle);
+    // a1 == 0 closes all four. Input goes to slots 0..3 in order (sub_8CA740 / sub_8CAB40).
+    // Engine: panels own their open state (Visible + non-empty Bounds), so the root observes it. A window that newly opens
+    // goes to the top; when more than MaxWindows are open, the bottom-most (= oldest, slot 3) is pushed out: closed through
+    // IUiClosablePanel when the panel offers it, otherwise kept hidden (not painted, not hit) until it closes by itself.
+    public const int MaxWindows=4;
+    readonly List<IUiPanel> stack=[];
+    readonly HashSet<IUiPanel> evicted=[];
+    /// <summary>Open windows in the original array order: [0] = top (newest or last raised), at most MaxWindows.</summary>
+    public IReadOnlyList<IUiPanel> WindowStack{get{SyncWindows();return windowOrder.Where(stack.Contains).Reverse().ToArray();}}
+    /// <summary>true while a window is pushed out of the stack and has not closed itself yet.</summary>
+    public bool IsEvicted(IUiPanel p)=>evicted.Contains(p);
+    /// <summary>Fired once per window pushed out by a newer one (for logs and checks).</summary>
+    public event Action<IUiPanel>? WindowEvicted;
+
+    static bool IsOpen(IUiPanel p)=>p.Visible&&!p.Bounds.IsEmpty;
+
+    /// <summary>
+    /// Brings the stack in line with the panels' open state. Called from Update, PaintOrder (so Compose and hit testing) and
+    /// UiInput.Key; cheap (a handful of windows) and idempotent.
+    /// </summary>
+    public void SyncWindows(){
+        if(windowOrder.Count==0)return;
+        // Closed (or faulted) windows leave the stack; an evicted window that has closed may open again later.
+        foreach(var w in windowOrder)if(faulted.Contains(w)||!IsOpen(w)){stack.Remove(w);evicted.Remove(w);}
+        // Newly opened windows go to the top, in z-order (registration order on the first pass).
+        foreach(var w in windowOrder.ToArray()){
+            if(faulted.Contains(w)||evicted.Contains(w)||stack.Contains(w)||!IsOpen(w))continue;
+            windowOrder.Remove(w);windowOrder.Add(w);stack.Add(w);
+            while(stack.Count>MaxWindows)Evict(windowOrder.First(stack.Contains));
+        }
+    }
+
+    void Evict(IUiPanel oldest){
+        stack.Remove(oldest);evicted.Add(oldest);
+        UiResourceLog.Write($"視窗堆疊已滿（{MaxWindows} 層），關閉最舊的 {oldest.Id}");
+        if(oldest is IUiClosablePanel closable){
+            try{closable.Close();}catch(Exception ex){Fault(oldest,"Close",ex);}
+            if(!IsOpen(oldest))evicted.Remove(oldest);
+        }
+        WindowEvicted?.Invoke(oldest);
+    }
 
     /// <summary>A module that throws during Update/Paint/input is switched off (logged once) instead of taking the client down.</summary>
     internal void Fault(IUiPanel panel,string phase,Exception ex){
@@ -55,6 +108,7 @@ public sealed class UiRoot {
 
     public void Update(IUiGameState state){
         foreach(var p in panels.ToArray()){if(faulted.Contains(p))continue;try{p.Update(state);}catch(Exception ex){Fault(p,"Update",ex);}}
+        SyncWindows();
     }
 
     /// <summary>Composes one frame: black, then the world inside WorldRect, then every visible panel clipped to its Bounds.</summary>
@@ -100,6 +154,14 @@ public sealed class UiRoot {
         foreach(var g in root.groups.Values)g.Reset();
         return root;
     }
+}
+
+/// <summary>
+/// Optional: a window the root may close when the stack is full (sub_A57C60 calls the evicted window's vtable+36).
+/// After Close the panel should report Visible=false or empty Bounds; until then UiRoot keeps it hidden.
+/// </summary>
+public interface IUiClosablePanel:IUiPanel {
+    void Close();
 }
 
 /// <summary>
