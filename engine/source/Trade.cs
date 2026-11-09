@@ -18,6 +18,9 @@ public sealed partial class WorldSession {
     public TradeOffer[] TradeOffers=>tradeOffers.ToArray();readonly List<TradeOffer> tradeOffers=[];
     int tradeEpoch;bool tradeOwnConfirmed,tradeOpened;
     public bool TradeCancelRequired {get;private set;}
+    // R3-E (#674): TRANSACTION_WINDOW is open from S52 (op 88) until the S112 (op 167) result; the native panel reads these.
+    public bool TradeOpened=>tradeOpened&&tradeEpoch==WorldEpoch;
+    public bool TradeOwnConfirmed=>tradeOwnConfirmed;
     public bool TradeBlocksActions=>TradeState is "inviting" or "invited" or "accepting" or "open" or "adding" or "confirmed" or "attention" or "cancelling";
     public bool TradeCanCancel=>TradeBlocksActions&&TradeState!="cancelling";
     public bool TradeCanAdd=>TradeState=="open"&&TradePeerPresent&&!OwnDead&&Status?.Hp>0;
@@ -34,6 +37,7 @@ public sealed partial class WorldSession {
     // byte_136E99D (WIN§2.1): 1 = S219/252 shows the generic Y/N question; otherwise the original auto-replies C121 (op 33).
     // Where the flag is set and which value the auto-reply carries are unverified (推測), so the engine assumes 1
     // and the flag-0 path keeps the pre-M7-K manual accept/reject instead of inventing an automatic answer.
+    // R3-E (#674) re-checked: still no verified writer of the flag nor reply value, so this stays as is (gap-matrix §3 C_ASK_XCHG).
     internal bool TradeAskWindow {get;set;}=true;
     // The shared question is live only while this exact invitation (same challenge, same world) is still waiting.
     internal bool TradeYesNoLive(YesNoPrompt p)=>p.Message==252&&TradeState=="invited"&&TradeChallenge==p.RequestId&&tradeEpoch==p.Epoch&&p.Arguments is [var name]&&name==TradePeerName;
