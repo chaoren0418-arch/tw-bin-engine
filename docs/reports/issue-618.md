@@ -36,10 +36,24 @@
 ### 3. S76 接 `GhostSkipsSelfAppearance`（WO §4）
 - `ReceivePolymorph` 會先完整解碼封包；格式錯誤照樣丟例外。之後如果自己在幽靈狀態，就略過自己的 S76，gfx 與 `AppearanceRevision` 都不變。他人的 S76 照常處理。
 
-### 4. 城主王冠（op 252）——沒做
-Q-2（圖源 `dword_15451B8` 與偏移表）還沒查，所以照共同規則只保留現有的協定與資料（`Castle.cs` 的 `CastleCrownFrames`），不接畫面。
+### 4. 城主王冠（op 252）——同步 main 後接上畫面
+第一輪 Q-2 還沒查完，所以沒做。同步 main（`5f0d3d6c`）後，T267（#628，`sprites-and-strings.md` §1，下稱 SS）與 T272（#649，`followups-3.md` §2，下稱 FU3）已經查完，這一輪就照它們接上：
+- `CastleCrownImages`：執行期從原客戶端 `Sprite.idx`／`Sprite.pak` 唯讀讀 `crown.raw`。核對項目照 `AmbienceLightImages.Load`：idx pin、pak 長度、只有一筆、長度 4608、payload SHA-256 `0e6dc26b…14a7db`。解碼成 12 格、16×12、RGB555，0 是透明。沒有複製進 git。
+- `CrownLayout`：
+  - `Position`：錨點用精靈原點，也就是 `Coordinates.Screen −(24,12)`，和 `Draw.Px／Py` 在偏移 0 時相同。套 `CastleProtocol.CrownAnchor`（+17、−40 或 −50、−12）。gfx 是 6080 或 6094 時高度用 50。
+  - `Plan`：自己一律畫。他人要沒有隱身旗標（`Flags & 2`），不看同隊同盟是否看得見（FU3§2）。第 2 格城主沒有王冠，這部分已由 `CastleCrownFrames` 處理。每座城一頂，每格 500 ms。
+  - `Fits`：不做邊緣裁切，整格要在畫面內才畫；他人另外要 y＞0。
+- `ClientForm.PaintCrowns`：在名稱之前畫，套相機縮放。圖源讀不到時就不畫，也不拿替代圖，只記一次 `crown-unavailable` 事件。
 
-## 怎麼驗證（2026-11-09，已同步 origin/main `c04142ab`）
+## 怎麼驗證（第 2 輪，2026-11-09，已同步 origin/main `5f0d3d6c`）
+- 合併只有 `rebuild-lock.json` 衝突：先取 main 版本，再用 `--update-lock` 重產，共 330 個來源檔。
+- `rebuild.py --build`：`PASS dev`，productDll 是 `e3966f04…37e6a`。
+- `P11.ClientEngine.exe --module-tests`：`pass`，42 組、2133 項，失敗 0。
+  - `object-draw` 有 77 項，新增王冠的檢查：解碼、錨點、高外型、自己隱身也畫、他人隱身不畫、第 2 城沒有王冠、500 ms 換格、盲目模式、不裁切、縮放。
+- `TW_MODULE_CLIENT_CHECKS=1` 只跑 `object-draw`：78 項全部通過。本機原客戶端的 `crown.raw` 通過 pin 核對，12 格不透明像素數 43／37／27／18／30／37／48／45／47／50／51／45，和 SS§1.1 相同。
+- `check-no-game-assets.py`：`pass`。
+
+## 第 1 輪驗證（2026-11-09，當時同步 origin/main `c04142ab`）
 - `rebuild.py --update-lock`：303 個來源檔。`rebuild.py --build --configfile .github/nuget.ci.config`：`PASS dev`，productDll `9f5b4cd5…77b556`。
 - `P11.ClientEngine.exe --module-tests`：`pass`，28 組、1429 項，失敗 0。其中新的 `object-draw` 59 項，涵蓋：
   - 外觀與動作退回的每一級
@@ -64,6 +78,12 @@ Q-2（圖源 `dword_15451B8` 與偏移表）還沒查，所以照共同規則只
 - +181、物件種類（2／3／9／10）、種類 10 的「名單」：3.81 的 S87 沒有對應欄位，**需先查證**來源，現在一律是空值，對應規則在產品中不會觸發。等級差外框因此也不會觸發；選項 `NameLayout.MonsterLevelOption` 沒有 UI，預設 0。
 - 三種圖示（+181、隊伍、主人 5）的**圖源沒有查證**，只在 `NamePlan.Icons` 算出位置，畫面不畫（不拿替代圖冒充）。
 - 有 +252 行時盟徽的位置（`sub_F02870` 沒有反編譯）是推測：跟著名稱一起移動。
+- 王冠的**推測**部分：
+  - 錨點 `sub_F1A750` 等於精靈原點，是從 `ShipBackdrop.cs` 的投影和區塊座標公式推出來的，得到的王冠剛好在人物中央。
+  - 走路時王冠跟著引擎畫身體用的格位，沒有另外套 SS§1 的四張走路內插表。如果引擎畫身體本身沒有逐格內插，王冠也一樣沒有。
+  - 盲目 1 時不畫他人的王冠，比照名稱的處理。
+  - 計時器一直在跑，不是只有畫出來時才前進。SS§1.3 說這個差異很小，可以不追。
+- 王冠沒有在真機看過位置與動畫。
 - 沒有啟動遊戲、伺服器或 DB；沒有真機看過畫面。
 
 ## 產出路徑
@@ -73,7 +93,9 @@ Q-2（圖源 `dword_15451B8` 與偏移表）還沒查，所以照共同規則只
 - 本報告 `docs/reports/issue-618.md`
 
 ## 給下一棒的提示
-- **Q-2（resource）**：查到王冠圖源後，在 `ObjectRendering.cs` 的名稱或物件繪製流程呼叫 `session.CastleCrownFrames(id)` 就能接上。同一輪可以順便查 +181、隊伍、主人圖示 5 與 `0x1685` 的圖號。
+- 王冠已經接上。如果之後要把走路內插表做成共用資料，王冠只要改 `CrownLayout.Position` 的輸入（SS§1.3 建議另開任務）。
+- **resource**：+181、隊伍、主人圖示 5 與 `0x1685` 的圖號還沒查。
+- 真機驗收（dot）：讓測試角色成為城主（S69）後，頭上應該有旋轉的 16×12 王冠，位置在人物中央上方；隱身的他人不畫王冠。
 - **resource**：抽出 gfx 1120 的原圖（放進 objects 或 world-appearances 的清單），`ObjectDrawFallback` 不用再改就會生效。
 - **需先查證**：+181、物件種類、種類 10 名單在 3.81 對應哪個封包欄位。查到後只要改 `WorldSession.NameMarksFor`。
 - 真機驗收（dot）：

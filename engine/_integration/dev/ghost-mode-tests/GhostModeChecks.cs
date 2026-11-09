@@ -8,6 +8,7 @@ partial class Checks {
         b.Write((byte)0xb0);b.Write((byte)255);b.Write((byte)8);b.Write((byte)0);b.Write((byte)0);b.Write((byte)255);b.Write((byte)255);
     });
     static LoginConnection GhostSeed(){var c=Seed();Feed(c,GhostPack());return c;}
+    [CheckGroup("ghost-mode",Order=1),CheckGroup("map-continuity",Order=240),CheckGroup(CheckGroups.Default,Order=470)]
     static async Task GhostModeChecks(){
         Check(Convert.ToHexString(GhostModePackets.Exit())=="AD00000000000000","C173 empty body with exact 8-byte wire padding");
         Check(Convert.ToHexString(NpcPackets.Action(0x12345678,"ent"))=="7D78563412656E740000000000000000","existing C125 D/S ent entrance encoding");

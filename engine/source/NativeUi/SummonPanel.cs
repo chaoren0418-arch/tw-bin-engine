@@ -45,6 +45,7 @@ public interface ISummonUiHost {
 }
 
 public sealed class SummonPanel:IUiMovablePanel {
+    [UiPanel(30)] internal static UiPanelRegistration Registration=>new(SummonPanel.PanelId,SummonPanel.LayoutName,root=>new SummonPanel(root.Resources));   // ui-summon (M7-W, #530)
     public const string PanelId="SummonMonster_Window",LayoutName="SummonUI";
     public const int QuickSlots=3,LevelButtons=12,MonsterSlots=6;
     internal sealed record Part(string Key,Rectangle Rect,int Base,int? Push);

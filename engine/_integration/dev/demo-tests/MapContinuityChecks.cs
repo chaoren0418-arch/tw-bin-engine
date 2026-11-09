@@ -36,6 +36,7 @@ partial class Checks {
         Check(c.World.Objects.Length>0&&c.World.MagicEffects.Length>0&&c.World.Ground.Length>0,"seed old objects, magic and ground");
     }
     static void CleanScene(LoginConnection c,string label)=>Check(c.World.Objects.Length==0&&c.World.Ground.Length==0&&c.World.MagicEffects.Length==0&&c.World.TargetId==null&&c.World.SelectedGroundId==null&&c.World.InteractionKind=="closed",label);
+    [CheckGroup("map-continuity",Order=10)]
     static async Task MapContinuity(){
         MapIdOverloads();
         string fixtureRoot=Path.Combine(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../..")),"scratch","issue-140","synthetic-maps");

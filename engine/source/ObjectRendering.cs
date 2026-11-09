@@ -106,6 +106,67 @@ public static class ObjectDrawFallback {
         return bare() is {} b&&!ReferenceEquals(b,appearance)&&supports(b,"walk",direction)?(b,"walk"):null;
     }
 }
+// R2-I 城主王冠（sprites-and-strings.md §1，followups-3.md §2）：crown.raw＝Sprite.pak 內 12 格 16×12 RGB555，0 透明，沒有檔頭。
+// 執行期從原客戶端唯讀讀取並核對 pin，不複製進專案。
+public sealed class CastleCrownImages {
+    public const string EntryName="crown.raw",PayloadSha256="0e6dc26b1caca1725535c76b44d215df3c850ca42fa5373c54bf7d741014a7db";
+    public const int Width=16,Height=12,FramePixels=Width*Height,PayloadBytes=CastleProtocol.CrownFrames*FramePixels*2;
+    readonly ushort[] pixels;
+    CastleCrownImages(ushort[] pixels){this.pixels=pixels;}
+    /// <summary>第 f 格（0–11）的 192 個像素（列優先）；格號越界時回空。</summary>
+    public ReadOnlySpan<ushort> Frame(int f)=>(uint)f<CastleProtocol.CrownFrames?pixels.AsSpan(f*FramePixels,FramePixels):default;
+    public static CastleCrownImages Parse(byte[] payload){
+        if(payload.Length!=PayloadBytes)throw new InvalidDataException("crown.raw 長度不符");
+        var p=new ushort[payload.Length/2];for(int i=0;i<p.Length;i++)p[i]=BitConverter.ToUInt16(payload,2*i);
+        return new(p);
+    }
+    /// <summary>照 AmbienceLightImages.Load：核對 Sprite.idx pin、Sprite.pak 長度、唯一一筆（不分大小寫）與 payload SHA-256。</summary>
+    public static CastleCrownImages Load(string? clientRoot=null){
+        string root=Path.GetFullPath(clientRoot??GroundSpriteReader.ClientRoot);
+        byte[] index=File.ReadAllBytes(Path.Combine(root,"Sprite.idx"));
+        if(!Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(index)).Equals(AmbienceLightImages.IndexSha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Sprite.idx pin 不符");
+        uint count=BitConverter.ToUInt32(index,0);
+        if(index.Length!=4+28L*count)throw new InvalidDataException("Sprite.idx 長度不符");
+        (long Offset,int Size)? found=null;
+        for(int i=0;i<count;i++){
+            int at=4+28*i,end=Array.IndexOf(index,(byte)0,at+4,20);if(end<0)end=at+24;
+            if(!System.Text.Encoding.ASCII.GetString(index,at+4,end-at-4).Equals(EntryName,StringComparison.OrdinalIgnoreCase))continue;
+            if(found!=null)throw new InvalidDataException("Sprite.idx 有重複的 crown.raw");
+            found=(BitConverter.ToUInt32(index,at),checked((int)BitConverter.ToUInt32(index,at+24)));
+        }
+        if(found is not {} entry)throw new InvalidDataException("Sprite.idx 找不到 crown.raw");
+        using var pak=new FileStream(Path.Combine(root,"Sprite.pak"),FileMode.Open,FileAccess.Read,FileShare.Read);
+        if(pak.Length!=AmbienceLightImages.PakSize||entry.Size!=PayloadBytes||entry.Offset+entry.Size>pak.Length)throw new InvalidDataException("Sprite.pak 長度或 crown.raw 範圍不符");
+        pak.Position=entry.Offset;var payload=new byte[entry.Size];pak.ReadExactly(payload);
+        if(!Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(payload)).Equals(PayloadSha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("crown.raw payload pin 不符");
+        return Parse(payload);
+    }
+}
+/// <summary>一頂要畫的王冠：Position＝場景座標的左上角（16×12）。</summary>
+public sealed record CrownDraw(uint ObjectId,byte Castle,int Frame,PointF Position,bool Self);
+public sealed record CrownTarget(uint ObjectId,int Gfx,int X,int Y,bool Self);
+public static class CrownLayout {
+    /// <summary>sub_501260：gfx 6080／6094 用高度 50，其餘 40。</summary>
+    public static bool Tall(int gfx)=>gfx is 6080 or 6094;
+    // sub_F1A750 的人物畫面點＝精靈區塊偏移的原點＝Coordinates.Screen(x,y) −(24,12)（與 Draw.Px／Py 在 A=B=0 時相同）。
+    // 王冠位置照引擎畫身體的同一個格位（ComposeObjects 的 x、y），不另套走路內插表（SS§1.3）。
+    public static PointF Position(int x,int y,int gfx){
+        var s=Coordinates.Screen(x,y);var (cx,cy)=CastleProtocol.CrownAnchor((int)s.X-24,(int)s.Y-12,Tall(gfx));return new(cx,cy);
+    }
+    /// <summary>sub_F08880 的條件：自己一律畫；他人沒有隱身旗標（Flags &amp; 2，不看同隊同盟可見，FU3§2）。
+    /// 盲目 1 不畫他人（與名稱相同，推測）。y＞0 與整格在畫面內由 <see cref="Fits"/> 在畫面座標判斷。</summary>
+    public static CrownDraw[] Plan(WorldSession w,IEnumerable<CrownTarget> targets){
+        var list=new List<CrownDraw>();bool blind=w.BlindMode==1;
+        foreach(var t in targets){
+            if(!t.Self&&(blind||w.InvisibleFlagOf(t.ObjectId)))continue;
+            foreach(var c in w.CastleCrownFrames(t.ObjectId))list.Add(new(t.ObjectId,c.Castle,c.Frame,Position(t.X,t.Y,t.Gfx),t.Self));
+        }
+        return list.ToArray();
+    }
+    /// <summary>sub_96E790 不裁切：整格要落在畫面內才畫；他人另外要 y＞0（sub_971E50）。</summary>
+    public static bool Fits(PointF view,float zoom,SizeF client,bool self)=>
+        (self||view.Y>0)&&view.X>=0&&view.Y>=0&&view.X+CastleCrownImages.Width*zoom<=client.Width&&view.Y+CastleCrownImages.Height*zoom<=client.Height;
+}
 public static class NameLayout {
     public const int GlyphWidth=6,FontPixels=12,EmblemWidth=16,EmblemHeight=12;
     public const int NameDy=-3,TitleLine=13,EmblemDx=-20,EmblemDy=-4,ClanNameShift=10,PartyDy=-9,AllNamesDy=-16,HeadEmblemDy=-23;
@@ -180,6 +241,7 @@ public static class NameLayout {
 public sealed partial class WorldSession {
     internal (string Clan,uint ClanId) ClanIdentity(uint id)=>Actor?.ObjectId==id?(Actor.Clan,Actor.ClanId):objects.TryGetValue(id,out var o)?(o.Clan,o.ClanId):("",0u);
     internal bool IsPartyMemberId(uint id)=>id!=0&&partyMembers.Values.Any(m=>m.ObjectId==id);
+    internal bool InvisibleFlagOf(uint id)=>objects.TryGetValue(id,out var o)&&(o.Flags&2)!=0;
     internal int GfxOf(uint id)=>Actor?.ObjectId==id?Actor.Gfx:objects.TryGetValue(id,out var o)?o.Gfx:-1;
     // 3.81 封包能提供的部分：+248 主人名＝S87 owner 欄；+252 行＝個人商店標題（AN§2.1 推測）；等級差＝S87 等級 − 自己等級。
     // +181 與物件種類在 3.81 S87 沒有對應欄位（需先查證），一律留空，對應規則不啟用。
@@ -267,10 +329,39 @@ public sealed partial class ClientForm {
             }
         }finally{g.Restore(state);}
     }
+    // 城主王冠（sub_F08880）：圖源讀不到時不畫、不退回替代圖，只記一次事件。
+    static CastleCrownImages? crownImages;static bool crownLoadTried;static Bitmap?[]? crownBitmaps;
+    static Bitmap? CrownBitmap(int frame){
+        if(!crownLoadTried){crownLoadTried=true;try{crownImages=CastleCrownImages.Load();}catch(Exception e) when(e is IOException or InvalidDataException or UnauthorizedAccessException){crownImages=null;CrownLoadError=e.Message;}}
+        if(crownImages is not {} images||(uint)frame>=CastleProtocol.CrownFrames)return null;
+        crownBitmaps??=new Bitmap?[CastleProtocol.CrownFrames];
+        if(crownBitmaps[frame] is {} cached)return cached;
+        var b=new Bitmap(CastleCrownImages.Width,CastleCrownImages.Height,System.Drawing.Imaging.PixelFormat.Format32bppArgb);var px=images.Frame(frame);
+        for(int y=0;y<CastleCrownImages.Height;y++)for(int x=0;x<CastleCrownImages.Width;x++){ushort c=px[y*CastleCrownImages.Width+x];b.SetPixel(x,y,c==0?Color.Transparent:NameColors.ToColor(c));}
+        return crownBitmaps[frame]=b;
+    }
+    static string? CrownLoadError;
+    void PaintCrowns(Graphics g){
+        if(!login.World.Renderable)return;
+        var targets=new List<CrownTarget>();
+        if(login.World.Actor is {} a&&renderer.OwnCombatVisual is {} own)targets.Add(new(a.ObjectId,a.Gfx,own.X,own.Y,true));
+        foreach(var v in objectVisuals)if(v.Action!="ground"&&objectPatch?.VisibleObjectIds.Contains(v.ObjectId)==true)targets.Add(new(v.ObjectId,v.Gfx,v.X,v.Y,false));
+        var plan=CrownLayout.Plan(login.World,targets);if(plan.Length==0)return;
+        float zoom=Camera.Zoom;var state=g.Save();
+        try{
+            g.InterpolationMode=System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;g.PixelOffsetMode=System.Drawing.Drawing2D.PixelOffsetMode.Half;
+            foreach(var c in plan){
+                var p=Camera.ToView(c.Position);if(!CrownLayout.Fits(p,zoom,ClientSize,c.Self)||CrownBitmap(c.Frame) is not {} bitmap)continue;
+                g.DrawImage(bitmap,p.X,p.Y,CastleCrownImages.Width*zoom,CastleCrownImages.Height*zoom);
+            }
+        }finally{g.Restore(state);}
+        if(CrownLoadError is {} error){CrownLoadError=null;events.Add(new{kind="crown-unavailable",error});}
+    }
     void PaintObjectSelection(Graphics g){
         if(login.World.TargetId is uint id&&objectVisuals.FirstOrDefault(v=>v.ObjectId==id) is {} v){var p=Camera.ToView(v.Foot);using var pen=new Pen(Color.Gold,2);g.DrawEllipse(pen,p.X-19*Camera.Zoom,p.Y-7*Camera.Zoom,38*Camera.Zoom,14*Camera.Zoom);}
         foreach(var groundVisual in objectVisuals.Where(v=>v.Action=="ground")){var pt=Camera.ToView(groundVisual.Foot);bool selected=login.World.SelectedGroundId==groundVisual.ObjectId;g.DrawString(groundVisual.Name,Font,selected?Brushes.Gold:Brushes.White,pt.X-20,pt.Y+17);if(selected){using var pen=new Pen(Color.Gold,2);g.DrawEllipse(pen,pt.X-16,pt.Y+3,32,12);}}
         PaintObjectPresence(g,Camera.ToView,new RectangleF(Camera.ViewOffset,Camera.View));
+        PaintCrowns(g);
         PaintNames(g);
         PaintDisplayNotices(g);
     }

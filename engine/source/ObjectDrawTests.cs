@@ -27,7 +27,47 @@ static class ObjectDrawTests {
 
     [WorldModuleTest("object-draw")]
     static void Run(WorldModuleTestContext t){
-        Appearances(t);Actions(t);Icons(t);Plans(t);Ghost(t);
+        Appearances(t);Actions(t);Icons(t);Plans(t);Ghost(t);Crowns(t);
+    }
+
+    // SS§1／FU3§2：crown.raw 解碼、錨點、可見條件、不裁切。
+    static void Crowns(WorldModuleTestContext t){
+        t.Equal(4608,CastleCrownImages.PayloadBytes,"crown.raw = 12 × 16 × 12 × 2 bytes");
+        var raw=new byte[4608];raw[384*3+2*(16*5+7)]=0x1F;raw[384*3+2*(16*5+7)+1]=0x7C;
+        var img=CastleCrownImages.Parse(raw);
+        t.Equal((ushort)0x7C1F,img.Frame(3)[16*5+7],"frame 3 row 5 col 7 little-endian RGB555");
+        t.Check(img.Frame(0).ToArray().All(v=>v==0)&&img.Frame(12).IsEmpty,"other frames transparent; frame 12 out of range");
+        t.Throws<InvalidDataException>(()=>CastleCrownImages.Parse(new byte[4607]),"wrong length rejected");
+        t.Throws<IOException>(()=>CastleCrownImages.Load(Path.Combine(AppContext.BaseDirectory,"no-such-client")),"missing client: load error, no substitute art");
+        // 錨點：精靈原點＝Screen −(24,12)；x＋17、y − 40／50 − 12。
+        var s=Coordinates.Screen(32600,32940);
+        t.Equal(new PointF(s.X-24+17,s.Y-12-40-12),CrownLayout.Position(32600,32940,61),"crown anchor normal height 40");
+        t.Equal(new PointF(s.X-24+17,s.Y-12-50-12),CrownLayout.Position(32600,32940,6094),"gfx 6094 height 50");
+        t.Check(CrownLayout.Tall(6080)&&CrownLayout.Tall(6094)&&!CrownLayout.Tall(61),"tall gfx 6080/6094 only");
+
+        var w=Seed(0x02);long clock=0;w.CastleClock=()=>clock;
+        w.Receive(Appear(Other,32603,"路人",1110),"offline");w.Receive(Appear(Pet,32604,"隱身",1110,flags:0x02),"offline");w.Receive(Appear(Shop,32605,"二城",1110),"offline");
+        static byte[] Master(byte c,uint id)=>P([CastleProtocol.SCastleMaster,c],Le32(id));
+        w.Receive(Master(1,Me),"offline");w.Receive(Master(4,Other),"offline");w.Receive(Master(5,Pet),"offline");w.Receive(Master(2,Shop),"offline");
+        CrownTarget T(uint id,bool self=false)=>new(id,61,32600,32940,self);
+        var plan=CrownLayout.Plan(w,[T(Me,true),T(Other),T(Pet),T(Shop)]);
+        t.Check(plan.Any(c=>c is {ObjectId:Me,Castle:1,Self:true}),"self crowned even with own invisible flag",plan);
+        t.Check(plan.Any(c=>c is {ObjectId:Other,Castle:4,Frame:0}),"other castle-4 owner crowned",plan);
+        t.Check(plan.All(c=>c.ObjectId!=Pet),"invisible other (Flags & 2) not crowned",plan);
+        t.Check(plan.All(c=>c.ObjectId!=Shop),"castle 2 owner not crowned",plan);
+        clock=1500;t.Equal(3,CrownLayout.Plan(w,[T(Other)]).Single().Frame,"500 ms per frame");
+        Set(w,"BlindMode",(ushort)1);
+        var blind=CrownLayout.Plan(w,[T(Me,true),T(Other)]);
+        t.Check(blind.Length==1&&blind[0].Self,"blind mode 1: only own crown (推測，同名稱)",blind);
+        var view=new SizeF(800,600);
+        t.Check(CrownLayout.Fits(new(10,10),1,view,false),"inside view drawn");
+        t.Check(!CrownLayout.Fits(new(10,0),1,view,false)&&CrownLayout.Fits(new(10,0),1,view,true),"other needs y > 0; self y = 0 ok");
+        t.Check(!CrownLayout.Fits(new(-1,10),1,view,true)&&!CrownLayout.Fits(new(785,10),1,view,true)&&!CrownLayout.Fits(new(10,589),1,view,true),"no edge clipping: partial crowns skipped");
+        t.Check(CrownLayout.Fits(new(784,588),1,view,true)&&!CrownLayout.Fits(new(784,588),2,view,true),"zoom scales the 16×12 box");
+        if(Environment.GetEnvironmentVariable("TW_MODULE_CLIENT_CHECKS")=="1"){
+            var real=CastleCrownImages.Load();int[] opaque=[43,37,27,18,30,37,48,45,47,50,51,45];
+            t.Check(Enumerable.Range(0,12).All(f=>real.Frame(f).ToArray().Count(v=>v!=0)==opaque[f]),"original crown.raw opaque pixel counts (SS§1.1)");
+        }
     }
 
     // AN§3.4：(gfx, 姿勢) → (gfx, 0) → 整個 gfx 沒有圖時 1120。
