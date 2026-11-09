@@ -61,7 +61,9 @@ public sealed partial class ClientForm {
         return true;
     }
     void ComposeNativeUi(UiCanvas canvas){
-        nativeUiRoot!.Update(NativeUiGameState());
+        // R5-A (#733): the window stack's 509 rule reads the current map (sub_A57C60, *dword_138BE60).
+        nativeUiRoot!.CurrentMap=NativeUiMap();
+        nativeUiRoot.Update(NativeUiGameState());
         nativeUiRoot.Compose(canvas,PaintNativeWorld);
     }
     // World layer: the existing scene painter with viewport = WorldRect, so Camera.View = WorldRect.Size (§3.2).
@@ -112,6 +114,7 @@ public sealed partial class ClientForm {
         return used;
     }
     void ResetNativeUiInput()=>nativeUiInput?.Reset();
+    int? NativeUiMap()=>login.State==LoginState.InWorld?login.World.MapId:null;
 
     IUiGameState NativeUiGameState(){
         var w=login.World;var s=w.Status;bool inWorld=login.State==LoginState.InWorld;
@@ -167,10 +170,16 @@ public sealed partial class ClientForm {
     }
 
     // R4-A (#705): menu 5／6 and Ctrl+H／V／C. The Text.pak page (dialogs/templates.json, same key as the original HTML name) is
-    // shown as a self query page in the NPC panel (dev-tools 「NPC」 tab) until R4-I's native HYPER_TEXT_WINDOW; links and
+    // shown as a self query page: HYPER_TEXT_WINDOW when the native UI has it (R4-I; R5-A #733: no dev tools then), otherwise
+    // the NPC panel (dev-tools 「NPC」 tab); links and
     // actions stay disabled there (ShowQueryPage, 待驗證). Same page shown again → closed (the original toggles, FU4§1.1).
     // The page replaces a query page already shown (one HYPER_TEXT_WINDOW); an open NPC dialog / shop is not touched.
     string? menuLocalPage;
+    /// <summary>
+    /// R5-A (#733, gap-matrix 14.2 item 4): dev-tools tab to open with a menu page. The native page window usable (native UI
+    /// active, HYPER_TEXT_WINDOW registered and not faulted) → null, nothing extra opens; otherwise the 「NPC」 tab (legacy path).
+    /// </summary>
+    internal static string? MenuLocalPageDevTools(bool nativePageWindow)=>nativePageWindow?null:"NPC";
     internal bool ToggleMenuLocalPage(MenuLocalPage page){
         if(login.State!=LoginState.InWorld)return false;
         var w=login.World;
@@ -181,7 +190,8 @@ public sealed partial class ClientForm {
         if(w.QueryVisible&&menuLocalPage==key&&w.QueryHtml==key){w.CloseQueryPage();menuLocalPage=null;}
         else{
             w.ShowQueryPage(w.Actor?.ObjectId??0,key,[],[]);menuLocalPage=key;
-            ShowDevToolsPage("NPC");
+            // R5-A (#733): with the native HYPER_TEXT_WINDOW the page shows there (SyncNativeHyperText); dev tools only without it.
+            if(MenuLocalPageDevTools(NativeHyperText()!=null) is {} tab)ShowDevToolsPage(tab);
         }
         SyncInteraction();lastWebState="";PublishWebState();
         events.Add(new{kind="native-ui-menu",page=key,shown=w.QueryVisible&&w.QueryHtml==key});
