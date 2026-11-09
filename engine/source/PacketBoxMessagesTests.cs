@@ -65,14 +65,15 @@ static class PacketBoxMessagesTests {
             t.Check(tail.SequenceEqual(["O","H","[城1 = 盟A]","[城4 = 盟D]"]),"war over lines (owned castles only)",tail);
             t.Check(s.WarOverClans!.SequenceEqual(["盟A","","","盟D","",""]),"war over clans",s.WarOverClans);
 
-            // 8. 只存資料：27 兩種寫法、30、31；不進聊天欄。
+            // 8. 27 兩種寫法、30、31 的資料（R4-H／#711 起 27／30／31 也印聊天欄，細節在 PacketBoxChatTests）：
+            //    假表 1600 筆 → 2125 超出表不顯示（dropped +1），11 不印；30 印 782＋783（假表空字串）；31×2 印 77×2。
             int before=Chat(s).Length;
             s.Receive(Box(27),"");t.Equal(new PacketBoxRankChange(null,null),s.RankChange,"rank change without fields");
             s.Receive(Box(27,[10,..Str("角色乙")]),"");t.Equal(new PacketBoxRankChange(10,"角色乙"),s.RankChange,"rank change with name");
             s.Receive(Box(27,[11,..Str("")]),"");t.Equal(new PacketBoxRankChange(11,""),s.RankChange,"rank change banned (11, empty)");
             s.Receive(Box(30,[..Le32(77),..Str("王"),..Str("盟")]),"");t.Equal(new PacketBoxLastavard(77,"王","盟"),s.LastavardWin,"lastavard");
             s.Receive(Box(31),"");s.Receive(Box(31),"");t.Equal(2,s.FeelGoodCount,"feel good counted");
-            t.Equal(before,Chat(s).Length,"data-only subtypes add no chat line");
+            t.Equal(before+4,Chat(s).Length,"27/30/31 chat lines (2125 past fake table, 11 silent, 782+783, 77×2)");
 
                         // 7b. 79 全部無主：只有 1511。
             int beforeEmpty=Chat(s).Length;s.Receive(Box(79,[3,..Str(" "),..Str(" ")]),"");
@@ -83,7 +84,7 @@ static class PacketBoxMessagesTests {
             using(ServerMessageText.UseTable(ServerStringTable.Parse(Encoding.ASCII.GetBytes("700\n")))){
                 int n=Chat(s).Length;s.Receive(Box(23,Str("x")),"");
                 t.Equal(n,Chat(s).Length,"id past table count dropped");
-                t.Equal(1,State(s).GetProperty("dropped").GetInt32(),"dropped counted");
+                t.Equal(2,State(s).GetProperty("dropped").GetInt32(),"dropped counted (2125 in step 8 + this one)");
             }
 
             // 10. 快照、事件、全部被消化。
