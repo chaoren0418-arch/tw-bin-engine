@@ -7,10 +7,14 @@ namespace P06;
 // M7-O (#521) follows docs/reference/world-objects.md §5:
 // - Zone is the MapSystem region id (inferred there: World_Map 0–99 / Village_Map 100–999, receiver picks the table by id>=100).
 // - Receive shows string 1784 (sender + region name) and keeps an independent list of at most 10 (oldest dropped).
-// - String table texts 1784 / 1785 / 2139 and every mapDesc name stay numbered placeholders 〔訊息1784〕 / 〔訊息1785〕 /
-//   〔訊息2139〕 / 〔字串N〕 until Q-2 (gap-matrix 11.6) confirms these ids belong to string-c.tbl (R2-M, #619).
-//   protocol-gaps.md §3 reads 1784／1785 at those ids of string-c.tbl, but 1784 uses "%s" which sub_933850 drops on CP950,
-//   so the formatter of sub_7DC850 (and therefore the table it reads) is not confirmed yet.
+// - T272 (#649, docs/reference/sprites-and-strings.md §4.1): 1784 / 1785 / 2139 are string-c.tbl records (sub_8D43B0 0x8D46A7,
+//   sub_8E0620 0x8E0699, sub_8D440D via sub_7DC800); mapDesc names come from MapDesc-c.tbl (CMapSystemXML this+0x48), NOT
+//   string-c.tbl (same ids there are unrelated messages). sub_8D43B0 fills 1784 "%s從 %s地區…" with the sender and the
+//   region record +8 as the two %s. Both tables are installed by LocationRegionLoader at run time (read-only from the client);
+//   without them (CI, tests) the numbered placeholders 〔訊息1784〕 / 〔訊息1785〕 / 〔訊息2139〕 / 〔字串N〕 stay.
+//   The chat line keeps PlayerChat.cs's "[座標] sender：" prefix (outside this task), so the first %s (sender) is left empty in
+//   Format and the link covers the rest of 1784. mapDesc ids past MapDesc-c.tbl: the original uses desc-c.tbl 4266 (not loaded
+//   by the engine; 3.81 MapSystem never reaches it) — shown as the bare region number instead.
 // R2-M (#619): the 10-record list is cleared by [WorldReset] and shown by NativeUi/LocationListPanel.cs.
 public sealed record SharedLocation(ushort Map,ushort X,ushort Y,uint Zone);
 
@@ -82,18 +86,49 @@ public static class LocationShareProtocol {
     public const ushort PromptMessageId=1785;
     /// <summary>String table id shown instead of 1784 when the receiver's function object +16 is 0 (WO §5). Text unverified (Q-2).</summary>
     public const ushort ListUnavailableMessageId=2139;
-    public static readonly string ListUnavailableText=$"〔訊息{ListUnavailableMessageId}〕";
+    /// <summary>2139 from string-c.tbl; numbered placeholder without the table.</summary>
+    public static string ListUnavailableText=>Message(ListUnavailableMessageId) is {} text?text:$"〔訊息{ListUnavailableMessageId}〕";
     static LocationRegionTable regions=LocationRegionTable.Empty;
+    static ServerStringTable? strings,mapDesc;
     /// <summary>Runtime MapSystem region table; Empty until the client XML is loaded (then ids are shown without names).</summary>
     public static LocationRegionTable Regions{get=>Volatile.Read(ref regions);set=>Volatile.Write(ref regions,value??LocationRegionTable.Empty);}
-    /// <summary>Region name placeholder: the mapDesc string id is known from MapSystem, its text is not.</summary>
-    public static string RegionLabel(uint zone)=>Regions.Find(zone) is {} region?$"地區{zone}〔字串{region.MapDesc}〕":$"地區{zone}";
-    /// <summary>Stand-in for string 1784 after "[座標] sender："; coordinates stay typed data, not displayed text.</summary>
-    public static string Format(SharedLocation location)=>$"{RegionLabel(location.Zone)}〔訊息{ReceivedMessageId}〕";
+    /// <summary>string-c.tbl for 1784 / 1785 / 2139 (installed by LocationRegionLoader; null = placeholders).</summary>
+    public static ServerStringTable? Strings{get=>Volatile.Read(ref strings);set=>Volatile.Write(ref strings,value);}
+    /// <summary>MapDesc-c.tbl for region names (installed by LocationRegionLoader; null = 〔字串N〕 placeholders).</summary>
+    public static ServerStringTable? MapDesc{get=>Volatile.Read(ref mapDesc);set=>Volatile.Write(ref mapDesc,value);}
+    static string? Message(int id)=>Strings is {} t&&id<t.Count&&ServerMessageText.DisplayText(t[id]) is {Length:>0} s?s:null;
+    /// <summary>Region name: MapDesc-c.tbl[mapDesc] when loaded; the bare id when the zone or the record is unknown.</summary>
+    public static string RegionLabel(uint zone){
+        if(Regions.Find(zone) is not {} region)return $"地區{zone}";
+        if(MapDesc is not {} names)return $"地區{zone}〔字串{region.MapDesc}〕";
+        return region.MapDesc<names.Count&&ServerMessageText.DisplayText(names[region.MapDesc]).Trim() is {Length:>0} name?name:$"地區{zone}";
+    }
+    /// <summary>
+    /// sub_8D43B0's C-style "%s" fill of 1784: each "%s" takes the next argument (missing ones become empty), "%%" → "%".
+    /// Other conversions are copied as written (1784 only has two %s).
+    /// </summary>
+    public static string FormatC(string template,params string[] arguments){
+        var sb=new System.Text.StringBuilder(template.Length+32);int next=0;
+        for(int i=0;i<template.Length;i++){
+            if(template[i]=='%'&&i+1<template.Length&&template[i+1]=='s'){sb.Append(next<arguments.Length?arguments[next]:"");next++;i++;}
+            else if(template[i]=='%'&&i+1<template.Length&&template[i+1]=='%'){sb.Append('%');i++;}
+            else sb.Append(template[i]);
+        }
+        return sb.ToString();
+    }
+    /// <summary>
+    /// Text after "[座標] sender：": 1784 with an empty sender and the region name (string table present), otherwise the numbered
+    /// placeholder. Coordinates stay typed data, not displayed text.
+    /// </summary>
+    public static string Format(SharedLocation location)=>Message(ReceivedMessageId) is {} template
+        ?FormatC(template,"",RegionLabel(location.Zone))
+        :$"{RegionLabel(location.Zone)}〔訊息{ReceivedMessageId}〕";
+    /// <summary>1785 (TransferMenu prompt) plus the engine's input rule.</summary>
+    public static string PromptText=>Message(PromptMessageId) is {} prompt?prompt+"（不可含空白，最多 52 字）":$"〔訊息{PromptMessageId}〕請輸入收件角色名稱（不可含空白，最多 52 字）。";
     public static uint ZoneFor(ushort map)=>Regions.RegionFor(map)??0;
     public static byte[] Encode(string receiver,SharedLocation location){
         if(string.IsNullOrWhiteSpace(receiver)||receiver.Length>52||receiver.Any(c=>char.IsControl(c)||char.IsWhiteSpace(c)))
-            throw new ArgumentException($"〔訊息{PromptMessageId}〕請輸入收件角色名稱（不可含空白，最多 52 字）。");
+            throw new ArgumentException(PromptText);
         byte[] name;
         try{name=LoginPackets.TextEncoding.GetBytes(receiver);}
         catch(System.Text.EncoderFallbackException){throw new ArgumentException("收件角色名稱含有遊戲字集無法表示的字元。");}
@@ -323,6 +358,12 @@ public sealed partial class ClientForm {
 public static class LocationRegionLoader {
     public static Task LoadAsync(LoginConnection login)=>Task.Run(()=>{
         try{
+            // T272: string-c.tbl (1784/1785/2139) and MapDesc-c.tbl (region names) from the client's Text.pak, in memory only.
+            LocationShareProtocol.Strings=ServerMessageText.Table;
+            try{LocationShareProtocol.MapDesc=TextArchive.Open(GroundSpriteReader.ClientRoot).ReadMapDesc();}
+            catch(Exception ex) when(ex is IOException or InvalidDataException or UnauthorizedAccessException or System.Security.Cryptography.CryptographicException or ArgumentException or System.Text.DecoderFallbackException){
+                System.Diagnostics.Trace.WriteLine("[location-share] "+TextArchive.MapDescFileName+" unavailable: "+ex.Message);
+            }
             var (text,resolved)=P06.NativeUi.UiResources.Shared.Xml.ReadText("MapSystem");
             var table=LocationRegionTable.Parse(text);
             LocationShareProtocol.Regions=table;
