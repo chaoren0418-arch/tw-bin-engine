@@ -41,6 +41,7 @@
 - **編譯（已驗證）**：`py -3 -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile scratch/t246/NuGet.Config` 結果 `PASS dev`。用的是暫時 lock，`rebuild-lock.json` 沒有寫入。productDll SHA-256 `2dd7dcd324e733395761c67e02cffee0b96aaaf6e01884b03570c6f83eb031b4`（第 2 次 commit 後）。新檔沒有編譯警告。
   - 本機環境備註（和程式無關，同 #675）：直接 restore 時 WebView2 的 `build/*.targets` 沒有接上，會出現 NETSDK1130。改成 `NuGet.Config` 唯讀指向主專案 `engine/vendor`，`NUGET_PACKAGES` 指到 `scratch/t246/packages`，在沙箱外 restore 就正常。
 - **`check-no-game-assets.py`（已驗證）**：`pass`（4021 個檔案，0 個錯誤）。
+- **CI（已驗證，PR #699）**：`dotnet`、`map-continuity`（含全部 `[WorldModuleTest]`，包括本組 `packetbox-screen` 與既有單元測試）、`npc-offline` 全綠。
 - **離線測試**：`[WorldModuleTest("packetbox-screen")]`，CI 的 `--module-tests` 會自動執行。依 2026-11-09 的本機執行限制，本機沒有執行任何編譯出來的程式，結果以 PR CI 為準。測試內容：
   1. 註冊：83／84 處理器、重設、快照、面板（只註冊一次）、ClientForm 接線。
   2. 規則：D／C 兩種寬度、補位不是 0 時拒收；12 步表、50／17 ms 時間軸、24 步後自己停、關閉後下一個 tick 歸 0；83/1 計數器 15→0（520 ms）；y＝121／106…1、最多 9 行、x 置中。
