@@ -170,12 +170,34 @@ public sealed class UiPledgeGameState(IUiGameState inner,PledgeWindowState? pled
 }
 
 /// <summary>
-/// 血盟成員窗（PledgeUI.xml）。171 開窗並列出上線成員；169 更新備註欄；168 更新公告欄（公告窗 Notice_Label）。
-/// 只畫伺服器有送的資料：姓名（171）、備註（169）、公告（168）、自己的盟名（S72／角色資料）。
-/// 職業圖、階級、創立日、聯盟欄 3.81 都送不到（167／170 格式壞掉），一律空白，不推算。
-/// 排序、改階級彈出窗、寫備註、寫公告（Writenotice／Savenotice、Notice_Edit）會送封包或語義待驗證，本任務不做。
+/// R4-E（#708）：血盟窗的對外動作與額外資料。產品端由 ClanUi.cs 的 WorldPledgeSource 接到 LoginConnection（面板不碰 LoginConnection）。
+/// 動作回傳 true＝已交給既有送出流程（結果以伺服器回報為準）；false＝本機條件不合，沒有送。
 /// </summary>
-public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel {
+public interface IPledgeWindowSource {
+    /// <summary>S250/173 type 1 的「顯示盟徽」旗標；null＝本連線還沒收到。</summary>
+    bool? ShowEmblem { get; }
+    /// <summary>自己血盟的盟徽像素（沒有血盟或還沒收到 S118 是 null）。</summary>
+    ClanEmblem? Emblem { get; }
+    /// <summary>C78 C(15) S(公告)。</summary>
+    bool SendNotice(string text);
+    /// <summary>C63 C(1) C(階級) S(成員)。</summary>
+    bool SetRank(string member,byte rank);
+    /// <summary>C254 C(0x2E) C(0／1)。</summary>
+    bool SetShowEmblem(bool show);
+    /// <summary>選 16×12 BMP 後送 C18（產品端開檔案對話框）。</summary>
+    bool UploadEmblem();
+}
+
+/// <summary>
+/// 血盟成員窗（PledgeUI.xml）。171 開窗並列出上線成員；169 更新備註欄；168 更新公告欄（公告窗 Notice_Label）。
+/// 只畫伺服器有送的資料：姓名（171）、備註（169）、公告（168）、自己的盟名（S72／角色資料）、自己的盟徽（S118）。
+/// 職業圖、階級、創立日、聯盟欄 3.81 都送不到（167／170 格式壞掉），一律空白，不推算。
+/// R4-E（#708）：公告窗的「公告」鈕（Writenotice_Button）進入編輯，「存檔」鈕（Savenotice_Button）或 Enter 送 C78 15；
+/// 點成員列的階級欄開 ChangeRank_PopupWindow，點階級鈕送 C63；Pledge_Emblem 畫自己的盟徽；
+/// 本機 PledgeUI.xml 沒有關注清單與「顯示盟徽」節點，所以視窗右側加一個引擎自訂的側欄（關注血盟 7 列、顯示盟徽勾選框、上傳盟徽鈕）。
+/// 排序、寫備註（ModifyMemo）、C129 關注（Q4-3 未查）不做。
+/// </summary>
+public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
     [UiPanel(175)] internal static UiPanelRegistration Registration=>new(PanelId,LayoutName,_=>new PledgePanel());   // R3-A (#678): opened by S250/171
     public const string PanelId="PledgeUI",LayoutName="PledgeUI";
     public const string PlainWindowName="Nonoticeuserinfo_Window",NoticeWindowName="Noticeuserinfo_Window";
@@ -193,6 +215,17 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel {
     /// 清單在 PledgeUI 子控制項 (3, 7)；本機 PledgeUI.xml 的對應節點與座標還沒對出來，所以**只做資料、不畫**（待驗證）。
     /// </summary>
     public const int AttentionRows=7;
+    /// <summary>
+    /// ChangeRank_PopupWindow 的 Rank0–3_Button（圖上文字依序 修習／一般／守護／副君主）→ C63 階級值 8／7／9／3（3.81 C_Rank 註解：
+    /// 7 一般、8 修習騎士、9 守護騎士、3 副君主）。TW16 ChangeRank 事件的索引對應沒查（推測）。
+    /// </summary>
+    public static readonly byte[] PopupRanks=[8,7,9,3];
+    /// <summary>公告編輯中的字色（推測：與一般文字區分）。</summary>
+    public static readonly Color EditColor=Color.FromArgb(255,255,255,128);
+    /// <summary>側欄（引擎自訂版面，原版讀 RePledgeUI.xml 的 PledgeOption_Window，本機缺圖）：寬、內距、列距與各區塊的 y。</summary>
+    public const int SideWidth=112,SidePad=4,SideRowPitch=15,AttentionTop=20,CheckTop=AttentionTop+AttentionRows*SideRowPitch+6,
+        UploadTop=CheckTop+17,StatusTop=UploadTop+20,SideHeight=StatusTop+28;
+    public static readonly Color SideBack=Color.FromArgb(230,20,26,34),SideBorder=Color.FromArgb(255,113,113,113),Dim=Color.FromArgb(255,150,150,150);
     // ----
 
     /// <summary>XML 中一個有圖的元件：視窗內相對座標＋第一張 surf（V4 前只用第 0 張）。</summary>
@@ -227,22 +260,63 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel {
         public required Placed ScrollDown{get;init;}
         public int ScrollStart{get;init;}
         public int ScrollHeight{get;init;}
+        /// <summary>R4-E：Noticebutton_Control 的「公告」「存檔」鈕（同一位置，編輯中顯示存檔）；XML 沒有就是 null（不能編輯）。</summary>
+        public Placed? WriteNotice{get;init;}
+        public Placed? SaveNotice{get;init;}
+        /// <summary>R4-E：Pledgename_Control 的 Pledge_Emblem（16×12）；XML 沒有就是 Empty。</summary>
+        public Rectangle Emblem{get;init;}
         public Size Size=>Base==null?Size.Empty:new(Base.Width,Base.Height);
         public Column Col(string name)=>Columns.First(c=>c.Name==name);
     }
 
+    public const string RankPopupName="ChangeRank_PopupWindow";
+    /// <summary>3.81 公告上限 160 字（Notice_Edit LimitText="160"、C_PledgeContent 15）。</summary>
+    public const int NoticeLimit=ClanMatchingProtocol.AnnounceMaxChars;
+
     WindowLayout? plain,notice;
-    bool open,showNotice,inWorld;
+    IReadOnlyList<Placed> rankButtons=[];
+    bool open,showNotice,inWorld,editing;
     long seenOpen;
     Point origin;
     int scroll,attentionScroll;
     PledgeWindowState? data;
     IReadOnlyList<string> attention=[];
+    readonly System.Text.StringBuilder draft=new();
+    string? popupMember;Point popupAt;
+    string status="";
+    Bitmap? emblemBitmap;int[]? emblemPixels;
 
+    /// <summary>R4-E：對外動作（產品端每個 timer tick 由 ClanUi.cs 接上；離線檢查自己給）。null＝不能送，只顯示。</summary>
+    public IPledgeWindowSource? Source{get;set;}
     public string Id=>PanelId;
     public UiLayer Layer=>UiLayer.Window;
     public WindowLayout? Current=>showNotice?notice:plain;
-    public Rectangle Bounds=>Current is {Base:not null} w?new(origin,w.Size):Rectangle.Empty;
+    /// <summary>視窗本體（XML 底圖）。</summary>
+    public Rectangle WindowBounds=>Current is {Base:not null} w?new(origin,w.Size):Rectangle.Empty;
+    /// <summary>視窗本體＋右側引擎自訂側欄（UiRoot 以 Bounds 裁切與點擊判定）。</summary>
+    public Rectangle Bounds=>WindowBounds.IsEmpty?Rectangle.Empty:Rectangle.Union(WindowBounds,SideRect);
+    /// <summary>R4-E 側欄（關注血盟、顯示盟徽、上傳盟徽）；緊貼視窗右緣。</summary>
+    public Rectangle SideRect=>WindowBounds is {IsEmpty:false} b?new(b.Right,b.Top,SideWidth,SideHeight):Rectangle.Empty;
+    Rectangle Side(int x,int y,int width,int height)=>SideRect is {IsEmpty:false} s?new(s.X+x,s.Y+y,width,height):Rectangle.Empty;
+    /// <summary>關注清單第 i 列（圖示槽 16 px＋名稱）。</summary>
+    public Rectangle AttentionRow(int i)=>Side(SidePad,AttentionTop+i*SideRowPitch,SideWidth-2*SidePad-12,SideRowPitch);
+    public Rectangle AttentionUpRect=>Side(SideWidth-SidePad-10,AttentionTop,10,10);
+    public Rectangle AttentionDownRect=>Side(SideWidth-SidePad-10,AttentionTop+AttentionRows*SideRowPitch-10,10,10);
+    public Rectangle ShowEmblemRect=>Side(SidePad,CheckTop,11,11);
+    public Rectangle UploadRect=>Side(SidePad,UploadTop,SideWidth-2*SidePad,16);
+    public Rectangle StatusRect=>Side(SidePad,StatusTop,SideWidth-2*SidePad,24);
+    /// <summary>最近一次血盟窗動作的結果（引擎自訂提示；伺服器結果另由聊天區／WinForms 血盟窗顯示）。</summary>
+    public string Status=>status;
+    public bool EditingNotice=>editing;
+    public string NoticeDraft=>draft.ToString();
+    /// <summary>目前顯示的「公告」或「存檔」鈕（只有公告窗）；沒有就是 Empty。</summary>
+    public Rectangle NoticeEditRect=>Current is {WriteNotice:{} wr,SaveNotice:{} sv}?Abs((editing?sv:wr).Rect):Rectangle.Empty;
+    public Rectangle EmblemRect=>Current is {} w?Abs(w.Emblem):Rectangle.Empty;
+    public IReadOnlyList<Placed> RankButtons=>rankButtons;
+    /// <summary>改階級彈出窗的對象（null＝沒開）。</summary>
+    public string? RankPopupMember=>popupMember;
+    public Rectangle RankButtonRect(int i)=>popupMember==null||i<0||i>=rankButtons.Count?Rectangle.Empty:
+        new(origin.X+popupAt.X+rankButtons[i].At.X,origin.Y+popupAt.Y+rankButtons[i].At.Y,rankButtons[i].Rect.Width,rankButtons[i].Rect.Height);
     public bool Visible=>open&&inWorld&&data?.Online!=null&&Current is {Base:not null};
     public bool IsOpen=>open;
     public bool ShowingNotice=>showNotice;
@@ -264,6 +338,14 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel {
         if(layout.Root.Name!=LayoutName)throw new UiLayoutException(layout.FileName,layout.Root.Path,$"根元素應為 {LayoutName}");
         plain=LoadWindow(layout.Root,PlainWindowName,surf);
         notice=LoadWindow(layout.Root,NoticeWindowName,surf);
+        // R4-E：ChangeRank_PopupWindow 的 Rank0–3_Button（相對彈出窗左上）；窗或鈕缺就沒有改階級入口（WinForms 血盟窗仍有）。
+        var ranks=new List<Placed>();
+        if(Optional(layout.Root,"Window",RankPopupName) is {} pw)
+            for(int i=0;i<PopupRanks.Length;i++){
+                if(Optional(pw,"Button",$"Rank{i}_Button") is not {} b)break;
+                ranks.Add(Place(b,Point.Empty,"BaseSurf",surf));
+            }
+        rankButtons=ranks;
         // XML 的視窗座標是 (0,0)；原版開窗位置（置中或記憶位置）待驗證，先用 XML 值。
         origin=new(Named(layout.Root,"Window",PlainWindowName).TryInt("X")??0,Named(layout.Root,"Window",PlainWindowName).TryInt("Y")??0);
     }
@@ -291,7 +373,18 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel {
             var nc=Named(w,"Control","Notice_Control");var nl=Named(nc,"MultiLabel","Notice_Label");
             noticeText=new(XY(nc).X+XY(nl).X,XY(nc).Y+XY(nl).Y,nl.Int("Width"),nl.Int("Height"));
         }
+        // R4-E：選用節點（W2-H 的合成 XML 沒有；本機 PledgeUI.xml 的公告窗兩個都有，無公告窗只有盟徽）。
+        Placed? write=null,save=null;
+        if(Optional(w,"Control","Noticebutton_Control") is {} nbc){
+            var at=XY(nbc);
+            if(Optional(nbc,"Button","Writenotice_Button") is {} wb)write=Place(wb,at,"BaseSurf",get);
+            if(Optional(nbc,"Button","Savenotice_Button") is {} svb)save=Place(svb,at,"BaseSurf",get);
+            if(write==null||save==null)write=save=null;   // 只有其中一個：無法切換，當作沒有
+        }
+        var emblem=Rectangle.Empty;
+        if(Optional(ctl,"Emblem","Pledge_Emblem") is {} em){var p=XY(em);emblem=new(XY(ctl).X+p.X,XY(ctl).Y+p.Y,ClanEmblemProtocol.Width,ClanEmblemProtocol.Height);}
         return new WindowLayout{
+            WriteNotice=write,SaveNotice=save,Emblem=emblem,
             Name=name,
             Base=get(SurfOf(w,"BaseSurf")),
             Frame=w.Attr("FrameSurf") is null?null:get(SurfOf(w,"FrameSurf")),
@@ -322,6 +415,12 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel {
         if(m.Length!=1)throw new UiLayoutException(parent.Layout.FileName,parent.Path+"/"+elem+"[@Name="+name+"]",m.Length==0?"缺少節點":"節點不唯一");
         return m[0];
     }
+    /// <summary>同 Named，但缺少時回 null（重複仍丟例外）。</summary>
+    static UiNode? Optional(UiNode parent,string elem,string name){
+        var m=parent.ChildrenNamed(elem).Where(c=>c.Attr("Name")==name).Take(2).ToArray();
+        if(m.Length>1)throw new UiLayoutException(parent.Layout.FileName,parent.Path+"/"+elem+"[@Name="+name+"]","節點不唯一");
+        return m.Length==1?m[0]:null;
+    }
     /// <summary>PledgeUI.xml 的 X／Y；清單內元件沒寫時視為 0（相對父元件，推測）。</summary>
     static Point XY(UiNode n)=>new(n.TryInt("X")??0,n.TryInt("Y")??0);
     /// <summary>"4450;1" → 4450（分號後的數字意義待驗證，只取第一個）；"5726~5728" 也只取第一張。</summary>
@@ -340,14 +439,17 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel {
         data=inWorld?UiPledgeGameState.Of(state):null;
         attention=inWorld?UiPledgeGameState.AttentionOf(state)??[]:[];
         attentionScroll=Math.Clamp(attentionScroll,0,AttentionMaxScroll);
-        if(data?.Online==null){open=false;scroll=0;return;}
+        if(data?.Online==null){open=false;scroll=0;ResetInteraction();return;}
         if(data.OpenRevision!=seenOpen){
             seenOpen=data.OpenRevision;
             // 每次 171 都開窗並回到清單頂端（TW16 sub_B2E3D0 先清清單再逐筆加入，推測捲動位置也歸零）。
-            open=true;scroll=0;
+            open=true;scroll=0;ResetInteraction();status="";
         }
         scroll=Math.Clamp(scroll,0,MaxScroll);
+        if(popupMember!=null&&!Members.Contains(popupMember,StringComparer.OrdinalIgnoreCase))popupMember=null;
     }
+    /// <summary>關窗、重開、離開世界：結束公告編輯（草稿丟掉）並關掉改階級彈出窗。</summary>
+    void ResetInteraction(){editing=false;draft.Clear();popupMember=null;}
 
     /// <summary>邏輯座標（視窗左上＋相對座標）。</summary>
     Rectangle Abs(Rectangle r)=>r.IsEmpty?r:new(origin.X+r.X,origin.Y+r.Y,r.Width,r.Height);
@@ -397,11 +499,14 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel {
         foreach(var s in w.SortButtons)Draw(canvas,s);
         var label=Abs(w.PledgeLabel);
         canvas.DrawText(data.Clan,label.X,Middle(label),TextColor);
-        if(!w.NoticeText.IsEmpty&&!string.IsNullOrEmpty(data.Notice)){
-            // Notice_Label：VAlign="top" HAlign="left"，從左上逐行往下。
+        if(!w.Emblem.IsEmpty&&Source?.Emblem is {} emblem){var er=Abs(w.Emblem);canvas.DrawBitmap(EmblemBitmap(emblem),er.X,er.Y);}
+        if(w.WriteNotice is {} wr&&w.SaveNotice is {} sv)Draw(canvas,editing?sv:wr);
+        if(!w.NoticeText.IsEmpty&&(editing||!string.IsNullOrEmpty(data.Notice))){
+            // Notice_Label：VAlign="top" HAlign="left"，從左上逐行往下。編輯中畫草稿＋游標（Notice_Edit 同一區）。
             var nt=Abs(w.NoticeText);var g=canvas.Graphics;
-            var lines=NoticeLines(data.Notice,nt.Width,c=>UiText.Measure(g,c.ToString()).Width,nt.Height/NoticeLinePitch);
-            for(int i=0;i<lines.Count;i++)canvas.DrawText(lines[i],nt.X,nt.Y+i*NoticeLinePitch,TextColor);
+            string text=editing?draft.ToString()+"_":data.Notice!;
+            var lines=NoticeLines(text,nt.Width,c=>UiText.Measure(g,c.ToString()).Width,nt.Height/NoticeLinePitch);
+            for(int i=0;i<lines.Count;i++)canvas.DrawText(lines[i],nt.X,nt.Y+i*NoticeLinePitch,editing?EditColor:TextColor);
         }
         for(int i=0;i<w.Rows;i++){
             int k=scroll+i;if(k>=members.Count)break;
@@ -414,36 +519,147 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel {
         }
         Draw(canvas,w.ScrollBackground);Draw(canvas,w.ScrollUp);Draw(canvas,w.ScrollDown);
         canvas.DrawSurface(w.ScrollThumb.Surface,ox+w.ScrollThumb.At.X,oy+ThumbY);
+        if(popupMember!=null)for(int i=0;i<rankButtons.Count;i++){var r=RankButtonRect(i);canvas.DrawSurface(rankButtons[i].Surface,r.X,r.Y);}
+        PaintSide(canvas);
+    }
+
+    /// <summary>R4-E 側欄（引擎自訂）：關注血盟 7 列（sub_B30040 的圖示槽留白：3.81 只送名稱，沒有盟徽編號）、捲動鈕、顯示盟徽、上傳盟徽、結果提示。</summary>
+    void PaintSide(UiCanvas canvas){
+        var s=SideRect;if(s.IsEmpty)return;var g=canvas.Graphics;
+        using(var back=new SolidBrush(SideBack))g.FillRectangle(back,s);
+        using var pen=new Pen(SideBorder);
+        g.DrawRectangle(pen,s.X,s.Y,s.Width-1,s.Height-1);
+        canvas.DrawText("關注血盟",s.X+SidePad,s.Y+SidePad,TextColor);
+        var page=AttentionPage;
+        for(int i=0;i<page.Count;i++){var r=AttentionRow(i);canvas.DrawText(page[i],r.X+18,Middle(r),TextColor);}
+        if(attention.Count==0){var r=AttentionRow(0);canvas.DrawText("（沒有）",r.X+18,Middle(r),Dim);}
+        Arrow(g,AttentionUpRect,true,attentionScroll>0);Arrow(g,AttentionDownRect,false,attentionScroll<AttentionMaxScroll);
+        var cb=ShowEmblemRect;bool? show=Source?.ShowEmblem;
+        g.DrawRectangle(pen,cb.X,cb.Y,cb.Width-1,cb.Height-1);
+        if(show==true)using(var mark=new SolidBrush(TextColor))g.FillRectangle(mark,cb.X+3,cb.Y+3,cb.Width-6,cb.Height-6);
+        canvas.DrawText("顯示盟徽",cb.Right+4,cb.Y+(cb.Height-TextHeight)/2,show==null?Dim:TextColor);
+        var up=UploadRect;g.DrawRectangle(pen,up.X,up.Y,up.Width-1,up.Height-1);
+        canvas.DrawText("上傳盟徽…",up.X+4,Middle(up),Source==null?Dim:TextColor);
+        if(status.Length>0){
+            var st=StatusRect;var lines=NoticeLines(status,st.Width,c=>UiText.Measure(g,c.ToString()).Width,st.Height/NoticeLinePitch);
+            for(int i=0;i<lines.Count;i++)canvas.DrawText(lines[i],st.X,st.Y+i*NoticeLinePitch,EditColor);
+        }
+    }
+    static void Arrow(Graphics g,Rectangle r,bool up,bool enabled){
+        using var b=new SolidBrush(enabled?TextColor:Dim);
+        var tri=up?new Point[]{new(r.Left,r.Bottom-1),new(r.Right-1,r.Bottom-1),new(r.Left+r.Width/2,r.Top)}:new Point[]{new(r.Left,r.Top),new(r.Right-1,r.Top),new(r.Left+r.Width/2,r.Bottom-1)};
+        g.FillPolygon(b,tri);
+    }
+    Bitmap EmblemBitmap(ClanEmblem e){
+        if(emblemBitmap!=null&&emblemPixels!=null&&emblemPixels.AsSpan().SequenceEqual(e.Pixels))return emblemBitmap;
+        var b=new Bitmap(ClanEmblemProtocol.Width,ClanEmblemProtocol.Height);
+        for(int y=0;y<ClanEmblemProtocol.Height;y++)for(int x=0;x<ClanEmblemProtocol.Width;x++)b.SetPixel(x,y,Color.FromArgb(e.Pixels[y*ClanEmblemProtocol.Width+x]));
+        emblemBitmap?.Dispose();emblemBitmap=b;emblemPixels=(int[])e.Pixels.Clone();
+        return b;
     }
     void Draw(UiCanvas canvas,Placed p)=>canvas.DrawSurface(p.Surface,origin.X+p.At.X,origin.Y+p.At.Y);
     static int Middle(Rectangle r)=>r.Y+(r.Height-TextHeight)/2;
 
-    public void Close(){open=false;showNotice=false;}
+    public void Close(){open=false;showNotice=false;ResetInteraction();}
 
     public bool Mouse(UiMouseEvent e,IUiCommands commands){
         if(!Visible)return false;
-        bool inside=Bounds.Contains(e.Location);
-        if(e.Kind==UiMouseKind.Wheel){if(!inside)return false;ScrollBy(e.Delta>0?-1:e.Delta<0?1:0);return true;}
-        if(e.Kind!=UiMouseKind.Down||e.Button!=MouseButtons.Left)return inside;
-        if(Hit(CloseRect,e.Location)){Close();return true;}
-        if(Hit(NoticeRect,e.Location)||Hit(NoticeArrowRect,e.Location)){
-            // OpenNotice／CloseNotice：兩個 Window 互換（XML 事件名）；公告區顯示最近一次 168 的文字（沒收到就留白）。
-            var at=origin;showNotice=!showNotice;origin=UiInput.ClampInside(at,Bounds.Size);scroll=Math.Clamp(scroll,0,MaxScroll);return true;
+        bool inside=Bounds.Contains(e.Location);var at=e.Location;
+        if(e.Kind==UiMouseKind.Wheel){
+            if(!inside)return false;int step=e.Delta>0?-1:e.Delta<0?1:0;
+            if(SideRect.Contains(at))ScrollAttention(step);else ScrollBy(step);
+            return true;
         }
-        if(Hit(ScrollUpRect,e.Location)){ScrollBy(-1);return true;}
-        if(Hit(ScrollDownRect,e.Location)){ScrollBy(1);return true;}
+        if(e.Kind!=UiMouseKind.Down||e.Button!=MouseButtons.Left)return inside;
+        if(popupMember!=null){
+            // 彈出窗（Popup="1"）：點階級鈕送出；點其他地方只關掉彈出窗。
+            for(int i=0;i<rankButtons.Count;i++)if(Hit(RankButtonRect(i),at)){SetRank(popupMember,PopupRanks[i]);popupMember=null;return true;}
+            popupMember=null;return inside;
+        }
+        if(Hit(CloseRect,at)){Close();return true;}
+        if(Hit(NoticeRect,at)||Hit(NoticeArrowRect,at)){
+            // OpenNotice／CloseNotice：兩個 Window 互換（XML 事件名）；公告區顯示最近一次 168 的文字（沒收到就留白）。換窗時放棄編輯。
+            var o=origin;showNotice=!showNotice;editing=false;draft.Clear();origin=UiInput.ClampInside(o,Bounds.Size);scroll=Math.Clamp(scroll,0,MaxScroll);return true;
+        }
+        if(Hit(NoticeEditRect,at)){if(editing)SaveNotice();else BeginNoticeEdit();return true;}
+        if(Hit(ScrollUpRect,at)){ScrollBy(-1);return true;}
+        if(Hit(ScrollDownRect,at)){ScrollBy(1);return true;}
+        if(Current is {} w&&rankButtons.Count>0)
+            for(int i=0;i<w.Rows;i++){
+                int k=scroll+i;if(k>=Members.Count)break;
+                if(Hit(Cell(i,"Rank_Label"),at)){OpenRankPopup(i);return true;}   // Rank_Label MouseEvent="OpenPopup"
+            }
+        if(Hit(AttentionUpRect,at)){ScrollAttention(-1);return true;}
+        if(Hit(AttentionDownRect,at)){ScrollAttention(1);return true;}
+        if(Hit(ShowEmblemRect,at)){ToggleShowEmblem();return true;}
+        if(Hit(UploadRect,at)){UploadEmblem();return true;}
         return inside;   // 視窗 MouseEvent="Dummy"：窗內點擊不傳給世界
     }
     static bool Hit(Rectangle r,Point p)=>!r.IsEmpty&&r.Contains(p);
     public void ScrollBy(int rows)=>scroll=Math.Clamp(scroll+rows,0,MaxScroll);
 
+    /// <summary>第 row 個可見列的階級欄下方開彈出窗（位置推測），整個彈出窗限制在視窗內。</summary>
+    void OpenRankPopup(int row){
+        if(Current is not {} w)return;
+        var cell=Cell(row,"Rank_Label");
+        int width=rankButtons.Max(b=>b.At.X+b.Rect.Width),height=rankButtons.Max(b=>b.At.Y+b.Rect.Height);
+        popupAt=new(Math.Clamp(cell.X-origin.X,0,Math.Max(0,w.Size.Width-width)),Math.Clamp(cell.Bottom-origin.Y,0,Math.Max(0,w.Size.Height-height)));
+        popupMember=Members[scroll+row];
+    }
+
+    // ---- R4-E 動作：本機只擋得到的條件（有沒有接上、字數與字元），身分與權限交給伺服器（盟主才能改公告／階級／盟徽）。----
+    /// <summary>WriteNotice：以目前公告當草稿開始編輯（只在有 Noticebutton_Control 的公告窗）。</summary>
+    public bool BeginNoticeEdit(){
+        if(!Visible||!showNotice||NoticeEditRect.IsEmpty)return false;
+        editing=true;draft.Clear();draft.Append(Notice.Length>NoticeLimit?Notice[..NoticeLimit]:Notice);return true;
+    }
+    /// <summary>SaveNotice：送 C78 15；送出後結束編輯，畫面等伺服器回送 168 才更新（不先改本機公告）。</summary>
+    public bool SaveNotice(){
+        if(!editing)return false;
+        string text=draft.ToString();
+        try{ClanMatchingProtocol.Announce(text);}catch(ArgumentException ex){status=ex.Message;return false;}
+        if(Source is not {} s){status="沒有接上遊戲連線，公告未送出。";return false;}
+        if(!s.SendNotice(text)){status="目前不能送出（沒有血盟、正在送其他請求或角色狀態不允許）。";return false;}
+        editing=false;draft.Clear();status="已送出血盟公告；結果以伺服器回送為準。";return true;
+    }
+    public void CancelNoticeEdit(){editing=false;draft.Clear();}
+    bool SetRank(string member,byte rank){
+        string label=ClanProtocol.RankName(rank);
+        if(Source?.SetRank(member,rank)==true){status=$"已送出：{member} 設為{label}；結果以伺服器回報為準。";return true;}
+        status=Source==null?"沒有接上遊戲連線，階級未送出。":"目前不能設定階級（沒有血盟或正在送其他請求）。";return false;
+    }
+    bool ToggleShowEmblem(){
+        bool next=Source?.ShowEmblem!=true;
+        if(Source?.SetShowEmblem(next)==true){status=(next?"已送出開啟":"已送出關閉")+"顯示盟徽；只有盟主能改，結果以伺服器回送為準。";return true;}
+        status=Source==null?"沒有接上遊戲連線。":"目前不能設定顯示盟徽。";return false;
+    }
+    bool UploadEmblem(){
+        if(Source?.UploadEmblem()==true){status="請選擇 16×12 盟徽 BMP。";return true;}
+        status=Source==null?"沒有接上遊戲連線。":"目前不能上傳盟徽。";return false;
+    }
+
     public bool Key(UiKeyEvent e,IUiCommands commands){
-        if(!Visible||e.KeyCode!=CloseKey||e.Modifiers!=Keys.None)return false;
-        if(e.Down&&!e.Repeat)Close();
+        if(!Visible)return false;
+        if(editing){
+            // 編輯中：Esc 放棄、Enter 存檔（推測；Notice_Edit 的 Enter 行為沒查）、Backspace 刪字；可列印鍵要走 WM_CHAR → Char()。
+            if(!e.Down)return e.KeyCode is Keys.Enter or Keys.Escape or Keys.Back;
+            if(e.KeyData==Keys.Escape){if(!e.Repeat)CancelNoticeEdit();return true;}
+            if(e.KeyData==Keys.Enter){if(!e.Repeat)SaveNotice();return true;}
+            if(e.KeyData==Keys.Back){if(draft.Length>0)draft.Length--;return true;}
+            return false;
+        }
+        if(e.KeyCode!=CloseKey||e.Modifiers!=Keys.None)return false;
+        if(e.Down&&!e.Repeat){if(popupMember!=null)popupMember=null;else Close();}
+        return true;
+    }
+    /// <summary>公告編輯中的字元（LimitText 160；代理字元不收，3.81 C_PledgeContent 會拒絕）。</summary>
+    public bool Char(char c){
+        if(!Visible||!editing||char.IsControl(c))return false;
+        if(!char.IsSurrogate(c)&&draft.Length<NoticeLimit)draft.Append(c);
         return true;
     }
 
-    public bool IsDragHandle(Point location)=>Visible&&Current is {} w&&Bounds.Contains(location)&&location.Y-origin.Y<w.DragHeight&&!Hit(CloseRect,location);
+    public bool IsDragHandle(Point location)=>Visible&&Current is {} w&&WindowBounds.Contains(location)&&location.Y-origin.Y<w.DragHeight&&!Hit(CloseRect,location);
     public void MoveTo(Point location)=>origin=location;
 }
 
@@ -589,7 +805,7 @@ static class PledgePanelTests {
         var data=new PledgeWindowState(1,1,"紅血盟",["Alice","Bob","Carol","Dave","Eve"],new Dictionary<string,string>(StringComparer.OrdinalIgnoreCase){["bob"]="補師"});
         panel.Update(World(data));
         t.Check(panel.Visible&&!panel.ShowingNotice,"171 opens the no-notice window");
-        t.Equal(new Rectangle(0,0,277,423),panel.Bounds,"bounds = base 4450 at XML (0,0)");
+        t.Equal(new Rectangle(0,0,277,423),panel.WindowBounds,"window bounds = base 4450 at XML (0,0)");
         t.Equal(new Rectangle(260,13,12,12),panel.CloseRect,"close button (260,13)");
         t.Equal(new Rectangle(16,41,200,16),panel.NoticeRect,"notice bar (16,41)");
         t.Equal(new Rectangle(216,41,12,16),panel.NoticeArrowRect,"notice arrow relative to parent (16+200,41)");
@@ -630,7 +846,7 @@ static class PledgePanelTests {
         t.Check(!panel.IsDragHandle(new(100,25)),"below strip is not drag handle");
         t.Check(!panel.IsDragHandle(new(262,15)),"close button is not drag handle");
         panel.MoveTo(new(100,50));
-        t.Equal(new Rectangle(100,50,277,423),panel.Bounds,"moved");
+        t.Equal(new Rectangle(100,50,277,423),panel.WindowBounds,"moved");
         t.Equal(new Rectangle(360,63,12,12),panel.CloseRect,"close follows window");
         t.Check(panel.Mouse(Click(new(150,200)),cmd),"click inside swallowed");
         t.Check(!panel.Mouse(Click(new(10,10)),cmd),"click outside not handled");

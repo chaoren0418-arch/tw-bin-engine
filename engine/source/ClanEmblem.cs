@@ -131,6 +131,11 @@ public static class ClanEmblemStatusPackets {
         var r=new LoginReader(plain);if(r.C()!=Opcode||r.C()!=Subtype)throw new ProtocolException("not S250/173 emblem status");
         var value=new ClanEmblemStatus(r.C(),r.C());r.D();r.Finish();return value;
     }
+    // R4-E: the "show emblem" check box. 3.81 C254 C_Windows type 0x2E reads C(emblemStatus) (server-protocol.md C_Windows @168);
+    // only ranks 4／10 (alliance／clan leader) are accepted, the server stores it and pushes S250/173 type 1 to every online member.
+    // 推定: TW16 sends this from the PledgeUI+1220 check box (the send site itself was not traced).
+    public const byte WindowsOpcode=254,WindowsShowEmblem=0x2e;
+    public static byte[] EncodeShow(bool show)=>LoginPackets.Pad([WindowsOpcode,WindowsShowEmblem,(byte)(show?1:0)]);
 }
 
 public sealed partial class WorldSession {
@@ -162,7 +167,7 @@ public sealed partial class WorldSession {
         lock(clanEmblemStatusGate)return new{
             packets=clanEmblemStatusCount,showEmblem=clanShowEmblem,
             notice=clanEmblemStatusNotice is {} n?new{id=n.Id,text=n.Text,recognized=n.Recognized}:null,
-            ui="flag only: PledgeUI+1220 check box needs the native clan window (PledgePanel); names still draw emblems",
+            ui="R4-E: native clan window side box and the WinForms clan window show the check box (C254 0x2E); names still draw emblems",
         };
     }
 }
@@ -196,6 +201,10 @@ public sealed partial class WorldSession {
 }
 
 public sealed partial class LoginConnection {
+    /// <summary>R4-E: C254 0x2E show-emblem toggle; same guards as C63／C18 (one request, same session／world／actor, must have a clan).</summary>
+    public Task<bool> SetClanShowEmblem(ClanView view,bool show)=>SendClanPacket(view,()=>ClanEmblemStatusPackets.EncodeShow(show),show?"開啟顯示盟徽":"關閉顯示盟徽");
+    /// <summary>Own clan emblem for the clan window (null when no clan or no pixels yet; a missing one is queried like a name emblem).</summary>
+    public ClanEmblem? OwnClanEmblem()=>World.Actor is {ClanId:not 0} a?ClanEmblemFor(a.ObjectId,a.ClanId):null;
     // T128 paint mount. A published emblem ID is asked for by itself; while it is missing the clan-keyed push
     // (login/upload S118) still shows. Without one, the original's clan-ID request applies (#440).
     public ClanEmblem? ClanEmblemFor(uint objectId,uint clanId){
