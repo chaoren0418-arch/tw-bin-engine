@@ -261,3 +261,4 @@
 - 2026-11-10 — #607 T246：S250 畫面中央訊息與畫面效果（PBW-A）（code，claude-local，PR 已合併）→ [報告](reports/issue-607.md)
 - 2026-11-10 — #667 T276：控制戒指開窗（傳送選書籤、召喚選單）與盟屋地圖 674 鈕（code，claude-local，PR 已合併）→ [報告](reports/issue-667.md)
 - 2026-11-10 — #701 T291：gap-matrix 第四輪——盤點剩餘缺口，列出第四批任務與原生 UI 預設開啟前的缺口（resource，claude-local，PR 已合併）→ [報告](reports/issue-701.md)
+- 2026-11-10 — #689 T288：Q3 補做——血盟倉庫紀錄原生窗、隱身只限同隊、酒醉註解（code，claude-local，PR 已合併）→ [報告](reports/issue-689.md)

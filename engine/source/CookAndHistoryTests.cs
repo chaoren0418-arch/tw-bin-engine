@@ -159,18 +159,20 @@ static class CookAndHistoryTests {
     }
 
     static void Rows(WorldModuleTestContext t){
+        // T288（#689）：類型 0＝存放、1＝領出，時間用字串 1886（FU4§5）；不用字串表，取內建原文。
+        using var noTable=ServerMessageText.UseTable(null);
         var h=new ClanWarehouseHistory([new("盟主甲",0,"$4",50,3),new("Bob",1,"屠龍劍",-1,int.MinValue)]);
         var rows=ClanWarehouseHistoryView.Rows(h,n=>n=="$4"?"金幣":n);
         t.Equal(2,rows.Count,"two rows");
-        t.Equal(new ClanWarehouseHistoryRow("盟主甲","類型 0","金幣","50","3 分鐘前"),rows[0],"row 0 text (name code resolved)");
-        t.Equal(new ClanWarehouseHistoryRow("Bob","類型 1","屠龍劍","-1",$"{int.MinValue} 分鐘前"),rows[1],"row 1 raw values kept");
+        t.Equal(new ClanWarehouseHistoryRow("盟主甲","存放","金幣","50","(動作時間已過：3分)"),rows[0],"row 0 text (name code resolved)");
+        t.Equal(new ClanWarehouseHistoryRow("Bob","領出","屠龍劍","-1",$"(動作時間已過：{int.MinValue}分)"),rows[1],"row 1 raw values kept");
         t.Equal("$4",ClanWarehouseHistoryView.Rows(h)[0].ItemName,"no resolver keeps name code");
         t.Equal(5,ClanWarehouseHistoryView.Columns.Length,"five columns");
         using var w=new ClanWarehouseHistoryWindow();
         w.SetRows(rows);
         t.Equal(2,w.RowCount,"window lists two rows");
         t.Equal("金幣",w.Cell(0,2),"window item cell");
-        t.Equal("3 分鐘前",w.Cell(0,4),"window minutes cell");
+        t.Equal("(動作時間已過：3分)",w.Cell(0,4),"window minutes cell");
         t.Check(w.Text.Contains("2 筆"),"title shows record count",w.Text);
         w.SetRows([]);t.Equal(0,w.RowCount,"SetRows replaces the whole list");
     }

@@ -216,13 +216,13 @@ static class AmbienceWiringTests {
         t.Check(fresh.LiquorLevel==1&&fresh.LiquorPhase==0,"地圖 420 沒醉過也是醉度 1、相位 0",new{fresh.LiquorLevel,fresh.LiquorPhase});
     }
 
-    // 6. 隱身：隊伍成員與同血盟可見（50% 混合），其他人仍不畫。
+    // 6. 隱身：只有隊伍成員可見（50% 混合），同血盟不是例外（FU4§4，T288／#689）；其他人仍不畫。
     static void Invisible(WorldModuleTestContext t){
         var w=World(ownClan:77);
         w.Receive(Appear(Peer,32601,2,0),"offline");w.Receive(Appear(Other,32602,2,0),"offline");w.Receive(Appear(900,32603,2,77),"offline");
         Draw D(uint id,string layer="actor")=>new(0,0,0,0,layer,0,-1,-1,new Tile(0,[new Pixel(0,0,31)]),id);
         t.Check(w.InvisibilityOpacity(D(Peer),null) is {Hidden:true}&&w.InvisibilityOpacity(D(Other),null) is {Hidden:true},"不同隊伍、不同血盟：不畫");
-        t.Check(w.InvisibilityOpacity(D(900),null) is {Half:true,Hidden:false}&&w.InvisibilityOpacity(D(900,"shadow"),null) is {Half:true},"同血盟（id 77）：50% 混合，影子跟著");
+        t.Check(!w.InvisiblePeerVisible(900)&&w.InvisibilityOpacity(D(900),null) is {Hidden:true}&&w.InvisibilityOpacity(D(900,"shadow"),null) is {Hidden:true},"同血盟（id 77）但不同隊：不畫，影子也不畫");
         var members=(System.Collections.IDictionary)typeof(WorldSession).GetField("partyMembers",F)!.GetValue(w)!;
         members["target456"]=new PartyMember(Peer,"target456",100);
         t.Check(w.InvisiblePeerVisible(Peer)&&w.InvisibilityOpacity(D(Peer),null) is {Half:true,Hidden:false},"隊伍成員：50% 混合");

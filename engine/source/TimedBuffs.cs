@@ -18,8 +18,10 @@ public static class TimedBuffRules {
     public const int LiquorTickMs=50,LiquorPhases=200;
     public static int LiquorPhase(long elapsedMs)=>(int)(Math.Max(0,elapsedMs)/LiquorTickMs%LiquorPhases);
     public static int ScanlineOffset(int level,int phase,int row)=>level is 1 or 2 or 3?(int)(level*3.5*Math.Sin((phase+row)*Math.PI/50)):0;
-    // AM§4(c): when sub_81B0E0() is false the row offset is divided by 2 (C integer division). What sub_81B0E0
-    // tests is not decompiled, so the product assumes true (full amplitude) unless a caller sets the hook.
+    // AM§4(c), FU4§2 (T287／#680, R3-H 補做 T288／#689): sub_81B0E0 (VA 0x81B0E0 / FO 0x41A4E0) is true in 16-bit colour
+    // mode (callers sub_97B5F0 / sub_9E8E50: RGB565 path, 1856-byte = 928 px × 2 scanline stride). Only the 32-bit path
+    // (false) halves the row offset (C integer division). The engine follows the 16-bit path, the 3.81 litoddraw
+    // generation (推測), so the product is always full amplitude. The halving branch is kept for tests only.
     public static Func<bool> LiquorFullWave {get;set;}=()=>true;
     public static int LiquorOffset(int level,int phase,int row,bool fullWave)=>fullWave?ScanlineOffset(level,phase,row):ScanlineOffset(level,phase,row)/2;
     public static int LiquorOffset(int level,int phase,int row)=>LiquorOffset(level,phase,row,LiquorFullWave());
