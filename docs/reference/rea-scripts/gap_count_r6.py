@@ -50,7 +50,7 @@ for sec in re.split(r"\n## ", text):
             if len(hits) == 1:
                 rows.append({"key": cells(row)[0], "state": hits[0], "kind": kind(hits[0], row)})
     elif n in ROUNDS:
-        deltas[n] = sec
+        deltas[n] = sec.partition("\n### 15.12")[0]  # 15.12 (round 7) belongs to gap_count_r7.py
 if set(deltas) != set(ROUNDS):
     sys.exit("section 11-15 not found")
 
