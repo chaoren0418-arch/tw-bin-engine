@@ -40,11 +40,36 @@ public sealed partial class ClientForm {
     // (adena included — the engine-only adena box is gone, #818) first asks string 140 (blank Enter = all, Esc = cancel), then C37
     // with the typed amount; a single item goes straight to C37. Invitation/result states, the native-UI-off case (--classic-ui),
     // a faulted panel and a window the root closed (IUiClosablePanel → Dismissed) keep the full WinForms panel as the fallback entry.
+    // R10-F (T390/#905, gap-matrix 15.12.6; 1:29, 4:ExchangeUI): the chat input line prompts (sub_AC98E0) — trade 140, item delete,
+    // private shop 1028 — are drawn and answered by the native CENTER_WINDOW (ChatPanel.LinePrompts). 140 moves there from the
+    // trade window's text frame whenever the chat window is usable; without it the R9-K text-frame prompt stays as the fallback.
     bool AttachTransactionWindow(){
-        if(!NativeUiActive||NativeUiRoot is not {} root||root.Find(TransactionPanel.PanelId) is not TransactionPanel panel||root.Faulted.Contains(panel))return false;
+        if(!NativeUiActive||NativeUiRoot is not {} root)return false;
+        var chat=root.Find(ChatPanel.WindowName) as ChatPanel;bool chatLine=chat!=null&&!root.Faulted.Contains(chat);
+        if(chat!=null)chat.LinePrompts??=NativeChatLinePrompt;
+        if(root.Find(TransactionPanel.PanelId) is not TransactionPanel panel||root.Faulted.Contains(panel))return false;
         panel.Source??=new TransactionSource(this);
+        panel.AskOnChatLine=chatLine;
         return !panel.Dismissed;
     }
+    /// <summary>R10-F: the prompt waiting on the chat input line (trade 140 first, then item delete, then private shop 1028).</summary>
+    ChatLinePrompt? NativeChatLinePrompt(){
+        if(login.State!=LoginState.InWorld)return null;
+        if(NativeUiRoot?.Find(TransactionPanel.PanelId) is TransactionPanel {LinePrompt:{} trade} panel&&!NativeUiRoot.Faulted.Contains(panel))return trade;
+        return login.CaptureWorld(()=>ChatLinePrompts.Of(login));
+    }
+}
+
+/// <summary>R10-F（#905）：LoginConnection 上等待聊天列答覆的提示（答覆走 SendPlayerChat 的確認分派，所以 Answer＝null）。</summary>
+public static class ChatLinePrompts {
+    public static ChatLinePrompt? Of(LoginConnection login){
+        if(login.ItemDeletePromptCurrent is {} d)return new(("delete",d.Id),d.Text,null,()=>login.CancelItemDelete());
+        if(login.PrivateShopConfirmCurrent is {} s)return new(("shop1028",s.Id),s.Text,null,()=>_=login.AnswerPrivateShopConfirm(""));
+        return null;
+    }
+}
+
+public sealed partial class ClientForm {
     bool TradeNativeWindow=>AttachTransactionWindow()&&login.State==LoginState.InWorld&&TransactionView.From(login.World,ResolveNpcText)!=null;
     sealed class TransactionSource(ClientForm form):ITransactionSource {
         public TransactionView? Current=>form.login.State==LoginState.InWorld?TransactionView.From(form.login.World,form.ResolveNpcText):null;

@@ -31,10 +31,11 @@ namespace P06.NativeUi;
 //     本機 string-c.tbl（Text.pak，PakViewer 唯讀解出）：140、255 原文與下方 fallback 相同。
 //   - 裁定（#818）：R4-C 的金幣輸入框是引擎自加的（ADENA_EXCHANGE_WINDOW 不是金幣框，TW16 不讀那段），**已移除**；
 //     金幣是背包裡的一疊，選它再點自己的清單＝同一個 140 提示。
-//   - 引擎做法（標明）：原版的 140 提示在**聊天輸入列**（sub_AC98E0）；聊天輸入列的答覆分派在 PlayerChat.SendPlayerChat（本任務不可改），
-//     所以這裡把提示畫在交易窗的文字框（2008），數字由本窗的 Char()／Key() 接（Enter 送、Esc 取消、Backspace 刪一位）。
-//     改到聊天輸入列留給後續任務。
 //   - 未做：不可交易 941、魔法娃娃使用中 1181、寵物項鍊 1188 的本機檢查（引擎背包沒有這些旗標；伺服器仍會擋）。
+// R10-F（T390／#905，gap-matrix 15.12.6，4:ExchangeUI）：原版的 140 提示在**聊天輸入列**（sub_AC98E0，FU9§12.1、FU12§1.4），
+//   主控裁定（#880 第 1 點）照原版做。AskOnChatLine＝true（TradeUi.cs 在原生 CENTER_WINDOW 可用時設定）：提示交給聊天列
+//   （LinePrompt → ChatPanel），本窗的文字框不畫 140、不接數字／Enter／Backspace，Esc 也讓給聊天列（Esc＝取消提示，不是取消交易）。
+//   AskOnChatLine＝false（沒有原生聊天窗或它出錯時的備援）：照 R9-K 畫在文字框（2008），數字由本窗的 Char()／Key() 接。
 
 /// <summary>交易窗中的一列（Side 0＝自己、1＝對方；Name 已解析成顯示文字；Icon＝IconOf 之後的背包圖示 gfx，0＝無）。</summary>
 public sealed record TransactionOffer(byte Side,string Name,long Adena,int Icon=0) {
@@ -178,6 +179,15 @@ public sealed class TransactionPanel(ItemIconSource? icons=null):IUiMovablePanel
     public TransactionOffer? HoverOffer{get;private set;}
     /// <summary>Close() 之後，這筆交易（Generation）結束前不再畫；TradeUi 依此叫回 WinForms 面板。</summary>
     public bool Dismissed=>dismissed!=null;
+    /// <summary>R10-F：true＝140 在聊天輸入列問（原版）；false＝備援，畫在本窗文字框（R9-K）。</summary>
+    public bool AskOnChatLine{get;set;}
+    /// <summary>R10-F：交給聊天列的 140 提示（AskOnChatLine 且有提示時；答覆＝AnswerPrompt、Esc＝CancelAmount）。</summary>
+    public ChatLinePrompt? LinePrompt=>AskOnChatLine&&view!=null&&Prompt is {} p?new(p,p.Text,AnswerPrompt,()=>CancelAmount()):null;
+    /// <summary>R10-F：聊天列送來的 140 答覆（sub_82E560：空白＝全部，前後空白不算）。</summary>
+    public bool AnswerPrompt(string typed){
+        if(Prompt==null)return false;
+        PromptInput=typed.Trim();return SubmitAmount();
+    }
 
     TransactionView? view;Rectangle local;Rectangle ownLocal,peerLocal;readonly int[] scroll=new int[2];int shownRevision=-1;
     LegacyCellGrid ownGrid=LegacyCellGrid.Empty,peerGrid=LegacyCellGrid.Empty;
@@ -296,8 +306,8 @@ public sealed class TransactionPanel(ItemIconSource? icons=null):IUiMovablePanel
         if(TextFrame is {Drawn:true} tf){
             var r=At(tf);var old=g.Clip;g.SetClip(Rectangle.Intersect(r,canvas.Clip));
             try{
-                if(Prompt!=null){
-                    // R9-K 引擎做法：140 提示與輸入畫在文字框（原版在聊天輸入列，見檔頭）。
+                if(Prompt!=null&&!AskOnChatLine){
+                    // R9-K 備援：140 提示與輸入畫在文字框（原版在聊天輸入列，R10-F 改由聊天列問，見檔頭）。
                     canvas.DrawText(NoticeText,r.X+4,r.Y+3,PromptColor,Color.Black);
                     canvas.DrawText(PromptInput+"_",r.X+4,r.Y+3+RowHeight,Color.White,Color.Black);
                 }
@@ -308,7 +318,7 @@ public sealed class TransactionPanel(ItemIconSource? icons=null):IUiMovablePanel
     /// <summary>文字框：140 提示（等待答覆時）；滑過格子時是那一格的名稱；沒送出的原因；否則是交易提示（可加物品且背包有選取時另附提示）。</summary>
     public string NoticeText{get{
         if(view==null)return "";
-        if(Prompt is {} p)return p.Text;
+        if(Prompt is {} p&&!AskOnChatLine)return p.Text;
         if(HoverOffer is {} h)return h.Name;
         if(Refusal is {} r)return r;
         if(view.CanAdd&&view.Selected is {} s&&HoverOwnList)return "點這裡加入："+s.Name+(s.Count>1?" × "+s.Count.ToString(CultureInfo.InvariantCulture):"");
@@ -380,6 +390,8 @@ public sealed class TransactionPanel(ItemIconSource? icons=null):IUiMovablePanel
 
     public bool Key(UiKeyEvent e,IUiCommands commands){
         if(view==null||!e.Down)return false;
+        // R10-F：140 在聊天列問時，數字、Enter、Backspace、Esc 都讓給聊天列（ChatPanel）。
+        if(Prompt!=null&&AskOnChatLine)return false;
         if(Prompt!=null){
             if(e.KeyData==Keys.Back){if(PromptInput.Length>0)PromptInput=PromptInput[..^1];return true;}
             if(e.KeyData==Keys.Enter){if(!e.Repeat)SubmitAmount();return true;}
@@ -392,7 +404,7 @@ public sealed class TransactionPanel(ItemIconSource? icons=null):IUiMovablePanel
     }
     /// <summary>140 答覆的數字（WM_CHAR）。沒有提示或不是數字時不接。</summary>
     public bool Char(char c){
-        if(view==null||Prompt==null||c is <'0' or >'9')return false;
+        if(view==null||Prompt==null||AskOnChatLine||c is <'0' or >'9')return false;
         if(PromptInput.Length<MaxDigits)PromptInput=PromptInput=="0"?c.ToString():PromptInput+c;
         return true;
     }
