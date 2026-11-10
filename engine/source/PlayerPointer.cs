@@ -59,7 +59,22 @@ public sealed class PlayerPointerController {
         return w.MapCache?.Passable(x,y,h)??MovementRules.Passable(x,y,h);
     }
     bool Step(Point p,int h)=>PlayerPointerPath.Step(p,h,RawStep);
+    // R7-A SV#3：選目標模式中（Magic.cs SpellTargetPick），點物件＝選這個目標並施法，點地面＝取消選目標、不走路（推定）。
+    public bool SpellTargetPicking=>login.World.SpellTargetPicking;
+    public Task<bool>? LastSpellPick {get;private set;}
+    bool TryPickSpellTarget(uint id){
+        if(!login.World.SpellTargetPicking)return false;
+        Cancel("選施法目標");
+        if(Refusal(id,false) is {} refused){Notice=refused;LastSpellPick=Task.FromResult(false);return true;}
+        LastSpellPick=PickAsync(id);return true;
+    }
+    async Task<bool> PickAsync(uint id){
+        bool sent=await login.PickSpellTarget(id,visible);
+        Notice=sent?"已選取施法目標，單次施法已送出；等待原服結果。":login.World.MagicNotice;
+        return sent;
+    }
     public bool MoveTo(Point goal){
+        if(login.World.SpellTargetPicking){Cancel("取消選目標");login.World.CancelSpellTargetPick("點了地面");Notice=login.World.MagicNotice;return false;}
         Cancel("新目的地");if(!focused()||!login.MovementAvailable){Notice="目前無法行走。";return false;}
         var w=login.World;if(!(w.MapCache?.Contains(goal.X,goal.Y)??Coordinates.Inside(goal.X,goal.Y))){Notice="目的地不在已載入地圖內。";return false;}
         // Snapshot occupancy once for bounded A*, then use live RawStep again for every sent edge.
@@ -82,7 +97,7 @@ public sealed class PlayerPointerController {
         }finally{sending=false;}
     }
     bool TargetVisible(uint id)=>visible(id)&&login.World.Objects.Any(o=>o.ObjectId==id&&!o.Dead&&!o.AppearancePending);
-    public bool Select(uint id){Cancel("選取目標");if(!focused()||!login.World.Renderable||!TargetVisible(id))return false;login.World.SelectTarget(id);Notice=$"已選取 {login.World.Target?.Name} #{id}；G 攻擊，選技能後 M 施放。";return login.World.TargetId==id;}
+    public bool Select(uint id){if(TryPickSpellTarget(id))return login.World.TargetId==id;Cancel("選取目標");if(!focused()||!login.World.Renderable||!TargetVisible(id))return false;login.World.SelectTarget(id);Notice=$"已選取 {login.World.Target?.Name} #{id}；G 攻擊，選技能後 M 施放。";return login.World.TargetId==id;}
     // R2-C (WO §1–2): double-click on a ground item goes through the object-click flow
     // (GroundUi.PickupGroundClicked → LoginConnection.PickupGround): approach to 1 tile, then the whole
     // stack or the quantity prompt. `pickup` defaults to that flow; the UI passes PickupGroundClicked.
@@ -117,6 +132,8 @@ public sealed class PlayerPointerController {
         return null;
     }
     public async Task<bool> ActAsync(uint id,bool talk){
+        // 選目標模式中，左鍵（攻擊路徑）點物件是選施法目標，不送攻擊。
+        if(!talk&&TryPickSpellTarget(id))return await LastSpellPick!;
         Cancel(talk?"單次交談":"單次攻擊");
         if(Refusal(id,talk) is {} refused){Notice=refused;return false;}
         bool door=login.World.IsDoor(id);

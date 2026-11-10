@@ -88,7 +88,8 @@ static class SkillLightTests {
         t.Equal(LightClass.Effect,SkillLight.Class(0,true),"S42 default class = Effect");
         t.Equal(LightClass.Effect,SkillLight.Class(1,false),"S30 kind 1 = Effect");
         t.Equal(LightClass.Lightning,SkillLight.Class(2,false),"S30 kind 2 = Lightning");
-        t.Equal(LightClass.Lightning,SkillLight.Class(2,true),"S42 kind 2 = Lightning");
+        // R7-A（#803）：S42 不建 Lightning（#735 第 2 點），kind 2 走預設 Effect。
+        t.Equal(LightClass.Effect,SkillLight.Class(2,true),"S42 kind 2 = default Effect (no Lightning in sub_92FE40)");
         t.Check(SkillLight.Class(3,false)==LightClass.None&&SkillLight.Class(4,false)==LightClass.None&&SkillLight.Class(5,false)==LightClass.None&&SkillLight.Class(5,true)==LightClass.None,"flying classes never light");
         t.Check(SkillLight.Class(6,false)==LightClass.None&&SkillLight.Class(7,false)==LightClass.None&&SkillLight.Class(8,false)==LightClass.None,"S30 kind 6/7/8 never light");
         t.Equal((byte)1,SkillLight.LocationFlag(2028),"S106 2028 flag");t.Equal((byte)1,SkillLight.LocationFlag(2056),"S106 2056 flag");
@@ -132,7 +133,8 @@ static class SkillLightTests {
         Compose(r4,w4,r4at+10);t.Check(r4.MagicVisuals.Any(v=>v.Phase=="fly")&&r4.MagicBrighteningEffects==0,"flying class does not light",r4.MagicVisuals);
     }
 
-    // kind 2 Lightning: lights from index 2 regardless of +9 (S30 writes 0), for S30 and S42.
+    // kind 2 Lightning: S30 lights from index 2 regardless of +9 (S30 writes 0). S42 kind 2 is a default Effect (R7-A):
+    // type 0 does not light, type 8 lights from the start.
     static void Lightning(WorldModuleTestContext t){
         var w=Seed();w.Receive(Attack(41002),"offline");CasterTiming(w);var r=Bare();long release=w.MagicEffects.Single().At+Release;
         Compose(r,w,release);t.Check(r.MagicVisuals.Length==1&&r.MagicBrighteningEffects==0,"S30 kind 2: drawn, not lit on index 1",r.MagicVisuals);
@@ -141,7 +143,13 @@ static class SkillLightTests {
         Compose(r,w,release+3*Frame-1);t.Equal((byte)6,Level(w),"lit until the last frame");
         Compose(r,w,release+3*Frame);t.Equal((byte)1,Level(w),"restored when it finishes");
         var w2=Seed();w2.Receive(Range(41002,0,456),"offline");CasterTiming(w2);var r2=Bare();long rel2=w2.MagicEffects.Single().At+Release;
-        Compose(r2,w2,rel2+Frame);t.Equal(1,r2.MagicBrighteningEffects,"S42 type 0 with a kind 2 gfx still lights");
+        Compose(r2,w2,rel2);t.Equal(0,r2.MagicBrighteningEffects,"S42 type 0 with a kind 2 gfx: not lit at the start");
+        Compose(r2,w2,rel2+Frame);t.Equal(0,r2.MagicBrighteningEffects,"S42 type 0 with a kind 2 gfx does not light (default Effect, +9 = 0)");
+        t.Equal((byte)1,Level(w2),"S42 type 0 kind 2: Ambience unchanged");
+        var w5=Seed();w5.Receive(Range(41002,8,456),"offline");CasterTiming(w5);var r5=Bare();long rel5=w5.MagicEffects.Single().At+Release;
+        Compose(r5,w5,rel5-1);t.Equal(0,r5.MagicBrighteningEffects,"S42 type 8 kind 2: not lit before the caster `!`");
+        Compose(r5,w5,rel5);t.Equal(1,r5.MagicBrighteningEffects,"S42 type 8 kind 2 lights from index 1 (the start), like Effect");t.Equal((byte)6,Level(w5),"S42 type 8 kind 2: Ambience boosted");
+        Compose(r5,w5,rel5+3*Frame);t.Equal((byte)1,Level(w5),"S42 type 8 kind 2: restored when it finishes");
         var w3=Seed();w3.Receive(Attack(41003),"offline");CasterTiming(w3);var r3=Bare();long rel3=w3.MagicEffects.Single().At+Release;
         Compose(r3,w3,rel3+Frame);t.Equal(0,r3.MagicBrighteningEffects,"2-frame Lightning never reaches index 2");
         var w4=Seed();w4.Receive(Attack(40200),"offline");CasterTiming(w4);var r4=Bare();long rel4=w4.MagicEffects.Single().At+Release;

@@ -211,8 +211,11 @@ public enum LightClass {None,Effect,Lightning}
 // - The native defect (finish without a prior +1 drives the counter negative) is not copied: End only after Begin.
 // - Flying classes (3/4/5), kind 6 EarthRising and kind 7 Eruption have their own step functions: no light (FU5 lists
 //   only sub_8ABC10 and sub_8ACB20 as callers of the counter).
+// R7-A（T340／#803，#735 第 2 點）：sub_92FE40（S42）的直接呼叫裡沒有 sub_8AB900（Lightning 建構子），S42 的 kind 2 gfx
+// 建的是預設 Effect（SV§2.2「kind 2 的 S42 建構：同預設」）。所以只有 S30 的 kind 2 是 Lightning；S42 的 kind 2 照 `+9`，
+// 也就是只有 type 8（TYPE_DIR）提亮、type 0 不提亮。
 public static class SkillLight {
-    public static LightClass Class(int kind,bool range)=>kind==2?LightClass.Lightning
+    public static LightClass Class(int kind,bool range)=>kind==2&&!range?LightClass.Lightning
         :MagicClass.Flies(kind,range)||!range&&kind is 6 or 7 or 8?LightClass.None:LightClass.Effect;
     /// <summary>`+9` of a skill effect: S42 = packet type (TYPE_DIR 8 lights, TYPE_NODIR 0 does not); S30 = the byte
     /// after gfx, which AttackSkillPackets only accepts as 0 for magic (3.81 S_UseAttackSkill writes 0).</summary>
