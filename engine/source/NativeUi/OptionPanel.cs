@@ -56,7 +56,7 @@ public sealed record OptionPiece(OptionPieceKind Kind,string Path,string Element
 public sealed record OptionPage(string Name,string? EnableEvent,IReadOnlyList<OptionPiece> Pieces);
 
 public sealed class OptionPanel(UiResources? resources=null):IUiMovablePanel,IUiClosablePanel {
-    [UiPanel(176)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,root=>new OptionPanel(root.Resources));   // T330 (#768): OptionUI.xml from the reference client (P-A), loaded inside Load
+    [UiPanel(176)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,root=>new OptionPanel(root.Resources){TextResolver=RefClientTextSource.Resolver(root.Resources)});   // T330 (#768): OptionUI.xml from the reference client (P-A), loaded inside Load
     public const string PanelId="OptionUI";
     public const string LayoutName="OptionUI",WindowNode="Window",WindowName="Option",HomePage="Home",TabSuffix="Btn",CloseEvent="CloseBtn";
     /// <summary>Layout handed to UiRoot.Build (always in the local Tile.pak); the real layout is LayoutName, read in Load.</summary>
