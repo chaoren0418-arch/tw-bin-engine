@@ -330,3 +330,4 @@
 - 2026-11-11 — #823 T359：R8-D 動作窗（code，claude-local，PR 已合併）→ [報告](reports/issue-823.md)
 - 2026-11-11 — #818 T355：查證原版——Q7-1 到 Q7-14（第六輪需先查證的 36 列）（resource，claude-local，PR 已合併）→ [報告](reports/issue-818.md)
 - 2026-11-11 — #817 T354：R7-N 參考客戶端字串表（code，claude-local，PR 已合併）→ [報告](reports/issue-817.md)
+- 2026-11-11 — #651 T273：伺服器踢除時顯示模態訊息框（S_KICK）（code，claude-local，PR 已合併）→ [報告](reports/issue-651.md)
