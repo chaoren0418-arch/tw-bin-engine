@@ -337,3 +337,4 @@
 - 2026-11-11 — #849 T365：R9-E HyperText 小組（code，claude-local，PR 已合併）→ [報告](reports/issue-849.md)
 - 2026-11-11 — #847 T363：R9-C 聊天指令與 S161 文字（code，claude-local，PR 已合併）→ [報告](reports/issue-847.md)
 - 2026-11-11 — #851 T367：R9-G 學魔法圖示（code，claude-local，PR 已合併）→ [報告](reports/issue-851.md)
+- 2026-11-11 — #852 T368：R9-H 好友／封鎖窗事件（code，claude-local，PR 已合併）→ [報告](reports/issue-852.md)
