@@ -298,3 +298,4 @@
 - 2026-11-10 — #769 T331：P-D 原生排名窗（參考客戶端 XML）（code，claude-local，PR 已合併）→ [報告](reports/issue-769.md)
 - 2026-11-10 — #766 T328：P-D 原生狀態窗（參考客戶端 XML）（code，claude-local，PR 已合併）→ [報告](reports/issue-766.md)
 - 2026-11-10 — #767 T329：P-D 原生釣魚窗（參考客戶端 XML）（code，claude-local，PR 已合併）→ [報告](reports/issue-767.md)
+- 2026-11-10 — #761 T323：P-D 原生盟屋拍賣窗（參考客戶端 XML）（code，claude-local，PR 已合併）→ [報告](reports/issue-761.md)
