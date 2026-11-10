@@ -41,9 +41,14 @@ public sealed partial class ClientForm {
     // T328 (#766) native routing only: with the native UI on, the ReNStatusUIEx status window gets the same snapshot, and its
     // stat Up button runs the existing bonusSelect (local choice, no packet; the submit stays on the WinForms panel below).
     // Native UI off (--classic-ui) or the window unavailable/faulted → nothing changes; the WinForms panel is always kept.
+    // R7-I (#811): the StatInfoUI window reads its row values from the same view (StatInfoPanel.BonusValue; rows without a
+    // known source stay blank). Menu button 2 / Ctrl+A open the status window (MenuButtonsPanel); nothing changes here for that.
     void SyncNativeStatus(BonusStatsView v){
         if(!NativeUiActive||NativeUiRoot is not {} root||root.Find(P06.NativeUi.RenewalStatusPanel.PanelId) is not P06.NativeUi.RenewalStatusPanel panel||root.Faulted.Contains(panel))return;
         panel.StatPointUp??=key=>{if(displayedBonusStats is {} cur&&BonusStatsRules.Valid(key))_=RunBonusStats(BonusCommand(cur,"bonusSelect",key));};
         panel.Show(P06.NativeUi.RenewalStatusPanel.ViewOf(login.World.Status,v.CanSelect&&!World.Walking,v.Selected));
+        if(root.Find(P06.NativeUi.StatInfoPanel.PanelId) is P06.NativeUi.StatInfoPanel info)info.ValueProvider??=StatInfoValues(panel);
     }
+    /// <summary>R7-I (#811): StatInfoPanel.ValueProvider over the status window's latest view (read at paint time).</summary>
+    internal static Func<string,string?> StatInfoValues(P06.NativeUi.RenewalStatusPanel status)=>name=>P06.NativeUi.StatInfoPanel.BonusValue(name,status.View);
 }
