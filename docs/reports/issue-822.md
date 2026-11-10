@@ -23,7 +23,7 @@
   - 聊天閘門：送 C5、提示正確、idle→inviting；等待中再送一次狀態不動；`/duelx` 照一般聊天（C136）；過期戳記、不在世界中都不送。
   - 被邀請（S219/630）時打 `/duel`：C5 照送，邀請狀態與 Revision 不變。
   - 提示文字：初始提示含 `/duel`、`/決鬥`；S250/5 開始決鬥後提示不再提「決鬥對手」標記、改說可直接攻擊。
-- CI 結果：見 PR。
+- CI 結果（PR #842，run 42855601316）：dotnet、map-continuity、npc-offline 全部 pass；`--module-tests` 共 0 失敗，其中 `duel-command`（`P06.DuelCommandTests.Run`）pass，40 項檢查。
 
 ## 未驗證什麼
 - 真機：在 P24Lab 與測試角色面對面輸入 `/duel`、`/決鬥`，伺服器是否回 630 邀請／91／93 訊息（待驗證，交 Codex）。
