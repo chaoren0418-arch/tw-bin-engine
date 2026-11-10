@@ -41,7 +41,8 @@
   - 查的 pak：`Text.pak`（`Text.idx` 索引）；檔名：`string-c.tbl`（第 32559 筆，105,931 B，SHA `4ebbc1a7…`）、`alertitems.tbl`（第 806 筆，1,382 B，232 筆，全部是整數）。
   - 讀出的編號：668、3049、3054、3122 有；4114、4115 超出表的筆數。
   - 圖（2052 垃圾桶、2054 寶箱）沿用 R4-B 既有的 surf，本組沒有新圖。
-- 離線測試 `inventory-action` 由 CI 執行（本機依規定不執行任何編譯出來的程式）。CI 結果見 PR。
+- 離線測試 `inventory-action` 由 CI 執行（本機依規定不執行任何編譯出來的程式）。
+- **CI（PR #874，run 42882631227／42882631144）**：`dotnet`、`map-continuity`、`npc-offline` 全部 pass；`--module-tests` 整份 `failed: 0`；`inventory-action` pass（50 項檢查，0 失敗），既有 `chat-command-followup`（86）、`native-item-window`（40）也 pass。
 
 ## 未驗證什麼（真機再確認）
 - 雙擊是不是原版的觸發事件（FU9§13.1 屬推測）；雙擊判定用 WinForms 的 `Clicks`。
