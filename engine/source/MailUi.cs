@@ -31,8 +31,26 @@ public sealed partial class ClientForm {
     internal bool RequestMail() {
         if (login.State != LoginState.InWorld || !IsHandleCreated) return false;
         if (mailOpen || mailQueued) return true;
+        // T324 (#762): native UI active and RenewalMailUI loaded (reference client XML) → the native mail windows (toggle).
+        // Native UI off (--classic-ui), XML unavailable or the panel faulted → the WinForms dialog below, unchanged.
+        if (NativeMailPanel() is { } panel) { ClearInput("mail"); nativeUiRoot!.Toggle(panel, () => panel.Open()); Invalidate(); return true; }
         mailQueued = true; BeginInvoke(new Action(OpenMail));
         return true;
+    }
+
+    NativeUi.MailPanel? NativeMailPanel() {
+        if (!NativeUiActive || nativeUiRoot?.Find(NativeUi.MailPanel.PanelId) is not NativeUi.MailPanel panel || !panel.Available || nativeUiRoot.Faulted.Contains(panel)) return null;
+        panel.Host ??= new NativeMailHost(this, panel);
+        return panel;
+    }
+
+    /// <summary>T324 (#762): the native panel's bridge to the same calls the WinForms dialog makes (MailSnapshot / LoginConnection.Mail).</summary>
+    sealed class NativeMailHost(ClientForm form, NativeUi.MailPanel panel) : NativeUi.IMailPanelHost {
+        public MailView? View => form.login.State == LoginState.InWorld ? form.login.CaptureWorld(() => form.login.World.MailSnapshot()) : null;
+        public Task<bool> Run(MailView shown, string command, byte box, uint id, string receiver = "", string subject = "", string body = "") {
+            form.ClearInput("mail");
+            return form.login.Mail(command, box, id, shown.Stamp, receiver, subject, body, () => panel.Visible);
+        }
     }
 }
 
