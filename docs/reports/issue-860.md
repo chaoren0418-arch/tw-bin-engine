@@ -30,11 +30,11 @@
 
 - 編譯：`dotnet msbuild engine/source/OfflineClient.csproj -t:ResolveReferences;CoreCompile -p:Configuration=Release -p:EnableWindowsTargeting=true -p:RuntimeIdentifier=win-x64 -p:SelfContained=false` → 本次觸及的檔案 0 錯誤；唯一錯誤是 `WebPanel.cs` 的 WebView2（本機 NETSDK1130，與 #848／#854 同一環境問題）。完整建置與測試以 CI 為準。
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py` → `pass`（errors 0）。
-- 依本機限制，**沒有在本機執行任何測試**；`fishing-ui`、`fishing-followup` 與既有單元測試由 GitHub Actions CI 跑（結果見 PR）。
+- 依本機限制，**沒有在本機執行任何測試**；測試交給 GitHub Actions CI。
+- CI（PR #877，run 42886562445）：`dotnet`、`map-continuity`、`npc-offline` 都 pass；World module 測試 `fishing-followup` pass（56 項檢查，0 失敗），`fishing-ui` pass，全部群組 failed 0。
 
 ## 未驗證
 
-- CI 結果（push 後由 PR 檢查）。
 - 真機：FishingNet 開窗位置與外觀、1516 提示與回答、收竿後 1163、換地圖／結束釣魚時窗是否殘留（gap-matrix M21）。
 
 ## 產出路徑
