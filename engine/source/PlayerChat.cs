@@ -45,6 +45,7 @@ public static class PlayerChatProtocol {
         if(ChatPartyCommands.IsCommand(input)){ChatPartyCommands.Encode(input);return "指令 · 聊天隊伍";}
         if(input=="/loc"||input.StartsWith("/loc ",StringComparison.Ordinal))return "指令 · 發送座標";
         if(ClientChatCommands.Parse(input) is {} client)return "指令 · "+ClientChatCommands.Label(client.Kind);
+        if(DuelChatCommand.Is(input))return "指令 · 決鬥"; // R8-C（#822）
         var message=ParseInput(input);Encode(message);
         return $"{ChannelName(message.Channel)} · 正文 {message.Text.Length}/52 字";
     }
@@ -365,6 +366,7 @@ public sealed partial class LoginConnection {
                 if(ClientCommandPacket(client,out string notice,out clientAdmitted) is not {} p){playerChatNotice=notice.Length>0?notice:"指令未送出。";Changed?.Invoke();return false;}
                 packet=p;clientNotice=notice;
             }
+            else if(DuelChatPacket(text,out clientNotice,out clientAdmitted) is {} duelPacket)packet=duelPacket; // R8-C（#822）：/duel、/決鬥 → C5（Duel.cs）
             else packet=PlayerQueryPacket(text,session,world,actor)??ChatPartyCommands.Encode(text)??PlayerChatProtocol.Encode(text);
         }
         catch(ArgumentException ex){playerChatNotice=ex.Message;Changed?.Invoke();return false;}

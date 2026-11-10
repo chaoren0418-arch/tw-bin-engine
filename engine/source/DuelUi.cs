@@ -31,7 +31,7 @@ public sealed partial class ClientForm {
     void SyncDuel(){
         var view=login.World.DuelSnapshot;
         displayedDuel=view;
-        duelNotice.Text=(view.Peer.Length==0?"":"對手："+view.Peer+"\n")+view.Notice+"\n\n邀請：選取相鄰、與你面對面的角色。攻擊仍由伺服器判定。";
+        duelNotice.Text=(view.Peer.Length==0?"":"對手："+view.Peer+"\n")+view.Notice+"\n\n邀請：與相鄰角色面對面後，在聊天列輸入 /duel（或 /決鬥），或按下方按鈕（開發工具入口）。攻擊仍由伺服器判定。";
         bool ready=login.State==LoginState.InWorld&&!World.Walking;
         duelInvite.Enabled=ready&&login.CanInviteDuel&&login.World.FacingTradeTarget is {} target&&HasVisibleObjectPixel(target.ObjectId);
     }
