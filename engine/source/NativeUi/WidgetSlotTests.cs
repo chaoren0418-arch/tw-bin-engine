@@ -9,7 +9,7 @@ namespace P06.NativeUi;
 static class WidgetSlotTests {
     const uint FrameC=0xFF101010,ExC=0xFF202020,MarkC=0xFFFFFF00,TabC=0xFF004000,
         OldLockedC=0xFF400000,OldOpenC=0xFF800000,LockedC=0xFF0000C0,OpenC=0xFF0000FF,CornerC=0xFF00C0C0,
-        ModeC=0xFFC000C0,ModePushC=0xFFFF00FF,SubLockedC=0xFF00C000,SubOpenC=0xFF00FF00;
+        ModeC=0xFFC000C0,ModePushC=0xFFFF00FF;
     static UiSurface S(int id,int w,int h,uint argb)=>new(id,$"{id}","synthetic",new UiImage(w,h,0,0,Enumerable.Repeat(argb,w*h).ToArray()));
     static Dictionary<int,UiSurface> Surfs()=>new(){
         [3176]=S(3176,157,124,FrameC),[3226]=S(3226,158,125,ExC),[2331]=S(2331,36,36,MarkC),
@@ -162,9 +162,9 @@ static class WidgetSlotTests {
         t.Equal(new Rectangle(485,475,166,125),p.Bounds,"bounds = frame ∪ lock ∪ mode");
         var book=new MacroBook();p.Update(new State(book));var cmd=new UiNullCommands();
         t.Check(p.Visible,"only BAR_485 member → shown");
-        t.Equal(Argb(SubOpenC),Pixel(p,640,530),"unlocked → 3192");
+        t.Equal(Argb(OldOpenC),Pixel(p,640,530),"unlocked → 3192 (the same surf the uistatus86 MACRO_LOCK uses)");
         t.Check(p.Mouse(M(UiMouseKind.Down,640,530),cmd)&&book.Locked,"sub lock toggles the shared MacroBook lock (推測)");
-        t.Equal(Argb(SubLockedC),Pixel(p,640,530),"locked → 3191");
+        t.Equal(Argb(OldLockedC),Pixel(p,640,530),"locked → 3191");
         t.Check(p.Mouse(M(UiMouseKind.Down,640,500),cmd)&&p.ModePressed&&book.Locked,"sub ButtonMode press: lock unchanged");
         p.Mouse(M(UiMouseKind.Up,640,500),cmd);
         t.Check(!p.ModePressed&&p.SlotAt(new(495,495))==0&&p.Mouse(M(UiMouseKind.Down,495,495),cmd)&&book.SelectionInExtended,"slots still work");
