@@ -21,7 +21,7 @@ public static class PlayerChatProtocol {
     public const int MaxCharacters=52;
     // Local input budget: quote + receiver (52) + separator + body (52), or /say + body.
     public const int MaxInputCharacters=106;
-    public const string InputHelp="一般：直接輸入；!喊話 &全體 @血盟 #隊伍 $交易；\"對象 訊息：密語；/say 原文：一般；/loc 角色：發送座標；/whisper、/tradechat on 或 off：頻道開關；/accepttrade：交易詢問開關；/who（/誰）、/rank（/階級）、/checkpk：查詢；/chatparty、/chatoutparty、/chatbanish 名稱：聊天隊伍；/focus [血盟]：關注；/war、/surrender、/cease 血盟：盟戰；/propose、/divorce：求婚、離婚";
+    public const string InputHelp="一般：直接輸入；!喊話 &全體 @血盟 #隊伍 $交易；\"對象 訊息：密語；/say 原文：一般；/loc 角色：發送座標；/whisper、/tradechat on 或 off：頻道開關；/accepttrade：交易詢問開關；/who（/誰）、/rank（/階級）、/checkpk：查詢；/chatparty、/chatoutparty、/chatbanish 名稱：聊天隊伍；/focus [血盟]：關注；/war、/surrender、/cease 血盟：盟戰；/propose、/divorce：求婚、離婚；/invite、/banish 名稱、/outparty、/chatinvite 名稱：組隊；/buddy、/addbuddy、/delbuddy 名稱：好友；/exclude、/include 名稱：封鎖；/trade：交易；/shop：個人商店；/bookmark [名稱]：記憶座標";
     public static PlayerChatInput ParseInput(string input){
         if(string.IsNullOrWhiteSpace(input))throw new ArgumentException("請輸入 1–52 字的單行訊息。");
         if(input.StartsWith("/say ",StringComparison.Ordinal))return new(PlayerChatChannel.Normal,input[5..]);
@@ -46,6 +46,7 @@ public static class PlayerChatProtocol {
         if(input=="/loc"||input.StartsWith("/loc ",StringComparison.Ordinal))return "指令 · 發送座標";
         if(ClientChatCommands.Parse(input) is {} client)return "指令 · "+ClientChatCommands.Label(client.Kind);
         if(DuelChatCommand.Is(input))return "指令 · 決鬥"; // R8-C（#822）
+        if(ChatFollowupCommands.Parse(input) is {} followup)return "指令 · "+ChatFollowupCommands.Label(followup.Kind); // R9-C（#847）
         var message=ParseInput(input);Encode(message);
         return $"{ChannelName(message.Channel)} · 正文 {message.Text.Length}/52 字";
     }
@@ -102,7 +103,7 @@ public static class PlayerChatProtocol {
             if(codeChannel is not {} cc)return false;
             // T316（FU6§6）：`$數字` 用 desc-c.tbl 展開（sub_94AF00 → sub_A11520）。3.81 的 S161 只有 NPC 會送，所以走「一律展開」那條；
             // 職業外型說話者「只展開開頭的 $」的分支 3.81 用不到（ExpandDesc 的 leadingOnly）。
-            channel=cc;text=ExpandDesc(r.S());code=true;break;
+            channel=cc;text=CodeText(ExpandDesc(r.S()));code=true;break;
         case 81:
             byte localType=r.C();
             if(localType is not (0 or 2 or 14))return false;
@@ -132,6 +133,21 @@ public static class PlayerChatProtocol {
         r.Finish();line=new(0,speaker,Display(text),channel){ColorIndex=color,Code=code};return true;
     }
     internal static string Display(string text)=>new(text.Where(c=>!char.IsControl(c)).Take(1024).ToArray());
+    /// <summary>
+    /// R9-C（#847，FU9§4.1）：S161 展開 `$` 之後的後處理（sub_94AF00）。
+    /// 1. 第一個 `^` 換成空白（sub_941E40，`strchr`）、第一個 `!` 換成空白（sub_941DE0(33,…)）；各只換第一個。
+    ///    原版用位元組 `strchr`，Big5 第二位元組是 0x5E 時會換錯位元組（原版缺陷，推測）；這裡對解碼後的字元操作，等於 DBCS 安全的換法。
+    /// 2. 開頭是 `\f` 而且第 3 字元 ≥ '0' 時拿掉這 3 個字（從第 4 字元開始顯示）；顏色仍由 type 決定。中間的 `\f` 不動，交給 Printer。
+    /// 一般說話者與 id 0 系統文字（Inventory.cs）都套用。786「伊娃之祝福」分支 3.81 不會出現（原始碼沒有這個字串），不做。
+    /// </summary>
+    public static string CodeText(string text){
+        if(string.IsNullOrEmpty(text))return text;
+        var chars=text.ToCharArray();
+        int caret=Array.IndexOf(chars,'^');if(caret>=0)chars[caret]=' ';
+        int bang=Array.IndexOf(chars,'!');if(bang>=0)chars[bang]=' ';
+        string result=new(chars);
+        return result.Length>=3&&result[0]=='\\'&&result[1]=='f'&&result[2]>='0'?result[3..]:result;
+    }
 
     // ---- T316（#746，FU6§6）：S161 的 `$數字` ----
     static readonly object descGate=new();
@@ -205,6 +221,85 @@ public static class ClientChatCommands {
     public static string Label(ClientChatCommandKind kind)=>kind switch{
         ClientChatCommandKind.Focus=>"關注血盟",ClientChatCommandKind.War=>"宣戰",ClientChatCommandKind.Surrender=>"投降",
         ClientChatCommandKind.Cease=>"停戰",ClientChatCommandKind.Propose=>"求婚",_=>"離婚"};
+}
+
+/// <summary>
+/// R9-C（T363／#847，FU9§9.0、§1.1）：原版 sub_F56320 註冊的另一批斜線指令（英文名＋字串表別名）。
+/// 別名是本機 string-c.tbl 的字：410「邀請隊員」、411「驅逐隊員」、412「離開隊伍」、957「邀請聊天」、947「好友名單」、948「新增好友」、
+/// 949「刪除好友」、366「斷絕」、470「包含」、399「交換」、907「商店」、365「記憶」；`qbookmark` 沒有字串表名。
+/// 英文不分大小寫（推測，同 ClientChatCommands）；指令與參數以第一個空白分開，參數前後空白去掉。
+/// </summary>
+public enum ChatFollowupKind { Invite, Banish, OutParty, ChatInvite, Buddy, AddBuddy, DelBuddy, Exclude, Include, Trade, Shop, Bookmark, QBookmark }
+public sealed record ChatFollowupCommand(ChatFollowupKind Kind,string Argument);
+/// <summary>
+/// 一個聊天指令要做的事：依序送 Packets（走聊天列的送出閘門；Admitted 在第一包放行時執行，StillValid 是額外的放行條件）；
+/// 沒有封包時執行 Local（本機動作，例如開窗、進選目標模式），回傳值就是 SendPlayerChat 的結果；兩者都沒有＝本機擋下，只顯示 Notice。
+/// </summary>
+public sealed record ChatCommandPlan(string Notice,byte[][] Packets,Action? Admitted=null,Func<bool>? StillValid=null,Func<bool>? Local=null){
+    public static ChatCommandPlan Refuse(string notice)=>new(notice,[]);
+    public static ChatCommandPlan Send(string notice,Action? admitted,params byte[][] packets)=>new(notice,packets,admitted);
+    public static ChatCommandPlan Do(string notice,Func<bool> local)=>new(notice,[],Local:local);
+}
+public static class ChatFollowupCommands {
+    static readonly (string English,string? Chinese,ChatFollowupKind Kind)[] Table=[
+        ("invite","邀請隊員",ChatFollowupKind.Invite),("banish","驅逐隊員",ChatFollowupKind.Banish),("outparty","離開隊伍",ChatFollowupKind.OutParty),
+        ("chatinvite","邀請聊天",ChatFollowupKind.ChatInvite),("buddy","好友名單",ChatFollowupKind.Buddy),("addbuddy","新增好友",ChatFollowupKind.AddBuddy),
+        ("delbuddy","刪除好友",ChatFollowupKind.DelBuddy),("exclude","斷絕",ChatFollowupKind.Exclude),("include","包含",ChatFollowupKind.Include),
+        ("trade","交換",ChatFollowupKind.Trade),("shop","商店",ChatFollowupKind.Shop),("bookmark","記憶",ChatFollowupKind.Bookmark),("qbookmark",null,ChatFollowupKind.QBookmark)];
+    public static IEnumerable<(string English,string? Chinese,ChatFollowupKind Kind)> Names=>Table;
+    /// <summary>不是這些指令回 null。</summary>
+    public static ChatFollowupCommand? Parse(string input){
+        if(string.IsNullOrEmpty(input)||input[0]!='/')return null;
+        int split=1;while(split<input.Length&&!char.IsWhiteSpace(input[split]))split++;
+        string word=input[1..split],arg=split<input.Length?input[(split+1)..].Trim():"";
+        foreach(var (en,zh,kind) in Table)
+            if(string.Equals(word,en,StringComparison.OrdinalIgnoreCase)||zh!=null&&word==zh)return new(kind,arg);
+        return null;
+    }
+    public static string Label(ChatFollowupKind kind)=>kind switch{
+        ChatFollowupKind.Invite=>"邀請隊員",ChatFollowupKind.Banish=>"驅逐隊員",ChatFollowupKind.OutParty=>"離開隊伍",ChatFollowupKind.ChatInvite=>"邀請聊天",
+        ChatFollowupKind.Buddy=>"好友名單",ChatFollowupKind.AddBuddy=>"新增好友",ChatFollowupKind.DelBuddy=>"刪除好友",ChatFollowupKind.Exclude=>"封鎖",
+        ChatFollowupKind.Include=>"解除封鎖",ChatFollowupKind.Trade=>"交易",ChatFollowupKind.Shop=>"個人商店",ChatFollowupKind.Bookmark=>"記憶座標",_=>"記憶座標（快速移動）"};
+    /// <summary>
+    /// 原版本機印的字串（string-c.tbl 第 id 筆，去掉色碼）；表讀不到或該筆空白時用 fallback（本機 Text.pak string-c.tbl 讀到的原文，
+    /// 見 docs/reports/issue-847.md）。
+    /// </summary>
+    public static string Text(int id,string fallback)=>ServerMessageText.Table is {} t&&id<t.Count&&ServerMessageText.DisplayText(t[id]).Trim() is {Length:>0} s?s:fallback;
+    public const int SelectTarget=179,InvalidName=53,ShopTrade=989,ShopClosed=903,ChatInvitePrompt=960,MarkTooLong=204;
+    public static string SelectTargetText=>Text(SelectTarget,"請選擇對象。");
+    public static string InvalidNameText=>Text(InvalidName,"無效的名字。 若您擅自修改，將無法進行遊戲。");
+    public static string ShopTradeText=>Text(ShopTrade,"無法與開設個人商店的玩家進行交易。");
+    public static string ShopClosedText=>Text(ShopClosed,"結束個人商店模式。");
+    public static string ChatInvitePromptText=>Text(ChatInvitePrompt,"您想要邀請誰至聊天隊伍呢？");
+    public static string MarkTooLongText=>Text(MarkTooLong,"所標記地點的名稱太長。");
+    /// <summary>原版書籤名稱上限（sub_4FE1D0：&gt; 30 byte 印 204）。</summary>
+    public const int MarkNameBytes=30;
+}
+
+/// <summary>聊天指令要開的既有視窗（R9-C）。</summary>
+public enum ChatWindowRequest { Bookmark, PersonalShop }
+
+public sealed partial class ClientForm {
+    /// <summary>
+    /// R9-C（#847）：聊天指令 `/bookmark`（不帶名稱）、`/shop` 呼叫既有的開窗入口（ToggleNativeBookmarkWindow、個人商店設定窗）。
+    /// 找出擁有這個 session 的視窗；在 UI 執行緒就直接呼叫，否則排進 UI 執行緒。離線測試沒有視窗，回 false。
+    /// </summary>
+    internal static bool OfferChatWindow(WorldSession world,ChatWindowRequest request){
+        bool handled=false;
+        foreach(var owner in Application.OpenForms.OfType<ClientForm>().ToArray()){
+            if(!ReferenceEquals(owner.login.World,world)||!owner.IsHandleCreated||owner.IsDisposed)continue;
+            if(owner.InvokeRequired){owner.BeginInvoke((Action)(()=>{if(!owner.IsDisposed)owner.OpenChatWindow(request);}));handled=true;}
+            else handled|=owner.OpenChatWindow(request);
+        }
+        return handled;
+    }
+    bool OpenChatWindow(ChatWindowRequest request){
+        if(request==ChatWindowRequest.Bookmark)return ToggleNativeBookmarkWindow();
+        // 原版 sub_F480C0：不在擺攤時「切換」PersonalShopUI 窗。
+        if(personalShop is not {} shop)return false;
+        if(shop.Panel is {Visible:true} panel){panel.Close();Invalidate();return true;}
+        bool opened=shop.Open();Invalidate();return opened;
+    }
 }
 
 /// <summary>聊天行的一段文字；Color 是原版調色盤 dword_1369D70 的索引（R2-G）。</summary>
@@ -359,6 +454,8 @@ public sealed partial class LoginConnection {
             playerChatNotice=ChatChannelNotice.Length>0?ChatChannelNotice:"頻道切換未送出。";Changed?.Invoke();return done;
         }
         if(!PlayerChatAccess||!PlayerChatStamp(session,world,actor)||playerChatSending||WorldClock()<playerChatNextAt||sendMovementGate==null)return false;
+        // R9-C（#847，FU9§9）：組隊、好友／封鎖、交易、個人商店、記憶座標的聊天指令（ChatFollowupCommands），不當聊天送出。
+        if(ChatFollowupCommands.Parse(text) is {} followup)return await SendChatFollowup(followup,session,world,actor);
         byte[] packet;bool command=ChatPartyCommands.IsCommand(text);string? clientNotice=null;Action? clientAdmitted=null;
         try{
             if(ClientChatCommands.Parse(text) is {} client){
@@ -408,5 +505,64 @@ public sealed partial class LoginConnection {
         default:
             notice="離婚請求已送出；伺服器會再詢問確認。";admitted=()=>World.MarriageCommandSent(true);return MarriagePackets.Divorce();
         }
+    }
+
+    /// <summary>R9-C（#847）：各指令的內容在 Party.cs、Buddies.cs、Trade.cs；記憶座標在這裡（只用既有的 C165 編碼與開窗入口）。</summary>
+    internal ChatCommandPlan ChatFollowupPlan(ChatFollowupCommand c){
+        try{
+            return c.Kind switch{
+                ChatFollowupKind.Invite or ChatFollowupKind.Banish or ChatFollowupKind.OutParty or ChatFollowupKind.ChatInvite=>PartyChatCommand(c),
+                ChatFollowupKind.Buddy or ChatFollowupKind.AddBuddy or ChatFollowupKind.DelBuddy or ChatFollowupKind.Exclude or ChatFollowupKind.Include=>BuddyChatCommand(c),
+                ChatFollowupKind.Trade=>TradeChatCommand(),
+                ChatFollowupKind.Shop=>ShopChatCommand(),
+                _=>BookmarkChatCommand(c)};
+        }
+        catch(System.Text.EncoderFallbackException){return ChatCommandPlan.Refuse("名稱含有遊戲字集無法表示的字元。");}
+        catch(ArgumentException ex){return ChatCommandPlan.Refuse(ex.Message);}
+    }
+    /// <summary>
+    /// FU9§1.1 第 2 點：`bookmark 名稱`／`記憶 名稱`（sub_F43C30 → sub_4FE1D0）送新增書籤（3.81 C165），名稱 &gt; 30 byte 印 204；
+    /// 不帶名稱＝開一般模式的書籤窗。`qbookmark 名稱`（sub_F48450 → sub_502720）同樣送 C165；原版另把新書籤加進快速移動清單，
+    /// 那份清單在 BookmarkPanel（不在本任務範圍），這裡只送新增（報告列為後續）。
+    /// 限制地圖（214）的本機檢查沒做：部分地圖只限制特定區域，區域表待查；3.81 伺服器同樣回 214。
+    /// </summary>
+    ChatCommandPlan BookmarkChatCommand(ChatFollowupCommand c){
+        string name=c.Argument;
+        if(name.Length==0){
+            if(c.Kind==ChatFollowupKind.QBookmark)return ChatCommandPlan.Refuse("格式：/qbookmark 名稱");
+            return ChatCommandPlan.Do("已切換記憶座標視窗。",()=>{
+                if(ClientForm.OfferChatWindow(World,ChatWindowRequest.Bookmark))return true;
+                playerChatNotice="記憶座標視窗未開啟（原生 UI 未啟動）。";return false;});
+        }
+        if(BookmarkPackets.NameError(name) is {} error)return ChatCommandPlan.Refuse(error);
+        if(LoginPackets.TextEncoding.GetByteCount(name)>ChatFollowupCommands.MarkNameBytes)return ChatCommandPlan.Refuse(ChatFollowupCommands.MarkTooLongText);
+        var store=World.Bookmarks;
+        if(!store.CanAdd(name))return ChatCommandPlan.Refuse("書籤已滿或已有同名書籤；未送出。");
+        return new ChatCommandPlan("已要求記憶目前位置「"+name+"」；等待伺服器書籤回覆。"+(c.Kind==ChatFollowupKind.QBookmark?"（快速移動清單尚未自動加入）":""),
+            [BookmarkPackets.Add(name)],()=>store.Sent(null),()=>store.CanAdd(name));
+    }
+    async Task<bool> SendChatFollowup(ChatFollowupCommand c,int session,int world,uint actor){
+        var plan=ChatFollowupPlan(c);
+        if(plan.Packets.Length==0){
+            playerChatNotice=plan.Notice;
+            bool done=plan.Local?.Invoke()??false;
+            Changed?.Invoke();return done;
+        }
+        var sender=sendMovementGate!;int lease=++playerChatLease;playerChatSending=true;
+        bool Valid()=>lease==playerChatLease&&PlayerChatAccess&&PlayerChatStamp(session,world,actor);
+        try{
+            bool first=await sender(plan.Packets[0],()=>Valid()&&(plan.StillValid?.Invoke()??true),()=>{playerChatNextAt=WorldClock()+1000;plan.Admitted?.Invoke();});
+            if(session!=generation||lease!=playerChatLease)return false;
+            string notice=first?plan.Notice:"角色或場景已變更，指令未送出。";
+            // `/addbuddy`、`/delbuddy` 原版接著送好友查詢（FU9§9.2）；第一包放行後才送，後續被擋只少了查詢。
+            for(int i=1;first&&i<plan.Packets.Length;i++){
+                if(!await sender(plan.Packets[i],Valid,()=>{})){notice+="（後續的名單查詢未送出）";break;}
+                if(session!=generation||lease!=playerChatLease)return false;
+            }
+            playerChatNotice=notice;Changed?.Invoke();return first;
+        }catch(Exception ex){
+            if(session==generation){Cancel();Set(LoginState.Faulted,"聊天指令傳送失敗："+ex.Message);}
+            return false;
+        }finally{if(lease==playerChatLease)playerChatSending=false;}
     }
 }

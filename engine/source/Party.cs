@@ -21,6 +21,23 @@ public static class PartyPackets {
         return m==null||m.ObjectId==0||m.ObjectId==shown.Owner?0:m.ObjectId;
     }
     public static byte[] Answer(uint challenge,bool accept)=>LoginPackets.Pad([121,0,0,..BitConverter.GetBytes(challenge),0xB9,3,(byte)(accept?1:0)]);
+    /// <summary>R9-C（#847，FU9§9.1）：C230 C(2) S(名稱)＝聊天隊伍邀請（3.81 C_CreateParty type 2；原版 `/chatinvite 名稱` 送 TW16 op 42 type 2 `ccs`）。</summary>
+    public const byte ChatInviteType=2;
+    public static byte[] ChatInvite(string name){
+        if(!ValidName(name))throw new ArgumentException("聊天隊伍邀請格式：/chatinvite 名稱（名稱不可含空白，最多 52 字）");
+        try{return LoginPackets.Pad([230,ChatInviteType,..LoginPackets.TextEncoding.GetBytes(name),0]);}
+        catch(System.Text.EncoderFallbackException){throw new ArgumentException("名稱含有遊戲字集無法表示的字元。");}
+    }
+}
+
+/// <summary>
+/// R9-C（#847，FU9§9.1、Q7-8）：`/invite` 不帶名稱 → sub_9550C0 進入選目標模式（字串 179「請選擇對象。」，範圍 30 格）；
+/// 點到人後 sub_954FC0 檢查對象是有效玩家才送 type 0／1（1 是 byte_13CE519 為真時，本引擎固定 0）。
+/// 隱身判斷（sub_A42C30，推測）沒做，3.81 伺服器自己會擋。游標 179 與範圍單位（格）是推測，同 SpellTargeting。
+/// </summary>
+public sealed record PartyInvitePick(int Epoch,uint Owner);
+public static class PartyInviteTargeting {
+    public const int Range=30,Cursor=ChatFollowupCommands.SelectTarget;
 }
 
 public sealed partial class WorldSession {
@@ -121,6 +138,18 @@ public sealed partial class WorldSession {
         else {partyNotice=code switch{415=>"對方已加入其他隊伍。",416=>"只有隊長能邀請隊員。",417=>"隊伍已滿。",423=>"對方拒絕了組隊邀請。",424=>"原服通知有隊員加入；可按更新名單核對。",426=>"指定角色不在隊伍中。",_=>"收到原服隊伍訊息："+code};partyRevision++;}
         return false; // Preserve the existing server-message/chat presentation.
     }
+    // ---- R9-C：/invite 的選目標模式（只有狀態；畫面上的游標與點擊接線見 docs/reports/issue-847.md「給下一棒」） ----
+    public PartyInvitePick? PartyInvitePick {get;private set;}
+    /// <summary>選目標模式有效：同一世界、同一角色。</summary>
+    public bool PartyInvitePicking=>PartyInvitePick is {} p&&p.Epoch==WorldEpoch&&p.Owner!=0&&p.Owner==Status?.ObjectId;
+    internal void BeginPartyInvitePick(){PartyInvitePick=new(WorldEpoch,Status?.ObjectId??0);partyNotice=ChatFollowupCommands.SelectTargetText;partyRevision++;}
+    public void CancelPartyInvitePick(){if(PartyInvitePick==null)return;PartyInvitePick=null;partyRevision++;}
+    /// <summary>sub_954FC0 的對象檢查：玩家旗標、活著、不是自己、在 30 格內（切比雪夫距離，推測）。</summary>
+    internal WorldObject? PartyInviteCandidate(uint id){
+        if(Actor is not {} a||id==0||id==a.ObjectId||id==Status?.ObjectId)return null;
+        var o=Objects.FirstOrDefault(x=>x.ObjectId==id);
+        return o is {Dead:false,AppearancePending:false}&&(o.Flags&4)!=0&&Math.Max(Math.Abs(o.X-a.X),Math.Abs(o.Y-a.Y))<=PartyInviteTargeting.Range?o:null;
+    }
     internal bool PartyCurrent(PartyView v){CheckParty();return v.Owner!=0&&v.Owner==partyOwner&&v.Epoch==WorldEpoch&&v.Revision==partyRevision;}
     internal void PartySent(string command){if(command is "accept" or "reject"){partyInvitation=null;YesNoHandled(953);}partyNotice="已送出"+(command switch{"invite"=>"組隊邀請","accept"=>"接受邀請","reject"=>"拒絕邀請","leave"=>"離隊請求","kick"=>"踢除請求","delegate"=>"委任隊長請求",_=>"名單查詢"})+"；隊員與 HP 以原服回覆為準。";partyRevision++;}
 }
@@ -144,6 +173,47 @@ public sealed partial class LoginConnection {
         byte[] packet;try{packet=command switch{"list"=>PartyPackets.List(),"leave"=>PartyPackets.Leave(),"invite"=>PartyPackets.Invite(target,mode),"kick"=>PartyPackets.Kick(name),"delegate"=>PartyPackets.Delegate(PartyPackets.DelegateTarget(shown,name)),_=>PartyPackets.Answer(invite!.Challenge,command=="accept")};}catch(ArgumentException){return false;}
         int gen=SessionGeneration;partySendingGeneration=gen;var sender=sendMovementGate;
         try{return await sender(packet,()=>gen==SessionGeneration&&PartyAccess&&World.PartyCurrent(shown)&&Eligible(),()=>{World.PartySent(command);Set(State,"隊伍請求已送出。");})&&gen==SessionGeneration;}
+        catch(Exception){if(gen==SessionGeneration){Cancel();Set(LoginState.Faulted,"組隊傳送失敗，已斷線；沒有自動重送。");}return false;}
+        finally{if(partySendingGeneration==gen)partySendingGeneration=-1;}
+    }
+
+    /// <summary>
+    /// R9-C（#847，FU9§9.0、§9.1）：組隊聊天指令。
+    /// - `/invite`（410「邀請隊員」）不帶名稱：進選目標模式（179），點中玩家後由 PickPartyInviteTarget 送 C230 type 0。
+    ///   帶名稱：原版送 TW16 op 42 type 4／5，3.81 C_CreateParty 沒有這兩種，不送，只提示。
+    /// - `/chatinvite 名稱`（957）→ C230 type 2；不帶名稱時原版開 960 輸入框，這裡印 960 並提示格式。
+    /// - `/banish 名稱`（411）→ C255（以名稱踢人，C_BanParty）。
+    /// - `/outparty`（412）→ C33 離隊（原版 `c` 119）。
+    /// 隊長與人數等條件由伺服器判斷（原版也不在本機擋，回覆 416／417／426 等）。
+    /// </summary>
+    internal ChatCommandPlan PartyChatCommand(ChatFollowupCommand c){
+        switch(c.Kind){
+        case ChatFollowupKind.Invite:
+            if(c.Argument.Length>0)return ChatCommandPlan.Refuse("3.81 不支援以名稱邀請組隊（原版 op 42 type 4／5 沒有對應），未送出；請輸入 /invite 後點選玩家。");
+            return ChatCommandPlan.Do(ChatFollowupCommands.SelectTargetText+"（點選要邀請的玩家）",()=>{World.BeginPartyInvitePick();return true;});
+        case ChatFollowupKind.ChatInvite:
+            if(c.Argument.Length==0)return ChatCommandPlan.Refuse(ChatFollowupCommands.ChatInvitePromptText+"（格式：/chatinvite 名稱）");
+            return ChatCommandPlan.Send("聊天隊伍邀請已送出；結果以伺服器回傳為準。",null,PartyPackets.ChatInvite(c.Argument));
+        case ChatFollowupKind.Banish:
+            if(c.Argument.Length==0)return ChatCommandPlan.Refuse("格式：/banish 名稱");
+            if(!PartyPackets.ValidName(c.Argument))return ChatCommandPlan.Refuse("驅逐隊員格式：/banish 名稱（名稱不可含空白，最多 52 字）");
+            return ChatCommandPlan.Send("驅逐隊員請求已送出；結果以伺服器回傳為準。",()=>World.PartySent("kick"),PartyPackets.Kick(c.Argument));
+        default:
+            return ChatCommandPlan.Send("離隊請求已送出；結果以伺服器回傳為準。",()=>World.PartySent("leave"),PartyPackets.Leave());
+        }
+    }
+    /// <summary>
+    /// R9-C：選目標模式中點中物件（sub_954FC0）：選目標模式結束；對象是 30 格內的有效玩家才送 C230 type 0（物件 id），否則不送。
+    /// 回傳是否送出。不在選目標模式回 false、什麼都不做。
+    /// </summary>
+    public async Task<bool> PickPartyInviteTarget(uint id){
+        if(!World.PartyInvitePicking){World.CancelPartyInvitePick();return false;}
+        World.CancelPartyInvitePick();
+        if(World.PartyInviteCandidate(id) is not {} target){Set(State,"選取的對象不是可邀請的玩家，未送出組隊邀請。");return false;}
+        if(!PartyAccess||partySendingGeneration==SessionGeneration||sendMovementGate==null)return false;
+        byte[] packet=PartyPackets.Invite(target.ObjectId,0);
+        int gen=SessionGeneration,epoch=World.WorldEpoch;partySendingGeneration=gen;var sender=sendMovementGate;
+        try{return await sender(packet,()=>gen==SessionGeneration&&epoch==World.WorldEpoch&&PartyAccess&&World.PartyInviteCandidate(target.ObjectId)!=null,()=>{World.PartySent("invite");Set(State,"隊伍請求已送出。");})&&gen==SessionGeneration;}
         catch(Exception){if(gen==SessionGeneration){Cancel();Set(LoginState.Faulted,"組隊傳送失敗，已斷線；沒有自動重送。");}return false;}
         finally{if(partySendingGeneration==gen)partySendingGeneration=-1;}
     }

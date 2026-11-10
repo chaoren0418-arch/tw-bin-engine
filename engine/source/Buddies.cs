@@ -136,4 +136,42 @@ public sealed partial class LoginConnection {
         }catch(Exception ex){if(view.Generation==generation){Cancel();Set(LoginState.Faulted,"名單傳送失敗："+ex.Message);}return false;}
         finally{if(lease==buddyLease)buddySending=false;}
     }
+
+    /// <summary>
+    /// R9-C（#847，FU9§9.2）：好友／封鎖聊天指令。3.81：C4 C_Buddy、C207 C_AddBuddy、C202 C_DelBuddy、C171 C_Exclude（切換）。
+    /// - `/buddy`（947）→ C4。
+    /// - `/addbuddy 名稱`（948，sub_F43160）：名稱檢查失敗印 53；成功送 C207＋C4（原版 `cs` 138＋`c` 56）。
+    /// - `/delbuddy 名稱`（949）→ C202＋C4（原版 `cs` 124＋56）。
+    /// - `/exclude 名稱`（366）：原版固定傳空字串（開封鎖頁或送 TW16 擴充包）；3.81 只有以名稱切換的 C171，所以帶名稱時送 C171（推測，M37）。
+    ///   已在封鎖名單時不送（C171 會變成解除），提示改用 /include；不帶名稱只提示。
+    /// - `/include 名稱`（470）：原版送 C217，3.81 沒有；改用 C171 切換，只在名稱已在封鎖名單（以伺服器回覆的名單為準）時送。
+    /// </summary>
+    internal ChatCommandPlan BuddyChatCommand(ChatFollowupCommand c){
+        string name=c.Argument;
+        switch(c.Kind){
+        case ChatFollowupKind.Buddy:
+            return ChatCommandPlan.Send("已查詢好友名單，等待原服回覆。",()=>World.BeginBuddyRequest(BuddyAction.Query,""),BuddyPackets.Encode(BuddyAction.Query));
+        case ChatFollowupKind.AddBuddy:{
+            byte[] add;try{add=BuddyPackets.Encode(BuddyAction.Add,name);}catch(ArgumentException){return ChatCommandPlan.Refuse(ChatFollowupCommands.InvalidNameText);}
+            return ChatCommandPlan.Send("已送出新增好友「"+name+"」並查詢名單；結果以原服回覆為準。",()=>World.BeginBuddyRequest(BuddyAction.Add,name),add,BuddyPackets.Encode(BuddyAction.Query));}
+        case ChatFollowupKind.DelBuddy:
+            if(name.Length==0)return ChatCommandPlan.Refuse("格式：/delbuddy 名稱");
+            return ChatCommandPlan.Send("已送出刪除好友「"+name+"」並查詢名單；結果以原服回覆為準。",()=>World.BeginBuddyRequest(BuddyAction.Delete,name),BuddyPackets.Encode(BuddyAction.Delete,name),BuddyPackets.Encode(BuddyAction.Query));
+        case ChatFollowupKind.Exclude:
+            if(name.Length==0)return ChatCommandPlan.Refuse("格式：/exclude 名稱（3.81 只能以名稱封鎖）");
+            if(World.ExcludePending)return ChatCommandPlan.Refuse("前一個封鎖切換還在等待原服回覆；未送出。");
+            if(World.IsExcluded(name))return ChatCommandPlan.Refuse(name+" 已在封鎖名單；要解除請用 /include "+name+"。");
+            return ExcludeToggle(name,"已送出封鎖「"+name+"」，等待原服回覆。");
+        default:
+            if(name.Length==0)return ChatCommandPlan.Refuse("格式：/include 名稱");
+            if(World.ExcludePending)return ChatCommandPlan.Refuse("前一個封鎖切換還在等待原服回覆；未送出。");
+            if(!World.IsExcluded(name))return ChatCommandPlan.Refuse(name+" 不在封鎖名單（以原服回覆的名單為準）；未送出。");
+            return ExcludeToggle(name,"已送出解除封鎖「"+name+"」，等待原服回覆。");
+        }
+    }
+    ChatCommandPlan ExcludeToggle(string name,string notice){
+        bool wasExcluded=World.IsExcluded(name);
+        return new(notice,[BuddyPackets.Encode(BuddyAction.ToggleExclude,name)],()=>World.BeginBuddyRequest(BuddyAction.ToggleExclude,name),
+            ()=>!World.ExcludePending&&World.IsExcluded(name)==wasExcluded);
+    }
 }
