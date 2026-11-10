@@ -5,7 +5,7 @@
 ## 做了什麼
 
 - **新檔 `engine/source/NativeUi/FishingPanel.cs`**：原生釣魚窗 `Fishing_Window`。
-  - 註冊：`[UiPanel(179)]` 自動發現，實作 `IUiClosablePanel`、`IUiMovablePanel`。
+  - 註冊：`[UiPanel(181)]` 自動發現（179 已由 #766 狀態窗使用），實作 `IUiClosablePanel`、`IUiMovablePanel`。
   - 載入：跟 #768／#769 一樣，註冊用本機一定有的 `uistatus86` 當宿主版面，`Load` 內再經 `UiResources.Xml` 讀 `FishingUI`。主客戶端沒有這份檔，改讀參考客戶端；SHA-256 由 P-A 記在 `ui-xml-ref` log。
     - 讀不到 XML、版面不符或缺視窗底圖時，標 `Unavailable`，不開窗；其他原生 UI 照常運作。不用替代圖。
   - surf：一律走 `SurfCatalog.Get`，先找本機 Sprite 的 `.img`，找不到再走 P-B 的參考客戶端備援。缺的 surf 不畫，列在 `Missing`，寫一行 log。

@@ -38,7 +38,7 @@ public sealed record FishingPiece(FishingPieceKind Kind,string Path,string? Name
 }
 
 public sealed class FishingPanel(UiResources? resources=null,Func<bool>? quit=null):IUiMovablePanel,IUiClosablePanel {
-    [UiPanel(179)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,root=>new FishingPanel(root.Resources));   // T329 (#767): FishingUI.xml from the reference client (P-A), loaded inside Load
+    [UiPanel(181)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,root=>new FishingPanel(root.Resources));   // T329 (#767): FishingUI.xml from the reference client (P-A), loaded inside Load
     public const string PanelId="Fishing_Window";
     public const string LayoutName="FishingUI",WindowNode="Window",WindowName="Fishing_Window";
     public const string QuitEvent="QuitFishing",NetEvent="FishingNet";
