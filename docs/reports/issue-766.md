@@ -75,7 +75,7 @@
     - `engine/source/obj` 底下 5 個 NuGet 還原輸出逐一刪除，沒有用遞迴刪除。
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：`pass`，0 個錯誤。
 - 依 2026-11-09 的本機執行限制，**本機沒有執行任何編譯出來的程式**。`renewal-status-panel` 的離線測試交給 PR 的 GitHub Actions CI。DemoChecks 需要 `rebuild.py --build` 的產品 DLL，本機沒有單獨建置它，也交給 CI。
-- CI 結果：見 PR。
+- **CI（PR #790）全綠**：`dotnet`、`map-continuity`、`npc-offline` 都通過。`map-continuity` 的 `--module-tests` 裡，`renewal-status-panel` 的結果是 `pass: true`，75 項檢查，0 個失敗。
 
 ## 未驗證／待驗證
 
