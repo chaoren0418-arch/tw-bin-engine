@@ -77,10 +77,11 @@ static class RingWindowsTests {
         w.SelectMagic(69);Run(c.CastSelectedMagic());
         t.Check(w.TeleportDestination is {Skill:69}&&log.Count==0,"skill 69 opens the window too");
         c.CloseTeleportDestination(w.TeleportDestination!.Revision);
-        // 限制地圖：顯示 276，不開窗。
+        // 限制地圖：R7-C（#805，#736 0xE08B22）開窗路徑不查限制地圖、不顯示 276，照樣開窗、不送。
         Set(w,"MapId",(ushort)84);
-        t.Check(!Run(c.CastSelectedMagic())&&w.TeleportDestination==null&&log.Count==0,"blocked map: no window, nothing sent");
-        t.Equal(ServerMessageText.Decode(RingWindowRules.TeleportBlockedMessage,[]).Text,w.MagicNotice,"blocked map shows message 276");
+        t.Check(!Run(c.CastSelectedMagic())&&w.TeleportDestination is {Skill:69}&&log.Count==0,"blocked map: window still opens, nothing sent");
+        t.Check(w.MagicNotice!=ServerMessageText.Decode(RingWindowRules.TeleportBlockedMessage,[]).Text,"blocked map: no message 276");
+        c.CloseTeleportDestination(w.TeleportDestination!.Revision);
         // 卸下戒指：回到原本流程。
         Set(w,"MapId",(ushort)0);w.Receive(Ability(1,0),"offline");
         t.Check(!w.TryOpenRingWindow()&&w.TeleportDestination==null,"ring removed: no interception");

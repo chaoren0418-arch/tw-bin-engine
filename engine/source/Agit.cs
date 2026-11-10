@@ -3,8 +3,10 @@ namespace P06;
 // M7-D（T206／#512）：盟屋清單與地圖，只做協定與資料。
 // 依據：docs/reference/server-protocol.md S_AuctionBoard（S156 HOUSELIST）、S_HouseMap（S187 HOUSEMAP）；
 //       docs/reference/windows-2.md 第 5.2 節（原版 op 0 `sub_92E550`、op 18 `sub_92E710`）。
-// 視窗（XML `AgitAuctionUI` 本機缺資源；舊式 `AgitMapWindow` 需原生 UI 畫布 T190）需先查證，本檔不做畫面；
-// S187 的地圖窗由 W2-C（T232／#550）的 NativeUi/AgitMapPanel.cs 畫；本檔只多送開窗事件（AgitMapWindow）。
+// 本檔只做協定與資料，不做畫面：
+//   S156 的拍賣窗由 NativeUi/AgitAuctionPanel.cs 畫（T323／#761；XML `AgitAuctionUI` 本機沒有，執行期讀參考客戶端，PAK§4），
+//   R7-C（#805）在同檔補上選盟屋送 C125 select、AuctionInfo_Window（S39 agsel）與 Bid_Window（S136 agapply）；
+//   S187 的地圖窗由 W2-C（T232／#550）的 NativeUi/AgitMapPanel.cs 畫；本檔只多送開窗事件（AgitMapWindow）。
 
 /// <summary>S156 每一筆盟屋：盟屋 id、名稱、面積、拍賣截止月／日、價格（`dshccd`）。</summary>
 public sealed record AgitHouseEntry(uint HouseId,string Name,ushort Area,byte Month,byte Day,int Price);
@@ -108,7 +110,7 @@ public sealed partial class WorldSession {
             houseMapPackets=agitHouseMapCount,
             houseList=agitHouseList is {} l?new{boardId=l.BoardId,houses=l.Houses.Select(h=>new{houseId=h.HouseId,name=h.Name,area=h.Area,month=h.Month,day=h.Day,price=h.Price}).ToArray()}:null,
             houseMap=agitHouseMap is {} m?new{objectId=m.ObjectId,houseNumber=m.HouseNumber,region=m.Region,number=m.Number,inOriginalRange=m.InOriginalRange}:null,
-            ui="AgitAuctionUI: data only (XML missing); AgitMapWindow: native panel AgitMap_Window (#550)",
+            ui="AgitAuctionUI: native panels Agitmap_Window / AuctionInfo_Window / Bid_Window from the reference client XML (#761, #805; data only with --classic-ui or when the XML is unavailable); AgitMapWindow: native panel AgitMap_Window (#550)",
             mapWindowRevision=AgitMapWindow.Current?.Revision,
         };
     }

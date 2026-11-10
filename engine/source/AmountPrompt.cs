@@ -12,7 +12,9 @@ namespace P06;
 //        原服 C_Amount 讀 objId、amount（≤ 0 直接丟棄）、一個忽略的 byte、命令字串（＝S136 第二個字串）；
 //        每次詢問只有一張一次性票（UiOperationContext.take），所以每個詢問最多回一次。
 // 推測／待驗證：第 2 個 D 與 H(0) 的意義（3.81 一律送 0，只保存不使用）；C11 的那個 byte 原版送什麼（原服忽略，本引擎送 0）；
-// `agapply` 原版改交 CAgitAuctionUI（XML 缺），本引擎照一般 HTML 頁加數字框顯示。
+// `agapply` 原版改交 CAgitAuctionUI（WIN2§5.3）。R7-C（#805）：原生 UI 開啟且參考客戶端的 AgitAuctionUI.xml 可用時，
+// 由原生 Bid_Window（NativeUi/AgitAuctionPanel.cs 的 AgitBidPanel）顯示，回覆照樣走本檔的 SendAmountReply（一次性票不變），
+// 這時 WinForms 數字列不顯示；--classic-ui 或 Bid_Window 不可用時，照舊是一般 HTML 頁加數字框。
 // R2-F（T261／#622）：web 面板也有同一個數字框（AmountPromptWeb → interaction.js → npcAmount → SendAmountPromptReply）。
 
 /// <summary>S136 解碼結果（欄位照 3.81 伺服器）。</summary>
@@ -175,7 +177,7 @@ public sealed partial class ClientForm {
     void SyncAmountPrompt(){
         if(amountRow==null||amountInput==null||amountSend==null||amountRange==null)return;
         var v=npcPanel.Visible?login.AmountPromptSnapshot():null;
-        bool show=v?.Prompt!=null;
+        bool show=v?.Prompt is {} shownOffer&&!NativeAgitBidShowing(shownOffer);   // R7-C（#805）：原生 Bid_Window 在顯示同一筆 agapply 時不重複
         if(amountRow.Visible!=show)amountRow.Visible=show;
         if(!show){amountUiRevision=-1;return;}
         var o=v!.Prompt!;
