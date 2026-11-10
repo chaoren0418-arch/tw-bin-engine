@@ -9,7 +9,9 @@ namespace P06.NativeUi;
 // T330 (#768, P-D of docs/reference/pak-resources.md §6, row 4:OptionUI): the native option window Lineage::OptionUI.
 // OptionUI.xml is not in 0-客戶端 (PAK§4.2: all paks checked); it is read at run time from the reference client through
 // UiResources.Shared.Xml (T319/#757: main Tile.pak first, then the reference Tile.pak; SHA-256 logged as "ui-xml-ref").
-// The option1/option2 HTML pages (menu 5/6, Ctrl+V/Ctrl+C, R4-A #705) are not touched.
+// Entry (R9-Q #861, #818 ruling): menu button 6 and Ctrl+V open this window in the native UI (MenuButtonsPanel); when it is
+// unavailable (no reference OptionUI.xml, faulted) they fall back to the HTML option1 page, and --classic-ui keeps option1.
+// The option2 HTML page (menu 5, Ctrl+C) is not touched.
 //
 // Loading. UiRoot.Build is all-or-nothing, so the registration uses the host layout "uistatus86" (already loaded for the bar,
 // same as LocationListPanel) and Load reads OptionUI.xml itself: no reference client / no XML / malformed XML → the panel
@@ -30,7 +32,20 @@ namespace P06.NativeUi;
 // ComboBox lists (UpDownList) stay collapsed; the shortcut List rows (Caption="name0" placeholders) are filled at run time
 // in the original and are not drawn. Labels carry Desc/String ids of the reference client's text tables; they are drawn
 // only through TextResolver (null in the product: the local string-c.tbl ids would not match — see the report).
-// Not wired (待做): the check/radio/scroll/combo values, Help, Init, ChangeWarehousePassword — clicks on them do nothing.
+// Not wired (待做): the radio/scroll/combo values, Help, Init, ChangeWarehousePassword — clicks on them do nothing.
+//
+// R9-Q (T377/#861, FU9§14.4): check buttons that match a setting the engine already has are wired, and a click takes effect
+// at once (the original toggles its working copy dword_13D43E4+732+k and writes it straight back through sub_9184B0; OkBtn
+// and CloseBtn only close, there is no cancel/restore). Matched by MouseEvent, so the same option on two pages (Home and
+// Game / Etc) is one setting:
+//   ShowCharacterHPMPBtn (byte_138BE7C), HPMPBarThickBtn, HPMPBarRecoveryBtn, HPMPBarPercentBtn → HpMpPanel.Settings
+//     (HpMpPanel.Apply; the over-head bars read the same settings) — held by this panel through the UiRoot;
+//   ShowNpcNameBtn (byte_138BE7F, "全部顯示名稱"), CheckMute (master mute), EnableElfTelControlBtn (byte_13A931C →
+//     WorldSession.ElfBookmarkTeleportOption) → IOptionWindowHost (ClientForm, RingWindows.cs).
+// A wired check button is drawn with its PushPng while the setting is on (推測: the original's checked look was not traced).
+// Not wired, no engine setting to change: ShowDropItemNameBtn (ground names are always drawn), TransparentDeadMonsterBtn (no
+// transparent corpse drawing), the four volume scroll bars (one master gain only), and the TW16-only options. They keep the
+// Unhandled diagnostics.
 
 /// <summary>"BasePng=\"10814;1\"" → Attr BasePng, Id 10814, Flag 1 (Flag 0 when absent; meaning of the flag 待驗證).</summary>
 public sealed record OptionImageRef(string Attr,int Id,int Flag) {
@@ -55,9 +70,58 @@ public sealed record OptionPiece(OptionPieceKind Kind,string Path,string Element
 /// <summary>A top-level Control of the window (Home, Application, UI, Game, Etc, Shortcut).</summary>
 public sealed record OptionPage(string Name,string? EnableEvent,IReadOnlyList<OptionPiece> Pieces);
 
-public sealed class OptionPanel(UiResources? resources=null):IUiMovablePanel,IUiClosablePanel {
-    [UiPanel(176)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,root=>new OptionPanel(root.Resources){TextResolver=RefClientTextSource.Resolver(root.Resources)});   // T330 (#768): OptionUI.xml from the reference client (P-A), loaded inside Load
+/// <summary>
+/// R9-Q (#861): options held outside the native UI (ClientForm / WorldSession). Keyed by the check button's MouseEvent.
+/// Value null = the host does not hold that option (the click stays Unhandled); Set false = not applied (e.g. audio closed).
+/// </summary>
+public interface IOptionWindowHost {
+    bool? Value(string mouseEvent);
+    bool Set(string mouseEvent,bool value);
+}
+
+public sealed class OptionPanel(UiResources? resources=null,Func<HpMpPanel?>? hpMp=null):IUiMovablePanel,IUiClosablePanel {
+    [UiPanel(176)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,root=>new OptionPanel(root.Resources,()=>HpMpWindow(root)){TextResolver=RefClientTextSource.Resolver(root.Resources)});   // T330 (#768): OptionUI.xml from the reference client (P-A), loaded inside Load
     public const string PanelId="OptionUI";
+
+    // R9-Q (#861): MouseEvent names of the wired check buttons (kor25 OptionUI.xml, SHA-256 fe32d2fd…c8846d; FU9§14.4).
+    public const string ShowCharacterHpMpEvent="ShowCharacterHPMPBtn",HpMpBarThickEvent="HPMPBarThickBtn",HpMpBarRecoveryEvent="HPMPBarRecoveryBtn",
+        HpMpBarPercentEvent="HPMPBarPercentBtn",ShowNpcNameEvent="ShowNpcNameBtn",MuteEvent="CheckMute",ElfTeleportEvent="EnableElfTelControlBtn";
+    /// <summary>Options this panel changes itself (HpMpPanel settings).</summary>
+    public static readonly IReadOnlyList<string> HpMpEvents=[ShowCharacterHpMpEvent,HpMpBarThickEvent,HpMpBarRecoveryEvent,HpMpBarPercentEvent];
+    /// <summary>Options IOptionWindowHost changes (ClientForm: name display, audio, WorldSession elf option).</summary>
+    public static readonly IReadOnlyList<string> HostEvents=[ShowNpcNameEvent,MuteEvent,ElfTeleportEvent];
+    /// <summary>Check buttons FU9§14.4 lists as matching engine features but which have no engine setting to change (reason).</summary>
+    public static readonly IReadOnlyDictionary<string,string> NotWired=new Dictionary<string,string>(StringComparer.Ordinal){
+        ["ShowDropItemNameBtn"]="地面物品名稱一律畫出（ObjectRendering.cs），引擎沒有開關",
+        ["TransparentDeadMonsterBtn"]="引擎沒有透明屍體繪製",
+    };
+
+    /// <summary>The HP/MP window of the root when it is usable (registered, not faulted); else null.</summary>
+    public static HpMpPanel? HpMpWindow(UiRoot root)=>root.Find(HpMpPanel.PanelId) is HpMpPanel h&&!root.Faulted.Contains(h)?h:null;
+    public static bool? HpMpValue(HpMpSettings s,string mouseEvent)=>mouseEvent switch{
+        ShowCharacterHpMpEvent=>s.ShowCharacterHpMp,HpMpBarThickEvent=>s.Thickness,HpMpBarRecoveryEvent=>s.ShowRecovery,HpMpBarPercentEvent=>s.ShowPercent,_=>null};
+    public static HpMpSettings? HpMpWith(HpMpSettings s,string mouseEvent,bool value)=>mouseEvent switch{
+        ShowCharacterHpMpEvent=>s with{ShowCharacterHpMp=value},HpMpBarThickEvent=>s with{Thickness=value},
+        HpMpBarRecoveryEvent=>s with{ShowRecovery=value},HpMpBarPercentEvent=>s with{ShowPercent=value},_=>null};
+
+    /// <summary>R9-Q (#861): ClientForm options (attached by RingWindows.cs while the native UI is on); null = not attached.</summary>
+    public IOptionWindowHost? Host{get;private set;}
+    public void Attach(IOptionWindowHost host)=>Host=host;
+
+    /// <summary>Current value of the option behind a check button's MouseEvent; null = no engine setting (not wired / no host).</summary>
+    public bool? Checked(string mouseEvent){
+        if(HpMpValue(HpMpSettings.Default,mouseEvent)!=null)return hpMp?.Invoke() is {} h?HpMpValue(h.Settings,mouseEvent):null;
+        return Host?.Value(mouseEvent);
+    }
+    /// <summary>Flips the option at once (the original writes back on every click). false = nothing to change, nothing changed.</summary>
+    public bool ToggleSetting(string mouseEvent){
+        if(HpMpValue(HpMpSettings.Default,mouseEvent)!=null){
+            if(hpMp?.Invoke() is not {} h||HpMpValue(h.Settings,mouseEvent) is not bool on)return false;
+            h.Apply(HpMpWith(h.Settings,mouseEvent,!on)!);
+            return true;
+        }
+        return Host is {} host&&host.Value(mouseEvent) is bool v&&host.Set(mouseEvent,!v);
+    }
     public const string LayoutName="OptionUI",WindowNode="Window",WindowName="Option",HomePage="Home",TabSuffix="Btn",CloseEvent="CloseBtn";
     /// <summary>Layout handed to UiRoot.Build (always in the local Tile.pak); the real layout is LayoutName, read in Load.</summary>
     public const string HostLayout="uistatus86";
@@ -253,8 +317,10 @@ public sealed class OptionPanel(UiResources? resources=null):IUiMovablePanel,IUi
             case OptionPieceKind.Button:{
                 bool tabOn=ActivePage!=null&&TabTarget(p)==ActivePage;
                 bool held=p==pressed&&pressedInside;
+                // R9-Q (#861): a wired check button whose option is on is drawn checked (PushPng, 推測).
+                bool on=p.Element=="CheckButton"&&p.MouseEvent is {} ev&&Checked(ev)==true;
                 // Push image while held or while its page is shown; a missing push image falls back to the normal one.
-                canvas.DrawSurface((held||tabOn)&&p.PushSurface!=null?p.PushSurface:p.Surface,x,y);
+                canvas.DrawSurface((held||tabOn||on)&&p.PushSurface!=null?p.PushSurface:p.Surface,x,y);
                 break;
             }
         }
@@ -286,6 +352,11 @@ public sealed class OptionPanel(UiResources? resources=null):IUiMovablePanel,IUi
     void Fire(OptionPiece p){
         if(p.MouseEvent==CloseEvent){Close();return;}
         if(TabTarget(p) is {} page){ActivePage=page;return;}
+        // R9-Q (#861): wired check button → the option changes now (no OK step).
+        if(p.Element=="CheckButton"&&p.MouseEvent is {} ev&&Checked(ev)!=null){
+            if(!ToggleSetting(ev))UiResourceLog.Write($"option-ui {ev} 這次未套用（設定暫不可改）");
+            return;
+        }
         string key=p.MouseEvent??p.Name??p.Path;
         if(unhandled.Add(key))UiResourceLog.Write($"option-ui {key} 尚未接上（設定值不改）");
     }
