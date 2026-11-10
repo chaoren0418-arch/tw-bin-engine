@@ -18,6 +18,8 @@ public interface IAudioStream
     void Stop(long handle);
     /// <summary>單次播放已自然播完、開檔失敗或已停止時回 true。</summary>
     bool Finished(long handle);
+    /// <summary>R7-L（T351）：true＝音樂改走 MIDI（sound 目錄沒有 music*.mp3）。替身預設 false。</summary>
+    bool MidiFallback => false;
 }
 
 /// <summary>原生播放的最小動作；測試以替身取代。每個方法回 true 表示成功。</summary>
@@ -93,6 +95,12 @@ public sealed class AudioStreamPlayer : IAudioStream, IDisposable
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { return false; }
     }
     /// <summary>MIDI 模式下，音樂要求（含任何 musicN.mp3 候選）一律換成 0.mid 循環；其他要求不變。</summary>
+    /// <summary>
+    /// R7-L（T351，已驗證靜態，見 docs/reports/issue-737.md）：MIDI 模式下，8F1C30／8F2FB0／8F3B90／8F3D70 的曲目參數
+    /// 是 0..8 號系統槽（登入 0、選角 8 等）時，MIDI 在播就 8F5510（MCI_CLOSE），不改播 0.mid；其他參數（區域 -1、戰鬥 9／10）才播 0.mid。
+    /// </summary>
+    public const int MidiSilentSlots = 9;
+    public static bool SilencesMidi(int systemSlot) => systemSlot is >= 0 and < MidiSilentSlots;
     public static (IReadOnlyList<string> Candidates, bool Loop, bool Midi) Route(IReadOnlyList<string> candidates, bool loop, bool midiFallback)
         => midiFallback && candidates.Any(c => MusicName.IsMatch(c)) ? ([MidiFallbackFile], true, true) : (candidates, loop, false);
 

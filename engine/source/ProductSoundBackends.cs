@@ -6,15 +6,21 @@ namespace P06;
 // T252（#613，gap-matrix 11.5 R2-B）：背景音樂、envsound.def 環境音、`^` 循環音的產品後端。
 // 三個轉接器共用一個 P24.Audio.AudioStreamPlayer（engine/audio，DirectShow／DSoundRender，與戰鬥音效同一套傳輸方式）。
 // 檔名依 docs/reference/sound.md：音樂 sound\musicN.mp3（§1 管線 B）；環境音與 `^` 先 sound\N.mp3 再 sound\N.wav（§4.7、表 8）。
-// 原版找不到音樂 mp3 時改走 MIDI（§1 管線 C），這裡沒做：缺檔時 Start 回 false，由 BackgroundMusic 每秒重試。
+// 原版找不到任何音樂 mp3 時改走 MIDI（§1 管線 C）：串流層換成 sound\0.mid 循環（T310），0..8 號系統槽停播（R7-L，ProductMusicAudio.Start）。
+// 單一曲目缺檔時 Start 回 false，由 BackgroundMusic 每秒重試。
 
 /// <summary>IMusicStreamAudio：volume 已是「淡出 × MusicVolume × 主音量」。</summary>
 public sealed class ProductMusicAudio(IAudioStream stream) : IMusicStreamAudio
 {
     readonly Dictionary<long, long> handles = [];
     public static string[] Files(int music) => [$"music{music}.mp3"];
+    /// <summary>R7-L：MIDI 模式下因 0..8 號系統槽而不播的次數（診斷用）。</summary>
+    public long MidiSilenced { get; private set; }
     public bool Start(MusicTrack track, double volume)
     {
+        // R7-L（T351）：MIDI 模式遇到 0..8 號系統槽 → 停播。BackgroundMusic.Start 先 StopCurrent（關掉在播的 0.mid，等於 8F5510），
+        // 這裡不開新的，回 false（BackgroundMusic 依既有規則每秒重試，結果一樣是不播）。
+        if (stream.MidiFallback && AudioStreamPlayer.SilencesMidi(track.Slot)) { MidiSilenced++; return false; }
         long h = stream.Start(Files(track.Music), track.Loop, Math.Clamp(volume, 0, 1));
         if (h == 0) return false;
         handles[track.Number] = h; return true;
@@ -78,15 +84,15 @@ public sealed class ProductAmbientLoopAudio(IAudioStream stream) : IAmbientLoopA
 /// <summary>
 /// R6-A（T332）：地圖特效 `<`／`[` 的單次音效（A060F0）。檔名同 `^`（先 sound\N.mp3 再 sound\N.wav）；
 /// 最終音量＝距離音量/100 × SoundVolume × 主音量（A06D60；類別是推測，見 MapAmbientSound.OneShotScale）。
-/// 單次播放，播完由串流層釋放；這裡只記 handle 以便計數、Disarm 時一起被串流層清掉。
+/// 單次播放，播完由串流層釋放；這裡記 voice → handle，供計數、播放中改音量（R7-L，A091C0）與類別音量變動。
 /// </summary>
 public sealed class ProductOneShotAudio(IAudioStream stream) : IMapOneShotAudio
 {
-    readonly List<long> handles = [];
+    readonly Dictionary<long, (long Handle, int Volume)> voices = [];
     double scale = 1;
     public double Scale => scale;
-    public int Live { get { Prune(); return handles.Count; } }
-    void Prune() => handles.RemoveAll(stream.Finished);
+    public int Live { get { Prune(); return voices.Count; } }
+    void Prune() { foreach (long done in voices.Where(p => stream.Finished(p.Value.Handle)).Select(p => p.Key).ToArray()) voices.Remove(done); }
     public bool Play(MapOneShotVoice voice, int volume)
     {
         Prune();
@@ -94,9 +100,26 @@ public sealed class ProductOneShotAudio(IAudioStream stream) : IMapOneShotAudio
         if (final <= 0) return false;
         long h = stream.Start(ProductEnvSoundAudio.Files(voice.SoundId), false, final);
         if (h == 0) return false;
-        handles.Add(h); return true;
+        voices[voice.Number] = (h, volume); return true;
     }
-    public void SetScale(double value) => scale = double.IsFinite(value) ? Math.Clamp(value, 0, 1) : 0;
+    /// <summary>R7-L（T351）：A091C0 改發聲體名下還在播的單次 sample 音量；走遠降到 0，不停止。</summary>
+    public void SetVolume(MapOneShotVoice voice, int volume)
+    {
+        if (!voices.TryGetValue(voice.Number, out var v)) return;
+        if (stream.Finished(v.Handle)) { voices.Remove(voice.Number); return; }
+        voices[voice.Number] = (v.Handle, volume);
+        stream.SetVolume(v.Handle, ProductAmbientLoopAudio.Final(volume, scale));
+    }
+    public bool Finished(MapOneShotVoice voice) => !voices.TryGetValue(voice.Number, out var v) || stream.Finished(v.Handle);
+    /// <summary>類別音量或主音量變動時，還在播的單次音效也跟著變（同 `^` 的 A06D60 做法）。</summary>
+    public void SetScale(double value)
+    {
+        value = double.IsFinite(value) ? Math.Clamp(value, 0, 1) : 0;
+        if (value == scale) return;
+        scale = value;
+        Prune();
+        foreach (var v in voices.Values) stream.SetVolume(v.Handle, ProductAmbientLoopAudio.Final(v.Volume, scale));
+    }
 }
 
 /// <summary>進入世界時安裝三個後端（ClientSoundScene.Configure＋MapAmbientSound.Backend）。只有產品 ClientForm 會 Arm。</summary>
@@ -165,6 +188,7 @@ public static class ProductSound
     {
         status = Status, armed, clientRoot,
         music = Music?.Live ?? 0, env = Env?.Live ?? 0, ambient = Ambient?.Live ?? 0, ambientScale = Ambient?.Scale, oneShot = OneShot?.Live ?? 0,
+        midi = Stream?.MidiFallback ?? false, midiSilenced = Music?.MidiSilenced ?? 0,
         stream = (Stream as AudioStreamPlayer)?.Stats,
     };
 }

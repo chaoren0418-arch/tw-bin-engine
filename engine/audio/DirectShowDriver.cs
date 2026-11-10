@@ -88,6 +88,23 @@ internal static class AudioGain
         if (left <= 0) return 10000;
         return (int)Math.Clamp(Math.Round(2000 * Math.Log10(right / left)), -10000, 10000);
     }
+
+    // R7-L（T351）：Mss32 0x2A9E0 的完整左右振幅，只當資料（真機再決定，M26）。播放路徑仍用 Decibels＋Balance，沒有改響度。
+    //   v＝vol^(5/3)（常數 1.6667 在 RVA 0x4BF78）；pan＝0.5 時左右都是 v·0.5^0.3（0.8122522，RVA 0x4BF70）；
+    //   否則 左＝(1−pan)^0.3·v、右＝pan^0.3·v（指數 0.3 在 RVA 0x4BF68）。vol、pan 都是 0..1。
+    internal const double MilesVolumeExponent = 5d / 3, MilesPanExponent = 0.3;
+    internal static readonly double MilesCenter = Math.Pow(0.5, MilesPanExponent);
+    internal static (double Left, double Right) MilesLevels(double volume, double pan)
+    {
+        if (!Valid(volume)) throw new ArgumentOutOfRangeException(nameof(volume));
+        if (!Valid(pan)) throw new ArgumentOutOfRangeException(nameof(pan));
+        double v = Math.Pow(volume, MilesVolumeExponent);
+        if (pan == 0.5) return (v * MilesCenter, v * MilesCenter);
+        return (Math.Pow(1 - pan, MilesPanExponent) * v, Math.Pow(pan, MilesPanExponent) * v);
+    }
+    /// <summary>資料：Miles 在某一聲道的振幅換成 1/100 dB（同 IBasicAudio 單位），供真機聽音比較；0 → -10000。</summary>
+    internal static int MilesDecibels(double amplitude)
+        => amplitude <= 0 ? -10000 : (int)Math.Clamp(Math.Round(2000 * Math.Log10(amplitude)), -10000, 0);
 }
 internal sealed class DirectShowDriver(Func<IPlaybackGraph> create) : IAudioDriver
 {
