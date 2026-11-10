@@ -14,6 +14,8 @@ namespace P06.NativeUi;
 /// Page = local HTML page of actions 5／6 (option2／option2p, option1; FU4§1.1) shown by IUiMenuWindowCommands.ToggleLocalPage.
 /// R7-I (#811): Status = action 2 (CRenewalStatusUI): toggles the native RenewalStatusPanel through UiRoot.Toggle when it is
 /// available; DevToolsPage only when it is not (no reference ReNStatusUIEx.xml, faulted, no root).
+/// R9-Q (#861, #818 ruling): Option = action 6 (and Ctrl+V) toggles the native OptionPanel when it is available; HTML option1
+/// (Page) only when it is not. --classic-ui builds no native UI, so option1 stays the 3.81 entry there.
 public sealed record MenuButtonAction(int Action,string Title,string? DevToolsPage,string? Window=null,bool PlayStats=false,bool Mail=false,MenuLocalPage? Page=null,bool Status=false);
 
 /// <summary>One IMAGE_BUTTON as loaded: logical rectangle (null when the normal surf is missing) and its state surfaces.</summary>
@@ -207,6 +209,11 @@ public sealed class MenuButtonsPanel(UiRoot? root=null):IUiPanel {
             else commands.ShowDevTools(action.DevToolsPage);
             return;
         }
+        // R9-Q (#861, #818 ruling): action 6 / Ctrl+V open the native OptionUI when it can open; otherwise HTML option1 below.
+        if(action.Page==MenuLocalPage.Option1&&OptionWindow(root) is {} option){
+            ToggleWindow(root!,option,()=>option.Open(),()=>option.Toggle());
+            return;
+        }
         // R4-A (#705): mail and the local HTML pages go through the bridge; not available → the dev-tools page as before.
         if(action.Mail||action.Page!=null){
             var bridge=LegacyWindowPanel.FindCommands<IUiMenuWindowCommands>(commands);
@@ -227,6 +234,10 @@ public sealed class MenuButtonsPanel(UiRoot? root=null):IUiPanel {
     /// <summary>R7-I (#811): the native status window when it can open (registered, reference XML loaded, not faulted); else null.</summary>
     public static RenewalStatusPanel? StatusWindow(UiRoot? root)=>
         root?.Find(RenewalStatusPanel.PanelId) is RenewalStatusPanel p&&p.Available&&!root.Faulted.Contains(p)?p:null;
+
+    /// <summary>R9-Q (#861): the native option window when it can open (registered, reference OptionUI.xml loaded, not faulted); else null.</summary>
+    public static OptionPanel? OptionWindow(UiRoot? root)=>
+        root?.Find(OptionPanel.PanelId) is OptionPanel p&&p.Available&&!root.Faulted.Contains(p)?p:null;
 
     /// <summary>
     /// R7-I (#811): root.Toggle with the panel's own open. Only when the root could not even try (the panel is not one of its

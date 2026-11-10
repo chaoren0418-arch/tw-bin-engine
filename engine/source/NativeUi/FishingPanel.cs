@@ -15,15 +15,19 @@ namespace P06.NativeUi;
 // Opening. Fishing.cs raises FishingWindow.Changed whenever the own fishing state changes (S158 action 71 start, S71
 // 1137/1138/1163/403, S119 end, C62 sent). The window opens when fishing becomes active and closes when it ends; the
 // event can come from the network thread, so it is queued under a lock and applied in Update (UI thread).
-// QuitFishing → FishingWindow.Quit (the legacy HUD's C62 path); the window stays until the server confirms the stop.
-// With --classic-ui no panel exists and the legacy FishingHud button is unchanged.
+// QuitFishing (R9-P／#860, 已驗證 FU9 §14.3: sub_E659A0 first opens Y/N 1516「你要取消自動釣魚嗎？」, yes → C_THROW, 3.81 C62):
+// the click only raises PendingQuit; FishingQuitPromptPanel draws 1516 on the chat input line (推測：輸入列提示與 Y／N／Esc
+// 的回答方式沿用 R9-H 好友刪除，真機再確認); Y → FishingWindow.Quit (the legacy HUD's C62 path); the window stays until the
+// server confirms the stop (S71 1163 / S119). With --classic-ui no panel exists and the legacy FishingHud button is unchanged.
 //
 // Layout (照 XML; 推測 where marked): window X/Y from the XML, size = BaseSurf image; Moveable="20" = the top 20 px drag the
-// window; Images then Buttons in XML order, coordinates relative to the window. Not drawn (no data source, reported):
-// BaitTemp_Image / BaitCount_Label (bait count needs the bait template id, which the inventory wire does not carry —
-// docs/protocol/fishing.md), ReelGuage_Image AniGauge (the server sends no reel progress; the original animation timing is
-// not decompiled), Tooltip children (string-table tooltips, not wired in this window). FishingNet has no verified packet:
-// the click is logged as unhandled. FrameSurf equals BaseSurf in the reference XML and is not drawn twice.
+// window; Images then Buttons in XML order, coordinates relative to the window. Not drawn (已驗證 FU9 §14.3, reported):
+// BaitTemp_Image / BaitCount_Label (the original refreshes the count of bait item 14467; the 3.81 inventory wire carries no
+// template id — docs/protocol/fishing.md — so there is no data source), ReelGuage_Image AniGauge (sub_E65510 takes its
+// duration from a TW16 auto-fishing message object; 3.81 has only C62/C164/S158/S119/S71 with no duration or state field,
+// K1), Tooltip children (string-table tooltips, not wired in this window). FishingNet (已驗證 sub_E65B00) sends no packet:
+// it toggles the FishObtainUI window (FishObtainPanel.cs; its list stays hidden until the fishing item table is known, #818).
+// FrameSurf equals BaseSurf in the reference XML and is not drawn twice.
 
 /// <summary>One surf reference "6102;1" → Id 6102, Flag 1 (flag meaning 待驗證).</summary>
 public sealed record FishingSurf(string Attr,int Id,int Flag);
@@ -37,8 +41,20 @@ public sealed record FishingPiece(FishingPieceKind Kind,string Path,string? Name
     public bool Clickable=>Kind==FishingPieceKind.Button&&Local.Width>0&&Local.Height>0;
 }
 
-public sealed class FishingPanel(UiResources? resources=null,Func<bool>? quit=null):IUiMovablePanel,IUiClosablePanel {
-    [UiPanel(181)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,root=>new FishingPanel(root.Resources));   // T329 (#767): FishingUI.xml from the reference client (P-A), loaded inside Load
+/// <summary>R9-P（#860）：1516 Y/N 詢問；Revision 每次新詢問 +1，回答時用來確認還是同一個詢問。</summary>
+public sealed record FishingQuitConfirm(int Revision,string Text);
+
+public static class FishingQuitText {
+    /// <summary>String 1516（string-c.tbl，FU9 §14.3）。</summary>
+    public const int ConfirmId=1516;
+    /// <summary>0-客戶端 string-c.tbl 1516 原文（text_tables.py 讀出）；字串表不在時用。</summary>
+    public const string ConfirmFallback="你要取消自動釣魚嗎？";
+    public static string Confirm=>ServerMessageText.Table is {} t&&ConfirmId<t.Count
+        &&ServerMessageText.DisplayText(t[ConfirmId]).Trim() is {Length:>0} s?s:ConfirmFallback;
+}
+
+public sealed class FishingPanel(UiResources? resources=null,Func<bool>? quit=null,Func<FishObtainPanel?>? obtain=null):IUiMovablePanel,IUiClosablePanel {
+    [UiPanel(181)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,root=>new FishingPanel(root.Resources,null,()=>root.Find(FishObtainPanel.PanelId) as FishObtainPanel));   // T329 (#767): FishingUI.xml from the reference client (P-A), loaded inside Load
     public const string PanelId="Fishing_Window";
     public const string LayoutName="FishingUI",WindowNode="Window",WindowName="Fishing_Window";
     public const string QuitEvent="QuitFishing",NetEvent="FishingNet";
@@ -67,8 +83,12 @@ public sealed class FishingPanel(UiResources? resources=null,Func<bool>? quit=nu
     public FishingWindowEventArgs? State{get;private set;}
     public IReadOnlyCollection<string> Unhandled=>unhandled;
 
+    /// <summary>R9-P（#860）：QuitFishing 已按、等 1516 回答（null＝沒有詢問）。</summary>
+    public FishingQuitConfirm? PendingQuit{get;private set;}
+
     readonly Func<bool> quitRoute=quit??FishingWindow.Quit;
-    bool open;FishingPiece? pressed,hover;bool pressedInside;bool quitSent;
+    readonly Func<FishObtainPanel?>? obtainRoute=obtain;
+    bool open;FishingPiece? pressed,hover;bool pressedInside;bool quitSent;int quitAsk;
     readonly HashSet<string> unhandled=new(StringComparer.Ordinal);
     readonly object gate=new();readonly Queue<FishingWindowEventArgs> pending=new();
 
@@ -106,7 +126,7 @@ public sealed class FishingPanel(UiResources? resources=null,Func<bool>? quit=nu
     }
 
     void Clear(){
-        open=false;pressed=hover=null;pressedInside=false;quitSent=false;LayoutFile=null;Origin=Point.Empty;Size=Size.Empty;MoveableHeight=0;
+        open=false;pressed=hover=null;pressedInside=false;quitSent=false;PendingQuit=null;LayoutFile=null;Origin=Point.Empty;Size=Size.Empty;MoveableHeight=0;
         Background=null;Pieces=[];Missing=[];Skipped=[];State=null;Unavailable="not loaded";lock(gate)pending.Clear();
     }
 
@@ -143,8 +163,8 @@ public sealed class FishingPanel(UiResources? resources=null,Func<bool>? quit=nu
                         Resolve(h,c.Path+(c.Attr("HighLightSurf")!=null?"/@HighLightSurf":"/@HighlightSurf")),Resolve(p,c.Path+"/@PushSurf"),c.Attr("MouseEvent")));
                     break;
                 }
-                case "Label":skipped.Add(c.Path+"（魚餌數量：背包封包沒有模板編號，沒有資料來源）");break;
-                case "AniGauge":skipped.Add(c.Path+"（收竿量表：伺服器不送進度，動畫時序未反組譯）");break;
+                case "Label":skipped.Add(c.Path+"（魚餌數量：原版數物品 14467，3.81 背包封包沒有模板編號，沒有資料來源）");break;   // 已驗證 FU9 §14.3
+                case "AniGauge":skipped.Add(c.Path+"（收竿量表：時長來自 TW16 自動釣魚封包，3.81 不送時長與狀態）");break;   // 已驗證 FU9 §14.3（K1）
                 default:skipped.Add(c.Path);break;
             }
             foreach(var tip in c.Children)skipped.Add(tip.Path+(tip.Name=="Tooltip"?$"（提示字串 {tip.Attr("String")} 未接）":""));
@@ -167,7 +187,7 @@ public sealed class FishingPanel(UiResources? resources=null,Func<bool>? quit=nu
     }
 
     public void Update(IUiGameState state){
-        if(!state.InWorld){if(open)Close();State=null;quitSent=false;lock(gate)pending.Clear();return;}
+        if(!state.InWorld){if(open)Close();State=null;quitSent=false;PendingQuit=null;lock(gate)pending.Clear();return;}
         while(true){
             FishingWindowEventArgs? e;
             lock(gate){if(!pending.TryDequeue(out e))break;}
@@ -179,6 +199,7 @@ public sealed class FishingPanel(UiResources? resources=null,Func<bool>? quit=nu
         if(State!=null&&State.Actor==e.Actor&&e.Revision<State.Revision)return;   // stale (out of order) change
         State=e;
         if(!e.CancelPending)quitSent=false;
+        if(!e.Active||e.CancelPending)PendingQuit=null;   // 釣魚已結束或已送 C62：1516 詢問失效
         if(e.Active&&!wasActive)Open();
         else if(!e.Active&&open)Close();
     }
@@ -189,10 +210,24 @@ public sealed class FishingPanel(UiResources? resources=null,Func<bool>? quit=nu
         open=true;pressed=null;pressedInside=false;
         return true;
     }
-    public void Close(){open=false;pressed=hover=null;pressedInside=false;}
+    public void Close(){open=false;pressed=hover=null;pressedInside=false;PendingQuit=null;}
 
     /// <summary>QuitFishing can send: fishing is active, no C62 is pending (server or local).</summary>
     public bool CanQuit=>State is {Active:true,CancelPending:false}&&!quitSent;
+
+    /// <summary>
+    /// R9-P（#860）：回答 1516。revision 不是目前的詢問 → false（不動作）。是 → 仍可收竿時走 C62 路徑；否 → 只關詢問。
+    /// 回傳 true＝詢問已處理（不論是否送出）。
+    /// </summary>
+    public bool AnswerQuit(int revision,bool yes){
+        if(PendingQuit is not {} q||q.Revision!=revision)return false;
+        PendingQuit=null;
+        if(!yes||!CanQuit)return true;
+        bool sent;
+        try{sent=quitRoute();}catch(Exception ex){UiResourceLog.Write("fishing-ui 收竿失敗："+ex.Message);sent=false;}
+        if(sent)quitSent=true;
+        return true;
+    }
 
     public Rectangle At(FishingPiece p)=>new(Origin.X+p.Local.X,Origin.Y+p.Local.Y,p.Local.Width,p.Local.Height);
     /// <summary>Topmost clickable piece at a logical point (later in paint order = on top).</summary>
@@ -239,15 +274,55 @@ public sealed class FishingPanel(UiResources? resources=null,Func<bool>? quit=nu
 
     void Fire(FishingPiece p){
         if(p.MouseEvent==QuitEvent){
-            if(!CanQuit)return;
-            bool sent;
-            try{sent=quitRoute();}catch(Exception ex){UiResourceLog.Write("fishing-ui 收竿失敗："+ex.Message);sent=false;}
-            if(sent)quitSent=true;
+            if(!CanQuit||PendingQuit!=null)return;
+            PendingQuit=new(++quitAsk,FishingQuitText.Confirm);   // sub_E659A0：先問 1516，回答見 AnswerQuit
             return;
         }
+        if(p.MouseEvent==NetEvent&&obtainRoute?.Invoke() is {Available:true} w){w.Toggle(Bounds);return;}   // sub_E65B00：不送封包，開關 FishObtainUI
         string key=p.MouseEvent??p.Name??p.Path;
         if(unhandled.Add(key))UiResourceLog.Write($"fishing-ui {key} 尚未接上（沒有已核實的封包）");
     }
 
     public bool Key(UiKeyEvent e,IUiCommands commands)=>false;
+}
+
+/// <summary>
+/// R9-P（#860）：1516 Y/N 提示畫在聊天輸入列（YesNoButtons.Line，同 R9-H FriendDeletePromptPanel）。
+/// 推測（真機再確認）：原版 1516 的 Y/N 窗樣式沒查；這裡沿用輸入列提示，Y＝是，N／Esc＝否。
+/// 伺服器詢問（YesNoPanel）或好友刪除詢問顯示中時讓位（不畫、不收鍵），詢問保留。聊天輸入列開著時不收 Y／N。滑鼠一律不攔。
+/// </summary>
+public sealed class FishingQuitPromptPanel(Func<string,IUiPanel?>? find=null):IUiPanel {
+    public const string PanelId="R9P_FishingQuitPrompt";
+    [UiPanel(197)] internal static UiPanelRegistration Registration=>new(PanelId,FishingPanel.HostLayout,root=>new FishingQuitPromptPanel(root.Find));   // R9-P (#860): string 1516 Y/N on the chat input line
+
+    bool inWorld;
+    public string Id=>PanelId;
+    public UiLayer Layer=>UiLayer.Float;
+    FishingPanel? Fishing=>find?.Invoke(FishingPanel.PanelId) as FishingPanel;
+    bool Yielding=>find?.Invoke(YesNoPanel.PanelId) is {Visible:true}||find?.Invoke(FriendDeletePromptPanel.PanelId) is {Visible:true};
+    bool ChatOpen=>find?.Invoke(ChatPanel.WindowName) is ChatPanel{Input.Open:true};
+    public FishingQuitConfirm? Current=>inWorld&&!Yielding?Fishing?.PendingQuit:null;
+    public bool Visible=>Current!=null;
+    public Rectangle Bounds=>Visible?YesNoButtons.Line:Rectangle.Empty;
+
+    public void Load(UiLayout layout,SurfCatalog surfs){}
+    public void Update(IUiGameState state)=>inWorld=state.InWorld;
+    public void Paint(UiCanvas canvas){
+        if(Current is not {} c)return;
+        var line=YesNoButtons.Line;var g=canvas.Graphics;var saved=g.Save();
+        try{
+            g.IntersectClip(line);var size=UiText.Measure(g,c.Text);
+            canvas.DrawText(c.Text,line.X,line.Y+Math.Max(0,(line.Height-size.Height)/2),Color.White,Color.Black);
+        }finally{g.Restore(saved);}
+    }
+    public bool Mouse(UiMouseEvent e,IUiCommands commands)=>false;
+    public bool Key(UiKeyEvent e,IUiCommands commands){
+        if(Current is not {} c||!e.Down||e.Repeat||Fishing is not {} f)return false;
+        if((e.KeyData&Keys.Modifiers)!=Keys.None)return false;
+        if(ChatOpen)return false;   // 聊天列開著：Y／N 是打字、Esc 先關聊天列
+        var key=e.KeyData&Keys.KeyCode;
+        if(key==Keys.Y)return f.AnswerQuit(c.Revision,true);
+        if(key==Keys.N||key==Keys.Escape)return f.AnswerQuit(c.Revision,false);
+        return false;
+    }
 }

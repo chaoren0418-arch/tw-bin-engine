@@ -9,7 +9,10 @@ namespace P06.NativeUi;
 //   下 (0,236) 4180／4181、拖曳鈕 (0,16) 4182／4183，ScrollStart 16、ScrollHeight 224。
 // 推測（標明）：Y 與統計窗頂端對齊；名稱與數量標籤以 ItemInfo_List 的原點加 X／Y 擺放（兩個標籤在同一行）；數量欄寫差額；
 //   捲軸每格一列、拖曳鈕位置依比例；Esc＝關閉。
-// 沒做：列的 CheckButton 選取（ItemsListClick 的原版動作沒查）、Desc_Tooltip（Opacity="0"）。
+// 已驗證（FU9 §6.1，R9-P／#860 更正）：列的 CheckButton 原版沒有回呼——ItemsListClick 在這個類別（建構子 sub_C03330）沒有
+//   處理函式，整個 BIN 只在 ShopUI 建構子 sub_DEDC50 引用這個字串；XML 的 CheckButton 都是 Activate="0" → 不做選取。
+//   滑鼠只認 CloseWindow、ItemListScroll。同一建構子的第二個實例 FishObtainUI 見 FishObtainPanel.cs。
+// 沒做：Desc_Tooltip（Opacity="0"，未接）。
 // 圖示來源：ItemIconSource（Sprite "<icon>.tbt"，R4-B），執行期從原客戶端讀；沒有圖示時只畫字。
 
 public sealed class UserObtainPanel:IUiMovablePanel,IUiClosablePanel {

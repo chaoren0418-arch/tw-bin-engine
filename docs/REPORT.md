@@ -340,3 +340,8 @@
 - 2026-11-11 — #852 T368：R9-H 好友／封鎖窗事件（code，claude-local，PR 已合併）→ [報告](reports/issue-852.md)
 - 2026-11-11 — #854 T370：R9-J 個人商店流程（code，claude-local，PR 已合併）→ [報告](reports/issue-854.md)
 - 2026-11-11 — #855 T371：R9-K 交易數量（code，claude-local，PR 已合併）→ [報告](reports/issue-855.md)
+- 2026-11-11 — #856 T372：R9-L 背包操作（code，claude-local，PR 已合併）→ [報告](reports/issue-856.md)
+- 2026-11-11 — #857 T373：R9-M 召喚窗收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-857.md)
+- 2026-11-11 — #860 T376：R9-P 釣魚窗（code，claude-local，PR 已合併）→ [報告](reports/issue-860.md)
+- 2026-11-11 — #861 T377：R9-Q 選項窗（code，claude-local，PR 已合併）→ [報告](reports/issue-861.md)
+- 2026-11-11 — #862 T378：R7 併入項 179 字串提示與狀態窗 Up 確認（code，claude-local，PR 已合併）→ [報告](reports/issue-862.md)
