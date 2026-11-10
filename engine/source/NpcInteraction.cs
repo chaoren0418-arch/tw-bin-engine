@@ -49,11 +49,27 @@ public sealed partial class WorldSession {
     // until then known query pages without a template are shown as decoded plain text, never as markup.
     public const string HyperTextFallbackNotice="查詢結果以解碼後的文字顯示；原版 HYPER_TEXT_WINDOW 版面尚未實作。";
     NpcPage RenderHyperText(string key,string[] args,string npc,string[]? fallback){
+        LastHyperTextDocument=null;
         var page=DialogTemplates?.Render(key,args,npc,Actor?.Name??"");
         bool missing=page==null||page.Options.Length==0&&page.Text=="缺少此對話的原始繁中模板："+key;
         if(missing&&fallback!=null)return new(string.Join("\n",fallback),[],HyperTextFallbackNotice);
+        if(page!=null&&!missing)RegisterHyperTextDocument(key,args,npc,page);
         return page??new("對話資源尚未載入。",[],"");
     }
+    /// <summary>
+    /// R9-F（#850）：同一份 HTML 再解析成行內排版用的文件（NativeUi/HyperTextLayout.cs），純文字與選項數都和 NpcTemplates 的結果相同
+    /// 才登記（原生 HYPER_TEXT_WINDOW 依文字找回）；不同就不登記，面板維持舊排法。最後一份另存在 LastHyperTextDocument。
+    /// </summary>
+    void RegisterHyperTextDocument(string key,string[] args,string npc,NpcPage page){
+        if(DialogTemplates is not {} templates||NativeUi.NpcTemplateMarkup.Markup(templates,key) is not {} html)return;
+        var doc=NativeUi.HyperTextMarkup.Parse(html,args,npc,Actor?.Name??"");
+        if(doc.Plain!=page.Text||doc.LinkCount!=page.Options.Length)return;
+        LastHyperTextDocument=doc;HyperTextDocuments.Register(doc);
+    }
+    /// <summary>R9-F：登記文件的地方（預設共用；測試可換）。</summary>
+    public NativeUi.HyperTextDocuments HyperTextDocuments{get;set;}=NativeUi.HyperTextDocuments.Shared;
+    /// <summary>R9-F：最近一次 RenderHyperText 登記的文件（沒有登記為 null）。</summary>
+    public NativeUi.HyperTextDocument? LastHyperTextDocument{get;private set;}
     string[]? dialogFallback;
     // Consumed by the very next S39 dispatch (same packet); see ReceivePlayerQueryHtml.
     internal void OfferDialogFallback(string[] lines)=>dialogFallback=lines;
