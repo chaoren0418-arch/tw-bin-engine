@@ -27,7 +27,7 @@
   （restore 由 `py -3 -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config` 完成，暫時 lock，**沒有改** `rebuild-lock.json`。）
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：`pass`（4337 個追蹤檔，0 錯誤）。
 - 離線測試 `friend-window`（`[WorldModuleTest]`，由 CI 的 `--module-tests` 執行；本機依規定不執行）：註冊與自動發現、1813 原文與 fallback、密語前綴可被 `PlayerChatProtocol` 解析；Delete → 1813 → N／Esc 不送、Y 送一次 `Remove(Friend,…)`；過期 revision、重複回答、名單變更、關窗、離開世界、沒有宿主、聊天列開著、伺服器 Y/N 顯示中；ExcludeUI 直接 `Remove(Exclude,…)`、MailExcludeUI 不送；三窗 Esc；雙擊（同列才算、不同列只選取、取代草稿、不能發話／不讓開聊天列／沒有 root 時不做）、Enter 經既有 SendChat 送 `"丙 嗨`。
-- CI：見 PR 的 CI 結果。
+- **CI（PR #871，run 42877898544／42877898554）**：`dotnet`、`map-continuity`、`npc-offline` 全部 pass；`--module-tests` 整份 `failed: 0`，`friend-window` pass（65 項檢查，0 失敗），既有 `friend-panel`、`native-ui-stack-esc` 也 pass。
 
 ## 未驗證／推測（真機再確認）
 
