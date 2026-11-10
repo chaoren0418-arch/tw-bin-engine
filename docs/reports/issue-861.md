@@ -38,6 +38,7 @@
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：`pass`（4347 個追蹤檔，0 錯誤）。
 - MouseEvent 名稱來自先前已解出的 kor25 `OptionUI.xml`（`scratch/wt/task-629/scratch/rea/uixml_alt/kor25/OptionUI.xml`，SHA-256 `fe32d2fd…c8846d`，與 #768 報告相同）。只讀，沒有放進 repo。本組沒有新的圖或資源需求，所以不必另外查 pak。
 - 離線測試 `option-window` 和既有的 `option-panel`、`menu-hotkeys` 交給 CI 的 `--module-tests` 跑（依規定，本機不執行編譯出來的程式）。
+- **CI（PR #878，run 42887727025／42887727265）**：`dotnet`、`map-continuity`、`npc-offline` 全部 pass。`--module-tests` 整份 `failed: 0`，其中 `option-window` pass（49 項檢查，0 失敗），既有的 `option-panel`、`menu-hotkeys` 也 pass。
 
 ## 未驗證什麼（真機再確認）
 - 勾選後畫 PushPng 是推測；原版勾選框的繪製沒有追。
