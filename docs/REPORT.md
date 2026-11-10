@@ -363,3 +363,4 @@
 - 2026-11-11 — #898 T385：查證原版——真機項目 M35／M37／M39／M40 的靜態部分（resource，claude-local，PR 已合併）→ [報告](reports/issue-898.md)
 - 2026-11-11 — #902 T387：R10-C 好友／封鎖宿主（code，claude-local，PR 已合併）→ [報告](reports/issue-902.md)
 - 2026-11-11 — #903 T388：R10-D 組隊邀請點選（code，claude-local，PR 已合併）→ [報告](reports/issue-903.md)
+- 2026-11-11 — #906 T391：R10-G 表情保留範圍（code，claude-local，PR 已合併）→ [報告](reports/issue-906.md)
