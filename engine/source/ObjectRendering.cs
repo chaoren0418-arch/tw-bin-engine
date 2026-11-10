@@ -203,6 +203,9 @@ public static class NameLayout {
     public const int SelfOriginDx=-24,SelfNameDx=-56;
     /// <summary>自己的 P.x（場景座標，取整同 <see cref="CrownLayout.Position"/>）。</summary>
     public static int SelfOriginX(int x,int y)=>(int)Coordinates.Screen(x,y).X+SelfOriginDx;
+    /// <summary>R10-H（T392／#907）：自己的 P.x 改用顯示中的腳下點（World.DisplayPosition＝OwnCombatVisual.Foot，走路時內插），
+    /// 與身體、頭上條（HpMpState.SelfHeadOrigin）同一基準。站著時等於 <see cref="SelfOriginX(int,int)"/>。</summary>
+    public static int SelfOriginX(PointF foot)=>(int)Math.Floor(foot.X)+SelfOriginDx;
     /// <summary>自己的置中基準：P.x − 56 − 3·len。</summary>
     public static int SelfX(int originX,string text)=>originX+SelfNameDx-GlyphWidth/2*ByteLength(text);
     static int BaseX(Rectangle r,string text,int? selfOriginX)=>selfOriginX is int p?SelfX(p,text):CenterX(r,text);
@@ -245,7 +248,8 @@ public static class NameLayout {
     public const int TaiwanRegionCode=3;
     public static int MonsterLevelOption {get;set;}=TaiwanRegionCode;
     public static ushort? LevelDiffOutline(int option,int? kind,int? diff)=>option is 1 or 5&&kind==10&&diff is int d?d switch{>=10=>0x7C00,>=3=>0x4200,<=-2=>0x02E0,_=>0x001F}:null;
-    public static NamePlan Plan(WorldSession w,IReadOnlyList<NameTarget> targets,uint? hovered,bool showAll,long? now=null){
+    /// <param name="selfFoot">自己顯示中的腳下點（場景座標，World.DisplayPosition）；null＝退回 WorldSession.Actor 的格座標。</param>
+    public static NamePlan Plan(WorldSession w,IReadOnlyList<NameTarget> targets,uint? hovered,bool showAll,long? now=null,PointF? selfFoot=null){
         var texts=new List<NameText>();var emblems=new List<NameEmblem>();var icons=new List<NameIcon>();
         // Blind mode 1 blacks out everyone else; their names must not reveal where they stand.
         bool blind=w.BlindMode==1;uint own=w.Actor?.ObjectId??0;string ownClan=w.Actor?.Clan??"";bool war=w.ClanWarMode;
@@ -256,8 +260,9 @@ public static class NameLayout {
             bool war196=w.ClanWarFlag(t.ObjectId)!=0;
             if(hovered==t.ObjectId){
                 string title=w.DisplayTitle(t.ObjectId);bool partyOther=!t.Self&&w.IsPartyMemberId(t.ObjectId);
-                // 自己的腳下格取 WorldSession.Actor（走路中不內插，見 issue-784 報告「待驗證」）；全名模式（sub_F01380）沒有查到自己分支，不改。
-                int? selfOrigin=t.Self&&w.Actor is {} me?SelfOriginX(me.X,me.Y):null;
+                // R10-H（#907）：自己的 P 用顯示中的腳下點（走路內插，FU8§1.1 的 P 跟著精靈走）；沒給時退回 Actor 格座標。
+                // 全名模式（sub_F01380）沒有查到自己分支，不改。
+                int? selfOrigin=!t.Self?null:selfFoot is PointF foot?SelfOriginX(foot):w.Actor is {} me?SelfOriginX(me.X,me.Y):null;
                 var p=Hover(t.Bounds,title,t.Name,hasClan,partyOther,selfOrigin);
                 if(p.Title is {} tp)texts.Add(new(t.ObjectId,true,title,color,tp){Outline=outline});
                 texts.Add(new(t.ObjectId,false,t.Name,color,p.Name){Outline=outline});if(hasClan)emblems.Add(new(t.ObjectId,clanId,p.Emblem,false));
@@ -473,7 +478,7 @@ public sealed partial class ClientForm {
     void PaintNames(Graphics g){
         HookNameDisplay();if(!login.World.Renderable){paintedHover=null;return;}
         var hovered=nameMouse is Point m?NameHoverTarget(m):null;paintedHover=hovered;
-        var plan=NameLayout.Plan(login.World,NameTargets(),hovered,showAllNames);
+        var plan=NameLayout.Plan(login.World,NameTargets(),hovered,showAllNames,selfFoot:renderer.OwnCombatVisual?.Foot);
         float zoom=Camera.Zoom;bool dim=login.World.BlindMode==2;
         var state=g.Save();
         try{
