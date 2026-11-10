@@ -2,6 +2,15 @@ namespace P06;
 
 public enum PlayerQueryKind {None,Who,Rank,Check}
 
+/// <summary>T331 (#769): a self-addressed ranking page; a handler that shows it natively sets Handled.</summary>
+public sealed class RankingWindowEventArgs(uint objectId,string html,IReadOnlyList<string> arguments,IReadOnlyList<string> lines):EventArgs {
+    public uint ObjectId=>objectId;
+    public string Html=>html;
+    public IReadOnlyList<string> Arguments=>arguments;
+    public IReadOnlyList<string> Lines=>lines;
+    public bool Handled{get;set;}
+}
+
 // Verified source + d287 JAR contract: docs/protocol/player-query.md.
 // C99 is anti-cheat telemetry and C63/sub1 changes clan rank, so neither is ever sent from here.
 public static class PlayerQueryPackets {
@@ -90,6 +99,19 @@ public static class PlayerQueryPackets {
         return(id,lines.ToArray(),html,a);
     }
     static string Display(string text)=>PlayerChatProtocol.Display(text);
+    // T331 (#769): open-window event for the native ranking window (NativeUi/GameRankingPanel). Nobody handles it with
+    // --classic-ui or when the reference GameRankingUI.xml is unavailable, so the query page below stays the fallback.
+    public static event EventHandler<RankingWindowEventArgs>? RankingWindowRequested;
+    /// <summary>true when a handler took the page; a throwing handler counts as not handled (logged, never fatal).</summary>
+    internal static bool RequestRankingWindow(uint id,string html,string[] args,string[] lines){
+        if(RankingWindowRequested is not {} handlers)return false;
+        var e=new RankingWindowEventArgs(id,html,args,lines);
+        foreach(EventHandler<RankingWindowEventArgs> h in handlers.GetInvocationList()){
+            try{h(null,e);}catch(Exception ex){NativeUi.UiResourceLog.Write("ranking-ui 開窗事件失敗，改用查詢頁："+ex.Message);return false;}
+            if(e.Handled)return true;
+        }
+        return false;
+    }
 }
 
 public sealed partial class WorldSession {
@@ -134,7 +156,9 @@ public sealed partial class WorldSession {
             ShowSelfQuery(check.ObjectId,check.Html,check.Arguments,check.Lines);return true;
         }
         if(PlayerQueryPackets.DecodeRankHtml(plain) is not {} rank)return false;
-        if(rank.ObjectId==Status?.ObjectId){ShowSelfQuery(rank.ObjectId,rank.Html,rank.Arguments,rank.Lines);return true;}
+        if(rank.ObjectId==Status?.ObjectId){
+            if(Ready&&PlayerQueryPackets.RequestRankingWindow(rank.ObjectId,rank.Html,rank.Arguments,rank.Lines))return true;
+            ShowSelfQuery(rank.ObjectId,rank.Html,rank.Arguments,rank.Lines);return true;}
         // Ranking NPC page: the normal dialog handles the same packet; decoded rows replace a missing template.
         OfferDialogFallback(rank.Lines);
         return false;
