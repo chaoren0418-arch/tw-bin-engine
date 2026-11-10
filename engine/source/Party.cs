@@ -11,6 +11,15 @@ public static class PartyPackets {
     public static byte[] Leave()=>LoginPackets.Pad([33]);
     public static byte[] List()=>LoginPackets.Pad([43]);
     public static byte[] Kick(string name){if(!ValidName(name))throw new ArgumentException("party name");return LoginPackets.Pad([255,..LoginPackets.TextEncoding.GetBytes(name),0]);}
+    /// <summary>R7-J (#812): C230 C(3) D(memberObjectId) = leader transfer (docs/protocol/party.md:21). Map/screen range and leadership are the server's call (1695／1697).</summary>
+    public const byte DelegateType=3;
+    public static byte[] Delegate(uint member){if(member==0)throw new ArgumentException("party delegate target");return LoginPackets.Pad([230,DelegateType,..BitConverter.GetBytes(member)]);}
+    /// <summary>Object id the delegate button may send for this member name; 0 = not eligible (not leader, unknown member, id unknown, self).</summary>
+    public static uint DelegateTarget(PartyView shown,string name){
+        if(!shown.CanKick)return 0;
+        var m=shown.Members.FirstOrDefault(x=>x.Name==name);
+        return m==null||m.ObjectId==0||m.ObjectId==shown.Owner?0:m.ObjectId;
+    }
     public static byte[] Answer(uint challenge,bool accept)=>LoginPackets.Pad([121,0,0,..BitConverter.GetBytes(challenge),0xB9,3,(byte)(accept?1:0)]);
 }
 
@@ -113,7 +122,7 @@ public sealed partial class WorldSession {
         return false; // Preserve the existing server-message/chat presentation.
     }
     internal bool PartyCurrent(PartyView v){CheckParty();return v.Owner!=0&&v.Owner==partyOwner&&v.Epoch==WorldEpoch&&v.Revision==partyRevision;}
-    internal void PartySent(string command){if(command is "accept" or "reject"){partyInvitation=null;YesNoHandled(953);}partyNotice="已送出"+(command switch{"invite"=>"組隊邀請","accept"=>"接受邀請","reject"=>"拒絕邀請","leave"=>"離隊請求","kick"=>"踢除請求",_=>"名單查詢"})+"；隊員與 HP 以原服回覆為準。";partyRevision++;}
+    internal void PartySent(string command){if(command is "accept" or "reject"){partyInvitation=null;YesNoHandled(953);}partyNotice="已送出"+(command switch{"invite"=>"組隊邀請","accept"=>"接受邀請","reject"=>"拒絕邀請","leave"=>"離隊請求","kick"=>"踢除請求","delegate"=>"委任隊長請求",_=>"名單查詢"})+"；隊員與 HP 以原服回覆為準。";partyRevision++;}
 }
 
 public sealed partial class LoginConnection {
@@ -127,10 +136,12 @@ public sealed partial class LoginConnection {
             "list"=>true,"leave"=>shown.Members.Length>0,
             "invite"=>shown.CanInvite&&chosen!=null&&chosen.ObjectId==target&&target!=shown.Owner&&(chosen.Flags&4)!=0&&!chosen.Dead&&World.Target==chosen&&mode<=1,
             "kick"=>shown.CanKick&&shown.Members.Any(m=>m.Name==name),
+            // R7-J: leader only, a shown member with a known object id (S39 name-only rows have 0) that is not ourselves.
+            "delegate"=>PartyPackets.DelegateTarget(shown,name)!=0,
             "accept" or "reject"=>invite!=null,
             _=>false};
         if(!Eligible())return false;
-        byte[] packet;try{packet=command switch{"list"=>PartyPackets.List(),"leave"=>PartyPackets.Leave(),"invite"=>PartyPackets.Invite(target,mode),"kick"=>PartyPackets.Kick(name),_=>PartyPackets.Answer(invite!.Challenge,command=="accept")};}catch(ArgumentException){return false;}
+        byte[] packet;try{packet=command switch{"list"=>PartyPackets.List(),"leave"=>PartyPackets.Leave(),"invite"=>PartyPackets.Invite(target,mode),"kick"=>PartyPackets.Kick(name),"delegate"=>PartyPackets.Delegate(PartyPackets.DelegateTarget(shown,name)),_=>PartyPackets.Answer(invite!.Challenge,command=="accept")};}catch(ArgumentException){return false;}
         int gen=SessionGeneration;partySendingGeneration=gen;var sender=sendMovementGate;
         try{return await sender(packet,()=>gen==SessionGeneration&&PartyAccess&&World.PartyCurrent(shown)&&Eligible(),()=>{World.PartySent(command);Set(State,"隊伍請求已送出。");})&&gen==SessionGeneration;}
         catch(Exception){if(gen==SessionGeneration){Cancel();Set(LoginState.Faulted,"組隊傳送失敗，已斷線；沒有自動重送。");}return false;}
