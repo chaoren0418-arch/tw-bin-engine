@@ -13,7 +13,7 @@ namespace P06.NativeUi;
 //   - 文字起點 (21,44)、行高 15、一次 16 行：借用同版面的 sub_A559D0（FU4§5）；可用寬度 192（21 到捲軸 217 之前留 4）。
 //   - 關閉鈕用 XML 的 1962 (225,15)（sub_A559D0 寫死的 9183 是那個窗自己的做法）；標題列 (1,1,239,20) 拖曳同 sub_A559D0。
 //   - 窗原點用 XML 的 x／y；連結列用黃色（調色盤 13）、停用選項灰色（7）、提示文字灰色、本文白色（14）。
-//   - 連結各占一列（引擎的對話模板把 HTML 連結拆成選項，原版是行內連結；行內排版器另組 R9-F）。
+//   - 連結各占一列（引擎的對話模板把 HTML 連結拆成選項，原版是行內連結）：R9-F 之後只用在對不上 HTML 文件的頁。
 //   - 捲動範圍 0..(行數−16)；滾輪、上下鈕步長 1 列。
 // R9-E（T365／#849），依據 followups-9.md 第 10 節（FU9§10）。已驗證（引用）：
 //   - ESC：sub_875F80（FO 0x475380）收到 27 就關窗。HyperText 窗不在 sub_A57C60 的 4 格堆疊裡，ESC 由窗自己處理。
@@ -27,7 +27,11 @@ namespace P06.NativeUi;
 //   - OK 1114（按下 1115）(47,292)、Cancel 1111（按下 1112）(133,292)：座標取自參考客戶端 ly 的 HyperTextUI.xml（本機 24 個 idx 都沒有
 //     這個 XML；不複製進專案），只在有數字框時畫與可按（停用外觀沒有查證，不畫）。本機缺這幾張圖時退回引擎自訂的「確定」／「取消」
 //     文字鈕（畫在數字框那一列）。Cancel：城堡頁 → CancelNumber；S136 數量頁 → 關窗。
-// 待驗證（不做）：原版連結的滑鼠移入效果；HTML 的顏色／圖片標籤（R9-F）。
+// 待驗證（不做）：原版連結的滑鼠移入效果。
+// R9-F（T366／#850）：行內排版器（NativeUi/HyperTextLayout.cs）。頁有原始 HTML 文件（view.Document，或 WorldSession 登記在
+//   HyperTextDocuments.Shared、文字對得上的那份）且選項 id 對得上時，本文改用 RowKind.Rich 列：連結、<font>、<img>、<var>、
+//   <b>/<i>/<u>/<p>/<br>、對齊都排在文字流裡，連結不再另起一列。高於 15 的列（圖）後面接 RowKind.Spacer 佔位，捲動仍以 15 px 為一格。
+//   對不上（查詢頁的退回文字、沒有模板）時維持上面「連結各占一列」的舊排法。顏色位元組順序與連結色待真機對色（M34）。
 
 /// <summary>頁上的一個連結／選項（Id＝引擎對話模板的選項 id）。</summary>
 public sealed record HyperTextLink(int Id,string Label,bool Enabled);
@@ -41,7 +45,8 @@ public sealed record HyperTextNumberBox(HyperTextNumberKind Kind,long Revision,l
 /// </summary>
 public sealed record HyperTextNameBox(long Revision,string Prompt,bool CanSend);
 /// <summary>要顯示的一頁。Revision＝NPC 頁的 InteractionRevision 或查詢頁的 QueryRevision（宿主用來擋過期操作）。</summary>
-public sealed record HyperTextView(HyperTextSource Source,int Revision,string Text,IReadOnlyList<HyperTextLink> Links,string Notice,HyperTextNumberBox? Number,HyperTextNameBox? Name=null);
+/// <summary>R9-F：Document＝這頁的 HTML 文件（null＝面板依 Text 到 HyperTextDocuments 找）。</summary>
+public sealed record HyperTextView(HyperTextSource Source,int Revision,string Text,IReadOnlyList<HyperTextLink> Links,string Notice,HyperTextNumberBox? Number,HyperTextNameBox? Name=null,HyperTextDocument? Document=null);
 
 /// <summary>面板對外的動作。面板不碰 LoginConnection；過期、走路中、重複送出由宿主（NpcUi.cs）擋。</summary>
 public interface IHyperTextHost {
@@ -103,16 +108,23 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
         public Rectangle Local=>new(Offset,Surface==null?Size.Empty:new Size(Surface.Width,Surface.Height));
         public bool Drawn=>Surface!=null&&Surface.Width>0&&Surface.Height>0;
     }
-    public enum RowKind { Text, Link, Notice, Range, Number, Name }
+    public enum RowKind { Text, Link, Notice, Range, Number, Name, Rich, Spacer }
     /// <summary>R7-D 名稱框列：輸入框寬（引擎自訂，推測；輸入框＋確定＋取消＝192）。</summary>
     public const int NameInputWidth=108;
-    /// <summary>畫面上的一列（內容座標：第 Index 列）。Link 列帶選項 id。</summary>
-    public sealed record Row(RowKind Kind,string Text,int LinkId=-1,bool Enabled=true);
+    /// <summary>畫面上的一列（內容座標：第 Index 列）。Link 列帶選項 id；R9-F Rich 列帶排好的一列（Spacer＝上一個 Rich 列的延伸）。</summary>
+    public sealed record Row(RowKind Kind,string Text,int LinkId=-1,bool Enabled=true,HyperTextLine? Line=null);
 
     readonly Func<string,int> measure;
     public HyperTextPanel(Func<string,int>? measure=null){this.measure=measure??DefaultMeasure;}
     static readonly Lazy<Graphics> measureGraphics=new(()=>Graphics.FromImage(new Bitmap(1,1)));
     static int DefaultMeasure(string s){lock(measureGraphics)return UiText.Measure(measureGraphics.Value,s).Width;}
+
+    /// <summary>R9-F：找 HTML 文件的地方（測試可換成自己的）。</summary>
+    public HyperTextDocuments Documents{get;set;}=HyperTextDocuments.Shared;
+    /// <summary>R9-F：目前這頁用的 HTML 文件（已 $ 展開）；null＝舊排法。</summary>
+    public HyperTextDocument? Document{get;private set;}
+    Func<int,UiSurface?> surfSource=_=>null;readonly Dictionary<int,UiSurface?> surfCache=[];
+    UiSurface? Surface(int id){if(!surfCache.TryGetValue(id,out var s))surfCache[id]=s=surfSource(id);return s;}
 
     public IHyperTextHost? Host{get;private set;}
     public void Attach(IHyperTextHost host)=>Host=host;
@@ -162,6 +174,7 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
     public void Load(UiLayout layout,SurfCatalog surfs)=>Load(layout,surfs.Get);
     internal void Load(UiLayout layout,Func<int,UiSurface?> surf){
         var window=layout.Root.Child(Section);
+        surfSource=surf;surfCache.Clear();Document=null;Lines=[];richKey=null;
         Element Find(string name,bool atOrigin=false){
             var matches=window.Children.Where(c=>c.Attr("surfName")==name).Take(2).ToList();
             if(matches.Count!=1)throw new UiLayoutException(layout.FileName,window.Path+"/@surfName="+name,matches.Count==0?"缺少元件":"元件不唯一");
@@ -186,7 +199,7 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
     /// 被使用者或堆疊關掉的那一頁，在宿主真的關掉它之前不再打開。
     /// </summary>
     public void Show(HyperTextView? next){
-        if(next==null){view=null;pressed=null;InputFocused=false;NameFocused=false;dismissed=null;return;}
+        if(next==null){view=null;pressed=null;InputFocused=false;NameFocused=false;dismissed=null;Document=null;return;}
         var key=(next.Source,next.Revision);
         if(dismissed==key)return;
         dismissed=null;
@@ -211,11 +224,36 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
 
     public void Update(IUiGameState state){if(!state.InWorld)Show(null);}
 
+    /// <summary>
+    /// R9-F：這頁的 HTML 文件。要同時符合：文字對得上（Plain＝Text，或 $ 展開後相同）、文件的選項數＝頁的選項數、
+    /// 頁的選項 id 剛好是 0..n−1（NpcTemplates 的編號）。否則 null（舊排法）。
+    /// </summary>
+    HyperTextDocument? ResolveDocument(HyperTextView v){
+        var doc=v.Document?.ResolveTo(v.Text)??(v.Document==null?Documents.Find(v.Text):null);
+        if(doc==null||doc.LinkCount!=v.Links.Count)return null;
+        var ids=v.Links.Select(l=>l.Id).OrderBy(i=>i).ToArray();
+        for(int i=0;i<ids.Length;i++)if(ids[i]!=i)return null;
+        return doc;
+    }
+    /// <summary>R9-F：排好的本文列（沒有文件時是空的）。</summary>
+    public IReadOnlyList<HyperTextLine> Lines{get;private set;}=[];
+    (string,HyperTextDocument?,string,HyperTextDocuments,int)? richKey;
+
     List<Row> BuildRows(HyperTextView v){
         var list=new List<Row>();
-        foreach(var line in Wrap(v.Text))list.Add(new(RowKind.Text,line));
-        if(v.Links.Count>0&&list.Count>0)list.Add(new(RowKind.Text,""));
-        foreach(var link in v.Links)foreach(var line in Wrap(link.Label))list.Add(new(RowKind.Link,line,link.Id,link.Enabled));
+        // 宿主每格都 Show：同一頁（文字、文件、選項 id 都相同）沿用上次的對照與排版結果。
+        var key=(v.Text,v.Document,string.Join(",",v.Links.Select(l=>l.Id)),Documents,Documents.Version);
+        if(richKey!=key){richKey=key;Document=ResolveDocument(v);Lines=Document is {} d?HyperTextLayout.Build(d,TextWidth,measure,Surface,LineHeight):[];}
+        if(Document!=null){
+            foreach(var line in Lines){
+                list.Add(new(RowKind.Rich,line.Text,Line:line));
+                for(int extra=(line.Height+LineHeight-1)/LineHeight-1;extra>0;extra--)list.Add(new(RowKind.Spacer,""));
+            }
+        }else{
+            foreach(var line in Wrap(v.Text))list.Add(new(RowKind.Text,line));
+            if(v.Links.Count>0&&list.Count>0)list.Add(new(RowKind.Text,""));
+            foreach(var link in v.Links)foreach(var line in Wrap(link.Label))list.Add(new(RowKind.Link,line,link.Id,link.Enabled));
+        }
         if(v.Number is {} n){list.Add(new(RowKind.Text,""));list.Add(new(RowKind.Range,n.Range));list.Add(new(RowKind.Number,""));}
         if(v.Name is {} nb){list.Add(new(RowKind.Text,""));foreach(var line in Wrap(nb.Prompt))list.Add(new(RowKind.Text,line));list.Add(new(RowKind.Name,""));}
         if(v.Notice.Length>0){list.Add(new(RowKind.Text,""));foreach(var line in Wrap(v.Notice))list.Add(new(RowKind.Notice,line));}
@@ -298,9 +336,54 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
                 case RowKind.Name:PaintName(canvas);break;
                 case RowKind.Link:canvas.DrawText(row.Text,p.X,p.Y,row.Enabled?LinkColor:DisabledColor);break;
                 case RowKind.Notice:case RowKind.Range:canvas.DrawText(row.Text,p.X,p.Y,DisabledColor);break;
+                case RowKind.Rich:case RowKind.Spacer:break;   // PaintRich
                 default:canvas.DrawText(row.Text,p.X,p.Y,TextColor);break;
             }
         }
+        PaintRich(canvas);
+    }
+
+    /// <summary>R9-F：本文區（16 列 × 15 px，寬 192）；Rich 列的圖與字裁在這裡面。</summary>
+    public Rectangle TextArea=>new(Origin.X+FirstLine.X,Origin.Y+FirstLine.Y,TextWidth,LineHeight*VisibleLines);
+    /// <summary>R9-F：與畫面重疊的 Rich 列（含從捲動位置上方延伸下來的高列）；Screen 可以是負的。</summary>
+    IEnumerable<(int Screen,HyperTextLine Line)> RichInView(){
+        int end=Math.Min(rows.Count,Scroll+VisibleLines);
+        for(int i=0;i<end;i++)
+            if(rows[i] is {Kind:RowKind.Rich,Line:{} line}&&i+Math.Max(1,(line.Height+LineHeight-1)/LineHeight)>Scroll)yield return (i-Scroll,line);
+    }
+    /// <summary>R9-F：行內連結的顏色：可按＝文件的字色（&lt;a&gt; 常數 0x00B0FFFF 或之後的 &lt;font fg&gt;），停用＝灰。</summary>
+    public static Color RichLinkColor=>HyperTextColors.Link;
+    bool LinkEnabled(int id)=>view?.Links.Any(l=>l.Id==id&&l.Enabled)==true;
+    Color PieceColor(HyperTextPiece piece){
+        var fg=piece.Node.Style.Fg;
+        if(piece.Link>=0)return !LinkEnabled(piece.Link)?DisabledColor:fg is uint lf?HyperTextColors.Decode(lf):RichLinkColor;
+        return fg is uint f?HyperTextColors.Decode(f):TextColor;
+    }
+    /// <summary>R9-F：片段在畫面上的範圍（screen＝畫面第幾列，可為負）。</summary>
+    public Rectangle PieceRect(int screen,HyperTextPiece piece){var o=LineAt(screen);return new(o.X+piece.X,o.Y+piece.Y,piece.Width,piece.Height);}
+    /// <summary>R9-F：某個選項在畫面上看得到的第一個片段範圍（測試與點擊用；不在畫面上回 Empty）。</summary>
+    public Rectangle LinkRect(int id){
+        foreach(var (screen,line) in RichInView())foreach(var piece in line.Pieces)
+            if(piece.Link==id&&Rectangle.Intersect(PieceRect(screen,piece),TextArea) is {IsEmpty:false} r)return r;
+        return Rectangle.Empty;
+    }
+    void PaintRich(UiCanvas canvas){
+        if(Document==null)return;
+        var g=canvas.Graphics;var state=g.Save();
+        try{
+            g.SetClip(TextArea,System.Drawing.Drawing2D.CombineMode.Intersect);
+            foreach(var (screen,line) in RichInView())foreach(var piece in line.Pieces){
+                var r=PieceRect(screen,piece);
+                if(piece.Image!=null){canvas.DrawSurface(piece.Image,r.X,r.Y);continue;}
+                var style=piece.Node.Style;
+                if(style.Bg is uint bg)using(var back=new SolidBrush(HyperTextColors.Decode(bg)))g.FillRectangle(back,r.X,r.Y,r.Width,LineHeight);
+                if(piece.Text.Length==0)continue;
+                var color=PieceColor(piece);
+                canvas.DrawText(piece.Text,r.X,r.Y,color);
+                if(style.Bold)canvas.DrawText(piece.Text,r.X+1,r.Y,color);   // 推測：1 px 位移模擬粗體
+                if(style.Underline)using(var pen=new Pen(color))g.DrawLine(pen,r.X,r.Y+LineHeight-2,r.Right-1,r.Y+LineHeight-2);
+            }
+        }finally{g.Restore(state);}
     }
     void PaintNumber(UiCanvas canvas){
         if(view?.Number is not {} n)return;
@@ -349,6 +432,10 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
             int index=Scroll+r;if(index>=rows.Count)break;
             if(rows[index] is {Kind:RowKind.Link,Enabled:true} link&&LineRect(r).Contains(p))return "link:"+link.LinkId;
         }
+        // R9-F：行內連結（字或圖），只認本文區內、可按的。
+        if(Document!=null&&TextArea.Contains(p))
+            foreach(var (screen,line) in RichInView())foreach(var piece in line.Pieces)
+                if(piece.Link>=0&&PieceRect(screen,piece).Contains(p)&&LinkEnabled(piece.Link))return "link:"+piece.Link;
         return null;
     }
 
