@@ -84,6 +84,7 @@ static class RenewalStatusPanelTests {
         Painting(t);
         Input(t);
         Unavailable(t);
+        Confirm(t);
     }
 
     static void Registration(WorldModuleTestContext t){
@@ -164,7 +165,7 @@ static class RenewalStatusPanelTests {
         t.Equal(Argb(StatusBaseC),Pixel(p,100+58+10,50+34+2),"level gauge not drawn");
         t.Equal(Argb(StatusBaseC),Pixel(p,100+81+2,50+123+2),"Up/Down buttons hidden while raising is not possible");
         p.Show(View(canRaise:true));
-        t.Equal(Argb(UpC),Pixel(p,100+81+2,50+123+2),"Up button drawn while bonus points can be chosen; Down never");
+        t.Equal(Argb(UpC),Pixel(p,100+81+2,50+123+2),"Up button drawn while bonus points can be chosen; Down only during a preview");
         using(var bmp=Render(p)){
             bool text=false;for(int x=104;x<100+44+35;x++)for(int y=50+122;y<50+134;y++)if(bmp.GetPixel(x,y).ToArgb()!=Argb(StatusBaseC))text=true;
             t.Check(text,"Str value text drawn inside its label box");
@@ -173,7 +174,7 @@ static class RenewalStatusPanelTests {
 
     static void Input(WorldModuleTestContext t){
         var p=Panel();var c=new UiNullCommands();p.Open();
-        var keys=new List<string>();p.StatPointUp=keys.Add;
+        var keys=new List<string>();p.StatPointConfirm=keys.Add;
         Click(p,new(100+47+2,50+170+2),c);
         t.Equal("Status_Window",p.ActivePage?.Name,"StatusTab_Button → Status_Window");
         Click(p,new(100+81+2,50+123+2),c);
@@ -182,11 +183,12 @@ static class RenewalStatusPanelTests {
         p.Mouse(M(UiMouseKind.Down,new(100+81+2,50+123+2)),c);
         t.Equal(Argb(UpPushC),Pixel(p,100+81+2,50+123+2),"Up push image while held");
         p.Mouse(M(UiMouseKind.Up,new(100+81+2,50+123+2)),c);
-        t.Equal("str",string.Join(",",keys),"Up click → StatPointUp(\"str\")");
+        t.Check(keys.Count==0&&p.Pending=="str","Up click → local preview only (Pending str, nothing confirmed)",p.Pending);
+        p.Answer(false);
         p.Mouse(M(UiMouseKind.Down,new(100+81+2,50+123+2)),c);
         p.Show(View());
         p.Mouse(M(UiMouseKind.Up,new(100+81+2,50+123+2)),c);
-        t.Equal(1,keys.Count,"raising ended while held → no click");
+        t.Check(keys.Count==0&&p.Pending==null,"raising ended while held → no click, no preview");
         Click(p,new(100+22+2,50+150+2),c);
         t.Check(p.StatInfoChecked&&p.Unhandled.Contains("ShowStatInfoTooltip"),"check button toggles and is reported unhandled");
         t.Equal(Argb(CheckPushC),Pixel(p,100+22+2,50+150+2),"checked → push image");
@@ -214,4 +216,56 @@ static class RenewalStatusPanelTests {
         var empty=new RenewalStatusPanel();
         t.Check(!empty.Available&&!empty.Open(),"never loaded → unavailable");
     }
-}
+
+    // T378 (#862, FU9§14.5): Up = local +1 preview + Y/N; 是 → StatPointConfirm, 否／Down／Esc／close → preview dropped.
+    static void Confirm(WorldModuleTestContext t){
+        var p=Panel();var c=new UiNullCommands();p.Open();p.ShowPage("Status_Window");p.Show(View(canRaise:true));
+        var keys=new List<string>();p.StatPointConfirm=keys.Add;
+        var up=new Point(100+81+2,50+123+2);
+        static UiKeyEvent K(Keys k)=>new(k,true,false);
+        t.Check(p.ConfirmText==null&&p.Bounds==new Rectangle(100,50,180,200),"no preview: no Y/N, window bounds only");
+        Click(p,up,c);
+        t.Equal("str",p.Pending,"Up → preview str");
+        t.Equal("19",p.LabelText(Named(p,"Status_Window","Str_Label")),"previewed stat shows value+1 (18 → 19)");
+        t.Equal("12",p.LabelText(Named(p,"Status_Window","Int_Label")),"other stats unchanged");
+        t.Check(!p.Shown(Named(p,"Status_Window","Up_Button"))&&p.Shown(Named(p,"Status_Window","Down_Button")),"during the preview: Up hidden, Down shown on the chosen stat");
+        t.Equal(Argb(DownC),Pixel(p,100+81+2,50+123+2),"Down button drawn in place of Up");
+        t.Equal(0,keys.Count,"preview sends nothing");
+        t.Check(p.Bounds==new Rectangle(100,50,180,200+RenewalStatusPanel.ConfirmHeight)&&p.ConfirmBounds==new Rectangle(100,250,180,RenewalStatusPanel.ConfirmHeight),"Y/N strip under the window",p.Bounds);
+        using(ServerMessageText.UseTable(null))t.Equal("請再次確認是否要提升力量？(Y/N)",p.ConfirmText,"no table → local row 929 text with the stat name");
+        using(ServerMessageText.UseTable(Table(RenewalStatusPanel.ConfirmStringId,@"請確認\f2%s\f>好嗎")))t.Equal("請確認力量好嗎",p.ConfirmText,"table row 929, %s = stat name, colour codes dropped");
+        t.Equal("請再次確認是否要提升體質？(Y/N)",WithoutTable(()=>RenewalStatusPanel.ConfirmTextFor("con")),"label per key (con → 體質)");
+        // 否: NO button.
+        Click(p,p.ConfirmButton(false).Location+new Size(2,2),c);
+        t.Check(p.Pending==null&&keys.Count==0&&p.LabelText(Named(p,"Status_Window","Str_Label"))=="18","NO → preview dropped, value restored, nothing sent");
+        t.Check(p.Shown(Named(p,"Status_Window","Up_Button"))&&!p.Shown(Named(p,"Status_Window","Down_Button")),"Up back, Down hidden");
+        // 是: YES button.
+        Click(p,up,c);Click(p,p.ConfirmButton(true).Location+new Size(2,2),c);
+        t.Check(p.Pending==null&&string.Join(",",keys)=="str","YES → StatPointConfirm(\"str\") once",keys);
+        // Down button = 否.
+        Click(p,up,c);Click(p,up,c);
+        t.Check(p.Pending==null&&keys.Count==1,"Down button cancels the preview");
+        // Keys: Y／Enter = 是, N／Esc = 否; other keys pass through; no preview → keys not taken.
+        Click(p,up,c);
+        t.Check(!p.Key(K(Keys.A),c)&&p.Pending=="str","other key not taken");
+        t.Check(!p.Key(new(Keys.Y,true,true),c)&&p.Pending=="str","auto-repeat ignored");
+        t.Check(p.Key(K(Keys.Escape),c)&&p.Pending==null&&keys.Count==1,"Esc → 否");
+        Click(p,up,c);t.Check(p.Key(K(Keys.N),c)&&p.Pending==null&&keys.Count==1,"N → 否");
+        Click(p,up,c);t.Check(p.Key(K(Keys.Y),c)&&p.Pending==null&&keys.Count==2,"Y → 是");
+        Click(p,up,c);t.Check(p.Key(K(Keys.Enter),c)&&p.Pending==null&&keys.Count==3,"Enter → 是");
+        t.Check(!p.Key(K(Keys.Escape),c),"no preview: Esc not taken (window close path unchanged)");
+        // Clicks inside the strip but off the buttons are swallowed (do not reach the world).
+        Click(p,up,c);
+        t.Check(p.Mouse(M(UiMouseKind.Down,new(102,250+2)),c)&&p.Pending=="str","strip click off the buttons: taken, preview kept");
+        // Raising ends, close, leaving the world → preview dropped, nothing sent.
+        p.Show(View());t.Check(p.Pending==null&&keys.Count==3,"raising no longer possible → preview dropped");
+        p.Show(View(canRaise:true));Click(p,up,c);p.Close();t.Check(p.Pending==null&&keys.Count==3,"close → preview dropped");
+        p.Open();p.ShowPage("Status_Window");Click(p,up,c);p.Update(new UiStaticGameState(InWorld:false));t.Check(p.Pending==null&&keys.Count==3,"leaving the world → preview dropped");
+        t.Check(!p.Answer(true)&&keys.Count==3,"Answer without a preview does nothing");
+        t.Check(c.Calls.Count==0,"no command calls");
+    }
+    static ServerStringTable Table(int id,string text){
+        var lines=new string[id+1];Array.Fill(lines,"");lines[id]=text;
+        return ServerStringTable.Parse(LoginPackets.TextEncoding.GetBytes((id+1)+"\n"+string.Join("\n",lines)));
+    }
+    static string WithoutTable(Func<string> f){using(ServerMessageText.UseTable(null))return f();}}
