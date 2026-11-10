@@ -1,0 +1,4 @@
+dec 4E7000
+dec 4E70B0
+grepcallers 4E7000 4E7000|== 71|< 2|== 61|834EE4 ==|== dword_834EE4
+grepcallers 4E70B0 4E70B0|== 71|< 2|== 61|834EE4 ==|== dword_834EE4
