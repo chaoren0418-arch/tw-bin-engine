@@ -351,3 +351,5 @@
 - 2026-11-11 — #850 T366：R9-F HyperText 排版器（code，claude-local，PR 已合併）→ [報告](reports/issue-850.md)
 - 2026-11-11 — #784 T338：R6-B 自己的名稱位置（code，claude-local，PR 已合併）→ [報告](reports/issue-784.md)
 - 2026-11-11 — #884 T380：查證原版——FishObtainUI 釣魚物品表（resource，claude-local，PR 已合併）→ [報告](reports/issue-884.md)
+- 2026-11-11 — #886 T381：查證原版——HyperText 顏色位元組順序與連結色（resource，claude-local，PR #889 已合併）→ [報告](reports/issue-886.md)
+- 2026-11-11 — #853 T369：R9-I 私商查詢頁（code，claude-local，PR 已合併）→ [報告](reports/issue-853.md)

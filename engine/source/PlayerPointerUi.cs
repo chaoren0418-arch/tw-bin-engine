@@ -19,6 +19,8 @@ public sealed partial class ClientForm {
                 // R2-C: double-click on a ground item = object click (WO §1–2): approach, then whole stack or quantity prompt.
                 if(login.World.Ground.Any(g=>g.ObjectId==target)){StopPlayerPointer("選取地上物品");if(e.Button==MouseButtons.Left&&e.Clicks>=2&&await Pointer.ClickGroundAsync(target,PickupGroundClicked))PlayerPointerActionSubmitted?.Invoke("pickup",target);SyncGround();lastWebState="";PublishWebState();Invalidate();return;}
                 if(e.Button==MouseButtons.Right){
+                    // R9-I（#853）：右鍵店主 → RunInteraction("talk") → OpenPrivateShopFromTalk：原生 UI 開本機 usershop 頁（不送封包），
+                    // 頁上 userShop0／1 才送 C47；--classic-ui 或沒有模板時退回 WinForms「個人商店」分頁。
                     if(login.World.Target?.ShopActive==true){StopPlayerPointer("個人商店");if(Pointer.Refusal(target,true) is {} refused)ShowPlayerPointerRefusal(refused);else if(await RunInteraction(CurrentNpcCommand("talk")))PlayerPointerActionSubmitted?.Invoke("private-shop",target);}
                     else if(await Pointer.ActAsync(target,true))PlayerPointerActionSubmitted?.Invoke("talk",target);
                 }else if(e.Clicks>=2||(ModifierKeys&Keys.Control)!=0||DirectAttackTarget(target)){if(await Pointer.ActAsync(target,false))PlayerPointerActionSubmitted?.Invoke("attack",target);}
