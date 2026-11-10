@@ -57,7 +57,7 @@ public sealed record StatusPiece(StatusPieceKind Kind,string Path,string Element
 public sealed record StatusPage(string Name,StatusPiece? BaseImage,Size Size,int MoveableHeight,IReadOnlyList<StatusPiece> Pieces);
 
 public sealed class RenewalStatusPanel(UiResources? resources=null):IUiMovablePanel,IUiClosablePanel {
-    [UiPanel(177)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,root=>new RenewalStatusPanel(root.Resources));   // T328 (#766): ReNStatusUIEx.xml from the reference client (P-A), loaded inside Load
+    [UiPanel(179)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,root=>new RenewalStatusPanel(root.Resources));   // T328 (#766): ReNStatusUIEx.xml from the reference client (P-A), loaded inside Load
     public const string PanelId="RenewalStatusUI";
     public const string LayoutName="ReNStatusUIEx",RootNode="RenewalStatusUI",WindowNode="Window",TooltipWindow="KarmaTooltip_Window";
     public const string CloseEvent="CloseWindow",TabEvent="ChangeTab",StatUpEvent="StatPointUP",StatDownEvent="StatPointDown",TabSuffix="Tab_Button",PageSuffix="_Window";
