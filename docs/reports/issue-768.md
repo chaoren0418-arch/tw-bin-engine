@@ -94,10 +94,10 @@
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：`pass`，0 錯誤。
 - 依 2026-11-09 本機執行限制，**本機沒有執行任何編出來的程式**。`option-panel` 與既有單元測試交給 PR 的 GitHub Actions CI。
 - 沒有改 `rebuild-lock.json`。
+- **CI（PR #788）全綠**：`dotnet`、`map-continuity`（含 `--module-tests`）、`npc-offline` 都通過。第一輪 `option-panel` 的 82 項檢查都過，但測試本身用空的 Sprite 清單建 `SurfCatalog` 而丟例外；修正測試後通過。
 
 ## 未驗證什麼（待驗證）
 
-- **CI 結果**：`option-panel` 是否全綠，看 PR 的 CI。
 - **實機畫面（交給 Codex）**：kor25 的 OptionUI 版面與 png 放到 TW16 是否正確。依據只有「元件名稱與 TW16 綁定函式 `sub_919F30`／`sub_919170` 相符」（ui-layout.md），這點是**推測**。
 - **推測項目**（綁定函式本輪沒有反編譯），寫在 `OptionPanel.cs` 檔頭：
   - 座標相對父元素，沒寫 X／Y 時算 0
