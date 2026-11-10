@@ -356,3 +356,4 @@
 - 2026-11-11 — #824 T360：R8-E list.spr 附加層（code，claude-local，PR 已合併）→ [報告](reports/issue-824.md)
 - 2026-11-11 — #894 T-plan：M7 補列 T305–T383，同步 M6／M7 狀態（plan，claude-chat，PR 已合併）→ [報告](reports/issue-894.md)
 - 2026-11-11 — #891 T383：R10-B HyperText 顏色修正（FU11 D1–D7）（code，claude-local，PR 已合併）→ [報告](reports/issue-891.md)
+- 2026-11-11 — #888 T382：R10-A FishObtainUI 清單（背包尾段旗標＋desc id 表）（code，claude-local，PR 已合併）→ [報告](reports/issue-888.md)

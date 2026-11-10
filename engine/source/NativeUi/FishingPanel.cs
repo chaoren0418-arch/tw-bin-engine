@@ -26,7 +26,8 @@ namespace P06.NativeUi;
 // template id — docs/protocol/fishing.md — so there is no data source), ReelGuage_Image AniGauge (sub_E65510 takes its
 // duration from a TW16 auto-fishing message object; 3.81 has only C62/C164/S158/S119/S71 with no duration or state field,
 // K1), Tooltip children (string-table tooltips, not wired in this window). FishingNet (已驗證 sub_E65B00) sends no packet:
-// it toggles the FishObtainUI window (FishObtainPanel.cs; its list stays hidden until the fishing item table is known, #818).
+// it toggles the FishObtainUI window (FishObtainPanel.cs). Its list is the inventory filtered by the fishing desc-id table
+// (FishObtainTable.cs, unk_1542864, 已驗證 FU10§1): filled only by S5/S15 tail flag bit 3, which 3.81 never sets → empty list (R10-A #888).
 // FrameSurf equals BaseSurf in the reference XML and is not drawn twice.
 
 /// <summary>One surf reference "6102;1" → Id 6102, Flag 1 (flag meaning 待驗證).</summary>

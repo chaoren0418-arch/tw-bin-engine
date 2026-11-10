@@ -8,6 +8,8 @@ public sealed record InventoryItem(uint ObjectId,ushort DescriptionId,byte UseTy
     private ItemStatus status=ItemStatus.Parse(StatusHex);
     public string StatusHex {get=>statusHex;init{statusHex=value;status=ItemStatus.Parse(value);}}
     public ItemStatus Status=>status;
+    /// <summary>R10-A（#888）：尾段延伸區塊 +10 旗標 bit 3（sub_518C80）。3.81 尾段只有 10 byte → 永遠 false。</summary>
+    public bool FishObtainFlag {get;init;}
     public bool Identified=>(Flags&1)!=0;
     public bool Tradable=>(Flags&2)==0;
     public bool Deletable=>(Flags&4)==0;
@@ -54,10 +56,16 @@ public sealed partial class WorldSession {
     public bool SelectItem(uint? id){if(id!=null&&!inventory.ContainsKey(id.Value))return false;SelectedItemId=id;ItemSelectionRevision++;InventoryRevision++;return true;}
     static string Bytes(LoginReader r,int n)=>Convert.ToHexString(Enumerable.Range(0,n).Select(_=>r.C()).ToArray());
     InventoryItem ReadItem(LoginReader r){
-        uint id=r.D();ushort desc=r.H();byte use=r.C(),charge=r.C();ushort icon=r.H();byte bless=r.C();uint count=r.D();byte flags=r.C();string name=r.S(),status=Bytes(r,r.C()),tail=Bytes(r,11);
+        uint id=r.D();ushort desc=r.H();byte use=r.C(),charge=r.C();ushort icon=r.H();byte bless=r.C();uint count=r.D();byte flags=r.C();string name=r.S(),status=Bytes(r,r.C());
+        // R10-A（#888，FU10§1.1）：尾段＝1 byte 長度 n＋n byte（sub_926B10／sub_926A70）。3.81 固定 n=10。
+        // n ≤ 10 仍讀 10 byte（既有 TailHex＝長度＋10 byte 不變）；n > 10 讀滿 n byte。+10 旗標 bit 3 → FishObtainFlag。
+        byte tailLength=r.C();byte[] tailBody=new byte[Math.Max(10,(int)tailLength)];for(int n=0;n<tailBody.Length;n++)tailBody[n]=r.C();
+        string tail=Convert.ToHexString([tailLength,..tailBody]);
         if(id==0||count>2000000000)throw new ProtocolException("invalid inventory identity/count");
-        return new(id,desc,use,charge,icon,bless,count,flags,name,status,tail){EquipmentLookup=AuthoritativeItemEquipped};
+        return new(id,desc,use,charge,icon,bless,count,flags,name,status,tail){EquipmentLookup=AuthoritativeItemEquipped,FishObtainFlag=FishObtainTable.Flag(tailLength,tailBody)};
     }
+    // sub_E65030 的三個呼叫點（S5／S15）：解析成功後，旗標成立的物品把 desc id 加進表（FishObtainTable.cs）。
+    void AddFishObtain(InventoryItem item){if(item.FishObtainFlag)FishObtainAdd(item.DescriptionId);}
     void RemoveItem(uint id){inventory.TryRemove(id,out _);if(SelectedItemId==id)SelectItem(null);}
     void UpdateItem(uint id,Func<InventoryItem,InventoryItem> change){if(inventory.TryGetValue(id,out var old)){var item=change(old);if(item.Count>2000000000)throw new ProtocolException("invalid item count");if(item.Count==0)RemoveItem(id);else inventory[id]=item;}else UnknownItemUpdates++;}
     bool ReceiveInventory(byte opcode,LoginReader r,byte[] plain){
@@ -65,8 +73,9 @@ public sealed partial class WorldSession {
         switch(opcode){
         case 5:
             int count=r.C();var list=new Dictionary<uint,InventoryItem>();for(int n=0;n<count;n++){var i=ReadItem(r);if(!list.TryAdd(i.ObjectId,i))throw new ProtocolException("duplicate inventory ID in list");}r.Finish();
+            foreach(var i in list.Values)AddFishObtain(i);
             inventory.Clear();foreach(var i in list.Values)if(i.Count>0)inventory[i.ObjectId]=i;SelectItem(null);InventoryLoaded=true;EmptyInventoryFromWorldSync=false;ItemNotice="原服背包已同步";break;
-        case 15:var added=ReadItem(r);r.Finish();if(added.Count>0)inventory[added.ObjectId]=added;else RemoveItem(added.ObjectId);break;
+        case 15:var added=ReadItem(r);r.Finish();AddFishObtain(added);if(added.Count>0)inventory[added.ObjectId]=added;else RemoveItem(added.ObjectId);break;
         case 24:
             uint id=r.D();string name=r.S();uint amount=r.D();string status=Bytes(r,r.C());r.Finish();UpdateItem(id,i=>i with{Name=name,Count=amount,StatusHex=status});ItemNotice="收到原服數量／狀態更新";break;
         case 242:
