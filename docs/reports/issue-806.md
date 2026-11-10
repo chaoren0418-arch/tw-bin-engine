@@ -53,7 +53,7 @@ NPC 頁走 `ClientHyperAction`，伺服器主動頁走 `QueryOption`。兩條路
 - **已驗證（本機）**：`dotnet build engine/source/OfflineClient.csproj -c Release` 編譯成功，本組三個檔案沒有新警告。
   - 這台機器的 WebView2 套件會觸發 NETSDK1130（`rebuild.py --build` 也一樣，與本 PR 無關）。編譯檢查時改用只放在 `scratch/no-winmd.targets` 的 MSBuild hook，透過 `-p:CustomAfterMicrosoftCommonTargets` 掛上，拿掉 `.winmd` 參考。沒有改 repo 的建置檔。
 - **已驗證（本機）**：`py -3 engine/tools/check-no-game-assets.py` → `status: pass`。
-- **交給 CI**：依本機限制，沒有在本機執行任何編譯出來的程式，包含 `--module-tests`。既有單元測試與 `html-actions` 一組的結果，以 PR 上 GitHub Actions 的 CI 為準。
+- **已驗證（CI，PR #828，run 42814123259）**：`dotnet`、`map-continuity`、`npc-offline` 三個 job 全綠。`--module-tests` 全部 `failed: 0`，其中 `html-actions` 共 80 項全部通過。依本機限制，沒有在本機執行任何編譯出來的程式。
 - 沒有改 `rebuild-lock.json`、`WorldSession.cs`、`UiPanelRegistry.cs`、`Program.cs`、`DemoChecks.csproj`。
 
 ## 未驗證什麼
