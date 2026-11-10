@@ -389,12 +389,14 @@ public sealed class EffectVoiceLevels
 public sealed partial class ClientForm
 {
     PacketSoundAssets? packetSoundAssets;
-    readonly EffectVoiceLevels effect6016Levels = new();
+    // 延遲建立：離線測試會用 GetUninitializedObject 建 ClientForm（不跑欄位初始化），仍要能走過這條路徑。
+    EffectVoiceLevels? effect6016Levels;
     // T310：6016 主機與 PumpCombatSfx 同在 UI 計時器執行緒（Program.cs 的 Tick：Pump6016 → PumpCombatSfx），Frames() 的 lane 檢查成立。
     void Apply6016Levels(SoundVolumes volumes)
     {
-        if (login.World.Effects6016 is not { Closed: false } host) { effect6016Levels.Apply(null, [], _ => null); return; }
-        try { effect6016Levels.Apply(P24.HostAudio.AudioApiTransport.Current, host.Frames(), frame => login.World.EffectVoiceLevel(frame, volumes)); }
+        var levels = effect6016Levels ??= new();
+        if (login.World.Effects6016 is not { Closed: false } host) { levels.Apply(null, [], _ => null); return; }
+        try { levels.Apply(P24.HostAudio.AudioApiTransport.Current, host.Frames(), frame => login.World.EffectVoiceLevel(frame, volumes)); }
         catch (InvalidOperationException ex) { System.Diagnostics.Trace.WriteLine("6016 level: " + ex.Message); }
     }
     IEnumerable<CombatSoundInstance> WithPacketSounds(IEnumerable<CombatSoundInstance> existing, long now)
