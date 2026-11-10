@@ -14,6 +14,8 @@ namespace P06.NativeUi;
 //   - 頂部：TOTAL 1991 (19,23)、「合計/持有」(75,22)；合計超過持有時換警告色。
 //   - 數量（§1.5）：「＋」到上限回 0、「－」到 0 跳上限；按下時「＋」畫 555、「－」畫 557；數字鍵 ×10＋數字、Backspace ÷10。
 //   - 送出（§1.6）：把所有數量 >0 的列一次交給來源（商店 C161 一包多筆；修理每列一包 C20）。
+//   - R6-C（T333／#779）私商模式 13（買）／14（賣）：左鈕 BUY／SELL、單價 5 級換色（PriceColor）；
+//     13 的合計 >99999、14 一次 >8 筆由來源（PrivateShopTradeSource）擋下不送，窗不關（sub_A2BA10／sub_A2BB90）。
 // 推測（標明）：底色的顏色、警告色、ADENA 圖與單價的間距、拉桿拖曳換算、數字鍵輸入超過上限時夾到上限、
 //   名稱只畫一行（第二行與截短規則未做）、「＋」「－」鍵（原版鍵碼 4203／4205）對應 Add／Subtract。
 
@@ -48,7 +50,17 @@ public sealed class TradeWindowPanel:IUiMovablePanel,IUiClosablePanel {
     [UiPanel(110)] internal static UiPanelRegistration Registration=>new(TradeWindowPanel.PanelId,TradeWindowPanel.LayoutName,root=>new TradeWindowPanel());   // M7-S (#526)
     public const string PanelId="TRADE_WINDOW";
     public const string LayoutName="uiextra86";
-    public const int ModeBuy=0,ModeSell=1,ModeRepair=6,ModeSpell=7;
+    public const int ModeBuy=0,ModeSell=1,ModeRepair=6,ModeSpell=7,ModePrivateBuy=13,ModePrivateSell=14;
+    /// <summary>
+    /// R6-C（#779）已驗證（Capstone 讀 TW1608262200.bin，sub_A29AA0 VA 0xA2A149–0xA2A2A4）：模式 13／14 的單價字色依 TradeItem +0x5CC（單價）
+    /// 分 5 級——≥1 萬 調色盤[11]、≥10 萬 [40]、≥100 萬 [29]、≥1000 萬 [4]、≥1 億 [34]（dword_1369D70，ChatPalette）；&lt;1 萬與其他模式＝平常字色。
+    /// </summary>
+    public static readonly (uint From,int Palette)[] PriceTiers=[(100000000,34),(10000000,4),(1000000,29),(100000,40),(10000,11)];
+    public static Color? PriceColor(int mode,uint price){
+        if(mode is not (ModePrivateBuy or ModePrivateSell))return null;
+        foreach(var (from,palette) in PriceTiers)if(price>=from)return ChatPalette.Color(palette);
+        return null;
+    }
     public const int VisibleRows=7,RowPitch=36,HitPitch=37,ButtonHit=12;
     public const int NameX=38,NameY=3,DetailY=19,QuantityRight=176,PlusX=180,FillX=24;
     public const int MarkerSurf=24,PlusPressedSurf=555,MinusPressedSurf=557;
@@ -198,7 +210,7 @@ public sealed class TradeWindowPanel:IUiMovablePanel,IUiClosablePanel {
         Draw(LeftButton,Down(Press.Left));Draw(Cancel,Down(Press.Cancel));
         if(view.Holding is long holding){
             Draw(Total);long total=TotalPrice;
-            canvas.DrawText(Money(total)+"/"+Money(holding),Origin.X+TotalText.X,Origin.Y+TotalText.Y,total>holding&&view.Mode==ModeBuy?WarnColor:Color.White,Color.Black);
+            canvas.DrawText(Money(total)+"/"+Money(holding),Origin.X+TotalText.X,Origin.Y+TotalText.Y,total>holding&&view.Mode is ModeBuy or ModePrivateBuy?WarnColor:Color.White,Color.Black);
         }
         var g=canvas.Graphics;
         for(int k=0;k<VisibleRows&&Scroll+k<view.Items.Length;k++){
@@ -215,7 +227,7 @@ public sealed class TradeWindowPanel:IUiMovablePanel,IUiClosablePanel {
             canvas.DrawSurface(pressed==Press.Plus&&pressInside&&pressedRow==i?plusPressed??Plus?.Surface:Plus?.Surface,plus.X,plus.Y);
             if(view.ShowPrice){
                 string pt=Money(item.Price);int pw=TextWidth(pt),px=minus.X-4-pw;
-                canvas.DrawText(pt,px,o.Y+DetailY,color,Color.Black);
+                canvas.DrawText(pt,px,o.Y+DetailY,item.Enabled?PriceColor(view.Mode,item.Price)??color:color,Color.Black);
                 if(view.Holding!=null&&Adena?.Surface is {} adena)canvas.DrawSurface(adena,px-adena.Width-1,o.Y+DetailY);
             }
         }

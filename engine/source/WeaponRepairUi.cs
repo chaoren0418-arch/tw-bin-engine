@@ -16,13 +16,14 @@ public sealed partial class ClientForm {
     void AttachTradeWindow() {
         var panel=NativeUiActive?nativeUiRoot?.Find(TradeWindowPanel.PanelId) as TradeWindowPanel:null;
         if(panel!=null&&panel.Source==null){
-            panel.Source=new TradeWindowSources(new RepairTradeSource(this),new ShopTradeSource(login,ResolveNpcText,()=>World.Walking));
+            // R6-C（#779）：私商清單（模式 13／14）也進同一個窗。
+            panel.Source=new TradeWindowSources(new RepairTradeSource(this),new ShopTradeSource(login,ResolveNpcText,()=>World.Walking),new PrivateShopTradeSource(login,ResolveNpcText,()=>World.Walking));
             // R4-C（#715）：圖示先用 R4-B 的 ItemIconSource（執行期讀原客戶端 Sprite "<icon>.tbt"），讀不到再用舞台的背包 PNG。
             var icons=ItemIconSource.FromRoot(nativeUiRoot);
             panel.IconSource=id=>icons.Get(id)?.Bitmap??ItemIcon(id);
         }
         bool native=panel!=null&&!nativeUiRoot!.Faulted.Contains(panel);
-        login.World.WeaponRepairNativeWindow=native;login.World.ShopNativeWindow=native;
+        login.World.WeaponRepairNativeWindow=native;login.World.ShopNativeWindow=native;login.World.PrivateShopNativeWindow=native;
         if(panel?.Visible==true)Invalidate();
     }
     sealed class RepairTradeSource(ClientForm form):ITradeWindowSource {
