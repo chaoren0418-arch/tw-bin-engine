@@ -74,7 +74,7 @@ partial class Checks {
         host.Board=FakeBoard("article",a20);Sync();host.Pressed.Clear();
         Click(read,Mid(read,0));Click(read,Mid(read,1));
         Check(host.Pressed.Count==0&&read.Visible,"read-window arrows: meaning unverified → no action");
-        Click(read,Mid(read,2));Check(host.Pressed.SequenceEqual(new[]{"close"}),"read window X → close");
+        Click(read,Mid(read,2));Sync();Check(host.Pressed.Count==0&&list.Visible&&!read.Visible,"read window X (678) closes only the read window (R7-F, sub_A59AB0), no packet");
         host.Pressed.Clear();Click(read,Mid(read,3));Sync();
         Check(host.Pressed.Count==0&&list.Visible&&!read.Visible,"read window back-to-list is a local switch, no packet");
         host.Board=FakeBoard("article",a20);Sync();Check(list.Visible,"same article stays behind the list");
