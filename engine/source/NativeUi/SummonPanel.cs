@@ -22,8 +22,13 @@ namespace P06.NativeUi;
 //   框底色＝XML BackColor（0,0,0）不透明；字從框內 (10,6) 起每行 12 px。
 // - 本機設定的原版格式待驗證（寫入函式 sub_C009F0 的呼叫者 sub_59DD30／sub_998840）：本引擎存在 runtime/user/summon-quick.json
 //   （全角色共用；原版是否分角色待驗證）。
-// - 召喚後關窗只在本機藏起這一次請求（不呼叫宿主 Close，以免關掉請求後送出被判為過期）；743 訊息由宿主送出路徑處理。
-// - 拖曳中游標上的怪物圖（SummonDrag_Image）沒畫。
+// - 召喚後關窗只在本機藏起這一次請求（不呼叫宿主 Close，以免關掉請求後送出被判為過期）。
+// R10-O（T399／#914，gap-matrix 15.12.6、FU9§3.1）：
+// - 送出（sub_C00F50）：格子可不可點看面板上次讀到的狀態（停用＝等級公式或魅力）；按下去要送時再用宿主**目前**的等級只檢查等級公式，
+//   不成立 → 宿主顯示 743（ISummonUiHost.LevelTooLow）、不送，然後關窗（FU9「最後一律關窗」；沒送出，所以直接請宿主關掉這一次請求）。
+// - 拖曳中游標上的怪物圖：SummonUI.xml 根層的 Image SummonDrag_Image（Surf="0;2;13"，surf 0＝執行期換成被拖的怪物圖）。
+//   推測（真機再確認 M39）：圖的中心對齊游標；第三欄 13 當透明度 13/32（同 DisableOverSurf 的 13，FU13§4.2）；第二欄 2 的意義沒查。
+//   XML 沒有這個元素或怪物圖缺 surf → 不畫（規則 5）。
 
 public sealed record SummonMonster(int Id,int Level,string Action,int Desc,int Surf,int MinCha,int Type=0);
 
@@ -68,6 +73,8 @@ public interface ISummonUiHost {
     /// <summary>召喚：對 shown 這一次的請求送出 monster；不合法或已過期時由宿主拒絕。</summary>
     void Choose(SummonUiState shown,SummonMonster monster);
     void Close(SummonUiState shown);
+    /// <summary>R10-O：送出前的等級檢查不通過（sub_C00F50）→ 顯示 743。預設不做事（測試宿主）；接著面板會呼叫 Close。</summary>
+    void LevelTooLow(SummonUiState shown,SummonMonster monster){}
 }
 
 /// <summary>R9-M：快速 3 格的本機保存（每格是 summonList 的 monster id，null＝空格）。</summary>
@@ -142,7 +149,10 @@ public sealed class SummonPanel:IUiMovablePanel,IUiClosablePanel {
     Slot[] quick=[],monsterSlots=[];Part[] levelParts=[];
     readonly SummonMonster?[] quickMonsters=new SummonMonster?[QuickSlots];
     SummonUiState? shown;long dismissed=-1;int? selectedLevel;string? pressed,hover;
-    SummonMonster? dragging;bool dragMoved;
+    SummonMonster? dragging;bool dragMoved;Point dragAt;
+    /// <summary>SummonDrag_Image 的透明度（第三欄，/32）；XML 沒有這個元素 → null（不畫拖曳圖）。</summary>
+    int? dragAlpha;
+    public const int DragAlphaScale=32;
 
     public SummonPanel(UiResources? resources=null){this.resources=resources;}
     public ISummonUiHost? Host{get;private set;}
@@ -159,7 +169,16 @@ public sealed class SummonPanel:IUiMovablePanel,IUiClosablePanel {
     /// <summary>視窗本身（命中判斷與拖曳用）。</summary>
     internal Rectangle Window=>new(origin,size);
     /// <summary>視窗＋顯示中的提示框（繪製範圍）。</summary>
-    public Rectangle Bounds=>Visible&&Tooltip is {} tip?Rectangle.Union(Window,tip.Box):Window;
+    public Rectangle Bounds{get{
+        var r=Window;if(!Visible)return r;
+        if(Tooltip is {} tip)r=Rectangle.Union(r,tip.Box);
+        if(DragImage is {} drag)r=Rectangle.Union(r,drag);
+        return r;
+    }}
+    /// <summary>R10-O：拖曳中（已移出按下的格子）的怪物圖位置＝圖中心對齊游標（推測）；沒在拖、XML 沒有 SummonDrag_Image 或缺圖 → null。</summary>
+    internal Rectangle? DragImage=>dragAlpha!=null&&dragging is {} m&&dragMoved&&surf(m.Surf) is {} s
+        ?new Rectangle(dragAt.X-s.Width/2,dragAt.Y-s.Height/2,s.Width,s.Height):null;
+    internal int? DragAlpha=>dragAlpha;
     public bool Visible=>usable&&shown is {Open:true} s&&s.Revision!=dismissed;
     internal bool Usable=>usable;
     internal int? SelectedLevel=>selectedLevel is int i?LevelOf(i):null;
@@ -178,6 +197,7 @@ public sealed class SummonPanel:IUiMovablePanel,IUiClosablePanel {
     internal void Load(UiLayout layout,UiLayout list,Func<int,UiSurface?> surfs){
         surf=surfs;monsters=SummonCatalog.Parse(list);levels=SummonCatalog.Levels(monsters);
         var window=Direct(layout.Root,"Window","SummonMonster_Window");
+        dragAlpha=DragAlphaOf(layout.Root.ChildrenNamed("Image").FirstOrDefault(c=>c.Attr("Name")==DragImageName));
         origin=new(window.Int("X"),window.Int("Y"));moveable=window.Int("Moveable");
         baseSurf=SurfId(window,"BaseSurf");frameSurf=SurfId(window,"FrameSurf");
         var missing=new List<string>();
@@ -227,6 +247,19 @@ public sealed class SummonPanel:IUiMovablePanel,IUiClosablePanel {
         var found=parent.ChildrenNamed(element).Where(c=>c.Attr("Name")==name).Take(2).ToList();
         if(found.Count!=1)throw new UiLayoutException(parent.Layout.FileName,parent.Path,$"{element} Name=\"{name}\" {(found.Count==0?"缺少":"不唯一")}");
         return found[0];
+    }
+    public const string DragImageName="SummonDrag_Image";
+    /// <summary>
+    /// SummonDrag_Image 的 Surf="0;2;13"：第三欄當透明度（0–32，推測）；只有 surf 欄（"0"）→ 不透明 32；元素不存在 → null。
+    /// 第三欄不是 0–32 的整數 → 版面錯誤（不猜）。
+    /// </summary>
+    internal static int? DragAlphaOf(UiNode? image){
+        if(image==null)return null;
+        var parts=image.RequiredAttr("Surf").Split(';');
+        if(parts.Length<3)return DragAlphaScale;
+        if(!int.TryParse(parts[2].Trim(),System.Globalization.NumberStyles.None,System.Globalization.CultureInfo.InvariantCulture,out int a)||a>DragAlphaScale)
+            throw new UiLayoutException(image.Layout.FileName,image.Path,$"{DragImageName} Surf=\"{image.Attr("Surf")}\" 第三欄不是 0–{DragAlphaScale}");
+        return a;
     }
     /// <summary>"0,0,0" → Color；格式不對 → null。</summary>
     static Color? ParseColor(string? raw){
@@ -357,12 +390,22 @@ public sealed class SummonPanel:IUiMovablePanel,IUiClosablePanel {
             using(var brush=new SolidBrush(slot.TooltipBack))canvas.Graphics.FillRectangle(brush,tip.Box);
             for(int i=0;i<tip.Lines.Count;i++)canvas.DrawText(tip.Lines[i],tip.Box.X+TooltipTextX,tip.Box.Y+TooltipTextY+i*TooltipLineHeight,TooltipTextColor);
         }
+        // R10-O：拖曳中的怪物圖畫在最上層（SummonDrag_Image，透明度 dragAlpha/32，推測）。
+        if(DragImage is {} drag&&dragging is {} dm&&surf(dm.Surf) is {} ds&&dragAlpha is int alpha)DrawTranslucent(canvas,ds,drag.Location,alpha);
+    }
+    static void DrawTranslucent(UiCanvas canvas,UiSurface s,Point at,int alpha){
+        if(alpha<=0)return;
+        if(alpha>=DragAlphaScale){canvas.DrawSurface(s,at.X,at.Y);return;}
+        using var attributes=new System.Drawing.Imaging.ImageAttributes();
+        attributes.SetColorMatrix(new System.Drawing.Imaging.ColorMatrix{Matrix33=alpha/(float)DragAlphaScale});
+        canvas.Graphics.DrawImage(s.Bitmap,new Rectangle(at.X,at.Y,s.Width,s.Height),0,0,s.Width,s.Height,GraphicsUnit.Pixel,attributes);
     }
 
     public bool Mouse(UiMouseEvent e,IUiCommands commands){
         if(!Visible)return false;
         if(e.Kind!=UiMouseKind.Wheel)hover=SlotAt(e.Location) is {} h?h.Slot.Part.Key:null;
         if(e.Kind==UiMouseKind.Move){
+            if(dragging!=null)dragAt=e.Location;
             if(dragging!=null&&!dragMoved&&pressed!=null&&!PartRect(pressed).Contains(e.Location))dragMoved=true;
             return pressed!=null||Window.Contains(e.Location);
         }
@@ -370,7 +413,7 @@ public sealed class SummonPanel:IUiMovablePanel,IUiClosablePanel {
         if(e.Kind==UiMouseKind.Down){
             pressed=HitKey(e.Location);dragging=null;dragMoved=false;
             if(pressed!=null&&pressed.StartsWith("quick:",StringComparison.Ordinal)){var q=quickMonsters[int.Parse(pressed[6..])];if(q!=null)Summon(q);}
-            else if(SlotOf(pressed) is {Monster:{} m})dragging=m;
+            else if(SlotOf(pressed) is {Monster:{} m}){dragging=m;dragAt=e.Location;}
             return true;
         }
         if(e.Kind==UiMouseKind.Up){
@@ -397,11 +440,18 @@ public sealed class SummonPanel:IUiMovablePanel,IUiClosablePanel {
     /// <summary>
     /// 召喚（sub_C00F50／sub_C00890）：可用的怪物才送，送出後一律關窗。關窗只在本機藏起這一次請求（不呼叫宿主 Close：
     /// 送出是非同步的，先關請求會讓送出被判過期）；送出成功時原服請求的 revision 也會改變。宿主不能送時不動作、窗保留。
+    /// R10-O：送之前用宿主目前的等級再檢查一次等級公式（只看等級，FU9§3.1）；不成立 → 743（宿主顯示）、不送、關窗（請宿主關請求）。
+    /// 宿主的請求已換成別次（revision 不同）或目前沒有等級 → 不動作。
     /// </summary>
     void Summon(SummonMonster m){
         if(shown is not {} s||Host is not {} host||!s.CanSend||!Enabled(m))return;
+        var now=host.State;
+        if(now.Revision!=s.Revision||now.Level==null)return;
+        if(!SendAllowed(now.Level,m)){host.LevelTooLow(s,m);Close();return;}
         host.Choose(s,m);dismissed=s.Revision;Clear();
     }
+    /// <summary>sub_C00F50 的送出檢查：只看等級公式（不看魅力）。沒有等級 → 不送（不推定）。</summary>
+    public static bool SendAllowed(int? level,SummonMonster m)=>level is int lv&&SummonCatalog.RingLevelAllows(lv,m.Action);
     /// <summary>從怪物格拖來放進快速格 i；同一隻已在另一格時兩格互換（推測）。寫入本機設定。</summary>
     void Assign(int i,SummonMonster m){
         int j=Array.FindIndex(quickMonsters,q=>q?.Id==m.Id);

@@ -60,7 +60,19 @@ public sealed partial class ClientForm {
             form.ClearInput("summon-choice");_ = form.login.SendSummonChoice(v,monster.Action);
         }
         public void Close(SummonUiState shown){var v=form.login.SummonSnapshot();if(v.Revision==shown.Revision)form.login.CloseSummon(v);}
+        /// <summary>
+        /// R10-O（#914）：面板送出前的等級檢查不通過（sub_C00F50）→ 743 印進聊天欄（原生 UI 看得到；顏色用預設，原版顏色沒查，推測），
+        /// WinForms 寵物分頁照舊顯示同一行提示（RingSummonAllowed 寫 SummonNotice）。面板接著呼叫 Close 關掉這一次請求。
+        /// </summary>
+        public void LevelTooLow(SummonUiState shown,SummonMonster monster){
+            var v=form.login.SummonSnapshot();if(v.Revision!=shown.Revision)return;
+            var w=form.login.World;
+            w.RingSummonAllowed(monster.Action);
+            w.AddBoardChatNotice(SummonLevelText,null);
+        }
     }
+    /// <summary>743「等級太低而無法召喚怪物」（string-c.tbl；沒有表時 ServerMessageText 的內建字）。</summary>
+    internal static string SummonLevelText=>ServerMessageText.Decode(RingWindowRules.SummonLevelMessage,[]).Text;
     /// <summary>
     /// PetControl 轉接：原服每回一次 anicom／moncom（Pets.cs 存一份新的 PetInfo）就開一次窗。
     /// 第 0 鈕 → 既有 "refresh"（3.81 C103 C_PetMenu，背包仍顯示在 WinForms 寵物分頁）；第 1 鈕 → 既有 attackchr（C125，接 S236／C223）。
