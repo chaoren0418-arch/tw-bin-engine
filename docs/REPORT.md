@@ -328,3 +328,4 @@
 - 2026-11-11 — #821 T357：R8-B 鑑定訊息（code，claude-local，PR 已合併）→ [報告](reports/issue-821.md)
 - 2026-11-11 — #822 T358：R8-C 決鬥指令（code，claude-local，PR 已合併）→ [報告](reports/issue-822.md)
 - 2026-11-11 — #823 T359：R8-D 動作窗（code，claude-local，PR 已合併）→ [報告](reports/issue-823.md)
+- 2026-11-11 — #818 T355：查證原版——Q7-1 到 Q7-14（第六輪需先查證的 36 列）（resource，claude-local，PR 已合併）→ [報告](reports/issue-818.md)
