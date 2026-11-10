@@ -39,6 +39,9 @@
   - 提示：`^`、64 行上限、框的尺寸（ASCII 和雙位元組）、字色、空快速格用 13714、位置、Bounds 包含提示框、底色、停用格也有提示、沒有文字或沒有表時不畫、夾在 800×600 內；
   - 設定檔字串的序列化、反序列化和錯誤格式。
 - 依本機限制，**沒有在本機執行任何測試**；結果看 PR 的 CI。
+- PR #875 CI（run 42884675012／42884675121）：`dotnet`、`map-continuity`、`npc-offline` 全綠。
+  - `summon-window`：pass（76 checks）；`summon-panel`：pass（58）；`native-ui-stack-esc`：pass（76）。
+  - 整個 run `"failed": 0`。
 
 ## 未驗證／推測（真機再確認）
 
