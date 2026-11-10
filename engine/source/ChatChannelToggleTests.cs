@@ -47,17 +47,10 @@ static class ChatChannelToggleTests {
         t.Equal(new ChatChannelSettings(true,true,false),ChatChannelPackets.Apply(all,6,0),"6/0 trade off");
         t.Check(!ChatChannelPackets.TryDecode(P(136,0,0),out _,out _),"not C26");
 
-        // 4. 聊天列指令（格式推定）。
-        t.Equal(new ChatChannelCommand(ChatChannelKind.World,false),ChatChannelCommands.Parse("/off 全體"),"/off 全體");
-        t.Equal(new ChatChannelCommand(ChatChannelKind.Whisper,true),ChatChannelCommands.Parse("/on 密語"),"/on 密語");
-        t.Equal(new ChatChannelCommand(ChatChannelKind.Trade,false),ChatChannelCommands.Parse("/off  交易 "),"/off 交易 (spaces)");
-        t.Equal(new ChatChannelCommand(ChatChannelKind.Trade,true),ChatChannelCommands.Parse("/on TRADE"),"/on TRADE");
-        t.Equal(null,ChatChannelCommands.Parse("on 全體"),"plain chat not a command");
-        t.Equal(null,ChatChannelCommands.Parse("/online"),"/online not a command");
-        t.Equal(null,ChatChannelCommands.Parse("/say /on 全體"),"/say not a command");
-        t.Check(ChatChannelCommands.IsCommand("/on"),"bare /on is a command");
-        t.Throws<ArgumentException>(()=>ChatChannelCommands.Parse("/on"),"bare /on needs channel");
-        t.Throws<ArgumentException>(()=>ChatChannelCommands.Parse("/off 血盟"),"unknown channel");
+        // 4. 聊天列指令：R6-E（#781）改成原版語法，細項在 ChatCommandFollowupTests；舊的 `/on 頻道` 已移除。
+        t.Equal(new ChatChannelCommand(2,false),ChatChannelCommands.Parse("/whisper off"),"/whisper off");
+        t.Equal(null,ChatChannelCommands.Parse("/off 全體"),"/off 全體 no longer a command");
+        t.Equal(null,ChatChannelCommands.Parse("/say /whisper on"),"/say not a command");
         t.Equal("全體聊天：關",ChatChannelCommands.Describe(ChatChannelKind.World,false),"describe uses 開/關");
 
         // 5. 保存位元。
