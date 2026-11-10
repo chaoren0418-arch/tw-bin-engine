@@ -510,28 +510,32 @@ public sealed partial class ClientForm {
     }
     sealed class QuitWindowSource(ClientForm form):IQuitWindowSource {
         public QuitWindowView? Current=>form.login.QuitWindowSnapshot();
-        public void Restart(){
-            var view=form.login.QuitWindowSnapshot();if(view==null)return;
-            // Engine has no counterpart of the original last-combat timestamp: null → server decides (QuitWindowRules.CombatAllows).
-            switch(QuitWindowRules.Restart(view.InWorld,view.Dead,QuitWindowRules.CombatAllows(view.Dead,false,null,Environment.TickCount64))){
-                case QuitWindowRules.RestartKind.DeadRestart:form.login.CloseQuitWindow();_=form.DeathRestart();break;
-                case QuitWindowRules.RestartKind.CharacterSelect:form.login.CloseQuitWindow();form.ClearInput("quit-window-restart");_=form.login.SwitchCharacter(form.login.SessionGeneration,form.login.Revision);break;
-                case QuitWindowRules.RestartKind.CombatBlocked:form.SetSingleActionNotice(QuitWindowRules.Message(QuitWindowRules.RestartCombatMessage));break;
-                // Engine transition: the connection is already closed (C122 sent), so C177 cannot be sent; go back to login.
-                default:form.login.CloseQuitWindow();form.ClearInput("quit-window-relogin");form.CancelLogin(form.login.SessionGeneration,false);break;
-            }
-            form.SyncRecovery();
-        }
-        public void Quit(){
-            var view=form.login.QuitWindowSnapshot();if(view==null)return;
-            switch(QuitWindowRules.Quit(view.InWorld,QuitWindowRules.CombatAllows(view.Dead,false,null,Environment.TickCount64))){
-                case QuitWindowRules.QuitKind.Quit:_=form.QuitFromWindow();break;
-                case QuitWindowRules.QuitKind.CombatBlocked:form.SetSingleActionNotice(QuitWindowRules.Message(QuitWindowRules.QuitCombatMessage));break;
-                default:form.login.CloseQuitWindow();form.BeginInvoke(new Action(form.Close));break;   // original: exit(0)
-            }
-        }
-        public void Close(){form.login.CloseQuitWindow();form.SyncRecovery();}
+        public void Restart()=>form.QuitWindowRestart();
+        public void Quit()=>form.QuitWindowQuit();
+        public void Close()=>form.QuitWindowClose();
     }
+    // QUIT_WINDOW actions shared by the native panel and the R5-I WinForms fallback (QuitFallbackUi.cs).
+    void QuitWindowRestart(){
+        var view=login.QuitWindowSnapshot();if(view==null)return;
+        // Engine has no counterpart of the original last-combat timestamp: null → server decides (QuitWindowRules.CombatAllows).
+        switch(QuitWindowRules.Restart(view.InWorld,view.Dead,QuitWindowRules.CombatAllows(view.Dead,false,null,Environment.TickCount64))){
+            case QuitWindowRules.RestartKind.DeadRestart:login.CloseQuitWindow();_=DeathRestart();break;
+            case QuitWindowRules.RestartKind.CharacterSelect:login.CloseQuitWindow();ClearInput("quit-window-restart");_=login.SwitchCharacter(login.SessionGeneration,login.Revision);break;
+            case QuitWindowRules.RestartKind.CombatBlocked:SetSingleActionNotice(QuitWindowRules.Message(QuitWindowRules.RestartCombatMessage));break;
+            // Engine transition: the connection is already closed (C122 sent), so C177 cannot be sent; go back to login.
+            default:login.CloseQuitWindow();ClearInput("quit-window-relogin");CancelLogin(login.SessionGeneration,false);break;
+        }
+        SyncRecovery();
+    }
+    void QuitWindowQuit(){
+        var view=login.QuitWindowSnapshot();if(view==null)return;
+        switch(QuitWindowRules.Quit(view.InWorld,QuitWindowRules.CombatAllows(view.Dead,false,null,Environment.TickCount64))){
+            case QuitWindowRules.QuitKind.Quit:_=QuitFromWindow();break;
+            case QuitWindowRules.QuitKind.CombatBlocked:SetSingleActionNotice(QuitWindowRules.Message(QuitWindowRules.QuitCombatMessage));break;
+            default:login.CloseQuitWindow();BeginInvoke(new Action(Close));break;   // original: exit(0)
+        }
+    }
+    void QuitWindowClose(){login.CloseQuitWindow();SyncRecovery();}
     async Task QuitFromWindow(){ClearInput("quit-window-quit");if(await login.QuitGame()&&!IsDisposed)BeginInvoke(new Action(Close));}
 
     void SyncRecovery(){
@@ -542,6 +546,7 @@ public sealed partial class ClientForm {
         bool nativeShown=native&&(view.WindowOpen||login.QuitWindowSnapshot()!=null);
         if(nativeShown!=nativeRecoveryShown)Invalidate();
         nativeRecoveryShown=nativeShown;
+        SyncQuitFallback();   // R5-I (#741): WinForms QUIT_WINDOW when no native panel is usable.
         recoveryPanel.Visible=!native&&login.State==LoginState.InWorld&&view.WindowOpen;
         deathReopenButton.Visible=login.State==LoginState.InWorld&&view.Dismissed&&!view.QuitSent&&login.World.OwnDead;
         if(deathReopenButton.Visible){deathReopenButton.Location=new(Math.Max(0,(ClientSize.Width-deathReopenButton.Width)/2),160);deathReopenButton.BringToFront();}
