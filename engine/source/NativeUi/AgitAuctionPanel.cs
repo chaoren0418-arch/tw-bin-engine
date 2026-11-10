@@ -152,7 +152,7 @@ namespace P06.NativeUi {
     public sealed record AgitAuctionScroll(Point Origin,int Start,int Height);
 
     public sealed class AgitAuctionPanel(UiResources? resources=null,Func<AgitAuctionOpenRequest?>? source=null):IUiMovablePanel,IUiClosablePanel {
-        [UiPanel(174)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,root=>new AgitAuctionPanel(root.Resources));   // T323 (#761): AgitAuctionUI.xml from the reference client (P-A), loaded inside Load
+        [UiPanel(174)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,root=>new AgitAuctionPanel(root.Resources){TextResolver=RefClientTextSource.Resolver(root.Resources)});   // T323 (#761): AgitAuctionUI.xml from the reference client (P-A), loaded inside Load
         public const string PanelId="AgitAuctionUI";
         public const string LayoutName="AgitAuctionUI",WindowNode="Window",WindowName="Agitmap_Window";
         public const string ExitEvent="Exit_AgitWin",RowEvent="Item_AuctionList",HouseEvent="Auction_AgitWin",ScrollEvent="Scroll_AuctionList",ListEvent="List_AgitWin",ListControl="Auction_List";
@@ -740,7 +740,7 @@ namespace P06.NativeUi {
     /// </summary>
     public sealed class AgitAuctionInfoPanel(UiResources? resources=null,Func<AgitAuctionOpenRequest?>? auction=null,Func<AgitAuctionInfoRequest?>? source=null):AgitSubPanel(resources) {
         [UiPanel(184)] internal static UiPanelRegistration Registration=>new(PanelId,AgitAuctionPanel.HostLayout,
-            root=>new AgitAuctionInfoPanel(root.Resources,()=>root.Find(AgitAuctionPanel.PanelId) is AgitAuctionPanel a&&a.Visible?a.Shown:null));   // R7-C (#805)
+            root=>new AgitAuctionInfoPanel(root.Resources,()=>root.Find(AgitAuctionPanel.PanelId) is AgitAuctionPanel a&&a.Visible?a.Shown:null){TextResolver=RefClientTextSource.Resolver(root.Resources)});   // R7-C (#805)
         public const string PanelId="AgitAuctionUI/AuctionInfo_Window",XmlWindow="AuctionInfo_Window",InfoLabel="Info_Label",BidEvent="Bid_AuctionWin";
         public override string Id=>PanelId;
         public override string WindowName=>XmlWindow;
@@ -800,7 +800,7 @@ namespace P06.NativeUi {
     /// The window stays at the XML X/Y (0,0) and is dragged by its Moveable strip (推測: the original may centre it).
     /// </summary>
     public sealed class AgitBidPanel(UiResources? resources=null):AgitSubPanel(resources),IUiMovablePanel,IUiTextInput {
-        [UiPanel(189)] internal static UiPanelRegistration Registration=>new(PanelId,AgitAuctionPanel.HostLayout,root=>new AgitBidPanel(root.Resources));   // R7-C (#805)
+        [UiPanel(189)] internal static UiPanelRegistration Registration=>new(PanelId,AgitAuctionPanel.HostLayout,root=>new AgitBidPanel(root.Resources){TextResolver=RefClientTextSource.Resolver(root.Resources)});   // R7-C (#805)
         public const string PanelId="AgitAuctionUI/Bid_Window",XmlWindow="Bid_Window",ApplyHtml="agapply";
         public const string PriceLabel="CurPrice_Label",PriceEdit="Price_Edit",OkEvent="Ok_BidWin",CancelEvent="Cancel_BidWin",ExitEvent="Exit_BidWin",
             MinusEvent="Minus_BidWin",PlusEvent="Plus_BidWin",EditEvent="PriceEdit_BidWin";

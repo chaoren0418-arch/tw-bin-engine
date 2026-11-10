@@ -60,7 +60,7 @@ public sealed record StatInfoRow(string Name,string? LabelName,string? LabelKind
     Point ValueOffset,Size ValueSize,Color LabelColor,Color ValueColor,string ValueHAlign,string ValueVAlign,string LabelVAlign);
 
 public sealed class StatInfoPanel(UiResources? resources=null,UiRoot? root=null):IUiMovablePanel,IUiClosablePanel {
-    [UiPanel(182)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,r=>new StatInfoPanel(r.Resources,r));   // T325 (#763): StatInfoUI.xml from the reference client (P-A), loaded inside Load
+    [UiPanel(182)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,r=>new StatInfoPanel(r.Resources,r){TextResolver=RefClientTextSource.Resolver(r.Resources)});   // T325 (#763): StatInfoUI.xml from the reference client (P-A), loaded inside Load
     public const string PanelId="StatInfoUI";
     public const string LayoutName="StatInfoUI",RootNode="StatInfoUI",WindowName="BonusStatusTooltip_Window",HostLayout="uistatus86";
 
