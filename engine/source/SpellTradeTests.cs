@@ -79,6 +79,14 @@ static class SpellTradeTests {
         t.Check(SpellTradeProtocol.TryDecodeBuyList(BuyList(6000,3,3))==null,"duplicate index → null (main parser reports it)");
         t.Check(SpellTradeProtocol.TryDecodeBuyList(P([41],Le32(6000),Le16(3),Le32(1),Le32(2)))==null,"truncated → null (15 bytes pad to 16; third D runs past the end)");
         t.Check(SpellTradeProtocol.TryDecodeBuyList(ExchangeList(1))==null,"other opcode → null");
+        // R9-G：word_136D548（VA 0x136D548／FO 0xF6BD48，236 個 word；FU9§11.1 的前段值）。
+        var icons=SpellTradeProtocol.SpellIcons;
+        t.Equal(236,icons.Length,"icon table = 236 words (0x136D720 is another table)");
+        t.Equal(190,icons.Count(v=>v!=0),"190 non-zero icons");
+        t.Equal(300220L,icons.Sum(v=>(long)v),"table sum (re-read from FO 0xF6BD48)");
+        t.Equal("383,384,385,386,387,657,663,775,388",string.Join(",",icons.Take(9)),"head 0–8 (FU9§11.1)");
+        t.Check(icons[23]==0&&icons[79]==5737&&icons[80..86].All(v=>v==0)&&icons[86]==1624&&icons[96]==1097&&icons[111]==4471&&icons[229]==6501&&icons[230..].All(v=>v==0),"spot values 23/79/80–85/86/96/111/229/tail");
+        t.Check(SpellTradeProtocol.SpellIcon(-1)==0&&SpellTradeProtocol.SpellIcon(236)==0&&SpellTradeProtocol.SpellIcon(int.MaxValue)==0&&SpellTradeProtocol.SpellIcon(0)==383,"out of table → 0");
         // 空清單頁依外型（SS2§1.2）。
         t.Equal("GerengEv3",WorldSession.SpellBuyEmptyPage(237),"gfx 237 → GerengEv3");
         t.Equal("Sedia1",WorldSession.SpellBuyEmptyPage(2820),"gfx 2820 → Sedia1");
@@ -102,7 +110,8 @@ static class SpellTradeTests {
         t.Equal("6000,6000,24000,54000",string.Join(",",view.Items.Select(i=>i.Price)),"price = basis × ((index>>3)+1)²");
         t.Equal("初級治癒術,光箭,中級治癒術,極光雷電",string.Join(",",view.Items.Select(i=>i.Name)),"names from skill table (skillId = index + 1)");
         t.Equal("1,0,1,1",string.Join(",",view.Items.Select(i=>i.Maximum)),"quantity limit 1; learned skill 4 disabled");
-        t.Check(view.Items[1] is {Enabled:false}&&view.Items.All(i=>i.Icon==0),"learned row disabled; no item icon");
+        t.Check(view.Items[1] is {Enabled:false},"learned row disabled");
+        t.Equal("383,386,388,393",string.Join(",",view.Items.Select(i=>i.Icon)),"R9-G: row icon = word_136D548[index] (learned row keeps its icon)");
         // 舊路徑仍驗證：已學、數量 ≠ 1、版本不符都不送。
         src.Submit([new(3,1)],view.Revision);t.Equal(1,sent.Count,"learned skill never sent");
         src.Submit([new(0,2)],view.Revision);t.Equal(1,sent.Count,"count 2 never sent");
@@ -157,7 +166,8 @@ static class SpellTradeTests {
         t.Check(view is {Mode:TradeWindowPanel.ModeSpell,ShowPrice:false,Holding:null,CanSubmit:true},"S13 → TRADE_WINDOW mode 7, no price, no total",view);
         t.Check(view!=null&&SpellTradeProtocol.IsExchangeRevision(view.Revision),"op 175 revision odd");
         t.Equal("5,12",string.Join(",",view!.Items.Select(i=>i.Id)),"already learned skill 10 (index 9) skipped (SS2§1.2)");
-        t.Check(view.Items.All(i=>i is {Price:0,Maximum:1,Enabled:true,Icon:0}),"rows: price 0, limit 1");
+        t.Check(view.Items.All(i=>i is {Price:0,Maximum:1,Enabled:true}),"rows: price 0, limit 1");
+        t.Equal("657,392",string.Join(",",view.Items.Select(i=>i.Icon)),"R9-G: op 175 row icon = word_136D548[index]");
         int n=sent.Count;
         src.Submit([new(5,1)],view.Revision^1);t.Equal(n,sent.Count,"op 44 revision never sends C191");
         src.Submit([new(99,1)],view.Revision);t.Equal(n,sent.Count,"index not in list never sent");
@@ -169,6 +179,10 @@ static class SpellTradeTests {
         // 關閉：CANCEL／X 關清單，不送封包。
         w.Receive(ExchangeList(7),"offline");t.Check(src.Current is {Items.Length:1},"new list");n=sent.Count;
         src.Close();t.Equal("closed",w.SpellExchangePhase,"close clears the offer");t.Equal(n,sent.Count,"close sends nothing");t.Check(src.Current==null,"no view after close");
+        // R9-G：表內 0（索引 23、80）與表外索引（300）都給圖示 0（不查資源、不畫）。
+        w.Receive(ExchangeList(23,80,300),"offline");
+        t.Equal("0,0,0",string.Join(",",src.Current?.Items.Select(i=>i.Icon)??[]),"R9-G: zero entry / out-of-table index → icon 0");
+        src.Close();
         // 不在世界中不給內容。
         Set(c,"State",LoginState.Faulted);w.Receive(ExchangeList(8),"offline");t.Check(src.Current==null,"not in world → no window");
     }
