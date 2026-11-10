@@ -41,7 +41,8 @@
 
 - **已驗證（本機）**：`dotnet build engine/source/OfflineClient.csproj -c Release` 0 個錯誤；本次改到的檔案沒有新警告。本機 SDK 對 WebView2 winmd 會報 NETSDK1130（既有環境問題，#676–#706 都遇過，與本次修改無關），所以編譯時暫時加了 `scratch/t847/nowinmd.targets`（未入 git）並把 NuGet 套件還原到 `scratch/t847/nuget2`。
 - **已驗證**：`python engine/tools/check-no-game-assets.py` → `pass`（4330 檔，0 錯誤）。
-- **待 CI**：新的產品內離線測試 `[WorldModuleTest("chat-command-r9c")]`（追加在既有的 `ChatCommandFollowupTests.cs`，類別 `ChatCommandR9cTests`），依規定本機不執行，交給 GitHub Actions 的 `--module-tests`。內容：
+- **已驗證（CI，PR #869）**：`dotnet`、`map-continuity`、`npc-offline` 全綠；`--module-tests` 的 `chat-command-r9c` pass（108 個檢查，0 失敗），既有模組測試全部 pass。第一次 push 時本測試因為自己的角色名稱和選取的角色不同而在建立測試資料時丟例外（測試本身的問題），改正後通過。
+- 新的產品內離線測試 `[WorldModuleTest("chat-command-r9c")]`（追加在既有的 `ChatCommandFollowupTests.cs`，類別 `ChatCommandR9cTests`），依規定本機不執行，交給 GitHub Actions 的 `--module-tests`。內容：
   1. 指令字與別名、非指令、`Describe`、不與 `/chatparty`、`/duel`、`/who` 等重疊；
   2. `CodeText` 各情況與 S161 type 0／2 解碼；
   3. id 0 系統文字去 `\fY`、換 `!`／`^`，公告分類不變；
