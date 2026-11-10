@@ -23,7 +23,8 @@ public sealed partial class ClientForm {
         tradeInvite.Click+=async(_,_)=>await RunTrade(new("invite",login.World.TradeRevision,login.World.WorldEpoch,login.World.TradeGeneration));
         foreach(var (button,cmd) in new[]{(tradeAccept,"accept"),(tradeReject,"reject"),(tradeConfirm,"confirm"),(tradeCancel,"cancel"),(tradeDismiss,"dismiss")})button.Click+=async(_,_)=>{if(displayedTrade!=null)await RunTrade(displayedTrade with{Command=cmd});};
         tradeAdd.Click+=async(_,_)=>{if(displayedTrade!=null&&tradeInventory.SelectedItem is TradeInventoryChoice item)await RunTrade(displayedTrade with{Command="add",Item=item.Id,Count=(uint)tradeQuantity.Value});};
-        tradeInventory.SelectedIndexChanged+=(_,_)=>{if(tradeInventory.SelectedItem is TradeInventoryChoice item){tradeQuantity.Maximum=Math.Max(1,Math.Min(item.Count,int.MaxValue));tradeQuantity.Value=1;}};
+        // R9-K: the WinForms fallback keeps its quantity box; it now starts at the whole stack, like 140's blank Enter = all.
+        tradeInventory.SelectedIndexChanged+=(_,_)=>{if(tradeInventory.SelectedItem is TradeInventoryChoice item){tradeQuantity.Maximum=Math.Max(1,Math.Min(item.Count,int.MaxValue));tradeQuantity.Value=tradeQuantity.Maximum;}};
     }
     bool TradeVisibleInvite=>login.CanInviteTrade&&login.World.FacingTradeTarget is {} t&&HasVisibleObjectPixel(t.ObjectId)&&!World.Walking;
     async Task<bool> RunTrade(TradeWebCommand c){ClearInput("trade-command");if(c.Command=="invite"&&!TradeVisibleInvite||World.Walking&&c.Command is "invite" or "add" or "confirm")return false;bool accepted=await login.Trade(c.Command,c.Revision,c.Epoch,c.Generation,c.Item,c.Count);SyncTrade();lastWebState="";PublishWebState();return accepted;}
@@ -35,9 +36,10 @@ public sealed partial class ClientForm {
     async Task DispatchTrade(int id,TradeWebCommand c){bool accepted=await RunTrade(c);Reply(id,accepted?TradeDisplayNotice():"交易操作已過期、數量無效或對象不符合；未送出。");}
     // R3-E (#674): with the native UI active, the open trade (S52 … S112) is the TRANSACTION_WINDOW panel (both lists, adena,
     // OK → C71, cancel → C86). R4-C (#715): items are added from the native inventory (ITEM_WINDOW selection + click on the own
-    // list = C37 for the whole stack) and the panel's adena box (C37 adena + amount), so the WinForms panel is hidden completely
-    // while the native window shows the trade. Invitation/result states, the native-UI-off case, a faulted panel and a window the
-    // root closed (IUiClosablePanel → Dismissed) keep the full WinForms panel as the fallback entry.
+    // list), so the WinForms panel is hidden completely while the native window shows the trade. R9-K (#855, FU9§12.1): a stack
+    // (adena included — the engine-only adena box is gone, #818) first asks string 140 (blank Enter = all, Esc = cancel), then C37
+    // with the typed amount; a single item goes straight to C37. Invitation/result states, the native-UI-off case (--classic-ui),
+    // a faulted panel and a window the root closed (IUiClosablePanel → Dismissed) keep the full WinForms panel as the fallback entry.
     bool AttachTransactionWindow(){
         if(!NativeUiActive||NativeUiRoot is not {} root||root.Find(TransactionPanel.PanelId) is not TransactionPanel panel||root.Faulted.Contains(panel))return false;
         panel.Source??=new TransactionSource(this);

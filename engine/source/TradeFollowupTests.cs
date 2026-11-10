@@ -4,7 +4,7 @@ using System.Text.Json;
 using P06.NativeUi;
 namespace P06;
 
-// R4-C（T303／#715）離線測試：TRANSACTION_WINDOW 的物品圖示格、從原生背包選取加物品（C37）、金幣輸入框（C37 金幣＋數量）、
+// R4-C（T303／#715）離線測試：TRANSACTION_WINDOW 的物品圖示格、從原生背包選取加物品（C37；R9-K 起堆疊先問 140，金幣框已移除）、
 // IUiClosablePanel（交易窗送 C86 並讓位給 WinForms；TRADE_WINDOW 記下關閉的清單）、修理多選每列一包 C20（TWP§1.6）、
 // 學魔法舊清單讓位的判斷。只用合成封包／XML／surf／圖示與記憶體送出端；不開遊戲、伺服器、DB，不讀客戶端資源。
 static class TradeFollowupTests {
@@ -60,11 +60,12 @@ static class TradeFollowupTests {
 
     [WorldModuleTest("trade-followup")]
     static void Checks(WorldModuleTestContext t){
-        Contracts(t);Rules(t);AddFromInventory(t);AdenaBox(t);CloseTransaction(t);IconCells(t);CloseTradeWindow(t);RepairBatch(t);SpellYield(t);
+        // R9-K（#855）：金幣框已移除（原 AdenaBox 測試），數量提示見 TradeAmountTests。
+        Contracts(t);Rules(t);AddFromInventory(t);CloseTransaction(t);IconCells(t);CloseTradeWindow(t);RepairBatch(t);SpellYield(t);
     }
 
     static void Contracts(WorldModuleTestContext t){
-        t.Check(typeof(IUiClosablePanel).IsAssignableFrom(typeof(TransactionPanel))&&typeof(IUiTextInput).IsAssignableFrom(typeof(TransactionPanel)),"TransactionPanel: closable + text input (adena box)");
+        t.Check(typeof(IUiClosablePanel).IsAssignableFrom(typeof(TransactionPanel))&&typeof(IUiTextInput).IsAssignableFrom(typeof(TransactionPanel)),"TransactionPanel: closable + text input (140 amount prompt)");
         t.Check(typeof(IUiClosablePanel).IsAssignableFrom(typeof(TradeWindowPanel)),"TradeWindowPanel: closable");
         t.Check(UiPanelRegistry.Panels.Count(p=>p.Id==TransactionPanel.PanelId)==1&&UiPanelRegistry.Panels.Count(p=>p.Id==TradeWindowPanel.PanelId)==1,"both panels still registered once");
     }
@@ -74,17 +75,12 @@ static class TradeFollowupTests {
         t.Equal(1u,TransactionRules.Count("長劍"),"no suffix → 1");
         t.Equal(1u,TransactionRules.Count("x (0)"),"zero suffix → 1");
         t.Equal("test item",new TransactionOffer(0,"test item (5)",0).BareName,"bare name drops the count");
-        t.Equal<uint?>(300,TransactionRules.AdenaAmount("300",1000),"adena amount within held");
-        t.Equal<uint?>(null,TransactionRules.AdenaAmount("1001",1000),"above held → not sent");
-        t.Equal<uint?>(null,TransactionRules.AdenaAmount("0",1000),"zero → not sent");
-        t.Equal<uint?>(null,TransactionRules.AdenaAmount("",1000),"empty → not sent");
-        t.Equal<uint?>(null,TransactionRules.AdenaAmount("3000000000",long.MaxValue),"above int.MaxValue → not sent (C37 count limit)");
     }
 
     static void AddFromInventory(WorldModuleTestContext t){
         var sent=new List<byte[]>();using var c=SeedTrade(sent);Feed(c,Open("target"));
         var v=TransactionView.From(c.World,Resolve)!;
-        t.Check(v.CanAdd&&v.Selected==null&&v.AdenaHeld==1000&&v.AdenaId==Gold&&v.Generation==c.World.TradeGeneration,"view: can add, nothing selected, adena held 1000",v);
+        t.Check(v.CanAdd&&v.Selected==null&&v.Generation==c.World.TradeGeneration,"view: can add, nothing selected",v);
         c.World.SelectItem(Item);
         v=TransactionView.From(c.World,Resolve)!;
         t.Check(v.Selected is {Id:Item,Count:5,Name:"test item"},"native inventory selection (WorldSession.SelectedItemId) → Selected",v.Selected);
@@ -94,7 +90,10 @@ static class TradeFollowupTests {
         p.Mouse(M(UiMouseKind.Move,new(60,60)),cmd);
         t.Check(p.NoticeText.Contains("test item")&&p.NoticeText.Contains("5"),"hover own list with a selection → text frame says what will be added",p.NoticeText);
         Click(p,new(60,60),cmd);
-        t.Check(sent.Count==1&&sent[0].SequenceEqual(TradePackets.Add(Item,5))&&sent[0][0]==37,"click own list → C37 selected item, whole stack",sent.Select(Convert.ToHexString));
+        // R9-K（#855）：堆疊先問 140，空白 Enter＝全部。
+        t.Check(sent.Count==0&&p.Prompt is {Item:Item,Held:5},"click own list with a stack → 140 prompt first, nothing sent",p.Prompt);
+        p.Key(new UiKeyEvent(Keys.Enter,true,false),cmd);
+        t.Check(sent.Count==1&&sent[0].SequenceEqual(TradePackets.Add(Item,5))&&sent[0][0]==37,"blank Enter → C37 selected item, whole stack",sent.Select(Convert.ToHexString));
         t.Equal("adding",c.World.TradeState,"trade waits for S35");
         p.Update(world);Click(p,new(60,60),cmd);
         t.Equal(1,sent.Count,"while adding (CanAdd false) a second click sends nothing");
@@ -105,26 +104,6 @@ static class TradeFollowupTests {
         c.World.SelectItem(null);p.Update(world);Click(p,new(60,60),cmd);
         t.Equal(1,sent.Count,"no selection → nothing sent");
         t.Check(!p.AddSelected(),"AddSelected without selection → false");
-    }
-
-    static void AdenaBox(WorldModuleTestContext t){
-        var sent=new List<byte[]>();using var c=SeedTrade(sent);Feed(c,Open("target"));
-        var p=Panel();p.Source=new LiveSource(c);var world=new UiStaticGameState(InWorld:true);var cmd=new UiNullCommands();p.Update(world);
-        t.Equal(new Rectangle(82,124,84,14),p.AdenaBox,"adena box in the gap between the lists, right-aligned (推測)");
-        t.Check(!p.Char('3'),"typing before focusing the box is not taken");
-        Click(p,new(100,130),cmd);
-        t.Check(p.AdenaFocused&&sent.Count==0,"click box → focus, nothing sent");
-        t.Check(!p.Char('a')&&p.Char('0')&&p.AdenaInput=="0"&&p.Char('3')&&p.AdenaInput=="3"&&p.Char('0')&&p.Char('0')&&p.AdenaInput=="300","digits via WM_CHAR; leading zero replaced; letters refused",p.AdenaInput);
-        t.Check(p.Key(new UiKeyEvent(Keys.Back,true,false),cmd)&&p.AdenaInput=="30","Backspace removes one digit");
-        p.Char('0');
-        t.Check(p.Key(new UiKeyEvent(Keys.Enter,true,false),cmd)&&sent.Count==1&&sent[0].SequenceEqual(TradePackets.Add(Gold,300)),"Enter → C37 adena object + amount",sent.Select(Convert.ToHexString));
-        t.Check(!p.AdenaFocused&&p.AdenaInput=="","box cleared after sending");
-        Feed(c,Offer(0,"$4 (300)"));p.Update(world);
-        t.Equal(300L,p.View!.Adena(0),"S35 adena row counted in the own total");
-        Click(p,new(100,130),cmd);foreach(char ch in "5000")p.Char(ch);
-        t.Check(p.Key(new UiKeyEvent(Keys.Enter,true,false),cmd)&&sent.Count==1&&p.AdenaInput=="5000","more than held → not sent, input kept");
-        t.Check(p.Key(new UiKeyEvent(Keys.Escape,true,false),cmd)&&!p.AdenaFocused&&c.World.TradeState=="open"&&sent.Count==1,"Esc while typing leaves the box only (no C86)");
-        t.Check(p.Key(new UiKeyEvent(Keys.Escape,true,false),cmd)&&sent[^1].SequenceEqual(TradePackets.Cancel()),"second Esc → C86 as before");
     }
 
     static void CloseTransaction(WorldModuleTestContext t){
