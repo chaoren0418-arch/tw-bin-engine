@@ -326,3 +326,4 @@
 - 2026-11-11 — #816 T353：R7-O WidgetSlot 外觀（code，claude-local，PR 已合併）→ [報告](reports/issue-816.md)
 - 2026-11-11 — #820 T356：R8-A 頭上條（code，claude-local，PR 已合併）→ [報告](reports/issue-820.md)
 - 2026-11-11 — #821 T357：R8-B 鑑定訊息（code，claude-local，PR 已合併）→ [報告](reports/issue-821.md)
+- 2026-11-11 — #822 T358：R8-C 決鬥指令（code，claude-local，PR 已合併）→ [報告](reports/issue-822.md)
