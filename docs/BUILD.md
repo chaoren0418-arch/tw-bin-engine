@@ -113,6 +113,16 @@ engine\啟動新版客戶端.cmd --check-only
 
 資料庫與遊戲伺服器由使用者自行管理；這三條指令都不會動它們。
 
+#### 介面開關（T317／#751）
+
+正常產品入口**預設使用原生 UI**（800×600 邏輯畫布）。要切回舊的 WinForms HUD 比對或排錯：
+
+- 直接執行產品：`P11.ClientEngine.exe --normal-product --classic-ui`（或只給 `--classic-ui`）。
+- 經由 launcher（固定只傳 `--normal-product`）：在 stage 根目錄（產品 exe 往上兩層，例如 `engine\`）建立 `runtime\native-ui.json`，內容 `{"nativeUi":false}`。
+- `--native-ui` 仍可使用，效果與預設相同，不會報錯。
+
+細節與優先順序見 [docs/design/native-ui.md](design/native-ui.md) §1.1。
+
 ---
 
 ## 來源核驗（dev）

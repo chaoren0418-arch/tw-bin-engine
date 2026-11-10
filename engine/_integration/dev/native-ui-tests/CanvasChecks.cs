@@ -244,25 +244,29 @@ partial class Checks {
         // --- registry contract.
         Check(UiPanelRegistry.Panels.Select(p=>p.Id).Distinct().Count()==UiPanelRegistry.Panels.Count&&UiPanelRegistry.Panels.All(p=>p.Layout.Length>0&&p.Id.Length>0),"registry ids unique, every entry names its XML");
 
-        // --- switch: default off; settings file / --native-ui turn it on.
+        // --- switch: T317 (#751) default ON for the product; settings file can turn it off; --native-ui on; --classic-ui off.
+        // Pinned to the 4-argument Resolve so the static flags of the running process never leak in.
         {
             string dir=Path.Combine(root,"options");Directory.CreateDirectory(dir);string file=Path.Combine(dir,UiOptions.SettingsFileName);
             File.Delete(file);
-            Check(UiOptions.Resolve(false,file)==UiOptions.Off&&!UiOptions.Resolve(false,null).Enabled,"default off (no settings file)");
-            File.WriteAllText(file,"{\"nativeUi\":true}");var o=UiOptions.Resolve(false,file);
+            Check(UiOptions.Resolve(false,false,file,true)==UiOptions.On&&UiOptions.Resolve(false,false,null,true).Enabled,"T317: default on (no settings file)");
+            Check(UiOptions.Resolve(false,false,file,false)==UiOptions.Off,"diagnostic default (DefaultOn=false) stays off without a settings file");
+            File.WriteAllText(file,"{\"nativeUi\":true}");var o=UiOptions.Resolve(false,false,file,false);
             Check(o.Enabled&&!o.Fill&&o.Source=="settings","settings nativeUi=true → on, fill off by default");
-            File.WriteAllText(file,"{\"nativeUi\":true,\"nativeUiFill\":true}");Check(UiOptions.Resolve(false,file).Fill,"settings nativeUiFill=true → fill");
-            File.WriteAllText(file,"{\"nativeUi\":\"yes\"}");Check(!UiOptions.Resolve(false,file).Enabled,"non-boolean value counts as off");
-            File.WriteAllText(file,"{nativeUi:");Check(!UiOptions.Resolve(false,file).Enabled,"malformed settings counts as off");
-            File.WriteAllText(file,"{\"nativeUi\":false}");var a=UiOptions.Resolve(true,file);
+            File.WriteAllText(file,"{\"nativeUi\":true,\"nativeUiFill\":true}");Check(UiOptions.Resolve(false,false,file,true).Fill,"settings nativeUiFill=true → fill");
+            File.WriteAllText(file,"{\"nativeUi\":false}");var s=UiOptions.Resolve(false,false,file,true);
+            Check(!s.Enabled&&s.Source=="settings","T317: settings nativeUi=false → off even though the default is on");
+            File.WriteAllText(file,"{\"nativeUi\":\"yes\"}");Check(UiOptions.Resolve(false,false,file,true)==UiOptions.On&&UiOptions.Resolve(false,false,file,false)==UiOptions.Off,"non-boolean value is ignored (default stays)");
+            File.WriteAllText(file,"{nativeUi:");Check(UiOptions.Resolve(false,false,file,true)==UiOptions.On&&UiOptions.Resolve(false,false,file,false)==UiOptions.Off,"malformed settings is ignored (default stays)");
+            File.WriteAllText(file,"{\"nativeUi\":false}");var a=UiOptions.Resolve(true,false,file,true);
             Check(a.Enabled&&a.Source=="argument","--native-ui turns it on regardless of the file");
-            bool saved=UiOptions.CommandLine;
+            bool saved=UiOptions.CommandLine,savedClassic=UiOptions.Classic;
             try{
-                UiOptions.CommandLine=false;
+                UiOptions.CommandLine=false;UiOptions.Classic=false;
                 Check(UiOptions.Strip(["--normal-product"]).SequenceEqual(new[]{"--normal-product"})&&!UiOptions.CommandLine,"Strip leaves other arguments alone");
                 Check(UiOptions.Strip(["--native-ui"]).Length==0&&UiOptions.CommandLine,"Strip removes --native-ui (normal entry sees no arguments) and records it");
                 Check(ProductEntry.Normal(UiOptions.Strip(["--native-ui"])),"--native-ui alone still opens the normal product");
-            }finally{UiOptions.CommandLine=saved;}
+            }finally{UiOptions.CommandLine=saved;UiOptions.Classic=savedClassic;}
             File.Delete(file);
         }
 
