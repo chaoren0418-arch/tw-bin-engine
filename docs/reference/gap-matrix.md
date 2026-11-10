@@ -2085,13 +2085,13 @@ R6-D 補充：不同格時用 `ApproachWalk.cs:49` 的通行判斷（FU8§6）�
 - R7-A–O（#803–#817）、R8-A–E（#820–#824）、R9-A–Q（#845–#861）、T378 #862；
 - 查證 FU8（#783）、FU9（#818）、FU10（#884）、FU11（#886）。
 
-還開著的：R10-A #888（PR #897，FishObtainUI 清單）、R10-B #891（PR #893，HyperText 顏色 D1–D7）。依 #880 主控留言，這兩張對應的列標「進行中」（分類 K7），並照它們的目標計入預期結果。
+盤點進行中，R10-A #888（PR #897，FishObtainUI 清單）、R10-B #891（PR #893，HyperText 顏色 D1–D7）也合併了（main `5d8073c3`）。#880 主控留言原本要求把這兩張的列標「進行中」；兩張已在推送前合併，所以本節直接依合併後的程式判定，最後 `檔案:行` 以 `5d8073c3` 為準。
 
 本節同時把 15.10、15.11 的分類變更套進分類表。15.5 的表保留為歷史；計數改用 `rea-scripts/gap_count_r7.py`，它讀 15.3 與本節的狀態變更表，分類只讀本節。`gap_count_r6.py` 改成讀到 15.12 之前就停，所以仍能重現第六輪的數字。
 
 #### 15.12.1 方法
 
-- **判定規則**同 15.1，另外加一條「K7 進行中」：開著的 PR 合併後就沒有已查證的程式差異。
+- **判定規則**同 15.1。原本準備給開著的 PR 用的「K7 進行中」，因為 #888、#891 都已合併，沒有用到。
 - **嚴格套用「已有」**：只要還有「有查證依據、但程式沒做」的子項，該列就歸 K5，不論子項多小，例如 1:52、CreateUI、ExchangeUI。只有推定的子項或只能真機看的差異，不擋「已有」。
 - **逐列核對**：77 列 K5、1 列 K2，以及 15.11 改判的 5 列，分給 4 個唯讀子代理。每個子代理讀該任務報告的「未做／未驗證」，再用 Grep／Read 到產品碼找呼叫點（不含 `*Tests.cs`、`[WorldModuleTest]`、`*Checks.cs`）。
 - **主控複核**：下列「產品沒有呼叫者」的說法，我另外 Grep 複核過：
@@ -2169,8 +2169,12 @@ R6-D 補充：不同格時用 `ApproachWalk.cs:49` 的通行判斷（FU8§6）�
 | 5 | （`TransferMenu` | 部分 | 已有 | #846 | `FieldMapPanel.cs:115` ← `MapCommunicationPanel.cs:133`；1785 的位置是推測 |
 | 5 | `sub_8E66D0` | 部分 | 已有 | #820 | `HpMpState.cs:84`、`:92`、`HpMpPanel.cs:225`；相機原點差等真機（M32） |
 | 5 | `sub_F0E9B0` | 部分 | 已有 | #814 | 同 op 91；物件移除時要不要停單次音效（A04A20）沒查（Q8）（M26） |
+| 1 | 144 | 部分 | 已有 | #849、#850、#891 | ESC、數字框 5073（`HyperTextPanel.cs`）、排版器（`HyperTextLayout.Build`）；顏色改 COLORREF（`HyperTextLayout.cs:53` `Order=Bgr`）、預設字色 `0xEEEDEE`（`:45`）。`pN`、`<subHtml>`、`<time>`、`<date>` 沒接，用量沒統計（Q8-3）（M34） |
+| 4.1 | HyperTextUI | 部分 | 已有 | #849、#850、#891 | 同 op 144（M34） |
+| 4.1 | FishingUI | 部分 | 已有 | #860、#888 | `FishingNet` 開關 FishObtainUI、收竿前問 1516（`FishingPanel.cs:279`、`:291–297`）；`AniGauge` 子項是 K1（M21） |
+| 4.1 | UserObtainUI | 部分 | 已有 | #698、#888 | 取得清單沒有 `ItemsListClick` 回呼（FU9§6）。FishObtainUI 的表由背包尾段旗標填（`Inventory.cs:65`、`FishObtainTable.cs`），清單只列表內物品（`FishObtainPanel.cs:171`），照原版 3.81 下是空清單（FU10§1）（M21） |
 
-未列出的列狀態不變。合計「部分→已有」**54 列**，其中 2 列（1:2、1:238）是 15.11 的結果。15.11 判「已有」的 4:UserObtainUI，因為同列的 FishObtainUI 清單由 #888 處理，本輪改歸 K7。
+未列出的列狀態不變。合計「部分→已有」**58 列**，其中 2 列（1:2、1:238）是 15.11 的結果。15.11 判「已有」的 UserObtainUI，同列的 FishObtainUI 要等 #888，所以本輪和 #888 一起算。
 
 #### 15.12.3 統計（第七輪）
 
@@ -2178,14 +2182,14 @@ R6-D 補充：不同格時用 `ApproachWalk.cs:49` 的通行判斷（FU8§6）�
 
 | 節 | 已有 | 部分 | 缺 | 其中需先查證 | 其中伺服器不支援／不建議 | 其中可直接補 |
 |---|---:|---:|---:|---:|---:|---:|
-| 1. 收包：第一組 dispatch | 98 | 6 | 10 | 0 | 9 | 1 |
+| 1. 收包：第一組 dispatch | 99 | 5 | 10 | 0 | 9 | 1 |
 | 2. 收包：第二組 | 8 | 1 | 4 | 0 | 4 | 0 |
 | 3. 送包：`sub_951F80` 名稱表 | 43 | 4 | 5 | 0 | 5 | 0 |
-| 4. UI 視窗 | 27 | 25 | 21 | 0 | 20 | 1 |
+| 4. UI 視窗 | 30 | 22 | 21 | 0 | 20 | 1 |
 | 5. 物件、技能、道具、地圖事件與繪製的處理函式 | 33 | 4 | 1 | 0 | 1 | 0 |
-| **合計** | **209** | **40** | **41** | 0 | 39 | 2 |
+| **合計** | **213** | **36** | **41** | 0 | 39 | 2 |
 
-和第六輪（155／94／41）比：「部分→已有」54 列，沒有「缺」改變狀態。15.11 寫的「已有 158」是假設 UserObtainUI 也改「已有」；本輪把它改歸 K7，所以只算 2 列。
+和第六輪（155／94／41）比：「部分→已有」58 列，「缺」的列沒有變。
 
 「其中可直接補」的 2 列是腳本依原表文字判斷的：1:132 與 4:BookmarkMemoryWindowUI。兩列在下表都歸 K1。
 
@@ -2196,7 +2200,6 @@ R6-D 補充：不同格時用 `ApproachWalk.cs:49` 的通行判斷（FU8§6）�
 | K1 伺服器不支援／不建議 | 1:108；1:132；2:42、67、83、215；3:C_ATTACK(43)；3:C_TELEPORT(226)；4:LoadingWindowUI；4:NpcDialogUI；4:CommunityUI；4:`PetInventoryWindow`；4:`TelTablesWindow`；4:`AgitWindow`；4:BookmarkMemoryWindowUI；4:PopUpUI；4:GameRankingUI；4:MapUI | 15.5 的 K1 不變，另加 15.11 的 2 列：<br>• 1:132：3.81 沒有 `S_UseMap`，FU9§5。<br>• MapUI：本機資源與 BIN 都用不到，FU9§7.1。<br>「缺」裡已標「伺服器不支援／不建議」的 39 列預設歸 K1，不逐列列出 |
 | K2 需先查證 | 1:127；4:StatInfoUI；5:`sub_87C890` | • 1:127：3.81 倉庫怎麼輸入數量，只能真機（M36）或脫殼的 `LiTo.bin` 確認，**不能離線完成**。<br>• StatInfoUI：22 列的值都空白（`StatInfoPanel.cs:94–100`），數值來源 `sub_EB85F0` 沒追，可以離線查（Q8-1）。<br>• `sub_87C890`：`ListSprLayers` 沒有產品呼叫者。`cloth` 等真機（M31）；`altdir` 換 gfx 的時機、`stride` 的表 `byte_1379D40` 都沒查，可以離線查（Q8-2） |
 | K5 仍有 code 差異 | 1:92；1:29；1:52；3:C_INVITE_PARTY(82)；3:C_ADD_BUDDY(138)；4:AgitAuctionUI；4:LoginUI；4:`HpMpWindow`；4:BehaviourUI；4:BookmarkWindowUI；4:FriendUI；4:`ExcludeWindow`；4:PersonalShopUI；4:ExchangeUI；4:SelectUI；4:CreateUI；4:OptionUI；5:（名稱；5:`sub_5001C0`；5:music.def | 20 列，都能離線寫程式，逐列見 15.12.5；分到 15.12.6 的 R10-C–O |
-| K7 進行中 | 1:144；4:HyperTextUI；4:FishingUI；4:UserObtainUI | • #891（R10-B）：main 的 `HyperTextLayout.cs:40` 仍是 `Order=Rgb`，D2–D7 也還沒做。PR 合併後，1:144 與 HyperTextUI 就沒有已查證的差異（M34）。<br>• #888（R10-A）：FishObtainUI 清單與捲軸（FU10§1）。PR 合併後，FishingUI 與 UserObtainUI 只剩真機項目（M21）。`AniGauge` 子項是 K1 |
 
 各類列數（`gap_count_r7.py` 輸出）：
 
@@ -2205,17 +2208,15 @@ R6-D 補充：不同格時用 `ApproachWalk.cs:49` 的通行判斷（FU8§6）�
 | K1 | 11 | 5 | 7 | 30 | 1 | 13 | 41 | 54 |
 | K2 | 1 | 0 | 0 | 1 | 1 | 3 | 0 | 3 |
 | K5 | 3 | 0 | 2 | 12 | 3 | 20 | 0 | 20 |
-| K7 | 1 | 0 | 0 | 3 | 0 | 4 | 0 | 4 |
 
 **290 列的去向**：
 
 | 去向 | 列數 | 和第六輪（套 15.10／15.11 前）比 |
 |---|---:|---|
-| 已有 | 209 | +54（R6–R9 與查證補上 52 列，加 15.11 的 2 列） |
+| 已有 | 213 | +58（R6–R10 與查證補上 56 列，加 15.11 的 2 列） |
 | K1 伺服器不支援 | 54 | +2（1:132、MapUI） |
 | K2 需先查證 | 3 | −33（其中只有 1:127 要等真機，另 2 列可離線查） |
 | K5 仍有 code 差異 | 20 | −27 |
-| K7 進行中（#888、#891） | 4 | +4 |
 | **合計** | **290** | |
 
 #### 15.12.5 「部分」與「缺」的逐列說明（K1 之外）
@@ -2247,8 +2248,6 @@ K1 的 54 列，理由見 15.12.4 與 15.5，本輪沒有變動，這裡不逐�
 | 1:127 | K2 | 3.81 倉庫的堆疊數量怎麼輸入。現在點一列就選整疊（`WarehouseWindowPanel.cs:153–167`） | `WarehouseWindowPanel.cs` | 不能，等真機（M36）或脫殼 `LiTo.bin` |
 | 4:StatInfoUI | K2 | 22 列數值沒有來源，全部空白；`sub_EB85F0` 沒追 | `NativeUi/StatInfoPanel.cs:94–100`、`BonusStatsUi.cs:52` | 查完才能轉（Q8-1）；若數值要向伺服器要，改 K1 |
 | 5:`sub_87C890` | K2 | 105 `cloth`、111 `stride`、112 `altdir` 已解析（`MagicRendering.cs:71`），但 `ListSprLayers` 沒接到 `ComposeObjects`（`ClothVerified=false`） | `ObjectRendering.cs:123–131` | `stride`／`altdir` 查完（Q8-2）能轉；`cloth` 等真機（M31） |
-| 1:144、4:HyperTextUI | K7 | #891 合併後沒有已查證的差異。R9-F 沒接的標記（`pN`、`<subHtml>`、`<time>`、`<date>`、tooltip 懸停）用量沒統計，列在 Q8-3 | `NativeUi/HyperTextLayout.cs` | 進行中（#891） |
-| 4:FishingUI、4:UserObtainUI | K7 | #888 補上背包尾段旗標、`FishObtainTable.cs`、清單與捲軸；照原版，3.81 下會是空清單 | `Inventory.cs`、`NativeUi/FishObtainPanel.cs` | 進行中（#888） |
 
 #### 15.12.6 第七批 code 任務分組（R10-C–O，13 組）
 
@@ -2257,7 +2256,7 @@ K1 的 54 列，理由見 15.12.4 與 15.5，本輪沒有變動，這裡不逐�
 - 新封包、新面板、新測試一律用自動發現。
 - 不改 `WorldSession.cs`、`UiPanelRegistry.cs`、`Program.cs`、`DemoChecks.csproj`；PR 不改 `rebuild-lock.json`。
 - 新面板要實作 `IUiClosablePanel`。
-- R10-A（#888）、R10-B（#891）已開。它們用的 `Inventory.cs`、`NativeUi/FishObtainPanel.cs`、`NativeUi/FishingPanel.cs`、`NativeUi/HyperTextLayout.cs`、`NativeUi/HyperTextPanel.cs`，本批不碰。
+- R10-A（#888）、R10-B（#891）已合併，本批的檔案沒有和它們重疊。
 - 驗收照 #503 暫行政策：CI 編譯與既有測試綠，每組另加自己的離線測試（新檔）。
 
 | 組 | 目標（列） | 可改的檔案 | 依賴 |
@@ -2312,7 +2311,7 @@ K1 的 54 列，理由見 15.12.4 與 15.5，本輪沒有變動，這裡不逐�
 - 可以馬上派：R10-C、D、F、G、H、K、L、N、O，以及真機前置。
 - R10-E 在 R10-D 之後，而且 S48 要先裁定。
 - R10-I 在 R10-H 之後；R10-J 在 R10-F、R10-I 之後。
-- R10-M 在 #888 合併之後。
+- R10-M 隨時可以派（#888 已合併）。
 - Q8 隨時可以開。
 
 #### 15.12.7 真機清單 M1–M40 的測法（給之後 smoke 核對用，本輪不執行）
@@ -2341,7 +2340,7 @@ K1 的 54 列，理由見 15.12.4 與 15.5，本輪沒有變動，這裡不逐�
 | M18 | 開血盟倉庫紀錄，伺服器送 S_EVENT 117（`ClanWarehouseHistoryUi.cs:35`）。看關閉鈕 9183，Trace 應有 `surf-ref 9183 ->` |
 | M19 | 讓伺服器送 S43 kind 1（`CharResetUi.cs:56`、`:68`），開原生重置窗：看 800×600、進度 On/Off、51 級以上按 Up、Esc 提示。Trace 看 `surf-ref 8670 ->`；改開 WinForms 時有 `reset-stat-ui 原生重置窗已停用`（`:100`） |
 | M20 | 和盟屋拍賣公告板對話，收到 S156 開清單（`AgitAuctionPanel.cs:70`）。點一列送 C125 select，收到 agsel 開資訊窗；按 Bid，收到 agapply 開出價窗，輸入金額後按 Ok 送 C11（`:526`、`:783`、`RingWindows.cs:219–220`）。看城鎮與盟屋編號的對照、價格與截止日的格式、List 鈕；同時注意 HyperText 頁有沒有重複的數字框（R10-O 前會有）。log：`agit-auction-ui` |
-| M21 | 開始釣魚（S158 動作 71），看窗是否開在 (0,0)（`FishingPanel.cs:15–21`）；收竿時回答 1516 Y，或等收到 S119，看窗關不關（`:276–281`、`Fishing.cs:63`）；再換地圖，看窗會不會殘留。#888 合併後看 FishObtainUI 是否為空清單。log：`fishing-ui`、`fish-obtain-ui` |
+| M21 | 開始釣魚（S158 動作 71），看窗是否開在 (0,0)（`FishingPanel.cs:15–21`）；收竿時回答 1516 Y，或等收到 S119，看窗關不關（`:279`、`:291–297`、`Fishing.cs:63`）；再換地圖，看窗會不會殘留。看 FishObtainUI 是否為空清單（照原版 3.81 是空的）。log：`fishing-ui`、`fish-obtain-ui` |
 | M22 | 聊天輸入 `/rank`（`PlayerQuery.cs:145–147` → `GameRankingPanel.cs:134`），看是否開在 Level 頁、名字的位置與字型。log：`ranking-ui` |
 | M23 | ① 看他人連續近戰或射箭時第二發的銜接（`Combat.cs:53`、`:62`）。② 走路中被傳送，看狀態列的「該步結束後才送出確認」（`Teleport.cs:86–88`）。③ 做表情後約 0.7 s 內移動、攻擊、施法（`TitleAndEmote.cs:151`；R10-G 前全部會被擋）。④ 死亡後不按鈕，等 501,264 ms（地圖 1017–1023 是 1,801,234 ms）看 QUIT_WINDOW 開窗，classic 模式各測一次（`Recovery.cs:10–15`）。⑤ F4 拾取和點擊共用節流（`Ground.cs:15`）。⑥ 死亡統計 Reset 的 1000 ms 冷卻 |
 | M24 | ① `/bookmark 名稱` 送 C165（`PlayerChat.cs:525–541`），書籤窗按 Delete → 846 → C3（`BookmarkPanel.cs:580`）。② `/whisper off`、`/tradechat`、`/receive`（`ChatChannelToggle.cs:85`）。③ `/checkpk`（`PlayerQuery.cs:38`）。④ `/propose`、`/divorce`（`PlayerChat.cs:461–464`）。⑤ 收方看 `/loc` 的 1784（`LocationShare.cs:85`）。⑥ `/duel`（`Duel.cs:106`）。⑦ 原生背包按 Delete 看 668／3122 出現的位置（`ItemTransfer.cs:184–194`）。⑧ 被踢時的 227 框（`KickNotice.cs:48–60`）。C14 登入的入口未確認 |
@@ -2354,7 +2353,7 @@ K1 的 54 列，理由見 15.12.4 與 15.5，本輪沒有變動，這裡不逐�
 | M31 | 在原版 3.81 用 gfx 0、1、37 的角色截圖，對照有沒有多一層 6262／6261／6263。引擎目前不畫 `cloth`（`ObjectRendering.cs:124` `ClothVerified=false`） |
 | M32 | 站著不動截圖，比對自己的名稱、頭上條與身體中線（`HpMpState.cs:84`、`:92`、`ObjectRendering.cs:203`）；走一步時再截（R10-H 前名稱不內插）；HP 壓到 35% 以下看閃爍（戰士要 40%，R10-H 前仍是 35%） |
 | M33 | 按 Ctrl+D 開動作窗（`MenuButtonsPanel.cs:285`、`ActionWindowPanel.cs:90`），雙擊各動作。R10-E 前 Trace 會出現 `action-ui <名稱>（…）尚未接上，未執行`（`:344`）；版面載入失敗時是 `action-ui 無法載入`（`:159`）。在原版 3.81 看動作窗的版面與開窗鍵 |
-| M34 | 等 #891 合併後再測。開有 `<font fg>` 與 `<a action>` 的 NPC 頁（`NpcInteraction.cs:64–67`、`HyperTextPanel.cs:246`），對色：連結淡黃 RGB(FF,FF,B0)、滑鼠移上去 RGB(0A,F0,32)、預設字色 `0xEEEDEE`。先找能開 `helpcom`／`helpcon` 的入口，開不到就改截 `silrein34`、`helpagi01` |
+| M34 | 開有 `<font fg>` 與 `<a action>` 的 NPC 頁（`NpcInteraction.cs:64–67`、`HyperTextPanel.cs:246`），對色：連結淡黃 RGB(FF,FF,B0)、滑鼠移上去 RGB(0A,F0,32)、預設字色 `0xEEEDEE`。先找能開 `helpcom`／`helpcon` 的入口，開不到就改截 `silrein34`、`helpagi01` |
 | M35 | 選光箭、不選目標按 M（`OnlineInput.cs:9`、`:46–48`），聊天欄應出現色 24 的「請選擇對象。」（`Magic.cs:56–61`）；觀察游標（引擎不換游標）；點怪物應送 C6，點地面取消、不走路（`PlayerPointer.cs:65–77`） |
 | M36 | 在原版 3.81 倉庫存、領一疊物品，記下怎麼輸入數量；引擎現在點一列就選整疊（`WarehouseWindowPanel.cs:153–167`），兩邊對照 |
 | M37 | 在原版 3.81 試出開好友窗的鍵；引擎目前只能從開發工具「好友／封鎖」分頁開（`BuddyUi.cs:99–105`）。`/exclude 名稱`、`/include 名稱`（`Buddies.cs:161–163`）送 C171，看伺服器有沒有回 kind 17 名單（`Buddies.cs:79–83`） |
@@ -2375,18 +2374,18 @@ K1 的 54 列，理由見 15.12.4 與 15.5，本輪沒有變動，這裡不逐�
 對照現況：
 - **K1 54 列**：每列都有理由，符合。
 - **K2 1:127**：只能真機（M36），符合「不能離線完成」。
-- **阻擋的列共 26 列**：
+- **阻擋的列共 22 列**：
 
   | 阻擋原因 | 列數 | 列 | 怎麼解 |
   |---|---:|---|---|
   | K5，能離線寫程式 | 20 | 1:92；1:29；1:52；3:C_INVITE_PARTY(82)；3:C_ADD_BUDDY(138)；4:AgitAuctionUI；4:LoginUI；4:`HpMpWindow`；4:BehaviourUI；4:BookmarkWindowUI；4:FriendUI；4:`ExcludeWindow`；4:PersonalShopUI；4:ExchangeUI；4:SelectUI；4:CreateUI；4:OptionUI；5:（名稱；5:`sub_5001C0`；5:music.def | 本節已轉成 R10-C–O（15.12.6），還沒開成任務 |
   | K2，能離線查 | 2 | 4:StatInfoUI；5:`sub_87C890` | Q8-1、Q8-2 |
-  | K7 進行中 | 4 | 1:144；4:HyperTextUI；4:FishingUI；4:UserObtainUI | #891、#888 合併 |
 
 **結案條件**：
-1. #888、#891 合併；
-2. R10-C–O 的 13 組合併，或其中某些子項經使用者裁定為「引擎取捨、不做」；
-3. Q8-1、Q8-2 查完，查完的結果轉成任務或改 K1。
+1. R10-C–O 的 13 組合併，或其中某些子項經使用者裁定為「引擎取捨、不做」；
+2. Q8-1、Q8-2 查完，查完的結果轉成任務或改 K1。
+
+（#888、#891 已在本輪合併，對應的 4 列已改「已有」。）
 
 做完以後，非「已有」只會剩 K1、1:127（M36）、`cloth`（M31），就符合結案標準。真機 smoke（M1–M40）不在 M7 的驗收條件裡，但原生 UI 預設開啟後還沒在真機跑過，建議和 M7 結案一起排。
 
@@ -2399,5 +2398,5 @@ K1 的 54 列，理由見 15.12.4 與 15.5，本輪沒有變動，這裡不逐�
 - 只讀報告與原始碼，沒有建置或執行。「產品沒有呼叫」是用 Grep 判斷的；經由反射、委派或事件間接呼叫的地方可能漏掉。15.12.1 列的 6 項我另外複核過，其餘 `檔案:行` 由子代理提供，沒有逐一重看。
 - 第六輪前已是「已有」的 155 列沒有逐列重看。
 - 「已有」只表示靜態看程式沒有已知差異，全部都沒有真機驗收。
-- K7 的預期結果依 PR #893、#897 在 2026-11-11 的內容；合併前若有變動，以合併後為準。
-- 本節的 `檔案:行` 以 main `1a1762f0` 為準。
+- #888、#891 在本輪盤點時合併；這 4 列依 main `5d8073c3` 讀過程式，但沒有派子代理逐項重核。
+- 本節的 `檔案:行` 以 main `1a1762f0` 為準；#888、#891 的 4 列以 `5d8073c3` 為準。這兩張 PR 改到 `Inventory.cs`、`FishingPanel.cs`、`HyperTextPanel.cs`，所以本節引用的這幾個檔案行號可能差幾行。
