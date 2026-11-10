@@ -64,6 +64,12 @@ public sealed class EffectSpriteCatalog(string clientRoot) {
         }
         var effect=EffectSprite.Parse(resolved,entry!) with{Gfx=gfx};if(effects.Count>=128)effects.Clear();effects[gfx]=effect;return effect;
     }
+    /// <summary>R8-E（T360／#824，FU8§5）：gfx 自己那一列的 105／111／112 欄位（不跟 alias，原版每個 gfx 各自讀）。
+    /// 動畫表讀不到或沒有這個 gfx 時是 null。</summary>
+    public ListSprFields? Fields(int gfx){
+        try{LoadMetadata();}catch(Exception ex)when(ex is IOException or InvalidDataException or UnauthorizedAccessException){return null;}
+        return metadata.TryGetValue(gfx,out var entry)?ListSprFields.Parse(entry):null;
+    }
     public Frame Frame(EffectSprite effect,int direction,long age,bool loop=false,int? step=null){
         var token=effect.At(age,loop,step);int sid=token.SubId+(effect.Directional?direction%effect.Directions:0);
         var key=(effect.Sprite,sid,effect.TileType);
@@ -154,6 +160,32 @@ public sealed record EffectSprite(int Gfx,int Sprite,bool Directional,int Direct
         int tileType=(flags&8)!=0?18:(flags&128)!=0?34:(flags&256)!=0?6:2;
         bool directional=action.Groups[1].Value!="0";int count=int.Parse(header.Groups[1].Value);
         return new(gfx,sprite,directional,directional&&count==4?4:8,tileType,effect.Success?int.Parse(effect.Groups[1].Value):0,effect.Success?int.Parse(effect.Groups[2].Value):-1,steps);
+    }
+}
+// R8-E（T360／#824，FU8§5，REA B07 寫入 0x13CD87C／0x13CD858／0x13CD860）：list.spr 附加層欄位。
+// 欄位名稱在本機 list.spz 不一致（cloth／clothes／clothed／cloths／clothe／shadow），原版只看編號，這裡也只看編號。
+// - 105 `cloth(n gfx…)`：附加精靈層，n＝後面 gfx 個數（物件 +164 起每層 16 bytes、+324 計數；本機最多 6，上限取 10）。
+// - 111 `stride(n)`：站立輪換姿勢的計數上限（byte）；本機 86 個 gfx 都是 1。
+// - 112 `altdir(gfx)`：朝向 6 時的替代 gfx（word）；本機只有 1395、5940 → 1410。
+public sealed record ListSprFields(int[] Cloth,int Stride,int? AltDir){
+    public const int MaxClothLayers=10;
+    public static readonly ListSprFields Empty=new([],0,null);
+    static string? Field(string entry,int id){var m=Regex.Match(entry,$@"(?<![\d.:\[]){id}\.[^(\s]*\(([^)]*)\)");return m.Success?m.Groups[1].Value:null;}
+    static int[] Numbers(string body,int id){
+        var parts=body.Split((char[])[' ','\t',','],StringSplitOptions.RemoveEmptyEntries);var values=new int[parts.Length];
+        for(int i=0;i<parts.Length;i++)if(!int.TryParse(parts[i],out values[i]))throw new InvalidDataException($"list.spr 欄位 {id} 不是數字");
+        return values;
+    }
+    public static ListSprFields Parse(string entry){
+        int[] cloth=[];int stride=0;int? alt=null;
+        if(Field(entry,105) is {} c){
+            var v=Numbers(c,105);
+            if(v.Length<1||v[0]!=v.Length-1||v[0]>MaxClothLayers||v.Skip(1).Any(g=>g is <0 or >65535))throw new InvalidDataException("list.spr 欄位 105 cloth 個數或 gfx 錯誤");
+            cloth=v[1..];
+        }
+        if(Field(entry,111) is {} s){var v=Numbers(s,111);if(v.Length!=1||v[0] is <0 or >255)throw new InvalidDataException("list.spr 欄位 111 stride 錯誤");stride=v[0];}
+        if(Field(entry,112) is {} a){var v=Numbers(a,112);if(v.Length!=1||v[0] is <0 or >65535)throw new InvalidDataException("list.spr 欄位 112 altdir 錯誤");alt=v[0];}
+        return cloth.Length==0&&stride==0&&alt==null?Empty:new(cloth,stride,alt);
     }
 }
 public sealed record MagicVisual(long Number,int Gfx,int X,int Y,int Direction,string Frame,string Phase,long At);
