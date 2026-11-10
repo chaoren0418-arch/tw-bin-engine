@@ -29,7 +29,7 @@ static class FriendHostTests {
     static LoginConnection Seed(List<byte[]> sent){
         var c=new LoginConnection();Set(c,"State",LoginState.InWorld);Set(c.World,"Entered",true);Set(c.World,"MapId",(ushort)0);Set(c.World,"TimeReplies",1);Set(c.World,"CacheEnabled",false);
         Set(c.World,"Status",JsonSerializer.Deserialize<OwnStatus>("{\"ObjectId\":123,\"Hp\":100,\"MaxHp\":100,\"Mp\":100,\"MaxMp\":100}"));
-        c.World.Receive(Appear(Me,32600,"r10c-self"),"offline");
+        c.World.Receive(Appear(Me,32600,"offline"),"offline");   // 自己的 S87 名稱要等於選中的角色名（WorldSession 會核對）
         Func<byte[],Func<bool>,Action,Task<bool>> sender=(b,valid,apply)=>{if(!valid())return Task.FromResult(false);sent.Add(b);apply();return Task.FromResult(true);};
         Set(c,"sendMovementGate",sender);
         c.World.Receive(BuddyList(Me,"甲 乙 丙","甲"),"offline");
