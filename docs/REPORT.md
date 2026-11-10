@@ -301,3 +301,4 @@
 - 2026-11-10 — #761 T323：P-D 原生盟屋拍賣窗（參考客戶端 XML）（code，claude-local，PR 已合併）→ [報告](reports/issue-761.md)
 - 2026-11-10 — #763 T325：P-D 原生能力值重置與能力資訊窗（參考客戶端 XML）（code，claude-local，PR 已合併）→ [報告](reports/issue-763.md)
 - 2026-11-10 — #764 T326：P-D 原生登入畫面（參考客戶端 XML）（code，claude-local，PR 已合併）→ [報告](reports/issue-764.md)
+- 2026-11-10 — #765 T327：P-D 原生選角與建角畫面（參考客戶端 XML）（code，claude-local，PR 已合併）→ [報告](reports/issue-765.md)
