@@ -114,6 +114,22 @@ public static class ObjectDrawFallback {
         return bare() is {} b&&!ReferenceEquals(b,appearance)&&supports(b,"walk",direction)?(b,"walk"):null;
     }
 }
+// R8-E（T360／#824，FU8§5）：list.spr 105／111／112 的物件端規則（純函式，資料層）。
+// 目前**沒有接進 ComposeObjects**：
+// - 105 cloth：TW16 的 sub_A3EF40 會建附加子精靈，但 3.81（LiTo.bin）讀不讀這欄要真機確認（gfx 0 有沒有 6262 這一層），
+//   確認前 ClothVerified＝false，ClothLayers 一律回空（不多畫一層）。
+// - 112 altdir：sub_A3EF40 在物件朝向（+8）＝6 時改用替代 gfx；本機只有 1395／5940 兩個 gfx，接線要先確認是建立時還是每次轉向都換。
+// - 111 stride：站立時 +532 計數 0…n 輪流，姿勢取 byte_1379D40[+532 (+2)]，表內容未取出，這裡只算計數。
+public static class ListSprLayers {
+    public const bool ClothVerified=false;
+    public const int AltDirDirection=6;
+    /// <summary>要額外畫的附加層 gfx（依 list.spr 順序）；cloth 未經真機確認前固定回空。</summary>
+    public static int[] ClothLayers(ListSprFields? fields,bool verified=ClothVerified)=>verified&&fields is {Cloth.Length:>0} f?f.Cloth:[];
+    /// <summary>朝向 6 且有 112 altdir 時回替代 gfx，否則原 gfx。</summary>
+    public static int AltDirGfx(int gfx,int direction,ListSprFields? fields)=>direction==AltDirDirection&&fields?.AltDir is int alt?alt:gfx;
+    /// <summary>站立輪換計數的下一個值：0…n 循環；沒有 stride（0）時恆為 0。</summary>
+    public static int StrideNext(int counter,ListSprFields? fields)=>fields is {Stride:>0} f?(Math.Max(0,counter)+1)%(f.Stride+1):0;
+}
 // R2-I 城主王冠（sprites-and-strings.md §1，followups-3.md §2）：crown.raw＝Sprite.pak 內 12 格 16×12 RGB555，0 透明，沒有檔頭。
 // 執行期從原客戶端唯讀讀取並核對 pin，不複製進專案。
 public sealed class CastleCrownImages {
