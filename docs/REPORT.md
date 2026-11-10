@@ -327,3 +327,4 @@
 - 2026-11-11 — #820 T356：R8-A 頭上條（code，claude-local，PR 已合併）→ [報告](reports/issue-820.md)
 - 2026-11-11 — #821 T357：R8-B 鑑定訊息（code，claude-local，PR 已合併）→ [報告](reports/issue-821.md)
 - 2026-11-11 — #822 T358：R8-C 決鬥指令（code，claude-local，PR 已合併）→ [報告](reports/issue-822.md)
+- 2026-11-11 — #823 T359：R8-D 動作窗（code，claude-local，PR 已合併）→ [報告](reports/issue-823.md)
