@@ -14,6 +14,8 @@ static class SelectCharPanelTests {
         [407]=Surface(407,40,20,DeleteC),[411]=Surface(411,20,20,UpC),[413]=Surface(413,20,20,DownC),[415]=Surface(415,40,20,BackC),[410]=Surface(410,120,110,InfoC),
         // R9-O (#859): slot buttons use the class surf 6430 + 8×class + 4×sex (prince male 6430–6432; knight male pending 6441).
         [6430]=Surface(6430,120,40,SelectC),[6431]=Surface(6431,120,40,SelectHiC),[6432]=Surface(6432,120,40,SelectPushC),[6441]=Surface(6441,120,40,SelectC),
+        // R10-N (#913): Up/Down use 6411–6414 by page (sub_EF13F0), replacing the XML surfs.
+        [6411]=Surface(6411,20,20,UpC),[6413]=Surface(6413,20,20,DownC),
     };
 
     // Synthetic layout with the element kinds of SelectUI.xml: the message window, the select window with an Effect, a vertical
@@ -208,13 +210,12 @@ static class SelectCharPanelTests {
         t.Equal("乙",p.Selected,"click on row 1 selects it");
         t.Equal("騎士",Info("Class_Label"),"info follows the selection");
         Click(p,new(152,62),c);
-        t.Equal(1,p.Scroll,"Down scrolls one row");
-        t.Check(Near(Pixel(p,12,12),SelectC),"row 1 (selected, pending: WaitDelete surf) now in the first slot");
-        Click(p,new(152,62),c);Click(p,new(152,62),c);
-        t.Equal(2,p.Scroll,"scroll stops at the last row");
+        t.Equal(2,p.Scroll,"R10-N: Down pages (2 rows per page here)");
+        Click(p,new(152,62),c);
+        t.Equal(2,p.Scroll,"…and stops at TW16's last page");
         using(var b=Render(p))t.Check(Near(b.GetPixel(12,62),CreateC),"free slot → Create_Button");
         Click(p,new(152,22),c);
-        t.Equal(1,p.Scroll,"Up scrolls back");
+        t.Equal(0,p.Scroll,"Up pages back");
         // One slot, one character: the second row is locked.
         var locked=Select();locked.Attach(new Host(ViewOf(1,Char("甲"))));
         using(var b=Render(locked)){
@@ -417,7 +418,7 @@ static class CreateCharPanelTests {
         t.Check(p.Skipped.Any(s=>s.Contains("Customizing_Win"))&&!p.Missing.Any(m=>m.Contains("502")),"Customizing_Win not built");
         t.Check(!p.Skipped.Any(s=>s.Contains("Gauge_Group"))&&p.Missing.Any(m=>m.StartsWith("surf 509 ")),"R9-O: Gauge_Group built; its missing bar image listed",string.Join(" | ",p.Missing));
         t.Check(p.Skipped.Count(s=>s.Contains("multi"))==2,"multi variants not built");
-        t.Check(p.Skipped.Count(s=>s.Contains("沒有圖號"))==2,"Front_Image / Back_Image without an id not built");
+        t.Check(p.Skipped.Count(s=>s.Contains("沒有圖號"))==0&&p.ClassScene!.Find("Front_Image")!=null&&p.ClassScene!.Find("Back_Image")!=null,"R10-N: Front_Image / Back_Image built without an id (pngs set at run time)");
         t.Check(p.Missing.Contains("surf 99 (CreateUI/Window[1]/Image[4])"),"missing class-name surf listed with its path",string.Join(" | ",p.Missing));
         t.Equal(new Point(96,102),p.StatScene!.Find("Up_Button","Strength")!.Offset,"stat button: Stat_Change_Control(-100,-10) → Strength(12) → Up(184,112)");
         t.Equal(new Point(155,102),p.StatScene.Find("Up_Button","Wisdom")!.Offset,"negative Control X (-9)");
