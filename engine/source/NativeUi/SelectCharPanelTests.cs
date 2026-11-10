@@ -12,6 +12,8 @@ static class SelectCharPanelTests {
         [429]=Surface(429,120,40,SlotBackC),[430]=Surface(430,120,40,SelectC),[431]=Surface(431,120,40,SelectHiC),[432]=Surface(432,120,40,SelectPushC),[426]=Surface(426,120,40,CreateC),
         [425]=Surface(425,120,40,LockBackC),[422]=Surface(422,30,20,LockC),[486]=Surface(486,10,10,WaitC),[404]=Surface(404,40,20,EnterC),[405]=Surface(405,40,20,EnterHiC),
         [407]=Surface(407,40,20,DeleteC),[411]=Surface(411,20,20,UpC),[413]=Surface(413,20,20,DownC),[415]=Surface(415,40,20,BackC),[410]=Surface(410,120,110,InfoC),
+        // R9-O (#859): slot buttons use the class surf 6430 + 8×class + 4×sex (prince male 6430–6432; knight male pending 6441).
+        [6430]=Surface(6430,120,40,SelectC),[6431]=Surface(6431,120,40,SelectHiC),[6432]=Surface(6432,120,40,SelectPushC),[6441]=Surface(6441,120,40,SelectC),
     };
 
     // Synthetic layout with the element kinds of SelectUI.xml: the message window, the select window with an Effect, a vertical
@@ -196,18 +198,18 @@ static class SelectCharPanelTests {
             t.Check(Near(b.GetPixel(242,192),InfoC)&&Inked(b,new Rectangle(250,200,100,120),InfoC),"info list text drawn over its back");
             t.Check(Near(b.GetPixel(152,22),UpC),"Up button drawn");
         }
-        t.Equal("52",p.LabelText(p.Main!.Pieces.First(x=>x.Name=="Level_Label"&&x.Slot==0&&x.Parent?.Name=="Select_Button")),"slot level label");
+        t.Equal("Lv.52",p.LabelText(p.Main!.Pieces.First(x=>x.Name=="Level_Label"&&x.Slot==0&&x.Parent?.Name=="Select_Button")),"slot level label (R9-O: Lv.%d)");
         string Info(string n)=>p.LabelText(p.Main!.Pieces.First(x=>x.ListName==SelectCharPanel.InfoList&&x.Name==n))!;
-        t.Check(Info("Name_Label")=="甲"&&Info("Level_Label")=="52"&&Info("Class_Label")=="王族"&&Info("Pledge_Label")=="測試盟"&&Info("Alignment_Label")=="-5"&&Info("Birthday_Label")=="20261110","info labels from the selected character");
+        t.Check(Info("Name_Label")=="甲"&&Info("Level_Label")=="52"&&Info("Class_Label")=="王族"&&Info("Pledge_Label")=="測試盟"&&Info("Alignment_Label")=="-5"&&Info("Birthday_Label")=="2026.11.10","info labels from the selected character (R9-O: birthday YYYY.MM.DD)");
         t.Equal("騎士",SelectCharPanel.ClassName(33),"class 33 (pending deletion) = knight");
         p.Mouse(M(UiMouseKind.Move,new(15,75)),c);
-        t.Check(Near(Pixel(p,12,62),SelectHiC),"hover highlight on an enabled slot button");
+        t.Check(Near(Pixel(p,12,62),SelectC),"R9-O: WaitDelete_Button has one surf (class surf + 3) in every state, also under the pointer");
         Click(p,new(15,75),c);
         t.Equal("乙",p.Selected,"click on row 1 selects it");
         t.Equal("騎士",Info("Class_Label"),"info follows the selection");
         Click(p,new(152,62),c);
         t.Equal(1,p.Scroll,"Down scrolls one row");
-        t.Check(Near(Pixel(p,12,12),SelectPushC),"row 1 (selected) now in the first slot");
+        t.Check(Near(Pixel(p,12,12),SelectC),"row 1 (selected, pending: WaitDelete surf) now in the first slot");
         Click(p,new(152,62),c);Click(p,new(152,62),c);
         t.Equal(2,p.Scroll,"scroll stops at the last row");
         using(var b=Render(p))t.Check(Near(b.GetPixel(12,62),CreateC),"free slot → Create_Button");
@@ -311,7 +313,7 @@ static class CreateCharPanelTests {
             [495]=Surface(495,20,20,MaleC),[498]=Surface(498,20,20,FemaleC),[501]=Surface(501,24,24,MaleBackC),[415]=Surface(415,30,15,PrevC),[418]=Surface(418,30,15,NextC),
             [224]=Surface(224,20,10,TitleC),[170]=Surface(170,20,10,TitleC),[504]=Surface(504,8,8,DownC),[506]=Surface(506,8,8,UpC),[524]=Surface(524,200,170,SummaryC),
             [510]=Surface(510,20,20,AttackPC),[513]=Surface(513,20,20,AttackKC),[519]=Surface(519,30,15,0xFF707070),[527]=Surface(527,30,15,0xFF909090),
-            [526]=Surface(526,120,28,InputC),[156]=Surface(156,400,300,BackC),
+            [526]=Surface(526,120,28,InputC),[156]=Surface(156,400,300,BackC),[7156]=Surface(7156,400,300,BackC),   // R9-O: stat scene background 7156 + 2×class + sex
         };
         for(int i=0;i<7;i++){d[128+2*i]=Surface(128+2*i,20,20,ClassC);d[129+2*i]=Surface(129+2*i,20,20,ClassPushC);}
         return d;
@@ -413,7 +415,7 @@ static class CreateCharPanelTests {
         t.Equal(new Rectangle(100,100,200,100),p.Message!.Bounds,"message window: BaseSurf size");
         t.Check(p.Skipped.Any(s=>s.Contains("戰士"))&&!p.Missing.Any(m=>m.Contains("707")||m.Contains("708")),"Warrior_Button not built and its surfs never looked up",string.Join(" | ",p.Skipped));
         t.Check(p.Skipped.Any(s=>s.Contains("Customizing_Win"))&&!p.Missing.Any(m=>m.Contains("502")),"Customizing_Win not built");
-        t.Check(p.Skipped.Any(s=>s.Contains("Gauge_Group"))&&!p.Missing.Any(m=>m.Contains("509")),"Gauge_Group not built");
+        t.Check(!p.Skipped.Any(s=>s.Contains("Gauge_Group"))&&p.Missing.Any(m=>m.StartsWith("surf 509 ")),"R9-O: Gauge_Group built; its missing bar image listed",string.Join(" | ",p.Missing));
         t.Check(p.Skipped.Count(s=>s.Contains("multi"))==2,"multi variants not built");
         t.Check(p.Skipped.Count(s=>s.Contains("沒有圖號"))==2,"Front_Image / Back_Image without an id not built");
         t.Check(p.Missing.Contains("surf 99 (CreateUI/Window[1]/Image[4])"),"missing class-name surf listed with its path",string.Join(" | ",p.Missing));

@@ -28,15 +28,130 @@ namespace P06.NativeUi;
 // - Stat_Change_Control: the six stat Controls carry Point + Down/Up (Strength, Dexterity, Constitution, Wisdom, Charisma,
 //   Intelligence = CharacterCreation order). Up while points remain and the value is below base+points; Down above base.
 //   Remain_Point = 75 − sum. Reset_Button = class base values.
-// - Not built: Customizing_Win (derived bonus table, the engine has no values — same as #763), Gauge_Group (bar lengths,
-//   no formula). StatType_Group: only the selected class's Attack/Defense/Mix buttons are shown; there are no preset
-//   tables in the engine, so they are disabled (待做), and so is Customizing_Button.
+// - Not built: Customizing_Win (derived bonus table, the engine has no values — same as #763); Customizing_Button stays
+//   disabled. StatType_Group: only the selected class's Attack/Defense/Mix buttons are shown.
+//
+// R9-O (T375/#859, FU9§14.2; TW16 CCreateUI decompiled read-only, docs/reports/issue-859.md):
+// - Attack/Defense/Mix (Auto_StatSettingScene → sub_EE2F70 → sub_EE6760): type 1/2/3 (the button's index in its class
+//   Control + 1; here by name, same order as CreateUI.xml). The same type again = Reset (sub_EE5D60: type 0, base stats);
+//   otherwise the six stats are set to the CharAttrType.tbl row (class, type). The selected type's button is drawn with its
+//   PushSurf. Entering the stat scene sets type 0 and applies type 1 (sub_EE6DD0 → sub_EE6760(1)). A class change or Reset
+//   sets type 0. The table is the local client's Text.pak CharAttrType.tbl (CharAttrTypeTable); a row is only applied when
+//   it passes the 3.81 rules (CharacterManagementPackets: sum 75, base ≤ v ≤ base + points) — the TW16 per-stat limit
+//   table byte_138B248 is NOT used (3.81 C_CreateChar rules stay). No table / no valid row → the buttons are disabled.
+//   StatType_Title / StatType_Desc (strings 3607/3628 + 3×class + type) are commented out in the kor25 XML → not built.
+// - Gauge_Group (sub_EE5430): bar k is drawn clipped to width = image width × StatGuage[class][gauge type][stat − 7] ÷ 100
+//   (float, truncated; stat outside 7–20 or no row → 0 → not drawn). 5 bars: gauge types 0,1,4,3,5 ← STR,DEX,INT,CON,WIS;
+//   6 bars: types 0..5 ← STR,DEX,DEX,CON,INT,WIS (child order = XML order). StatGuage.tbl is not in 0-客戶端 (FU9§15): the
+//   local Text.pak is tried, then the reference client's (UiResources.Text root); SHA-256 logged ("create-char-ui
+//   StatGuage.tbl"), compared with kor25. No table → every bar 0 → nothing drawn.
+// - Stat scene Back_Image = surf 7156 + 2×class + sex (sub_EE4030, called from sub_EE6DD0; class 7: 7265/7266). Missing → not
+//   drawn. The class scene's Front_Image fade (sub_EE5F50: mode 2, effect 1573 + 36×class + 18×sex, 31 steps) is an
+//   animation the engine does not play → still not built.
 // - Username_Edit takes typed characters (IUiTextInput, WM_CHAR after IME) up to LimitText characters; Backspace deletes.
 //   Enter = OK on the stat scene / Next on the class scene; Esc = Prev.
 // - OK: a local Validate error, a refused send or the server's refusal notice is shown in Message_Window (Ok/Cancel close
 //   it). When the server confirms, the new character is in the list and the screen closes back to the select screen.
 
 public enum CreateScene { Class, Stat }
+
+/// <summary>Shared text-table helpers for the two CCreateUI tables (both read through ServerStringTable: count line + rows).</summary>
+static class CharTableText {
+    /// <summary>C atoi: leading blanks, optional sign, digits; anything else → 0.</summary>
+    public static int Atoi(string? s){
+        if(s==null)return 0;
+        int i=0;while(i<s.Length&&s[i] is ' ' or '\t' or '\r' or '\n' or '\v' or '\f')i++;
+        bool neg=false;if(i<s.Length&&s[i] is '+' or '-'){neg=s[i]=='-';i++;}
+        long v=0;while(i<s.Length&&s[i] is >='0' and <='9'&&v<=int.MaxValue){v=v*10+(s[i]-'0');i++;}
+        return (int)Math.Clamp(neg?-v:v,int.MinValue,int.MaxValue);
+    }
+    public static string[] Tokens(string line)=>line.Split([' ','\t','\r'],StringSplitOptions.RemoveEmptyEntries);
+    public static bool Is(string sha,string known)=>sha.Equals(known,StringComparison.OrdinalIgnoreCase);
+}
+
+/// <summary>
+/// R9-O (FU9§14.2): CharAttrType.tbl — the Attack/Defense/Mix presets. sub_EE4110 reads rows 2…count−1 (rows 0–1 are the
+/// two comment lines), each non-empty row = 8 whitespace tokens through atoi as bytes: class, type, STR, DEX, CON, INT, WIS,
+/// CHA. sub_EE3D30 takes the first row with that class and type. 0-客戶端 Text.pak record 2774 (PakViewer numbering), 584 B,
+/// 21 rows (classes 0–6 × types 1–3), SHA-256 below; all 21 pass the 3.81 rules (checked offline, docs/reports/issue-859.md).
+/// </summary>
+public sealed class CharAttrTypeTable {
+    public const string FileName="CharAttrType.tbl";
+    public const int FirstRow=2;
+    /// <summary>0-客戶端 Text.pak CharAttrType.tbl (decoded). Compared and logged only.</summary>
+    public const string LocalSha256="64DA36ED6D718821A4B4A0B491ECFAAE72CF064B16894DE65C90B500D841575D";
+    /// <summary>kor25 Text.pak CharAttrType.tbl (adds class 7 rows). Compared and logged only.</summary>
+    public const string Kor25Sha256="17791EF622F9943F9791F3DFC2BD98B614980AAAF7B9DDFCFDFF6A5EDD3E3632";
+    /// <summary>One row; Stats is in CharacterCreation order (STR, DEX, CON, WIS, CHA, INT).</summary>
+    public readonly record struct Row(sbyte Class,byte Type,byte Str,byte Dex,byte Con,byte Int,byte Wis,byte Cha){
+        public byte[] Stats=>[Str,Dex,Con,Wis,Cha,Int];
+    }
+    public IReadOnlyList<Row> Rows{get;}
+    public string Sha256{get;}
+    CharAttrTypeTable(IReadOnlyList<Row> rows,string sha){Rows=rows;Sha256=sha;}
+
+    public static CharAttrTypeTable Parse(byte[] decoded){
+        var table=ServerStringTable.Parse(decoded);var rows=new List<Row>();
+        for(int i=FirstRow;i<table.Count;i++){
+            var line=table[i];if(line.Length==0)continue;
+            var t=CharTableText.Tokens(line);
+            byte B(int k)=>unchecked((byte)CharTableText.Atoi(k<t.Length?t[k]:null));
+            rows.Add(new(unchecked((sbyte)B(0)),B(1),B(2),B(3),B(4),B(5),B(6),B(7)));
+        }
+        return new(rows,table.Sha256);
+    }
+    public Row? Find(int cls,int type){foreach(var r in Rows)if(r.Class==cls&&r.Type==type)return r;return null;}
+    /// <summary>3.81 rules (CharacterManagementPackets.Validate's stat part); null = the row may be applied.</summary>
+    public static string? Check381(Row r){
+        if(r.Class is <0 or >=7)return "3.81 沒有這個職業";
+        var min=CharacterManagementPackets.BaseStats(r.Class);int points=CharacterManagementPackets.AvailablePoints(r.Class);var s=r.Stats;
+        if(s.Sum(v=>(int)v)!=CreateCharPanel.TotalPoints)return "總和不是 75";
+        for(int i=0;i<6;i++)if(s[i]<min[i]||s[i]>min[i]+points)return $"第 {i} 項超出 3.81 上下限";
+        return null;
+    }
+    /// <summary>The preset for (class, type) when its row exists and passes the 3.81 rules; otherwise null.</summary>
+    public byte[]? Preset(int cls,int type)=>Find(cls,type) is {} r&&Check381(r)==null?r.Stats:null;
+}
+
+/// <summary>
+/// R9-O (FU9§14.2): StatGuage.tbl — Gauge_Group bar percentages. sub_EE4110 reads rows 3…count−1 (rows 0–2 are comments):
+/// class, gauge type, then 14 values for stat 7…20, parsed one after another (sub_879EC0); extra tokens are ignored (kor25
+/// row "5 5 6 0 …" has 15 values: the 15th is dropped), missing ones are 0. sub_EE3F80 takes the first row with the class
+/// and type; stat outside 7–20 → 0. Not in 0-客戶端; kor25 / ly / t89 have it (FU9§15). Read at run time, never copied.
+/// </summary>
+public sealed class StatGaugeTable {
+    public const string FileName="StatGuage.tbl";
+    public const int FirstRow=3,Values=14,MinStat=7;
+    /// <summary>kor25 Text.pak record 33375 (PakViewer numbering) = ly record 33799, decoded. Compared and logged only.</summary>
+    public const string Kor25Sha256="2CF977EE45E6762271BAFE629A9894952701FA30019FC656FD0F493571D80C10";
+    public readonly record struct Row(byte Class,byte Type,int[] Percent);
+    public IReadOnlyList<Row> Rows{get;}
+    public string Sha256{get;}
+    StatGaugeTable(IReadOnlyList<Row> rows,string sha){Rows=rows;Sha256=sha;}
+
+    public static StatGaugeTable Parse(byte[] decoded){
+        var table=ServerStringTable.Parse(decoded);var rows=new List<Row>();
+        for(int i=FirstRow;i<table.Count;i++){
+            var line=table[i];if(line.Length==0)continue;
+            var t=CharTableText.Tokens(line);
+            int V(int k)=>CharTableText.Atoi(k<t.Length?t[k]:null);
+            var pct=new int[Values];for(int k=0;k<Values;k++)pct[k]=V(2+k);
+            rows.Add(new(unchecked((byte)V(0)),unchecked((byte)V(1)),pct));
+        }
+        return new(rows,table.Sha256);
+    }
+    public int Percent(int cls,int type,int stat){
+        int k=stat-MinStat;if(k<0||k>=Values)return 0;
+        foreach(var r in Rows)if(r.Class==cls&&r.Type==type)return r.Percent[k];
+        return 0;
+    }
+    /// <summary>Gauge_Group bar order: (gauge type, CharacterCreation stat index) per child, for 5 and 6 bars (sub_EE5430).</summary>
+    public static readonly IReadOnlyList<(int Type,int Stat)> FiveBars=[(0,0),(1,1),(4,5),(3,2),(5,3)];
+    public static readonly IReadOnlyList<(int Type,int Stat)> SixBars=[(0,0),(1,1),(2,1),(3,2),(4,5),(5,3)];
+    public static IReadOnlyList<(int Type,int Stat)> Bars(int count)=>count==5?FiveBars:count==6?SixBars:[];
+    /// <summary>(int)((float)width × ((float)percent / 100)), kept inside 0…width.</summary>
+    public static int Width(int imageWidth,int percent)=>Math.Clamp((int)(imageWidth*(percent/100f)),0,Math.Max(0,imageWidth));
+}
 
 public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePanel,IUiTextInput {
     [UiPanel(187)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,r=>new CreateCharPanel(r.Resources){TextResolver=RefClientTextSource.Resolver(r.Resources)});   // T327 (#765): CreateUI.xml from the reference client (P-A), loaded inside Load
@@ -58,6 +173,13 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
     public static readonly IReadOnlyDictionary<string,int> StatControls=new Dictionary<string,int>(StringComparer.Ordinal){
         ["Strength"]=0,["Dexterity"]=1,["Constitution"]=2,["Wisdom"]=3,["Charisma"]=4,["Intelligence"]=5,
     };
+    /// <summary>Auto_StatSettingScene button name → stat type (child index + 1 in CreateUI.xml order).</summary>
+    public static readonly IReadOnlyDictionary<string,int> StatTypeButtons=new Dictionary<string,int>(StringComparer.Ordinal){
+        ["Attack_Button"]=1,["Defense_Button"]=2,["Mix_Button"]=3,
+    };
+    public const string GaugeGroup="Gauge_Group",BackImage="Back_Image";
+    /// <summary>sub_EE4030: stat scene background surf.</summary>
+    public static int BackgroundSurf(int cls,int sex)=>cls==7?(sex!=0?7266:7265):sex+2*cls+7156;
 
     public string Id=>PanelId;
     public UiLayer Layer=>UiLayer.Float;
@@ -81,7 +203,18 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
     public string? MessageText{get;private set;}
     public bool MessageShown=>MessageText!=null;
     public IReadOnlyCollection<string> Unhandled=>unhandled;
+    /// <summary>Attack/Defense/Mix presets (local CharAttrType.tbl); null = not readable → the three buttons are disabled.</summary>
+    public CharAttrTypeTable? AttrTable{get;internal set;}
+    /// <summary>Gauge_Group percentages (StatGuage.tbl, reference client); null → every bar is 0 (not drawn).</summary>
+    public StatGaugeTable? GaugeTable{get;internal set;}
+    /// <summary>Where GaugeTable came from ("本機" / "參考客戶端"); null when there is none.</summary>
+    public string? GaugeSource{get;private set;}
+    /// <summary>0 = none, 1 Attack, 2 Defense, 3 Mix (this+428).</summary>
+    public int StatType{get;private set;}
+    /// <summary>Gauge_Group's bars in XML (child) order.</summary>
+    public IReadOnlyList<CharUiPiece> Gauges{get;private set;}=[];
     bool open,waiting;int generation;string? sentName;byte[] draft=new byte[6];int nameLimit;
+    Func<int,UiSurface?>? lookup;readonly Dictionary<int,UiSurface?> dynamic=[];readonly HashSet<int> dynamicMissing=[];readonly HashSet<string> logged=new(StringComparer.Ordinal);
     CharUiPiece? pressed,hover;bool pressedInside;readonly HashSet<string> unhandled=new(StringComparer.Ordinal);
 
     public bool Visible=>open&&Available&&View is {Shown:true};
@@ -94,25 +227,62 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
         UiLayout layout;
         try{layout=resources.Xml.Load(LayoutName);}
         catch(IOException ex){Unavailable=ex.Message;UiResourceLog.Write($"create-char-ui 無法載入 {LayoutName}，建角畫面停用（WinForms 建角對話框照舊）：{ex.Message}");return;}
+        LoadTables(resources.Root,resources.Text?.Root);
         try{Load(layout,surfs.Get);}
         catch(IOException ex){Clear();Unavailable=ex.Message;UiResourceLog.Write($"create-char-ui {layout.FileName} 版面不符，建角畫面停用：{ex.Message}");return;}
         if(Missing.Count>0)UiResourceLog.Write($"create-char-ui 缺圖不畫：{string.Join("、",Missing)}");
         if(Unavailable!=null)UiResourceLog.Write($"create-char-ui {Unavailable}");
     }
 
+    /// <summary>R9-O: CharAttrType.tbl from the main client; StatGuage.tbl from the main client, else the reference client.
+    /// Read-only, decoded in memory, SHA-256 logged; a table that cannot be read stays null (logged).</summary>
+    void LoadTables(string mainRoot,string? refRoot){
+        bool other=refRoot!=null&&!string.Equals(Path.GetFullPath(refRoot),Path.GetFullPath(mainRoot),StringComparison.OrdinalIgnoreCase);
+        LoadTables(OpenArchive(mainRoot,"本機"),mainRoot,other?()=>OpenArchive(refRoot!,"參考客戶端"):null,refRoot);
+    }
+    /// <summary>Test seam: archives instead of roots (reference = null when there is no other reference client).</summary>
+    internal void LoadTables(TextArchive? main,string mainRoot,Func<TextArchive?>? reference,string? refRoot){
+        AttrTable=ReadTable(main,mainRoot,"本機",CharAttrTypeTable.FileName,CharAttrTypeTable.Parse,t=>t.Sha256,t=>CharTableText.Is(t.Sha256,CharAttrTypeTable.LocalSha256)?"與 0-客戶端 相同":CharTableText.Is(t.Sha256,CharAttrTypeTable.Kor25Sha256)?"與 kor25 相同":"不是已知版本");
+        if(AttrTable!=null){
+            var bad=AttrTable.Rows.Where(r=>r.Class is >=0 and <7&&CharAttrTypeTable.Check381(r)!=null).Select(r=>$"{r.Class}/{r.Type}").ToArray();
+            UiResourceLog.Write($"create-char-ui {CharAttrTypeTable.FileName} {AttrTable.Rows.Count} 列；不合 3.81 規則、不套用：{(bad.Length==0?"無":string.Join("、",bad))}");
+        }
+        string Known(StatGaugeTable t)=>CharTableText.Is(t.Sha256,StatGaugeTable.Kor25Sha256)?"與 kor25 相同":"不是已知的 kor25 版本";
+        GaugeTable=ReadTable(main,mainRoot,"本機",StatGaugeTable.FileName,StatGaugeTable.Parse,t=>t.Sha256,Known);GaugeSource=GaugeTable==null?null:"本機";
+        if(GaugeTable==null&&reference!=null){GaugeTable=ReadTable(reference(),refRoot??"","參考客戶端",StatGaugeTable.FileName,StatGaugeTable.Parse,t=>t.Sha256,Known);GaugeSource=GaugeTable==null?null:"參考客戶端";}
+        if(GaugeTable==null)UiResourceLog.Write($"create-char-ui {StatGaugeTable.FileName} 讀不到，能力量表不畫");
+    }
+    static TextArchive? OpenArchive(string root,string label){
+        try{return TextArchive.Open(root);}
+        catch(Exception ex) when(ex is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException){
+            UiResourceLog.Write($"create-char-ui {label} {root} 的 Text.idx／Text.pak 無法讀取：{ex.Message}");return null;
+        }
+    }
+    static T? ReadTable<T>(TextArchive? archive,string root,string label,string file,Func<byte[],T> parse,Func<T,string> sha,Func<T,string> known) where T:class{
+        if(archive==null)return null;
+        try{
+            if(archive.Single(file) is not {} entry){UiResourceLog.Write($"create-char-ui {file}：{label} {root}\\Text.pak 沒有");return null;}
+            var table=parse(archive.Read(entry));
+            UiResourceLog.Write($"create-char-ui {file} -> {label} {root}\\Text.pak:#{entry.Record} plain sha256 {sha(table)}（{entry.Size} B，{known(table)}）");
+            return table;
+        }catch(Exception ex) when(ex is IOException or InvalidDataException or UnauthorizedAccessException or System.Security.Cryptography.CryptographicException or ArgumentException or System.Text.DecoderFallbackException){
+            UiResourceLog.Write($"create-char-ui {file}（{label} {root}）無法讀取：{ex.Message}");return null;
+        }
+    }
+
     void Clear(){
         open=false;Host=null;View=null;LayoutFile=null;ClassScene=null;StatScene=null;Message=null;Missing=[];Skipped=[];Unavailable="not loaded";nameLimit=0;
+        Gauges=[];lookup=null;dynamic.Clear();dynamicMissing.Clear();
         ResetState(0);
     }
     void ResetState(int cls){
-        Scene=CreateScene.Class;Class=cls;Sex=0;Name="";draft=CharacterManagementPackets.BaseStats(cls);Pending=false;MessageText=null;waiting=false;sentName=null;
+        Scene=CreateScene.Class;Class=cls;Sex=0;Name="";draft=CharacterManagementPackets.BaseStats(cls);StatType=0;Pending=false;MessageText=null;waiting=false;sentName=null;
         pressed=null;hover=null;pressedInside=false;
     }
 
     static string? SkipReason(UiNode n)=>n.Attr("Name") switch{
         "Warrior_Button"=>"3.81 沒有戰士職業",
         "Customizing_Win"=>"能力加成表，引擎沒有數值，不建（待做）",
-        "Gauge_Group"=>"能力量表長度沒有對照，不建（待做）",
         _=>n.Name=="Tooltip"?"說明字串不建":null,
     };
 
@@ -138,6 +308,9 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
         var edit=stat.Pieces.FirstOrDefault(p=>p.Kind==CharUiKind.Edit)??throw new UiLayoutException(layout.FileName,top.Path,$"{StatWindow} 沒有名稱輸入欄（Edit）");
         if(!stat.Pieces.Any(p=>p.MouseEvent==OkEvent))throw new UiLayoutException(layout.FileName,top.Path,$"沒有 {OkEvent} 按鈕");
         LayoutFile=layout.FileName;ClassScene=cls;StatScene=stat;Message=message;Missing=b.Missing;Skipped=b.Skipped;nameLimit=edit.Limit>0?edit.Limit:12;
+        lookup=surf;
+        // Pieces are in paint order (reverse XML order): the direct images of Gauge_Group reversed = child order.
+        Gauges=stat.Pieces.Where(p=>p.Owner==GaugeGroup&&p.Kind==CharUiKind.Image&&p.Parent==null).Reverse().ToArray();
         Unavailable=cls.Size.IsEmpty?$"{layout.FileName}: {ClassWindow} 沒有大小":stat.Size.IsEmpty?$"{layout.FileName}: {StatWindow} 沒有大小"
             :message.Size.IsEmpty?$"{layout.FileName}: {MessageWindow} 底圖都缺，無法定出訊息框範圍":null;
     }
@@ -176,8 +349,44 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
     public CharacterCreation Request=>new(Name,(byte)Class,(byte)Sex,draft[0],draft[1],draft[2],draft[3],draft[4],draft[5]);
     bool Ready=>View is {State:LoginState.CharacterList}&&!Pending&&!waiting;
 
+    // ---- R9-O: presets, gauges, background --------------------------------------------------------------------------------
+
+    /// <summary>Stat type of an Auto_StatSettingScene button (0 for anything else).</summary>
+    public static int TypeOf(CharUiPiece p)=>p.MouseEvent==AutoEvent&&p.Name!=null&&StatTypeButtons.TryGetValue(p.Name,out int t)?t:0;
+    /// <summary>sub_EE6760: the same type again resets; otherwise the valid preset replaces the six stats (no valid preset → no change).</summary>
+    public void ApplyType(int type){
+        if(type==StatType){ResetStats();return;}
+        if(AttrTable?.Preset(Class,type) is not {} preset){
+            if(logged.Add($"preset {Class}/{type}"))UiResourceLog.Write($"create-char-ui {CharAttrTypeTable.FileName} 沒有可用（合 3.81 規則）的職業 {Class} 型態 {type}，不套用");
+            return;
+        }
+        StatType=type;draft=preset;
+    }
+    /// <summary>sub_EE5D60: type 0, class base stats.</summary>
+    void ResetStats(){StatType=0;draft=CharacterManagementPackets.BaseStats(Class);}
+
+    /// <summary>Bar k of Gauge_Group: its width in pixels (0 = not drawn).</summary>
+    public int GaugeWidth(CharUiPiece p){
+        int k=-1;for(int i=0;i<Gauges.Count;i++)if(ReferenceEquals(Gauges[i],p)){k=i;break;}
+        var bars=StatGaugeTable.Bars(Gauges.Count);
+        if(k<0||k>=bars.Count||GaugeTable==null||p.Surface==null)return 0;
+        var (type,stat)=bars[k];
+        return StatGaugeTable.Width(p.Surface.Width,GaugeTable.Percent(Class,type,draft[stat]));
+    }
+
+    /// <summary>A surf chosen at run time (background); missing → null, logged once.</summary>
+    UiSurface? Dynamic(int id){
+        if(id<0||lookup==null)return null;
+        if(!dynamic.TryGetValue(id,out var s)){dynamic[id]=s=lookup(id);if(s==null&&dynamicMissing.Add(id))UiResourceLog.Write($"create-char-ui 缺圖不畫：surf {id}");}
+        return s;
+    }
+    /// <summary>The surface a piece is painted with: the stat scene's Back_Image follows class and sex.</summary>
+    public UiSurface? SurfaceOf(CharUiWindow w,CharUiPiece p)=>ReferenceEquals(w,StatScene)&&p.Kind==CharUiKind.Image&&p.Name==BackImage&&p.Parent==null&&p.Owner==null
+        ?Dynamic(BackgroundSurf(Class,Sex)):p.Surface;
+
     public bool ShownPiece(CharUiPiece p){
         if(p.Parent!=null&&!ShownPiece(p.Parent))return false;
+        if(p.Owner==GaugeGroup&&p.Kind==CharUiKind.Image&&p.Parent==null)return GaugeWidth(p)>0;
         if(p.Owner is {} o&&o.StartsWith("Class_",StringComparison.Ordinal)&&o!="Class_Buttons")return o==ClassControls[Class];
         return p.Name switch{"Male_Back"=>Sex==0,"Female_Back"=>Sex==1,_=>true};
     }
@@ -194,7 +403,9 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
             UpEvent=>stat>=0&&CanUp(stat),
             DownEvent=>stat>=0&&CanDown(stat),
             OkEvent=>View!.CanCreate,
-            _=>false,   // Auto_StatSettingScene / Customizing_StatSettingScene: no preset tables or bonus values in the engine
+            // R9-O: a type button works while its row passes the 3.81 rules (the selected one too: pressing it again resets).
+            AutoEvent=>TypeOf(p) is >0 and var type&&(type==StatType||AttrTable?.Preset(Class,type)!=null),
+            _=>false,   // Customizing_StatSettingScene: no bonus values in the engine
         };
     }
 
@@ -221,7 +432,9 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
     void PaintPiece(UiCanvas canvas,CharUiWindow w,CharUiPiece p){
         int x=w.Origin.X+p.Offset.X,y=w.Origin.Y+p.Offset.Y;
         switch(p.Kind){
-            case CharUiKind.Image:canvas.DrawSurface(p.Surface,x,y);break;
+            case CharUiKind.Image when p.Owner==GaugeGroup&&p.Parent==null&&p.Surface is {} bar:
+                canvas.DrawSurface(bar,new Rectangle(0,0,GaugeWidth(p),bar.Height),x,y);break;
+            case CharUiKind.Image:canvas.DrawSurface(SurfaceOf(w,p),x,y);break;
             case CharUiKind.Board:CharUiPaint.Board(canvas,p,x,y);break;
             case CharUiKind.Label:CharUiPaint.Label(canvas,p,x,y,LabelText(p));break;
             case CharUiKind.MultiLabel:CharUiPaint.MultiLabel(canvas,p,x,y,LabelText(p));break;
@@ -238,7 +451,8 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
             }
             case CharUiKind.Button:{
                 bool enabled=Enabled(p);
-                bool selected=p.MouseEvent==ClassEvent&&p.Name!=null&&ClassButtons.TryGetValue(p.Name,out int k)&&k==Class;
+                bool selected=p.MouseEvent==ClassEvent&&p.Name!=null&&ClassButtons.TryGetValue(p.Name,out int k)&&k==Class
+                    ||StatType>0&&TypeOf(p)==StatType;   // sub_EE6760: the selected type's button shows its PushSurf in every state
                 var s=ReferenceEquals(p,pressed)&&pressedInside&&enabled&&p.Push!=null?p.Push:selected&&p.Push!=null?p.Push:ReferenceEquals(p,hover)&&pressed==null&&enabled&&p.Highlight!=null?p.Highlight:p.Surface;
                 canvas.DrawSurface(s,x,y);break;
             }
@@ -306,21 +520,28 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
         int stat=p.Owner!=null&&StatControls.TryGetValue(p.Owner,out var i)?i:-1;
         switch(p.MouseEvent){
             case ClassEvent when p.Name!=null&&ClassButtons.TryGetValue(p.Name,out int cls):
-                if(cls!=Class){Class=cls;draft=CharacterManagementPackets.BaseStats(cls);}
+                if(cls!=Class){Class=cls;ResetStats();}
                 return;
             case MaleEvent:Sex=0;return;
             case FemaleEvent:Sex=1;return;
-            case NextEvent:Scene=CreateScene.Stat;return;
+            case NextEvent:EnterStatScene();return;
             case PrevStatEvent:Scene=CreateScene.Class;return;
             case PrevClassEvent:Close();return;
             case UpEvent when stat>=0:draft[stat]++;return;
             case DownEvent when stat>=0:draft[stat]--;return;
-            case ResetEvent:draft=CharacterManagementPackets.BaseStats(Class);return;
+            case ResetEvent:ResetStats();return;
+            case AutoEvent when TypeOf(p) is >0 and var type:ApplyType(type);return;
             case OkEvent:Submit();return;
             case MsgOkEvent or MsgCancelEvent:MessageText=null;return;
         }
         string id=p.MouseEvent??p.Name??p.Path;
         if(unhandled.Add(id))UiResourceLog.Write($"create-char-ui {id} 尚未接上");
+    }
+
+    /// <summary>sub_EE6DD0 scene 2: type 0, then type 1 (Attack) is applied (only with a readable table).</summary>
+    void EnterStatScene(){
+        Scene=CreateScene.Stat;StatType=0;
+        if(AttrTable!=null)ApplyType(1);
     }
 
     void Submit(){
