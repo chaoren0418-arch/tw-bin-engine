@@ -49,7 +49,8 @@ public sealed class YesNoPanel:IUiPanel {
             var line=YesNoButtons.Line;var state=g.Save();
             try{
                 g.IntersectClip(line);var size=UiText.Measure(g,view.Text);
-                canvas.DrawText(view.Text,line.X,line.Y+(line.Height-size.Height)/2,LineInk,Color.Black);
+                // 字高超過 12 時不往上置中（不畫到輸入列上方；PixelOffsetMode.Half 下裁切邊界不保證擋住上緣那一列）。
+                canvas.DrawText(view.Text,line.X,line.Y+Math.Max(0,(line.Height-size.Height)/2),LineInk,Color.Black);
             }finally{g.Restore(state);}
         }
         foreach(bool accept in new[]{true,false}){
