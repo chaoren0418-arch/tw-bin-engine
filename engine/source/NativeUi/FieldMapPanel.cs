@@ -6,6 +6,8 @@ namespace P06.NativeUi;
 /// Maps outside the Field_Map list use the Dungern_Map chrome (title 2888, no zoom) and show no map content.
 /// Opened/closed by Ctrl+M (V5 (b)) or the Map menu button (action 13, MenuButtonsPanel → ToggleFromMenu, R3-A #678).
 /// Created by MiniMapPanel.Create (one registry line for the module) and loaded from MiniMapPanel.Load.
+/// R5-H (T313 #740): right click = TransferMenu (send location to a character, <see cref="TransferMenu"/>).
+/// op 132 S_SHOW_MAP (PG§5) maps to 3.81 S187 HouseMap, which already opens AgitMapWindow (W2-C #550, AgitMapPanel), not this window.
 /// </summary>
 public sealed class FieldMapPanel(MapState map):IUiMovablePanel {
     public const string PanelId="Field_Map";
@@ -50,11 +52,27 @@ public sealed class FieldMapPanel(MapState map):IUiMovablePanel {
         if(!map.FieldOpen)return false;
         if(e.Kind==UiMouseKind.Down&&e.Button==MouseButtons.Left){
             if(ExitRect.Contains(e.Location)){map.CloseField();commands.ReturnGameFocus();return true;}
-            // Zoom opens the large World/Village map in the original; that window is not part of this module.
+            // Zoom: the original WorldMapWindow / VillageMapWindow are never constructed (gap-matrix 14.6 Q4-9, FU6§7),
+            // so the click is consumed and nothing opens.
             if(ZoomRect.Contains(e.Location))return true;
+        }
+        // R5-H (T313 #740): right click on the map window = TransferMenu (send-location prompt). Inferred binding, see below.
+        if(e.Kind==UiMouseKind.Down&&e.Button==MouseButtons.Right&&Bounds.Contains(e.Location)&&!ExitRect.Contains(e.Location)&&!ZoomRect.Contains(e.Location)){
+            TransferMenu(commands);return true;
         }
         return Bounds.Contains(e.Location)||e.Kind!=UiMouseKind.Down;
     }
+
+    /// <summary>
+    /// TransferMenu handler (WO §5: map-window event table sub_8DE770 registers TransferMenu next to MapName / QuestToggle /
+    /// ShowBookmark / SaveMenu; a click goes to sub_8E0620, which opens the chat-line prompt 1785, Enter sends C_CHANNEL 55/11
+    /// = 3.81 C254/11). Installed at run time by LocationListPanel (MapSendEntry), which can reach the chat panel; null = no
+    /// entry (offline, or no chat panel). 推測: which control raises TransferMenu is not in the decrypted UI XML, so the engine
+    /// uses a right click on the map window; replace only <see cref="Mouse"/> once the original control is found.
+    /// </summary>
+    public Func<IUiCommands,bool>? TransferHandler{get;set;}
+    /// <summary>TransferMenu: false = no current map, window closed, or no handler (nothing happens, nothing is sent).</summary>
+    public bool TransferMenu(IUiCommands commands)=>map.FieldOpen&&map.Current!=null&&TransferHandler?.Invoke(commands)==true;
     /// <summary>Menu button 13 (R3-A #678, TW13 sub_77F510): same toggle as Ctrl+M. false = no current map (nothing opens).</summary>
     public bool ToggleFromMenu(){
         if(map.Current==null)return false;
