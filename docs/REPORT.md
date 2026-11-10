@@ -318,3 +318,4 @@
 - 2026-11-10 — #808 T345：R7-F 公告板收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-808.md)
 - 2026-11-10 — #810 T347：R7-H 視窗堆疊與 ESC（code，claude-local，PR 已合併）→ [報告](reports/issue-810.md)
 - 2026-11-10 — #809 T346：R7-G 私商提示（code，claude-local，PR 已合併）→ [報告](reports/issue-809.md)
+- 2026-11-10 — #811 T348：R7-I 選單鈕 2／Ctrl+A 與狀態窗（code，claude-local，PR 已合併）→ [報告](reports/issue-811.md)
