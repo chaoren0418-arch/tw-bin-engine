@@ -1,0 +1,11 @@
+findstr Friend_Window
+findstr Exclude_Window
+findstr MailExclude_Window
+findstr FriendUI.xml
+findstr ExcludeUI.xml
+grepcallers 987750 987750|Source|a2|this
+dis F5C400 30
+dec B18A20
+dec B19B30
+dec 7F6D90
+dec 987260

@@ -1,0 +1,21 @@
+dwords 1379D38 6
+dwords 1386BE8 6
+xref 1386BF0
+xref 13CD850
+dec 66D480
+dec 66D320
+dec A44340
+dec A48A70
+dec A401C0
+dec A43B50
+dec E4D300
+dec A4E470
+vtab 11dff44 1
+dis A43F80 40
+dis A44150 40
+dis A43D60 30
+grepfuncs 0x2C4|\+\s324|\+\s164|13CD87C A3EF40 A45160 A51920
+rangegrep A3A000 A54000 \[81\]|\+ 81\)|\+ 324\)|\+ 328\)|\[164|\+ 164\)|0x144|0x148
+xref A3DE30
+xref A47D90
+dec 7A1490

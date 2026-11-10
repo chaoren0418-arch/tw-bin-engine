@@ -359,3 +359,5 @@
 - 2026-11-11 — #888 T382：R10-A FishObtainUI 清單（背包尾段旗標＋desc id 表）（code，claude-local，PR 已合併）→ [報告](reports/issue-888.md)
 - 2026-11-11 — #896 T384：查證原版——3.81 倉庫數量輸入（1:127）與 3.81 端未決問題（resource，claude-local，PR #901 已合併）→ [報告](reports/issue-896.md)
 - 2026-11-11 — #880 T379：gap-matrix 第七輪與 M7 結案判定（resource，claude-local，PR #900 已合併）→ [報告](reports/issue-880.md)
+- 2026-11-11 — #899 T386：查證原版——list.spr altdir／stride／cloth 的接線時機（resource，claude-local，PR 已合併）→ [報告](reports/issue-899.md)
+- 2026-11-11 — #898 T385：查證原版——真機項目 M35／M37／M39／M40 的靜態部分（resource，claude-local，PR 已合併）→ [報告](reports/issue-898.md)

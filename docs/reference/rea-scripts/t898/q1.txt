@@ -1,0 +1,16 @@
+dec 8EECE0
+dec F691C0
+dec F69110
+dec F690D0
+dec F68E60
+xref 1657038
+xref 165703C
+grepcallers 8EECE0 sub_8EECE0
+dec B17DD0
+findstr FriendWindow
+findstr FriendUI
+findstr ExcludeWindow
+dec AED660
+findstr DisableOverSurf
+findstr Back_Image
+dec EEAC50

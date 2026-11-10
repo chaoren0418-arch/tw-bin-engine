@@ -1,0 +1,9 @@
+findstr Sprite file %d-%d.spr doesn't exist
+findstr Direction Error %d (Changed 0)
+findstr list.spr
+findstr list.spz
+findstr ShowSprite 13424
+imm AE2
+imm AEC
+imm 1856
+imm 1855
