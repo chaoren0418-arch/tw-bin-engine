@@ -41,12 +41,14 @@ public sealed partial class ClientForm {
         try{
             bool sent=await PlayerHudActions.Activate(login,stamp,binding,walking);
             // A delayed sender must not overwrite the notice belonging to a newer character/world.
-            if(PlayerHudActions.Current(login,stamp)){playerHudNotice=sent?"":"未送出：請確認道具、已學技能、目標及動作狀態。";playerHudNoticeUntil=Environment.TickCount64+4000;}
+            if(PlayerHudActions.Current(login,stamp)){playerHudNotice=sent?"":login.GhostLocalBlocked?GhostLocalLimits.Notice:"未送出：請確認道具、已學技能、目標及動作狀態。";playerHudNoticeUntil=Environment.TickCount64+4000;}
         }finally{playerHudSending=false;if(!IsDisposed){SyncPlayerHud();PublishWebState();}}
     }
     bool TryPlayerHudKey(Keys key){
+        // R6-D (UI §2 V5 (b)): F4 is Action_Loot (sub_500640) in the world, with the legacy HUD or the native UI.
+        if(key==Keys.F4&&PlayerLootKeyActive){LootKeyFromInput(key);return true;}
         if(!PlayerHudActive)return false;
-        // The former F1–F4 shortcuts stay inert in the world instead of falling through to movement.
+        // F1–F3 stay inert in the legacy HUD world instead of falling through to movement.
         if(key is >=Keys.F1 and <=Keys.F4)return true;
         int slot=PlayerHudKeys.Slot(key);if(slot<0)return false;
         if(playerHudHeld.Add(key))playerHud?.ActivateSlot(slot);

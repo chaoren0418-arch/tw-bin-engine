@@ -5,6 +5,10 @@ namespace P06;
 public sealed record GroundItem(uint ObjectId,ushort X,ushort Y,ushort Gfx,uint Count,string Name,WorldObject Envelope);
 public static class GroundRules {
     public static byte PickupHeading(ushort x,ushort y,ushort tx,ushort ty,byte old){float dx=Math.Abs(x-tx),dy=Math.Abs(y-ty),distance=Math.Max(dx,dy);if(distance==0)return old;int ax=(int)Math.Floor(dx/distance+0.59f),ay=(int)Math.Floor(dy/distance+0.59f);int sx=ax==0?0:Math.Sign(tx-x),sy=ay==0?0:Math.Sign(ty-y);return (byte)Enumerable.Range(0,8).Single(i=>MovementRules.Dx[i]==sx&&MovementRules.Dy[i]==sy);}
+    // R6-D (WO §2; UI §2 V5 (b): F4 = sub_500640): the first class-9 (ground item) object within 1 tile.
+    // Engine scan order is ObjectId; the native visible-object order is unverified. Walls (Q6-7) are not checked.
+    public static GroundItem? LootTarget(ushort x,ushort y,IEnumerable<GroundItem> items)=>
+        items.OrderBy(g=>g.ObjectId).FirstOrDefault(g=>g.Count>0&&ApproachRules.Within(x,y,g.X,g.Y,ApproachRules.PickupRange));
     public static bool Droppable(InventoryItem i)=>GroundCatalog.CanDrop(i);
     // WO §2 step 4 (verified): one timestamp shared by every pickup path; now>=last+986 ms,
     // or 600 ms while dword_13CE514&0x10000. Not yet passed: no send and no queue.
@@ -120,12 +124,12 @@ public sealed partial class LoginConnection {
         return SendGround(true,count,()=>World.CurrentGroundQuantity(true,prompt));
     }
     public void CancelPickupPrompt(){if(World.TakePickupPrompt()!=null)World.GroundNotice="已取消拾取數量輸入";}
-    // Keyboard Action_Loot (sub_500640): first ground item within 1 tile, whole stack, never asks, never walks.
-    // Scan order follows the engine's object order (ObjectId); the native visible-object order is unverified.
+    // Keyboard Action_Loot (sub_500640; F4 and P): first ground item within 1 tile, whole stack, never asks, never walks.
+    // Turning (FacePickupTarget) and the 986/600 ms throttle are the same SendGround path as the click.
     public Task<bool> LootNearby(){
         World.TakePickupPrompt();
         if(!PickupAvailable||World.Actor is not {} a){World.GroundNotice=World.IsGhost?"未送出：幽靈狀態不能拾取":"未送出：目前不能拾取";return Task.FromResult(false);}
-        var item=World.Ground.FirstOrDefault(g=>g.Count>0&&ApproachRules.Within(a.X,a.Y,g.X,g.Y,ApproachRules.PickupRange));
+        var item=GroundRules.LootTarget(a.X,a.Y,World.Ground);
         if(item==null){World.GroundNotice="未送出：1 格內沒有地面物品";return Task.FromResult(false);}
         World.SelectGround(item.ObjectId);var snapshot=World.GroundQuantity(true)!;
         return SendGround(true,Math.Min(snapshot.Available,(uint)int.MaxValue),()=>World.CurrentGroundQuantity(true,snapshot));
