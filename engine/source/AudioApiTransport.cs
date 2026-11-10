@@ -3,11 +3,15 @@ using P24.Audio;
 using P24.MapEffectEvents;
 namespace P24.HostAudio;
 // Accepted r3 transport facade. Calls publish fences synchronously before mapping replies.
-public sealed class AudioApiTransport(AudioPlayer player):IEffectAudio {
+public sealed class AudioApiTransport(AudioPlayer player):IEffectAudio,IEffectAudioLevel {
     public const string ManifestPin="87c6cd6867e0d81bdc627c1cac0a922891d650018211b58525de9226926ad9fe";
+    // T310（R5-E）：產品同一時間只有一個 6016 主機（ClientEffect6016.Ensure6016 等上一個 Closed 才建新的）。
+    // Effect6016Host 不公開它的 transport，所以由產品工廠記下最近一個尚未關閉的 transport，給每次更新改音量（ClientForm.Apply6016Levels）使用。
+    static IEffectAudio? current;
+    public static IEffectAudio? Current=>Volatile.Read(ref current);
     public static IEffectAudio Create(string root){
         if(!AudioPlayer.TryCreate(root,ManifestPin,32,out var player,out var error))throw new InvalidDataException(error);
-        return new AudioApiTransport(player!);
+        var transport=new AudioApiTransport(player!);Volatile.Write(ref current,transport);return transport;
     }
     static AudioOwner Owner(EffectOwner owner)=>new(owner.TransportIdentity,owner.Generation);
     static async Task<EffectAudioReply> Map(Task<AudioReply> operation){var reply=await operation.ConfigureAwait(false);return new(reply.Success,reply.Status,reply);}
@@ -17,7 +21,10 @@ public sealed class AudioApiTransport(AudioPlayer player):IEffectAudio {
     // T302（R4-K）：播放中改音量（A091C0 → A06D60），直通 AudioPlayer.SetVoiceLevelAsync。
     public Task<EffectAudioReply> SetVoiceLevelAsync(EffectOwner owner,double voiceScale,int ext)=>Map(player.SetVoiceLevelAsync(Owner(owner),voiceScale,ext));
     public Task<EffectAudioReply> ConfigureAsync(double gain,bool muted,bool enabled)=>Map(player.ConfigureAsync(gain,muted,enabled));
-    public Task<EffectAudioReply> ShutdownWithinAsync(TimeSpan budget)=>Map(player.ShutdownWithinAsync(budget));
+    public Task<EffectAudioReply> ShutdownWithinAsync(TimeSpan budget){
+        Interlocked.CompareExchange(ref current,null,this); // 先撤下，關閉中的 transport 不再收改音量。
+        return Map(player.ShutdownWithinAsync(budget));
+    }
     public Task WhenReleased=>player.WhenReleased;
     public EffectAudioReply LastMaintenance {get{var reply=player.LastMaintenance;return new(reply.Success,reply.Status,reply);}}
 }

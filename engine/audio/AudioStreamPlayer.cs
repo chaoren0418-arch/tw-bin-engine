@@ -38,12 +38,19 @@ public sealed record AudioStreamStats(int Live, long Started, long Rejected, lon
 public sealed class AudioStreamPlayer : IAudioStream, IDisposable
 {
     public const int PollMs = 250;
-    static readonly Regex SafeName = new(@"^[A-Za-z0-9_]{1,40}\.(mp3|wav)$", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+    static readonly Regex SafeName = new(@"^[A-Za-z0-9_]{1,40}\.(mp3|wav|mid)$", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+    static readonly Regex MusicName = new(@"^music\d+\.mp3$", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+    // T310（R5-E，SD§1 管線 C，已驗證 TW1608262200.bin）：sound\music*.mp3 一個都沒有時 byte_13D3F88=1，音樂改走 MCI。
+    // 8F1C30／8F2FB0／8F3B90／8F3D70 在這個模式下都只呼叫 8F63D0(0)：sprintf("%ssound\%d.mid", 根目錄, 0)，
+    // mciSendCommand(MCI_OPEN 0x803, 0x3202, 裝置型別 0x20B 序列器) → MCI_PLAY(0x806, MCI_NOTIFY)；
+    // 8F6340 收到 MCI_NOTIFY_SUCCESSFUL 就 MCI_PLAY(MCI_NOTIFY|MCI_FROM, from 0) 重播，所以固定是 0.mid 無限循環，不設音量。
+    public const string MidiFallbackFile = "0.mid";
     readonly string root;
     readonly IStreamVoiceDriver driver;
     readonly Func<string, bool> exists;
     readonly int capacity;
     readonly bool inline;
+    long midiHandle; // MIDI 只有一個 MCI 裝置；新的音樂要求取代舊的。
     readonly BlockingCollection<Action>? queue;
     readonly object gate = new();
     sealed class Voice(long handle, string path, bool loop)
@@ -56,9 +63,13 @@ public sealed class AudioStreamPlayer : IAudioStream, IDisposable
     long next, started, rejected, looped, ended, failed; string lastError = "";
     bool disposed;
 
-    AudioStreamPlayer(string soundRoot, IStreamVoiceDriver driver, Func<string, bool> exists, int capacity, bool inline)
+    /// <summary>true＝sound 目錄裡沒有任何 music*.mp3，音樂要求改播 sound\0.mid（循環）。</summary>
+    public bool MidiFallback { get; }
+
+    AudioStreamPlayer(string soundRoot, IStreamVoiceDriver driver, Func<string, bool> exists, int capacity, bool inline, bool midiFallback)
     {
         root = Path.GetFullPath(soundRoot); this.driver = driver; this.exists = exists; this.capacity = capacity; this.inline = inline;
+        MidiFallback = midiFallback;
         if (inline) return;
         queue = new();
         var thread = new Thread(Work) { IsBackground = true, Name = "P24 audio stream" };
@@ -69,11 +80,21 @@ public sealed class AudioStreamPlayer : IAudioStream, IDisposable
     public static AudioStreamPlayer Create(string clientRoot, int capacity = 48)
     {
         if (capacity is < 1 or > 256) throw new ArgumentOutOfRangeException(nameof(capacity));
-        return new(Path.Combine(clientRoot, "sound"), new DirectShowStreamDriver(), File.Exists, capacity, false);
+        string sound = Path.Combine(clientRoot, "sound");
+        return new(sound, new RoutingStreamDriver(new DirectShowStreamDriver(), new MciMidiDriver()), File.Exists, capacity, false, NeedsMidi(sound));
     }
     /// <summary>離線測試：命令同步執行，Poll 由測試呼叫。</summary>
-    public static AudioStreamPlayer ForTests(string soundRoot, IStreamVoiceDriver driver, Func<string, bool> exists, int capacity = 48)
-        => new(soundRoot, driver, exists, capacity, true);
+    public static AudioStreamPlayer ForTests(string soundRoot, IStreamVoiceDriver driver, Func<string, bool> exists, int capacity = 48, bool midiFallback = false)
+        => new(soundRoot, driver, exists, capacity, true, midiFallback);
+    /// <summary>原版的判斷：目錄存在而且一個 music*.mp3 都沒有（不分大小寫）。目錄不存在時什麼都播不了，不切 MIDI。</summary>
+    public static bool NeedsMidi(string soundDirectory)
+    {
+        try { return Directory.Exists(soundDirectory) && !Directory.EnumerateFiles(soundDirectory, "*.mp3").Any(f => MusicName.IsMatch(Path.GetFileName(f))); }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { return false; }
+    }
+    /// <summary>MIDI 模式下，音樂要求（含任何 musicN.mp3 候選）一律換成 0.mid 循環；其他要求不變。</summary>
+    public static (IReadOnlyList<string> Candidates, bool Loop, bool Midi) Route(IReadOnlyList<string> candidates, bool loop, bool midiFallback)
+        => midiFallback && candidates.Any(c => MusicName.IsMatch(c)) ? ([MidiFallbackFile], true, true) : (candidates, loop, false);
 
     public AudioStreamStats Stats { get { lock (gate) return new(live.Count, started, rejected, looped, ended, failed, lastError); } }
     public int Live => live.Count;
@@ -87,6 +108,8 @@ public sealed class AudioStreamPlayer : IAudioStream, IDisposable
     public long Start(IReadOnlyList<string> candidates, bool loop, double volume)
     {
         if (!AudioGain.Valid(volume)) volume = 0;
+        bool midi;
+        (candidates, loop, midi) = Route(candidates, loop, MidiFallback);
         string? path = null;
         foreach (string name in candidates)
         {
@@ -95,12 +118,14 @@ public sealed class AudioStreamPlayer : IAudioStream, IDisposable
             if (!full.StartsWith(root + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)) continue;
             if (exists(full)) { path = full; break; }
         }
-        long handle;
+        long handle, previousMidi = 0;
         lock (gate)
         {
             if (disposed || path == null || live.Count >= capacity) { rejected++; if (path == null) lastError = "缺檔：" + string.Join("／", candidates); return 0; }
             handle = ++next; started++;
+            if (midi) { previousMidi = midiHandle; midiHandle = handle; }
         }
+        if (previousMidi != 0) Stop(previousMidi); // 單一 MCI 裝置：先關舊的，新的才開得起來。
         live[handle] = 0;
         int db = AudioGain.Decibels(volume);
         Post(() =>
@@ -247,6 +272,83 @@ internal sealed class DirectShowStreamDriver : IStreamVoiceDriver
         try { ((IMediaControl)g.Graph).Stop(); } catch { }
         try { Marshal.FinalReleaseComObject(g.Graph); } catch { }
         try { Marshal.FinalReleaseComObject(g.Renderer); } catch { }
+    }
+}
+
+/// <summary>T310：依副檔名分流，.mid 走 MCI 序列器（原版 8F63D0 的 mciSendCommand 路徑），其他走 DirectShow。</summary>
+public sealed class RoutingStreamDriver(IStreamVoiceDriver stream, IStreamVoiceDriver midi) : IStreamVoiceDriver
+{
+    readonly Dictionary<string, IStreamVoiceDriver> owners = [];
+    IStreamVoiceDriver For(string voice) => owners.TryGetValue(voice, out var d) ? d : stream;
+    public bool Open(string path, string voice)
+    {
+        var d = Path.GetExtension(path).Equals(".mid", StringComparison.OrdinalIgnoreCase) ? midi : stream;
+        owners[voice] = d;
+        return d.Open(path, voice);
+    }
+    public bool Volume(string voice, int hundredthDecibels) => For(voice).Volume(voice, hundredthDecibels);
+    public bool Run(string voice) => For(voice).Run(voice);
+    public bool Rewind(string voice) => For(voice).Rewind(voice);
+    public string Status(string voice) => For(voice).Status(voice);
+    public void Close(string voice) { var d = For(voice); owners.Remove(voice); d.Close(voice); }
+}
+
+/// <summary>
+/// T310：MCI 序列器。原版用 mciSendCommand＋MCI_NOTIFY 視窗訊息循環；這裡在串流命令執行緒用字串命令、
+/// 由 250ms 輪詢看 mode 是否 stopped（播完）再 seek 回開頭重播，效果等同 8F6340 的 MCI_PLAY from 0。
+/// 原版不調 MIDI 音量（8F63D0 沒有 MCI_SETAUDIO），所以 Volume 只區分「靜音」與「有聲」：
+/// 音量 0 時暫停（推定：避免靜音時 MIDI 仍以裝置音量發聲），恢復音量時接著播。
+/// </summary>
+internal sealed class MciMidiDriver : IStreamVoiceDriver
+{
+    [DllImport("winmm.dll", CharSet = CharSet.Unicode, EntryPoint = "mciSendStringW")]
+    static extern int MciSendString(string command, System.Text.StringBuilder? result, int length, nint callback);
+    // started＝已真的送過 play；靜音中要求的 Run 先記下，恢復音量時才 play。
+    readonly HashSet<string> open = [], muted = [], wanted = [], started = [];
+    static bool Send(string command, System.Text.StringBuilder? result = null)
+    {
+        if (!OperatingSystem.IsWindows()) return false;
+        try { return MciSendString(command, result, result?.Capacity ?? 0, 0) == 0; }
+        catch (Exception ex) when (ex is DllNotFoundException or EntryPointNotFoundException) { return false; }
+    }
+    // voice 是 AudioStreamPlayer 產生的 "p24s<數字>"；路徑已限制在 sound 目錄、檔名只含英數底線，不含引號。
+    public bool Open(string path, string voice)
+    {
+        if (open.Contains(voice) || path.Contains('"')) return false;
+        if (!Send($"open \"{path}\" type sequencer alias {voice}")) return false;
+        open.Add(voice); return true;
+    }
+    public bool Volume(string voice, int hundredthDecibels)
+    {
+        if (!open.Contains(voice)) return false;
+        bool silent = hundredthDecibels <= -10000;
+        if (silent == muted.Contains(voice)) return true;
+        if (silent) { muted.Add(voice); return !started.Contains(voice) || Send($"pause {voice}"); }
+        muted.Remove(voice);
+        if (started.Contains(voice)) return Send($"resume {voice}");
+        return !wanted.Contains(voice) || Play(voice);
+    }
+    bool Play(string voice) { if (!Send($"play {voice}")) return false; started.Add(voice); return true; }
+    public bool Run(string voice)
+    {
+        if (!open.Contains(voice)) return false;
+        wanted.Add(voice);
+        if (muted.Contains(voice)) return true;
+        return Play(voice);
+    }
+    public bool Rewind(string voice) => open.Contains(voice) && Send($"seek {voice} to start");
+    public string Status(string voice)
+    {
+        if (!open.Contains(voice)) return "failed";
+        if (muted.Contains(voice)) return "playing"; // 暫停中：不算播完，不重播。
+        var mode = new System.Text.StringBuilder(32);
+        if (!Send($"status {voice} mode", mode)) return "failed";
+        return mode.ToString().Trim().ToLowerInvariant() switch { "playing" or "seeking" => "playing", "stopped" => "ended", _ => "failed" };
+    }
+    public void Close(string voice)
+    {
+        muted.Remove(voice); wanted.Remove(voice); started.Remove(voice);
+        if (open.Remove(voice)) Send($"close {voice}");
     }
 }
 

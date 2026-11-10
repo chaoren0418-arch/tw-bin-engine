@@ -57,12 +57,15 @@ public static class SoundPackets
 
 // T280（R3-D，SD§2.3 A3FCBE..A3FD7B → A091C0）：發聲體每次更新的 (vol, ext)。
 // nx=|dx|、ny=|dy|（格）；nx+ny>14 時夾成 (14,0)；vol＝100−14·(nx²+ny²)/20（夾 ≥0）；ext＝64−63·(nx+ny)/14（夾 ≥0）。
-// A06D60 以 AIL_quick_set_volume(h, 類別音量·vol/100/128, ext/128) 套用；ext 是 Miles 第三參數 extra_volume（意義屬推測，SD§2.3）。
+// A06D60 以 AIL_quick_set_volume(h, 類別音量·vol/100/128, ext/128) 套用；T310 從 Mss32.dll 核定第三參數會轉給
+// AIL_set_sample_volume_pan 當 pan（0＝左、0.5＝中央、1＝右），播放層把它換成左右平衡（AudioGain.Balance）。
 public readonly record struct EmitterLevel(int Volume, int Ext)
 {
     /// <summary>A06C30 的預設 0.5f＝ext 64／128（發聲體在自己身上，或沒有發聲體）。</summary>
     public static EmitterLevel Self => new(100, 64);
-    public double ExtraVolume => Math.Clamp(Ext, 0, 128) / 128d;
+    /// <summary>ext／128。名稱沿用 T302；T310 起確定它是 Miles pan，等同 <see cref="Pan"/>。</summary>
+    public double ExtraVolume => Pan;
+    public double Pan => Math.Clamp(Ext, 0, 128) / 128d;
 }
 public static class SoundAttenuation
 {
@@ -253,7 +256,7 @@ public sealed partial class WorldSession
     // T302（R4-K，SD§2.3 A091C0 → A06D60）：把每次更新重算的 (vol, ext) 真的套到播放中的 voice。
     // S22 用 UpdatePacketSoundLevels 算好的值；有發聲體的戰鬥影格音效照同一公式即時算；
     // 發聲體或自身不在場回 null（A3FCBE 這時不呼叫 A091C0，音量維持原值）。
-    // voice 比例＝類別音量·vol/100（A06D60）；主音量由 AudioCore 再乘。ext 交給播放層記錄（意義屬推測，不套用到裝置）。
+    // voice 比例＝類別音量·vol/100（A06D60）；主音量由 AudioCore 再乘。ext 交給播放層當 pan 套到裝置（T310）。
     public (double Scale, int Ext)? VoiceLevel(CombatSoundInstance sound, SoundVolumes volumes)
     {
         EmitterLevel level;
@@ -265,6 +268,15 @@ public sealed partial class WorldSession
         else if (sound.Actor != 0 && SoundOffset(sound.Actor) is { } offset) level = SoundAttenuation.Level(offset.Dx, offset.Dy);
         else return null;
         return (volumes.Scale(sound.Category, level.Volume), level.Ext);
+    }
+
+    // T310（R5-E）：6016 地圖特效的發聲體就是特效所在格（EffectFrameState.X／Y，與角色同一座標系）。
+    // 照 SD§2.3 同一公式；類別是 SoundVolume（影格 `<`／`[` 走 A060F0）。自身不在場回 null（不更新）。
+    public (double Scale, int Ext)? EffectVoiceLevel(P24.MapEffectEvents.EffectFrameState frame, SoundVolumes volumes)
+    {
+        if (Actor is not { } self || SelfAppearancePending) return null;
+        var level = SoundAttenuation.Level(frame.X - self.X, frame.Y - self.Y);
+        return (volumes.Scale(SoundCategory.Sound, level.Volume), level.Ext);
     }
 
     [WorldSnapshot("packetSoundLevels")]
@@ -336,9 +348,55 @@ public sealed partial class WorldSession
     }
 }
 
+// T310（R5-E，SD§2.3 A091C0）：6016 地圖特效每次更新的播放中音量。值變了才經 IEffectAudio 改音量入口送出；
+// 消失的 owner 忘掉；回 null 的不送。換了 transport（主機重建）就整個重來。回傳本次送出的筆數。
+public sealed class EffectVoiceLevels
+{
+    readonly Dictionary<P24.MapEffectEvents.EffectOwner, (double Scale, int Ext)> sent = [];
+    IEffectAudio? target;
+    public int Sent { get; private set; }
+    public EffectAudioReply? LastFailure { get; private set; }
+    public int Apply(IEffectAudio? audio, IEnumerable<P24.MapEffectEvents.EffectFrameState> frames,
+        Func<P24.MapEffectEvents.EffectFrameState, (double Scale, int Ext)?> level)
+    {
+        if (!ReferenceEquals(audio, target)) { sent.Clear(); target = audio; }
+        if (audio == null) return 0;
+        var live = new HashSet<P24.MapEffectEvents.EffectOwner>();
+        int count = 0;
+        foreach (var frame in frames)
+        {
+            live.Add(frame.Owner);
+            if (level(frame) is not { } next) continue;
+            next = (double.IsFinite(next.Scale) ? Math.Clamp(next.Scale, 0, 1) : 0, Math.Clamp(next.Ext, 0, 128));
+            if (sent.TryGetValue(frame.Owner, out var old) && old == next) continue;
+            sent[frame.Owner] = next; count++;
+            Task<EffectAudioReply> task;
+            try { task = audio.SetVoiceLevelAsync(frame.Owner, next.Scale, next.Ext); }
+            catch (Exception ex) { LastFailure = new(false, "HostCallFailed", ex.Message); continue; }
+            _ = task.ContinueWith(t =>
+            {
+                var reply = t.IsCompletedSuccessfully ? t.Result : new EffectAudioReply(false, "TaskFailed", t.Exception?.Message);
+                // NoLiveVoice／StaleOrUnknownOwner 是正常情況（特效此刻沒在發聲、或剛換代），不算失敗。
+                if (!reply.Success && reply.Status is not ("NoLiveVoice" or "StaleOrUnknownOwner" or "Disposed")) LastFailure = reply;
+            }, TaskScheduler.Default);
+        }
+        foreach (var gone in sent.Keys.Where(o => !live.Contains(o)).ToArray()) sent.Remove(gone);
+        Sent += count;
+        return count;
+    }
+}
+
 public sealed partial class ClientForm
 {
     PacketSoundAssets? packetSoundAssets;
+    readonly EffectVoiceLevels effect6016Levels = new();
+    // T310：6016 主機與 PumpCombatSfx 同在 UI 計時器執行緒（Program.cs 的 Tick：Pump6016 → PumpCombatSfx），Frames() 的 lane 檢查成立。
+    void Apply6016Levels(SoundVolumes volumes)
+    {
+        if (login.World.Effects6016 is not { Closed: false } host) { effect6016Levels.Apply(null, [], _ => null); return; }
+        try { effect6016Levels.Apply(P24.HostAudio.AudioApiTransport.Current, host.Frames(), frame => login.World.EffectVoiceLevel(frame, volumes)); }
+        catch (InvalidOperationException ex) { System.Diagnostics.Trace.WriteLine("6016 level: " + ex.Message); }
+    }
     IEnumerable<CombatSoundInstance> WithPacketSounds(IEnumerable<CombatSoundInstance> existing, long now)
     {
         packetSoundAssets ??= new(Environment.GetEnvironmentVariable("TW_CLIENT_ROOT") ?? @"D:\lineage開發\0-客戶端");
@@ -346,6 +404,7 @@ public sealed partial class ClientForm
         // T302：每次更新（A091C0 的時機）把重算後的音量套到上一輪已在播的 voice；這一輪新開的由 SoundGate 給初始音量。
         var volumes = SoundVolumes;
         combatSfx?.ApplyLevels(sound => login.World.VoiceLevel(sound, volumes));
+        Apply6016Levels(volumes);
         return composed;
     }
 }

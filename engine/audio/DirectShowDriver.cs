@@ -42,6 +42,8 @@ internal interface IAudioDriver
 {
     NativeReply Open(string path, string format, string voice);
     NativeReply Gain(string voice, double normalized);
+    // T310（R5-E）：左右聲像，單位同 IBasicAudio.put_Balance（1/100 dB，負＝右聲道衰減）。沒有這個能力的替身回成功、不動作。
+    NativeReply Balance(string voice, int hundredthDecibels) => new(0, "BalanceUnsupported");
     NativeReply Play(string voice);
     NativeReply Status(string voice);
     NativeReply Stop(string voice);
@@ -51,6 +53,7 @@ internal interface IPlaybackGraph
 {
     int Open(string path);
     int Volume(int hundredthDecibels);
+    int Balance(int hundredthDecibels) => 0;
     int Run();
     NativeReply Status();
     int Stop();
@@ -63,6 +66,27 @@ internal static class AudioGain
     {
         if (!Valid(value)) throw new ArgumentOutOfRangeException(nameof(value));
         return value == 0 ? -10000 : (int)Math.Clamp(Math.Round(2000 * Math.Log10(value)), -10000, 0);
+    }
+
+    // T310（R5-E）：ext 是 Miles 的 pan，不是額外音量（已驗證，客戶端 Mss32.dll，見 docs/reports/issue-737.md）：
+    //   AIL_quick_set_volume(h, vol, ext/128)（RVA 0x1A870）→ 內部 0x051D0 → AIL_set_sample_volume_pan(s, vol, pan)（RVA 0x14F10）
+    //   → 0x2A9E0：pan＝0.5 時左右都是 v·0.5^0.3（0.81225）；否則 左＝(1−pan)^0.3·v、右＝pan^0.3·v，v＝vol^(5/3)。
+    // 這裡只換成左右比：balance＝20·log10(右/左)（1/100 dB）。中央（ext 64）＝0，不改既有響度；ext 0＝右聲道全關。
+    internal const int CenterExt = 64;
+    internal static bool ValidExt(int ext) => ext is >= 0 and <= 128;
+    internal static (double Left, double Right) PanLevels(int ext)
+    {
+        if (!ValidExt(ext)) throw new ArgumentOutOfRangeException(nameof(ext));
+        double pan = ext / 128d;
+        return (Math.Pow(1 - pan, 0.3), Math.Pow(pan, 0.3));
+    }
+    internal static int Balance(int ext)
+    {
+        if (ext == CenterExt) return 0;
+        var (left, right) = PanLevels(ext);
+        if (right <= 0) return -10000;
+        if (left <= 0) return 10000;
+        return (int)Math.Clamp(Math.Round(2000 * Math.Log10(right / left)), -10000, 10000);
     }
 }
 internal sealed class DirectShowDriver(Func<IPlaybackGraph> create) : IAudioDriver
@@ -85,6 +109,7 @@ internal sealed class DirectShowDriver(Func<IPlaybackGraph> create) : IAudioDriv
         });
     }
     public NativeReply Gain(string voice, double normalized) => With(voice, g => HResult(g.Volume(AudioGain.Decibels(normalized))));
+    public NativeReply Balance(string voice, int hundredthDecibels) => With(voice, g => HResult(g.Balance(Math.Clamp(hundredthDecibels, -10000, 10000))));
     public NativeReply Play(string voice) => With(voice, g => HResult(g.Run()));
     public NativeReply Status(string voice) => With(voice, g => g.Status());
     public NativeReply Stop(string voice) => With(voice, g => HResult(g.Stop()));
@@ -144,6 +169,7 @@ internal sealed class WindowsPlaybackGraph : IPlaybackGraph
         }
     }
     public int Volume(int hundredthDecibels) => ((IBasicAudio)renderer!).put_Volume(hundredthDecibels);
+    public int Balance(int hundredthDecibels) => ((IBasicAudio)renderer!).put_Balance(hundredthDecibels);
     public int Run() => ((IMediaControl)graph!).Run();
     public int Stop() => graph == null ? 0 : ((IMediaControl)graph).Stop();
     public NativeReply Status()
