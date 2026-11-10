@@ -7,6 +7,21 @@ public sealed record ExcludePacket(byte Kind,string[] Names);
 public sealed record BuddyView(int Generation,int Epoch,uint Actor,int Revision,bool CanSend,bool CanToggle,
     bool Loaded,bool Stale,string Notice,BuddyEntry[] Friends,string[] Excluded,string[] MailExcluded);
 
+/// <summary>
+/// R10-C（T387／#902）：好友相關的 HyperAct（FU9§9.2，已驗證）：`addbuddy` → 輸入框 588「在好友清單上增加誰？」。
+/// 588 原文用 docs/reference/rea-scripts/t267/text_tables.py 從 0-客戶端 Text.pak 的 string-c.tbl（sha256 4ebbc1a7…2d43e9）讀出；
+/// 執行期照字串表，表不在時用同一句。`buddy`／`refreshbuddy`（56）、`delbuddy`（589）不在本任務範圍。
+/// </summary>
+public static class BuddyHyperActs {
+    public const string AddBuddy="addbuddy";
+    public const int AddInputText=588;
+    public const string AddInputFallback="在好友清單上增加誰？";
+    /// <summary>動作名稱比照 checkpk／accepttrade：去頭尾空白、不分大小寫（原版比對方式沒查）。</summary>
+    public static bool IsAddBuddy(string? action)=>string.Equals(action?.Trim(),AddBuddy,StringComparison.OrdinalIgnoreCase);
+    public static string AddInputPrompt=>ServerMessageText.Table is {} t&&AddInputText<t.Count
+        &&ServerMessageText.DisplayText(t[AddInputText]).Trim() is {Length:>0} s?s:AddInputFallback;
+}
+
 // Field layouts and source identities: docs/protocol/buddies.md.
 public static class BuddyPackets {
     public static byte[] Encode(BuddyAction action,string name="") {
@@ -101,6 +116,18 @@ public sealed partial class WorldSession {
         else{BuddyStale=true;BuddyNotice="已送出好友變更；原服非同步處理，請稍後按「查詢好友」確認結果。";}
         BuddyRevision++;
     }
+    /// <summary>R10-C（#902）：FriendUI Delete 的 1813「是」送出 C202 後本地移除（FU9§9.2：sub_B18F10 本地移除，不送 56）。</summary>
+    internal void RemoveBuddyLocal(string name){
+        var next=buddies.Where(b=>!string.Equals(b.Name,name,StringComparison.OrdinalIgnoreCase)).ToArray();
+        if(next.Length!=buddies.Length)buddies=next;
+        BuddyNotice="已送出刪除好友「"+name+"」；名單已先在本機移除，結果以原服回覆為準。";BuddyRevision++;
+    }
+    /// <summary>R10-C：好友輸入框的本機訊息（例如 53）放進聊天欄（預設字色），同時更新名單提示。</summary>
+    internal void BuddyLocalLine(string text){
+        playerChatLines.Enqueue(new(++playerChatSequence,0,PlayerChatProtocol.Display(text)));
+        while(playerChatLines.Count>100)playerChatLines.Dequeue();
+        playerChatRevision++;BuddyNotice=text;BuddyRevision++;
+    }
     internal bool BuddyBlocksChat(byte[] plain){
         if(excluded.Count==0||plain.Length<2)return false;
         var r=new LoginReader(plain);byte opcode=r.C();string name;
@@ -127,11 +154,13 @@ public sealed partial class LoginConnection {
         CheckBuddySendGeneration();if(!BuddyAccess||!BuddyStamp(view))return false;
         World.ToggleMailExclude(name);return true;
     });
-    public async Task<bool> SendBuddy(BuddyAction action,string name,BuddyView view){
+    /// <param name="localRemove">R10-C：FriendUI Delete（1813 是）＝送 C202 後本地移除，不另查詢（FU9§9.2）。只對 Delete 有效。</param>
+    public async Task<bool> SendBuddy(BuddyAction action,string name,BuddyView view,bool localRemove=false){
         CheckBuddySendGeneration();if(!BuddyAccess||buddySending||!BuddyStamp(view)||sendMovementGate==null||action==BuddyAction.ToggleExclude&&World.ExcludePending)return false;
         byte[] packet=BuddyPackets.Encode(action,name);var sender=sendMovementGate;int lease=++buddyLease;buddySending=true;
         try{
-            bool sent=await sender(packet,()=>lease==buddyLease&&BuddyAccess&&BuddyStamp(view),()=>World.BeginBuddyRequest(action,name));
+            bool sent=await sender(packet,()=>lease==buddyLease&&BuddyAccess&&BuddyStamp(view),()=>{
+                World.BeginBuddyRequest(action,name);if(localRemove&&action==BuddyAction.Delete)World.RemoveBuddyLocal(name);});
             if(view.Generation==generation)Changed?.Invoke();return sent&&view.Generation==generation;
         }catch(Exception ex){if(view.Generation==generation){Cancel();Set(LoginState.Faulted,"名單傳送失敗："+ex.Message);}return false;}
         finally{if(lease==buddyLease)buddySending=false;}
@@ -168,6 +197,30 @@ public sealed partial class LoginConnection {
             if(!World.IsExcluded(name))return ChatCommandPlan.Refuse(name+" 不在封鎖名單（以原服回覆的名單為準）；未送出。");
             return ExcludeToggle(name,"已送出解除封鎖「"+name+"」，等待原服回覆。");
         }
+    }
+    /// <summary>R10-C：HyperAct `addbuddy` 開 588 輸入框（頁內名稱框，同 R7-D 的 HtmlNamePrompt）；不送包。</summary>
+    internal Task<bool> OpenAddBuddyInput(bool query){
+        World.OpenHtmlNamePrompt(HtmlNameKind.AddBuddy,query);Changed?.Invoke();return Task.FromResult(true);
+    }
+    /// <summary>588 輸入框現在可以送出（名單存取同 SendBuddy；沒有正在送的名單請求）。</summary>
+    internal bool BuddyInputCanSend{get{CheckBuddySendGeneration();return BuddyAccess&&!buddySending&&sendMovementGate!=null;}}
+    /// <summary>
+    /// R10-C：588 輸入框確定 → 同 `/addbuddy 名稱`（sub_F43160）：名稱檢查失敗印 53、不送；成功送 C207＋C4（原版 `cs` 138＋`c` 56）。
+    /// 第一包放行後才送 C4；C4 被擋只少了查詢。
+    /// </summary>
+    internal async Task<bool> AddBuddyFromInput(string name){
+        if(!BuddyInputCanSend)return false;
+        byte[] add;
+        try{add=BuddyPackets.Encode(BuddyAction.Add,name);}
+        catch(ArgumentException){World.BuddyLocalLine(ChatFollowupCommands.InvalidNameText);Changed?.Invoke();return false;}
+        var sender=sendMovementGate!;int session=generation,lease=++buddyLease;buddySending=true;
+        bool Valid()=>session==generation&&lease==buddyLease&&BuddyAccess;
+        try{
+            bool sent=await sender(add,Valid,()=>World.BeginBuddyRequest(BuddyAction.Add,name));
+            if(sent&&session==generation)await sender(BuddyPackets.Encode(BuddyAction.Query),Valid,()=>{});
+            if(session==generation)Changed?.Invoke();return sent&&session==generation;
+        }catch(Exception ex){if(session==generation){Cancel();Set(LoginState.Faulted,"名單傳送失敗："+ex.Message);}return false;}
+        finally{if(lease==buddyLease)buddySending=false;}
     }
     ChatCommandPlan ExcludeToggle(string name,string notice){
         bool wasExcluded=World.IsExcluded(name);
