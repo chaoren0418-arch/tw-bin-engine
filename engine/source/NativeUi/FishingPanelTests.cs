@@ -140,8 +140,10 @@ namespace P06.NativeUi {
             p.Mouse(M(UiMouseKind.Down,100+86+1,50+3),c);p.Mouse(M(UiMouseKind.Move,100+5,50+20),c);p.Mouse(M(UiMouseKind.Up,100+5,50+20),c);
             t.Equal(0,quits,"release outside the button does not fire");
             accept=false;Click(p,100+86+1,50+3);
+            t.Check(quits==0&&p.PendingQuit!=null,"R9-P (#860): quit asks 1516 first, sends nothing yet");
+            p.AnswerQuit(p.PendingQuit!.Revision,true);
             t.Check(quits==1&&p.CanQuit&&p.Visible,"refused quit (no connected form) can be retried");
-            accept=true;Click(p,100+86+1,50+3);
+            accept=true;Click(p,100+86+1,50+3);p.AnswerQuit(p.PendingQuit!.Revision,true);
             t.Check(quits==2&&!p.CanQuit&&p.Visible,"quit sent once; window stays until the server confirms");
             t.Equal(QuitPush,Pixel(p,100+86+1,50+2+1),"pending quit drawn pushed");
             Click(p,100+86+1,50+3);
@@ -151,7 +153,7 @@ namespace P06.NativeUi {
             p.Offer(E(true,3,pending:false,notice:"收竿尚未確認"));p.Update(World);
             t.Check(p.CanQuit,"pending cleared → quit allowed again");
             var thrower=Loaded(()=>throw new InvalidOperationException("synthetic"));thrower.Offer(E(true,1));thrower.Update(World);
-            Click(thrower,100+86+1,50+3);
+            Click(thrower,100+86+1,50+3);thrower.AnswerQuit(thrower.PendingQuit!.Revision,true);
             t.Check(thrower.CanQuit&&thrower.Visible,"throwing quit route logged, not fatal");
             t.Check(p.IsDragHandle(new Point(100+2,50+2))&&!p.IsDragHandle(new Point(100+71,50+2))&&!p.IsDragHandle(new Point(100+2,50+15)),"drag strip = Moveable, buttons excluded");
             p.MoveTo(new Point(10,10));
