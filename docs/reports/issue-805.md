@@ -47,7 +47,12 @@
   - 資訊窗：位置、大小、Bid → apply、Esc、看板不同不開、清單窗關閉時一起關、缺模板、缺 MultiLabel、缺 X、沒有 UiResources。
   - 出價窗：位置、大小、缺圖、字型顏色、只收 agapply、數字輸入與上限、低於下限不送、宿主不能送時不送、Ok／Enter、Plus 只記 log、Cancel／Esc 不重開、詢問消失就關、拖曳、Close、無法作答的詢問、缺 Edit、缺底圖時用子元件定大小。
   - 自動發現註冊與 `Agit.cs` 快照字串。
-- **範圍外但必要的改動**：`engine/source/RingWindowsTests.cs` 第 80–84 行原本斷言「限制地圖顯示 276、不開窗」，這正是本任務要改掉的行為。已改成「照樣開窗、不顯示 276」，並把窗關掉，讓後續步驟維持原狀。
+- **範圍外但必要的改動（之一，既有 bug）**：`engine/source/NpcInteraction.cs` 第 119 行（R7-D／#806 已合併，目前沒有其他組在用這個檔）。
+  - 3.81 `S_AuctionBoardRead.java`（SHA-256 前 16 碼 `0bc92c0a00302b8e`，只讀）寫的是 `C D S("agsel") S(盟屋編號) H(9) S×9`，`agsel` 後面沒有 flag。
+  - 一般 NPC 對話的解析是照 `S(html) H(flag) H(count)` 讀，會把盟屋編號字串當成 flag，所以**每一個真的 agsel 都會丟 `ProtocolException("dialog arguments")`**。
+  - 674 鈕（#550）上線後就一直有這個問題，PR #829 第一輪 CI 也因此失敗。本 PR 加入清單窗送 select 之後，這個問題更容易碰到。
+  - 修正：html 是 `agsel` 時，先讀掉盟屋編號，再讀數量；其他頁的讀法不變。修正後 agsel 頁照常交給 NPC 對話顯示。
+- **範圍外但必要的改動（之二）**：`engine/source/RingWindowsTests.cs` 第 80–84 行原本斷言「限制地圖顯示 276、不開窗」，這正是本任務要改掉的行為。已改成「照樣開窗、不顯示 276」，並把窗關掉，讓後續步驟維持原狀。
 
 ## 怎麼驗證
 
@@ -83,10 +88,12 @@
 
 - `engine/source/AbilityStatus.cs`、`RingWindows.cs`、`NativeUi/AgitAuctionPanel.cs`、`AmountPrompt.cs`、`Agit.cs`
 - 新檔 `engine/source/RingAgitFollowupTests.cs`
-- 範圍外必要改動：`engine/source/RingWindowsTests.cs`
+- 範圍外必要改動：`engine/source/NpcInteraction.cs`（agsel 解析）、`engine/source/RingWindowsTests.cs`
 - 本報告 `docs/reports/issue-805.md`；分支 `task/805`
 
 ## 給下一棒的提示
+
+- 其他伺服器自訂的 S39 頁可能也不是 `S(html) H(flag) H(count)` 格式，`agsel` 就是一例。建議找一張任務，把 server-protocol.md 裡所有 `S_OPCODE_SHOWHTML` 的寫法和 `NpcInteraction.cs:119` 逐一比對。
 
 - `NpcUi.cs` 擁有者：原生 Bid_Window 可用時（`ClientForm.NativeAgitBidShowing(offer)`），`HyperTextView` 的 `number` 對 agapply 應改傳 null，才能消除兩個輸入框。agsel 頁是否也從 HyperText 移走，要等 BIN 查證。
 - 若要查原版細節，從 `CAgitAuctionUI`（`sub_546800` 附近，`0x5448F0`）追：agsel 的轉交、Bid 鈕送的動作、Minus／Plus 的步進值、Bid_Window 的位置（是否置中）。

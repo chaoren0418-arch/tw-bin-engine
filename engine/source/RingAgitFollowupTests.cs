@@ -90,11 +90,12 @@ static class RingAgitFollowupTests {
         AgitAuctionInfoWindow.Clear();
         var reg=WorldExtensionRegistry.Default;
         t.Check(reg.Errors.Count==0&&reg.Entries.Any(e=>e.Kind=="observe"&&e.Opcode==39&&e.Method=="WorldSession.ObserveAgitAuctionInfo"),"S39 agsel observer registered (auto discovery)",reg.Errors);
-        w.Receive(Agsel(Board,"458757"),"offline");
+        w.Receive(Agsel(Board,"458757"),"offline");   // 3.81 S_AuctionBoardRead 的真實格式：NPC 對話不可丟 ProtocolException
+        t.Check(true,"real agsel layout accepted by the NPC dialog parser (no ProtocolException)");
         var info=AgitAuctionInfoWindow.Current;
         t.Check(info is {BoardId:Board,HouseNumber:"458757"}&&info.Data.SequenceEqual(Enumerable.Range(0,9).Select(i=>"v"+i)),"agsel posts an info request",info);
         long rev=info!.Revision;
-        w.Receive(Agsel(Board,"458757","y_other"),"offline");
+        w.Receive(P([39],Le32(Board),Str("y_other"),Le16(0),Le16(0)),"offline");   // 一般 S39：D S(html) H(flag) H(count)
         t.Check(AgitAuctionInfoWindow.Current?.Revision==rev,"other S39 page posts nothing");
         w.Reset();
         t.Check(AgitAuctionInfoWindow.Current==null,"reset clears the info request");
