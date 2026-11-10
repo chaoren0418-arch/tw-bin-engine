@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 namespace P06;
 public sealed record ObjectVisual(uint ObjectId,int Gfx,int Sprite,string Name,int X,int Y,string Action,string Frame,PointF Foot,Rectangle Bounds,bool Walking,int StepMs);
 public sealed partial class Renderer {
@@ -251,6 +252,127 @@ public static class NameLayout {
         return new(texts.ToArray(),emblems.ToArray()){Icons=icons.ToArray()};
     }
 }
+// T321（#759）P-E：名稱與稱號照原版走 GDI（UI§1 V4、PAK§4.2 字型列）。sub_8444A0 在 CP950 建
+// CreateFontA(12,0,0,0,400,0,0,0,136,0,0,0,0,"MingLiU")（高 12、FW_NORMAL、字元集 136＝CHINESEBIG5、品質 0），
+// sub_83DC90／sub_83E100 用 GDI TextOut 畫；名稱先畫 4 向 ±1 px 描邊、最後畫本色（+204）。
+// 引擎做法：同一組 CreateFont 參數在記憶體 DIB 上以 1× 光柵化成墨點遮罩，合成描邊＋本色後，依鏡頭倍率最近鄰放大
+// （原版也是 1× 畫在 800×600 面上）。MingLiU 不在（GDI 字型對應換成別的字）或 GDI 失敗時回傳 null，
+// 呼叫端退回既有 GDI+ DrawString（WinForms 備援），不用替代圖。
+// Font\*.fnt 點陣字（kor／eng／small）在 CP950＋MingLiU 時原版不走（UI§1 sub_83DC90），這裡只從主客戶端讀檔並記錄 SHA-256。
+public sealed record NameGlyphMask(int Width,int Height,bool[] Ink);
+public sealed record NameFontFile(string Name,long Size,string Sha256,int? Glyphs);
+public static class NativeNameFont {
+    public const string Face="MingLiU",FaceLocal="細明體",FontDirectory="Font";
+    public const int Height=12,Weight=400,Quality=0,Border=1,CacheLimit=512;public const byte CharSet=136;
+    public static readonly (int Dx,int Dy)[] OutlineOffsets=[(-1,0),(1,0),(0,-1),(0,1)];
+    public static bool IsMingLiU(string? face)=>face is not null&&(face.Equals(Face,StringComparison.OrdinalIgnoreCase)||face==FaceLocal);
+    /// <summary>遮罩四周各加 1 px：先蓋 4 向描邊，再蓋本色；沒有墨的地方是 0（透明）。</summary>
+    public static int[] Compose(NameGlyphMask m,int fillArgb,int outlineArgb,out int width,out int height){
+        width=m.Width+2*Border;height=m.Height+2*Border;var px=new int[width*height];
+        foreach(var (dx,dy) in OutlineOffsets)Stamp(m,px,width,Border+dx,Border+dy,outlineArgb);
+        Stamp(m,px,width,Border,Border,fillArgb);return px;
+    }
+    static void Stamp(NameGlyphMask m,int[] px,int stride,int ox,int oy,int argb){for(int y=0;y<m.Height;y++)for(int x=0;x<m.Width;x++)if(m.Ink[y*m.Width+x])px[(y+oy)*stride+x+ox]=argb;}
+    /// <summary>點陣字檔每字位元組數（推測：eng 6×12＝每列 1 byte、kor 12×12＝每列 2 byte；small 版面未查證）。</summary>
+    public static int? GlyphBytes(string name)=>name.StartsWith("eng",StringComparison.OrdinalIgnoreCase)?12:name.StartsWith("kor",StringComparison.OrdinalIgnoreCase)?24:null;
+    /// <summary>主客戶端 Font\*.fnt（只看該層，不遞迴、不寫入）：檔名、大小、SHA-256、整除時的字數。</summary>
+    public static NameFontFile[] FontFiles(string clientRoot){
+        string dir=Path.Combine(clientRoot,FontDirectory);
+        try{
+            if(!Directory.Exists(dir))return [];
+            return Directory.EnumerateFiles(dir,"*.fnt",SearchOption.TopDirectoryOnly).Where(p=>Path.GetExtension(p).Equals(".fnt",StringComparison.OrdinalIgnoreCase))
+                .OrderBy(p=>Path.GetFileName(p),StringComparer.OrdinalIgnoreCase).Select(p=>{
+                    var bytes=File.ReadAllBytes(p);string name=Path.GetFileName(p);int? per=GlyphBytes(name);
+                    return new NameFontFile(name,bytes.Length,Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(bytes)).ToLowerInvariant(),per is int n&&bytes.Length>0&&bytes.Length%n==0?bytes.Length/n:null);
+                }).ToArray();
+        }catch(Exception e) when(e is IOException or UnauthorizedAccessException){return [];}
+    }
+    /// <summary>來源紀錄（給事件記錄用）：GDI 字型實際對應到的字面、系統字型檔 SHA-256、主客戶端 Font\*.fnt。</summary>
+    public static object Describe(string clientRoot){
+        Ensure();string ttc=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts),"mingliu.ttc");string? ttcSha=null;long? ttcSize=null;
+        try{if(File.Exists(ttc)){using var s=File.OpenRead(ttc);ttcSize=s.Length;ttcSha=Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(s)).ToLowerInvariant();}}catch(Exception e) when(e is IOException or UnauthorizedAccessException){}
+        return new{face=Face,height=Height,weight=Weight,charSet=CharSet,quality=Quality,faceUsed=FaceUsed,unavailable=Unavailable,systemFont=new{path=ttc,size=ttcSize,sha256=ttcSha},clientRoot,fnt=FontFiles(clientRoot)};
+    }
+
+    static readonly object gate=new();static bool tried;static IntPtr dc,hfont,oldFont;
+    public static string? Unavailable{get;private set;}
+    public static string? FaceUsed{get;private set;}
+    static void Ensure(){
+        lock(gate){
+            if(tried)return;tried=true;
+            try{
+                dc=Gdi.CreateCompatibleDC(IntPtr.Zero);if(dc==IntPtr.Zero){Unavailable="CreateCompatibleDC failed";return;}
+                hfont=Gdi.CreateFontW(Height,0,0,0,Weight,0,0,0,CharSet,0,0,Quality,0,Face);if(hfont==IntPtr.Zero){Unavailable="CreateFont MingLiU failed";return;}
+                oldFont=Gdi.SelectObject(dc,hfont);var sb=new System.Text.StringBuilder(64);Gdi.GetTextFaceW(dc,sb.Capacity,sb);FaceUsed=sb.ToString();
+                if(!IsMingLiU(FaceUsed))Unavailable="GDI mapped MingLiU to '"+FaceUsed+"'";
+            }catch(Exception e) when(e is DllNotFoundException or EntryPointNotFoundException or ExternalException){Unavailable="GDI unavailable: "+e.Message;}
+        }
+    }
+    /// <summary>以原版 CreateFont 參數 1× 光柵化；字型不是 MingLiU 或 GDI 失敗時為 null。</summary>
+    public static NameGlyphMask? Rasterize(string text){
+        Ensure();
+        lock(gate){
+            if(Unavailable!=null)return null;
+            if(text.Length==0)return new(0,Height,[]);
+            if(!Gdi.GetTextExtentPoint32W(dc,text,text.Length,out var size)||size.Cx<=0||size.Cy<=0||size.Cx>4096)return null;
+            var bmi=new Gdi.BitmapInfoHeader{Size=40,Width=size.Cx,Height=-size.Cy,Planes=1,BitCount=32};
+            var dib=Gdi.CreateDIBSection(dc,ref bmi,0,out var bits,IntPtr.Zero,0);if(dib==IntPtr.Zero||bits==IntPtr.Zero)return null;
+            var old=Gdi.SelectObject(dc,dib);
+            try{
+                Gdi.SetBkMode(dc,2);Gdi.SetBkColor(dc,0);Gdi.SetTextColor(dc,0xFFFFFF);Gdi.SetTextAlign(dc,0);
+                if(!Gdi.TextOutW(dc,0,0,text,text.Length))return null;Gdi.GdiFlush();
+                var raw=new int[size.Cx*size.Cy];Marshal.Copy(bits,raw,0,raw.Length);var ink=new bool[raw.Length];
+                for(int i=0;i<raw.Length;i++){int p=raw[i];ink[i]=Math.Max(p&255,Math.Max(p>>8&255,p>>16&255))>=128;}
+                return new(size.Cx,size.Cy,ink);
+            }finally{Gdi.SelectObject(dc,old);Gdi.DeleteObject(dib);}
+        }
+    }
+    static readonly Dictionary<(string,int,int),Bitmap?> cache=new();
+    /// <summary>合成好的名稱圖（1×，含 1 px 描邊邊框）；不可用時為 null。依（字串、本色、描邊色）快取。</summary>
+    public static Bitmap? Glyphs(string text,Color fill,Color outline){
+        var key=(text,fill.ToArgb(),outline.ToArgb());
+        lock(gate){if(cache.TryGetValue(key,out var hit))return hit;}
+        Bitmap? bmp=null;
+        if(Rasterize(text) is {} mask){
+            var px=Compose(mask,key.Item2,key.Item3,out int w,out int h);
+            bmp=new Bitmap(w,h,System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            var data=bmp.LockBits(new Rectangle(0,0,w,h),System.Drawing.Imaging.ImageLockMode.WriteOnly,System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            try{for(int y=0;y<h;y++)Marshal.Copy(px,y*w,data.Scan0+y*data.Stride,w);}finally{bmp.UnlockBits(data);}
+        }
+        lock(gate){
+            if(cache.Count>=CacheLimit){foreach(var b in cache.Values)b?.Dispose();cache.Clear();}
+            if(cache.TryGetValue(key,out var raced)){bmp?.Dispose();return raced;}
+            cache[key]=bmp;return bmp;
+        }
+    }
+    /// <summary>在 (x, y)（TextOut 原點）畫名稱：圖含 1 px 邊框，所以往左上退 1 px×倍率；最近鄰放大。畫不了回傳 false。</summary>
+    public static bool Draw(Graphics g,string text,Color fill,Color outline,float x,float y,float zoom){
+        if(Glyphs(text,fill,outline) is not {} bmp)return false;
+        var state=g.Save();
+        try{
+            g.InterpolationMode=System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;g.PixelOffsetMode=System.Drawing.Drawing2D.PixelOffsetMode.Half;
+            g.DrawImage(bmp,x-Border*zoom,y-Border*zoom,bmp.Width*zoom,bmp.Height*zoom);
+        }finally{g.Restore(state);}
+        return true;
+    }
+    static class Gdi {
+        [StructLayout(LayoutKind.Sequential)] public struct Size32{public int Cx,Cy;}
+        [StructLayout(LayoutKind.Sequential)] public struct BitmapInfoHeader{public int Size,Width,Height;public short Planes,BitCount;public int Compression,SizeImage,XPelsPerMeter,YPelsPerMeter,ClrUsed,ClrImportant;}
+        [DllImport("gdi32.dll")] public static extern IntPtr CreateCompatibleDC(IntPtr hdc);
+        [DllImport("gdi32.dll",CharSet=System.Runtime.InteropServices.CharSet.Unicode)] public static extern IntPtr CreateFontW(int h,int w,int esc,int orient,int weight,uint italic,uint underline,uint strike,uint charSet,uint outPrecision,uint clipPrecision,uint quality,uint pitchAndFamily,string face);
+        [DllImport("gdi32.dll")] public static extern IntPtr SelectObject(IntPtr hdc,IntPtr obj);
+        [DllImport("gdi32.dll")] public static extern bool DeleteObject(IntPtr obj);
+        [DllImport("gdi32.dll",CharSet=System.Runtime.InteropServices.CharSet.Unicode)] public static extern int GetTextFaceW(IntPtr hdc,int count,System.Text.StringBuilder face);
+        [DllImport("gdi32.dll",CharSet=System.Runtime.InteropServices.CharSet.Unicode)] public static extern bool GetTextExtentPoint32W(IntPtr hdc,string text,int count,out Size32 size);
+        [DllImport("gdi32.dll")] public static extern IntPtr CreateDIBSection(IntPtr hdc,ref BitmapInfoHeader bmi,uint usage,out IntPtr bits,IntPtr section,uint offset);
+        [DllImport("gdi32.dll")] public static extern int SetBkMode(IntPtr hdc,int mode);
+        [DllImport("gdi32.dll")] public static extern uint SetBkColor(IntPtr hdc,uint color);
+        [DllImport("gdi32.dll")] public static extern uint SetTextColor(IntPtr hdc,uint color);
+        [DllImport("gdi32.dll")] public static extern uint SetTextAlign(IntPtr hdc,uint align);
+        [DllImport("gdi32.dll",CharSet=System.Runtime.InteropServices.CharSet.Unicode)] public static extern bool TextOutW(IntPtr hdc,int x,int y,string text,int count);
+        [DllImport("gdi32.dll")] public static extern bool GdiFlush();
+    }
+}
 public sealed partial class WorldSession {
     internal (string Clan,uint ClanId) ClanIdentity(uint id)=>Actor?.ObjectId==id?(Actor.Clan,Actor.ClanId):objects.TryGetValue(id,out var o)?(o.Clan,o.ClanId):("",0u);
     internal bool IsPartyMemberId(uint id)=>id!=0&&partyMembers.Values.Any(m=>m.ObjectId==id);
@@ -340,13 +462,27 @@ public sealed partial class ClientForm {
                 if(icon.Surf<=0||NameIconSurface(icon.Surf) is not {} surface)continue;
                 var p=Camera.ToView(icon.Position);g.DrawImage(surface.Bitmap,p.X,p.Y,surface.Width*zoom,surface.Height*zoom);
             }
-            using var font=new Font("MingLiU",NameLayout.FontPixels*zoom,FontStyle.Regular,GraphicsUnit.Pixel);var format=StringFormat.GenericTypographic;
-            foreach(var t in plan.Texts){
-                var p=Camera.ToView(t.Position);using var brush=new SolidBrush(NameColors.ToColor(dim?AfflictionColors.Darken(t.Color):t.Color));using var outline=new SolidBrush(NameColors.ToColor(t.Outline));
-                foreach(var (dx,dy) in new[]{(-1,0),(1,0),(0,-1),(0,1)})g.DrawString(t.Text,font,outline,p.X+dx*zoom,p.Y+dy*zoom,format);
-                g.DrawString(t.Text,font,brush,p.X,p.Y,format);
-            }
+            // T321：先走原版 GDI（NativeNameFont，1× 光柵化後最近鄰放大）；MingLiU 不可用時才退回 GDI+ DrawString 備援。
+            ReportNameFont();Font? font=null;var format=StringFormat.GenericTypographic;
+            try{
+                foreach(var t in plan.Texts){
+                    var p=Camera.ToView(t.Position);var fill=NameColors.ToColor(dim?AfflictionColors.Darken(t.Color):t.Color);var edge=NameColors.ToColor(t.Outline);
+                    if(NativeNameFont.Draw(g,t.Text,fill,edge,p.X,p.Y,zoom))continue;
+                    font??=new Font(NativeNameFont.Face,NameLayout.FontPixels*zoom,FontStyle.Regular,GraphicsUnit.Pixel,NativeNameFont.CharSet);
+                    using var brush=new SolidBrush(fill);using var outline=new SolidBrush(edge);
+                    foreach(var (dx,dy) in NativeNameFont.OutlineOffsets)g.DrawString(t.Text,font,outline,p.X+dx*zoom,p.Y+dy*zoom,format);
+                    g.DrawString(t.Text,font,brush,p.X,p.Y,format);
+                }
+            }finally{font?.Dispose();}
         }finally{g.Restore(state);}
+    }
+    // 名稱字型來源只記一次（GDI 對應到的字面、mingliu.ttc 與 Font\*.fnt 的 SHA-256）；雜湊在背景做，不卡繪製。
+    bool nameFontReported;
+    void ReportNameFont(){
+        if(nameFontReported)return;nameFontReported=true;string root=P06.NativeUi.UiResourcePins.ClientRoot;
+        Task.Run(()=>NativeNameFont.Describe(root)).ContinueWith(task=>{
+            if(task.IsCompletedSuccessfully&&IsHandleCreated&&!IsDisposed)try{BeginInvoke(()=>events.Add(new{kind="name-font",source=task.Result}));}catch(InvalidOperationException){}
+        },TaskScheduler.Default);
     }
     // 名稱旁圖示的 surf：執行期從原客戶端 Sprite*.pak 讀（SurfList.xml 對照，與原生 UI 同一份目錄），讀不到就不畫。
     static bool nameIconResourcesTried;static P06.NativeUi.SurfCatalog? nameIconSurfs;

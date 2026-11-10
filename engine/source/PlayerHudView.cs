@@ -26,8 +26,23 @@ public static class PlayerHudPainter {
         int bars=Math.Min(340,Math.Max(200,r.Width/2));
         Meter(g,new(r.X+10,r.Y+7,bars-20,23),font,"HP",state.Hp,state.MaxHp,Color.FromArgb(144,45,49));
         Meter(g,new(r.X+10,r.Y+33,bars-20,23),font,"MP",state.Mp,state.MaxMp,Color.FromArgb(42,91,147));
-        TextRenderer.DrawText(g,state.Name+"  "+state.Character,font,new Rectangle(r.X+bars,r.Y+6,r.Width-bars-10,25),Gold,TextFormatFlags.SingleLine|TextFormatFlags.EndEllipsis);
+        NameLine(g,new Rectangle(r.X+bars,r.Y+6,r.Width-bars-10,25),font,state.Name,state.Character);
         TextRenderer.DrawText(g,state.State,font,new Rectangle(r.X+bars,r.Y+33,r.Width-bars-10,26),Color.White,TextFormatFlags.SingleLine|TextFormatFlags.EndEllipsis);
+    }
+    /// <summary>T321（#759）：角色名稱用原版名稱字型（GDI MingLiU 12 px、字元集 136、4 向黑描邊，NativeNameFont）以 1× 畫，
+    /// 職業接在名稱後面照舊用面板字型。名稱放不下或 MingLiU 不可用時，整行退回原本的 TextRenderer（WinForms 備援）。回傳是否走原版字型。</summary>
+    public static bool NameLine(Graphics g,Rectangle r,Font font,string name,string character){
+        const int gap=12;
+        if(name.Length>0&&NativeNameFont.Glyphs(name,Gold,Color.Black) is {} glyphs&&glyphs.Width<=r.Width){
+            int nameWidth=glyphs.Width-2*NativeNameFont.Border;float y=r.Y+(r.Height-NativeNameFont.Height)/2f;
+            if(NativeNameFont.Draw(g,name,Gold,Color.Black,r.X+NativeNameFont.Border,y,1f)){
+                int left=r.X+NativeNameFont.Border+nameWidth+gap;
+                if(character.Length>0&&left<r.Right)TextRenderer.DrawText(g,character,font,new Rectangle(left,r.Y,r.Right-left,r.Height),Gold,TextFormatFlags.SingleLine|TextFormatFlags.EndEllipsis|TextFormatFlags.VerticalCenter);
+                return true;
+            }
+        }
+        TextRenderer.DrawText(g,name+"  "+character,font,r,Gold,TextFormatFlags.SingleLine|TextFormatFlags.EndEllipsis);
+        return false;
     }
     static void Meter(Graphics g,Rectangle r,Font font,string label,uint value,uint max,Color color){
         using var bg=new SolidBrush(Color.FromArgb(39,46,49));g.FillRectangle(bg,r);
