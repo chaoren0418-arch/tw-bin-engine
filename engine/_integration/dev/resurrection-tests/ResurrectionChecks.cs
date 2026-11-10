@@ -168,7 +168,7 @@ partial class Checks {
     }
     static async Task MoveLockInput(){
         using(var c=Seed()){
-            long now=10000;Set(c,"MovementClock",(Func<long>)(()=>now));Set(c.World,"MoveLockClock",(Func<long>)(()=>now));
+            long now=10000;Set(c,"MovementClock",(Func<long>)(()=>now));
             var sent=new List<byte[]>();RezSender(c,sent);
             Check(await RezDrift(c,2)&&sent.Count==1&&sent[0][0]==29,"unlocked fixture sends C29");now+=10000;
             sent.Clear();Feed(c,Pack(123));int revision=c.World.AppearanceRevision;
@@ -185,11 +185,10 @@ partial class Checks {
             Check(await RezDrift(c,2)&&sent.Count==1&&sent[0][0]==29,"fresh C29 after release");
         }
         using(var c=Seed()){
-            long now=10000;Set(c.World,"MoveLockClock",(Func<long>)(()=>now));
             var release=new TaskCompletionSource<bool>();int sends=0;
             Sender(c,async(b,valid,admit)=>{await release.Task;if(!valid())return false;sends++;admit();return true;});
-            var pending=RezDrift(c,2);Feed(c,MoveLockPacket());now+=WorldSession.MoveLockTimeoutMs;
-            Check(!c.World.MoveLocked,"lock already over when queued send resumes");release.SetResult(true);
+            var pending=RezDrift(c,2);Feed(c,MoveLockPacket());Feed(c,Pack(123));
+            Check(!c.World.MoveLocked,"lock already over (S87) when queued send resumes");release.SetResult(true);
             Check(!await pending&&sends==0,"queued C29 from before the lock stays cancelled");
         }
         using(var c=Seed()){
@@ -205,10 +204,9 @@ partial class Checks {
     }
     static async Task MoveLockRelease(){
         using(var c=Seed()){
-            long now=10000;Set(c.World,"MoveLockClock",(Func<long>)(()=>now));
-            Feed(c,MoveLockPacket());now+=WorldSession.MoveLockTimeoutMs-1;Check(c.World.MoveLocked,"lock holds until the safety limit");
-            Feed(c,MoveLockPacket());now+=WorldSession.MoveLockTimeoutMs-1;Check(c.World.MoveLocked,"repeated S241 extends the safety limit");
-            now++;Check(!c.World.MoveLocked&&c.MovementAvailable,"safety limit releases a lock with no server follow-up");
+            // R5-D (T309/#736): no engine time limit any more; only S87, world rebuild or Reset release the lock.
+            Feed(c,MoveLockPacket());Feed(c,MoveLockPacket());Check(c.World.MoveLocked&&!c.MovementAvailable,"lock has no local time limit");
+            Feed(c,Pack(123));Check(!c.World.MoveLocked&&c.MovementAvailable,"S87 releases a lock");
         }
         using(var c=Seed()){Feed(c,MoveLockPacket());Call(c.World,"ClearObjects");Check(!c.World.MoveLocked,"world rebuild releases lock");}
         using(var c=Seed()){Feed(c,MoveLockPacket());c.World.Reset();Check(!c.World.MoveLocked,"reset releases lock");}

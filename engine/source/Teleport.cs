@@ -39,11 +39,19 @@ public sealed partial class WorldSession {
     public bool TeleportPending=>TeleportState is "ack-pending" or "awaiting-world" or "awaiting-own" or "recovery";
     readonly HashSet<byte> paralysis=[];long teleportAt;
     public bool ActionLocked=>BasicSupplyPending||ShipPending||TeleportPending||paralysis.Count>0||CacheEnabled&&MapResourceState!="ready";
-    void ResetTeleport(){TeleportGeneration++;TeleportState="idle";TeleportNotice="";TeleportMarker=null;TeleportPortal=null;paralysis.Clear();teleportAt=0;}
+    /// <summary>
+    /// R5-D（T309／#736，PG§5）：收到 S149 時自己這一步的步行動畫長度（毫秒）；沒有本地預測步、或速度／外觀未支援時為 null。
+    /// 原版 S_BLINK（sub_931B90）在自己正在走（sub_A43510：目前動作＝步行且 +0xC 非 0）時只記下待辦 3，
+    /// 等這一步走完由 sub_A48590 送 C_BLINK；引擎在 S149 會清掉 Actor，所以這裡先記下步長，送確認時再用（LoginConnection）。
+    /// </summary>
+    internal int? TeleportStepMs {get;private set;}
+    void ResetTeleport(){TeleportGeneration++;TeleportState="idle";TeleportNotice="";TeleportMarker=null;TeleportPortal=null;TeleportStepMs=null;paralysis.Clear();teleportAt=0;}
     bool ReceiveTeleport(byte opcode,LoginReader r){
         if(opcode==149){
             ushort marker=r.H();uint portal=r.D();r.Finish();
             if(TeleportPending&&TeleportMarker==marker&&TeleportPortal==portal)return true;
+            // Before ClearObjects/ResetMovement drop the actor: a predicted step since the last authoritative position may still be animating.
+            TeleportStepMs=PositionPredictedSinceAuthority?MovementAnimationMs:null;
             TeleportGeneration++;TeleportMarker=marker;TeleportPortal=portal;TeleportState="ack-pending";teleportAt=SceneClock();TeleportNotice="伺服器要求傳送，正在確認；等待新世界資料。";
             ClearObjects();Actor=null;ResetMovement();ResetCombat();ClearMagicEffects();return true;
         }
@@ -53,6 +61,7 @@ public sealed partial class WorldSession {
         else if(mode is 3 or 5 or 11 or 13 or 23 or 25)paralysis.Remove((byte)(mode-1));else Unhandled(opcode);
         return true;
     }
+    internal void DeferTeleportAck(){if(TeleportAckPending)TeleportNotice="伺服器要求傳送；自己這一步還沒走完，該步結束後才送出確認（原版 S_BLINK 待辦）。";}
     internal void AdmitTeleportAck(){if(!TeleportAckPending)throw new InvalidOperationException("stale teleport acknowledgement");TeleportState="awaiting-world";TeleportNotice="傳送確認已送出；等待原服地圖與角色，沒有自動重送。";}
     void MapArrived(){ShipMapReceived();TeleportGeneration++;TeleportState="awaiting-own";teleportAt=SceneClock();TeleportNotice="已收到地圖；等待角色位置與原始資源載入。";}
     void OwnArrived(){ShipOwnReceived();if(!TeleportPending)return;TeleportState="arrived";RefreshArrivalNotice();paralysis.Remove(6);}
@@ -62,11 +71,21 @@ public sealed partial class WorldSession {
 }
 public sealed partial class LoginConnection {
     bool teleportAckSending;int teleportAckLease;
+    /// <summary>R5-D：等自己這一步走完的延遲（測試替換成可控的 Task）。</summary>
+    internal Func<int,Task> TeleportStepWait=ms=>Task.Delay(ms);
+    /// <summary>自己這一步預計結束的時間（MovementClock）；沒有進行中的步行時 ≤ 現在。最後一次送出的是轉向時會多等，最多一步。</summary>
+    internal long TeleportStepEndsAt=>World.TeleportStepMs is int ms&&lastMovementAt>=0?lastMovementAt+ms:0;
     void ResetTeleportSend(){teleportAckLease++;teleportAckSending=false;}
     async Task AcknowledgeTeleport(){
         if(!World.TeleportAckPending||teleportAckSending||sendMovementGate==null)return;
-        int session=generation,transition=World.TeleportGeneration,world=World.WorldEpoch,lease=++teleportAckLease;var sender=sendMovementGate;teleportAckSending=true;
-        try{await sender(LoginPackets.Pad([52]),()=>session==generation&&transition==World.TeleportGeneration&&world==World.WorldEpoch&&World.TeleportAckPending&&State is LoginState.EnteringWorld or LoginState.InWorld,()=>{World.AdmitTeleportAck();Set(State,World.TeleportNotice);});}
+        int session=generation,transition=World.TeleportGeneration,world=World.WorldEpoch,lease=++teleportAckLease;teleportAckSending=true;
+        bool Current()=>session==generation&&transition==World.TeleportGeneration&&world==World.WorldEpoch&&World.TeleportAckPending&&State is LoginState.EnteringWorld or LoginState.InWorld;
+        try{
+            // PG§5: the original only answers S_BLINK after the step in progress ends; otherwise at once.
+            long wait=TeleportStepEndsAt-MovementClock();
+            if(wait>0){CaptureWorld(()=>{World.DeferTeleportAck();return true;});Set(State,World.TeleportNotice);await TeleportStepWait((int)Math.Min(wait,int.MaxValue));if(!CaptureWorld(Current))return;}
+            if(sendMovementGate is not {} sender)return;
+            await sender(LoginPackets.Pad([52]),Current,()=>{World.AdmitTeleportAck();Set(State,World.TeleportNotice);});}
         catch(Exception){if(session==generation){Cancel();Set(LoginState.Faulted,"傳送確認失敗，已斷線；沒有自動重送。");}}
         finally{if(session==generation&&lease==teleportAckLease){teleportAckSending=false;if(World.TeleportAckPending&&transition!=World.TeleportGeneration)_=AcknowledgeTeleport();}}
     }
