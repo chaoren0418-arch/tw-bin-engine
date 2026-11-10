@@ -30,10 +30,13 @@ public sealed record MapAmbientCue(int Mode,int[] Candidates)
 // Mode＝0（`<`）或 1（`[`），兩者原版行為相同。
 public sealed record MapOneShotVoice(long Number,int SoundId,string Emitter,int Mode);
 /// <summary>A060F0：單次播放（AIL_quick_play 次數 1）。volume 是發聲體 0..100 的距離音量；Play 回 false 表示沒播出。
-/// SetScale：類別音量 × 主音量（0..1），後端乘到距離音量上（A06D60）。</summary>
+/// SetScale：類別音量 × 主音量（0..1），後端乘到距離音量上（A06D60）。
+/// R7-L（T351）：SetVolume＝A091C0 改還在播的單次 sample 的距離音量；Finished＝已播完（預設 true：不支援的後端不追蹤）。</summary>
 public interface IMapOneShotAudio {
     bool Play(MapOneShotVoice voice,int volume);
     void SetScale(double scale){}
+    void SetVolume(MapOneShotVoice voice,int volume){}
+    bool Finished(MapOneShotVoice voice)=>true;
 }
 
 // T173（#447）：距離音量與 200ms 冷卻改走 SoundRules／SoundCooldown 共用層。產品傳 SoundCooldown.Shared
@@ -52,7 +55,10 @@ public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random,SoundC
         public readonly MapAmbientSource Source=source;
         public long Step=-1;public int Volume;
         public readonly Dictionary<int,MapAmbientVoice> Voices=[];
+        public readonly List<MapOneShotVoice> OneShots=[]; // R7-L：發聲體名下還在播的 `<`／`[` 單次音效。
     }
+    /// <summary>R7-L：目前追蹤中、還在播的單次音效數（診斷用）。</summary>
+    public int OneShotsLive=>emitters.Values.Sum(e=>e.OneShots.Count);
     readonly Dictionary<string,Emitter> emitters=new(StringComparer.Ordinal);
     readonly SortedDictionary<int,List<(MapAmbientVoice Voice,int D2)>> slots=[];
     static readonly ConditionalWeakTable<MapEffectAppearance,MapAmbientCue[]> cues=new();
@@ -128,10 +134,21 @@ public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random,SoundC
             }
         }
         // A091C0：播放在前、調音量在後，所以新音源先用上一輪的音量啟動。走遠只降到 0，不停止。
+        // R7-L（T351）：A091C0 改的是發聲體名下所有還在播的 sample，`^` 循環與 `<`／`[` 單次都一樣。
+        PruneOneShots(emitter);
         int volume=Volume(dx,dy);
         if(volume==emitter.Volume)return;
         emitter.Volume=volume;
         foreach(var voice in emitter.Voices.Values)audio.SetVolume(voice,volume);
+        if(OneShotAudio is {} sink)foreach(var shot in emitter.OneShots)sink.SetVolume(shot,volume);
+    }
+
+    // 播完的單次音效不再追蹤；後端換掉（或撤下）時舊的 voice 已不屬於目前後端，一併忘掉。
+    void PruneOneShots(Emitter emitter)
+    {
+        if(emitter.OneShots.Count==0)return;
+        if(OneShotAudio is not {} sink){emitter.OneShots.Clear();return;}
+        emitter.OneShots.RemoveAll(sink.Finished);
     }
 
     void Admit(Emitter emitter,int id,int d2,long now,bool audible)
@@ -159,14 +176,17 @@ public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random,SoundC
     // - A06020：三類音量都是 0（audible=false）不播、不佔冷卻；之後每個 id 全域 200ms 冷卻（與 `^`、戰鬥音效同一份）。
     // - 音量：播放在 A091C0 之前，所以用發聲體上一輪的距離音量。原版音量 0 也會播（無聲）並佔冷卻；
     //   這裡冷卻同樣佔用，但不送出無聲 voice（同 SoundGate）。
-    // 引擎取捨（推定）：播放中不再跟著距離改音量（原版 A091C0 也會改發聲體名下還在播的單次 sample）。
+    // R7-L（T351）：播出的 voice 記在發聲體名下，之後每次進幀的 A091C0 步驟跟著距離改音量（見 Enter）。
     void PlayOnce(Emitter emitter,int id,int mode,long now,bool audible)
     {
         if(OneShotAudio is not {} sink)return;
         if(!audible)return;
         if(!cooldown.TryAcquire(id,now))return;
         if(emitter.Volume<=0)return;
-        if(sink.Play(new(++voiceNumber,id,emitter.Source.Key,mode),emitter.Volume))OneShotsPlayed++;
+        var voice=new MapOneShotVoice(++voiceNumber,id,emitter.Source.Key,mode);
+        if(!sink.Play(voice,emitter.Volume))return;
+        OneShotsPlayed++;
+        if(!sink.Finished(voice))emitter.OneShots.Add(voice);
     }
 
     // A04A20／A04BF0：物件移除時停掉它的每個音源，並從槽表移除、後面往前補。
@@ -178,6 +198,8 @@ public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random,SoundC
             audio.Stop(voice);
         }
         emitter.Voices.Clear();
+        // R7-L：單次音效不在槽表，維持 R6-A 的做法不主動停（推測，待查 A04A20 是否也停單次 sample），只是不再追蹤音量。
+        emitter.OneShots.Clear();
         emitters.Remove(emitter.Source.Key);
     }
 

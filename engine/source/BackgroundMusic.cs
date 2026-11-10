@@ -6,7 +6,9 @@ public enum MusicScene { None, Login, CharacterSelect, World }
 // Boss＝區域 BATTLE 曲；BossSpawn／BossDeath＝頭目出現／死亡曲（T280，FU4§6）。新值附加在最後，不改既有數值。
 public enum MusicKind { Login, CharacterSelect, Region, Battle, Boss, LargeMap, BossSpawn, BossDeath }
 // Music 是 sound\musicN.mp3 的 N；Loop=false 對應 AIL_set_stream_loop_count(s,1) 的單次播放。
-public sealed record MusicTrack(long Number,int Music,bool Loop,MusicKind Kind);
+// R7-L（T351）：Slot 是「明確系統槽」編號（登入 0、選角 8、戰鬥 9／10）；區域選曲、大地圖、頭目曲是 -1。
+// 原版 MIDI 模式（沒有 music*.mp3）遇到 0..8 號系統槽時停播（8F1C30／8F2FB0／8F3B90／8F3D70，見 issue-737 報告）。
+public sealed record MusicTrack(long Number,int Music,bool Loop,MusicKind Kind,int Slot=-1);
 public interface IMusicStreamAudio
 {
     // volume 是最終比例 0..1（淡出係數 × MusicVolume × 曲目音量）。回 false 表示沒有啟動。
@@ -85,11 +87,11 @@ public sealed class BackgroundMusic(MusicDefinition definition,IMusicStreamAudio
 
     void StopCurrent(){if(Current is {} c&&Playing)audio.Stop(c);Current=null;Playing=false;fadeAt=null;}
 
-    bool Start(int music,bool loop,MusicKind kind,long now,int nextInterval)
+    bool Start(int music,bool loop,MusicKind kind,long now,int nextInterval,int slot=-1)
     {
         StopCurrent();
         if(music<0)return false;
-        var track=new MusicTrack(++number,music,loop,kind);
+        var track=new MusicTrack(++number,music,loop,kind,slot);
         if(!audio.Start(track,volume)){retryAt=now+CheckMs;return false;} // 缺檔／後端拒絕：每秒最多重試一次。
         Current=track;Playing=true;startedAt=now;interval=nextInterval;return true;
     }
@@ -117,9 +119,10 @@ public sealed class BackgroundMusic(MusicDefinition definition,IMusicStreamAudio
     {
         LastBattle=now;
         if(last is not {Scene:MusicScene.World,Enabled:true}||!BattleMusicEnabled)return;
-        int music=definition.Slot(targetIsPlayer?MusicDefinition.SlotPlayerKilling:MusicDefinition.SlotHunting);
+        int slot=targetIsPlayer?MusicDefinition.SlotPlayerKilling:MusicDefinition.SlotHunting;
+        int music=definition.Slot(slot);
         if(IsPlaying(music)||Protected)return; // 正在播的曲目不重開；保護曲目不打斷。
-        Start(music,false,MusicKind.Battle,now,-1);
+        Start(music,false,MusicKind.Battle,now,-1,slot);
     }
 
     public void Update(MusicContext ctx,long now)
@@ -146,13 +149,13 @@ public sealed class BackgroundMusic(MusicDefinition definition,IMusicStreamAudio
             {
                 // 8F2E40：本檔沒有 LoginMusic 清單，走系統槽 0；8F2F00 每秒檢查是否播完再換。
                 int music=definition.Slot(MusicDefinition.SlotLogin);
-                if(sceneChanged||now>=nextCheck&&(Current?.Kind!=MusicKind.Login||!Playing))Start(music,false,MusicKind.Login,now,-1);
+                if(sceneChanged||now>=nextCheck&&(Current?.Kind!=MusicKind.Login||!Playing))Start(music,false,MusicKind.Login,now,-1,MusicDefinition.SlotLogin);
                 if(sceneChanged||now>=nextCheck)nextCheck=now+CheckMs;
                 Region=null;return;
             }
             case MusicScene.CharacterSelect:
                 // EC4FE0 狀態 20：系統槽 8 循環播放（8F3AA0(1)，loop 0）。
-                if(sceneChanged||now>=retryAt&&(Current?.Kind!=MusicKind.CharacterSelect||!Playing))Start(definition.Slot(MusicDefinition.SlotCredits),true,MusicKind.CharacterSelect,now,-1);
+                if(sceneChanged||now>=retryAt&&(Current?.Kind!=MusicKind.CharacterSelect||!Playing))Start(definition.Slot(MusicDefinition.SlotCredits),true,MusicKind.CharacterSelect,now,-1,MusicDefinition.SlotCredits);
                 Region=null;return;
         }
         // World。
