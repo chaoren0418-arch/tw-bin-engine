@@ -61,6 +61,9 @@
 - `py -B -X utf8 engine/_integration/dev/rebuild.py --build` → `PASS dev`（暫時 lock，不寫回）。之後 `dotnet build engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore`：**0 錯誤**，既有的 `FishingChecks` 照樣能編譯。
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：`pass`（4152 檔，0 錯誤）。
 - 依 2026-11-09 本機執行限制，**本機沒有執行任何編出來的程式**。`fishing-ui`、既有的 `fishing` CheckGroup 與其他測試，交給 PR 的 GitHub Actions CI。
+- **CI（PR #791）全綠**：`dotnet`、`map-continuity`（含 `--module-tests`）、`npc-offline` 都通過。
+  - 第一輪 `fishing-ui` 70 項中有 1 項失敗，原因是整合測試的期望值寫錯：新 `WorldSession` 收到第一個釣魚封包時，`CheckFishing` 會先做一次懶初始化，revision 加一，因此多發一個「未釣魚」事件。
+  - 這個事件在產品中無害，只會讓窗保持關閉。面板與 `Fishing.cs` 都沒改，只在測試裡先呼叫 `ReadFishing` 做初始化，第二輪就通過了。
 - `rebuild-lock.json` 沒有改動。
 
 ## 未驗證什麼（待驗證）
