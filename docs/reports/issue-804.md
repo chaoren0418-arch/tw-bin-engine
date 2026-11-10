@@ -34,6 +34,8 @@
   - `+547`：2265 ms 與 jbe 邊界（2265 不送、2266 送）、加速時 1698 ms、換地圖保留、其他物件 type 8 計入 unhandled、type 0 會清、Reset 會清、地圖 67 醉度 1、會解除酒醉；
   - 記錄目前 hold 仍經過 `MoveLocked`。
 - **依使用者規定，本機沒有執行任何測試**（沒跑 `--module-tests`／DemoChecks），測試結果以 PR 的 CI 為準。
+- **CI（PR #827，run 42810951402／42810951391）**：`dotnet`、`map-continuity`、`npc-offline` 三個 job 都通過。module-tests 共 119 組，0 失敗：`input-line-followup` 68 項、`yes-no-followup` 66 項、`protocol-followup` 56 項都通過；DemoChecks 的 `resurrection` 等組也都通過。
+  - 前兩次 CI 只有本組自己的「輸入列上方不畫」失敗。第一次修正：字高超過 12 px 時，文字不往輸入列上方置中。第二次修正：檢查區和 YES 鈕、輸入列之間留 2 px 邊界，因為 GDI+ 的 `PixelOffsetMode.Half` 可能畫到相鄰的那一個像素；失敗時會回報第一個點亮的像素。
 
 ## 未驗證什麼
 
