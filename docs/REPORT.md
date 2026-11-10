@@ -323,3 +323,4 @@
 - 2026-11-10 — #814 T351：R7-L 聲音收尾 3（code，claude-local，PR 已合併）→ [報告](reports/issue-814.md)
 - 2026-11-10 — #813 T350：R7-K 血盟備註（code，claude-local，PR 已合併）→ [報告](reports/issue-813.md)
 - 2026-11-10 — #815 T352：R7-M 登入畫面收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-815.md)
+- 2026-11-11 — #816 T353：R7-O WidgetSlot 外觀（code，claude-local，PR 已合併）→ [報告](reports/issue-816.md)
