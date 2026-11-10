@@ -9,10 +9,28 @@ namespace P06.NativeUi;
 /// 3 張外型圖與 CheckButton、4 個翻頁鈕與頁碼、確定／取消。
 /// 推測（報告裡列出）：`N;k` 的 k 意義（只取 N）；CheckButton 只有 PushSurf → 選中時疊在外型圖上；按鈕 Highlight＝滑過、
 /// Push＝按住；訊息文字畫在欄位內 (2,2)；Moveable 以視窗上緣 18 px 當拖曳區；Esc 觸發 KeyboardEvent=ClosePersonalShop。
-/// 待接：開窗的觸發點、物品放入格子的拖放流程與單價／數量輸入、文字（IME）輸入事件、OK 之後真的送 C38。
 /// 本面板只改本機 <see cref="PersonalShopSetup"/>；OK 驗證成功時把 C38 封包交給 <see cref="Confirmed"/>，自己不送封包。
+///
+/// R9-J（T370／#854，FU9§9.4）：
+/// - 雙擊（Pick 515＝WM_LBUTTONDBLCLK）有物品的格子＝從清單移除（已驗證）。
+/// - 原版放物品＝從背包拖進窗（sub_98F330）；引擎沒有跨窗拖曳，改成「背包先選取＋點清單空格」：點格子後丟出
+///   <see cref="SlotClicked"/>，由整合端（PersonalShopController）決定要不要開單價提示。這是**引擎替代做法**，不是原版操作。
+/// - 單價 898 → 數量 933 的輸入在聊天輸入列（原版）；本面板只把按鍵與字元轉給 <see cref="Prompt"/>（Enter 確定、Backspace、
+///   Esc 取消提示但不關窗），提示文字由 PersonalShopPromptPanel 畫在聊天輸入列的位置。
+/// - IUiTextInput：沒有提示時，字元輸入到目前聚焦的訊息欄（LimitText 20、Big5 檢查照 Setup.SetMessage）。
 /// </summary>
-public sealed class PersonalShopPanel:IUiMovablePanel,IUiClosablePanel {
+public interface IPersonalShopPromptInput {
+    /// <summary>有單價／數量提示在等輸入。</summary>
+    bool PromptActive{get;}
+    /// <summary>聊天輸入列要顯示的一行（提示＋已輸入）；沒有提示時 null。</summary>
+    string? PromptLine{get;}
+    void PromptType(char c);
+    void PromptBack();
+    void PromptEnter();
+    void PromptCancel();
+}
+
+public sealed class PersonalShopPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
     public const string WindowId="PersonalShop_Window",LayoutName="PersonalShopUI";
     /// <summary>給 UiPanelRegistry 用的一行註冊（本任務的可改檔案不含註冊表，由整合任務加上）。</summary>
     public static UiPanelRegistration Registration=>new(WindowId,LayoutName,_=>new PersonalShopPanel());
@@ -33,6 +51,12 @@ public sealed class PersonalShopPanel:IUiMovablePanel,IUiClosablePanel {
     public event Action<byte[]>? Confirmed;
     /// <summary>關閉鈕、取消或 Esc。</summary>
     public event Action? Closed;
+    /// <summary>R9-J：點了出售（true）／收購（false）清單的第 slot 格（已先 Setup.Select）。</summary>
+    public event Action<bool,int>? SlotClicked;
+    /// <summary>R9-J：雙擊移除了一格（清單、格位、被移除的那筆）。</summary>
+    public event Action<bool,int,PersonalShopEntry>? SlotRemoved;
+    /// <summary>R9-J：單價／數量提示的輸入端；null＝沒有接上（離線測試或舊流程）。</summary>
+    public IPersonalShopPromptInput? Prompt{get;set;}
     public int? FocusedMessage{get;private set;}
     public Hit Hover{get;private set;}
     public Hit Pressed{get;private set;}
@@ -125,7 +149,7 @@ public sealed class PersonalShopPanel:IUiMovablePanel,IUiClosablePanel {
     /// <summary>開窗（觸發點待接）。傳入既有設定或新的空設定。</summary>
     public void Open(PersonalShopSetup? setup=null){Setup=setup??new();Visible=true;FocusedMessage=null;Pressed=default;Hover=default;}
     /// <summary>關閉鈕、取消、Esc；R7-H（#810）也是 IUiClosablePanel（堆疊擠出、全域 ESC）。已關著時不再觸發 Closed。</summary>
-    public void Close(){if(!Visible)return;Visible=false;FocusedMessage=null;Pressed=default;Closed?.Invoke();}
+    public void Close(){if(!Visible)return;if(Prompt is {PromptActive:true} prompt)prompt.PromptCancel();Visible=false;FocusedMessage=null;Pressed=default;Closed?.Invoke();}
     public void Update(IUiGameState state){if(!state.InWorld&&Visible)Close();}
 
     /// <summary>邏輯 800×600 座標 → 元件（視窗內由上而下：按鈕、格子、訊息、外型）。</summary>
@@ -158,6 +182,9 @@ public sealed class PersonalShopPanel:IUiMovablePanel,IUiClosablePanel {
         var h=HitTest(e.Location);
         switch(e.Kind){
             case UiMouseKind.Move:Hover=h;break;
+            case UiMouseKind.Down when e.Button==MouseButtons.Left&&e.Clicks>=2&&h.Part is Part.SellSlot or Part.BuySlot&&Remove(h):
+                // 雙擊移除後不再把這次放開當成點格子（否則會對剛空出的格子開單價提示）。
+                Pressed=default;FocusedMessage=null;break;
             case UiMouseKind.Down when e.Button==MouseButtons.Left:Pressed=h;if(h.Part!=Part.Message)FocusedMessage=null;break;
             case UiMouseKind.Up when e.Button==MouseButtons.Left:{var p=Pressed;Pressed=default;if(p.Part!=Part.None&&p==h)Activate(h);break;}
         }
@@ -168,8 +195,11 @@ public sealed class PersonalShopPanel:IUiMovablePanel,IUiClosablePanel {
         switch(h.Part){
             case Part.Close:case Part.Cancel:Close();break;
             case Part.Ok:if(Setup.BuildOpen() is byte[] packet)Confirmed?.Invoke(packet);break;
-            case Part.SellSlot:Setup.Select(true,Setup.Page*PersonalShopSetup.SlotsPerPage+h.Index);break;
-            case Part.BuySlot:Setup.Select(false,Setup.Page*PersonalShopSetup.SlotsPerPage+h.Index);break;
+            case Part.SellSlot:case Part.BuySlot:{
+                bool sell=h.Part==Part.SellSlot;int slot=Setup.Page*PersonalShopSetup.SlotsPerPage+h.Index;
+                if(Setup.Select(sell,slot))SlotClicked?.Invoke(sell,slot);
+                break;
+            }
             case Part.Message:FocusedMessage=h.Index;break;
             case Part.Poly:Setup.SelectPoly(h.Index);break;
             case Part.FirstPage:Setup.GoPage(0);break;
@@ -178,14 +208,35 @@ public sealed class PersonalShopPanel:IUiMovablePanel,IUiClosablePanel {
             case Part.LastPage:Setup.GoPage(Setup.PageCount-1);break;
         }
     }
+    /// <summary>雙擊移除（Pick 515）：格子有物品才移除；回傳是否真的移除。</summary>
+    bool Remove(Hit h){
+        bool sell=h.Part==Part.SellSlot;int slot=Setup.Page*PersonalShopSetup.SlotsPerPage+h.Index;
+        var list=sell?Setup.Sell:Setup.Buy;
+        if(slot>=list.Count||list[slot] is not PersonalShopEntry e||!Setup.Set(sell,slot,null))return false;
+        Setup.Select(sell,slot);SlotRemoved?.Invoke(sell,slot,e);return true;
+    }
     public bool Key(UiKeyEvent e,IUiCommands commands){
         if(!Visible||!e.Down)return false;
+        if(Prompt is {PromptActive:true} prompt){
+            // 提示中：Enter 確定、Backspace 刪字、Esc 只取消提示（933「Esc=取消」），不關窗。可列印的鍵放行給 WM_CHAR → Char()。
+            if(e.KeyData==Keys.Escape){prompt.PromptCancel();return true;}
+            if(e.KeyData==Keys.Enter){if(!e.Repeat)prompt.PromptEnter();return true;}
+            if(e.KeyData==Keys.Back){prompt.PromptBack();return true;}
+            return false;
+        }
         if(e.KeyData==Keys.Escape){Close();return true;}
         if(FocusedMessage is int line){
-            // 原生 UI 契約目前只有按鍵事件、沒有字元／IME 事件；文字由 Setup.SetMessage 設定，這裡只處理刪字與離開欄位。
+            // 字元由 Char()（IUiTextInput）輸入；這裡只處理刪字與換欄位。
             if(e.KeyData==Keys.Back){var t=Setup.Messages[line];if(t.Length>0)Setup.SetMessage(line,t[..^1]);return true;}
             if(e.KeyData is Keys.Tab or Keys.Enter){FocusedMessage=(line+1)%PersonalShopSetup.MessageLines;return true;}
         }
+        return false;
+    }
+    /// <summary>WM_CHAR（IME 組字後）：提示中給提示；否則給聚焦的訊息欄（超過 20 字或非 Big5 由 Setup 拒絕，仍吞掉）。</summary>
+    public bool Char(char c){
+        if(!Visible||char.IsControl(c))return false;
+        if(Prompt is {PromptActive:true} prompt){prompt.PromptType(c);return true;}
+        if(FocusedMessage is int line){Setup.SetMessage(line,Setup.Messages[line]+c);return true;}
         return false;
     }
 

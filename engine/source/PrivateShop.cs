@@ -112,11 +112,22 @@ public static class PersonalShopPackets {
         if(!sell&&(ulong)e.Price*e.Count>long.MaxValue)return "收購總額溢位";
         return null;
     }
+    /// <summary>R9-J（#854）：每行最多 40 byte（sub_DE1AD0 先過濾再組包，FU9§9.4）。</summary>
+    public const int MessageLineBytes=40;
+    /// <summary>R9-J（#854）：兩行之間的分隔 byte（sub_DE1AD0，FU9§9.4 已驗證）。3.81 畫面怎麼顯示 0xFF 待真機（M38）。</summary>
+    public const byte MessageSeparator=0xFF;
     /// <summary>
-    /// 兩行訊息合成 chat byte：CP950（LoginPackets.TextEncoding）第 1 行＋第 2 行＋00。伺服器原樣存起來、由 S_DoActionShop 廣播，
-    /// 引擎以 S（讀到 00）解讀。兩行怎麼接（有沒有分隔字元）原版未查證——**推測**為直接相接。
+    /// 兩行訊息合成 chat byte：CP950（LoginPackets.TextEncoding）第 1 行＋0xFF＋第 2 行＋0x00（R9-J #854，FU9§9.4：
+    /// 原版 sub_DE1AD0／FO 0x9E0ED0 的組法，已驗證；取代先前「直接相接」的推測）。伺服器（C_Shop）把剩下的 byte 整段存起來、
+    /// 由 S_DoActionShop 廣播。每行先截到 <see cref="MessageLineBytes"/> byte（不切斷雙位元組字）；第 2 行空白時 0xFF 照樣寫。
     /// </summary>
-    public static byte[] Chat(string line1,string line2)=>[..LoginPackets.TextEncoding.GetBytes(line1),..LoginPackets.TextEncoding.GetBytes(line2),0];
+    public static byte[] Chat(string line1,string line2)=>[..ChatLine(line1),MessageSeparator,..ChatLine(line2),0];
+    static byte[] ChatLine(string line){
+        var enc=LoginPackets.TextEncoding;var bytes=enc.GetBytes(line);if(bytes.Length<=MessageLineBytes)return bytes;
+        int n=0,cut=0;
+        foreach(var rune in line.EnumerateRunes()){int w=enc.GetByteCount(rune.ToString());if(n+w>MessageLineBytes)break;n+=w;cut+=rune.Utf16SequenceLength;}
+        return enc.GetBytes(line[..cut]);
+    }
     public static byte[] Open(IReadOnlyList<PersonalShopEntry> sell,IReadOnlyList<PersonalShopEntry> buy,byte[] chat){
         if(sell.Count>MaxEntries||buy.Count>MaxEntries)throw new ArgumentException("personal shop list > 8");
         if(sell.Count+buy.Count==0)throw new ArgumentException("personal shop empty");
