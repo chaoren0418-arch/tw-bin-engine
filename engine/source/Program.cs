@@ -6,10 +6,11 @@ static class Program {
     static void awaitReal(string path)=>RealLoginTests.Probe(path).GetAwaiter().GetResult();
     [STAThread] static int Main(string[] args) {
         string? Value(string k) {int i=Array.IndexOf(args,k);return i>=0&&i+1<args.Length?args[i+1]:null;}
-        args=P06.NativeUi.UiOptions.Strip(args); // C2: --native-ui is a switch, not a diagnostic mode; the normal entry still sees no arguments.
+        args=P06.NativeUi.UiOptions.Strip(args); // C2/T317: --native-ui / --classic-ui are switches, not diagnostic modes; the normal entry still sees no arguments.
         string root=Value("--assets")??Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../assets"));
         try {
             bool normalProduct=ProductEntry.Normal(args);
+            P06.NativeUi.UiOptions.DefaultOn=ProductEntry.NativeUiDefault(normalProduct); // T317 (#751): native UI by default for the product
             Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);
             // M7-A: [WorldModuleTest] methods anywhere in this assembly run here automatically (WorldExtensions.cs).
             if(Value("--module-tests") is string moduleTests)return WorldModuleTests.Run(moduleTests,Value("--module"));
