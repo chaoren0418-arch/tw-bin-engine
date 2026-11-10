@@ -15,7 +15,7 @@ public interface IQuitWindowSource {
     void Close();
 }
 
-public sealed class QuitWindowPanel:IUiPanel {
+public sealed class QuitWindowPanel:IUiClosablePanel {
     [UiPanel(160)] internal static UiPanelRegistration Registration=>new(QuitWindowPanel.PanelId,QuitWindowPanel.LayoutName,_=>new QuitWindowPanel());   // R2-D (#615) PBW-B: QUIT_WINDOW (uiextra86)
     public const string PanelId="QUIT_WINDOW";
     public const string LayoutName="uiextra86";
@@ -96,7 +96,7 @@ public sealed class QuitWindowPanel:IUiPanel {
         var source=Source;
         if(e==Restart){source?.Restart();return;}
         if(e==Quit){source?.Quit();return;}
-        Hide();source?.Close();   // 取消、關閉 X：sub_A59AD0 只關窗
+        Close();   // 取消、關閉 X：sub_A59AD0 只關窗
     }
 
     public bool Mouse(UiMouseEvent e,IUiCommands commands){
@@ -118,6 +118,15 @@ public sealed class QuitWindowPanel:IUiPanel {
 
     public bool Key(UiKeyEvent e,IUiCommands commands){
         if(view==null||!e.Down||e.KeyCode!=Keys.Escape)return false;
-        Hide();Source?.Close();return true;
+        Close();return true;
+    }
+
+    /// <summary>
+    /// R7-H（#810）：堆疊關窗（被擠出、全域 ESC，sub_A57C60 的 vtable+36）＝取消鈕：只關窗（sub_A59AD0），不重新開始、不離開。
+    /// 已關著時不呼叫 Source。
+    /// </summary>
+    public void Close(){
+        if(view==null)return;
+        Hide();Source?.Close();
     }
 }

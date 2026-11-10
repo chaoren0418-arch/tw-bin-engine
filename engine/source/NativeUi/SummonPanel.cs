@@ -51,7 +51,7 @@ public interface ISummonUiHost {
     void Close(SummonUiState shown);
 }
 
-public sealed class SummonPanel:IUiMovablePanel {
+public sealed class SummonPanel:IUiMovablePanel,IUiClosablePanel {
     [UiPanel(30)] internal static UiPanelRegistration Registration=>new(SummonPanel.PanelId,SummonPanel.LayoutName,root=>new SummonPanel(root.Resources));   // ui-summon (M7-W, #530)
     public const string PanelId="SummonMonster_Window",LayoutName="SummonUI";
     public const int QuickSlots=3,LevelButtons=12,MonsterSlots=6;
@@ -231,9 +231,17 @@ public sealed class SummonPanel:IUiMovablePanel {
         }
         return Bounds.Contains(e.Location);
     }
+    /// <summary>
+    /// R7-H（#810）：堆疊關窗（被擠出、全域 ESC；sub_A57C60 的 vtable+36）＝關閉鈕：記下這次請求、請宿主關掉。
+    /// 已關著（沒有請求或已關過這一次）時不呼叫宿主。ESC 本身由全域 ESC 處理（本面板的 Key 仍不吃鍵，CSummonUI 的 ESC 細節見 Q7-3）。
+    /// </summary>
+    public void Close(){
+        if(shown is not {Open:true} s||s.Revision==dismissed)return;
+        dismissed=s.Revision;Clear();Host?.Close(s);
+    }
     void Activate(string key){
         if(shown is not {} s)return;
-        if(key is "close" or "cancel"){dismissed=s.Revision;Clear();Host?.Close(s);return;}
+        if(key is "close" or "cancel"){Close();return;}
         if(key=="back"){Clear();return;}
         if(key.StartsWith("level:",StringComparison.Ordinal)){selectedLevel=int.Parse(key[6..]);selected=null;return;}
         if(key.StartsWith("monster:",StringComparison.Ordinal)){var m=LevelMonsters.ElementAtOrDefault(int.Parse(key[8..]));if(m!=null&&Enabled(m))selected=m;return;}

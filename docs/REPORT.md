@@ -316,3 +316,4 @@
 - 2026-11-10 — #805 T342：R7-C 戒指與盟屋拍賣（code，claude-local，PR 已合併）→ [報告](reports/issue-805.md)
 - 2026-11-10 — #807 T344：R7-E 狀態圖示變體（code，claude-local，PR 已合併）→ [報告](reports/issue-807.md)
 - 2026-11-10 — #808 T345：R7-F 公告板收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-808.md)
+- 2026-11-10 — #810 T347：R7-H 視窗堆疊與 ESC（code，claude-local，PR 已合併）→ [報告](reports/issue-810.md)

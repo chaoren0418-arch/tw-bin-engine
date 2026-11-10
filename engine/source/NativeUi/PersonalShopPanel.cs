@@ -12,7 +12,7 @@ namespace P06.NativeUi;
 /// 待接：開窗的觸發點、物品放入格子的拖放流程與單價／數量輸入、文字（IME）輸入事件、OK 之後真的送 C38。
 /// 本面板只改本機 <see cref="PersonalShopSetup"/>；OK 驗證成功時把 C38 封包交給 <see cref="Confirmed"/>，自己不送封包。
 /// </summary>
-public sealed class PersonalShopPanel:IUiMovablePanel {
+public sealed class PersonalShopPanel:IUiMovablePanel,IUiClosablePanel {
     public const string WindowId="PersonalShop_Window",LayoutName="PersonalShopUI";
     /// <summary>給 UiPanelRegistry 用的一行註冊（本任務的可改檔案不含註冊表，由整合任務加上）。</summary>
     public static UiPanelRegistration Registration=>new(WindowId,LayoutName,_=>new PersonalShopPanel());
@@ -124,6 +124,7 @@ public sealed class PersonalShopPanel:IUiMovablePanel {
     // ---- 狀態 ------------------------------------------------------------------------------------------------------
     /// <summary>開窗（觸發點待接）。傳入既有設定或新的空設定。</summary>
     public void Open(PersonalShopSetup? setup=null){Setup=setup??new();Visible=true;FocusedMessage=null;Pressed=default;Hover=default;}
+    /// <summary>關閉鈕、取消、Esc；R7-H（#810）也是 IUiClosablePanel（堆疊擠出、全域 ESC）。已關著時不再觸發 Closed。</summary>
     public void Close(){if(!Visible)return;Visible=false;FocusedMessage=null;Pressed=default;Closed?.Invoke();}
     public void Update(IUiGameState state){if(!state.InWorld&&Visible)Close();}
 

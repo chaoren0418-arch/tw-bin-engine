@@ -111,7 +111,7 @@ public sealed record FriendWindowLayout(
 }
 
 /// <summary>FriendUI／ExcludeUI／MailExcludeUI：14 visible rows, vertical scroll bar, count label (windows.md §1.2).</summary>
-public sealed class FriendPanel:IUiMovablePanel {
+public sealed class FriendPanel:IUiMovablePanel,IUiClosablePanel {
     enum Press { None, Close, Up, Down, Track }
     readonly Func<IFriendListSource?> source;
     Func<int,UiSurface?> surf=_=>null;
@@ -152,6 +152,8 @@ public sealed class FriendPanel:IUiMovablePanel {
     public void Show(){if(layout!=null)visible=true;}
     public void Hide(){visible=false;pressed=Press.None;}
     public void Toggle(){if(visible)Hide();else Show();}
+    /// <summary>R7-H（#810）：堆疊關窗（被擠出、全域 ESC）＝關閉鈕（本機關窗，不送封包）。</summary>
+    public void Close()=>Hide();
 
     public void Update(IUiGameState state){
         var next=state.InWorld&&source() is {} s?s.Read(Spec.Kind):FriendListData.Empty;

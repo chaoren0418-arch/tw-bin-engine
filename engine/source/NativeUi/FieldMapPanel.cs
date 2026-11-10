@@ -9,7 +9,7 @@ namespace P06.NativeUi;
 /// R5-H (T313 #740): right click = TransferMenu (send location to a character, <see cref="TransferMenu"/>).
 /// op 132 S_SHOW_MAP (PG§5) maps to 3.81 S187 HouseMap, which already opens AgitMapWindow (W2-C #550, AgitMapPanel), not this window.
 /// </summary>
-public sealed class FieldMapPanel(MapState map):IUiMovablePanel {
+public sealed class FieldMapPanel(MapState map):IUiMovablePanel,IUiClosablePanel {
     public const string PanelId="Field_Map";
     public const Keys ToggleKey=Keys.Control|Keys.M;
     SurfCatalog? surfs;
@@ -83,6 +83,12 @@ public sealed class FieldMapPanel(MapState map):IUiMovablePanel {
         if(e.Down&&!e.Repeat)map.ToggleField();
         return true;
     }
+
+    /// <summary>
+    /// R7-H (#810): stack close (pushed out by a 5th window, global ESC; sub_A57C60 vtable+36) = the exit button without the
+    /// focus hand-back. Panel stays Visible with empty Bounds, so Ctrl+M opens it again.
+    /// </summary>
+    public void Close(){if(map.FieldOpen)map.CloseField();}
 
     public bool IsDragHandle(Point p)=>map.FieldOpen&&Bounds.Contains(p)&&!ExitRect.Contains(p)&&!ZoomRect.Contains(p);
     public void MoveTo(Point p)=>location=p;

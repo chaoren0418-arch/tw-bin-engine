@@ -163,6 +163,25 @@ public sealed class UiRoot {
         return stack.Contains(panel)?UiToggleResult.Opened:UiToggleResult.Unavailable;
     }
 
+    // ---- R7-H (T347, #810): sub_A57C60(0) — "a1 == 0 closes all four" (FU4§1.1: ESC closes the stacked windows, at most 4).
+    /// <summary>
+    /// Closes every window in the stack, top first (sub_A57C60 with a1 == 0 calls vtable+36 on slots 0..3 and clears the
+    /// array). Only IUiClosablePanel windows can be closed; any other window stays where it is (the engine cannot close it for
+    /// the panel). Windows pushed out of the stack (evicted / refused) are not in the original array and are left alone.
+    /// Returns the windows that actually closed (empty = nothing happened, e.g. no window open), top first.
+    /// </summary>
+    public IReadOnlyList<IUiPanel> CloseAll(){
+        var closed=new List<IUiPanel>();
+        foreach(var w in WindowStack){
+            if(w is not IUiClosablePanel closable)continue;
+            try{closable.Close();}catch(Exception ex){Fault(w,"Close",ex);}
+            if(!IsOpen(w)||faulted.Contains(w))closed.Add(w);
+        }
+        SyncWindows();
+        if(closed.Count>0)UiResourceLog.Write($"視窗堆疊全部關閉：{string.Join("、",closed.Select(p=>p.Id))}");
+        return closed;
+    }
+
     /// <summary>A module that throws during Update/Paint/input is switched off (logged once) instead of taking the client down.</summary>
     internal void Fault(IUiPanel panel,string phase,Exception ex){
         if(faulted.Add(panel))UiResourceLog.Write($"panel {panel.Id} {phase} 失敗，已停用：{ex.GetType().Name}: {ex.Message}");
