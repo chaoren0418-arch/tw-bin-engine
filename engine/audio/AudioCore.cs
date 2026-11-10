@@ -21,7 +21,10 @@ internal sealed class AudioCore(AudioAssets assets, IAudioDriver driver, int cap
     {
         // T173 per-voice rule volume set at dispatch; T302 (A091C0) may update it while playing.
         internal double Scale = scale;
-        internal int Ext = 64; // T302: Miles extra_volume (A06C30 default 64); recorded only, not applied (SD§2.3 speculative).
+        // T302 recorded ext; T310 (R5-E) applies it as Miles pan (AIL_quick_set_volume 3rd arg -> AIL_set_sample_volume_pan).
+        // A06C30 default 0.5 = ext 64 = centre, which is also the renderer's default balance 0, so a new voice needs no call.
+        internal int Ext = AudioGain.CenterExt;
+        internal int AppliedExt = AudioGain.CenterExt;
         internal readonly Guid Id = id;
         internal readonly AudioOwner Owner = owner;
         internal readonly string Alias = alias, Format = format;
@@ -30,6 +33,9 @@ internal sealed class AudioCore(AudioAssets assets, IAudioDriver driver, int cap
     }
     readonly Dictionary<string, (long Generation, bool Active)> owners = new(StringComparer.Ordinal);
     readonly Dictionary<Guid, Voice> voices = [];
+    // T310: like the emitter's +12/+16 fields written by A091C0, the last SetLevel per owner generation is kept and
+    // applied to voices that start later (A060F0 -> A06C30 volume, A06AE0 ext). Cleared on Register/Retire.
+    readonly Dictionary<string, (long Generation, double Scale, int Ext)> ownerLevels = new(StringComparer.Ordinal);
     AudioControls controls = new(1, false, false);
     bool controlsFault;
     internal bool Closing { get; private set; }
@@ -49,6 +55,7 @@ internal sealed class AudioCore(AudioAssets assets, IAudioDriver driver, int cap
         var events = new List<AudioEvent>();
         foreach (var v in voices.Values.Where(v => v.Owner.Key == owner.Key).ToArray()) Release(v, events);
         owners[owner.Key] = (owner.Generation, true);
+        ownerLevels.Remove(owner.Key);
         return Reply(!voices.Values.Any(v => v.Owner.Key == owner.Key), events.Count == 0 ? "Registered" : "RegisteredWithCleanup", events);
     }
 
@@ -97,6 +104,8 @@ internal sealed class AudioCore(AudioAssets assets, IAudioDriver driver, int cap
             if (stillAllowed?.Invoke() == false)
             { acquired.Lease!.Dispose(); return Reply(false, "DispatchSuppressed", events); }
             var voice = new Voice(id, owner, "p24a" + id.ToString("N"), ext, acquired.Lease!, scale);
+            if (ownerLevels.TryGetValue(owner.Key, out var stored) && stored.Generation == owner.Generation)
+            { voice.Scale = stored.Scale; voice.Ext = stored.Ext; }
             NativeReply opened = driver.Open(acquired.Path, ext, voice.Alias);
             if (opened.Ok || opened.ResourceOwned) voices.Add(id, voice);
             if (!opened.Ok)
@@ -115,6 +124,12 @@ internal sealed class AudioCore(AudioAssets assets, IAudioDriver driver, int cap
             {
                 events.Add(Native("GainFailed", ext, gain)); Release(voice, events);
                 return Reply(false, "GainFailed", events, voices.ContainsKey(id) ? id : null);
+            }
+            if (voice.Ext != voice.AppliedExt)
+            {
+                // Pan never raises the loudest channel; a failure is reported and retried by the next SetLevel.
+                NativeReply pan = driver.Balance(voice.Alias, AudioGain.Balance(voice.Ext));
+                if (pan.Ok) voice.AppliedExt = voice.Ext; else events.Add(Native("PanFailed", ext, pan));
             }
             if (stillAllowed?.Invoke() == false) { Release(voice, events); return Reply(false, "DispatchSuppressed", events); }
             NativeReply played = driver.Play(voice.Alias);
@@ -140,23 +155,34 @@ internal sealed class AudioCore(AudioAssets assets, IAudioDriver driver, int cap
     {
         if (Closing) return Reply(false, "Disposed");
         if (!AudioGain.Valid(scale)) return Reply(false, "InvalidVoiceScale");
-        if (ext is < 0 or > 128) return Reply(false, "InvalidExt");
+        if (!AudioGain.ValidExt(ext)) return Reply(false, "InvalidExt");
         if (owner.Key == null || !owners.TryGetValue(owner.Key, out var known) || known.Generation != owner.Generation)
             return Reply(false, "StaleOrUnknownOwner");
+        ownerLevels[owner.Key] = (owner.Generation, scale, ext);
         var events = new List<AudioEvent>();
-        int applied = 0; bool failed = false;
+        int applied = 0; bool failed = false, panFailed = false;
         foreach (var voice in voices.Values.Where(v => v.Owner == owner && !v.Closing).ToArray())
         {
             voice.Scale = scale; voice.Ext = ext;
             NativeReply gain = driver.Gain(voice.Alias, controls.CanDispatch && !controlsFault ? controls.Gain * scale : 0);
             if (!gain.Ok) { failed = true; events.Add(Native("GainFailed", voice.Format, gain)); Release(voice, events); continue; }
+            // T310: pan only changes the left/right ratio, never the loudest channel, so a pan failure keeps the voice
+            // (gain is already controlled) and is retried on the next update because AppliedExt stays unchanged.
+            if (voice.AppliedExt != ext)
+            {
+                NativeReply pan = driver.Balance(voice.Alias, AudioGain.Balance(ext));
+                if (pan.Ok) voice.AppliedExt = ext;
+                else { panFailed = true; events.Add(Native("PanFailed", voice.Format, pan)); }
+            }
             applied++;
         }
-        if (applied > 0) events.Add(new("LevelApplied", "", $"voices={applied}; scale={scale:0.####}; ext={ext} (ext recorded only)"));
-        return Reply(!failed, failed ? "GainFailed" : applied == 0 ? "NoLiveVoice" : "LevelApplied", events);
+        if (applied > 0) events.Add(new("LevelApplied", "", $"voices={applied}; scale={scale:0.####}; ext={ext} (pan {ext}/128, balance {AudioGain.Balance(ext)})"));
+        return Reply(!failed && !panFailed, failed ? "GainFailed" : panFailed ? "PanFailed" : applied == 0 ? "NoLiveVoice" : "LevelApplied", events);
     }
     internal (double Scale, int Ext)[] Levels(AudioOwner owner) =>
         voices.Values.Where(v => v.Owner == owner && !v.Closing).Select(v => (v.Scale, v.Ext)).ToArray();
+    internal int[] AppliedPans(AudioOwner owner) =>
+        voices.Values.Where(v => v.Owner == owner && !v.Closing).Select(v => v.AppliedExt).ToArray();
 
     void Release(Voice voice, List<AudioEvent> events)
     {
@@ -182,6 +208,7 @@ internal sealed class AudioCore(AudioAssets assets, IAudioDriver driver, int cap
         if (owner.Key == null || !owners.TryGetValue(owner.Key, out var known) || known.Generation != owner.Generation)
             return Reply(false, "StaleOrUnknownOwner");
         owners[owner.Key] = (owner.Generation, false);
+        ownerLevels.Remove(owner.Key);
         var events = new List<AudioEvent>();
         foreach (var v in voices.Values.Where(v => v.Owner == owner).ToArray()) Release(v, events);
         return Reply(!voices.Values.Any(v => v.Owner == owner), "OwnerRetired", events);

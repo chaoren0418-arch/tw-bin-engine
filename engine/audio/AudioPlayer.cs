@@ -140,7 +140,7 @@ public sealed class AudioPlayer : IAsyncDisposable, IAudioPlayback
         {
             if (!accepting) return Rejected("Disposed");
             if (!AudioGain.Valid(voiceScale)) return Rejected("InvalidVoiceScale");
-            if (ext is < 0 or > 128) return Rejected("InvalidExt");
+            if (!AudioGain.ValidExt(ext)) return Rejected("InvalidExt");
             if (owner.Key == null || !ownerFences.TryGetValue(owner.Key, out var fence) || fence.Generation != owner.Generation)
                 return Rejected("StaleOrUnknownOwner");
             return Queue(() => core.SetLevel(owner, voiceScale, ext));
