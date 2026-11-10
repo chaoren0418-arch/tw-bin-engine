@@ -133,7 +133,7 @@ internal sealed class CharUiBuilder(string file,Func<int,UiSurface?> surf,Func<U
 
     void Element(UiNode c,Point at,Context ctx,List<CharUiPiece> into){
         string? name=c.Attr("Name");
-        if(skip?.Invoke(c) is {} reason){Skipped.Add($"{c.Path}（{reason}）");return;}
+        if(skip?.Invoke(c) is {} reason){Skipped.Add($"{c.Path}（{name??c.Name}：{reason}）");return;}
         CharUiPiece Piece(CharUiKind kind,OptionImageRef? image=null,UiSurface? surface=null,UiSurface? high=null,UiSurface? push=null,
             string? textKind=null,Color? color=null,int alpha=255)=>new(){Kind=kind,Path=c.Path,Name=name,Owner=ctx.Owner,ListName=ctx.List,Slot=ctx.Slot,Parent=ctx.Parent,Offset=at,
             DeclaredSize=new(c.TryInt("Width")??0,c.TryInt("Height")??0),MouseEvent=c.Attr("MouseEvent"),
