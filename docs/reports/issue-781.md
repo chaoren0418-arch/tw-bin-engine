@@ -46,7 +46,8 @@
 - **編譯**：產品 `OfflineClient.csproj`（含 engine/source 的模組測試）與 `DemoChecks.csproj` 都 **0 錯誤**（只有原本就有的 `MagicUi.cs` 警告）。
   - 本機環境問題：使用者全域 NuGet 快取裡的 `microsoft.web.webview2/1.0.4258.31` 解壓不完整（缺 DLL 與 `build/*.targets`），導致 NETSDK1130。沒有動共用快取；改用 `scratch/issue-781/nuget` 獨立套件目錄還原，並用只放在 `scratch/` 的 `webview2-fix.targets`（`CustomAfterMicrosoftCommonTargets`）補上 WebView2 DLL 參考後編譯。**這不是 repo 的改動**，CI 用乾淨的 nuget.org 還原。
 - `python -B -X utf8 engine/tools/check-no-game-assets.py`：pass（4174 檔、0 錯誤）。
-- 依本機限制，**沒有執行任何編譯出來的程式**；模組測試與 DemoChecks 由 CI 執行，結果以 PR 的 CI 為準。
+- 依本機限制，**沒有執行任何編譯出來的程式**；模組測試與 DemoChecks 由 CI 執行。
+- **CI（PR #798，run 42784013549／42784013232）**：`dotnet`、`map-continuity`（含全部 `[WorldModuleTest]`）、`npc-offline` 全部 pass；新群組 `chat-command-followup` pass（86 checks，0 failures）。
 
 ## 未驗證什麼
 - 所有離線測試的執行結果（交給 CI）。
