@@ -6,11 +6,28 @@ public static class DuelPackets {
     public static byte[] Answer(bool accept)=>LoginPackets.Pad([121,0,0,0,0,0,0,118,2,(byte)(accept?1:0)]);
 }
 
+/// <summary>
+/// R8-C（T358／#822，FU8§3）：原版聊天指令 Commandduel（執行函式 sub_F54C60，FO 0xB54060）只送 op 118（3.81 C5），無欄位、不檢查面對誰；
+/// sub_F56320 註冊英文名 `duel` 與字串表 644「決鬥」（中文別名寫死，原版執行期讀字串表）。
+/// 分派照 PlayerQueryPackets.Parse 的做法：以第一個空白切出指令字，英文不分大小寫（推測）；指令字後面的文字原版不讀，這裡也忽略。
+/// </summary>
+public static class DuelChatCommand {
+    public const string English="/duel",Chinese="/決鬥";
+    public static bool Is(string input){
+        if(string.IsNullOrEmpty(input)||input[0]!='/')return false;
+        int split=0;while(split<input.Length&&!char.IsWhiteSpace(input[split]))split++;
+        return input[..split].ToLowerInvariant() is English or Chinese;
+    }
+    /// <summary>不是決鬥指令回 null；是的話回 C5（與 DuelPackets.Invite 相同）。</summary>
+    public static byte[]? Encode(string input)=>Is(input)?DuelPackets.Invite():null;
+    public const string SentNotice="決鬥邀請已送出；對象（相鄰且面對面）與結果由伺服器判定。";
+}
+
 public sealed record DuelView(int Revision,int Epoch,string Phase,string Peer,uint? OpponentId,string Notice);
 
 public sealed partial class WorldSession {
     readonly object duelGate=new();
-    DuelView duel=new(0,-1,"idle","",null,"雙方相鄰並面對面後，可邀請決鬥。");
+    DuelView duel=new(0,-1,"idle","",null,"雙方相鄰並面對面後，可在聊天列輸入 /duel（或 /決鬥）邀請決鬥。");
     // Epoch invalidation also covers Reset/logout and same-map reconstruction, without a shared reset hook.
     public DuelView DuelSnapshot {
         get {lock(duelGate){
@@ -26,6 +43,15 @@ public sealed partial class WorldSession {
                 Notice=command switch{"invite"=>"邀請已送出，等待對方與伺服器回覆。","accept"=>"接受已送出，等待伺服器確認開始決鬥。",_=>"拒絕已送出；伺服器不另回覆拒絕方。"}};
         }
         if(command!="invite")YesNoHandled(630);
+    }
+    /// <summary>
+    /// `/duel` 送出後的本機狀態：只有沒有進行中的決鬥流程時才改成「邀請中」（對手名取面前角色，沒有就空白）；
+    /// 已在決鬥、正被邀請或等待回覆時封包照送（原版不檢查），本機狀態不動，避免蓋掉詢問槽正在回答的 630。
+    /// </summary>
+    internal void DuelCommandAdmitted(){
+        lock(duelGate){
+            if(DuelSnapshot.Phase is "idle" or "ended" or "rejected" or "expired" or "unconfirmed")DuelAdmitted("invite",FacingTradeTarget?.Name??"");
+        }
     }
     // Own reader: unrelated packetbox/message subtypes keep their existing dispatch cursor.
     bool ReceiveDuel(byte opcode,byte[] plain){
@@ -52,7 +78,7 @@ public sealed partial class WorldSession {
             lock(duelGate){var old=DuelSnapshot;
                 duel=new(old.Revision+1,WorldEpoch,peer==0?"ended":"active",
                     peer==0?old.Peer:objects.TryGetValue(peer,out var actor)?actor.Name:"物件 "+peer,
-                    peer==0?null:peer,peer==0?"伺服器已確認結束決鬥。":"伺服器已確認決鬥；對手顯示「決鬥對手」標記。");
+                    peer==0?null:peer,peer==0?"伺服器已確認結束決鬥。":"伺服器已確認決鬥；對手可直接攻擊（攻擊游標），名稱不另外標記。");
             }
             return true;
         }
@@ -73,6 +99,16 @@ public sealed partial class WorldSession {
 
 public sealed partial class LoginConnection {
     int duelSendingGeneration=-1;
+    /// <summary>
+    /// R8-C：聊天列 `/duel`、`/決鬥` → C5。走 SendPlayerChat 的同一個送出閘門與 1 秒防連點（PlayerChat.cs 只多一行分派）；
+    /// 不做面對面或狀態檢查（原版 sub_F54C60 不檢查，伺服器 C_Fight 用 FaceToFace 判定並以 S71 91／93 等訊息回報）。
+    /// </summary>
+    byte[]? DuelChatPacket(string text,out string? notice,out Action? admitted){
+        notice=null;admitted=null;
+        if(DuelChatCommand.Encode(text) is not {} packet)return null;
+        notice=DuelChatCommand.SentNotice;admitted=World.DuelCommandAdmitted;
+        return packet;
+    }
     public bool CanInviteDuel=>DuelEligible("invite");
     bool DuelEligible(string command){
         if(State!=LoginState.InWorld||!World.Ready||World.OwnDead||World.Status?.Hp<=0||World.ActionLocked||World.TradeBlocksActions||MovementBusy)return false;
