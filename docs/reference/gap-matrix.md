@@ -2070,7 +2070,7 @@ R6-D 補充：不同格時用 `ApproachWalk.cs:49` 的通行判斷（FU8§6）�
 - R5-H 寫的「右鍵＝TransferMenu」：原版是右鍵放開後選單的鈕 0。
 
 **新增真機項目**（細節見 FU9§16.3）
-- M34：HyperText 的 `<font fg>` 位元組順序與連結色。
+- M34：HyperText 的 `<font fg>` 位元組順序與連結色。**靜態結果（T381／#886，[`followups-11.md`](followups-11.md)）**：已驗證 fg／bg 數值直接當 GDI COLORREF（`0x00BBGGRR`，`sub_866070` `SetTextColor`／`CreateSolidBrush`）；連結 `0x00B0FFFF`＝RGB(FF,FF,B0) 淡黃、hover `0x32F00A`＝RGB(0A,F0,32)、預設字色 `0xEEEDEE`、沒有「已點過」色；bg＝run 寬 × 整列高。R9-F 的 `HyperTextColors.Order` 應改 `Bgr`（FU11§2）。真機只剩截 `helpcom`／`helpcon` 對色與確認 hover。
 - M35：選目標模式下的游標。
 - M36：3.81 倉庫的堆疊數量輸入（1:127）。
 - M37：好友窗的開窗鍵；`/exclude 名稱` 在 3.81 是否讀名稱。
