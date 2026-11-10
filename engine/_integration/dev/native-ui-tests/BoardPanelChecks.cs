@@ -71,9 +71,21 @@ partial class Checks {
         Check(!Click(list,Mid(list,1),b:MouseButtons.Right)&&host.Pressed.Count==0,"right button is not handled");
         Check(Click(list,new(o.X+40,o.Y+310))&&host.Pressed.Count==0,"press inside bounds between buttons is swallowed, no action");
 
-        host.Board=FakeBoard("article",a20);Sync();host.Pressed.Clear();
+        // R9-N (#858, followups-9 §3.2): 672 previous / 676 next article. Rows are newest first; ids 31/30/29.
+        BoardView Rows3(uint article,bool canNext=false)=>new(1,1,1,1,1,456,"article","",[new(31,"作者","2026/11/09","甲"),new(30,"作者","2026/11/09","乙"),new(29,"作者","2026/11/09","丙")],new BoardArticle(article,"作者","2026/11/09","標題","內容"),300,true,false,canNext);
+        host.Board=Rows3(30);Sync();host.Pressed.Clear();
         Click(read,Mid(read,0));Click(read,Mid(read,1));
-        Check(host.Pressed.Count==0&&read.Visible,"read-window arrows: meaning unverified → no action");
+        Check(host.Pressed.SequenceEqual(new[]{"article-previous","article-next"})&&read.Visible,"read-window 672/676 on a middle row → article-previous / article-next (R9-N)");
+        host.Board=Rows3(31);Sync();host.Pressed.Clear();Click(read,Mid(read,0));Sync();
+        Check(host.Pressed.Count==0&&list.Visible&&!read.Visible,"672 on the first row closes the read window locally (R9-N), no packet");
+        host.Board=Rows3(29,canNext:true);Sync();host.Pressed.Clear();Click(read,Mid(read,1));
+        Check(host.Pressed.SequenceEqual(new[]{"article-next"})&&read.Visible,"676 on the last row with a next page → article-next (loads the next page, R9-N)");
+        host.Pressed.Clear();host.Board=Rows3(29);Sync();Click(read,Mid(read,1));Sync();
+        Check(host.Pressed.Count==0&&list.Visible&&!read.Visible,"676 on the last row, no next page → closes the read window locally (R9-N), no packet");
+        host.Board=Rows3(30) with{CanAct=false};Sync();host.Pressed.Clear();Click(read,Mid(read,0));Click(read,Mid(read,1));
+        Check(host.Pressed.Count==0&&read.Visible,"busy → 672/676 do nothing (R9-N)");
+
+        host.Board=FakeBoard("article",a20);Sync();host.Pressed.Clear();
         Click(read,Mid(read,2));Sync();Check(host.Pressed.Count==0&&list.Visible&&!read.Visible,"read window X (678) closes only the read window (R7-F, sub_A59AB0), no packet");
         host.Pressed.Clear();Click(read,Mid(read,3));Sync();
         Check(host.Pressed.Count==0&&list.Visible&&!read.Visible,"read window back-to-list is a local switch, no packet");
