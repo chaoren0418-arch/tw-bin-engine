@@ -282,7 +282,7 @@
 | SmithUI | SmithUI | `0xBEFB90`／`0x7EEF90` | 有 | 鍛造 | （無） | 缺 | WIN2§6：op 43／102 觸發，3.81 無對應；伺服器不支援 |
 | StoryPaperUI、StoryBookUI | CStoryPaper、CStoryBook | `0xBCB9A0`／`0x7CADA0`、`0xBCA7B0`／`0x7C9BB0` | 有（另有 `StoryBook.xml`） | 故事書 | （無） | 缺 | WIN2§6：本機觸發；不建議做 |
 | QuestUI、QuestProgressUI | CQuestUI、CQuestProgressUI | `0x698130`／`0x297530`、`0x693BB0`／`0x292FB0` | `QuestInfo.xml` 有 | 任務 | （無） | 缺 | PBW§3：熱鍵 N 切換，資料走 protobuf `SC_QUEST_*`（S_EXTENDED）與 `contents\quest-common.bin`，不走 S250；3.81 `S_ClassicQuest` 是 S250 子碼 255＋`CQS1` 的伺服器自訂擴充（只在 `ClientLogin=2`），TW16 沒有 case 255；不建議做 |
-| AgitAuctionUI | CAgitAuctionUI | `0x5448F0`／`0x143CF0` | 缺檔 | 盟屋拍賣 | （無） | 缺 | WIN2§5.2：S156 欄位與 3.81 完全一致；XML 不在 BIN XML 表、本機與他版客戶端都沒有，先做資料（M7-D） |
+| AgitAuctionUI | CAgitAuctionUI | `0x5448F0`／`0x143CF0` | 缺檔 | 盟屋拍賣 | （無） | 缺 | WIN2§5.2：S156 欄位與 3.81 完全一致；XML 不在 BIN XML 表，先做資料（M7-D）。**更正（T318，PAK§4）**：本機 `0-客戶端` 全部 pak 都沒有，但 kor25／t89／ly 的 `Tile.pak` 都有 `AgitAuctionUI.xml`（28,580 B） |
 | SiegeUI | CSiegeUI（LineageSiege） | `0xEFBF10`／`0xAFB310` | 缺檔 | 攻城 | `ClanWar.cs`（只有戰爭狀態） | 缺 | WIN2§6：本機觸發，TW16 新內容；不建議做 |
 | DailyGiftUI、GoldenHornUI、GotChaUI、CraftUI、ArcaManageUI、MonsterDexUI、ThebeRankUI、InterBattleEventUI、MGCatchGremlinUI、PromoteDollUI、CampaignUI、SihonTimer、SihonRanking、SihonNameUI、TimerUI、RoundScoreUI、AdenTeleportUI、WebMoviePlayer | 依序 DailyGiftUI、GoldenHornUI、CGotChaUI、CraftUI、ArcaManageUI、MonsterDexUI、ThebeRankUI、InterBattleEventUI、MiniGameCatchGremlinUI、PromoteDollUI、CampaignUI、SihonTimer、SihonRanking、SihonMapName、TimerUI、RoundScoreUI、AdenTelUI、CWebMoviePlayer | `0xBE2850`、`0xBE37F0`、`0xB1D1B0`、`0xE80860`、`0x56D2A0`、`0x64F2F0`、`0x7C0FE0`、`0x6EA4E0`、`0x625450`、`0x75F7E0`、`0x7D8360`、`0xB353D0`、`0x9ECF00`、`0x9EAE80`、`0xA241E0`、`0x9D8240`、`0x53EEB0`、`0xA56F90`（FO = VA − `0x400C00`） | 全部缺檔 | TW16 新增內容（每日禮物、喇叭、轉蛋、製作、阿卡、怪物圖鑑、排名、活動、小遊戲、娃娃、戰役、時空裂痕、計時、計分、亞丁傳送、網頁影片） | （無） | 缺 | 伺服器不支援（SP 全表沒有對應封包；本機伺服器的 `S_ClassicCraft` 等 S250 子碼與 TW16 是否同格式未比對） |
 | MatchMakingUI | （不建立物件） | 分支在 `sub_B56A40` 內 | 有 | 血盟推薦 | （無） | 缺 | 本列已驗證：TW16 不建立此窗，不建議另做視窗；第 1 節 op 133 的 `sub_B243A0` 另有處理 |
@@ -1374,7 +1374,7 @@ Q3-2、Q3-7、Q4-1、Q4-2 已由 T289（#690，PR #702）查完，結果在 12.9
 |---|---|---|
 | K1 伺服器不支援／不建議 | 1:108；2:42、67、83、215；3:C_ATTACK(43)；3:C_TELEPORT(226)；4:LoadingWindowUI；4:NpcDialogUI；4:CommunityUI；4:`PetInventoryWindow`；4:`TelTablesWindow` | 剩下的子碼或分支，3.81 伺服器不送或不建議做（PBW§2、FU3§5、PG§6、TWP§2、WIN2§2、§7）；`NpcDialogUI`／`CommunityUI` 在 3.81 世代由其他窗取代（第 4.1 節原文） |
 | K2 需先查證 | 1:61；1:114；1:63；3:C_WAR(197)；3:C_MARRIAGE(21)；3:C_PLEDGE_WATCH(201)；4:`AgitWindow`；4:MapUI；4:`MapSystemWindow`；5:（中毒；3:C_ASK_XCHG(5)；3:C_DIALOG(51)；3:C_BOOKMARK(84)；3:C_DROP(97)；3:C_SAVEIO(128)；3:C_ONOFF(184)；5:（109 kind；4:BookmarkMemoryWindowUI | Q4-3–Q4-9 由 T304（#716）查；C_ASK_XCHG 旗標、C11 中間 byte、C_BOOK、C_SAVE 的送出點、刪除本地確認、`/on` 語法、舊素材 gfx 的 kind、`BookmarkMemoryWindowUI` 開窗子碼 141 見 14.7 Q5 |
-| K3 缺資源 | 1:0；1:155；1:99；1:43；3:C_MAIL(95)；3:C_VOICE_CHAT(232)；4:LoginUI；4:SelectUI；4:CreateUI；4:RenewalMailUI；4:ResetStatUI；4:RenewalStatusUI；4:StatInfoUI；4:AgitAuctionUI；4:FishingUI；4:OptionUI；4:GameRankingUI；5:`sub_8444A0` | 本機客戶端缺 XML 或 surf（EF2§5、WIN§1.4、WIN2§8、FU5§5）、`AgitAuctionUI` XML 缺資源、引擎字型與原版不同（UI§1 V4）；功能本身由 WinForms 或聊天行代用 |
+| K3 缺資源 | 1:0；1:155；1:99；1:43；3:C_MAIL(95)；3:C_VOICE_CHAT(232)；4:LoginUI；4:SelectUI；4:CreateUI；4:RenewalMailUI；4:ResetStatUI；4:RenewalStatusUI；4:StatInfoUI；4:AgitAuctionUI；4:FishingUI；4:OptionUI；4:GameRankingUI；5:`sub_8444A0` | 本機客戶端缺 XML 或 surf（EF2§5、WIN§1.4、WIN2§8、FU5§5）、`AgitAuctionUI` XML 缺資源、引擎字型與原版不同（UI§1 V4）；功能本身由 WinForms 或聊天行代用。**T318（#752）用 PakViewer 重查**（[`pak-resources.md`](pak-resources.md)，PAK§4）：<br>• 5:`sub_8444A0` **已找到**（系統 `MingLiU`＋`Font\*.fnt`，不在 pak），應改歸 K5。<br>• 其餘 17 列：`0-客戶端` 全部 24 個 idx 都查過，**仍找不到**，但參考客戶端 kor25／t89／ly 的 `Tile.pak` 都有。逐列見 14.9 |
 | K4 原生 UI 預設關閉 | 1:131；1:40；1:144；1:127；1:88；1:145；1:136；1:44；1:22；1:175；1:110；1:18；1:45；1:78；3:C_QUERY_PERSONAL_SHOP(86)；3:C_INVITE_PARTY(82)；3:C_ADD_BUDDY(138)；4:MainChatUI；4:MainButtonUI；4:MiniMapUI；4:MainCharInfoUI；4:HyperTextUI；4:Inventory；4:Warehouse；4:ExchangeUI；4:PersonalShopUI；4:SpellUI；4:PartyUI；4:PledgeUI；4:FriendUI；4:SummonUI；4:`TradeWindow`；4:`ExcludeWindow`；4:`PetControl`；4:`InventoryWindow`；4:`SpellWindow`；4:`HpMpWindow`；4:`MacroWindow`；4:`InputWindow`；4:`CCookWindow`；4:`WareHistoryWindow` | 原生面板已在，主要差異是 `NativeUi/UiRoot.cs:168` 預設關閉；開啟後還有推定細節（14.3、Q5）與真機 smoke（T201 #475）待做 |
 | K5 仍有 code 差異 | 1:186；1:5；1:240；1:137；1:122；1:197；1:2；1:238；1:91；1:219；1:52；1:25；1:152；1:248；1:92；1:189；1:89；1:245；1:132；3:C_USE_SPELL(216)；3:C_CHANNEL(55)；3:C_DEAD_RESTART(58)；3:C_BOARD_LIST(6)；4:BookmarkWindowUI；4:UserPlayStatsUI；4:UserObtainUI；4:`BoardListWindow`；4:`MapLocationSaveWindow`；4:`QuitWindow`；5:`sub_A4B060`；5:（`TransferMenu`；5:（名稱；5:`sub_A57C60`；5:`sub_8FB4D0`；5:music.def | 有查證依據、但還沒寫的程式：分到 14.6 的 R5-A–I，或已開的 T290（#698：op 186、AN§2、`UserPlayStatsUI`、`UserObtainUI`、門的 `]`）、T273（#651：op 245） |
 | K6 原文未複核或只差真機驗證 | 1:36；1:86；1:181；1:29；2:107；3:C_VERSION(122)；3:C_DUEL(118)；3:C_WHO(174)；3:C_ACTION(50)；4:WidgetSlot；4:BehaviourUI；4:PopUpUI；5:`sub_87C890`；5:`sub_F0E9B0`；5:`sub_A51920`；5:`sub_5001C0`；5:`byte_13CE51E`；5:（表情選單；5:`sub_8E66D0` | 依據欄從第一輪以來只有參照（例如「AN§1」「WIN§2 T140」「SV§2、SD#7」），沒有寫明還剩什麼差異；或是只剩「可見差異待驗證」。要先逐列複核，才能改成「已有」或轉進 K2／K5 |
@@ -1471,4 +1471,52 @@ Q4-3–Q4-9 已由 T304（#716）處理，本表不重列。下表是第四批�
 - K1–K6 的分類是本輪的判斷。一列有好幾個原因時，只歸到**擋住它改「已有」的主要原因**（例如 `HpMpWindow` 也缺 surf，但主要原因是預設關閉）。
 - 各任務都沒有真機驗收。「已有」只表示程式和已查證的表現沒有已知差異。
 - 本節的 `檔案:行` 以 main `6ceb7e0b` 為準。
+
+### 14.9 K3 回填（T318／#752，PakViewer 查遍全部 pak）
+
+**查了什麼**
+- 用 PakViewer CLI（`pakviewer-cli pak list`／`extract`、`xml decrypt`，只讀）查 `D:\lineage開發\0-客戶端` 的 24 個 idx，共 308,323 個檔名。
+  - 頂層 17 個：`Text.idx`（L1，檔名已解開）、`Tile.idx`、`Sprite.idx`、`Sprite00`–`Sprite15.idx`。
+  - `LiTo\` 下 5 個：`LTtext`（L1）、`LTsurf`、`LTsprite`、`LTtile`、`LTicon`。
+  - `launcher\TW13081901.pak` 沒有 idx，打不開。
+- 用了 3 種查法：
+  - 檔名完全相同，以及 `-c`／`-h` 變體。
+  - 17 個關鍵字。
+  - 把 Tile.pak 的 65 份 XML 全部解密，搜視窗名稱。
+- 清單、關鍵字、雜湊都在 [`pak-resources.md`](pak-resources.md) 第 2、4 節。腳本在 `rea-scripts/pak/`。
+
+**18 列的結果**
+- 已找到 1 列。
+- 17 列在本機全部 pak 都查過，仍找不到；但 17 列在本機參考客戶端都找得到。
+
+| 列 | 狀態（T318） | 本機 pak／檔名 | 參考客戶端（kor25 `Tile.pak`，另見 t89／ly） |
+|---|---|---|---|
+| 1:0 | 全部 pak 都查過，仍找不到 `AgitAuctionUI.xml` | 只有 `Text.pak` `agit-c.html`、`auction1`–`3-c.html` | `AgitAuctionUI.xml` 28,580 B；4 個缺 surf 能補齊 |
+| 1:155、1:99、3:C_MAIL(95)、4:RenewalMailUI | 全部 pak 都查過，仍找不到 `RenewalMailUI.xml`、surf 9183／9184 | 只有 `Tile.pak` `MailExcludeUI.xml`、`Text.pak` `helpmail-c.html` | `RenewalMailUI.xml` 20,327 B；9183／9184 在 kor25／ly 的 `Sprite00`／`01`，各 768 B |
+| 1:43、3:C_VOICE_CHAT(232)、4:ResetStatUI、4:StatInfoUI | 全部 pak 都查過，仍找不到 | — | `ResetStatUI.xml` 15,389 B、`StatInfoUI.xml` 7,371 B；22 個缺 surf，ly 能補 20 個 |
+| 4:LoginUI | 全部 pak 都查過，仍找不到；44 個 surf 本機全缺 | `Tile.pak` `SurfList.xml` 只有說明文字 | `LoginUI.xml` 4,899 B；t89 能補齊 44 個 surf |
+| 4:SelectUI | 全部 pak 都查過，仍找不到 | — | `SelectUI.xml` 11,532 B；t89 能補齊 15 個缺 surf |
+| 4:CreateUI | 全部 pak 都查過，仍找不到 | — | `CreateUI.xml` 19,722 B；t89 能補 17 個，共缺 19 個 |
+| 4:RenewalStatusUI | 全部 pak 都查過，仍找不到 `ReNStatusUIEx.xml` | 只有 `Tile.pak` `ReNStatusWinUI(-c).xml`（TW16 不讀） | `ReNStatusUIEx.xml` 14,902 B；surf 本機全有 |
+| 4:AgitAuctionUI | 同 1:0 | 同 1:0 | 同 1:0 |
+| 4:FishingUI | 全部 pak 都查過，仍找不到 | — | `FishingUI.xml` 1,182 B；8 個 surf 本機都有，6 個只有 `.tbt` |
+| 4:OptionUI | 全部 pak 都查過，仍找不到 `OptionUI.xml` | HTML 頁 `Text.pak` `option*-c.html`、`optiong-c.html` 都有 | `OptionUI.xml` 23,378 B；surf 本機全有 |
+| 4:GameRankingUI | 全部 pak 都查過，仍找不到 | — | `GameRankingUI.xml` 36,858 B；39 個 surf 本機全有 |
+| 5:`sub_8444A0` | **已找到**（不在 pak） | `C:\Windows\Fonts\mingliu.ttc`、`0-客戶端\Font\kor.fnt`／`eng.fnt`／`small.fnt` | — |
+
+**B16 與舊的「本機沒有」**
+- `ServerName.xml`、`LoadingScene.xml`：全部 pak 都查過，仍找不到；kor25 有。
+- `monlist-c.html`：**已找到**，在 `Text.pak`（689 B，另有 30 頁同類 `-c` 頁）。
+- `summonList.xml`：**已找到**，在 `Tile.pak`。
+- `recipe.tbl`：**已找到**，在 `Text.pak`。
+- `SpellList.xml`：仍找不到；kor25 有。
+- 字串 4118：本機 `string-c.tbl` 只有 3484 筆，仍找不到。ly 的第 4118 筆是「確認選擇的項目。是否刪除? (Y/N)」，對齊是推測。
+
+**建議**
+- 5:`sub_8444A0` 在下一輪改歸 K5。對應的 code 任務是 PAK§6 的 P-E。
+- 其餘 17 列不能算「缺資源」終態，要看使用者決定用哪個參考客戶端：
+  - 同意（例如 kor25，執行期讀、不進 git）→ 轉成 PAK§6 的 P-A／P-B／P-D code 任務。
+  - 不同意 → 維持現在的 WinForms 備援，並由使用者裁定。
+
+本節沒有移動 14.5 的分類，`gap_count_r5.py` 的計數不變。
 
