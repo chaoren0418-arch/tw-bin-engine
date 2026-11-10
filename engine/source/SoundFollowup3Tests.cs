@@ -223,7 +223,8 @@ static class SoundFollowup3Tests {
         t.Check(log.Contains("mci open 0.mid")&&player.Live==1,"再進世界：重開 0.mid",string.Join(",",log));
         log.Clear();
         m.Attack(false,1500);
-        t.Check(log.Contains("mci open 0.mid")&&player.Live==1,"戰鬥（槽 9）：仍是 0.mid",string.Join(",",log));
+        // R10-L（T396）：非系統槽換曲沿用在播的 0.mid，不關不重開（原版「MIDI 沒在播才開」）。
+        t.Check(!log.Contains("mci close")&&!log.Contains("mci open 0.mid")&&player.Live==1,"戰鬥（槽 9）：仍是同一條 0.mid、不重頭播",string.Join(",",log));
         player.Dispose();
     }
 
