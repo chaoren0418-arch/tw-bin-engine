@@ -13,7 +13,11 @@
 - `engine/source/BoardUi.cs`：`Press` 接受 `"article-previous"`／`"article-next"`，用自己的快照與 `busy` 再判斷一次；讀鄰篇時把清單選取移到該列，再走原本的讀文動作（`Run("read", topic)`）；跨頁走原本的 `"next"`（同一套啟用條件）。`--classic-ui` 的 WinForms 公告板沒有這兩顆鈕，行為不變。
 - 新檔 `engine/source/BoardNavigateTests.cs`（`[WorldModuleTest("board-navigate")]`，自動發現）：16 項決策表（中間、頭、尾、單列、有／無下一頁、忙碌、等待中、沒有文章、不在本頁）＋按鈕接線（672 (56,312)、676 (110,312) 的角色與位置、本地關窗不送包、忙碌不動、678 不受影響）。圖面全為合成尺寸。
 
+- **第 2 次嘗試（CI 修正）**：第 1 次 PR #876 的 `map-continuity` 失敗在 `engine/_integration/dev/native-ui-tests/BoardPanelChecks.cs:76`，那條舊檢查斷言「672／676 意義未驗證 → 不動作」，正好是本任務要取代的行為。改成檢查新行為（中間列 → `article-previous`／`article-next`；第一列按 672、最後一列且無下一頁按 676 → 本地關閱讀窗、不送包；最後一列有下一頁按 676 → `article-next`；忙碌 → 不動）。此檔不在原列「可改的檔案」內，但不改就無法讓 CI 綠，只動這一段斷言。同時已同步 `origin/main`。
+
 ## 怎麼驗證
+
+- 第 2 次：同步 main 後本機編譯 `OfflineClient.csproj`（輸出 `engine/build/client-product-dev`）與 `DemoChecks.csproj` 皆 **0 錯誤**（只有既有警告）；檢查本身依本機限制不執行，交給 CI。
 
 - 本機編譯：`dotnet build engine/source/OfflineClient.csproj -c Release --no-restore` → **0 錯誤**（4 個既有警告，在 `MagicUi.cs`、`HtmlActionTests.cs`，與本次無關）。
   - 本機環境繞法（沒進 repo、沒改建置設定）：worktree 沒有 `engine/vendor`，暫時用 junction 指向原專案 vendor 還原（已用 `cmd /c rmdir` 拆掉）；全域 NuGet 快取的 WebView2 1.0.4258.31 缺 DLL（同 #851 報告），改用 `NUGET_PACKAGES=scratch/task858/packages` 隔離還原，並以 `scratch/task858/nowinmd.targets` 濾掉 winmd 參照。
