@@ -80,7 +80,7 @@ static class PersonalShopFlowTests {
 
         // ---- 3. 背包選取＋點清單 → 898 → 933。
         var world=new WorldSession();var inv=Inventory(world);
-        foreach(var it in new[]{Item(500,10),Item(501,1,9,"樣本"),Item(502,5,11,"箭"),Item(503,1,12,"劍"),Item(504,300,13,"寶石")})inv[it.ObjectId]=it;
+        foreach(var it in new[]{Item(500,10),Item(501,1,9,"樣本"),Item(502,5,11,"箭"),new InventoryItem(503,0,1,0,12,1,1,1,"+0 劍","",""),Item(504,300,13,"寶石")})inv[it.ObjectId]=it;
         Equipped(world)[503]=true;
         var host=new FakeHost(world);var ctl=new PersonalShopController(host);var panel=Loaded();ctl.Attach(panel);
         t.Check(ReferenceEquals(panel.Prompt,ctl)&&panel is IUiTextInput,"controller is the panel's prompt input; panel takes typed characters");
