@@ -230,35 +230,56 @@ public interface IUiClosablePanel:IUiPanel {
 public enum UiToggleResult { Unavailable, Opened, Closed, Refused }
 
 /// <summary>
-/// The nativeUi switch (§1.1). Default OFF. On when the diagnostic argument --native-ui is given or the settings file
-/// (&lt;stage&gt;/runtime/native-ui.json, {"nativeUi":true,"nativeUiFill":false}) says so. A malformed file counts as off.
+/// The nativeUi switch (§1.1). T317 (#751, user decision #743-1): default ON for the normal product entry.
+/// Precedence, lowest to highest: default (<see cref="DefaultOn"/>) → settings file
+/// (&lt;stage&gt;/runtime/native-ui.json, {"nativeUi":true|false,"nativeUiFill":false}) → --native-ui (on, kept for
+/// compatibility) → --classic-ui (off: legacy WinForms HUD, for comparison and troubleshooting). A malformed file, or a
+/// nativeUi value that is not a JSON boolean, is ignored (the default stays).
 /// </summary>
 public sealed record UiOptions(bool Enabled,bool Fill,string Source) {
     public const string Argument="--native-ui";
+    public const string ClassicArgument="--classic-ui";
     public const string SettingsFileName="native-ui.json";
     public static readonly UiOptions Off=new(false,false,"default");
+    public static readonly UiOptions On=new(true,false,"default");
     /// <summary>Set by Program.Main when --native-ui was on the command line.</summary>
     public static bool CommandLine{get;set;}
+    /// <summary>Set by Program.Main when --classic-ui was on the command line.</summary>
+    public static bool Classic{get;set;}
+    /// <summary>
+    /// Default when neither the settings file nor an argument decides. true (native UI) for the normal product; Program.Main
+    /// sets it to false for the diagnostic harness entries (--demo, --evidence, --login-demo …) so they keep the HUD they
+    /// were written against unless --native-ui is given.
+    /// </summary>
+    public static bool DefaultOn{get;set;}=true;
 
-    public static UiOptions Resolve(bool commandLine,string? settingsPath){
-        bool enabled=false,fill=false;string source="default";
+    public static UiOptions Resolve(bool commandLine,string? settingsPath)=>Resolve(commandLine,Classic,settingsPath,DefaultOn);
+
+    public static UiOptions Resolve(bool commandLine,bool classic,string? settingsPath,bool defaultOn){
+        bool enabled=defaultOn,fill=false;string source="default";
         if(settingsPath!=null&&File.Exists(settingsPath)){
             try{
                 using var doc=JsonDocument.Parse(File.ReadAllText(settingsPath));
                 if(doc.RootElement.ValueKind==JsonValueKind.Object){
-                    if(doc.RootElement.TryGetProperty("nativeUi",out var n)&&n.ValueKind is JsonValueKind.True){enabled=true;source="settings";}
+                    if(doc.RootElement.TryGetProperty("nativeUi",out var n)&&n.ValueKind is JsonValueKind.True or JsonValueKind.False){enabled=n.ValueKind==JsonValueKind.True;source="settings";}
                     if(doc.RootElement.TryGetProperty("nativeUiFill",out var f)&&f.ValueKind is JsonValueKind.True)fill=true;
                 }
-            }catch(Exception ex) when(ex is IOException or UnauthorizedAccessException or JsonException){UiResourceLog.Write($"{SettingsFileName} 無法讀取，視為關閉：{ex.Message}");}
+            }catch(Exception ex) when(ex is IOException or UnauthorizedAccessException or JsonException){UiResourceLog.Write($"{SettingsFileName} 無法讀取，使用預設（{(defaultOn?"原生 UI":"舊介面")}）：{ex.Message}");}
         }
         if(commandLine){enabled=true;source="argument";}
-        return enabled?new(true,fill,source):Off;
+        if(classic){enabled=false;source="argument";}
+        return new(enabled,enabled&&fill,source); // records compare by value: equals Off / On when nothing but the default decided
     }
 
-    /// <summary>Removes --native-ui from args (so the normal product entry still sees "no arguments") and records it.</summary>
+    /// <summary>
+    /// Removes --native-ui and --classic-ui from args (so the normal product entry still sees "no arguments") and records them.
+    /// Both given → --classic-ui wins (Resolve).
+    /// </summary>
     public static string[] Strip(string[] args){
-        if(!args.Contains(Argument))return args;
-        CommandLine=true;return args.Where(a=>a!=Argument).ToArray();
+        if(!args.Contains(Argument)&&!args.Contains(ClassicArgument))return args;
+        if(args.Contains(Argument))CommandLine=true;
+        if(args.Contains(ClassicArgument))Classic=true;
+        return args.Where(a=>a!=Argument&&a!=ClassicArgument).ToArray();
     }
 }
 

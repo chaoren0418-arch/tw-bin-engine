@@ -5,6 +5,11 @@ public static class ProductEntry {
     public const string ServerName="本機遊戲伺服器";
     public static string StateName(LoginState state)=>state switch{LoginState.Offline=>"離線預覽",LoginState.Connecting=>"連線中",LoginState.AwaitSeed=>"等待連線交握",LoginState.Authenticating=>"驗證帳密中",LoginState.AwaitList or LoginState.ReadingCharacters=>"接收角色清單",LoginState.CharacterList=>"請選擇角色",LoginState.EnteringWorld=>"進入世界中",LoginState.InWorld=>"已進入世界",LoginState.Rejected=>"登入遭拒絕",LoginState.Disconnected=>"連線已中斷",LoginState.Cancelled=>"已取消／斷線",_=>"連線發生錯誤"};
     public static bool Normal(string[] args){if(args.Contains("--normal-product")){if(args.Length!=1)throw new ArgumentException("正常入口不接受診斷或自動登入參數。");return true;}return args.Length==0;}
+    /// <summary>
+    /// T317 (#751, user decision #743-1): the normal product starts with the native UI unless --classic-ui (or the settings
+    /// file) says otherwise. Diagnostic harness entries keep the legacy HUD by default (--native-ui still turns it on).
+    /// </summary>
+    public static bool NativeUiDefault(bool normalProduct)=>normalProduct;
 }
 public sealed partial class ClientForm {
     readonly bool normalProduct;

@@ -42,9 +42,15 @@
 
 ### 1.1 功能開關
 
-- 新 UI 由設定 `nativeUi`（或診斷參數 `--native-ui`）開啟，**預設關閉**。全部模組合併並通過真機 smoke 之前，舊 HUD（`PlayerHud*`、`MinimapUi`、`PartyUi`…）保持原樣，作為預設與退路。
-- 開關打開時，舊 HUD 控制項不建立，也不接收輸入。兩套 UI 不能同時接收同一個按鍵。
-- 切換成預設（並移除舊 HUD）是另一張任務，由主控在 smoke 通過後開立，不在本契約範圍內。
+- **T317（#751，使用者 2026-11-10 #743 決定 1「預設就使用原生的 UI」）起，正常產品入口預設開啟原生 UI。** 舊 WinForms HUD（`PlayerHud*`、`MinimapUi`、`PartyUi`…）仍保留，作為退路與比對用。
+- 決定順序（後者蓋過前者），實作在 `NativeUi/UiRoot.cs` 的 `UiOptions.Resolve`：
+  1. 預設：正常產品入口（launcher 傳的 `--normal-product`，或不帶參數）為**開啟**；診斷／測試入口（`--demo`、`--evidence`、`--login-demo` 等其他參數）為**關閉**，維持這些工具原本對照的舊 HUD（`ProductEntry.NativeUiDefault`）。
+  2. 設定檔 `<stage>/runtime/native-ui.json`：`{"nativeUi":true}` 開、`{"nativeUi":false}` 關；`nativeUiFill` 控制等比填滿（§3.2）。檔案格式錯誤或值不是 JSON 布林時忽略，沿用預設。
+  3. `--native-ui`：開啟。保留為相容參數，給了不報錯，效果與預設相同。
+  4. `--classic-ui`：關閉，切回舊 WinForms HUD，方便比對與排錯。兩個參數同時給時 `--classic-ui` 優先。
+- `--native-ui`／`--classic-ui` 在 `Program.Main` 一開始就從參數中移除（`UiOptions.Strip`），所以 `--normal-product --classic-ui` 仍是正常產品入口。launcher 固定只傳 `--normal-product`；要從 launcher 啟動舊 HUD，請用設定檔 `{"nativeUi":false}`。
+- 開關打開時，舊 HUD 控制項不顯示，也不接收輸入。兩套 UI 不能同時接收同一個按鍵。原生 UI 資源核對失敗時，自動退回舊 HUD 並顯示一行紅字（§3）。
+- 移除舊 HUD 是另一張任務，不在本契約範圍內。
 
 ---
 
