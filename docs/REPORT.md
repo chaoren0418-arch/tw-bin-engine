@@ -311,3 +311,4 @@
 - 2026-11-10 — #783 T337：查證原版——Q6-1、Q6-2、Q6-4 到 Q6-9（頭上條基準、決鬥送出點、BehaviourUI 等）（resource，claude-local，PR 已合併）→ [報告](reports/issue-783.md)
 - 2026-11-10 — #762 T324：P-D 原生信件三窗（參考客戶端 XML）（code，claude-local，PR 已合併）→ [報告](reports/issue-762.md)
 - 2026-11-10 — #803 T340：R7-A 戰鬥排隊、S42 光照、選目標游標（code，claude-local，PR 已合併）→ [報告](reports/issue-803.md)
+- 2026-11-10 — #804 T341：R7-B 輸入列 Y/N 與表情保留（code，claude-local，PR 已合併）→ [報告](reports/issue-804.md)
