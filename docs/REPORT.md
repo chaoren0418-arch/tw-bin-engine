@@ -367,3 +367,4 @@
 - 2026-11-11 — #905 T390：R10-F 聊天列確認與提示（code，claude-local，PR 已合併）→ [報告](reports/issue-905.md)
 - 2026-11-11 — #910 T395：R10-K 拾取通行判斷（code，claude-local，PR 已合併）→ [報告](reports/issue-910.md)
 - 2026-11-11 — #907 T392：R10-H 名稱內插與頭上條（code，claude-local，PR 已合併）→ [報告](reports/issue-907.md)
+- 2026-11-11 — #911 T396：R10-L MIDI 換曲（code，claude-local，PR 已合併）→ [報告](reports/issue-911.md)
