@@ -12,11 +12,17 @@ namespace P06;
 
 /// <summary>盟屋地圖 674 鈕的封包（TW16 sub_542BF0 `cdss` 227 ＝ 3.81 C125 C_NPCAction，Npc_AuctionBoard 多讀一個 S）。</summary>
 public static class AgitSelectPackets {
-    public const string Action="select";
-    /// <summary>C(125) D(board) S("select") S("%u" houseNumber)。houseNumber＝S187 原值（區域&lt;&lt;16 | 編號）。</summary>
-    public static byte[] Select(uint board,uint houseNumber){
+    public const string Action="select",ApplyAction="apply";
+    /// <summary>C(125) D(board) S("select") S("%u" houseNumber)。houseNumber＝S187 原值（區域&lt;&lt;16 | 編號），或 S156 的盟屋 id（同一種值）。</summary>
+    public static byte[] Select(uint board,uint houseNumber)=>Board(board,Action,houseNumber);
+    /// <summary>
+    /// R7-C（#805）：拍賣資訊窗的 Bid 鈕。C(125) D(board) S("apply") S("%u" houseNumber)；3.81 Npc_AuctionBoard 的 "apply" 分支
+    /// 回 S_ApplyAuction（S136 agapply），或 518／519／521 訊息。原版鈕是否送這個是推測（伺服器只認這個動作名）。
+    /// </summary>
+    public static byte[] Apply(uint board,uint houseNumber)=>Board(board,ApplyAction,houseNumber);
+    static byte[] Board(uint board,string action,uint houseNumber){
         if(board==0)throw new ArgumentException("拍賣看板物件 id 不可為 0",nameof(board));
-        return LoginPackets.Pad([125,..BitConverter.GetBytes(board),..LoginPackets.TextEncoding.GetBytes(Action),0,
+        return LoginPackets.Pad([125,..BitConverter.GetBytes(board),..LoginPackets.TextEncoding.GetBytes(action),0,
             ..LoginPackets.TextEncoding.GetBytes(houseNumber.ToString(CultureInfo.InvariantCulture)),0]);
     }
 }
@@ -90,6 +96,28 @@ public sealed partial class LoginConnection {
         catch(Exception){if(session==generation){Cancel();Set(LoginState.Faulted,"盟屋拍賣查詢傳送失敗，已斷線；不會自動重送。");}return false;}
         finally{if(session==generation)interactionSending=false;}
     }
+
+    /// <summary>
+    /// R7-C（#805）：拍賣清單窗選盟屋 → C125 select（S156 的看板 id）。shown 已不是目前的 S156、盟屋不在清單、互動送出中或動作鎖定時不送。
+    /// </summary>
+    public Task<bool> SendAgitAuctionSelect(AgitAuctionOpenRequest shown,uint houseId)=>
+        SendAgitBoard(shown.List.BoardId,houseId,AgitSelectPackets.Select,()=>AgitAuctionWindow.Current?.Revision==shown.Revision,"盟屋拍賣查詢");
+    /// <summary>R7-C（#805）：拍賣資訊窗的 Bid 鈕 → C125 apply。agsel 已被取代、盟屋編號不是數字或不在目前的 S156 清單時不送。</summary>
+    public Task<bool> SendAgitAuctionApply(AgitAuctionInfoRequest shown)=>shown.HouseId is uint house
+        ?SendAgitBoard(shown.BoardId,house,AgitSelectPackets.Apply,()=>AgitAuctionInfoWindow.Current?.Revision==shown.Revision,"盟屋拍賣參加")
+        :Task.FromResult(false);
+
+    async Task<bool> SendAgitBoard(uint board,uint house,Func<uint,uint,byte[]> build,Func<bool> current,string what){
+        bool Listed()=>World.AgitHouseList is {} l&&l.BoardId==board&&l.Houses.Any(h=>h.HouseId==house);
+        if(State!=LoginState.InWorld||board==0||interactionSending||MovementBusy||sendMovementGate is not {} sender
+            ||World.ActionLocked||World.TradeBlocksActions||!current()||!Listed())return false;
+        byte[] packet=build(board,house);
+        int session=generation;interactionSending=true;
+        bool Valid()=>session==generation&&State==LoginState.InWorld&&current()&&Listed()&&!World.ActionLocked&&!World.TradeBlocksActions&&!MovementBusy;
+        try{return await sender(packet,Valid,()=>{})&&session==generation;}
+        catch(Exception){if(session==generation){Cancel();Set(LoginState.Faulted,$"{what}傳送失敗，已斷線；不會自動重送。");}return false;}
+        finally{if(session==generation)interactionSending=false;}
+    }
 }
 
 public sealed partial class ClientForm {
@@ -101,6 +129,7 @@ public sealed partial class ClientForm {
     /// </summary>
     void SyncRingWindows(){
         if(NativeUiRoot?.Find(AgitMapPanel.PanelId) is AgitMapPanel agit&&agit.Host==null)agit.Attach(new AgitMapHost(this));
+        AttachAgitAuctionHost();
         var native=NativeBookmarkWindow();
         if(native!=null&&native.Host==null)native.Attach(new BookmarkWindowHost(this));
         if(bookmarkPanel is not {} panel||panel.IsDisposed)return;
@@ -139,6 +168,46 @@ public sealed partial class ClientForm {
             if(sending||form.World.Walking)return;
             sending=true;form.ClearInput("agit-select");_ = Run();
             async Task Run(){try{await form.login.SendAgitSelect(shown);}finally{sending=false;}}
+        }
+    }
+
+    // R7-C（#805）：AgitAuctionUI 三個原生窗（拍賣清單、拍賣資訊、出價）共用一個宿主。--classic-ui 時原生 UI 不建立，
+    // S156／agsel 照舊只有資料與 NPC 對話頁，agapply 照舊走 NPC 對話面板的數字框（AmountPrompt.cs）。
+    AgitAuctionHost? agitAuctionHost;
+    void AttachAgitAuctionHost(){
+        if(NativeUiRoot is not {} root)return;
+        agitAuctionHost??=new(this);
+        if(root.Find(AgitAuctionPanel.PanelId) is AgitAuctionPanel list&&list.Host==null)list.Attach(agitAuctionHost);
+        if(root.Find(AgitAuctionInfoPanel.PanelId) is AgitAuctionInfoPanel info&&info.Host==null)info.Attach(agitAuctionHost);
+        if(root.Find(AgitBidPanel.PanelId) is AgitBidPanel bid&&bid.Host==null)bid.Attach(agitAuctionHost);
+    }
+    /// <summary>原生出價窗正在顯示這一筆 agapply（AmountPrompt.cs 用來藏 WinForms 數字列，避免兩個輸入框）。</summary>
+    internal bool NativeAgitBidShowing(AmountOffer offer)=>
+        NativeUiActive&&NativeUiRoot is {} root&&root.Find(AgitBidPanel.PanelId) is AgitBidPanel p&&!root.Faulted.Contains(p)&&p.Shown?.Revision==offer.Revision;
+
+    sealed class AgitAuctionHost(ClientForm form):IAgitAuctionHost {
+        bool sending;
+        void Send(string tag,Func<Task<bool>> send){
+            if(sending||form.World.Walking)return;
+            sending=true;form.ClearInput(tag);_ = Run();
+            async Task Run(){try{await send();}finally{sending=false;}}
+        }
+        public void Select(AgitAuctionOpenRequest shown,uint houseId)=>Send("agit-auction-select",()=>form.login.SendAgitAuctionSelect(shown,houseId));
+        public void Apply(AgitAuctionInfoRequest shown)=>Send("agit-auction-apply",()=>form.login.SendAgitAuctionApply(shown));
+        /// <summary>agsel 模板（dialogs/templates.json，與 NPC 對話同一份）帶入 9 個字串；$編號 以 NPC 名稱表解開。缺模板回 null。</summary>
+        public string? InfoText(AgitAuctionInfoRequest shown){
+            var w=form.login.World;
+            if(w.DialogTemplates is not {} templates)return null;
+            var page=templates.Render(AgitAuctionInfoPackets.Html,shown.Data,"",w.Actor?.Name??"");
+            return page.Text.StartsWith("缺少此對話的原始繁中模板",StringComparison.Ordinal)?null:form.ResolveNpcText(page.Text);
+        }
+        public AmountOffer? BidOffer=>form.login.AmountPromptSnapshot().Prompt is {Html:AgitBidPanel.ApplyHtml} o?o:null;
+        public bool CanBid=>!sending&&!form.World.Walking&&form.login.AmountPromptSnapshot().CanSend;
+        public void Bid(AmountOffer shown,long value){
+            if(sending||form.World.Walking)return;
+            var v=form.login.AmountPromptSnapshot();
+            if(v.Prompt?.Revision!=shown.Revision||!v.CanSend)return;
+            Send("agit-auction-bid",()=>form.login.SendAmountReply(v,value));
         }
     }
 }

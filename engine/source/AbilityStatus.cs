@@ -32,7 +32,11 @@ public static class RingWindowRules {
     public const ushort TeleportBlockedMessage=276,SummonLevelMessage=743;
     /// <summary>sub_BE0F10 只接受技能索引 4（指定傳送）、68（集體傳送）＝技能 5／69。</summary>
     public static bool TeleportSkill(int skill)=>skill is 5 or 69;
-    /// <summary>dword_138BE60（目前地圖）是 5、6、83、84 或 ≥ 0x4000 → 276「在此無法使用傳送。」</summary>
+    /// <summary>
+    /// dword_138BE60（目前地圖）是 5、6、83、84 或 ≥ 0x4000 → 276「在此無法使用傳送。」。
+    /// R7-C（#805）：依 #736（sub_E08A20），276 只在直接送 C6 的路徑（0xE08BA9）；戒指與妖精的開窗路徑（0xE08B22 起）不查。
+    /// 直接施放路徑不在本檔，這裡只保留規則常數。
+    /// </summary>
     public static bool TeleportBlocked(int map)=>map is 5 or 6 or 83 or 84||map>=0x4000;
 }
 
@@ -76,17 +80,18 @@ public sealed partial class WorldSession {
 
     // T276（#667）：S36 type 1／5 的開窗事件。依據 docs/reference/followups-3.md 第 3 節。
     // 施放（不帶參數的 CastSelectedMagic）先問這裡：回 true＝已開窗或已顯示訊息，**不送 C6**。
-    //   type 1（sub_E08A20）：技能 5／69＋戴傳送控制戒指 → 開書籤窗的「選目的地」模式；限制地圖顯示 276。
-    //     選定後仍以 3.81 的 HD（地圖、書籤 id）送 C6（RingWindows.cs），不照抄 TW16 的 hhh。
+    //   type 1（sub_E08A20）：技能 5／69＋戴傳送控制戒指 → 開書籤窗的「選目的地」模式。
+    //     R7-C（#805）：開窗前**不查**限制地圖、不顯示 276（#736：0xE08B22 起的開窗路徑不查，276 只在直接送 C6 的 0xE08BA9）。
+    //     選定後仍以 3.81 的 HD（地圖、書籤 id）送 C6（RingWindows.cs），不照抄 TW16 的 hhh；限制地圖由伺服器 TELEPORT 判斷。
     //   type 5（sub_DF8A50）：技能 51＋戴召喚控制戒指 → 開既有的本機召喚窗（OpenLocalSummon，窗已開就不重開）。
-    // 沒做（待驗證）：王族 Lv ≥ 50 且 byte_13A931C 的分支（旗標意義沒查）；技能索引 130 的排除（5／69 的索引是 4／68，不會碰到）。
+    // 妖精 Lv ≥ 50＋byte_13A931C 的分支在 RingWindows.cs（R5-D／#736）；選項的 UI 等 Q7。
+    // 沒做（待驗證）：技能索引 130 的排除（5／69 的索引是 4／68，不會碰到）。
     TeleportDestinationRequest? teleportDestination;long teleportDestinationRevision;
     /// <summary>目前的「選傳送目的地」請求；沒開為 null。</summary>
     public TeleportDestinationRequest? TeleportDestination {get{lock(abilityLock)return teleportDestination;}}
     internal bool TryOpenRingWindow(){
         if(SelectedMagicId is not int id||!learnedMagic.Contains(id))return false;
         if(RingWindowRules.TeleportSkill(id)&&AbilityEquipped(RingWindowRules.TeleportRing)==true){
-            if(MapId is ushort map&&RingWindowRules.TeleportBlocked(map)){MagicNotice=ServerMessageText.Decode(RingWindowRules.TeleportBlockedMessage,[]).Text;return true;}
             lock(abilityLock){if(teleportDestination==null)teleportDestination=new(++teleportDestinationRevision,id);}
             MagicNotice="已開啟傳送目的地選擇（傳送控制戒指）；選定書籤後才送出。";
             return true;

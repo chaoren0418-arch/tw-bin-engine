@@ -116,7 +116,9 @@ public sealed partial class WorldSession {
                 r.Finish();if(npc==0||Status?.ObjectId!=npc)throw new ProtocolException("bonus stats self identity");
                 ReceiveBonusOffer(npc);return true;
             }
-            ushort flag=r.H(),count=r.H();if(flag>1||count>256||flag==0&&count!=0)throw new ProtocolException("dialog arguments");var args=new string[count];for(int i=0;i<count;i++)args[i]=r.S();r.Finish();if(selfPage){ReceiveServerPage(npc,html,args,fallback);return true;}if(!accept)return true;if(html.Length==0){CloseInteraction("伺服器已關閉對話。");return true;}dialogArguments=args;dialogNpcName=Target?.Name??"";ShowPage(html,fallback);return true;}
+            // R7-C（#805）：3.81 S_AuctionBoardRead 在 "agsel" 後多寫一個 S(盟屋編號)，接著直接 H(9)，沒有 flag；原本照一般格式讀會丟 ProtocolException。
+            ushort flag,count;if(html==AgitAuctionInfoPackets.Html){r.S();flag=1;count=r.H();}else{flag=r.H();count=r.H();}
+            if(flag>1||count>256||flag==0&&count!=0)throw new ProtocolException("dialog arguments");var args=new string[count];for(int i=0;i<count;i++)args[i]=r.S();r.Finish();if(selfPage){ReceiveServerPage(npc,html,args,fallback);return true;}if(!accept)return true;if(html.Length==0){CloseInteraction("伺服器已關閉對話。");return true;}dialogArguments=args;dialogNpcName=Target?.Name??"";ShowPage(html,fallback);return true;}
         int n=r.H();if(n>2048)throw new ProtocolException("shop list too large");var rows=new List<ShopRow>();var ids=new HashSet<uint>();
         for(int i=0;i<n;i++){uint id=r.D();if(!ids.Add(id))throw new ProtocolException("duplicate shop identity");ushort icon=opcode==70?r.H():(ushort)0;uint price=r.D();if(price>int.MaxValue)throw new ProtocolException("shop price");string name=opcode==70?r.S():inventory.GetValueOrDefault(id)?.Name??"未持有物件 "+id;string status=opcode==70?Bytes(r,r.C()):"";uint available=opcode==70?int.MaxValue:inventory.GetValueOrDefault(id)?.Count??0;rows.Add(new(id,icon,price,name,available,status));}
         // Lists have no request ID: never let a duplicate reply reopen a submitted order.
