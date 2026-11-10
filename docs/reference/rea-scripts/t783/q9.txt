@@ -1,0 +1,3 @@
+dec 741080
+dec 706EF0
+rangegrep 740C00 741400 vftable|return|0\.|<=|>=|dword_138B|flt_|dbl_

@@ -1,0 +1,4 @@
+rangegrep 8E4000 8E9000 vftable|sub_E538D0|sub_8E4[0-9A-F]{3}\(|byte_1542AA1|dword_138B
+dec 8E7000
+dec A43010
+dec A43030
