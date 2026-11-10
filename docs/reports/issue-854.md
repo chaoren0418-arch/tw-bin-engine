@@ -39,6 +39,11 @@
   - 提示面板的註冊、跟著控制器的提示行、沒有 ChatPanel 時不畫；
   - 換世代時取消提示並把鍵盤還給遊戲。
 - 依本機限制，**沒有在本機執行任何測試**；測試結果看 PR 的 CI。
+- PR #872 CI（run 42879369538／42879369584）：`dotnet`、`map-continuity`、`npc-offline` 全綠。
+  - `personal-shop-flow`：pass（50 checks），`personal-shop`：pass（91），`personal-shop-integration`：pass（40）；所有模組的 failures 都是空的。
+  - 第 1 輪 CI 抓到一個編譯錯誤：`ShopTradeSource.Holding` 應該是 `ShopTrade.Holding`。本機 CoreCompile 被 WebView2 的錯誤擋住，沒報出來。
+  - 第 2 輪抓到一項測試錯誤：測試用的物品沒做成裝備類型。兩個都已修正。
+- 已同步 origin/main（含 R9-C #847 的 `/shop`，它呼叫 `personalShop.Open()`／`Panel.Close()`，和這次的改動相容）；同步後的 CI 看這個 PR 最新的 commit。
 
 ## 未驗證／推測
 
