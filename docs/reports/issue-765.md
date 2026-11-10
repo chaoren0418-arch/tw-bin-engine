@@ -104,7 +104,13 @@
 - 已同步 `origin/main`（含 #764 登入畫面），沒有衝突，合併後重新編譯通過。
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：`pass`，0 錯誤。
 - `rebuild-lock.json` 沒有改動。
-- 依 2026-11-09 本機執行限制，**本機沒有執行任何編出來的程式**。`select-char-ui`、`create-char-ui` 與既有測試都交給 PR 的 GitHub Actions CI，結果見 PR。
+- 依 2026-11-09 本機執行限制，**本機沒有執行任何編出來的程式**。`select-char-ui`、`create-char-ui` 與既有測試都交給 PR 的 GitHub Actions CI。
+- **CI（PR #795）**：
+  - 第一輪：`create-char-ui` 有 2 項失敗。原因是略過紀錄只寫了節點路徑，沒有寫元素名稱，所以測試找不到 `Customizing_Win`／`Gauge_Group`。已改成附上元素名稱（commit `e7a1754c`）。
+  - 第二輪全綠：`dotnet`、`map-continuity`（含 `--module-tests`）、`npc-offline` 都通過。
+    - `select-char-ui`：89 項檢查，0 失敗。
+    - `create-char-ui`：69 項檢查，0 失敗。
+    - 全部 `[WorldModuleTest]` 合計 `failed: 0`。
 
 ## 未驗證什麼（待驗證）
 
