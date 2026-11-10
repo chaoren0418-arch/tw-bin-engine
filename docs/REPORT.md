@@ -299,3 +299,4 @@
 - 2026-11-10 — #766 T328：P-D 原生狀態窗（參考客戶端 XML）（code，claude-local，PR 已合併）→ [報告](reports/issue-766.md)
 - 2026-11-10 — #767 T329：P-D 原生釣魚窗（參考客戶端 XML）（code，claude-local，PR 已合併）→ [報告](reports/issue-767.md)
 - 2026-11-10 — #761 T323：P-D 原生盟屋拍賣窗（參考客戶端 XML）（code，claude-local，PR 已合併）→ [報告](reports/issue-761.md)
+- 2026-11-10 — #763 T325：P-D 原生能力值重置與能力資訊窗（參考客戶端 XML）（code，claude-local，PR 已合併）→ [報告](reports/issue-763.md)
