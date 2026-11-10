@@ -231,6 +231,9 @@ public sealed partial class WorldSession
         PacketMediaNotice=$"S{plain[0]} 圖像特效 {packet.GfxId}；time={packet.Time?.ToString()??"無"}";
     }
 
+    // R9-D：跟隨組每段的固定位置（特效編號 → 段號與位置）；只供 PacketEffectFrames 使用。
+    readonly Dictionary<long,(long Segment,int X,int Y)> packetEffectSegments=[];
+
     public PacketEffectVisual[] PacketEffectFrames(long now,Func<int,PacketEffectAppearance?> resolve,Action<Frame,int,int>? draw=null)
     {
         var result=new List<PacketEffectVisual>();
@@ -244,14 +247,35 @@ public sealed partial class WorldSession
             }
             long end=item.Packet.Time is >0?item.Expires:item.At+(long)Math.Ceiling(appearance.Duration);
             if(now>=end){packetEffects.Remove(item);continue;}
-            // R6-A：對象離開仍照舊結束特效（PrunePacketMedia）；只有跟隨的 gfx 每格重讀對象位置，其他畫在收包位置。
-            (int X,int Y)? position=item.Packet.Target is uint target
-                ?PacketEffectPosition(target) is {} current?(item.Follows||item.Origin==null?current:item.Origin.Value):null
-                :(item.Packet.X,item.Packet.Y);
-            if(position==null){packetEffects.Remove(item);continue;}
+            (int X,int Y) position;
+            if(item.Packet.Target is not uint target)position=(item.Packet.X,item.Packet.Y);
+            else if(!item.Follows||item.Origin==null)
+            {
+                // R9-D（FU9§2.1 第 3 點，已驗證）：不跟隨的只看動畫長度，位置固定在收包位置；對象消失也在原地播完。
+                if(item.Origin is {} origin)position=origin;
+                else if(PacketEffectPosition(target) is {} current)position=current;
+                else{packetEffects.Remove(item);continue;}
+            }
+            else
+            {
+                // R9-D（FU9§2.1 第 4 點，推測）：跟隨組段內位置固定，段間跳到對象目前位置；
+                // 換段時對象不在就不接下一段（這段已播完，直接結束）。第 0 段用收包位置。
+                long segment=appearance.Duration>0?(long)Math.Floor((now-item.At)/appearance.Duration):0;
+                if(segment<0)segment=0;
+                if(packetEffectSegments.TryGetValue(item.Number,out var held)&&held.Segment==segment)position=(held.X,held.Y);
+                else if(segment==0&&!packetEffectSegments.ContainsKey(item.Number))position=item.Origin.GetValueOrDefault();
+                else if(PacketEffectPosition(target) is {} current)position=current;
+                else{packetEffects.Remove(item);packetEffectSegments.Remove(item.Number);continue;}
+                packetEffectSegments[item.Number]=(segment,position.X,position.Y);
+            }
             var frame=appearance.At(now-item.At,item.Direction);
-            result.Add(new(item.Number,item.Packet.GfxId,position.Value.Item1,position.Value.Item2,frame.Key,item.Direction));
-            draw?.Invoke(frame,position.Value.Item1,position.Value.Item2);
+            result.Add(new(item.Number,item.Packet.GfxId,position.X,position.Y,frame.Key,item.Direction));
+            draw?.Invoke(frame,position.X,position.Y);
+        }
+        if(packetEffectSegments.Count>0)
+        {
+            var live=packetEffects.Select(p=>p.Number).ToHashSet();
+            foreach(long number in packetEffectSegments.Keys.Where(n=>!live.Contains(n)).ToArray())packetEffectSegments.Remove(number);
         }
         return result.ToArray();
     }

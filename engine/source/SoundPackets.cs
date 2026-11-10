@@ -171,7 +171,9 @@ public sealed partial class WorldSession
         }
         long now = PacketMediaClock();
         packetSounds.RemoveAll(s => s.Packet.Kind != S22Mode.AmbientLoop && now - s.At >= 256 * 60000L);
-        packetEffects.RemoveAll(e => now >= e.Expires || e.Packet.Target is uint id && PacketEffectPosition(id) == null);
+        // R9-D（FU9§2.1 第 3 點，已驗證）：原版 Effect 不存對象指標，只看動畫播完才刪；
+        // 對象消失不刪特效（不跟隨的留在 Origin、跟隨的在本段位置播完，見 PacketEffectFrames）。
+        packetEffects.RemoveAll(e => now >= e.Expires);
     }
 
     public PacketSound[] PacketSounds { get { PrunePacketMedia(); return packetSounds.ToArray(); } }
