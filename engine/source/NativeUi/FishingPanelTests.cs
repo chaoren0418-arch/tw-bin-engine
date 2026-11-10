@@ -195,6 +195,7 @@ namespace P06.NativeUi {
             FishingWindow.Changed+=h;
             try{
                 var w=new WorldSession();w.SeedFishingWindowTestActor(Me);
+                w.ReadFishing(0);   // first lazy epoch/actor initialisation bumps the revision; a packet observing it would raise one inactive event
                 w.Receive(Start(Other),"");
                 t.Equal(0,seen.Count,"other actor's fishing raises nothing");
                 w.Receive(Start(Me),"");
