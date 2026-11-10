@@ -30,9 +30,21 @@ namespace P06.NativeUi;
 // - BigSlot_List has 4 Slot_Controls = the visible rows. Row r = scroll + slot index. r < characters → Select_Button (or
 //   WaitDelete_Button + WaitToDel_Image when the server marks the character for 7-day deletion, class 32–38); r < Slots →
 //   Create_Button; otherwise Slot_Lock_Back + Lock_Button (slot purchase: no 3.81 packet, disabled). Up/Down scroll by one row.
-// - The selected character's Select_Button is drawn with its PushSurf; a double click on it enters the world.
-// - CharacterInfo_List: Name, Level, Class, Pledge (clan), Alignment (lawful) and Birthday (the raw S93 create-time value,
-//   its format is 待驗證) of the selected character.
+// - A double click on the selected character's Select_Button enters the world.
+// - CharacterInfo_List: Name, Level, Class, Pledge (clan), Alignment (lawful) and Birthday of the selected character.
+//
+// R9-O (T375/#859, FU9§14.1; TW16 CSelectUI decompiled read-only, docs/reports/issue-859.md), 已驗證 in the binary:
+// - sub_EF0060 looks for "Character_List" first; the kor25 SelectUI.xml has none (only BigSlot_List, this+360 set in
+//   sub_EEC090), so TW16 takes its BigSlot branch sub_EF13F0 — the rules used here:
+//   class surf c = sub_EEDD90(class, sex) = 6430 + 8×class + 4×sex while BigSlot_List exists (7049 + 6×class + 3×sex
+//   without it; class 7: 8365/8368). Select_Button: normal c, highlight c+1, push c+2; the selected row: normal = highlight
+//   = c+2. WaitDelete_Button (7-day pending): all three = c+3 (sub_EEDE30; class 7: 8371/8372). Slot Level_Label "Lv.%d".
+//   6430–6489 are in the pinned local Sprite archives; a missing surf is not drawn.
+// - The Character_List layout (sub_EF0060: Class_Image = c + 2 on the selected row, Select_Button 7045/7046/7047, the
+//   selected row 7047 in every state) is not in any SelectUI.xml we have; CharacterListSurfs keeps the rule as data only.
+// - Birthday_Label (sub_EECB10): sprintf("%d") of the value, then chars 0–3 '.' 4–5 '.' 6–7 (YYYY.MM.DD for an 8-digit
+//   value; a shorter one stops at its end like the C string). Whether 3.81 S_CharPacks time is YYYYMMDD is 待驗證.
+// - Not changed: Up/Down (TW16 pages by this+352 and swaps 6411–6414; the engine scrolls one row).
 // - Delete_Button → Message_Window confirm (same text as the WinForms MessageBox) → Ok sends. Back_Button logs out.
 //   A refused action or the server's result notice after a delete is shown in Message_Window.
 // - Not built: Character_Ani (Effect, the selected character's animation), DeleteDelay_Image (no image id), Tooltips, the
@@ -253,6 +265,51 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
     public bool Pending{get;private set;}
     public IReadOnlyCollection<string> Unhandled=>unhandled;
     public Func<string,string,string?>? TextResolver{get;set;}
+    Func<int,UiSurface?>? lookup;readonly Dictionary<int,UiSurface?> dynamic=[];readonly HashSet<int> dynamicMissing=[];
+
+    // ---- R9-O formulas (sub_EEDD90 / sub_EEDE30 / sub_EF13F0 / sub_EF0060 / sub_EECB10) -------------------------------------
+
+    /// <summary>sub_EEDD90: the class picture surf; -1 for an unknown class or sex.</summary>
+    public static int ClassSurf(int cls,int sex,bool bigSlot){
+        if(cls>6)return cls==7&&sex is 0 or 1?(sex==0?8365:8368):-1;
+        if(cls<0||sex is <0 or >1)return -1;
+        return bigSlot?6430+8*cls+4*sex:7049+6*cls+3*sex;
+    }
+    /// <summary>sub_EEDE30: WaitDelete_Button surf (all three states).</summary>
+    public static int WaitDeleteSurf(int classSurf,int cls,int sex)=>cls is >=0 and <=6?classSurf+3:cls==7&&sex is 0 or 1?(sex==0?8371:8372):classSurf;
+    /// <summary>sub_EF13F0: Select_Button (normal, highlight, push) of a BigSlot row.</summary>
+    public static (int Normal,int Highlight,int Push) SlotSurfs(int classSurf,bool selected)=>selected?(classSurf+2,classSurf+2,classSurf+2):(classSurf,classSurf+1,classSurf+2);
+    /// <summary>sub_EF0060 (Character_List layout, data only): Class_Image and Select_Button (normal, highlight, push).</summary>
+    public static (int ClassImage,int Normal,int Highlight,int Push) CharacterListSurfs(int cls,int sex,bool selected){
+        int c=ClassSurf(cls,sex,false);
+        return selected?(c==-1?-1:c+2,7047,7047,7047):(c,7045,7046,7047);
+    }
+    /// <summary>sub_EECB10 Birthday_Label: "%d", then chars 0–3 '.' 4–5 '.' 6–7, cut at the first NUL like the C string.</summary>
+    public static string Birthday(uint value){
+        string s=unchecked((int)value).ToString(CultureInfo.InvariantCulture);
+        char At(int i)=>i<s.Length?s[i]:'\0';
+        var c=new[]{At(0),At(1),At(2),At(3),'.',At(4),At(5),'.',At(6),At(7)};
+        int end=Array.IndexOf(c,'\0');
+        return new string(c,0,end<0?c.Length:end);
+    }
+    /// <summary>sub_EF13F0: slot Level_Label.</summary>
+    public static string SlotLevel(int level)=>"Lv."+level.ToString(CultureInfo.InvariantCulture);
+    /// <summary>Class index of a S93 class byte (32–38 = pending deletion).</summary>
+    static int ClassIndex(int cls)=>cls>=32?cls-32:cls;
+
+    /// <summary>(normal, highlight, push) surf ids of a character row's slot button; null when the class has no picture.</summary>
+    public (int Normal,int Highlight,int Push)? RowSurfs(LoginCharacter c){
+        int cls=ClassIndex(c.Class),surf=ClassSurf(cls,c.Sex,true);
+        if(surf<0)return null;
+        if(CharacterManagementPackets.PendingDeletion(c)){int w=WaitDeleteSurf(surf,cls,c.Sex);return (w,w,w);}
+        return SlotSurfs(surf,c.Name==Selected);
+    }
+    UiSurface? Dynamic(int id){
+        if(id<0||lookup==null)return null;
+        if(!dynamic.TryGetValue(id,out var s)){dynamic[id]=s=lookup(id);if(s==null&&dynamicMissing.Add(id))UiResourceLog.Write($"select-char-ui 缺圖不畫：surf {id}");}
+        return s;
+    }
+
     /// <summary>The create screen this one hands over to (found on the root when not set).</summary>
     public CreateCharPanel? Create{get=>create??root?.Find(CreateCharPanel.PanelId) as CreateCharPanel;set=>create=value;}
     CreateCharPanel? create;
@@ -275,7 +332,7 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
     }
 
     void Clear(){
-        Host=null;View=null;LayoutFile=null;Main=null;Message=null;Missing=[];Skipped=[];Unavailable="not loaded";Rows=0;
+        Host=null;View=null;LayoutFile=null;Main=null;Message=null;Missing=[];Skipped=[];Unavailable="not loaded";Rows=0;lookup=null;dynamic.Clear();dynamicMissing.Clear();
         ResetState();
     }
     void ResetState(){Scroll=0;Selected=null;Shown=CharSelectMessage.None;MessageText=null;Pending=false;deleting=null;closed=false;managing=false;pressed=null;hover=null;pressedInside=false;}
@@ -304,7 +361,7 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
         int rows=main.Pieces.Where(p=>p.ListName==SlotList&&p.Kind==CharUiKind.Button&&p.MouseEvent==SelectEvent&&p.Name=="Select_Button").Select(p=>p.Slot).Distinct().Count();
         if(rows==0)throw new UiLayoutException(layout.FileName,top.Path,$"{SlotList} 沒有 Select_Button 欄位");
         foreach(var ev in new[]{EnterEvent,BackEvent})if(!main.Pieces.Any(p=>p.MouseEvent==ev))throw new UiLayoutException(layout.FileName,top.Path,$"沒有 {ev} 按鈕");
-        LayoutFile=layout.FileName;Main=main;Message=message;Missing=b.Missing;Skipped=b.Skipped;Rows=rows;
+        LayoutFile=layout.FileName;Main=main;Message=message;Missing=b.Missing;Skipped=b.Skipped;Rows=rows;lookup=surf;
         Unavailable=main.Size.IsEmpty?$"{layout.FileName}: {MainWindow} 沒有大小":message.Size.IsEmpty?$"{layout.FileName}: {MessageWindow} 底圖都缺，無法定出確認框範圍":null;
     }
 
@@ -382,9 +439,9 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
         if(p.Kind!=CharUiKind.Label)return null;
         string N(long n)=>n.ToString(CultureInfo.InvariantCulture);
         if(p.ListName==SlotList&&p.Parent!=null&&RowCharacter(Scroll+p.Slot) is {} c)
-            return p.Name switch{"Level_Label"=>N(c.Level),"Name_Label"=>c.Name,_=>null};
+            return p.Name switch{"Level_Label"=>SlotLevel(c.Level),"Name_Label"=>c.Name,_=>null};
         if(p.ListName==InfoList&&SelectedCharacter is {} s)
-            return p.Name switch{"Name_Label"=>s.Name,"Level_Label"=>N(s.Level),"Class_Label"=>ClassName(s.Class),"Pledge_Label"=>s.Clan,"Alignment_Label"=>N(s.Lawful),"Birthday_Label"=>N(s.CreateTime),_=>null};
+            return p.Name switch{"Name_Label"=>s.Name,"Level_Label"=>N(s.Level),"Class_Label"=>ClassName(s.Class),"Pledge_Label"=>s.Clan,"Alignment_Label"=>N(s.Lawful),"Birthday_Label"=>Birthday(s.CreateTime),_=>null};
         return p.TextKind=="Desc"||p.TextKind=="String"&&p.TextValue is {} t&&!t.StartsWith("dummy",StringComparison.Ordinal)?TextResolver?.Invoke(p.TextKind,p.TextValue!):null;
     }
     /// <summary>Class byte of S93: 0–6, or 32–38 while marked for 7-day deletion.</summary>
@@ -413,6 +470,13 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
             case CharUiKind.Board:CharUiPaint.Board(canvas,p,x,y);break;
             case CharUiKind.Label:CharUiPaint.Label(canvas,p,x,y,LabelText(p));break;
             case CharUiKind.MultiLabel:CharUiPaint.MultiLabel(canvas,p,x,y,LabelText(p));break;
+            case CharUiKind.Button when p.ListName==SlotList&&p.Name is "Select_Button" or "WaitDelete_Button"&&RowCharacter(Scroll+p.Slot) is {} rc:{
+                // R9-O (sub_EF13F0): the class picture of the character; selection / pending as in RowSurfs.
+                bool enabled=Enabled(p);
+                if(RowSurfs(rc) is not (int n,int h,int push))break;
+                int id=ReferenceEquals(p,pressed)&&pressedInside&&enabled?push:ReferenceEquals(p,hover)&&pressed==null&&enabled?h:n;
+                canvas.DrawSurface(Dynamic(id),x,y);break;
+            }
             case CharUiKind.Button:{
                 bool enabled=Enabled(p);
                 bool selected=p.MouseEvent==SelectEvent&&p.ListName==SlotList&&RowCharacter(Scroll+p.Slot)?.Name==Selected;
