@@ -44,12 +44,13 @@ partial class Checks {
         foreach(string input in new[]{"/who 中文","/Who   中文  "})
             Check(Encode(input)!.SequenceEqual(PlayerQueryPackets.Who("中文")),"query slash named player "+input);
         foreach(string input in new[]{"/rank","/RANK  "})Check(Encode(input)!.SequenceEqual(PlayerQueryPackets.Rank(123)),"query slash rank "+input);
-        foreach(string input in new[]{"/check","/Check "})Check(Encode(input)!.SequenceEqual(PlayerQueryPackets.CheckBegin(123)),"query slash check "+input);
+        // R6-E (#781, FU7§6.2): /checkpk -> C51; /誰 and /階級 are the string-table aliases; /check is not an original command.
+        foreach(string input in new[]{"/checkpk","/CheckPK "})Check(Encode(input)!.SequenceEqual(LoginPackets.Pad([51])),"query slash checkpk sends C51 "+input);
+        Check(Encode("/誰 中文")!.SequenceEqual(PlayerQueryPackets.Who("中文"))&&Encode("/階級")!.SequenceEqual(PlayerQueryPackets.Rank(123)),"query chinese aliases");
+        foreach(string input in new[]{"/check","/Check ","/check 456"})Check(Encode(input)==null,"query /check no longer a command "+input);
         Check(PlayerQueryPackets.Who(new string('中',52)).Length==112,"query local name budget counts characters");
-        foreach(string input in new[]{"/who a b","/who a\nb","/who\tname","/who a\0b","/who 😀","/who "+new string('中',53),"/rank 1","/rank 1 2 name","/CHECK 123","/check\n"})
+        foreach(string input in new[]{"/who a b","/who a\nb","/who\tname","/who a\0b","/who 😀","/who "+new string('中',53),"/rank 1","/rank 1 2 name","/CHECKPK 123","/checkpk\n","/階級 1"})
             QueryReject(()=>Encode(input),"query invalid command "+input.Length);
-        QueryReject(()=>Encode("/check",null),"query check needs selected target");
-        QueryReject(()=>Encode("/check",0),"query check rejects zero target");
         foreach(string name in new[]{" ","a\tb","a\0b","😀",new string('a',53)})QueryReject(()=>PlayerQueryPackets.Who(name),"query encoder validation "+name.Length);
         foreach(string input in new[]{"/whoever","/ranked","/checker","/say /who 中文","一般訊息","!喊話","\"對象 密語"})
             Check(Encode(input)==null,"query unrelated chat unchanged "+input);
@@ -135,57 +136,26 @@ partial class Checks {
         }
         using(var c=Seed()){
             var sent=QuerySender(c);c.World.SelectTarget(null);
-            Check(!await QuerySend(c,"/check")&&sent.Count==0&&c.PlayerChatSnapshot().Notice.Contains("選取"),"query /check without target sends nothing");
-            Check(!await QuerySend(c,"/check 456")&&sent.Count==0,"query /check argument sends nothing");
-            Feed(c,WhoMessage(PlayerQueryPackets.CheckPrompt));Check(sent.Count==0&&c.World.LastServerMessage!.Contains(PlayerQueryPackets.CheckPrompt),"query unrequested prompt sends nothing");
+            Check(await QuerySend(c,"/checkpk")&&sent.Single().SequenceEqual(LoginPackets.Pad([51])),"query /checkpk sends field-less C51 without a target");
+            Check(c.World.PlayerChatLines.Length==0,"query checkpk send does not fabricate result");
         }
         using(var c=Seed()){
-            var sent=QuerySender(c);
-            Check(await QuerySend(c,"/check")&&sent.Single().SequenceEqual(PlayerQueryPackets.CheckBegin(123)),"query /check enters server select mode first");
-            await Task.Delay(30);Check(sent.Count==1,"query target waits for server prompt");
-            Feed(c,Packet(b=>{b.Write((byte)236);b.Write(123u);b.Write((byte)0);b.Write((byte)0);b.Write((byte)2);}));Check(sent.Count==1,"query S236 alone sends nothing");
-            string? message=c.World.LastServerMessage;Feed(c,WhoMessage(PlayerQueryPackets.CheckPrompt));
-            await QueryWait(()=>{lock(sent)return sent.Count==2;},"query prompt releases target");
-            Check(sent[1].SequenceEqual(PlayerQueryPackets.CheckTarget(123,456))&&c.World.LastServerMessage==message,"query C223 carries selected target; prompt consumed");
-            Check(c.World.PlayerChatLines.Length==0,"query check send does not fabricate result");
+            // pc_show still arrives from server pages (no /check entry): shown on the self query page.
             Feed(c,QueryHtml(123,"pc_show",CheckFields()));
             Check(c.World.PlayerChatLines.Length==0&&c.World.QueryPage!.Text.Contains("目標：目標者｜等級 52")&&c.World.QueryPage.Text.Contains("裝備・武器：長劍")&&c.World.InteractionKind=="closed","query pc_show shown in hypertext page");
-            Feed(c,WhoMessage("目標不存在。"));Check(c.World.PlayerChatLines.Length==0,"query finished check ignores later failure text");
-        }
-        foreach(string failure in new[]{"目標不存在。","只能對玩家查詢狀態。","查詢失敗。"}){
-            using var c=Seed();var sent=QuerySender(c);await QuerySend(c,"/check");Feed(c,WhoMessage(PlayerQueryPackets.CheckPrompt));
-            await QueryWait(()=>{lock(sent)return sent.Count==2;},"query failure case target sent");
-            Feed(c,WhoMessage(failure));
-            Check(QueryChat(c)=="[查詢] "+failure&&c.World.LastServerMessage!.Contains(failure),"query check failure shown and kept in server message route");
-        }
-        using(var c=Seed()){
-            var sent=QuerySender(c);c.PlayerCheckTimeoutMs=10;await QuerySend(c,"/check");
-            await QueryWait(()=>c.PlayerChatSnapshot().Notice.Contains("未收到"),"query missing prompt times out");
-            Feed(c,WhoMessage(PlayerQueryPackets.CheckPrompt));await Task.Delay(30);
-            Check(sent.Count==1&&c.World.LastServerMessage!.Contains(PlayerQueryPackets.CheckPrompt),"query late prompt after timeout sends nothing");
-        }
-        using(var c=Seed()){
-            var sent=QuerySender(c);await QuerySend(c,"/check");c.World.SelectTarget(null);Feed(c,WhoMessage(PlayerQueryPackets.CheckPrompt));
-            await QueryWait(()=>c.PlayerChatSnapshot().Notice.Contains("未完成"),"query target change reported");
-            Check(sent.Count==1,"query changed target is not sent");
-        }
-        using(var c=Seed()){
-            var s=c.PlayerChatSnapshot();var sent=QuerySender(c);await QuerySend(c,"/check");c.World.Reset();
-            Feed(c,WhoMessage(PlayerQueryPackets.CheckPrompt));await Task.Delay(30);
-            Check(sent.Count==1,"query session reset blocks pending target");
         }
         using(var c=Seed()){
             var sent=QuerySender(c);
             Check(await QuerySend(c,"/who 中文")&&sent.Single().SequenceEqual(PlayerQueryPackets.Who("中文")),"query sends C206 through actual chat transport");
             Check(c.World.PlayerChatLines.Length==0,"query send does not fabricate result");
-            Check(!await QuerySend(c,"/who")&&!await QuerySend(c,"/rank")&&!await QuerySend(c,"/check")&&sent.Count==1,"query shared double submit throttle");
+            Check(!await QuerySend(c,"/who")&&!await QuerySend(c,"/rank")&&!await QuerySend(c,"/checkpk")&&sent.Count==1,"query shared double submit throttle");
         }
-        foreach(string command in new[]{"/who","/rank","/check"}){
+        foreach(string command in new[]{"/who","/rank","/checkpk"}){
             using var c=Seed();var sent=QuerySender(c);await QuerySend(c,command);
             Check(sent.All(b=>b[0] is not (99 or 63)),"query never sends C99/C63 "+command);
         }
         foreach(string guard in new[]{"session","world","actor","dead","queued-world","disconnected"})
-        foreach(string command in new[]{"/who","/rank","/check"}){
+        foreach(string command in new[]{"/who","/rank","/checkpk"}){
             using var c=Seed();var s=c.PlayerChatSnapshot();int sends=0;
             if(guard=="dead")Set(c.World,"Status",c.World.Status! with{Hp=0});
             if(guard=="disconnected")Set(c,"State",LoginState.Faulted);

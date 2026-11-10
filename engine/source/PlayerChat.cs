@@ -21,7 +21,7 @@ public static class PlayerChatProtocol {
     public const int MaxCharacters=52;
     // Local input budget: quote + receiver (52) + separator + body (52), or /say + body.
     public const int MaxInputCharacters=106;
-    public const string InputHelp="一般：直接輸入；!喊話 &全體 @血盟 #隊伍 $交易；\"對象 訊息：密語；/say 原文：一般；/loc 角色：發送座標；/on、/off 頻道：頻道開關；/chatparty、/chatoutparty、/chatbanish 名稱：聊天隊伍；/focus [血盟]：關注；/war、/surrender、/cease 血盟：盟戰；/propose、/divorce：求婚、離婚";
+    public const string InputHelp="一般：直接輸入；!喊話 &全體 @血盟 #隊伍 $交易；\"對象 訊息：密語；/say 原文：一般；/loc 角色：發送座標；/whisper、/tradechat on 或 off：頻道開關；/accepttrade：交易詢問開關；/who（/誰）、/rank（/階級）、/checkpk：查詢；/chatparty、/chatoutparty、/chatbanish 名稱：聊天隊伍；/focus [血盟]：關注；/war、/surrender、/cease 血盟：盟戰；/propose、/divorce：求婚、離婚";
     public static PlayerChatInput ParseInput(string input){
         if(string.IsNullOrWhiteSpace(input))throw new ArgumentException("請輸入 1–52 字的單行訊息。");
         if(input.StartsWith("/say ",StringComparison.Ordinal))return new(PlayerChatChannel.Normal,input[5..]);
@@ -40,7 +40,8 @@ public static class PlayerChatProtocol {
     /// 一般訊息回傳頻道與正文長度。無效時丟 ArgumentException。不送出任何東西。
     /// </summary>
     public static string Describe(string input){
-        if(ChatChannelCommands.IsCommand(input)){var c=ChatChannelCommands.Parse(input)!;return "指令 · "+ChatChannelCommands.Describe(c.Channel,c.On);}
+        if(ChatChannelCommands.IsCommand(input)){var c=ChatChannelCommands.Parse(input)!;return "指令 · "+ChatChannelCommands.Describe(c);}
+        if(TradeAskCommand.Is(input))return "指令 · 交易詢問開關";
         if(ChatPartyCommands.IsCommand(input)){ChatPartyCommands.Encode(input);return "指令 · 聊天隊伍";}
         if(input=="/loc"||input.StartsWith("/loc ",StringComparison.Ordinal))return "指令 · 發送座標";
         if(ClientChatCommands.Parse(input) is {} client)return "指令 · "+ClientChatCommands.Label(client.Kind);
@@ -339,9 +340,18 @@ public sealed partial class LoginConnection {
     bool PlayerChatStamp(int session,int world,uint actor)=>session==generation&&world==World.WorldEpoch&&actor!=0&&actor==World.Actor?.ObjectId&&actor==World.Status?.ObjectId;
     public PlayerChatView PlayerChatSnapshot()=>CaptureWorld(()=>new PlayerChatView(generation,World.WorldEpoch,World.Actor?.ObjectId??0,World.PlayerChatRevision,PlayerChatAccess&&!playerChatSending&&WorldClock()>=playerChatNextAt,playerChatNotice,World.PlayerChatLines));
     public async Task<bool> SendPlayerChat(string text,int session,int world,uint actor){
+        // R6-E（FU7§1.5）：刪除物品的確認在聊天輸入列（數量或 Y/N），這一列輸入是答覆，不當聊天送出。
+        if(ItemDeletePromptActive)return await AnswerItemDelete(text,session,world,actor);
         if(text=="/loc"||text.StartsWith("/loc ",StringComparison.Ordinal))return await SendLocation(text.Length>5?text[5..]:"",session,world,actor);
+        if(TradeAskCommand.Is(text)){
+            // R6-E（FU7§1.1）：`/accepttrade` 只切換本機的交易詢問旗標（原版不送包），本引擎另存進 C244 角色設定。
+            if(!PlayerChatAccess||!PlayerChatStamp(session,world,actor))return false;
+            bool done=await ToggleAcceptTrade(new PlayerHudStamp(session,world,actor));
+            if(session!=generation)return false;
+            playerChatNotice=TradeAskNotice;Changed?.Invoke();return done;
+        }
         if(ChatChannelCommands.IsCommand(text)){
-            // R2-G：`/on`、`/off` 交給 C26 頻道開關（ChatChannelToggle.cs），不當聊天送出。
+            // R6-E：`/whisper`、`/tradechat`、`/receive`（與中文別名）交給 C26 頻道開關（ChatChannelToggle.cs），不當聊天送出。
             if(!PlayerChatAccess||!PlayerChatStamp(session,world,actor))return false;
             bool done=await SendChatChannelCommand(text,new PlayerHudStamp(session,world,actor));
             if(session!=generation)return false;
