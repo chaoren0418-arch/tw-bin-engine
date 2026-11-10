@@ -1,0 +1,35 @@
+findstr MapUI.xml
+findstr MapUI-c.xml
+findstr MapUI
+findstr BookmarkUI.xml
+findstr BookmarkWindowUI
+dis B58B20 30
+xref 13CF594
+xref 13CF590
+gstores 13CF594
+gstores 13CF590
+vtab 1180C7C 40
+immscan 137AFA0 137AFA0
+immscan 137AFCC 137AFCC
+dis 8C3780 40
+dis 8C7EF0 40
+dec 8C32B0
+dec 4FCD20
+dec 503EE0
+xref 503EE0
+dec 4FBE50
+xref 4FBE50
+dec 4FE400
+xref 4FE400
+dec ADB550
+xref ADB550
+dec F43C30
+dec F48450
+xref F43C30
+xref F48450
+dec A23760
+dec BE1980
+dec 5069E0
+xref 1540828
+grepcallers 4FE1D0 .
+rangegrep 8D3000 8DC000 "[A-Za-z_]{3,}"|sub_9FBC00|sub_4EAFF0\(|sub_7DC800\(|dword_13CF594|dword_1656770
