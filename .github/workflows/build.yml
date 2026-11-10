@@ -80,6 +80,12 @@ jobs:
           New-Item -ItemType Directory -Force scratch/issue-473 | Out-Null
           dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-473/buff-checks.json native-ui-buff-icons
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Native UI red notice, V2 slots / 15 s / outline (synthetic, no game assets)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force scratch/issue-474 | Out-Null
+          dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-474/red-checks.json native-ui-red-notice
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Affliction contracts (no game or network)
         shell: pwsh
         run: |

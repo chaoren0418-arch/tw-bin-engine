@@ -20,9 +20,9 @@ public sealed partial class LoginConnection:IDisposable,ILoginSession {
     public IReadOnlyList<LoginCharacter> Characters=>characters.ToArray();
     readonly List<LoginCharacter> characters=[];
     public event Action? Changed;
-    public object Snapshot()=>new {state=State.ToString(),detail=Detail,profile=ProfileId,news=News,expected=Expected,slots=Slots,characters=Characters,revision=Revision,appliedPacketSequence=AppliedPacketSequence,world=World.Snapshot(),worldEntry=EntrySnapshot(),decodeFailure=LastWorldDecodeFailure,entryFailure=LastWorldEntryFailure,serverFeatures=ServerFeaturesSnapshot(),scope=ProfileId=="p24-real-jar-d287-client2"?"P24 independent real JAR + MySQL world initialization":"loopback reference / offline"};
+    public object Snapshot()=>new {state=State.ToString(),detail=Detail,profile=ProfileId,news=News,newsPending=NewsPending,expected=Expected,slots=Slots,characters=Characters,revision=Revision,appliedPacketSequence=AppliedPacketSequence,world=World.Snapshot(),worldEntry=EntrySnapshot(),decodeFailure=LastWorldDecodeFailure,entryFailure=LastWorldEntryFailure,serverFeatures=ServerFeaturesSnapshot(),scope=ProfileId=="p24-real-jar-d287-client2"?"P24 independent real JAR + MySQL world initialization":"loopback reference / offline"};
     void Set(LoginState state,string detail){State=state;Detail=detail;Revision++;Changed?.Invoke();}
-    public void Cancel(bool offline=false){ResetCharacterManagement();ResetServerFeatures();restartSending=false;ResetPlayerChatSend();generation++;ResetPrivateShopSend();ResetBonusStatsSend();ResetWorldEntry();ResetTeleportSend();ResetShipSend();tradeSendLease++;tradeSending=false;interactionSending=false;ResetMovementSend();ResetCombatSend();ResetMagicSend();ResetItemSend();ResetGroundSend();World.Reset();worldSelection=null;sendWorld=null;sendMovementGate=null;var previous=cancellation;cancellation=null;previous?.Cancel();socket?.Dispose();socket=null;characters.Clear();Expected=Slots=0;News="";Set(offline?LoginState.Offline:LoginState.Cancelled,offline?"離線資產預覽":"使用者取消；連線已關閉");}
+    public void Cancel(bool offline=false){ResetCharacterManagement();ResetServerFeatures();restartSending=false;ResetPlayerChatSend();generation++;ResetPrivateShopSend();ResetBonusStatsSend();ResetWorldEntry();ResetTeleportSend();ResetShipSend();tradeSendLease++;tradeSending=false;interactionSending=false;ResetMovementSend();ResetCombatSend();ResetMagicSend();ResetItemSend();ResetGroundSend();World.Reset();worldSelection=null;sendWorld=null;sendMovementGate=null;var previous=cancellation;cancellation=null;previous?.Cancel();socket?.Dispose();socket=null;characters.Clear();Expected=Slots=0;News="";news.Reset();Set(offline?LoginState.Offline:LoginState.Cancelled,offline?"離線資產預覽":"使用者取消；連線已關閉");}
     public async Task Run(int port,string profileId,string account,string password,int timeoutMs=5000,CancellationToken token=default){
         Cancel();LastWorldDecodeFailure=null;LastWorldEntryFailure=null;receivedPacketSequence=AppliedPacketSequence=0;int epoch=++generation;using var cts=CancellationTokenSource.CreateLinkedTokenSource(token);cancellation=cts;
         using var client=new TcpClient(AddressFamily.InterNetwork);socket=client;
@@ -69,7 +69,10 @@ public sealed partial class LoginConnection:IDisposable,ILoginSession {
                     PacketTrace.In(plain,sequence);PacketReceived?.Invoke(new{kind="server-packet",sequence,plainHex=Convert.ToHexString(plain)});
                     var r=new LoginReader(plain);byte opcode=r.C();
                     if(State==LoginState.Authenticating&&opcode==233){ushort reason=r.H();r.D();r.D();r.D();r.Finish();if(reason!=0){Set(LoginState.Rejected,$"伺服器拒絕：0x{reason:X4}");return;}Set(LoginState.AwaitList,"登入結果成功；等待角色數量");deadline=Environment.TickCount64+timeoutMs;}
-                    else if(State==LoginState.AwaitList&&opcode==48&&!newsSeen){News=r.S();r.Finish();newsSeen=true;Set(State,"已解析公告；自動確認（本機測試政策）");byte[] acknowledgement=LoginPackets.Pad([16]);PacketTrace.Out(acknowledgement);await stream.WriteAsync(LoginFrames.Wrap(outgoing!.Transform(acknowledgement,true)),cts.Token);}
+                    else if(State==LoginState.AwaitList&&opcode==48&&!newsSeen){News=LoginNews.Parse(plain);newsSeen=true;
+                        if(NewsConfirmationRequired){var (_,confirmed)=news.Begin();Set(State,"已收到公告；等待確認");await confirmed.WaitAsync(cts.Token);if(epoch!=generation)return;Set(State,"公告已確認");}
+                        else Set(State,"已解析公告；自動確認（本機測試政策）");
+                        deadline=Environment.TickCount64+timeoutMs;byte[] acknowledgement=LoginNews.Acknowledgement();PacketTrace.Out(acknowledgement);await stream.WriteAsync(LoginFrames.Wrap(outgoing!.Transform(acknowledgement,true)),cts.Token);}
                     else if(State==LoginState.AwaitList&&opcode==178){Expected=r.C();Slots=r.C();r.Finish();if(Expected>Slots)throw new ProtocolException("character count exceeds slots");Set(Expected==0?LoginState.CharacterList:LoginState.ReadingCharacters,$"收到角色數量 {Expected}/{Slots}");deadline=Environment.TickCount64+timeoutMs;}
                     else if(State==LoginState.ReadingCharacters&&opcode==93){var item=LoginPackets.Character(r,profile);if(characters.Any(c=>c.Name==item.Name))throw new ProtocolException("duplicate character name");characters.Add(item);Set(characters.Count==Expected?LoginState.CharacterList:State,$"已解析角色 {characters.Count}/{Expected}");}
                     else throw new ProtocolException($"unexpected opcode 0x{opcode:X2} in {State}");
@@ -80,7 +83,29 @@ public sealed partial class LoginConnection:IDisposable,ILoginSession {
             }
         }catch(OperationCanceledException) when(cts.IsCancellationRequested){if(epoch==generation){World.Reset();characters.Clear();Expected=Slots=0;News="";Set(LoginState.Cancelled,"連線已取消");}}
         catch(Exception ex){if(epoch==generation){World.Reset();characters.Clear();Set(LoginState.Faulted,ex.GetType().Name+": "+ex.Message);}}
-        finally {cts.Cancel();if(epoch==generation){ResetCharacterManagement();socket=null;cancellation=null;sendWorld=null;sendMovementGate=null;}client.Dispose();}
+        finally {cts.Cancel();if(epoch==generation){news.Reset();ResetCharacterManagement();socket=null;cancellation=null;sendWorld=null;sendMovementGate=null;}client.Dispose();}
     }
     public void Dispose(){Cancel();cancellation=null;}
+    // T260（#621，R2-Q）：S48 S_NEWS。PBW§5.3：原版以通用模態訊息框 sub_8E1E30 顯示，按確定（回呼 sub_ECA950，推定）才回 C16。
+    // NewsConfirmationRequired=false（預設，探針／自動化測試）維持舊行為：收下就自動回 C16。
+    readonly LoginNews news=new();
+    public bool NewsConfirmationRequired {get;set;}
+    public bool NewsPending=>news.Pending;
+    public int NewsRevision=>news.Revision;
+    /// <summary>使用者按下公告框的確定。只有公告正等待確認時才有效；回傳是否接受。</summary>
+    public bool ConfirmNews(int revision)=>news.Confirm(revision);
+}
+
+/// <summary>S48 登入公告的確認閘門：收到公告後等使用者確認，確認後呼叫端才送 C16。</summary>
+public sealed class LoginNews {
+    readonly object gate=new();TaskCompletionSource? pending;
+    public bool Pending {get{lock(gate)return pending!=null;}}
+    /// <summary>每收到一則需要確認的公告就加 1；確認時必須帶顯示時的值，舊框的確定不會誤確認新公告。</summary>
+    public int Revision {get;private set;}
+    public static string Parse(byte[] plain){var r=new LoginReader(plain);if(r.C()!=48)throw new ProtocolException("not S48");string text=r.S();r.Finish();return text;}
+    public static byte[] Acknowledgement()=>LoginPackets.Pad([16]);
+    /// <summary>開始等待確認；回傳 (revision, 等待確認的工作)。</summary>
+    public (int revision,Task confirmed) Begin(){lock(gate){pending?.TrySetCanceled();pending=new(TaskCreationOptions.RunContinuationsAsynchronously);return (++Revision,pending.Task);}}
+    public bool Confirm(int revision){lock(gate){if(pending==null||revision!=Revision)return false;var p=pending;pending=null;p.TrySetResult();return true;}}
+    public void Reset(){lock(gate){var p=pending;pending=null;p?.TrySetCanceled();}}
 }

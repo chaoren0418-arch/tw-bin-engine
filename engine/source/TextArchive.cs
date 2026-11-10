@@ -71,4 +71,30 @@ public sealed class TextArchive {
     public byte[] ReadRaw(Entry entry){Require(entry.Size<=MaxPayloadBytes,"單筆資源超出限制");return read(entry);}
     /// <summary>Decoded payload bytes.</summary>
     public byte[] Read(Entry entry)=>Decode(ReadRaw(entry));
+
+    // T272 (#649): MapSystem region names. CMapSystemXML (sub_A61D30, VA 0xA61D30 / FO 0x661130) loads its own
+    // MapDesc-c.tbl (this+0x48); sub_A730A0 looks mapDesc ids up there, not in string-c.tbl (docs/reference/sprites-and-strings.md §4.1).
+    // Same layout as string-c.tbl (first line = count, one record per line). Pin = SHA-256 of the decoded local payload (375 records).
+    public const string MapDescFileName="MapDesc-c.tbl";
+    public const string MapDescSha256="2bd9791403059b996404f8574b7f75cd3535560a0f006640c7766ab5e120a8d9";
+    /// <summary>Reads and pin-checks the single <c>MapDesc-c.tbl</c> record (decoded in memory only).</summary>
+    public ServerStringTable ReadMapDesc(){
+        var entry=Single(MapDescFileName)??throw new InvalidDataException("Text 封存沒有 "+MapDescFileName);
+        var decoded=Read(entry);
+        Require(Convert.ToHexString(SHA256.HashData(decoded)).Equals(MapDescSha256,StringComparison.OrdinalIgnoreCase),MapDescFileName+" pin 不符");
+        return ServerStringTable.Parse(decoded);
+    }
+
+    // T290 (#698): sub_A730A0 uses desc-c.tbl record 4266 when a mapDesc id is past MapDesc-c.tbl (SS§4.1; the table is
+    // dword_153C9C4, loaded by sub_8CA220 at 0x8CA390 with "desc"). Same line layout as string-c.tbl. Pin = SHA-256 of the
+    // decoded local payload (Text.pak record 4201, 249,300 bytes; same decoded SHA as docs/design/portable-delivery.md).
+    public const string DescFileName="desc-c.tbl";
+    public const string DescSha256="f06c94f47271fcb01f1d5af63725dfa9a230b5f6be3c0dd1d53cd37628adb7df";
+    /// <summary>Reads and pin-checks the single <c>desc-c.tbl</c> record (decoded in memory only).</summary>
+    public ServerStringTable ReadDesc(){
+        var entry=Single(DescFileName)??throw new InvalidDataException("Text 封存沒有 "+DescFileName);
+        var decoded=Read(entry);
+        Require(Convert.ToHexString(SHA256.HashData(decoded)).Equals(DescSha256,StringComparison.OrdinalIgnoreCase),DescFileName+" pin 不符");
+        return ServerStringTable.Parse(decoded);
+    }
 }

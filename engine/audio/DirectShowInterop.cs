@@ -11,7 +11,14 @@ internal interface IMediaControl
     [PreserveSig] int Stop();
 }
 [ComImport, Guid("56a868b3-0ad4-11ce-b03a-0020af0ba770"), InterfaceType(ComInterfaceType.InterfaceIsDual)]
-internal interface IBasicAudio { [PreserveSig] int put_Volume(int value); }
+internal interface IBasicAudio
+{
+    // control.h 順序：put_Volume、get_Volume、put_Balance、get_Balance（T310 用 put_Balance 套 Miles pan）。
+    [PreserveSig] int put_Volume(int value);
+    [PreserveSig] int get_Volume(out int value);
+    [PreserveSig] int put_Balance(int value);
+    [PreserveSig] int get_Balance(out int value);
+}
 [ComImport, Guid("56a868b6-0ad4-11ce-b03a-0020af0ba770"), InterfaceType(ComInterfaceType.InterfaceIsDual)]
 internal interface IMediaEvent
 {

@@ -55,6 +55,31 @@ public static class SoundPackets
     }
 }
 
+// T280（R3-D，SD§2.3 A3FCBE..A3FD7B → A091C0）：發聲體每次更新的 (vol, ext)。
+// nx=|dx|、ny=|dy|（格）；nx+ny>14 時夾成 (14,0)；vol＝100−14·(nx²+ny²)/20（夾 ≥0）；ext＝64−63·(nx+ny)/14（夾 ≥0）。
+// A06D60 以 AIL_quick_set_volume(h, 類別音量·vol/100/128, ext/128) 套用；T310 從 Mss32.dll 核定第三參數會轉給
+// AIL_set_sample_volume_pan 當 pan（0＝左、0.5＝中央、1＝右），播放層把它換成左右平衡（AudioGain.Balance）。
+public readonly record struct EmitterLevel(int Volume, int Ext)
+{
+    /// <summary>A06C30 的預設 0.5f＝ext 64／128（發聲體在自己身上，或沒有發聲體）。</summary>
+    public static EmitterLevel Self => new(100, 64);
+    /// <summary>ext／128。名稱沿用 T302；T310 起確定它是 Miles pan，等同 <see cref="Pan"/>。</summary>
+    public double ExtraVolume => Pan;
+    public double Pan => Math.Clamp(Ext, 0, 128) / 128d;
+}
+public static class SoundAttenuation
+{
+    public static EmitterLevel Level(int dx, int dy)
+    {
+        long nx = Math.Abs((long)dx), ny = Math.Abs((long)dy);
+        if (nx + ny > SoundRules.MaxManhattan) { nx = SoundRules.MaxManhattan; ny = 0; }
+        long ext = 64 - 63 * (nx + ny) / SoundRules.MaxManhattan;
+        return new(SoundRules.DistanceVolume(dx, dy), ext < 0 ? 0 : (int)ext);
+    }
+    /// <summary>offset＝發聲體相對自身角色的格數；null（沒有發聲體）用 A06C30 預設值。</summary>
+    public static EmitterLevel Level((int Dx, int Dy)? offset) => offset is { } o ? Level(o.Dx, o.Dy) : EmitterLevel.Self;
+}
+
 // Read only the already-approved combat WAVs. AudioPlayer independently rechecks its pins.
 public sealed class PacketSoundAssets(string clientRoot)
 {
@@ -146,7 +171,9 @@ public sealed partial class WorldSession
         }
         long now = PacketMediaClock();
         packetSounds.RemoveAll(s => s.Packet.Kind != S22Mode.AmbientLoop && now - s.At >= 256 * 60000L);
-        packetEffects.RemoveAll(e => now >= e.Expires || e.Packet.Target is uint id && PacketEffectPosition(id) == null);
+        // R9-D（FU9§2.1 第 3 點，已驗證）：原版 Effect 不存對象指標，只看動畫播完才刪；
+        // 對象消失不刪特效（不跟隨的留在 Origin、跟隨的在本段位置播完，見 PacketEffectFrames）。
+        packetEffects.RemoveAll(e => now >= e.Expires);
     }
 
     public PacketSound[] PacketSounds { get { PrunePacketMedia(); return packetSounds.ToArray(); } }
@@ -213,10 +240,76 @@ public sealed partial class WorldSession
         return result.ToArray();
     }
 
+    // T280（R3-D）：每次更新替每筆播放中的 S22 重算 (vol, ext)（A091C0 的時機：每次更新、播放之後）。
+    // S22 封包沒有發聲體欄位（"ch"），原版走全域 A05980／A08020，不掛在角色發聲體上；所以這裡的發聲體就是自己，
+    // 結果固定是 EmitterLevel.Self。改變時記 Changes，給快照與播放中改音量（T302，VoiceLevel）使用。
+    readonly Dictionary<long, EmitterLevel> packetSoundLevels = [];
+    public int PacketSoundLevelChanges { get; private set; }
+    public EmitterLevel? PacketSoundLevel(long number) => packetSoundLevels.TryGetValue(number, out var level) ? level : null;
+    void UpdatePacketSoundLevels(CombatSoundInstance[] sounds)
+    {
+        foreach (long gone in packetSoundLevels.Keys.Where(n => !sounds.Any(s => s.Instance == n)).ToArray()) packetSoundLevels.Remove(gone);
+        foreach (var sound in sounds)
+        {
+            var level = SoundAttenuation.Level(sound.Actor == 0 ? null : SoundOffset(sound.Actor));
+            if (!packetSoundLevels.TryGetValue(sound.Instance, out var old) || old != level) { packetSoundLevels[sound.Instance] = level; PacketSoundLevelChanges++; }
+        }
+    }
+    // T302（R4-K，SD§2.3 A091C0 → A06D60）：把每次更新重算的 (vol, ext) 真的套到播放中的 voice。
+    // S22 用 UpdatePacketSoundLevels 算好的值；有發聲體的戰鬥影格音效照同一公式即時算；
+    // 發聲體或自身不在場回 null（A3FCBE 這時不呼叫 A091C0，音量維持原值）。
+    // voice 比例＝類別音量·vol/100（A06D60）；主音量由 AudioCore 再乘。ext 交給播放層當 pan 套到裝置（T310）。
+    public (double Scale, int Ext)? VoiceLevel(CombatSoundInstance sound, SoundVolumes volumes)
+    {
+        EmitterLevel level;
+        if (sound.Key.StartsWith("s22/", StringComparison.Ordinal))
+        {
+            if (PacketSoundLevel(sound.Instance) is not { } packet) return null;
+            level = packet;
+        }
+        else if (sound.Actor != 0 && SoundOffset(sound.Actor) is { } offset) level = SoundAttenuation.Level(offset.Dx, offset.Dy);
+        else return null;
+        return (volumes.Scale(sound.Category, level.Volume), level.Ext);
+    }
+
+    // T310（R5-E）：6016 地圖特效的發聲體就是特效所在格（EffectFrameState.X／Y，與角色同一座標系）。
+    // 照 SD§2.3 同一公式；類別是 SoundVolume（影格 `<`／`[` 走 A060F0）。自身不在場回 null（不更新）。
+    public (double Scale, int Ext)? EffectVoiceLevel(P24.MapEffectEvents.EffectFrameState frame, SoundVolumes volumes)
+    {
+        if (Actor is not { } self || SelfAppearancePending) return null;
+        var level = SoundAttenuation.Level(frame.X - self.X, frame.Y - self.Y);
+        return (volumes.Scale(SoundCategory.Sound, level.Volume), level.Ext);
+    }
+
+    [WorldSnapshot("packetSoundLevels")]
+    object? PacketSoundLevelSnapshot() => packetSoundLevels.Count == 0 ? null
+        : packetSoundLevels.OrderBy(p => p.Key).Select(p => new { number = p.Key, volume = p.Value.Volume, ext = p.Value.Ext }).ToArray();
+
+    // T280（FU4§6）：頭目曲的兩個事件。觀察器先於物件處理器執行，物件表仍是封包前的狀態。
+    // S87 物件出現（sub_A50F20）：不是自己、不在死亡狀態（動作 ≠ 8）→ SPAWN。格式錯誤留給原處理器。
+    [WorldReceive(87, Observe = true)]
+    void ObserveBossAppear(byte[] plain)
+    {
+        ushort gfx; byte action;
+        try { var r = new LoginReader(plain); r.C(); r.H(); r.H(); uint id = r.D(); gfx = r.H(); action = r.C(); if (id == 0 || id == Status?.ObjectId) return; }
+        catch (ProtocolException) { return; }
+        if (action != 8) ClientSoundScene.BossAppeared(gfx, Environment.TickCount64);
+    }
+    // S158 動作 8（S_ACTION 92CB70）→ DEATH；gfx 取自物件表。
+    [WorldReceive(158, Observe = true)]
+    internal void ObserveBossDeath(byte[] plain)
+    {
+        uint id;
+        try { var r = new LoginReader(plain); r.C(); id = r.D(); if (r.C() != 8) return; }
+        catch (ProtocolException) { return; }
+        if (objects.TryGetValue(id, out var o)) ClientSoundScene.BossDied(o.Gfx, Environment.TickCount64);
+    }
+
     public CombatSoundInstance[] ComposePacketSounds(IEnumerable<CombatSoundInstance> existing, long now, Func<int,double?> duration)
     {
         var actions = existing.ToArray();
         var sounds = PacketSoundSnapshot(now,duration); // Also clears history at epoch boundaries.
+        UpdatePacketSoundLevels(sounds);
         foreach(var key in packetSoundFrames.Where(p=>p.Value.At<now-2*PacketSoundMatchMs).Select(p=>p.Key).ToArray())
             packetSoundFrames.Remove(key);
         foreach(var key in packetSoundMatches.Keys.Where(n=>!sounds.Any(s=>s.Instance==n)).ToArray())
@@ -257,12 +350,65 @@ public sealed partial class WorldSession
     }
 }
 
+// T310（R5-E，SD§2.3 A091C0）：6016 地圖特效每次更新的播放中音量。值變了才經 IEffectAudio 改音量入口送出；
+// 消失的 owner 忘掉；回 null 的不送。換了 transport（主機重建）就整個重來。回傳本次送出的筆數。
+public sealed class EffectVoiceLevels
+{
+    readonly Dictionary<P24.MapEffectEvents.EffectOwner, (double Scale, int Ext)> sent = [];
+    IEffectAudio? target;
+    public int Sent { get; private set; }
+    public EffectAudioReply? LastFailure { get; private set; }
+    public int Apply(IEffectAudio? audio, IEnumerable<P24.MapEffectEvents.EffectFrameState> frames,
+        Func<P24.MapEffectEvents.EffectFrameState, (double Scale, int Ext)?> level)
+    {
+        if (!ReferenceEquals(audio, target)) { sent.Clear(); target = audio; }
+        if (audio == null) return 0;
+        var live = new HashSet<P24.MapEffectEvents.EffectOwner>();
+        int count = 0;
+        foreach (var frame in frames)
+        {
+            live.Add(frame.Owner);
+            if (level(frame) is not { } next) continue;
+            next = (double.IsFinite(next.Scale) ? Math.Clamp(next.Scale, 0, 1) : 0, Math.Clamp(next.Ext, 0, 128));
+            if (sent.TryGetValue(frame.Owner, out var old) && old == next) continue;
+            sent[frame.Owner] = next; count++;
+            Task<EffectAudioReply> task;
+            try { task = audio.SetVoiceLevelAsync(frame.Owner, next.Scale, next.Ext); }
+            catch (Exception ex) { LastFailure = new(false, "HostCallFailed", ex.Message); continue; }
+            _ = task.ContinueWith(t =>
+            {
+                var reply = t.IsCompletedSuccessfully ? t.Result : new EffectAudioReply(false, "TaskFailed", t.Exception?.Message);
+                // NoLiveVoice／StaleOrUnknownOwner 是正常情況（特效此刻沒在發聲、或剛換代），不算失敗。
+                if (!reply.Success && reply.Status is not ("NoLiveVoice" or "StaleOrUnknownOwner" or "Disposed")) LastFailure = reply;
+            }, TaskScheduler.Default);
+        }
+        foreach (var gone in sent.Keys.Where(o => !live.Contains(o)).ToArray()) sent.Remove(gone);
+        Sent += count;
+        return count;
+    }
+}
+
 public sealed partial class ClientForm
 {
     PacketSoundAssets? packetSoundAssets;
+    // 延遲建立：離線測試會用 GetUninitializedObject 建 ClientForm（不跑欄位初始化），仍要能走過這條路徑。
+    EffectVoiceLevels? effect6016Levels;
+    // T310：6016 主機與 PumpCombatSfx 同在 UI 計時器執行緒（Program.cs 的 Tick：Pump6016 → PumpCombatSfx），Frames() 的 lane 檢查成立。
+    void Apply6016Levels(SoundVolumes volumes)
+    {
+        var levels = effect6016Levels ??= new();
+        if (login.World.Effects6016 is not { Closed: false } host) { levels.Apply(null, [], _ => null); return; }
+        try { levels.Apply(P24.HostAudio.AudioApiTransport.Current, host.Frames(), frame => login.World.EffectVoiceLevel(frame, volumes)); }
+        catch (InvalidOperationException ex) { System.Diagnostics.Trace.WriteLine("6016 level: " + ex.Message); }
+    }
     IEnumerable<CombatSoundInstance> WithPacketSounds(IEnumerable<CombatSoundInstance> existing, long now)
     {
         packetSoundAssets ??= new(Environment.GetEnvironmentVariable("TW_CLIENT_ROOT") ?? @"D:\lineage開發\0-客戶端");
-        return login.World.ComposePacketSounds(existing, now, packetSoundAssets.Duration);
+        var composed = login.World.ComposePacketSounds(existing, now, packetSoundAssets.Duration);
+        // T302：每次更新（A091C0 的時機）把重算後的音量套到上一輪已在播的 voice；這一輪新開的由 SoundGate 給初始音量。
+        var volumes = SoundVolumes;
+        combatSfx?.ApplyLevels(sound => login.World.VoiceLevel(sound, volumes));
+        Apply6016Levels(volumes);
+        return composed;
     }
 }

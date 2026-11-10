@@ -218,20 +218,76 @@ public sealed class HpMpHeadBarPanel(Func<HpMpSettings>? settings=null):IUiPanel
     [UiPanel(50)] internal static UiPanelRegistration Registration=>new(HpMpHeadBarPanel.PanelId,"uistatus86",root=>new HpMpHeadBarPanel(()=>(root.Find(HpMpPanel.PanelId) as HpMpPanel)?.Settings??HpMpSettings.Default));   // ui-hpmp #465
     public const string PanelId="MiniHpMpBar";
     public const int BaseSurf=930,HpSurf=931,MpSurf=932,BarWidth=44,FillRows=4,MpOffsetY=4;
-    SurfCatalog? surfs;bool inWorld;
+    /// <summary>FU8§1.1 (sub_8E77F0): own bar x = P.x + dword_154524C − 80 (dword_154524C = 0 at 800×600).</summary>
+    public const int SelfOffsetX=-80,AnchorOffsetY=-12;
+    /// <summary>FU8§1.2: blink overlay surf index 201 = surf 8393 (sub_8E4B90), source width 44·HP%/100, 4 rows. Not in the
+    /// local client (FU8§1.4); SurfCatalog.Get serves it from the T322/#760 reference fallback, otherwise nothing is drawn.</summary>
+    public const int BlinkSurf=8393,BlinkRows=4;
+    /// <summary>FU8§1.2 sub_74D5D0: kind 1 (class 0–6) HpWarnBlinkChecker(35, 5, 0); kind 2 (class 7) (40, −1, 0).</summary>
+    public const int BlinkThreshold=35,BlinkTimes=5,WarriorClass=7,WarriorBlinkThreshold=40,WarriorBlinkTimes=-1;
+
+    /// <summary>
+    /// HpWarnBlinkChecker (vtable 0x116EB2C, ctor sub_740BB0, per-frame sub_740D20, interval sub_740CE0); FU8§1.2.
+    /// Fields: threshold (+4), times (+8, −1 = forever), initial state (+12), accumulated ms (+16), lit count (+20), state (+24).
+    /// </summary>
+    public sealed class BlinkChecker(int threshold,int times,bool initial=false) {
+        readonly int threshold=threshold,times=times;readonly bool initial=initial;
+        public int Threshold=>threshold;
+        public int Times=>times;
+        public bool Initial=>initial;
+        public long Elapsed{get;private set;}
+        public int LitCount{get;private set;}
+        public bool Lit{get;private set;}=initial;
+        /// <summary>sub_740CE0: max(300, 26 × HP%) ms.</summary>
+        public static int Interval(int hpPercent)=>Math.Max(300,26*hpPercent);
+        public static BlinkChecker ForClass(byte? ownClass)=>ownClass==WarriorClass
+            ?new(WarriorBlinkThreshold,WarriorBlinkTimes):new(BlinkThreshold,BlinkTimes);
+        /// <summary>One frame: dt = frame time in ms.</summary>
+        public void Step(int hpPercent,long dt){
+            dt=Math.Max(0,dt);
+            if(hpPercent>threshold){
+                LitCount=0;
+                // Forever (−1): the current period runs out first, then the state returns to the initial one.
+                if(times<0&&Lit!=initial){Elapsed+=dt;if(Elapsed>Interval(hpPercent)){Elapsed=0;Lit=initial;}}
+                else{Lit=initial;Elapsed=0;}
+                return;
+            }
+            Elapsed+=dt;
+            if(Elapsed<=Interval(hpPercent))return;
+            Elapsed=0;
+            // times 5: after 5 lit periods the next period end fixes the state at "not lit" until HP goes above the threshold.
+            if(times>=0&&LitCount>=times){Lit=false;return;}
+            Lit=!Lit;if(Lit)LitCount++;
+        }
+    }
+
+    Func<int,UiSurface?>? surf;bool inWorld;
     long? hp,maxHp,mp,maxMp;
     IReadOnlyList<HpMpHeadTarget> targets=[];
+    BlinkChecker? blink;long? lastNow;
 
     public string Id=>PanelId;
     public UiLayer Layer=>UiLayer.World;
     public Rectangle Bounds=>UiRoot.WorldRect;
     public bool Visible=>inWorld;
     HpMpSettings Settings=>settings?.Invoke()??HpMpSettings.Default;
+    /// <summary>Own blink checker; null while the own bar is not drawn (no self target, no HP, hidden by the option).</summary>
+    public BlinkChecker? Blink=>blink;
 
-    public void Load(UiLayout layout,SurfCatalog surfs){this.surfs=surfs;}
+    public void Load(UiLayout layout,SurfCatalog surfs)=>Load(layout,surfs.Get);
+    /// <summary>Same as Load(layout, SurfCatalog) with any surf lookup (offline tests use synthetic surfaces).</summary>
+    public void Load(UiLayout layout,Func<int,UiSurface?> surf){this.surf=surf;}
     public void Update(IUiGameState state){
         inWorld=state.InWorld;hp=state.Hp;maxHp=state.MaxHp;mp=state.Mp;maxMp=state.MaxMp;
-        targets=state is IUiHpMpState s?s.HeadTargets:[];
+        var s=state as IUiHpMpState;
+        targets=s?.HeadTargets??[];
+        long dt=lastNow is long last?state.Now-last:0;lastNow=state.Now;
+        // Only the own bar has a checker (kind 1/2); it runs while the own bar is drawn.
+        int? own=inWorld&&Settings.ShowCharacterHpMp&&targets.Any(t=>t.Self)?OwnPercent(hp,maxHp):null;
+        if(own is not int pct){blink=null;return;}
+        var want=BlinkChecker.ForClass(s?.OwnClass);
+        if(blink==null||blink.Threshold!=want.Threshold||blink.Times!=want.Times)blink=want;
+        blink.Step(pct,dt);
     }
 
     /// <summary>Own percentage (sub_8E7110): value × 100 / max clamped to 0–100, truncated. null when not sent.</summary>
@@ -239,31 +295,42 @@ public sealed class HpMpHeadBarPanel(Func<HpMpSettings>? settings=null):IUiPanel
         if(value is not long v||max is not long m||m<=0)return null;
         return (int)Math.Clamp(v*100/m,0,100);
     }
-    /// <summary>sub_8E77F0: x = bbox centre − 24, y = bbox top − 12 (own x formula unverified; same rule used).</summary>
-    public static Point Anchor(Rectangle box)=>new(box.Left+box.Width/2-24,box.Top-12);
+    /// <summary>sub_8E77F0 for other objects: x = bbox centre − 24, y = bbox top − 12.</summary>
+    public static Point Anchor(Rectangle box)=>new(box.Left+box.Width/2-24,box.Top+AnchorOffsetY);
+    /// <summary>
+    /// sub_8E77F0 (FU8§1.1): self with a known P (sub_F1A750 = sprite block origin) → x = P.x − 80, y = bbox top − 12;
+    /// everything else (and self without P) → <see cref="Anchor(Rectangle)"/>.
+    /// </summary>
+    public static Point Anchor(HpMpHeadTarget t)=>t.Self&&t.Origin is Point p?new(p.X+SelfOffsetX,t.Box.Top+AnchorOffsetY):Anchor(t.Box);
     /// <summary>Draw only when x ≥ 0, y ≥ 0, x ≤ 800; others also need y ≤ 600.</summary>
     public static bool OnScreen(Point p,bool self)=>p.X>=0&&p.Y>=0&&p.X<=UiRoot.LogicalWidth&&(self||p.Y<=UiRoot.LogicalHeight);
 
-    /// <summary>Bars that would be drawn this frame: (target, anchor, HP%, MP%).</summary>
-    public IEnumerable<(HpMpHeadTarget Target,Point At,int? Hp,int? Mp)> Plan(){
+    /// <summary>Bars that would be drawn this frame: (target, anchor, HP%, MP%, blink overlay lit — self only).</summary>
+    public IEnumerable<(HpMpHeadTarget Target,Point At,int? Hp,int? Mp,bool Blink)> Plan(){
         bool showSelf=Settings.ShowCharacterHpMp;
         foreach(var t in targets){
             if(t.Self&&!showSelf)continue;
             int? h=t.Self?OwnPercent(hp,maxHp):t.HpPercent is int a?Math.Clamp(a,0,100):null;
             int? m=t.Self?OwnPercent(mp,maxMp):t.MpPercent is int b?Math.Clamp(b,0,100):null;
             if(h==null&&m==null)continue;
-            var at=Anchor(t.Box);
+            var at=Anchor(t);
             if(!OnScreen(at,t.Self))continue;
-            yield return (t,at,h,m);
+            yield return (t,at,h,m,t.Self&&h!=null&&blink?.Lit==true);
         }
     }
 
     public void Paint(UiCanvas canvas){
-        if(surfs==null)return;
-        var bg=surfs.Get(BaseSurf);var hpBar=surfs.Get(HpSurf);var mpBar=surfs.Get(MpSurf);
-        foreach(var (_,at,h,m) in Plan()){
+        if(surf==null)return;
+        var bg=surf(BaseSurf);var hpBar=surf(HpSurf);var mpBar=surf(MpSurf);UiSurface? flash=null;bool flashAsked=false;
+        foreach(var (_,at,h,m,lit) in Plan()){
             if(h is int hpPct)Bar(canvas,bg,hpBar,at.X,at.Y,hpPct);
             if(m is int mpPct)Bar(canvas,bg,mpBar,at.X,at.Y+MpOffsetY,mpPct);
+            // sub_8E4C00: normal HP/MP first, then the overlay at (x, y) when the checker is lit. Missing surf → nothing.
+            if(lit&&h is int p){
+                if(!flashAsked){flash=surf(BlinkSurf);flashAsked=true;}
+                if(flash!=null&&Math.Min(BarWidth*p/100,flash.Width) is int w&&w>0)
+                    canvas.DrawSurface(flash,new Rectangle(0,0,w,Math.Min(BlinkRows,flash.Height)),at.X,at.Y);
+            }
         }
     }
     static void Bar(UiCanvas canvas,UiSurface? bg,UiSurface? fill,int x,int y,int pct){

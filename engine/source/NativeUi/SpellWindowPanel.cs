@@ -13,10 +13,15 @@ public interface IUiSpellWindowState {
     LegacySpellClass? Class{get;}
     /// <summary>null before the server skill list arrived.</summary>
     IReadOnlyList<LearnedMagic>? Learned{get;}
+    /// <summary>The game's selected spell (WorldSession.SelectedMagicId), shared with the WinForms magic list.</summary>
+    int? SelectedId=>null;
+    /// <summary>Selects a spell in the game model (local state only, no packet: WorldSession.SelectMagic). false = not taken.</summary>
+    bool Select(int? id)=>false;
 }
-public sealed record UiSpellWindowData(LegacySpellClass? Class,IReadOnlyList<LearnedMagic>? Learned):IUiSpellWindowState {
+public sealed record UiSpellWindowData(LegacySpellClass? Class,IReadOnlyList<LearnedMagic>? Learned,int? SelectedId=null,Func<int?,bool>? Selector=null):IUiSpellWindowState {
     /// <summary>Adapter over WorldSession (Magic.cs). The class type comes from the character list (not kept by WorldSession yet).</summary>
-    public static UiSpellWindowData From(WorldSession world,int? classType)=>new(classType is int c?SpellWindowPanel.ClassOf(c):null,world.MagicListReceived?world.LearnedMagic:null);
+    public static UiSpellWindowData From(WorldSession world,int? classType)=>new(classType is int c?SpellWindowPanel.ClassOf(c):null,world.MagicListReceived?world.LearnedMagic:null,world.SelectedMagicId,world.SelectMagic);
+    public bool Select(int? id)=>Selector?.Invoke(id)??false;
 }
 public sealed class UiSpellWindowGameState(IUiGameState inner,IUiSpellWindowState spells):IUiGameState,IUiSpellWindowState,ILegacyWindowStateDecorator {
     public IUiGameState Inner=>inner;
@@ -24,6 +29,8 @@ public sealed class UiSpellWindowGameState(IUiGameState inner,IUiSpellWindowStat
     public long? Hp=>inner.Hp;public long? MaxHp=>inner.MaxHp;public long? Mp=>inner.Mp;public long? MaxMp=>inner.MaxMp;public long Now=>inner.Now;
     public LegacySpellClass? Class=>spells.Class;
     public IReadOnlyList<LearnedMagic>? Learned=>spells.Learned;
+    public int? SelectedId=>spells.SelectedId;
+    public bool Select(int? id)=>spells.Select(id);
 }
 
 /// <summary>
@@ -32,6 +39,7 @@ public sealed class UiSpellWindowGameState(IUiGameState inner,IUiSpellWindowStat
 /// as the XML lists; the local file has 5). Only the first element of each group has a position.
 /// </summary>
 public sealed class SpellWindowPanel:LegacyWindowPanel {
+    [UiPanel(175)] internal static UiPanelRegistration Registration=>new(WindowId,Layout,_=>new SpellWindowPanel());   // R3-A (#678): menu 3 / Ctrl+S
     public const string WindowId="SPELL_WINDOW",Layout="uimagicitem";
     static readonly Regex LevelName=new(@"\ASURF_RENEWAL_SPELL_(?:(PRINCE|ELF|DARKELF)_)?LEVEL(\d{2})\z",RegexOptions.CultureInvariant);
     public override string Id=>WindowId;
@@ -45,20 +53,46 @@ public sealed class SpellWindowPanel:LegacyWindowPanel {
     /// </summary>
     public static LegacySpellClass? ClassOf(int classType)=>classType switch{0=>LegacySpellClass.Prince,1 or 3=>LegacySpellClass.General,2=>LegacySpellClass.Elf,4=>LegacySpellClass.DarkElf,_=>null};
 
+    IUiSpellWindowState? source;int? localSelection;
     public LegacySpellClass? Class{get;private set;}
-    /// <summary>Selected level button (0-based). Clicking a level inside the strip is 待驗證, so it is set by API only.</summary>
+    /// <summary>
+    /// Selected level button (0-based). R4-B: a click on the level strip picks the button by equal segments of the drawn
+    /// image's width (推測, like the item tabs), and the list switches to that level's page.
+    /// </summary>
     public int SelectedLevel{get;private set;}
     public IReadOnlyList<LearnedMagic>? Learned=>learned;
-    protected override int ScrollCount=>learned?.Count??0;
     public int LevelCount(LegacySpellClass c)=>groups.TryGetValue(c,out var g)?g.Length:0;
     /// <summary>Rectangle of the drawn level image (empty without a class or with a missing surf).</summary>
     public Rectangle LevelRect=>Class is {} c&&groups.TryGetValue(c,out var g)&&g.Length>0?RectOf(g[SelectedLevel]):Rectangle.Empty;
 
-    public void SetClass(LegacySpellClass? c){if(c!=Class){Class=c;SelectedLevel=0;}}
+    public void SetClass(LegacySpellClass? c){if(c!=Class){Class=c;SelectedLevel=0;ResetScroll();}}
     public void SetLevel(int level){
         int n=Class is {} c?LevelCount(c):0;
         if(level<0||level>=n)throw new ArgumentOutOfRangeException(nameof(level));
-        SelectedLevel=level;
+        if(level!=SelectedLevel){SelectedLevel=level;ResetScroll();}
+    }
+
+    /// <summary>
+    /// Spell page of a skill id: the C164 / S_AddSkill mask row, (id − 1) / 8 — row k holds ids 8k+1 … 8k+8 (Magic.cs).
+    /// Level button k shows page k (general magic level k+1). This is 已驗證 only for the meaning of the mask rows; that the
+    /// class groups (王族 7, 妖精 11, 黑妖 5 buttons) also start at row 0 is 推測 — their own rows (97–176) are on no button
+    /// until the original mapping is traced (待驗證), and stay reachable through the WinForms magic tab.
+    /// </summary>
+    public static int PageOf(int skillId)=>skillId<=0?-1:(skillId-1)/8;
+    /// <summary>Learned spells on the selected level page (empty without a class: no level button is drawn).</summary>
+    public IReadOnlyList<LearnedMagic> PageSpells=>learned==null||Class==null?[]:learned.Where(m=>PageOf(m.Id)==SelectedLevel).ToArray();
+    /// <summary>Text rows (R4-B, 推測 geometry): 16-pixel rows between the level strip and the lower arrow, base edge to scrollbar.</summary>
+    public LegacyCellGrid Rows{get;private set;}=LegacyCellGrid.Empty;
+    public const int RowPitch=16;
+    protected override int ScrollCount=>Rows.ScrollPositions(PageSpells.Count);
+    public IReadOnlyList<LearnedMagic> VisibleSpells=>PageSpells.Skip(ScrollOffset).Take(Rows.PageSize).ToArray();
+    public Rectangle RowRect(int row)=>Logical(Rows.CellRect(row));
+    public int? SelectedId=>source?.SelectedId??localSelection;
+    public LearnedMagic? SpellAt(Point logical)=>Rows.SlotAt(Local(logical)) is int r&&r<VisibleSpells.Count?VisibleSpells[r]:null;
+    public void SelectSpell(int? id){
+        if(id!=null&&learned?.Any(m=>m.Id==id)!=true)return;
+        if(source!=null&&source.Select(id))return;
+        localSelection=id;
     }
 
     protected override void Build(LegacyWindowLayout w,Func<int,UiSurface?> surfs){
@@ -81,17 +115,44 @@ public sealed class SpellWindowPanel:LegacyWindowPanel {
             var cls=c;
             groups[c]=list.Select((e,k)=>AddPart(e,surfs,()=>Class==cls&&SelectedLevel==k,e.Offset??anchor)).ToArray();
         }
-        Class=null;SelectedLevel=0;
+        // Rows start below the tallest level image (or the upper arrow, whichever is lower) and end at the lower arrow.
+        var up=w.Placed("SURF_RENEWAL_WIN_INC_BUT_OFF").Offset!.Value;var down=w.Placed("SURF_RENEWAL_WIN_DEC_BUT_OFF").Offset!.Value;
+        int stripBottom=groups.Values.SelectMany(g=>g).Select(p=>p.Offset.Y+(p.Image?.Height??0)).DefaultIfEmpty(0).Max();
+        int left=w.Placed("SURF_RENEWAL_WIN_SPELL_BASE").Offset!.Value.X,right=w.Placed("SURF_RENEWAL_WIN_SCROLLBAR").Offset!.Value.X;
+        Rows=LegacyCellGrid.Fit(left,Math.Max(stripBottom,Math.Min(up.Y,down.Y)),right,Math.Max(up.Y,down.Y),new(right-left,RowPitch),right-left);
+        if(Rows.PageSize==0)throw new UiLayoutException(w.FileName,w.WindowId,"魔法清單沒有空間（等級鈕／箭頭的位置不合理）");
+        Class=null;SelectedLevel=0;localSelection=null;
     }
     protected override void OnUpdate(IUiGameState state){
         var s=FindState<IUiSpellWindowState>(state);
-        learned=s?.Learned;
+        source=s;learned=s?.Learned;
         if(s?.Class is {} c)SetClass(c);
+        if(localSelection is int id&&learned?.Any(m=>m.Id==id)!=true)localSelection=null;
+    }
+
+    protected override IEnumerable<Rectangle> Controls()=>[LevelRect,Logical(Rows.Area)];
+    protected override bool Click(Point p,IUiCommands commands){
+        if(Class is {} c&&LegacyStrip.SegmentAt(LevelRect,LevelCount(c),p) is int level){SetLevel(level);return true;}
+        if(SpellAt(p) is {} spell){SelectSpell(spell.Id);return true;}
+        return false;
+    }
+    /// <summary>Row text: name on the left, the nominal MP on the right; unsupported spells in grey; selection framed.</summary>
+    protected override void PaintContent(UiCanvas canvas){
+        var rows=VisibleSpells;int? selected=SelectedId;
+        for(int r=0;r<rows.Count;r++){
+            var rect=RowRect(r);var m=rows[r];
+            string mp=m.NominalMp>0?m.NominalMp.ToString(CultureInfo.InvariantCulture):"";
+            int mpWidth=mp.Length==0?0:UiText.Measure(canvas.Graphics,mp).Width+6;
+            var color=m.Supported?TextColor:Color.Gray;
+            DrawClipped(canvas,m.Name,rect.X+3,rect.Y+2,rect.Right-3-mpWidth,color);
+            DrawRightAligned(canvas,mp,rect.Right-3,rect.Y+2,color);
+            if(m.Id==selected)DrawFrame(canvas,rect,SelectedColor);
+        }
     }
 
     // ---------------------------------------------------------------- offline checks (synthetic XML and surfaces only)
 
-    static string TestXml(){
+    internal static string TestXml(){
         var sb=new System.Text.StringBuilder("""
 <?xml version="1.0"?>
 <ExtraWindowConfigulation>
@@ -148,10 +209,10 @@ public sealed class SpellWindowPanel:LegacyWindowPanel {
         var cmd=new UiNullCommands();
         p.Update(new UiSpellWindowGameState(basic,new UiSpellWindowData(LegacySpellClass.General,spells)));
         for(int k=0;k<5;k++)LegacyWindowTestKit.Click(p,new(175,230),cmd);
-        t.Equal(2,p.ScrollOffset,"scroll clamps to learned count − 1");
+        t.Equal(0,p.ScrollOffset,"3 spells on level page 1 fit the rows → nothing to scroll (row scrolling: LegacyWindowContentTests)");
         p.Update(new UiSpellWindowGameState(basic,new UiSpellWindowData(LegacySpellClass.General,spells[..1])));
         t.Equal(0,p.ScrollOffset,"shorter list re-clamps the scroll");
-        t.Check(LegacyWindowTestKit.Click(p,new(20,40),cmd)&&p.SelectedLevel==0,"click on the level strip is swallowed but not mapped (待驗證)");
+        t.Check(LegacyWindowTestKit.Click(p,new(20,40),cmd)&&p.SelectedLevel==0,"click on the first segment of the level strip → level 1 (R4-B)");
         LegacyWindowTestKit.Click(p,new(185,20),cmd);
         t.Check(!p.Visible&&cmd.Calls.Count==0,"close hides, nothing sent");
 

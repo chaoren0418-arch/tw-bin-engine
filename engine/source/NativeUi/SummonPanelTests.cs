@@ -87,42 +87,42 @@ static class SummonPanelTests {
 
         // 3. 可見性：宿主有請求且在世界中才顯示。
         p.Update(World);t.Check(!p.Visible,"hidden without a request");
-        host.State=new(true,5,"server",12,25,true);
+        host.State=new(true,5,"server",28,25,true);
         p.Update(new UiStaticGameState());t.Check(!p.Visible,"hidden outside the world");
         p.Update(World);t.Check(p.Visible,"visible for an open request");
 
-        // 4. 互動：等級 → 怪物 → 確定；等級不足的怪物不能選。
-        Click(p,Center(p.PartRect("ok")),cmd);t.Equal(0,host.Calls.Count,"ok disabled before a selection");
+        // 4. 互動（R9-M #857 起：點怪物＝立即召喚並關窗、OK＝只關窗；停用＝等級公式或魅力。細節見 SummonWindowTests）。
+        Click(p,Center(p.PartRect("ok")),cmd);
+        t.Equal("close:5",host.Calls.LastOrDefault(),"ok only closes (sub_C006E0)");t.Check(!p.Visible,"hidden after ok");
+        host.State=host.State with{Revision=6};p.Update(World);
         Click(p,Center(p.PartRect("level:11")),cmd);
         t.Equal((int?)10,p.SelectedLevel,"last level button = lowest summonList level (buttons run high → low)");
         t.Check(p.HitKey(Center(p.PartRect("cancel")))=="back","back replaces cancel in the monster list");
         Click(p,Center(p.PartRect("monster:1")),cmd);
-        t.Equal("263",p.Selected?.Action,"monster slot 1 = second monster of the level");
-        Click(p,Center(p.PartRect("ok")),cmd);
-        t.Equal("choose:5:263",host.Calls.LastOrDefault(),"ok sends the selected action for the shown request");
-        Click(p,Center(p.PartRect("back")),cmd);t.Check(p.SelectedLevel==null&&p.Selected==null,"back returns to the level list");
+        t.Equal("choose:6:263",host.Calls.LastOrDefault(),"click on monster slot 1 summons the second monster of the level");
+        t.Check(!p.Visible,"…and closes the window");
+        host.State=host.State with{Revision=7};p.Update(World);
+        t.Check(p.Visible&&p.SelectedLevel==null,"new request revision shows again with the selection reset");
         Click(p,Center(p.PartRect("level:0")),cmd);
         t.Equal((int?)32,p.SelectedLevel,"first button = highest level");
         Click(p,Center(p.PartRect("monster:0")),cmd);
-        t.Check(p.Selected==null,"monster above the character level cannot be selected");
+        t.Check(host.Calls.Count(c=>c.StartsWith("choose"))==1&&p.Visible,"monster failing the level formula cannot be summoned");
         t.Check(p.HitKey(Center(p.PartRect("monster:1")))==null,"empty slot not clickable");
         // Down 與 Up 在不同元件上不觸發。
-        Click(p,Center(p.PartRect("back")),cmd);
+        Click(p,Center(p.PartRect("back")),cmd);t.Check(p.SelectedLevel==null,"back returns to the level list");
         p.Mouse(M(UiMouseKind.Down,Center(p.PartRect("level:0")).X,Center(p.PartRect("level:0")).Y),cmd);p.Mouse(M(UiMouseKind.Up,Center(p.PartRect("level:1")).X,Center(p.PartRect("level:1")).Y),cmd);
         t.Check(p.SelectedLevel==null,"press and release on different buttons does nothing");
         t.Check(p.Mouse(M(UiMouseKind.Down,41,140),cmd),"click inside the window is consumed");
-        t.Check(p.HitKey(Center(p.PartRect("quick:0")))==null,"quick slots are not clickable (content unverified)");
-        // 新請求重置選擇；取消送 Close 並立即隱藏。
-        Click(p,Center(p.PartRect("level:0")),cmd);host.State=host.State with{Revision=6};p.Update(World);
-        t.Check(p.SelectedLevel==null,"new request revision resets the selection");
+        t.Equal("quick:0",p.HitKey(Center(p.PartRect("quick:0"))),"quick slots are hit targets (R9-M: press summons, drop target)");
+        // 取消送 Close 並立即隱藏。
         Click(p,Center(p.PartRect("cancel")),cmd);
-        t.Equal("close:6",host.Calls.LastOrDefault(),"cancel closes the shown request");
+        t.Equal("close:7",host.Calls.LastOrDefault(),"cancel closes the shown request");
         t.Check(!p.Visible,"hidden immediately after cancel");
-        host.State=host.State with{Revision=7};p.Update(World);t.Check(p.Visible,"next request shows again");
-        Click(p,Center(p.PartRect("close")),cmd);t.Equal("close:7",host.Calls.LastOrDefault(),"close button closes");
-        host.State=host.State with{Revision=8,CanSend=false};p.Update(World);
-        Click(p,Center(p.PartRect("level:0")),cmd);Click(p,Center(p.PartRect("monster:0")),cmd);Click(p,Center(p.PartRect("ok")),cmd);
-        t.Check(host.Calls.Count(c=>c.StartsWith("choose"))==1,"ok refused while the host cannot send");
+        host.State=host.State with{Revision=8};p.Update(World);t.Check(p.Visible,"next request shows again");
+        Click(p,Center(p.PartRect("close")),cmd);t.Equal("close:8",host.Calls.LastOrDefault(),"close button closes");
+        host.State=host.State with{Revision=9,CanSend=false};p.Update(World);
+        Click(p,Center(p.PartRect("level:11")),cmd);Click(p,Center(p.PartRect("monster:0")),cmd);
+        t.Check(host.Calls.Count(c=>c.StartsWith("choose"))==1&&p.Visible,"no summon (window stays) while the host cannot send");
 
         // 5. 拖曳：上方 Moveable 高度是拖曳區（關閉鈕除外）。
         t.Check(p.IsDragHandle(new(50,35))&&!p.IsDragHandle(new(50,50))&&!p.IsDragHandle(Center(p.PartRect("close"))),"drag strip = top 12 px except close button");
@@ -130,8 +130,9 @@ static class SummonPanelTests {
         t.Equal(new Rectangle(105,247,18,18),p.PartRect("monster:0"),"children follow the window");
         p.MoveTo(new(40,30));
 
-        // 6. 繪製：1:1 原圖；選取格疊 OverSurf；缺 surf 不畫。
+        // 6. 繪製：1:1 原圖；滑鼠移上去的格疊 OverSurf（R9-M：不是選取）；缺 surf 不畫。
         Click(p,Center(p.PartRect("back")),cmd);Click(p,Center(p.PartRect("level:11")),cmd);
+        p.Mouse(M(UiMouseKind.Move,41,140),cmd);t.Check(p.Hover==null,"mouse away from the slots: no hover");
         using(var canvas=new UiCanvas()){
             canvas.Clear(Color.Black);canvas.Restrict(p.Bounds);p.Paint(canvas);
             t.Equal(Color.FromArgb(unchecked((int)Gray)).ToArgb(),canvas.Bitmap.GetPixel(40,30).ToArgb(),"window base drawn at origin");
@@ -140,9 +141,9 @@ static class SummonPanelTests {
             t.Equal(Color.FromArgb(unchecked((int)Red)).ToArgb(),canvas.Bitmap.GetPixel(64,78).ToArgb(),"slot of a monster whose surf is missing shows only the slot base");
             t.Equal(Color.FromArgb(unchecked((int)Red)).ToArgb(),canvas.Bitmap.GetPixel(60,80).ToArgb(),"unselected slot: no OverSurf");
         }
-        Click(p,Center(p.PartRect("monster:0")),cmd);
+        p.Mouse(M(UiMouseKind.Move,Center(p.PartRect("monster:0")).X,Center(p.PartRect("monster:0")).Y),cmd);
         using(var canvas=new UiCanvas()){canvas.Clear(Color.Black);canvas.Restrict(p.Bounds);p.Paint(canvas);
-            t.Equal(Color.FromArgb(unchecked((int)White)).ToArgb(),canvas.Bitmap.GetPixel(60,80).ToArgb(),"selected slot shows OverSurf");
+            t.Equal(Color.FromArgb(unchecked((int)White)).ToArgb(),canvas.Bitmap.GetPixel(60,80).ToArgb(),"hovered slot shows OverSurf");
             t.Equal(Color.FromArgb(unchecked((int)Green)).ToArgb(),canvas.Bitmap.GetPixel(46,78).ToArgb(),"monster surf stays above OverSurf");}
 
         // 7. 缺視窗底圖：面板停用（不畫替代圖），其他面板不受影響。
@@ -165,8 +166,9 @@ static class SummonPanelTests {
         root.Update(World);var cmd=new UiNullCommands();
         void Save(string suffix){using var canvas=new UiCanvas();root.Compose(canvas,null);string path=Path.ChangeExtension(output,null)+suffix+".png";Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(path))!);canvas.Bitmap.Save(path,ImageFormat.Png);}
         Save("-levels");
-        Click(p,Center(p.PartRect("level:11")),cmd);Save("-level28");Click(p,Center(p.PartRect("monster:0")),cmd);Save("-level28-selected");
-        t.Equal("7",p.Selected?.Action,"real client: first monster of level 28 is action 7");
+        Click(p,Center(p.PartRect("level:11")),cmd);Save("-level28");
+        var first=Center(p.PartRect("monster:0"));p.Mouse(M(UiMouseKind.Move,first.X,first.Y),cmd);Save("-level28-hover");
+        t.Equal("7",p.Monsters.First(m=>m.Level==28).Action,"real client: first monster of level 28 is action 7");
         var rects=new[]{"close","ok","cancel","quick:0","quick:1","quick:2","level:0","level:1","level:11","monster:0","monster:5"}.ToDictionary(k=>k,k=>p.PartRect(k).ToString());
         File.WriteAllText(Path.ChangeExtension(output,null)+"-rects.json",System.Text.Json.JsonSerializer.Serialize(new{bounds=p.Bounds.ToString(),rects},new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));
     }

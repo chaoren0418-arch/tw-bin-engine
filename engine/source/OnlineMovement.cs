@@ -40,7 +40,7 @@ public sealed partial class WorldSession {
 }
 public sealed record MovementAttempt(bool Sent,string Notice);
 public sealed partial class LoginConnection {
-    public LoginConnection(){World.SpeedChanged+=ExtendMovementCooldown;World.SpeedChanged+=ExtendActionCooldown;World.ActionClock=()=>ActionClock();World.PickupSessionGeneration=()=>generation;}
+    public LoginConnection(){World.SpeedChanged+=ExtendMovementCooldown;World.SpeedChanged+=ExtendActionCooldown;World.ActionClock=()=>ActionClock();World.PickupSessionGeneration=()=>generation;World.OwnClassSource=()=>SelectedCharacterClass;}
     internal Func<long> MovementClock=()=>Environment.TickCount64;
     // Record every authoritative slowdown, even if it reverts before the next UI poll.
     void ExtendMovementCooldown(){if(lastMovementAt>=0&&World.MovementIntervalMs is int interval)nextMovementAt=Math.Max(nextMovementAt,lastMovementAt+interval);}

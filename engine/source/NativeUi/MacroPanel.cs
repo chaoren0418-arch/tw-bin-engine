@@ -5,9 +5,14 @@ namespace P06.NativeUi;
 /// Frame 3176 at (643,476); 8 slots on F5–F12 in 4 columns × 2 rows, pitch 34 (TW16 sub_ED33F0 / TW13 sub_783A90);
 /// 3 tabs (TAB_BUTTON actions 10–12, also F1–F3); SELECT_MARK 2331; MACRO_LOCK (ONOFF_BUTTON action 8).
 /// The menu buttons of the same window (BUTTON_2STAGE_LIST, y=91) belong to ui-menu-buttons and are not drawn here.
+/// <para>R7-O (T353/#816, gap-matrix 15.2 point 3): when WidgetSlot.xml is found (main Tile.pak, else the reference client
+/// through UiXmlSource.Reference) the box also draws CornerFrame (surf 3292), replaces the MACRO_LOCK padlock by the XML
+/// ButtonLock (BaseSurf 3293 / PushSurf 3294) and draws ButtonMode (BasePng 3350 / PushPng 3351 via OptionPngSource).
+/// That TW16 reads WidgetSlot.xml is 推測 (the file name is not in the BIN XML table); the look is confirmed on the real
+/// client (M30). Without the file (synthetic tests, no reference client) the uistatus86 look is kept unchanged.</para>
 /// </summary>
-public sealed class MacroPanel:IUiPanel {
-    [UiPanel(80)] internal static UiPanelRegistration Registration=>new(MacroPanel.WindowId,"uistatus86",_=>new MacroPanel());   // ui-macro-bar #466 (RIGHT_WINDOW last of the bar: MACRO_LOCK overlaps BAR_485)
+public sealed class MacroPanel(UiResources? resources=null):IUiPanel {
+    [UiPanel(80)] internal static UiPanelRegistration Registration=>new(MacroPanel.WindowId,"uistatus86",root=>new MacroPanel(root.Resources));   // ui-macro-bar #466 (RIGHT_WINDOW last of the bar: MACRO_LOCK overlaps BAR_485)
     public const string WindowId="RIGHT_WINDOW";
     /// <summary>Slot pitch in both directions and columns per row (V5 (a), verified).</summary>
     public const int Pitch=34,Columns=4;
@@ -30,6 +35,7 @@ public sealed class MacroPanel:IUiPanel {
     Rectangle lockRect;
     Tab[] tabs=[];
     IUiMacroState? macro;bool inWorld;
+    WidgetSlotWindow? widget;bool modePressed;
 
     public string Id=>WindowId;
     public UiLayer Layer=>UiLayer.Bar;
@@ -41,29 +47,56 @@ public sealed class MacroPanel:IUiPanel {
     public Point IconOrigin=>iconAt;
     public Point SelectOrigin=>selectAt;
     public IReadOnlyList<Rectangle> TabRects=>tabs.Select(t=>t.Rect).ToArray();
+    /// <summary>WidgetSlot.xml look in use (R7-O); null = uistatus86 look (file absent or refused, see WidgetStatus).</summary>
+    public WidgetSlotWindow? Widget=>widget;
+    /// <summary>"absent", "refused: …" or the XML file name actually used.</summary>
+    public string WidgetStatus{get;private set;}="absent";
+    /// <summary>Surf / png ids of the current lock button: (3191,3192) uistatus86, (3293,3294) WidgetSlot.</summary>
+    public (int Locked,int Unlocked) LockImages{get;private set;}
+    public bool ModePressed=>modePressed;
 
     public void Load(UiLayout layout,SurfCatalog surfs){
+        var (xml,png,error)=WidgetSlotLayout.Open(resources,WidgetSlotLayout.MainFile);
+        Load(layout,surfs.Get,xml,png,error);
+    }
+
+    /// <summary>Offline checks: images from the caller; widgetXml null = uistatus86 look only.</summary>
+    internal void Load(UiLayout layout,Func<int,UiSurface?> surf,UiLayout? widgetXml,Func<int,UiSurface?> png,string? readError=null){
+        widget=null;modePressed=false;WidgetStatus=readError==null?"absent":"refused: "+readError;
         var w=layout.Root.Child(WindowId);int x=w.Int("x"),y=w.Int("y");
         var frameNode=w.Child("MACRO_MAIN_WINDOW/MACRO_FRAME");
-        frame=surfs.Get(MacroLayout.FirstSurf(frameNode));frameAt=MacroLayout.At(frameNode,x,y);
-        var mark=w.Child("ETC/SELECT_MARK");selectMark=surfs.Get(MacroLayout.FirstSurf(mark));selectAt=MacroLayout.At(mark,x,y);
+        int frameSurf=MacroLayout.FirstSurf(frameNode);
+        frame=surf(frameSurf);frameAt=MacroLayout.At(frameNode,x,y);
+        var mark=w.Child("ETC/SELECT_MARK");selectMark=surf(MacroLayout.FirstSurf(mark));selectAt=MacroLayout.At(mark,x,y);
         iconAt=MacroLayout.At(w.Child("ETC/MACRO_ICON"),x,y);   // surfNumber="" here: the icon is chosen at runtime
         var tabNodes=w.Child("BUTTON_TAB_LIST").ChildrenNamed("TAB_BUTTON").Where(n=>n.Attr("title")=="MACRO_SELECT").ToArray();
         var list=new List<Tab>();
         foreach(var n in tabNodes){
             int page=n.Int("action")-FirstTabAction;
             if(page is <0 or >=MacroBook.PageCount||list.Any(t=>t.Page==page))throw new UiLayoutException(layout.FileName,n.Path,$"MACRO_SELECT action {page+FirstTabAction} 不在 10–12 或重複");
-            int a=MacroLayout.FirstSurf(n);var normal=surfs.Get(a);var at=MacroLayout.At(n,x,y);
-            list.Add(new(page,MacroLayout.Rect(at,normal),normal,surfs.Get(a+TabSelectedOffset)));
+            int a=MacroLayout.FirstSurf(n);var normal=surf(a);var at=MacroLayout.At(n,x,y);
+            list.Add(new(page,MacroLayout.Rect(at,normal),normal,surf(a+TabSelectedOffset)));
         }
         if(list.Count!=MacroBook.PageCount)throw new UiLayoutException(layout.FileName,w.Path+"/BUTTON_TAB_LIST",$"MACRO_SELECT 分頁鈕應有 {MacroBook.PageCount} 個，實際 {list.Count}");
         tabs=list.OrderBy(t=>t.Page).ToArray();
         var locks=w.Child("BUTTON_ONOFF_LIST").ChildrenNamed("ONOFF_BUTTON").Where(n=>n.Attr("title")=="MACRO_LOCK").ToArray();
         if(locks.Length!=1)throw new UiLayoutException(layout.FileName,w.Path+"/BUTTON_ONOFF_LIST","MACRO_LOCK 應恰有 1 個");
-        int lockSurf=MacroLayout.FirstSurf(locks[0]);lockClosed=surfs.Get(lockSurf);lockOpen=surfs.Get(lockSurf+LockOpenOffset);
+        int lockSurf=MacroLayout.FirstSurf(locks[0]);lockClosed=surf(lockSurf);lockOpen=surf(lockSurf+LockOpenOffset);
         lockRect=MacroLayout.Rect(MacroLayout.At(locks[0],x,y),lockClosed??lockOpen);
+        LockImages=(lockSurf,lockSurf+LockOpenOffset);
         // MACRO_LOCK sits at xRPos=-9, i.e. left of the frame (over the BAR_485 slot's last 9 columns), so Bounds is the union.
         Bounds=MacroLayout.Union(FrameRect,lockRect);
+        if(widgetXml==null)return;
+        try{widget=WidgetSlotWindow.Parse(widgetXml,WidgetSlotLayout.MainWindow,frameAt,frameSurf,surf,png);}
+        catch(UiLayoutException ex){WidgetStatus="refused: "+ex.Message;UiResourceLog.Write($"widget-slot {widgetXml.FileName} 不符，維持 uistatus86 外觀：{ex.Message}");return;}
+        WidgetStatus=widgetXml.FileName;
+        if(widget.Lock is {} l){
+            // ButtonLock replaces MACRO_LOCK: Base = locked, Push = unlocked (3293 shows a closed shackle, 3294 an open one;
+            // same order as 3191/3192 — 推測 from the image content, the BIN lock state is not traced).
+            lockClosed=l.Base;lockOpen=l.Push;lockRect=l.Rect;LockImages=(l.BaseRef.Id,l.PushRef?.Id??0);
+        }
+        Bounds=new[]{lockRect,widget.CornerRect,widget.Mode?.Rect??Rectangle.Empty}.Aggregate(FrameRect,MacroLayout.Union);
+        if(widget.Missing.Count>0)UiResourceLog.Write($"widget-slot {widgetXml.FileName} 缺圖不畫：{string.Join("、",widget.Missing)}");
     }
 
     public void Update(IUiGameState state){inWorld=state.InWorld;macro=MacroBook.StateOf(state);}
@@ -85,11 +118,15 @@ public sealed class MacroPanel:IUiPanel {
         for(int k=0;k<MacroBook.SlotsPerPage;k++)MacroLayout.PaintSlot(canvas,macro,book.Binding(book.Page,k),SlotIcon(k),SlotMark(k));
         if(!book.SelectionInExtended){var m=SlotMark(book.Selected);canvas.DrawSurface(selectMark,m.X,m.Y);}
         canvas.DrawSurface(book.Locked?lockClosed:lockOpen,lockRect.X,lockRect.Y);
+        // WidgetSlot.xml order after the lock: CornerFrame, then ButtonMode (child order = draw order, 推測).
+        if(widget!=null){canvas.DrawSurface(widget.Corner,widget.CornerRect.X,widget.CornerRect.Y);widget.Mode?.Paint(canvas,modePressed);}
     }
 
     public bool Mouse(UiMouseEvent e,IUiCommands commands){
+        if(e.Kind==UiMouseKind.Up&&modePressed){modePressed=false;return true;}
         if(macro==null||e.Kind!=UiMouseKind.Down||e.Button!=MouseButtons.Left)return false;
         var book=macro.Macros;
+        if(widget?.Mode is {} mode&&mode.Hit(e.Location)){modePressed=true;WidgetSlotLayout.ModeChangeNotWired(WidgetSlotLayout.MainFile);return true;}
         if(!lockRect.IsEmpty&&lockRect.Contains(e.Location)){book.ToggleLock();return true;}
         foreach(var t in tabs)if(!t.Rect.IsEmpty&&t.Rect.Contains(e.Location)){book.SetPage(t.Page);return true;}
         int k=SlotAt(e.Location);if(k<0)return false;
@@ -138,5 +175,108 @@ static class MacroLayout {
             string text=Math.Min(count,MacroPanel.CountCap).ToString(System.Globalization.CultureInfo.InvariantCulture);
             canvas.DrawText(text,mark.X+27-5*text.Length,mark.Y+22,MacroPanel.CountColor,MacroPanel.CountShadow);
         }
+    }
+}
+
+/// <summary>A Button of WidgetSlot.xml / WidgetSubSlot.xml: Base / Push image (surf or png), hit rect = image size.</summary>
+public sealed record WidgetSlotButton(string Name,Rectangle Rect,OptionImageRef BaseRef,UiSurface? Base,OptionImageRef? PushRef,UiSurface? Push,string? MouseEvent) {
+    public bool Hit(Point p)=>!Rect.IsEmpty&&Rect.Contains(p);
+    /// <summary>Pressed draws Push when it exists, otherwise Base (the same button, not a substitute image).</summary>
+    public void Paint(UiCanvas canvas,bool pressed){var s=pressed&&Push!=null?Push:Base;canvas.DrawSurface(s,Rect.X,Rect.Y);}
+}
+
+/// <summary>
+/// R7-O (T353/#816): the parts of WidgetSlot.xml ("Slotwindow") / WidgetSubSlot.xml ("SubSlotWindow") the engine draws on top
+/// of the uistatus86 boxes. Coordinates are relative to the Window (X/Y of the children are added to the Window X/Y). The
+/// Window must sit where the uistatus86 frame sits and use the same BaseSurf, otherwise the file is refused (no mixing of two
+/// layouts). Slots, tabs and the select mark stay on uistatus86 (same surfs, see gap-matrix 15.2 point 3).
+/// </summary>
+public sealed class WidgetSlotWindow {
+    public string File{get;}
+    public Point Origin{get;}
+    /// <summary>Image "CornerFrame" (Surf 3292 in kor25); null when the XML has none.</summary>
+    public OptionImageRef? CornerRef{get;}
+    public UiSurface? Corner{get;}
+    public Rectangle CornerRect{get;}
+    /// <summary>Button "ButtonLock" (BaseSurf / PushSurf).</summary>
+    public WidgetSlotButton? Lock{get;}
+    /// <summary>Button "ButtonMode" (BasePng / PushPng, MouseEvent ModeChange — behaviour not wired, M30).</summary>
+    public WidgetSlotButton? Mode{get;}
+    /// <summary>"surf 3292 (…/Image[0])" for images named in the XML but not found (not drawn).</summary>
+    public IReadOnlyList<string> Missing{get;}
+
+    WidgetSlotWindow(string file,Point origin,OptionImageRef? cornerRef,UiSurface? corner,Rectangle cornerRect,WidgetSlotButton? lockButton,WidgetSlotButton? mode,IReadOnlyList<string> missing){
+        File=file;Origin=origin;CornerRef=cornerRef;Corner=corner;CornerRect=cornerRect;Lock=lockButton;Mode=mode;Missing=missing;
+    }
+
+    public static WidgetSlotWindow Parse(UiLayout layout,string windowName,Point expectedOrigin,int expectedBaseSurf,Func<int,UiSurface?> surf,Func<int,UiSurface?> png){
+        var w=layout.Root.Child("Window");
+        if(w.Attr("Name")!=windowName)throw new UiLayoutException(layout.FileName,w.Path,$"Window Name 不是 {windowName}");
+        var origin=new Point(w.Int("X"),w.Int("Y"));
+        if(origin!=expectedOrigin)throw new UiLayoutException(layout.FileName,w.Path,$"Window 位置 {origin} 與 uistatus86 框 {expectedOrigin} 不同");
+        var baseRef=OptionPanel.ImageAttr(w,"BaseSurf");
+        if(baseRef?.Id!=expectedBaseSurf)throw new UiLayoutException(layout.FileName,w.Path,$"BaseSurf {baseRef?.Id.ToString()??"（無）"} 與 uistatus86 框 {expectedBaseSurf} 不同");
+        var missing=new List<string>();
+        UiSurface? Resolve(OptionImageRef? r,string path){
+            if(r==null)return null;
+            var s=r.IsSurf?surf(r.Id):png(r.Id);
+            if(s==null)missing.Add($"{r} ({path})");
+            return s;
+        }
+        Point At(UiNode n)=>new(origin.X+(n.TryInt("X")??0),origin.Y+(n.TryInt("Y")??0));
+        OptionImageRef? cornerRef=null;UiSurface? corner=null;Rectangle cornerRect=Rectangle.Empty;
+        if(Named(w,"Image","CornerFrame") is {} c){
+            cornerRef=OptionPanel.ImageAttr(c,"Surf")??throw new UiLayoutException(layout.FileName,c.Path,"CornerFrame 沒有 Surf");
+            corner=Resolve(cornerRef,c.Path);cornerRect=MacroLayout.Rect(At(c),corner);
+        }
+        WidgetSlotButton? Button(string name,string baseAttr,string pushAttr){
+            if(Named(w,"Button",name) is not {} b)return null;
+            var br=OptionPanel.ImageAttr(b,baseAttr)??throw new UiLayoutException(layout.FileName,b.Path,$"{name} 沒有 {baseAttr}");
+            var pr=OptionPanel.ImageAttr(b,pushAttr);
+            var bs=Resolve(br,b.Path+"/@"+baseAttr);var ps=Resolve(pr,b.Path+"/@"+pushAttr);
+            return new(name,MacroLayout.Rect(At(b),bs??ps),br,bs,pr,ps,b.Attr("MouseEvent"));
+        }
+        var lockButton=Button("ButtonLock","BaseSurf","PushSurf");
+        var mode=Button("ButtonMode","BasePng","PushPng");
+        return new(layout.FileName,origin,cornerRef,corner,cornerRect,lockButton,mode,missing);
+    }
+
+    /// <summary>Direct child &lt;element Name="name"&gt;; absent → null, more than one → UiLayoutException.</summary>
+    static UiNode? Named(UiNode w,string element,string name){
+        var found=w.ChildrenNamed(element).Where(n=>n.Attr("Name")==name).Take(2).ToArray();
+        if(found.Length>1)throw new UiLayoutException(w.Layout.FileName,found[1].Path,$"{element} {name} 重複");
+        return found.Length==1?found[0]:null;
+    }
+}
+
+/// <summary>Reading WidgetSlot.xml / WidgetSubSlot.xml (R7-O) for the macro panels.</summary>
+public static class WidgetSlotLayout {
+    public const string MainFile="WidgetSlot",SubFile="WidgetSubSlot",MainWindow="Slotwindow",SubWindow="SubSlotWindow";
+    /// <summary>ButtonMode's MouseEvent; the slot-mode switch it triggers is not traced (真機再決定, M30).</summary>
+    public const string ModeChangeEvent="ModeChange";
+    static readonly HashSet<string> reported=new(StringComparer.Ordinal);
+
+    /// <summary>
+    /// Main Tile.pak ("-c" then plain), then the reference client (UiXmlSource order). Absent → (null, no png, null);
+    /// unreadable / malformed → (null, no png, reason) and one log line. Pngs go through OptionPngSource (local Sprite, then reference).
+    /// </summary>
+    public static (UiLayout? Layout,Func<int,UiSurface?> Png,string? Error) Open(UiResources? resources,string baseName){
+        Func<int,UiSurface?> none=_=>null;
+        if(resources==null)return (null,none,null);
+        try{
+            if(resources.Xml.TryReadPlain(baseName) is not {} found)return (null,none,null);
+            var layout=UiLayout.Parse(UiXmlSource.DecodeText(found.Plain,found.ResolvedName),found.ResolvedName);
+            var png=new OptionPngSource(resources.Sprites,resources.Xml.Reference);
+            UiResourceLog.Write($"widget-slot {baseName} -> {found.ResolvedName}");
+            return (layout,png.Get,null);
+        }catch(IOException ex){
+            UiResourceLog.Write($"widget-slot {baseName} 無法讀取，維持 uistatus86 外觀：{ex.Message}");
+            return (null,none,ex.Message);
+        }
+    }
+
+    internal static void ModeChangeNotWired(string file){
+        lock(reported)if(!reported.Add(file))return;
+        UiResourceLog.Write($"widget-slot {file} {ModeChangeEvent} 尚未接上（行為待真機確認 M30）");
     }
 }

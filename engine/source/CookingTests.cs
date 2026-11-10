@@ -40,13 +40,13 @@ static class CookingTests {
         t.Equal(2547,snap.GetProperty("levelSurf").GetInt32(),"snapshot level surf");
         t.Check(snap.GetProperty("magicMatches381").GetBoolean(),"snapshot magic matches 3.81");
 
-        // 4. 已開時再收到：切換到新等級（推定）。
+        // 4. 已開時再收到不同等級：切換到新等級（PBW§2.3）。
         s.Receive(Cook(1,4),"");
         t.Check(s.CookBook is {Open:true,Level:5},"second open switches level",s.CookBook);
         t.Check(s.CookBook.Revision>book.Revision,"revision advances");
 
         // 5. 第二欄不是 1：不開窗、不改等級（推定）。
-        s.CloseCookBook();
+        s.CloseCookBook(s.CookBook.Revision);
         s.Receive(Cook(0,7),"");
         t.Check(s.CookBook is {Open:false,Level:5},"open flag 0 does not open or change level",s.CookBook);
         t.Equal(0,Unhandled(s,"0xFA/0x34"),"flag 0 still consumed");
@@ -57,9 +57,9 @@ static class CookingTests {
         t.Check(!Snap(s).GetProperty("magicMatches381").GetBoolean(),"snapshot flags magic mismatch");
 
         // 7. 本機關窗。
-        t.Check(s.CloseCookBook(),"close open window");
+        t.Check(s.CloseCookBook(s.CookBook.Revision),"close open window");
         t.Check(!s.CookBook.Open,"closed");
-        t.Check(!s.CloseCookBook(),"close twice is no-op");
+        t.Check(!s.CloseCookBook(s.CookBook.Revision),"close twice is no-op");
 
         // 8. 長度錯誤。
         t.Throws<ProtocolException>(()=>s.Receive([250,52,0xdb,0x31,0xdf,0x02,0x01],""),"truncated rejected");

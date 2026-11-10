@@ -7,16 +7,26 @@ namespace P06;
 // 原版 sub_99B430 一次送 255＋合併位元，再送 6、9、10；3.81 不處理 9、10，所以本引擎只送 255 與 6。
 // 推定（未實機對包）：合併位元 bit0＝全體、bit2＝密語，其餘位元固定為 0x5A（伺服器接受的 90–95 區段）；
 // 0x20 位元（122–127 區段）的原版意義未查，不送。
-// 聊天列 `/on 頻道`、`/off 頻道` 的確切語法原版未查（protocol-gaps 只記字串 401「開」／402「關」），本檔的指令格式是推定；
-// 本任務只提供協定、資料與 LoginConnection API，聊天輸入框的接線留給後續任務（PlayerChat.cs 不在本任務範圍）。
+// R6-E（T335／#781，FU7§1.4）：聊天列指令改成原版語法「頻道指令＋參數」（sub_F56320 註冊；參數 on／off 用 stricmp，或字串 401「開」／402「關」）：
+//   /whisper、/悄悄話（369）→ C26 type 2；/tradechat → type 6；/receive、/收到（508）→ type 3（3.81 C26 不處理 3，只在本機回報，不送）。
+//   舊的 `/on 頻道`、`/off 頻道` 不是原版指令，已移除（主控裁定）。LoginConnection.SendPlayerChat 先用 ChatChannelCommands.IsCommand 判斷。
 public enum ChatChannelKind : byte { World=0, Whisper=2, Trade=6 }
 
-public readonly record struct ChatChannelSettings(bool World,bool Whisper,bool Trade) {
+/// <summary>
+/// TWCC v2 的選項位元組。AcceptTrade＝交易詢問旗標 byte_136E99D（FU7§1.1，預設 1）：原版從角色設定的位元 0x40 讀（sub_999B50），
+/// 本引擎跟 C244 角色設定一起存，同樣用 0x40；另用 0x20 標示「記錄過」，所以舊的 v2 資料（沒有 0x20）照預設 1 處理。null＝沒記錄過。
+/// </summary>
+public readonly record struct ChatChannelSettings(bool World,bool Whisper,bool Trade,bool? AcceptTrade=null) {
     public static ChatChannelSettings Default=>new(true,true,true);
-    /// <summary>TWCC v2 保存位元：bit0 全體、bit1 密語、bit2 買賣；其他位元必須為 0。</summary>
-    public const byte StoredMask=0x07;
-    public byte Flags=>(byte)((World?1:0)|(Whisper?2:0)|(Trade?4:0));
-    public static ChatChannelSettings? FromFlags(byte flags)=>(flags&~StoredMask)!=0?null:new((flags&1)!=0,(flags&2)!=0,(flags&4)!=0);
+    public const byte AcceptTradeRecorded=0x20,AcceptTradeBit=0x40;
+    /// <summary>TWCC v2 保存位元：bit0 全體、bit1 密語、bit2 買賣、0x20 交易旗標已記錄、0x40 交易詢問；其他位元必須為 0。</summary>
+    public const byte StoredMask=0x07|AcceptTradeRecorded|AcceptTradeBit;
+    public bool AcceptsTrade=>AcceptTrade??true;
+    public byte Flags=>(byte)((World?1:0)|(Whisper?2:0)|(Trade?4:0)|(AcceptTrade is bool a?AcceptTradeRecorded|(a?AcceptTradeBit:0):0));
+    public static ChatChannelSettings? FromFlags(byte flags){
+        if((flags&~StoredMask)!=0||(flags&(AcceptTradeRecorded|AcceptTradeBit))==AcceptTradeBit)return null;
+        return new((flags&1)!=0,(flags&2)!=0,(flags&4)!=0,(flags&AcceptTradeRecorded)!=0?(flags&AcceptTradeBit)!=0:null);
+    }
     public bool Get(ChatChannelKind kind)=>kind switch{ChatChannelKind.World=>World,ChatChannelKind.Whisper=>Whisper,ChatChannelKind.Trade=>Trade,_=>throw new ArgumentOutOfRangeException(nameof(kind))};
     public ChatChannelSettings With(ChatChannelKind kind,bool on)=>kind switch{
         ChatChannelKind.World=>this with{World=on},ChatChannelKind.Whisper=>this with{Whisper=on},ChatChannelKind.Trade=>this with{Trade=on},
@@ -57,28 +67,35 @@ public static class ChatChannelPackets {
     }
 }
 
-public sealed record ChatChannelCommand(ChatChannelKind Channel,bool On);
+/// <summary>Type＝原版 C_ONOFF（184）的類型：2 密語、6 買賣、3 收到。Channel 是 3.81 C26 會處理的頻道；3 沒有（伺服器忽略）。</summary>
+public sealed record ChatChannelCommand(byte Type,bool On) {
+    public const byte ReceiveType=3;
+    public ChatChannelKind? Channel=>Type is 2 or 6?(ChatChannelKind)Type:null;
+}
 
 public static class ChatChannelCommands {
-    // 字串 401「開」／402「關」（protocol-gaps §6）。原版在執行期從 Text.pak 讀；這裡只用兩個字作為回報文字。
+    // 字串 401「開」／402「關」（FU7§1.4）。原版在執行期從 Text.pak 讀；這裡寫死本機 string-c.tbl 的字。
     public const string OnText="開",OffText="關";
-    public const string Help="頻道開關：/on 頻道 或 /off 頻道（頻道：全體、密語、買賣）";
+    public const string Help="頻道開關：/whisper on 或 off（/悄悄話 開 或 關）、/tradechat on 或 off、/receive on 或 off（/收到）";
     public static string ChannelName(ChatChannelKind kind)=>kind switch{ChatChannelKind.World=>"全體",ChatChannelKind.Whisper=>"密語",ChatChannelKind.Trade=>"買賣",_=>"?"};
     public static string Describe(ChatChannelKind kind,bool on)=>$"{ChannelName(kind)}聊天：{(on?OnText:OffText)}";
-    static ChatChannelKind? Channel(string name)=>name switch{
-        "全體" or "全體聊天" or "&" or "world"=>ChatChannelKind.World,
-        "密語" or "密語頻道" or "\"" or "whisper"=>ChatChannelKind.Whisper,
-        "買賣" or "交易" or "買賣頻道" or "交易頻道" or "trade"=>ChatChannelKind.Trade,
-        _=>null};
-    /// <summary>是否為頻道開關指令（不含頻道名稱檢查）；聊天列可先用這個判斷要不要交給 SendChatChannelCommand。</summary>
-    public static bool IsCommand(string input)=>input is "/on" or "/off"||input.StartsWith("/on ",StringComparison.Ordinal)||input.StartsWith("/off ",StringComparison.Ordinal);
-    /// <summary>解析 `/on 頻道`／`/off 頻道`；不是指令回 null；是指令但頻道不明丟 ArgumentException。</summary>
+    public static string Describe(ChatChannelCommand c)=>c.Channel is {} kind?Describe(kind,c.On):$"收到頻道：{(c.On?OnText:OffText)}（3.81 伺服器不處理，未送出）";
+    // 英文名、字串表名 → C_ONOFF 類型（sub_F56320 的註冊；/tradechat 只有英文名）。
+    static byte? CommandType(string word)=>word.ToLowerInvariant() switch{
+        "whisper" or "悄悄話"=>2,"tradechat"=>6,"receive" or "收到"=>ChatChannelCommand.ReceiveType,_=>null};
+    static (string Word,string Argument) Split(string input){
+        int space=input.IndexOf(' ');
+        return space<0?(input[1..],""):(input[1..space],input[(space+1)..].Trim());
+    }
+    /// <summary>是否為頻道開關指令（不含參數檢查）；聊天列可先用這個判斷要不要交給 SendChatChannelCommand。</summary>
+    public static bool IsCommand(string input)=>input.Length>1&&input[0]=='/'&&CommandType(Split(input).Word)!=null;
+    /// <summary>解析 `/whisper on` 等；不是指令回 null；是指令但參數不是 on／off／開／關 丟 ArgumentException。</summary>
     public static ChatChannelCommand? Parse(string input){
         if(!IsCommand(input))return null;
-        bool on=input.StartsWith("/on",StringComparison.Ordinal);
-        string name=input[(on?3:4)..].Trim();
-        if(Channel(name.ToLowerInvariant()) is not {} kind)throw new ArgumentException(Help);
-        return new(kind,on);
+        var (word,argument)=Split(input);
+        bool on=string.Equals(argument,"on",StringComparison.OrdinalIgnoreCase)||argument==OnText;
+        if(!on&&!string.Equals(argument,"off",StringComparison.OrdinalIgnoreCase)&&argument!=OffText)throw new ArgumentException(Help);
+        return new(CommandType(word)!.Value,on);
     }
 }
 
@@ -135,11 +152,18 @@ public sealed partial class LoginConnection {
         if(PlayerHudActions.Current(this,stamp))ChatChannelNotice=saved?done+"（已保存到角色設定）":done+"（角色設定未保存，下次登入可能還原）";
         return true;
     }
-    /// <summary>聊天列指令入口：`/on 頻道`、`/off 頻道`。不是指令回 false 且不動作。</summary>
+    /// <summary>聊天列指令入口：`/whisper`、`/悄悄話`、`/tradechat`、`/receive`、`/收到` 加 on／off（或 開／關）。不是指令回 false 且不動作。</summary>
     public async Task<bool> SendChatChannelCommand(string text,PlayerHudStamp stamp){
+        ChatChannelNotice=""; // 每次指令重新給回報，不沿用上一次的文字。
         ChatChannelCommand? command;
         try{command=ChatChannelCommands.Parse(text);}
         catch(ArgumentException ex){ChatChannelNotice=ex.Message;return false;}
-        return command!=null&&await SetChatChannel(stamp,command.Channel,command.On);
+        if(command==null)return false;
+        // 收到頻道（type 3）：原版送 184／3，3.81 C26 不處理，所以不送，只回報（FU7§1.4）。
+        if(command.Channel is not {} kind){
+            if(!PlayerHudActions.Current(this,stamp))return false;
+            ChatChannelNotice=ChatChannelCommands.Describe(command);return true;
+        }
+        return await SetChatChannel(stamp,kind,command.On);
     }
 }

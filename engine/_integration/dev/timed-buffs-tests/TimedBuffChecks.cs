@@ -91,9 +91,11 @@ partial class Checks {
         PolyFeed(w,Liquor(123,0));Check(w.LiquorLevel==0,"TIMED S103 type 0 clears");
         PolyFeed(w,Liquor(456,1));Check(w.LiquorLevel==0,"TIMED S103 other object does not shake own screen");
         PolyFeed(w,Liquor(123,1));PolyFeed(w,Liquor(456,0));Check(w.LiquorLevel==1,"TIMED S103 other object does not clear own screen");
+        // R7-B (T341/#804), sub_9343C0: own type 8 sets +547 (third speed) and is then handled as type 0.
         int before=Unhandled(w,103);PolyFeed(w,Liquor(123,8));
-        Check(w.LiquorLevel==1&&Unhandled(w,103)==before+1,"TIMED S103 third-speed type 8 is not drunkenness and stays visible as unhandled");
-        PolyFeed(w,Liquor(456,8));Check(w.LiquorLevel==1&&Unhandled(w,103)==before+2,"TIMED S103 type 8 on other objects");
+        Check(w.OwnThirdSpeed&&w.LiquorLevel==0&&Unhandled(w,103)==before,"TIMED S103 own type 8 keeps +547 and is then handled as type 0");
+        PolyFeed(w,Liquor(123,1));Check(w.LiquorLevel==1&&w.OwnThirdSpeed,"TIMED S103 drinking keeps +547");
+        PolyFeed(w,Liquor(456,8));Check(w.LiquorLevel==1&&Unhandled(w,103)==before+1,"TIMED S103 type 8 on other objects stays unhandled");
 
         PolyFeed(w,Haste(456,1,300));Check(w.LiquorLevel==1,"TIMED S103 another object's haste keeps own state");
         PolyFeed(w,Haste(123,0,0));Check(w.LiquorLevel==1,"TIMED S103 haste ending keeps drunkenness");

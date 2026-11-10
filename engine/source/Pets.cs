@@ -85,6 +85,8 @@ public sealed partial class WorldSession {
     public string PetNotice {get{CheckPets();return petNotice;}}
     public PetBag? PetInventory(uint id){CheckPets();return petBags.TryGetValue(id,out var b)?b with{Items=b.Items.ToArray()}:null;}
     public PetInfo? PetInformation(uint id){CheckPets();return petInfo.GetValueOrDefault(id);}
+    /// <summary>唯讀：id 是否為自己目前的寵物／召喚物（同 CheckPets 規則；T250 PetEquipment.cs 使用）。</summary>
+    public bool IsOwnedCompanion(uint id){CheckPets();return objects.TryGetValue(id,out var o)&&OwnedCompanion(o);}
     public bool PetNearby(uint id)=>PetCompanions.Any(o=>o.ObjectId==id&&Actor is {} a&&Math.Abs(a.X-o.X)<=5&&Math.Abs(a.Y-o.Y)<=5);
     void ReceivePetList(LoginReader r) {
         var list=PetPackets.ReadList(r);CheckPets();
@@ -197,7 +199,7 @@ public sealed partial class LoginConnection {
                 byte[] bytes=PetPackets.SummonChoice(v.ObjectId,action);
                 return await sender(bytes,Valid,()=>CaptureWorld(()=>{World.SummonSubmitted(v.Revision,action);return true;}))&&session==SessionGeneration;
             }
-            if(v.Source!="local"||!CaptureWorld(()=>World.SelectMagic(51)))return false;
+            if(v.Source!="local"||!CaptureWorld(()=>World.RingSummonAllowed(action))||!CaptureWorld(()=>World.SelectMagic(51)))return false;   // T276：743 等級檢查（AbilityStatus.cs）
             bool cast=await CastSelectedMagic(new SkillCastTarget(SkillTargetKind.Summon,SummonId:uint.Parse(action)));
             if(cast&&session==SessionGeneration)CaptureWorld(()=>{World.SummonSubmitted(v.Revision,action);return true;});
             return cast&&session==SessionGeneration;

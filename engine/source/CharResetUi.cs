@@ -62,8 +62,62 @@ public sealed partial class ClientForm {
         int generation=login.SessionGeneration;
         BeginInvoke((Action)(()=>{
             if(IsDisposed||login.SessionGeneration!=generation||login.CharResetSnapshot().Phase!="initial"||OwnedForms.OfType<CharResetUi>().Any())return;
-            ClearInput("char-reset");LeaveGameFocus("char-reset");
-            using var dialog=new CharResetUi(login);dialog.ShowDialog(this);
+            // T325 (#763) native routing only: with the native UI on and ResetStatUI.xml usable, the native reset window takes
+            // the offer (same snapshot and SendCharReset path). Otherwise (--classic-ui, no reference client, faulted) the
+            // WinForms dialog below opens exactly as before.
+            if(NativeResetStat() is {} panel){
+                if(panel.Visible)return;
+                ClearInput("char-reset");
+                if(panel.Begin(new CharResetNativeHost(login))){WatchNativeResetStat(panel,login.CharResetSnapshot().Generation);return;}
+            }
+            OpenCharResetDialog();
         }));
     }
+    void OpenCharResetDialog(){
+        ClearInput("char-reset");LeaveGameFocus("char-reset");
+        using var dialog=new CharResetUi(login);dialog.ShowDialog(this);
+    }
+    P06.NativeUi.ResetStatPanel? NativeResetStat()=>NativeUiActive&&NativeUiRoot is {} root&&root.Find(P06.NativeUi.ResetStatPanel.PanelId) is P06.NativeUi.ResetStatPanel p&&p.Available&&!root.Faulted.Contains(p)?p:null;
+
+    /// <summary>
+    /// R7-N (#817): while the native reset window is open, check every 150 ms (the WinForms dialog's own timer interval) that it
+    /// is still usable. If it faults (UiRoot disables a panel whose Paint/Update/input throws) or the native UI goes away while
+    /// the reset is still running, the native window is closed and the WinForms dialog takes over with the same snapshot and
+    /// SendCharReset path — the reset is never left without a window. Ends when the reset ends, the login changes or the
+    /// player closes the native window.
+    /// </summary>
+    void WatchNativeResetStat(P06.NativeUi.ResetStatPanel panel,int generation){
+        var root=NativeUiRoot;
+        var timer=new System.Windows.Forms.Timer{Interval=150};
+        timer.Tick+=(_,_)=>{
+            if(IsDisposed){timer.Dispose();return;}
+            bool usable=NativeUiActive&&root!=null&&ReferenceEquals(NativeUiRoot,root)&&!root.Faulted.Contains(panel);
+            var step=CharResetFallback.Decide(panel.Visible,usable,login.CharResetSnapshot(),generation);
+            if(step==CharResetFallbackStep.Keep)return;
+            timer.Stop();timer.Dispose();
+            if(step!=CharResetFallbackStep.OpenWinForms||OwnedForms.OfType<CharResetUi>().Any())return;
+            try{panel.Close();}catch(Exception ex){System.Diagnostics.Trace.WriteLine("[char-reset] 原生重置窗關閉失敗："+ex.Message);}
+            P06.NativeUi.UiResourceLog.Write("reset-stat-ui 原生重置窗已停用，重置進行中，改開 WinForms 能力重置");
+            OpenCharResetDialog();
+        };
+        timer.Start();
+    }
+}
+
+/// <summary>R7-N (#817): what the native reset window watcher does on one tick.</summary>
+enum CharResetFallbackStep { Keep, Stop, OpenWinForms }
+
+static class CharResetFallback {
+    /// <param name="panelOpen">ResetStatPanel.Visible (stays true when the panel faults: UiRoot only stops painting it).</param>
+    /// <param name="usable">The native UI is still on, the same root, and the panel is not in UiRoot.Faulted.</param>
+    internal static CharResetFallbackStep Decide(bool panelOpen,bool usable,CharResetView v,int generation){
+        if(v.Generation!=generation||v.Phase is "idle" or "ended")return CharResetFallbackStep.Stop; // reset over or another login
+        if(!panelOpen)return CharResetFallbackStep.Stop;                                              // closed by the window itself
+        return usable?CharResetFallbackStep.Keep:CharResetFallbackStep.OpenWinForms;
+    }
+}
+sealed class CharResetNativeHost(LoginConnection connection):P06.NativeUi.IResetStatHost {
+    public CharResetView Snapshot()=>connection.CharResetSnapshot();
+    public Task<bool> Send(CharResetView stamp,string command,ResetStats stats,int step)=>connection.SendCharReset(stamp,command,stats,step);
+    public void Cancel()=>connection.Cancel();
 }

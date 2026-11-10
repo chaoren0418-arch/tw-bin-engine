@@ -14,7 +14,7 @@ partial class Checks {
         foreach(bool yes in new[]{false,true})using(var c=Seed()){
             var sent=YesNoWire(c);Feed(c,TradeAsk());var v=c.YesNoSnapshot();
             Check(c.World.TradeState=="invited"&&c.World.TradeChallenge==12&&c.World.TradePeerName=="target","trade S219/252 admitted as invitation "+yes);
-            Check(v.Prompt is {Message:252,RequestId:12,Deadline:null}&&v.Prompt.Text.Contains("target")&&v.Prompt.Text.Contains("邀請你交易"),"trade invitation queued on input line "+yes);
+            Check(v.Prompt is {Message:252,RequestId:12,Deadline:null}&&v.Prompt.Arguments.SequenceEqual(["target"])&&v.Prompt.Text==YesNoProtocol.Text(252,["target"]),"trade invitation queued on input line "+yes);
             Check(await c.AnswerYesNo(v,yes?"y":"n")&&sent.Count==1&&sent[0].SequenceEqual(TradePackets.Answer(12,yes)),"trade Y/N sends exact C121 "+yes);
             Check(c.World.TradeState==(yes?"accepting":"cancelled")&&c.YesNoSnapshot().Prompt==null,"trade Y/N goes through trade admission "+yes);
             Check(!await c.AnswerYesNo(v,"y")&&sent.Count==1,"trade input-line answer single use "+yes);
@@ -52,11 +52,13 @@ partial class Checks {
             long now=0;Set(c.World,"YesNoClock",(Func<long>)(()=>now));var sent=YesNoWire(c);Feed(c,TradeAsk());now=600000;
             Check(!await c.YesNoTick()&&sent.Count==0&&c.YesNoSnapshot().Prompt?.Message==252,"trade question has no timed auto reply");
         }
-        // Flag 0 path: original auto-replies with an unverified value; engine keeps the pre-M7-K manual buttons.
+        // Flag 0 path (R6-E #781, FU7§1.1): no question; the receive loop's TradeCancelRequired hook sends Answer(challenge,false) once.
         using(var c=Seed()){
             var sent=YesNoWire(c);Set(c.World,"TradeAskWindow",false);Feed(c,TradeAsk());
-            Check(c.World.TradeState=="invited"&&c.YesNoSnapshot().Prompt==null&&sent.Count==0,"trade flag0 no question and no invented auto reply");
-            Check(await c.Trade("reject",c.World.TradeRevision,c.World.WorldEpoch,c.World.TradeGeneration)&&sent.Single().SequenceEqual(TradePackets.Answer(12,false)),"trade flag0 manual reject unchanged");
+            Check(c.World.TradeState=="invited"&&c.YesNoSnapshot().Prompt==null&&sent.Count==0&&c.World.TradeCancelRequired,"trade flag0 no question, auto reject pending");
+            Check(!await c.Trade("accept",c.World.TradeRevision,c.World.WorldEpoch,c.World.TradeGeneration)&&sent.Count==0,"trade flag0 cannot be accepted");
+            await (Task)typeof(LoginConnection).GetMethod("CancelChangedTrade",F)!.Invoke(c,null)!;
+            Check(sent.Single().SequenceEqual(TradePackets.Answer(12,false))&&c.World.TradeState=="cancelled"&&!c.World.TradeCancelRequired,"trade flag0 auto reject sends exact C121 once");
         }
     }
 }

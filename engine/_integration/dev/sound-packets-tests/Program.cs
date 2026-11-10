@@ -114,15 +114,18 @@ static class Checks
         Check(s.PacketEffectFrames(now+1000,_=>appearance).Length==0&&s.PacketEffects.Length==0,"one-shot retires at real sequence end");
 
         var actor=JsonSerializer.Deserialize<OwnActor>("{\"ObjectId\":123,\"X\":32600,\"Y\":32940,\"Name\":\"offline\"}")!;
-        Set(s,"Actor",actor);Feed(s,Effect(55,time:2));
+        // R6-A（T332）：只有 SV§2.5 的 7 個 gfx 跟著對象，這裡用其中的 6985；其他 gfx 留在收包位置（MapEffectFollowupTests）。
+        Set(s,"Actor",actor);Feed(s,Effect(55,gfx:6985,time:2));
         Check(s.PacketEffectFrames(now+1500,_=>appearance).Single().Frame=="1","timed effect loops until policy deadline");
         Set(s,"Actor",actor with{X=32601,Y=32941});
-        Check(s.PacketEffectFrames(now+1600,_=>appearance).Single() is {X:32601,Y:32941},"S55 follows current target position");
+        // R9-D（T364）：跟隨組段內位置固定、段間才跳（MapEffectFollowupTests）。
+        Check(s.PacketEffectFrames(now+1600,_=>appearance).Single() is {X:32600,Y:32940},"S55 following gfx holds its segment position");
         Check(s.PacketEffectFrames(now+2000,_=>appearance).Length==0,"timed effect retires exactly at deadline");
         Feed(s,Effect(55,time:0));Check(s.PacketEffectFrames(now+1000,_=>appearance).Length==0,"time zero is one sequence");
         Feed(s,Effect(55,time:2));Set(s,"Actor",null);
-        Check(s.PacketEffects.Length==0,"missing target retires attached effect");
-        Feed(s,Effect(55,time:2));Check(s.PacketEffects.Length==0,"unknown target never leaves orphan effect");
+        // R9-D（T364，FU9§2.1 第 3 點）：對象消失後不跟隨的特效留在 Origin 播完，不立即刪除。
+        Check(s.PacketEffects.Length==1,"missing target keeps non-following effect at its origin");
+        Feed(s,Effect(55,time:2));Check(s.PacketEffects.Length==1,"unknown target at receipt adds no effect");
         Feed(s,Effect(gfx:65535));Check(s.PacketEffectFrames(now,_=>null).Length==0&&s.PacketMediaNotice.Contains("缺少"),"missing gfx has explicit notice and no placeholder");
         Feed(s,Effect());Feed(s,Sound());s.Reset();
         Check(s.PacketEffects.Length==0&&s.PacketSounds.Length==0,"reset retires media");

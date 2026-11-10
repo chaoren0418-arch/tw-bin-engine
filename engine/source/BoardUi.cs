@@ -26,15 +26,25 @@ public sealed class BoardUi:Form {
         read.Click+=async(_,_)=>await Run("read");rows.DoubleClick+=async(_,_)=>{if(read.Enabled)await Run("read");};
         write.Click+=async(_,_)=>await ConfirmWrite();delete.Click+=async(_,_)=>await ConfirmDelete();
         timer.Tick+=(_,_)=>Sync();Shown+=(_,_)=>{Sync();timer.Start();};
-        FormClosed+=(_,_)=>{timer.Dispose();connection.CloseBoard(displayed);};Sync();
+        // R7-F: a hidden window (native board) never gets a handle, so Close() only disposes it (no FormClosed).
+        FormClosed+=(_,_)=>Finish();Disposed+=(_,_)=>Finish();Sync();
     }
-    async Task ConfirmWrite(){if(MessageBox.Show(this,$"送出這篇文章？費用 {displayed.Fee} 金幣。","確認發文",MessageBoxButtons.OKCancel)==DialogResult.OK)await Run("write");}
-    async Task ConfirmDelete(){if(MessageBox.Show(this,"刪除目前閱讀的文章？","確認刪文",MessageBoxButtons.OKCancel)==DialogResult.OK)await Run("delete");}
+    bool finished;
+    void Finish(){if(finished)return;finished=true;timer.Dispose();connection.CloseBoard(displayed);}
+    /// <summary>
+    /// R7-F (#808): with the native board up, this window is never shown; it only keeps the snapshot and the actions
+    /// (same rules, confirmations and checks) for the native panels. Owned by the client form so a new board closes it.
+    /// </summary>
+    internal void RunHidden(Form owner){Owner=owner;Sync();if(!IsDisposed)timer.Start();}
+    /// <summary>Confirmation dialogs belong to the client form while this window is hidden.</summary>
+    IWin32Window DialogOwner=>Visible||Owner==null?this:Owner;
+    async Task ConfirmWrite(){if(MessageBox.Show(DialogOwner,$"送出這篇文章？費用 {displayed.Fee} 金幣。","確認發文",MessageBoxButtons.OKCancel)==DialogResult.OK)await Run("write");}
+    async Task ConfirmDelete(){if(MessageBox.Show(DialogOwner,"刪除目前閱讀的文章？","確認刪文",MessageBoxButtons.OKCancel)==DialogResult.OK)await Run("delete");}
     /// <summary>Snapshot shown by this window (null once closed); read by the native board panels (M7-U).</summary>
     internal BoardView? Displayed=>IsDisposed?null:displayed;
     /// <summary>
     /// Native board button (M7-U) → the same action as this window's button, with the same enabled rule and confirmations.
-    /// Read uses the row selected here: the native windows draw no rows (row positions are unverified).
+    /// Read uses the row selected here; the native list (R5-G) changes this selection through SelectRow.
     /// </summary>
     internal async Task Press(string command){
         if(IsDisposed)return;Sync();if(IsDisposed)return;
@@ -47,6 +57,32 @@ public sealed class BoardUi:Form {
             case "next" when next.Enabled:await Run("next");break;
         }
     }
+    /// <summary>R5-G: row selected in this window (the native list draws and changes the same selection).</summary>
+    internal uint? SelectedRow=>IsDisposed?null:(rows.SelectedItem as RowItem)?.Row.Id;
+    internal void SelectRow(uint? id){
+        if(IsDisposed)return;
+        if(id==null){rows.ClearSelected();return;}
+        for(int i=0;i<rows.Items.Count;i++)if(rows.Items[i] is RowItem r&&r.Row.Id==id){rows.SelectedIndex=i;return;}
+    }
+    /// <summary>R5-G: native write window (686) → the same write action (same confirmation, length and Big5 checks).</summary>
+    internal async Task Submit(string titleText,string contentText){
+        if(IsDisposed)return;Sync();if(IsDisposed)return;
+        title.Text=titleText;content.Text=contentText;
+        if(write.Enabled)await ConfirmWrite();
+    }
+    /// <summary>R5-G: text the original prints as a system message (e.g. string 544); shown in this window's notice line.</summary>
+    internal void Notice(string text){
+        if(IsDisposed)return;validationNotice=text;
+        // R7-F: hidden behind the native board → the notice line is not visible; the original prints it as a system line.
+        if(!Visible)connection.World.AddBoardChatNotice(text,null);
+        Sync();
+    }
+    /// <summary>R7-F: gold in the inventory (sub_7CDE00 compares it with the fee); null while the inventory is not loaded.</summary>
+    internal long? Gold=>IsDisposed?null:ShopTrade.Holding(connection.World);
+    /// <summary>R7-F: sub_7DC850 chat line (189 when short of gold).</summary>
+    internal void ChatNotice(string text,int color){if(!IsDisposed)connection.World.AddBoardChatNotice(text,color);}
+    /// <summary>R5-G: write is possible now (same rule as this window's write button).</summary>
+    internal bool CanWrite{get{if(IsDisposed)return false;Sync();return !IsDisposed&&write.Enabled;}}
     async Task Run(string command){
         if(busy)return;var stamp=displayed;uint topic=command=="delete"?stamp.Article?.Id??0:(rows.SelectedItem as RowItem)?.Row.Id??0;
         validationNotice="";busy=true;Sync();if(IsDisposed)return;
@@ -85,33 +121,71 @@ public sealed partial class LoginConnection {
 public sealed partial class ClientForm {
     internal bool OwnsBoardConnection(LoginConnection connection)=>ReferenceEquals(login,connection);
     internal void ShowBoardUi(LoginConnection connection){
-        ClearInput("board");LeaveGameFocus("board");
+        ClearInput("board");
         foreach(var old in OwnedForms.OfType<BoardUi>().ToArray())old.Close();
-        var ui=new BoardUi(connection);ui.Show(this);
-        AttachNativeBoard(ui);
+        var ui=new BoardUi(connection);
+        // R7-F (#808): native board attached → the WinForms window is not shown (it would duplicate the native windows);
+        // it stays hidden as the owner of the actions. --classic-ui / native unavailable → the WinForms board as before.
+        if(AttachNativeBoard(ui)){ui.RunHidden(this);return;}
+        LeaveGameFocus("board");ui.Show(this);
     }
 
-    // M7-U: with the native UI active, the original board windows (verified buttons only) are drawn on the 800×600 canvas and
-    // drive the same BoardUi actions. Rows, article text and writing stay in BoardUi (transitional, not original behaviour)
-    // until their positions are verified. Switch off / native inactive → nothing changes.
-    BoardPanelSet? nativeBoard;readonly BoardPanelHost nativeBoardHost=new();
-    void AttachNativeBoard(BoardUi ui){
+    // M7-U: with the native UI active, the original board windows (verified buttons) are drawn on the 800×600 canvas and
+    // drive the same BoardUi actions. R5-G (#739): backgrounds, list rows, article text and the write window are drawn
+    // natively too (NativeUi/BoardPanel.cs, disassembled layout). R7-F (#808): BoardUi is then kept hidden as the owner of
+    // the actions; it is the whole board only when the native UI is off. Switch off / native inactive → nothing changes.
+    BoardPanelSet? nativeBoard;BoardContentSet? nativeBoardContent;readonly BoardPanelHost nativeBoardHost=new();
+    /// <summary>True when the native board panels are attached (and not faulted) for this board window.</summary>
+    bool AttachNativeBoard(BoardUi ui){
         nativeBoardHost.Current=ui;
-        if(!NativeUiActive||NativeUiRoot is not {Resources:{} resources} root)return;
+        if(!NativeUiActive||NativeUiRoot is not {Resources:{} resources} root)return false;
         try{
             if(nativeBoard==null){
                 var set=new BoardPanelSet(nativeBoardHost);set.LoadSurfaces(resources.Surfs);
+                var content=new BoardContentSet(set,nativeBoardHost);content.LoadSurfaces(resources.Surfs);
+                // List/read content sit on the bar layer (below every window, so the button windows paint over them);
+                // the write window is a window above the list buttons.
+                root.Add(content.List);root.Add(content.Read);
                 foreach(var p in set.Panels)root.Add(p);
-                nativeBoard=set;
+                root.Add(content.Write);
+                nativeBoard=set;nativeBoardContent=content;nativeBoardHost.Content=content;
             }
-            root.BringToFront(nativeBoard.List);root.BringToFront(nativeBoard.Read);Invalidate();
+            nativeBoardContent?.Write.Close();
+            root.BringToFront(nativeBoard.List);root.BringToFront(nativeBoard.Read);
+            if(nativeBoardContent!=null)root.BringToFront(nativeBoardContent.Write);
+            Invalidate();
+            // A faulted list/read panel would leave no visible board → fall back to the WinForms window.
+            return nativeBoardContent is {} c&&new IUiPanel[]{nativeBoard.List,nativeBoard.Read,c.List,c.Read}.All(p=>!root.Faulted.Contains(p));
         }catch(Exception ex) when(ex is UiResourceException or UiLayoutException or InvalidOperationException){
             UiResourceLog.Write("board native panels skipped: "+ex.Message);
+            return false;
         }
     }
-    sealed class BoardPanelHost:IBoardPanelHost {
+    sealed class BoardPanelHost:IBoardPanelHost,IBoardContentHost {
         public BoardUi? Current;
+        public BoardContentSet? Content;
         public BoardView? Board=>Current?.Displayed;
-        public void Press(string command){if(Current is {IsDisposed:false} ui)_=ui.Press(command);}
+        public void Press(string command){
+            if(Current is not {IsDisposed:false} ui)return;
+            // Original 662 (sub_7CDE00) opens the write window; the text is sent from its 686 button.
+            if(command=="write"&&Content!=null){if(ui.CanWrite)Content.OpenWrite();return;}
+            _=ui.Press(command);
+        }
+        public uint? SelectedRow=>Current is {IsDisposed:false} ui?ui.SelectedRow:null;
+        public void SelectRow(uint? id){if(Current is {IsDisposed:false} ui)ui.SelectRow(id);}
+        public void Submit(string title,string content){if(Current is {IsDisposed:false} ui)_=ui.Submit(title,content);}
+        public void Notice(string text){Current?.Notice(text);}
+        public long? Gold=>Current is {IsDisposed:false} ui?ui.Gold:null;
+        public void ChatNotice(string text,int color){if(Current is {IsDisposed:false} ui)ui.ChatNotice(text,color);}
+    }
+}
+
+public sealed partial class WorldSession {
+    /// <summary>R7-F (#808): board system lines printed by the client itself (189 from sub_7CDE00; 544 while BoardUi is hidden).</summary>
+    internal void AddBoardChatNotice(string text,int? color){
+        if(text.Length==0)return;
+        playerChatLines.Enqueue(new(++playerChatSequence,0,text){ColorIndex=color});
+        while(playerChatLines.Count>100)playerChatLines.Dequeue();
+        playerChatRevision++;
     }
 }

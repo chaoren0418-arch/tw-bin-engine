@@ -15,7 +15,18 @@ public readonly record struct UiMouseResult(UiRoute Route,Point? Logical);
 /// otherwise the world. Border input is dropped. A handled press captures the panel until release. Window drags move in
 /// logical pixels and keep the whole window inside 800×600. Key focus = last panel pressed.
 /// </summary>
-public sealed class UiInput(UiRoot root,IUiCommands commands) {
+public sealed class UiInput {
+    readonly UiRoot root;readonly IUiCommands commands;
+    public UiInput(UiRoot root,IUiCommands commands){
+        this.root=root;this.commands=commands;
+        // R7-H (#810): a window pushed out of (or refused by) the stack is hidden; it must not keep focus, capture or a drag.
+        root.WindowEvicted+=Drop;root.WindowRefused+=Drop;
+    }
+    void Drop(IUiPanel p){
+        if(Focused==p)Focused=null;
+        if(Captured==p)Captured=null;
+        if(ReferenceEquals(dragging,p))dragging=null;
+    }
     public UiViewport Viewport{get;set;}=UiPresenter.Compute(new(UiRoot.LogicalWidth,UiRoot.LogicalHeight));
     public IUiPanel? Captured{get;private set;}
     public IUiPanel? Focused{get;private set;}
@@ -62,12 +73,36 @@ public sealed class UiInput(UiRoot root,IUiCommands commands) {
         return new(UiRoute.Panel,logical);
     }
 
-    /// <summary>Focused panel first, then every visible panel from the top. false = not for the UI (game keys continue).</summary>
+    /// <summary>
+    /// Focused panel first, then every visible panel from the top, then windows pushed out of the stack (R3-I): those are
+    /// hidden but still own their toggle key (e.g. Ctrl+M), which is how they close and can open again on top.
+    /// R7-H (#810): when no panel takes ESC, the global ESC closes the stacked windows (<see cref="GlobalEscape"/>).
+    /// false = not for the UI (game keys continue).
+    /// </summary>
     public bool Key(UiKeyEvent e){
+        root.SyncWindows();
         if(Focused!=null&&!root.Usable(Focused))Focused=null;
         if(Focused!=null&&DeliverKey(Focused,e))return true;
-        foreach(var p in root.HitOrder())if(p!=Focused&&root.Usable(p)&&DeliverKey(p,e))return true;
-        return false;
+        var order=root.HitOrder().ToArray();
+        foreach(var p in order)if(p!=Focused&&root.Usable(p)&&DeliverKey(p,e))return true;
+        foreach(var p in order)if(root.IsEvicted(p)&&p.Visible&&!root.Faulted.Contains(p)&&DeliverKey(p,e))return true;
+        return GlobalEscape(e);
+    }
+
+    /// <summary>
+    /// R7-H (T347, #810), FU4§1.1 (已驗證): ESC (WM_CHAR 27) reaches the global dispatch sub_8C14F0 only after the window
+    /// stack, the chat line and the other key owners of sub_8CA740 passed on it, and there it calls sub_A57C60(0): every
+    /// window in the stack (at most 4) closes at once. Engine: a plain ESC press (no modifier, not a repeat) that no panel took
+    /// closes the stack through <see cref="UiRoot.CloseAll"/>. true only when a window actually closed — with nothing open,
+    /// ESC still goes to the game (YES/NO refusal, ClearInput …). The font window FU4 also lists has no engine counterpart.
+    /// </summary>
+    public bool GlobalEscape(UiKeyEvent e){
+        if(e.KeyData!=Keys.Escape||!e.Down||e.Repeat)return false;
+        var closed=root.CloseAll();
+        if(closed.Count==0)return false;
+        foreach(var p in closed)Drop(p);
+        commands.ReturnGameFocus();
+        return true;
     }
 
     /// <summary>Top-left that keeps a window of this size entirely inside 800×600 (a window larger than the canvas pins to 0).</summary>

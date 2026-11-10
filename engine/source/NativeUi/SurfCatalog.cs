@@ -8,12 +8,21 @@ namespace P06.NativeUi;
 /// every row that has a file has id == file, and 343 rows have no file at all (→ null).
 /// Lookup follows HashFileManager::Read (sub_52D8A0): Fc.img in Sprite{h}, Fc.img in Sprite, F.img in Sprite{h}, F.img in Sprite,
 /// with h = (sum of the candidate name bytes) % 16. Decoded surfaces live only in a memory LRU (default 32 MiB).
+/// <para>Surf files are always <c>.img</c>, never <c>.tbt</c> (T320/#758, TW16 static, docs/reports/issue-758.md): the surf
+/// loaders sub_E55DD0 ("%d.img", VA 0x11DFA2C) and sub_E55C50 ("%s.img", VA 0x11DFA6C) read archive group 4 (Surf); the only two
+/// ".tbt" formats ("%s.tbt" VA 0x117D800 in sub_87A720, "%d.tbt" VA 0x117D924 in sub_87B3A0) read group 3 (Icon). A same-numbered
+/// <c>&lt;n&gt;.tbt</c> is an icon (32×32-ish, e.g. 6102.tbt next to the 209×38 surf 6102.img in the reference clients), so drawing
+/// it as a surf would be a substitute picture. Missing surfs stay null (callers skip the element / fall back).</para>
 /// </summary>
 public sealed class SurfCatalog {
     public const long DefaultCapacity=32L*1024*1024;
     public const string SurfListName="SurfList.xml";
     /// <summary>Localized .img suffix used by the Surf/Icon groups (LocalFileNonDashFormatter: "&lt;n&gt;c.img").</summary>
     public const string LocalizedImgSuffix="c";
+    /// <summary>The only surf file extension (group 4 builds "%d.img"/"%s.img"; .tbt belongs to the Icon group 3).</summary>
+    public const string SurfExtension=".img";
+    /// <summary>Icon-group extension; looked up only to explain a missing surf in the log, never decoded as a surf.</summary>
+    public const string IconExtension=".tbt";
     readonly UiXmlSource tile;
     readonly IReadOnlyList<ClientArchive> sprites;
     readonly object gate=new();
@@ -24,6 +33,8 @@ public sealed class SurfCatalog {
     public long Capacity{get;}
     public long CachedBytes{get;private set;}
     public int CachedCount{get{lock(gate)return cache.Count;}}
+    /// <summary>T322 (#760): asked only when the pinned local lookup fails; null (default) keeps the old behaviour.</summary>
+    public RefClientSurfFallback? Reference{get;set;}
 
     /// <param name="sprites">Index 0 = Sprite, index 1+h = Sprite{h:00} (17 archives).</param>
     public SurfCatalog(UiXmlSource tile,IReadOnlyList<ClientArchive> sprites,long capacity=DefaultCapacity){
@@ -66,9 +77,21 @@ public sealed class SurfCatalog {
 
     /// <summary>Candidate (archive, name) order for a SurfList file name.</summary>
     public IEnumerable<(ClientArchive Archive,string Name)> Candidates(string file){
-        foreach(var name in new[]{file+LocalizedImgSuffix+".img",file+".img"}){
+        foreach(var name in new[]{file+LocalizedImgSuffix+SurfExtension,file+SurfExtension}){
             yield return (sprites[1+NameHash(name)],name);
             yield return (sprites[0],name);
+        }
+    }
+
+    /// <summary>Where a same-numbered Icon-group file (&lt;F&gt;c.tbt / &lt;F&gt;.tbt, same hash order) sits, or null. Diagnostics only:
+    /// the original never reads it as a surf, so <see cref="Get"/> still returns null for such ids.</summary>
+    public string? IconOnlyFile(int surf){
+        lock(gate){
+            if(!LoadList().TryGetValue(surf,out var file))return null;
+            foreach(var name in new[]{file+LocalizedImgSuffix+IconExtension,file+IconExtension}){
+                foreach(var a in new[]{sprites[1+NameHash(name)],sprites[0]})if(a.Find(name) is {} e)return $"{a.Pin.Name}/{e.Name}";
+            }
+            return null;
         }
     }
 
@@ -86,14 +109,21 @@ public sealed class SurfCatalog {
         lock(gate){
             if(cache.TryGetValue(surf,out var hit)){lru.Remove(hit);lru.AddFirst(hit);return hit.Value;}
             var found=Resolve(surf);
+            UiSurface? surface;
             if(found==null){
-                if(reported.Add(surf))UiResourceLog.Write(LoadList().TryGetValue(surf,out var f)?$"surf {surf}: 圖檔不在 Sprite*.pak（file={f}）"
-                    :withoutFile.Contains(surf)?$"surf {surf}: SurfList.xml 此列沒有 file 屬性":$"surf {surf}: SurfList.xml 沒有此 id");
-                return null;
+                // T322 (#760) P-B: one fallback hook — id-named local file, then the reference client's Sprite*.idx.
+                surface=Reference?.Serve(this,surf);
+                if(surface==null){
+                    if(reported.Add(surf))UiResourceLog.Write((LoadList().TryGetValue(surf,out var f)
+                        ?$"surf {surf}: 圖檔不在 Sprite*.pak（file={f}）"+(IconOnlyFile(surf) is {} icon?$"；只有 Icon 群組的 {icon}，原版 surf 不讀 .tbt，不畫":"")
+                        :withoutFile.Contains(surf)?$"surf {surf}: SurfList.xml 此列沒有 file 屬性":$"surf {surf}: SurfList.xml 沒有此 id")
+                        +(Reference is {} r?$"；參考客戶端 {r.Root} 也沒有":""));
+                    return null;
+                }
+            }else{
+                var (_,archive,entry)=found.Value;
+                surface=new UiSurface(surf,entry.Name,archive.Pin.Name,UiImage.Decode(archive.Read(entry),$"{archive.Pin.Name}/{entry.Name}"));
             }
-            var (_,archive,entry)=found.Value;
-            var image=UiImage.Decode(archive.Read(entry),$"{archive.Pin.Name}/{entry.Name}");
-            var surface=new UiSurface(surf,entry.Name,archive.Pin.Name,image);
             var node=lru.AddFirst(surface);cache[surf]=node;CachedBytes+=surface.Cost;
             // Evict least-recently-used entries (never the one just added); evicted bitmaps are left to the GC.
             while(CachedBytes>Capacity&&lru.Last!=node){var last=lru.Last!;lru.RemoveLast();cache.Remove(last.Value.Surf);CachedBytes-=last.Value.Cost;}
@@ -110,6 +140,8 @@ public sealed class UiResources:IDisposable {
     public IReadOnlyList<ClientArchive> Sprites{get;}
     public UiXmlSource Xml{get;}
     public SurfCatalog Surfs{get;}
+    /// <summary>R7-N (#817): string-c.tbl / desc-c.tbl of the same reference client as Xml.Reference; null = none (labels not drawn).</summary>
+    public RefClientTextSource? Text{get;set;}
     public UiResources(string root,ClientArchivePin tilePin,IReadOnlyList<ClientArchivePin> spritePins,long capacity=SurfCatalog.DefaultCapacity){
         if(spritePins.Count!=17)throw new ArgumentException("需要 17 個 Sprite pin",nameof(spritePins));
         Root=Path.GetFullPath(root);
@@ -118,7 +150,14 @@ public sealed class UiResources:IDisposable {
         Xml=new UiXmlSource(Tile);
         Surfs=new SurfCatalog(Xml,Sprites,capacity);
     }
-    public static UiResources Open(string? root=null)=>new(root??UiResourcePins.ClientRoot,UiResourcePins.Tile,UiResourcePins.Sprites);
+    /// <summary>Pinned main client plus (T319 #757) the configured reference client for UI XML the main client lacks.</summary>
+    public static UiResources Open(string? root=null){
+        var res=new UiResources(root??UiResourcePins.ClientRoot,UiResourcePins.Tile,UiResourcePins.Sprites);
+        res.Xml.Reference=RefClientXmlSource.Configured(res.Root);
+        res.Surfs.Reference=RefClientSurfFallback.For(res.Xml.Reference);
+        res.Text=RefClientTextSource.For(res.Xml.Reference);
+        return res;
+    }
     static readonly Lazy<UiResources> shared=new(()=>Open(),LazyThreadSafetyMode.ExecutionAndPublication);
     public static UiResources Shared=>shared.Value;
     public void Dispose(){Tile.Dispose();foreach(var s in Sprites)s.Dispose();}

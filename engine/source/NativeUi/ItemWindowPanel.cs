@@ -54,10 +54,10 @@ public sealed class LegacyWindowLayout {
 
 /// <summary>
 /// Shared body of the three legacy windows: a draggable UiLayer.Window panel that paints its placed parts in XML order and
-/// handles the close button and the two scroll arrows. Hidden until opened (the original hotkeys/menu routes for these legacy
-/// windows are 待驗證, windows-2.md §10), and closed when the character leaves the world.
+/// handles the close button and the two scroll arrows. Hidden until opened (R3-A #678: menu buttons 3/4 and Tab／Ctrl+I／Ctrl+S
+/// through MenuButtonsPanel, per TW13 — 推測 for the packed 3.81 LiTo.bin, FU4§1.2), and closed when the character leaves the world.
 /// </summary>
-public abstract class LegacyWindowPanel:IUiMovablePanel {
+public abstract class LegacyWindowPanel:IUiMovablePanel,IUiClosablePanel {
     /// <summary>A painted part: offset relative to the window origin; Show (null = always) selects one image of a state group.</summary>
     protected sealed record Part(int Order,string Name,Point Offset,UiSurface? Image,Func<bool>? Show=null);
     readonly List<Part> parts=[];
@@ -140,11 +140,41 @@ public abstract class LegacyWindowPanel:IUiMovablePanel {
 
     public void Paint(UiCanvas canvas){
         foreach(var p in parts)if(p.Show?.Invoke()!=false)canvas.DrawSurface(p.Image,origin.X+p.Offset.X,origin.Y+p.Offset.Y);
+        PaintContent(canvas);
+    }
+    /// <summary>R4-B (#706): cells, icons, counts and row text, drawn above the XML parts.</summary>
+    protected virtual void PaintContent(UiCanvas canvas){}
+    /// <summary>Window-relative point (for LegacyCellGrid hit tests).</summary>
+    protected Point Local(Point logical)=>new(logical.X-origin.X,logical.Y-origin.Y);
+    protected Rectangle Logical(Rectangle local)=>local.IsEmpty?Rectangle.Empty:new(origin.X+local.X,origin.Y+local.Y,local.Width,local.Height);
+
+    /// <summary>Selection highlight (no surf exists for it in the legacy XML; a 1-pixel frame is drawn, 推測).</summary>
+    protected static readonly Color SelectedColor=Color.FromArgb(255,230,120),TextColor=Color.White,TextShadow=Color.Black;
+    protected static void DrawFrame(UiCanvas canvas,Rectangle r,Color color){
+        if(r.Width<2||r.Height<2)return;
+        using var b=new SolidBrush(color);var g=canvas.Graphics;
+        g.FillRectangle(b,r.X,r.Y,r.Width,1);g.FillRectangle(b,r.X,r.Bottom-1,r.Width,1);
+        g.FillRectangle(b,r.X,r.Y,1,r.Height);g.FillRectangle(b,r.Right-1,r.Y,1,r.Height);
+    }
+    /// <summary>One line of text, cut with "…" so it ends before maxRight (logical x).</summary>
+    protected static void DrawClipped(UiCanvas canvas,string text,int x,int y,int maxRight,Color color){
+        if(string.IsNullOrEmpty(text)||maxRight<=x)return;
+        string s=text;
+        while(s.Length>0&&x+UiText.Measure(canvas.Graphics,s).Width>maxRight)s=s.Length>1?s[..^2]+"…":"";
+        canvas.DrawText(s,x,y,color,TextShadow);
+    }
+    protected static void DrawRightAligned(UiCanvas canvas,string text,int right,int y,Color color){
+        if(string.IsNullOrEmpty(text))return;
+        canvas.DrawText(text,right-UiText.Measure(canvas.Graphics,text).Width,y,color,TextShadow);
     }
 
     /// <summary>Clickable rectangles besides close/arrows (subclasses); they are never drag handles.</summary>
     protected virtual IEnumerable<Rectangle> Controls()=>[];
     protected virtual bool Click(Point p,IUiCommands commands)=>false;
+    /// <summary>Left press inside the window that is not close/arrow; the event carries Clicks (2 = double click). Default → Click(point).</summary>
+    protected virtual bool Click(UiMouseEvent e,IUiCommands commands)=>Click(e.Location,commands);
+    /// <summary>Left button released (the window keeps the mouse captured after its own press, so drags end here).</summary>
+    protected virtual void Release(Point p,IUiCommands commands){}
     /// <summary>Close button. Subclasses may also notify the game (e.g. warehouse cancel).</summary>
     protected virtual void CloseClicked(IUiCommands commands)=>Close();
 
@@ -154,22 +184,30 @@ public abstract class LegacyWindowPanel:IUiMovablePanel {
     public void MoveTo(Point location){var b=Bounds;origin=new(origin.X+location.X-b.X,origin.Y+location.Y-b.Y);}
 
     public bool Mouse(UiMouseEvent e,IUiCommands commands){
-        if(!Visible||!Bounds.Contains(e.Location))return false;
+        if(!Visible)return false;
+        if(e.Kind==UiMouseKind.Up&&e.Button==MouseButtons.Left){Release(e.Location,commands);return true;}   // captured: may be outside
+        if(!Bounds.Contains(e.Location))return false;
         if(e.Kind!=UiMouseKind.Down||e.Button!=MouseButtons.Left)return true;   // the window swallows everything over it
         if(CloseRect.Contains(e.Location)){CloseClicked(commands);return true;}
         if(ScrollUpRect.Contains(e.Location)){ScrollBy(-1);return true;}
         if(ScrollDownRect.Contains(e.Location)){ScrollBy(1);return true;}
-        Click(e.Location,commands);
+        Click(e,commands);
         return true;
     }
-    /// <summary>No keys: the legacy windows' hotkeys are 待驗證 (TW16's own hotkeys open the XML windows, windows-2.md §2.1).</summary>
-    public bool Key(UiKeyEvent e,IUiCommands commands)=>false;
+    /// <summary>
+    /// No window hotkeys here: Tab／Ctrl+I, Ctrl+S (FU4§1.1) are dispatched by MenuButtonsPanel (R3-A #678), which stays visible
+    /// while these windows are closed. Subclasses may take keys that act on their own content (R9-L: Delete in the item window).
+    /// </summary>
+    public virtual bool Key(UiKeyEvent e,IUiCommands commands)=>false;
 
-    /// <summary>Walks the product's game-state decorators (HP/MP → macro → left status → chat) to find a module state.</summary>
+    /// <summary>
+    /// Walks the product's game-state decorators (HP/MP → macro → left status → chat → party → buff → red notice → the legacy
+    /// window decorators that R3-A (#678) puts innermost) to find a module state.
+    /// </summary>
     public static T? FindState<T>(IUiGameState? state) where T:class{
-        for(int depth=0;state!=null&&depth<12;depth++){
+        for(int depth=0;state!=null&&depth<16;depth++){
             if(state is T t)return t;
-            state=state switch{UiHpMpGameState h=>h.Base,UiMacroGameState m=>m.Inner,UiLeftStatusGameState l=>l.Inner,UiChatGameState c=>c.Inner,ILegacyWindowStateDecorator d=>d.Inner,_=>null};
+            state=state switch{UiHpMpGameState h=>h.Base,UiMacroGameState m=>m.Inner,UiLeftStatusGameState l=>l.Inner,UiChatGameState c=>c.Inner,UiPartyGameState q=>q.Inner,UiBuffGameState b=>b.Inner,UiRedNoticeGameState n=>n.Inner,ILegacyWindowStateDecorator d=>d.Inner,_=>null};
         }
         return null;
     }
@@ -191,16 +229,23 @@ public interface ILegacyWindowCommandsDecorator { IUiCommands Inner{get;} }
 public interface IUiItemWindowState {
     /// <summary>null before the server inventory is known (nothing is listed, nothing is estimated).</summary>
     IReadOnlyList<InventoryItem>? Items{get;}
+    /// <summary>The game's selected item (WorldSession.SelectedItemId), shared with the WinForms inventory list.</summary>
+    uint? SelectedId=>null;
+    /// <summary>Selects an item in the game model (local state only, no packet: WorldSession.SelectItem). false = not taken.</summary>
+    bool Select(uint? id)=>false;
 }
-public sealed record UiItemWindowData(IReadOnlyList<InventoryItem>? Items):IUiItemWindowState {
-    /// <summary>Adapter over WorldSession (Inventory.cs): items only once the server list arrived.</summary>
-    public static UiItemWindowData From(WorldSession world)=>new(world.InventoryLoaded?world.Inventory:null);
+public sealed record UiItemWindowData(IReadOnlyList<InventoryItem>? Items,uint? SelectedId=null,Func<uint?,bool>? Selector=null):IUiItemWindowState {
+    /// <summary>Adapter over WorldSession (Inventory.cs): items only once the server list arrived; selection = WorldSession.SelectItem.</summary>
+    public static UiItemWindowData From(WorldSession world)=>new(world.InventoryLoaded?world.Inventory:null,world.SelectedItemId,world.SelectItem);
+    public bool Select(uint? id)=>Selector?.Invoke(id)??false;
 }
 public sealed class UiItemWindowGameState(IUiGameState inner,IUiItemWindowState items):IUiGameState,IUiItemWindowState,ILegacyWindowStateDecorator {
     public IUiGameState Inner=>inner;
     public bool InWorld=>inner.InWorld;public string? CharacterName=>inner.CharacterName;public int? Level=>inner.Level;
     public long? Hp=>inner.Hp;public long? MaxHp=>inner.MaxHp;public long? Mp=>inner.Mp;public long? MaxMp=>inner.MaxMp;public long Now=>inner.Now;
     public IReadOnlyList<InventoryItem>? Items=>items.Items;
+    public uint? SelectedId=>items.SelectedId;
+    public bool Select(uint? id)=>items.Select(id);
 }
 
 /// <summary>
@@ -208,7 +253,28 @@ public sealed class UiItemWindowGameState(IUiGameState inner,IUiItemWindowState 
 /// (171, 58), arrows 2042 (171, 44) / 2040 (171, 225), knob 2044 (no position → not drawn), four tab images 2048–2051 all at
 /// (27, 235), trash 2052 (142, 260), chest 2054 (117, 260).
 /// </summary>
-public sealed class ItemWindowPanel:LegacyWindowPanel {
+/// <remarks>
+/// R9-L（T372／#856，FU9§13）背包操作（TW16 RenewalInventoryUI 為準，3.81 LiTo.bin 有殼）：
+/// - 格子雙擊 → 使用（sub_9A6FB0 → sub_9930B0 → C208，已驗證；觸發事件是雙擊屬推測）。引擎：同一格第二下（Clicks ≥ 2）→ 宿主
+///   Use（選取後走既有 UseSelectedItem，同 U 鍵；U 鍵保留）。
+/// - 垃圾桶 InvDelButton（DeleteItem → sub_9A54D0：514 且有選取）與 Delete 鍵（4142 → 同一個 sub_9A52C0，已驗證）→ 宿主 Delete
+///   （LoginConnection.BeginInventoryDelete：單件 668 → alertitems.tbl 內再 3122；堆疊先數量 3054 → alertitems.tbl 內再 4114）。
+///   聊天輸入列開著時 Delete 鍵給聊天列。沒有選取或沒有宿主 → 不詢問、不送。
+/// - 寶箱 2054：TW16 窗沒有對應事件、3.81 用途待驗證 → 只畫圖，不做（FU9§13.3）。
+/// - Esc（27 關窗）不在本組；全域 ESC（R7-H）仍會關本窗。
+/// </remarks>
+public interface IItemWindowHost {
+    /// <summary>雙擊使用。true＝已受理（選取並開始送出）。</summary>
+    bool Use(uint objectId);
+    /// <summary>垃圾桶／Delete：開始刪除詢問。true＝已受理。</summary>
+    bool Delete(uint objectId);
+}
+
+public sealed class ItemWindowPanel(ItemIconSource? icons=null,Func<IItemWindowHost?>? host=null,Func<string,IUiPanel?>? find=null):LegacyWindowPanel {
+    [UiPanel(175)] internal static UiPanelRegistration Registration=>new(WindowId,Layout,root=>new ItemWindowPanel(ItemIconSource.FromRoot(root),find:root.Find));   // R3-A (#678): menu 4 / Tab / Ctrl+I; R4-B (#706): icons = <icon>.tbt; R9-L (#856): host + chat lookup
+    /// <summary>R9-L（#856）：雙擊使用與刪除的送出端（ClientForm.InitItemTransfer 設定）；null → 不使用、不刪除。</summary>
+    public static IItemWindowHost? Host{get;set;}
+    readonly Func<IItemWindowHost?> host=host??(()=>Host);
     public const string WindowId="ITEM_WINDOW",Layout="uimagicitem";
     public const int TabCount=4;
     /// <summary>Tab images in XML order: 全部／裝備／任務／其他 (from the surfName suffixes ALL/EQUIP/QUEST/ETC).</summary>
@@ -217,10 +283,16 @@ public sealed class ItemWindowPanel:LegacyWindowPanel {
     public override string LayoutName=>Layout;
     Part? trash,chest;Part[] tabParts=[];
     IReadOnlyList<InventoryItem>? items;
+    IUiItemWindowState? source;uint? localSelection;
+
+    /// <summary>Icon source (Sprite "&lt;icon&gt;.tbt"); None draws no icons (counts and selection still drawn).</summary>
+    public ItemIconSource Icons{get;set;}=icons??ItemIconSource.None;
+    /// <summary>"$n" name resolver (ItemText.Resolve by default; offline checks pass their own table).</summary>
+    public Func<string,string> ResolveName{get;set;}=ItemText.Resolve;
 
     /// <summary>
     /// Selected tab. The four images share one position, so each is read as the whole tab strip with one tab lit and only the
-    /// selected one is drawn (推測). Where each tab is clicked inside the strip is 待驗證, so the strip is not clickable yet.
+    /// selected one is drawn (推測). R4-B: a click on the strip picks the tab by equal quarters of its width (推測).
     /// </summary>
     public int Tab{get;private set;}
     public void SetTab(int tab){if(tab is <0 or >=TabCount)throw new ArgumentOutOfRangeException(nameof(tab));if(tab!=Tab){Tab=tab;ResetScroll();}}
@@ -230,11 +302,32 @@ public sealed class ItemWindowPanel:LegacyWindowPanel {
     public IReadOnlyList<InventoryItem>? Items=>items;
 
     /// <summary>
-    /// Entries of the current tab. 全部 = every item; 裝備 = EquipmentRules.IsEquipment(use type), the engine's existing rule.
-    /// The 任務／其他 split is 待驗證, so those tabs list every item (nothing is hidden on a guess).
+    /// Cell grid (R4-B, 推測 — the XML has no cell geometry): 33-pixel cells between the base's left edge and the scrollbar, and
+    /// between the upper arrow and the tab strip. With the local uimagicitem.xml that is 5 × 5 cells from (6, 57).
     /// </summary>
-    public IReadOnlyList<InventoryItem> TabItems=>items==null?[]:Tab==1?items.Where(i=>EquipmentRules.IsEquipment(i.UseType)).ToArray():items;
-    protected override int ScrollCount=>TabItems.Count;
+    public LegacyCellGrid Grid{get;private set;}=LegacyCellGrid.Empty;
+
+    /// <summary>
+    /// Entries of the current tab. 全部 = every item; 裝備 = EquipmentRules.IsEquipment(use type), the engine's existing rule;
+    /// 其他 = everything that is not equipment. 任務 is empty: 3.81 S_AddItem carries no quest attribute and the server sends no
+    /// quest-item flag (推測; the TW16 quest flag lives in the protobuf item data, PBW§3), so nothing can be placed there.
+    /// </summary>
+    public IReadOnlyList<InventoryItem> TabItems=>items==null?[]:Tab switch{
+        1=>items.Where(i=>EquipmentRules.IsEquipment(i.UseType)).ToArray(),
+        2=>Array.Empty<InventoryItem>(),
+        3=>items.Where(i=>!EquipmentRules.IsEquipment(i.UseType)).ToArray(),
+        _=>items};
+    /// <summary>Arrow scroll is by grid row: ScrollOffset = first visible row.</summary>
+    protected override int ScrollCount=>Grid.ScrollPositions(TabItems.Count);
+    /// <summary>Items on the visible page, slot order (row-major).</summary>
+    public IReadOnlyList<InventoryItem> PageItems=>TabItems.Skip(ScrollOffset*Grid.Columns).Take(Grid.PageSize).ToArray();
+    /// <summary>Selected item: the game's selection when the state provides it, else the window's own (offline checks).</summary>
+    public uint? SelectedId=>source?.SelectedId??localSelection;
+    /// <summary>Logical rectangle of a visible slot.</summary>
+    public Rectangle CellRect(int slot)=>Logical(Grid.CellRect(slot));
+    public InventoryItem? ItemAt(Point logical)=>Grid.SlotAt(Local(logical)) is int s&&s<PageItems.Count?PageItems[s]:null;
+    /// <summary>Display name of an item ("$n" resolved, trailing " (count)" removed) — for row text and tooltips.</summary>
+    public string NameOf(InventoryItem item)=>ItemText.Name(ResolveName(item.Name),item.Count);
 
     protected override void Build(LegacyWindowLayout w,Func<int,UiSurface?> surfs){
         AddChrome(w,surfs,"SURF_RENEWAL_WIN_ITEM_BASE","SURF_RENEWAL_WIN_ITEM_FRAME","SURF_RENEWAL_BTN_PET_ITEM_X","SURF_RENEWAL_WIN_SCROLLBAR","SURF_RENEWAL_WIN_INC_BUT_OFF","SURF_RENEWAL_WIN_DEC_BUT_OFF");
@@ -242,9 +335,56 @@ public sealed class ItemWindowPanel:LegacyWindowPanel {
         for(int k=0;k<TabCount;k++){int tab=k;tabParts[k]=AddPart(w.Placed(TabNames[k]),surfs,()=>Tab==tab);}
         trash=AddPart(w.Placed("SURF_RENEWAL_BTN_ITEM_WASTE_OFF"),surfs);
         chest=AddPart(w.Placed("SURF_RENEWAL_BTN_ITEM_CHEST_OFF"),surfs);
-        Tab=0;
+        var up=w.Placed("SURF_RENEWAL_WIN_INC_BUT_OFF").Offset!.Value;var down=w.Placed("SURF_RENEWAL_WIN_DEC_BUT_OFF").Offset!.Value;
+        Grid=LegacyCellGrid.Fit(w.Placed("SURF_RENEWAL_WIN_ITEM_BASE").Offset!.Value.X,Math.Min(up.Y,down.Y),w.Placed("SURF_RENEWAL_WIN_SCROLLBAR").Offset!.Value.X,
+            w.Placed(TabNames[0]).Offset!.Value.Y,new(LegacyCellGrid.IconPitch,LegacyCellGrid.IconPitch));
+        if(Grid.PageSize==0)throw new UiLayoutException(w.FileName,w.WindowId,"格子區沒有空間（底圖左緣／捲軸／上箭頭／分頁的位置不合理）");
+        Tab=0;localSelection=null;
     }
-    protected override void OnUpdate(IUiGameState state){items=FindState<IUiItemWindowState>(state)?.Items;}
+    protected override void OnUpdate(IUiGameState state){
+        source=FindState<IUiItemWindowState>(state);items=source?.Items;
+        if(localSelection is uint id&&items?.Any(i=>i.ObjectId==id)!=true)localSelection=null;
+    }
+
+    protected override IEnumerable<Rectangle> Controls()=>[TabStripRect,Logical(Grid.Area),TrashRect];
+    protected override bool Click(UiMouseEvent e,IUiCommands commands){
+        var p=e.Location;
+        if(LegacyStrip.SegmentAt(TabStripRect,TabCount,p) is int tab){SetTab(tab);return true;}
+        if(TrashRect.Contains(p)){DeleteSelected();return true;}
+        if(ItemAt(p) is {} item){
+            uint? before=SelectedId;
+            SelectItem(item.ObjectId);
+            // R9-L：同一格的第二下（雙擊）→ 使用。第一下已選取，所以「之前已選這一件」才算。
+            if(e.Clicks>=2&&before==item.ObjectId)UseItem(item.ObjectId);
+            return true;
+        }
+        return false;
+    }
+    /// <summary>R9-L：Delete（4142）＝垃圾桶。窗開著、沒有修飾鍵、不是自動重複；聊天輸入列開著時不收（字給聊天列）。</summary>
+    public override bool Key(UiKeyEvent e,IUiCommands commands){
+        if(!Visible||!e.Down||e.Repeat||e.Modifiers!=Keys.None||e.KeyCode!=Keys.Delete)return false;
+        if(find?.Invoke(ChatPanel.WindowName) is ChatPanel{Input.Open:true})return false;
+        return DeleteSelected();
+    }
+    /// <summary>目前選取（且在背包清單內）的物品交給宿主刪除；沒有選取或沒有宿主 → false。</summary>
+    public bool DeleteSelected()=>SelectedId is uint id&&items?.Any(i=>i.ObjectId==id)==true&&host() is {} h&&h.Delete(id);
+    bool UseItem(uint id)=>host() is {} h&&h.Use(id);
+    /// <summary>Select through the game model when available (shared with the WinForms list and the U key), else locally.</summary>
+    public void SelectItem(uint? id){
+        if(id!=null&&items?.Any(i=>i.ObjectId==id)!=true)return;
+        if(source!=null&&source.Select(id))return;
+        localSelection=id;
+    }
+
+    protected override void PaintContent(UiCanvas canvas){
+        var page=PageItems;uint? selected=SelectedId;
+        for(int s=0;s<page.Count;s++){
+            var cell=CellRect(s);var item=page[s];
+            ItemIconSource.Draw(canvas,Icons.For(item),cell.Location);
+            DrawRightAligned(canvas,ItemText.Count(item.Count),cell.Right,cell.Bottom-UiText.Font.Height,TextColor);
+            if(item.ObjectId==selected)DrawFrame(canvas,cell,SelectedColor);
+        }
+    }
 
     // ---------------------------------------------------------------- offline checks (synthetic XML and surfaces only)
 
@@ -312,29 +452,30 @@ public sealed class ItemWindowPanel:LegacyWindowPanel {
         t.Equal(4,p.TabItems.Count,"tab 全部 lists every item (found through UiHpMpGameState)");
         p.SetTab(1);
         t.Check(p.TabItems.Select(i=>i.ObjectId).SequenceEqual(EquipmentRules.IsEquipment(2)?new uint[]{1,2}:new uint[]{1}),"tab 裝備 = EquipmentRules.IsEquipment");
-        p.SetTab(2);t.Equal(4,p.TabItems.Count,"任務 split unverified → every item");
+        p.SetTab(2);t.Equal(0,p.TabItems.Count,"任務: 3.81 has no quest attribute → empty (R4-B)");
+        p.SetTab(3);t.Equal(4-p.TabItems.Count,inv.Count(i=>EquipmentRules.IsEquipment(i.UseType)),"其他 = not equipment (R4-B)");
         p.SetTab(0);
         p.Update(new UiItemWindowGameState(basic,new UiItemWindowData(null)));
         t.Check(p.Items==null&&p.TabItems.Count==0,"inventory not received → empty, nothing estimated");
         p.Update(new UiItemWindowGameState(basic,new UiItemWindowData(inv)));
 
-        // Input: arrows scroll within [0, count−1]; close hides; clicks inside are swallowed; outside not taken.
+        // Input: arrows scroll by grid row (4 items fit one 5×5 page → nothing to scroll; row scrolling: LegacyWindowContentTests);
+        // close hides; clicks inside are swallowed; outside not taken.
         LegacyWindowTestKit.Click(p,new(175,50),cmd);t.Equal(0,p.ScrollOffset,"up at 0 stays 0");
         for(int k=0;k<6;k++)LegacyWindowTestKit.Click(p,new(175,230),cmd);
-        t.Equal(3,p.ScrollOffset,"down clamps to count−1");
-        LegacyWindowTestKit.Click(p,new(175,50),cmd);t.Equal(2,p.ScrollOffset,"up −1");
+        t.Equal(0,p.ScrollOffset,"one page of items → down stays 0");
         p.SetTab(1);t.Equal(0,p.ScrollOffset,"tab change resets the scroll");
         t.Check(LegacyWindowTestKit.Click(p,new(100,100),cmd)&&p.Visible,"click on the body is swallowed");
         t.Check(!p.Mouse(new UiMouseEvent(UiMouseKind.Down,new(300,300),MouseButtons.Left,1,0,Keys.None),cmd),"outside bounds not taken");
-        t.Check(!p.Key(new UiKeyEvent(Keys.I,true,false),cmd)&&!p.Key(new UiKeyEvent(Keys.Tab,true,false),cmd),"no hotkeys (待驗證)");
-        t.Check(p.IsDragHandle(new(100,100))&&!p.IsDragHandle(new(180,16))&&!p.IsDragHandle(new(175,230)),"body drags, controls do not");
+        t.Check(!p.Key(new UiKeyEvent(Keys.I,true,false),cmd)&&!p.Key(new UiKeyEvent(Keys.Tab,true,false),cmd),"the window itself takes no keys (hotkeys live in MenuButtonsPanel, R3-A #678)");
+        t.Check(p.IsDragHandle(new(190,150))&&!p.IsDragHandle(new(100,100))&&!p.IsDragHandle(new(180,16))&&!p.IsDragHandle(new(175,230)),"frame drags; cells and controls do not");
         LegacyWindowTestKit.Click(p,new(180,16),cmd);
         t.Check(!p.Visible&&!p.IsOpen&&cmd.Calls.Count==0,"close button hides the window and sends nothing");
 
         // Drag through UiRoot/UiInput: window stays inside 800×600; parts move with it.
         var root=new UiRoot();root.Add(p);p.Open();root.Update(stacked);
         var input=new UiInput(root,cmd);
-        input.Mouse(UiMouseKind.Down,new(100,100),MouseButtons.Left,1);
+        input.Mouse(UiMouseKind.Down,new(190,150),MouseButtons.Left,1);
         input.Mouse(UiMouseKind.Move,new(400,300));input.Mouse(UiMouseKind.Up,new(900,700),MouseButtons.Left);
         t.Equal(new Rectangle(600,310,200,290),p.Bounds,"dragged and clamped to the canvas (800−200, 600−290)");
         t.Equal(new Rectangle(779,325,12,12),p.CloseRect,"close button moved with the window");

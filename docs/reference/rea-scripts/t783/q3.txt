@@ -1,0 +1,12 @@
+dec F05890
+dec F06CC0
+dec F1A7C0
+dec 1145F70
+dec 8E4B50
+dec 8E4AD0
+dec 8E74E0
+dec 8E4DE0
+xref 1545250
+xref 154524C
+findstr MiniHpMpBarBlinkDraw
+findstr .?AVMiniHpMpBarDraw@Lineage@@

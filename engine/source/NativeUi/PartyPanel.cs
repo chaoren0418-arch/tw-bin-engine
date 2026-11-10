@@ -183,13 +183,15 @@ public static class PartyLayout {
 
         /// <summary>
         /// Leave → existing "leave"; ban → existing "kick" with the selected member (only for the leader, same rule as SendParty);
-        /// delegate → no existing action (C230 type=3 leader transfer is not implemented, docs/protocol/party.md) → nothing is sent.
+        /// delegate → "delegate" with the selected member (R7-J #812: C230 type=3 leader transfer, docs/protocol/party.md:21); only for
+        /// the leader and a member whose object id is known (PartyPackets.DelegateTarget). No confirmation prompt (推測: BIN not traced).
         /// </summary>
         public bool Fire(int tag,PartyView party,IUiCommands commands){
             if(PartyStates.CommandsOf(commands) is not {} cmd||!party.Available)return false;
             switch(tag){
                 case Leave when party.Members.Length>0:cmd.PartyAction("leave",party,"");return true;
                 case Ban when party.CanKick&&Selected is {} name&&party.Members.Any(m=>m.Name==name):cmd.PartyAction("kick",party,name);return true;
+                case Delegate when Selected is {} who&&PartyPackets.DelegateTarget(party,who)!=0:cmd.PartyAction("delegate",party,who);return true;
                 default:return false;
             }
         }

@@ -2,6 +2,23 @@ using System.Buffers.Binary;
 namespace P06;
 public sealed record LearnedMagic(int Id,string Name,bool Supported,string Target,int NominalMp);
 public sealed record MagicEffect(long Number,uint Caster,uint Target,int Gfx,int Action,ushort DamageWord,int Heading,ushort SourceX,ushort SourceY,ushort TargetX,ushort TargetY,long At,uint ServerSequence=0,ushort CasterGfx=0){public ActionCadence? Timing{get;init;}public long? ActionAt{get;init;}public int? CasterWeapon{get;init;}public byte? RangeType{get;init;}}
+/// <summary>SV#3 選目標模式：技能、範圍（格）、提示字串編號（179，FU9§8）。</summary>
+public sealed record SpellTargetPick(int Skill,int Range,int Cursor,int Epoch,int TargetRevision);
+public static class SpellTargeting {
+    /// <summary>sub_E2AB60 → sub_F691C0(…, 15, 179)：選目標範圍 15 格。</summary>
+    public const int Range=15;
+    /// <summary>
+    /// sub_F691C0 的第 3 個參數：字串 179，進入模式時印到聊天欄（已驗證，FU9§8.1：sub_F690D0(179) → sub_7DC800 以 palette[24]
+    /// 印 string-c.tbl 第 179 行「\f1請選擇對象。」）。不是游標編號；進入模式後游標是否改變待真機（M35），引擎不換游標。
+    /// 名稱沿用 Cursor（既有測試與 SpellTargetPick 欄位）；值與 ChatFollowupCommands.SelectTarget 相同。
+    /// </summary>
+    public const int Cursor=ChatFollowupCommands.SelectTarget;
+    /// <summary>sub_7DC800 的聊天列色（palette[24]）。</summary>
+    public const int NoticeColorIndex=24;
+    /// <summary>字串 179（照表去色碼；沒有表時用本機 string-c.tbl 原文「請選擇對象。」）。</summary>
+    public static string PickNotice=>ChatFollowupCommands.SelectTargetText;
+    public static bool Within(int x,int y,int tx,int ty)=>CombatRules.TileDistance(x,y,tx,ty)<=Range;
+}
 public static class MagicRules {
     // Verified skill 4 template, ranged=10. Other supported skills keep their targeting rules.
     public static bool InRange(int skill,int x,int y,int targetX,int targetY)=>skill!=4||CombatRules.TileDistance(x,y,targetX,targetY)<=10;
@@ -32,7 +49,22 @@ public sealed partial class WorldSession {
     public long MagicEffectCount {get;private set;}
     public string MagicNotice {get;internal set;}="等待原服已學技能清單";
     public bool SelectMagic(int? id){if(id!=null&&!learnedMagic.Contains(id.Value))return false;SelectedMagicId=id;MagicSelectionRevision++;MagicRevision++;return true;}
-    void ResetMagic(){learnedMagic.Clear();magicEffects.Clear();magicBuffs.Clear();PartialAcByte=null;SelectedMagicId=null;MagicTargetSelf=true;MagicListReceived=false;MagicEffectCount=0;MagicRevision++;MagicSelectionRevision++;MagicNotice="等待原服已學技能清單";}
+    // R7-A（T340／#803）SV#3（skills-visual.md §1.3，sub_E2AB60）：沒有可用目標時進入選目標模式（sub_F691C0(…, 15, 179)）。
+    // 只做狀態與協定：點中物件後送 C_USE_SPELL（C6）。T378（#862，FU9§8）：179 是字串，進入模式時把它印到聊天欄（色 24）；
+    // 引擎不換游標（M35 待真機）、不畫畫面。原版 sub_A11280(179) 為真時不印——那個條件沒查，這裡一律印（推測）。
+    public SpellTargetPick? SpellTargetPick {get;private set;}
+    internal void BeginSpellTargetPick(int skill){
+        SpellTargetPick=new(skill,SpellTargeting.Range,SpellTargeting.Cursor,WorldEpoch,TargetRevision);MagicRevision++;
+        string text=SpellTargeting.PickNotice;MagicNotice=text;
+        playerChatLines.Enqueue(new(++playerChatSequence,0,text){ColorIndex=SpellTargeting.NoticeColorIndex});
+        while(playerChatLines.Count>100)playerChatLines.Dequeue();
+        playerChatRevision++;
+    }
+    /// <summary>選目標模式有效：同一世界、同一技能、沒有選取目標，而且進入後沒有任何入口改過選取（TargetRevision 不變）。</summary>
+    public bool SpellTargetPicking=>SpellTargetPick is {} p&&p.Epoch==WorldEpoch&&SelectedMagicId==p.Skill&&TargetId==null&&p.TargetRevision==TargetRevision;
+    public void CancelSpellTargetPick(string reason){if(SpellTargetPick==null)return;SpellTargetPick=null;MagicRevision++;MagicNotice=$"已取消選目標（{reason}）";}
+    internal void EndSpellTargetPick(){if(SpellTargetPick!=null){SpellTargetPick=null;MagicRevision++;}}
+    void ResetMagic(){SpellTargetPick=null;learnedMagic.Clear();magicEffects.Clear();magicBuffs.Clear();PartialAcByte=null;SelectedMagicId=null;MagicTargetSelf=true;MagicListReceived=false;MagicEffectCount=0;MagicRevision++;MagicSelectionRevision++;MagicNotice="等待原服已學技能清單";}
     void ClearMagicEffects(){magicEffects.Clear();MagicSelectionRevision++;}
     internal void RemoveLearnedMagic(IEnumerable<int> ids){foreach(int id in ids)learnedMagic.Remove(id);if(SelectedMagicId is int selected&&!learnedMagic.Contains(selected))SelectMagic(null);MagicListReceived=true;MagicRevision++;MagicNotice="原服移除技能已更新";InteractionSkillsUpdated();}
     void AddMagicEffect(MagicEffect e){
@@ -71,18 +103,21 @@ public sealed partial class LoginConnection {
     void ResetMagicSend(){magicLease++;magicSending=false;nextMagicAt=0;lastMagicTiming=null;lastMagicAdmission=-1;}
     public Task<bool> CastSelectedMagic()=>CastSelectedMagic(null);
     public async Task<bool> CastSelectedMagic(SkillCastTarget? requested){
+        if(requested==null&&TryOpenRingWindow())return false;   // T276（#667）：控制戒指改開窗，不送 C6（AbilityStatus.cs）
+        // R7-A SV#3：沒有指定目標、也沒有可沿用的目標時，進入選目標模式，不送 C6（點中物件後由 PlayerPointer 送出）。
+        if(requested==null&&NeedsSpellTargetPick()){World.BeginSpellTargetPick(World.SelectedMagicId!.Value);return false;}
         if(!TryPrepareSkillCast(requested,out var prepared)||MovementBusy||sendMovementGate==null){World.MagicNotice="未送出：請選已學技能並提供有效目標（座標、名字或書籤），並等待動作完成";return false;}
         var cast=prepared!;int id=World.SelectedMagicId!.Value;var a=World.Actor!;uint target=cast.Target;ushort x=cast.X,y=cast.Y;
         if(!MagicRules.InRange(id,a.X,a.Y,x,y)){
             World.MagicNotice=$"未送出：目標距離 {CombatRules.TileDistance(a.X,a.Y,x,y)} 格，光箭需在 10 格內；請走近、停下後再施法。";
             return false;
         }
-        var spell=MagicSpells.Get(id)!;var timing=ActionCadence.Capture(a.Gfx,a.Weapon,spell.Action,a.Speed,a.Brave,spell.ReuseMs,100);int castMs=timing.CastWaitMs;int epoch=generation,we=World.WorldEpoch,sel=World.MagicSelectionRevision,ts=World.TargetRevision,input=inputVersion,correction=World.Corrections,appearanceRevision=World.AppearanceRevision,speedRevision=World.SpeedRevision,lease=++magicLease;var sender=sendMovementGate;byte[] bytes=cast.Bytes;magicSending=true;
+        var spell=MagicSpells.Get(id)!;var timing=ActionCadence.Capture(a.Gfx,a.Weapon,spell.Action,a.Speed,a.Brave,SpellListCooldowns.ReuseMs(id,spell.Action,spell.ReuseMs),100);int castMs=timing.CastWaitMs;int epoch=generation,we=World.WorldEpoch,sel=World.MagicSelectionRevision,ts=World.TargetRevision,input=inputVersion,correction=World.Corrections,appearanceRevision=World.AppearanceRevision,speedRevision=World.SpeedRevision,lease=++magicLease;var sender=sendMovementGate;byte[] bytes=cast.Bytes;magicSending=true;
         bool TargetCurrent()=>cast.Object==null||World.Objects.Any(o=>o.ObjectId==target&&!o.AppearancePending&&o.Dead==cast.Object.Dead);
         bool ArgumentsCurrent()=>TryPrepareSkillCast(requested,out var current)&&current!.Bytes.AsSpan().SequenceEqual(bytes);
         bool CompletionCurrent()=>epoch==generation&&lease==magicLease&&we==World.WorldEpoch&&input==inputVersion&&ts==World.TargetRevision&&TargetCurrent()&&correction==World.Corrections&&appearanceRevision==World.AppearanceRevision&&!World.SelfAppearancePending&&!World.OwnDead&&World.Status is {Hp:>0}&&World.Actor?.ObjectId==a.ObjectId&&World.Actor?.Gfx==a.Gfx&&World.Actor?.Weapon==a.Weapon;
         try {
-            bool sent=await sender(bytes,()=>CompletionCurrent()&&sel==World.MagicSelectionRevision&&speedRevision==World.SpeedRevision&&ArgumentsCurrent()&&World.Actor?.X==a.X&&World.Actor?.Y==a.Y&&!combatSending&&ActionAdmissionReady&&(cast.Object==null||World.Objects.Any(o=>ReferenceEquals(o,cast.Object))),()=>{lastMagicTiming=timing;lastMagicAdmission=ActionClock();magicTimingEpoch=World.WorldEpoch;nextMagicAt=lastMagicAdmission+castMs;/* SV§1.1: native C6 senders never start a local action or turn; the caster pose waits for S30/S42/S_ACTION. */World.MagicNotice="單次施法已送出；等待原服結果（不預扣HP／MP）";Set(State,World.MagicNotice);});
+            bool sent=await sender(bytes,()=>CompletionCurrent()&&sel==World.MagicSelectionRevision&&speedRevision==World.SpeedRevision&&ArgumentsCurrent()&&World.Actor?.X==a.X&&World.Actor?.Y==a.Y&&!combatSending&&ActionAdmissionReady&&(cast.Object==null||World.Objects.Any(o=>ReferenceEquals(o,cast.Object))),()=>{lastMagicTiming=timing;lastMagicAdmission=ActionClock();magicTimingEpoch=World.WorldEpoch;nextMagicAt=lastMagicAdmission+castMs;World.EndSpellTargetPick();/* SV§1.1: native C6 senders never start a local action or turn; the caster pose waits for S30/S42/S_ACTION. */World.MagicNotice="單次施法已送出；等待原服結果（不預扣HP／MP）";Set(State,World.MagicNotice);});
             if(!CompletionCurrent())return false;
             if(!sent){World.MagicNotice="未送出：目標已移動或動作狀態已改變；請確認目標後再施放一次。";return false;}nextMagicAt=Math.Max(nextMagicAt,ActionClock()+castMs);MagicSent?.Invoke(new{utc=DateTimeOffset.UtcNow,monotonicMs=Environment.TickCount64,skill=id,target,plainHex=Convert.ToHexString(bytes),worldEpoch=we});return true;
         }catch(Exception ex){if(CompletionCurrent()){Cancel();Set(LoginState.Faulted,"施法傳送失敗："+ex.Message);}return false;}

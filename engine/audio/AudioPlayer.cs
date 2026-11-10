@@ -133,6 +133,19 @@ public sealed class AudioPlayer : IAsyncDisposable, IAudioPlayback
             return Queue(()=>core.Finish(owner));
         }
     }
+    // T302 (R4-K): live volume update. Same generation is enough (active or draining); the worker re-checks in AudioCore.
+    public Task<AudioReply> SetVoiceLevelAsync(AudioOwner owner, double voiceScale, int ext)
+    {
+        lock (gate)
+        {
+            if (!accepting) return Rejected("Disposed");
+            if (!AudioGain.Valid(voiceScale)) return Rejected("InvalidVoiceScale");
+            if (!AudioGain.ValidExt(ext)) return Rejected("InvalidExt");
+            if (owner.Key == null || !ownerFences.TryGetValue(owner.Key, out var fence) || fence.Generation != owner.Generation)
+                return Rejected("StaleOrUnknownOwner");
+            return Queue(() => core.SetLevel(owner, voiceScale, ext));
+        }
+    }
     public Task<AudioReply> StopAsync(AudioOwner owner, Guid playback) => Enqueue(() => core.Stop(owner, playback));
     public Task<AudioReply> RetireAsync(AudioOwner owner)
     {

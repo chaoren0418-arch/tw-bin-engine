@@ -14,13 +14,20 @@ namespace P06.NativeUi;
 //   draw    sub_9001F0: icon; offIcon when offIcon > 0, display mode 0/6 and the time ran out; icon 0 → the effect number
 //   time    never drawn on the icon; tooltip only (sub_900FC0 + sub_9061E0): 160 wide at (x, y+32), "%s: %d %s" (930, s, 931)
 // Not done (see the issue-473 report): the 0x800 "sort by remaining time" option, the +21 hidden-cell flag, effect 470's special
-// case, gauge overlays (no effect uses gaugePng), display modes other than 0.
+// case, gauge overlays (no effect uses gaugePng). Display modes: 0–4, 6–8, 12 since R5-F; 5, 9, 10, 11 write no text.
+// R4-F (T297/#709): display mode 1 (percent tooltip "%s: %d%%" with string 1551, sub_9061E0 VA 0x9062FD), per-entry icon override
+// (S250/75 rewrites effect 135's icon), and table-duration countdown for entries that carry ElapsedMs.
+// R5-F (T311/#738): the rest of the sub_9061E0 switch (jump table VA 0x9066D0, 13 cases on byte +0x260), see TooltipText.
+// R7-E (T344/#807): effect 470's tail (VA 0x90666D, reached by every case): player dword +0x328 = 0 → colour index 3 and
+// sprintf(buf, string 3399) (replaces the text); otherwise strcpy(buf, "") (no tooltip). Tooltip colour: index 10 of the
+// dword_1369D70 palette (VA 0x906216), see TooltipColorIndex. Effect 470's special case in the icon draw (sub_9001F0) is not done.
 
 /// <summary>Effect kind list off_138D8FC (13 names, index = kind byte).</summary>
 public enum BuffKind { Slow=0, Curse=1, Paralyse=2, Einhasad=3, Security=4, Dragon=5, MagicDoll=6, Cook=7, Speed=8, Attack=9, Defense=10, Neutrality=11, Legacy=12 }
 
-/// <summary>One &lt;effect&gt; row. Icon/OffIcon 0 = none. Kind null = attribute absent (推測: treated as a buff).</summary>
-public sealed record BuffEffect(int Id,int Icon,int OffIcon,BuffKind? Kind,int Priority,int Duration,string Name) {
+/// <summary>One &lt;effect&gt; row. Icon/OffIcon 0 = none. Kind null = attribute absent (推測: treated as a buff).
+/// StartMsg: attribute startMsg (record +12, a string-c.tbl id; 0 = none), printed by sub_F05B10 (R5-F, S250/180).</summary>
+public sealed record BuffEffect(int Id,int Icon,int OffIcon,BuffKind? Kind,int Priority,int Duration,string Name,int StartMsg=0) {
     public bool Debuff=>Kind is BuffKind.Slow or BuffKind.Curse or BuffKind.Paralyse;
     /// <summary>sub_903EB0.</summary>
     public int SortKey=>Priority>0?Priority:Kind is BuffKind k&&(int)k<=2?(int)k:100;
@@ -53,7 +60,7 @@ public sealed class BuffEffectTable {
             if(id!=order)faults.Add($"Order fault: id {id} at #{order}");   // sub_81DF30 only logs this
             order++;
             if(n.Attr("kind") is string k&&ParseKind(k)==null)throw new UiLayoutException(layout.FileName,n.Path,$"未知的 kind \"{k}\"");
-            var e=new BuffEffect(id,n.TryInt("icon")??0,n.TryInt("offIcon")??0,ParseKind(n.Attr("kind")),n.TryInt("priority")??0,n.TryInt("duration")??0,n.Attr("startMsgName")??"");
+            var e=new BuffEffect(id,n.TryInt("icon")??0,n.TryInt("offIcon")??0,ParseKind(n.Attr("kind")),n.TryInt("priority")??0,n.TryInt("duration")??0,n.Attr("startMsgName")??"",n.TryInt("startMsg")??0);
             if(!map.TryAdd(id,e))throw new UiLayoutException(layout.FileName,n.Path,$"effect id {id} 重複");
         }
         if(map.Count==0)throw new UiLayoutException(layout.FileName,layout.Root.Path,"沒有任何 effect");
@@ -181,6 +188,7 @@ public sealed class BuffIconsPanel(IReadOnlyList<ClientArchive>? sprites=null):I
     readonly BuffIconOrder order=new();
     List<Placed> placed=[];
     BuffTooltipText text=BuffTooltipText.None;
+    int vipFlag;
     readonly HashSet<string> logged=[];
 
     public void Load(UiLayout layout,SurfCatalog surfs){
@@ -193,7 +201,7 @@ public sealed class BuffIconsPanel(IReadOnlyList<ClientArchive>? sprites=null):I
 
     public void Update(IUiGameState state){
         var buffs=state.InWorld?BuffState.Of(state)??BuffState.Empty:BuffState.Empty;
-        text=buffs.Text;Unmapped=buffs.Unmapped;
+        text=buffs.Text;vipFlag=buffs.VipFlag;Unmapped=buffs.Unmapped;
         foreach(var u in buffs.Unmapped)Log($"buff-icons 未對照（不畫）{u.Origin}：{u.Reason}");
         var byEffect=new Dictionary<int,BuffEntry>();var present=new List<BuffEffect>();
         if(Table!=null)foreach(var e in buffs.Entries){
@@ -204,10 +212,9 @@ public sealed class BuffIconsPanel(IReadOnlyList<ClientArchive>? sprites=null):I
         order.Sync(present);
         var list=new List<Placed>();
         foreach(var (def,cell) in order.Cells()){
-            var entry=byEffect[def.Id];
-            if(entry.DefaultDuration)entry=entry with{Seconds=def.Duration<0?-1:null};
-            bool off=def.OffIcon>0&&entry.Expired;   // display mode 0 (sub_902840)
-            list.Add(new(def,entry,new Rectangle(Cell(cell),new Size(IconSize,IconSize)),off?def.OffIcon:def.Icon,off));
+            var entry=ApplyDefaultDuration(byEffect[def.Id],def);
+            bool off=def.OffIcon>0&&entry.Expired&&entry.DisplayMode is 0 or 6;   // sub_902840: offIcon only in display mode 0/6
+            list.Add(new(def,entry,new Rectangle(Cell(cell),new Size(IconSize,IconSize)),off?def.OffIcon:entry.IconOverride??def.Icon,off));
         }
         placed=list;
         if(Hover is int h&&!placed.Any(x=>x.Effect.Id==h))Hover=null;
@@ -215,11 +222,71 @@ public sealed class BuffIconsPanel(IReadOnlyList<ClientArchive>? sprites=null):I
     }
     void Log(string line){if(logged.Add(line))UiResourceLog.Write(line);}
 
-    /// <summary>Tooltip line for one icon (display mode 0); null when the string table or the time is unknown.</summary>
-    public string? TooltipText(Placed p){
-        if(p.Off)return text.Over;
-        if(text.Label==null||text.Unit==null||p.Entry.Seconds is not int s)return null;
-        return s<0?$"{text.Label}: -- {text.Unit}":$"{text.Label}: {s.ToString(CultureInfo.InvariantCulture)} {text.Unit}";
+    /// <summary>
+    /// Seconds of an entry whose time is the effect's table duration (S171 invisible, R4-F S250/75): duration −1 → no limit;
+    /// otherwise counted down from ElapsedMs like sub_9061E0 (left = duration − elapsed/1000, Expired when left &lt; 0);
+    /// start unknown → null (no tooltip, no guess).
+    /// </summary>
+    public static BuffEntry ApplyDefaultDuration(BuffEntry entry,BuffEffect def){
+        if(!entry.DefaultDuration)return entry;
+        if(def.Duration<0)return entry with{Seconds=-1};
+        if(entry.ElapsedMs is not long ms)return entry with{Seconds=null};
+        long left=def.Duration-ms/1000;
+        return entry with{Seconds=(int)Math.Max(0,left),Expired=left<0};
+    }
+
+    /// <summary>
+    /// Tooltip line for one icon; null when the string table or the value is unknown. sub_9061E0 (VA 0x9061E0 / FO 0x5055E0),
+    /// switch on display mode (byte +0x260, jump table VA 0x9066D0). "value" = the seconds slot +0x50 as sent; "left" = remaining
+    /// seconds (+0x50 − elapsed/1000; the engine's Seconds already holds it for timed entries):
+    ///   0, 6  2854 when offIcon is drawn; "%s: -- %s" (930, 931) for −1 or time over; else "%s: %d %s" (930, left, 931)
+    ///   1     "%s: %d%%"            (1551, value)                                   VA 0x9062FD
+    ///   2     "%s: %d%s"            (978, value, 1587)                              VA 0x90632B
+    ///   3     empty string → no tooltip                                             VA 0x906369
+    ///   4     "%s: %d%s"            (978, left/60 + 1, 1587)                        VA 0x90637D
+    ///   7     "%s: %d%s %d%s %d%s"  (978, d, 763, h, 1630, m + 1, 1587)             VA 0x9063CE
+    ///   8     "%s:" (978) + at most two non-zero parts " %d%s" in the order d 763, h 1630, m 1587, s 931 (m without +1) VA 0x906485
+    ///   12    "%s: %d%%"            (4829, value)                                   VA 0x906644
+    ///   5, 9, 10, 11  nothing written → no tooltip
+    /// d = left/86400, h = (left − 86400·d)/3600, m = (left − 86400·d − 3600·h)/60, s = left mod 60; C integer division (truncates
+    /// toward zero, as C#). The local string-c.tbl has 3484 records, so 4829 is missing there → mode 12 shows no text (not invented).
+    /// R7-E tail (VA 0x90666D, after every case including 5/9/10/11 and modes &gt; 12): effect 470 (cmp [+0x20], 0x1D6) →
+    /// vipFlag (player dword +0x328) = 0 → string 3399 (sprintf with the string as the format; it has no '%') replacing the text;
+    /// vipFlag ≠ 0 → strcpy "" → no tooltip.
+    /// </summary>
+    public string? TooltipText(Placed p)=>TooltipText(p.Entry,p.Off,text,vipFlag);
+    public static string? TooltipText(BuffEntry entry,bool off,BuffTooltipText text,int vipFlag=0){
+        if(entry.Effect==Vip470Effect)return vipFlag==0?text.Vip470:null;
+        return CaseText(entry,off,text);
+    }
+    /// <summary>R7-E: effect id tested by the sub_9061E0 tail (0x1D6, STR_STATUS_EFFECT_CH_VIP_BUFF).</summary>
+    public const int Vip470Effect=0x1D6;
+    /// <summary>Tooltip colour slot ([ebp+0xC]): palette index 10 at entry (VA 0x906216); the 470 tail with vipFlag 0 sets 3 (VA 0x906687).</summary>
+    public const int TooltipColor=10,Vip470TooltipColor=3;
+    public static int TooltipColorIndex(BuffEntry entry,int vipFlag=0)=>entry.Effect==Vip470Effect&&vipFlag==0?Vip470TooltipColor:TooltipColor;
+    static string? CaseText(BuffEntry entry,bool off,BuffTooltipText text){
+        static string N(int v)=>v.ToString(CultureInfo.InvariantCulture);
+        switch(entry.DisplayMode){
+        case 0 or 6:
+            if(off)return text.Over;
+            if(text.Label==null||text.Unit==null||entry.Seconds is not int s)return null;
+            return s<0||entry.Expired?$"{text.Label}: -- {text.Unit}":$"{text.Label}: {N(s)} {text.Unit}";
+        case 1:return text.Percent!=null&&entry.Seconds is int v1?$"{text.Percent}: {N(v1)}%":null;
+        case 12:return text.Percent12!=null&&entry.Seconds is int v12?$"{text.Percent12}: {N(v12)}%":null;
+        }
+        if(entry.DisplayMode is not (2 or 4 or 7 or 8)||text.Remain==null||text.Minute==null||entry.Seconds is not int left)return null;
+        switch(entry.DisplayMode){
+        case 2:return $"{text.Remain}: {N(left)}{text.Minute}";
+        case 4:return $"{text.Remain}: {N(left/60+1)}{text.Minute}";
+        }
+        if(text.Day==null||text.Hour==null)return null;
+        int d=left/86400,h=(left-d*86400)/3600,m=(left-d*86400-h*3600)/60;
+        if(entry.DisplayMode==7)return $"{text.Remain}: {N(d)}{text.Day} {N(h)}{text.Hour} {N(m+1)}{text.Minute}";
+        if(text.Unit==null)return null;
+        var sb=new System.Text.StringBuilder(text.Remain).Append(':');int parts=0;
+        foreach(var (n,unit) in new[]{(d,text.Day),(h,text.Hour),(m,text.Minute),(left%60,text.Unit)})
+            if(n>0&&parts<2){sb.Append(' ').Append(N(n)).Append(unit);parts++;}
+        return sb.ToString();
     }
     public const int TooltipHeight=16;
     /// <summary>Tooltip box: 160 wide at (x, y+32), moved left when closer than 5 px to the right edge.</summary>
@@ -244,11 +311,11 @@ public sealed class BuffIconsPanel(IReadOnlyList<ClientArchive>? sprites=null):I
             if(Icons?.Get(p.Icon) is {} icon)canvas.DrawBitmap(icon.Bitmap,p.Rect.X+icon.Image.OffsetX,p.Rect.Y+icon.Image.OffsetY);
         }
         if(Hovered is {} hp&&TooltipText(hp) is string line){
-            // Box style (colours, padding) is 待驗證; only position, width and text are V3.
+            // Box style (background, padding) is 待驗證; position, width, text and the text colour index (R7-E) are V3.
             var r=TooltipRect(hp.Rect);
             using var back=new SolidBrush(Color.FromArgb(192,0,0,0));
             canvas.Graphics.FillRectangle(back,r);
-            canvas.DrawText(line,r.X+2,r.Y+2,Color.White);
+            canvas.DrawText(line,r.X+2,r.Y+2,ChatPalette.Color(TooltipColorIndex(hp.Entry,vipFlag)));
         }
     }
 

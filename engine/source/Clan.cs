@@ -5,7 +5,7 @@ namespace P06;
 public enum ClanCommand { Create, Join, Leave, Ban, Emblem, Members }
 public sealed record ClanUpdate(uint ObjectId,string Name,string Title,uint Reserved,byte Rank);
 public sealed record ClanEmblem(uint Id,int[] Pixels);
-public sealed record ClanAttention(ushort Type,string[] Names);
+public sealed record ClanAttention(ushort Type,string[] Names,byte Result=0);
 public sealed record ClanAnnouncement(string Name,string Leader,uint EmblemId,uint Created,string Text);
 public sealed record ClanMember(string Name,byte Rank,byte Level,string Note,uint ObjectId,byte Class,bool? Online=null);
 public sealed record ClanInvitation(long Revision,uint PeerId,string Name,long ExpiresAt);
@@ -42,13 +42,8 @@ public static class ClanProtocol {
     public static byte[] Encode(ClanCommand command,string name="",uint emblemId=0){
         byte opcode=command switch{ClanCommand.Create=>222,ClanCommand.Join=>194,ClanCommand.Leave=>61,ClanCommand.Ban=>69,ClanCommand.Emblem=>72,ClanCommand.Members=>68,_=>throw new ArgumentException("未知血盟操作。")};
         if(command is ClanCommand.Create or ClanCommand.Ban){
-            if(string.IsNullOrWhiteSpace(name)||name.Any(c=>char.IsControl(c)||char.IsWhiteSpace(c)))throw new ArgumentException("名稱不可為空白或含控制字元。");
-            if(command==ClanCommand.Create&&name.Length>16)throw new ArgumentException("血盟名稱最多 16 字。");
-            byte[] text;
-            try{text=LoginPackets.TextEncoding.GetBytes(name);}catch(System.Text.EncoderFallbackException){throw new ArgumentException("名稱含遊戲字集無法表示的字元。");}
-            // Client input budget; final name/role/level policy belongs to the server.
-            if(text.Length>32)throw new ArgumentException("名稱最多 32 個 Big5 位元組。");
-            return LoginPackets.Pad([opcode,..text,0]);
+            if(command==ClanCommand.Create&&name.Length>16&&!name.Any(c=>char.IsControl(c)||char.IsWhiteSpace(c)))throw new ArgumentException("血盟名稱最多 16 字。");
+            return LoginPackets.Pad([opcode,..NameBytes(name),0]);
         }
         if(command==ClanCommand.Emblem){
             if(emblemId==0)throw new ArgumentException("尚未收到可查詢的盟徽識別碼。");
@@ -56,16 +51,67 @@ public static class ClanProtocol {
         }
         return LoginPackets.Pad([opcode]);
     }
+    static byte[] NameBytes(string name){
+        if(string.IsNullOrWhiteSpace(name)||name.Any(c=>char.IsControl(c)||char.IsWhiteSpace(c)))throw new ArgumentException("名稱不可為空白或含控制字元。");
+        byte[] text;
+        try{text=LoginPackets.TextEncoding.GetBytes(name);}catch(System.Text.EncoderFallbackException){throw new ArgumentException("名稱含遊戲字集無法表示的字元。");}
+        // Client input budget; final name/role/level policy belongs to the server.
+        if(text.Length>32)throw new ArgumentException("名稱最多 32 個 Big5 位元組。");
+        return text;
+    }
+
+    // R2-K: C63 C_Rank data 1 = C(1) C(rank) S(name) (server-protocol.md C_Rank; TW16 C_RANK_CONTROL op 10).
+    // The server accepts 2–10 (C_Rank.rank, message 2149 otherwise); leader and membership are checked there (785/518/201).
+    // Never send other data values from here: 5 changes HP/food, 9 is the dungeon timer list (player-query.md).
+    public const byte RankOpcode=63,RankChange=1,MinRank=2,MaxRank=10;
+    // Names from the C_Rank.rank source comment; 2–6 and 7–10 are two numbering generations of the same titles.
+    public static string RankName(byte rank)=>rank switch{2 or 7=>"一般",3=>"副君主",4 or 10=>"聯盟君主",5 or 8=>"修習騎士",6 or 9=>"守護騎士",_=>"階級 "+rank};
+    public static byte[] EncodeRank(byte rank,string name){
+        if(rank is <MinRank or >MaxRank)throw new ArgumentException("階級只能是 2–10。");
+        return LoginPackets.Pad([RankOpcode,RankChange,rank,..NameBytes(name),0]);
+    }
     public static ClanUpdate DecodeUpdate(byte[] packet){
         var r=Reader(packet,72);var value=new ClanUpdate(r.D(),r.S(),r.S(),r.D(),r.C());r.Finish();
         if(value.ObjectId==0)throw new ProtocolException("clan update identity");return value;
     }
+    // R4-E (SS2§3, TW16 sub_B2E1D0): C(type) C(result), then type 2 = D(n) n×S. 3.81 S_ClanAttention writes H(type) (= C(type) C(0))
+    // and ends with H(0); TW16 ignores the trailer, so after the fields only zero bytes (trailer + padding, < 10) may follow.
+    public const byte AttentionResult=0,AttentionList=2,AttentionRefresh=1;
+    public const ushort AttentionLeaderOfflineMessage=3349,AttentionAtWarMessage=3324;
     public static ClanAttention DecodeAttention(byte[] packet){
-        var r=Reader(packet,200);ushort type=r.H();var names=new List<string>();
-        if(type==2){uint count=r.D();if(count>256)throw new ProtocolException("clan attention count");for(uint i=0;i<count;i++)names.Add(r.S());}
-        if(r.H()!=0)throw new ProtocolException("clan attention trailer");r.Finish();return new(type,names.ToArray());
+        var r=Reader(packet,200);byte type=r.C(),result=r.C();var names=new List<string>();
+        if(type==AttentionList){uint count=r.D();if(count>256)throw new ProtocolException("clan attention count");for(uint i=0;i<count;i++)names.Add(r.S());}
+        if(r.Remaining>9)throw new ProtocolException("clan attention trailer");
+        while(r.Remaining>0)if(r.C()!=0)throw new ProtocolException("clan attention trailer");
+        return new(type,names.ToArray(),result);
     }
+    /// <summary>Type 0 result → chat message (sub_C14680): 131／129 → 3349「對象血盟的王族為離線狀態」，138 → 3324「對象血盟於戰爭狀態」；others none.</summary>
+    public static ushort? AttentionMessage(ClanAttention value)=>value.Type!=AttentionResult?null:value.Result switch{131 or 129=>AttentionLeaderOfflineMessage,138=>AttentionAtWarMessage,_=>null};
     static LoginReader Reader(byte[] packet,byte opcode){var r=new LoginReader(packet);if(r.C()!=opcode)throw new ProtocolException("clan opcode");return r;}
+
+    // T316（#746，FU6§1）：C129（TW16 op 201 C_PLEDGE_WATCH；3.81 C_ClanAttention）。三個送出函式：
+    //   子碼 0 新增 `ccs`（sub_C15C10，CS_PLEDGE_WATCH_ADD_REQ）、子碼 1 刪除 `ccs`（sub_C15C40）、子碼 2 取清單 `cc`（sub_C15C70）。
+    // 名稱緩衝 0x11 byte（16 byte＋NUL），所以名稱截到 16 個 Big5 byte（不切斷雙位元組字）。
+    public const byte AttentionOpcode=129,AttentionAdd=0,AttentionRemove=1,AttentionGetList=2,AttentionNameBytes=16;
+    /// <summary>字串 3361「請輸入想要查看的血盟名。」（新增的輸入框）；4118＝刪除確認（本機 string-c.tbl 只有 3484 筆，查不到，用編號占位）。</summary>
+    public const int AttentionInputText=3361,AttentionDeleteConfirmText=4118;
+    public static byte[] EncodeAttentionAdd(string name)=>LoginPackets.Pad([AttentionOpcode,AttentionAdd,..AttentionName(name),0]);
+    public static byte[] EncodeAttentionRemove(string name)=>LoginPackets.Pad([AttentionOpcode,AttentionRemove,..AttentionName(name),0]);
+    public static byte[] EncodeAttentionGetList()=>LoginPackets.Pad([AttentionOpcode,AttentionGetList]);
+    /// <summary>名稱非空才送（sub_B2AF90）；控制字元不收；超過 16 byte 時截斷在字元邊界。</summary>
+    public static byte[] AttentionName(string name){
+        name=name.Trim();
+        if(name.Length==0||name.Any(char.IsControl))throw new ArgumentException("請輸入血盟名稱。");
+        var result=new List<byte>(AttentionNameBytes);
+        try{
+            foreach(var rune in name.EnumerateRunes()){
+                byte[] b=LoginPackets.TextEncoding.GetBytes(rune.ToString());
+                if(result.Count+b.Length>AttentionNameBytes)break;
+                result.AddRange(b);
+            }
+        }catch(System.Text.EncoderFallbackException){throw new ArgumentException("血盟名稱含遊戲字集無法表示的字元。");}
+        return result.ToArray();
+    }
 
     // Decode only a bounded, uncompressed 16x12 BMP from S118 memory. No image/file loader.
     // Unsupported encodings are reported, never replaced by a fabricated emblem.
@@ -73,24 +119,30 @@ public static class ClanProtocol {
         var r=Reader(packet,118);uint id=r.D();if(id==0)throw new ProtocolException("emblem identity");
         var data=packet.AsSpan(5);
         // TW16 S_EMBLEM payload: 384 bytes, 16x12 RGB555, value 0 transparent (sub_96E790). Only when not a BMP.
-        if(data.Length is >=384 and <392&&!(data[0]=='B'&&data[1]=='M')){
-            var raw=new int[192];
-            for(int i=0;i<192;i++){int p=r.H();raw[i]=p==0?0:unchecked((int)0xff000000)|(((p>>10)&31)*255/31<<16)|(((p>>5)&31)*255/31<<8)|((p&31)*255/31);}
-            r.Finish();return new(id,raw);
-        }
+        // R2-K: the server stores the whole C18 body (ClientBasePacket.readByte), so an uploaded emblem may come back with
+        // the uploader's transport padding after the 384 bytes; sub_96E790 reads 384 and ignores the rest. Only zeros may follow.
+        if(data.Length is >=384 and <=400&&!(data[0]=='B'&&data[1]=='M')&&data[384..].IndexOfAnyExcept((byte)0)<0)
+            return new(id,ClanEmblemProtocol.DecodeRgb555(data[..384]));
+        var pixels=DecodeBmp(data,out int length);
+        // The BMP size delimits its payload; only transport zero-padding may follow it.
+        for(int i=0;i<length;i++)r.C();r.Finish();
+        return new(id,pixels);
+    }
+    // Uncompressed 16x12 BMP (1/4/8/16/24/32 bit) → 192 ARGB pixels. Shared by S118 and the R2-K C18 upload file.
+    // length = the BMP's own size field; bytes after it are not part of the image.
+    public static int[] DecodeBmp(ReadOnlySpan<byte> data,out int length){
         if(data.Length<54||data.Length>65536||data[0]!='B'||data[1]!='M')throw new ProtocolException("unsupported emblem: expected BMP");
-        uint length=BinaryPrimitives.ReadUInt32LittleEndian(data[2..]),offset=BinaryPrimitives.ReadUInt32LittleEndian(data[10..]);
+        uint size=BinaryPrimitives.ReadUInt32LittleEndian(data[2..]),offset=BinaryPrimitives.ReadUInt32LittleEndian(data[10..]);
         uint header=BinaryPrimitives.ReadUInt32LittleEndian(data[14..]);
         int width=BinaryPrimitives.ReadInt32LittleEndian(data[18..]),height=BinaryPrimitives.ReadInt32LittleEndian(data[22..]);
         ushort planes=BinaryPrimitives.ReadUInt16LittleEndian(data[26..]),bits=BinaryPrimitives.ReadUInt16LittleEndian(data[28..]);
         uint compression=BinaryPrimitives.ReadUInt32LittleEndian(data[30..]);
-        if(length<54||length>data.Length||header!=40||width!=16||height is not (12 or -12)||planes!=1||compression!=0||bits is not (1 or 4 or 8 or 16 or 24 or 32))throw new ProtocolException("unsupported emblem BMP layout");
+        if(size<54||size>data.Length||header!=40||width!=16||height is not (12 or -12)||planes!=1||compression!=0||bits is not (1 or 4 or 8 or 16 or 24 or 32))throw new ProtocolException("unsupported emblem BMP layout");
         int stride=((width*bits+31)/32)*4;
         uint palette=bits<=8?BinaryPrimitives.ReadUInt32LittleEndian(data[46..]):0;
         if(bits<=8&&palette==0)palette=1u<<bits;
-        if(palette>(1u<<Math.Min((int)bits,8))||offset<54+palette*4||offset+(uint)(stride*12)>length)throw new ProtocolException("truncated emblem BMP pixels/palette");
-        // The BMP size delimits its payload; only transport zero-padding may follow it.
-        for(int i=0;i<length;i++)r.C();r.Finish();
+        if(palette>(1u<<Math.Min((int)bits,8))||offset<54+palette*4||offset+(uint)(stride*12)>size)throw new ProtocolException("truncated emblem BMP pixels/palette");
+        length=(int)size;
         var pixels=new int[192];
         for(int y=0;y<12;y++)for(int x=0;x<16;x++){
             int row=(int)offset+(height>0?11-y:y)*stride,red,green,blue;
@@ -99,7 +151,7 @@ public static class ClanProtocol {
             else{int p=row+x*(bits/8);blue=data[p];green=data[p+1];red=data[p+2];}
             pixels[y*16+x]=unchecked((int)0xff000000)|(red<<16)|(green<<8)|blue;
         }
-        return new(id,pixels);
+        return pixels;
     }
 }
 
@@ -113,8 +165,15 @@ public sealed partial class WorldSession {
     void ClearClanMembers(){clanAnnouncement=null;clanMembers=[];clanOnline=null;}
     void EnsureClanEpoch(){
         if(!clanSubscribed){CombatSoundStateChanged+=CheckClanState;clanSubscribed=true;}
-        if(clanEpoch==WorldEpoch)return;clanEpoch=WorldEpoch;clanAttention=[];clanNotice="";clanInvitation=null;ClearClanMembers();
+        if(clanEpoch==WorldEpoch)return;clanEpoch=WorldEpoch;clanAttention=[];clanNotice="";clanInvitation=null;RetireClanYesNo(clanInvitePrompt,"世界已更新，舊詢問已失效。");clanInvitePrompt=0;ClearClanMembers();
     }
+    // R2-K (#625): message 97 (and clan war 221/222) are generic S_ASK questions in the original (WIN §2.1), so the
+    // question now sits in the shared input-line slot (YesNoPrompt.cs). The module still admits it first and keeps its
+    // own guards; the slot holds the question only while the module's state is live, tracked by the slot prompt id.
+    int clanInvitePrompt;
+    int OfferClanYesNo(ushort message,string[] args){OfferYesNo(0,message,args);lock(yesNoGate)return yesNo is {} p&&p.Message==message?p.Id:0;}
+    bool ClanYesNoHeld(int id){lock(yesNoGate)return id!=0&&yesNo?.Id==id;}
+    void RetireClanYesNo(int id,string notice){lock(yesNoGate)if(id!=0&&yesNo?.Id==id)ClearYesNo(notice);}
     void CheckClanState(){
         EnsureClanEpoch();
         if(clanAnnouncement!=null&&clanAnnouncement.Name!=Actor?.Clan)ClearClanMembers();
@@ -124,11 +183,14 @@ public sealed partial class WorldSession {
         if(!Ready||OwnDead||TeleportPending||ActionClock()>=invite.ExpiresAt||!objects.TryGetValue(invite.PeerId,out var peer)||peer.Dead||peer.Name!=invite.Name||peer.Clan!=clanInvitePeerClan||Actor?.Clan!=clanInviteOwnClan||
             TradeRevision!=clanInviteTradeRevision||InteractionRevision!=clanInviteInteractionRevision||unhandled.GetValueOrDefault((byte)219)!=clanInviteUnhandled||changedMessage)
             ClearClanInvitation("入盟申請已失效或被其他操作取代，請重新申請。");
+        // Answered on the input line (Y/N + Enter or YES/NO: YesNoPrompt sends the same C121 H0 D0 H97 C), or replaced
+        // by a newer S219: the slot no longer holds this question, so the module stops offering its own answer too.
+        else if(!ClanYesNoHeld(clanInvitePrompt)){clanInvitation=null;clanInvitePrompt=0;clanNotice="入盟申請已在輸入列回覆或被新的詢問取代；結果以伺服器回報為準。";}
     }
     public ClanInvitation? PendingClanInvitation {get{CheckClanState();return clanInvitation;}}
     public ClanAnnouncement? ClanAnnouncement {get{CheckClanState();return clanAnnouncement;}}
     public ClanMember[] ClanMembers {get{CheckClanState();return clanMembers.Select(m=>m with{Online=clanOnline==null?null:clanOnline.Contains(m.Name)}).ToArray();}}
-    internal void ClearClanInvitation(string notice){clanInvitation=null;clanNotice=notice;}
+    internal void ClearClanInvitation(string notice){clanInvitation=null;clanNotice=notice;RetireClanYesNo(clanInvitePrompt,notice);clanInvitePrompt=0;}
     void ReceiveClanInvitation(LoginReader r,uint reserved){
         string name=r.S();r.Finish();EnsureClanEpoch();
         ClearClanInvitation("收到無法確認對象的入盟申請，請對方重新申請。");
@@ -140,7 +202,8 @@ public sealed partial class WorldSession {
         var peer=candidates[0];clanInviteOwnClan=Actor!.Clan;clanInvitePeerClan=peer.Clan;
         clanInviteTradeRevision=TradeRevision;clanInviteInteractionRevision=InteractionRevision;clanInviteUnhandled=unhandled.GetValueOrDefault((byte)219);
         clanInviteReply=LastServerReply;clanInviteMessage=LastServerMessage??"";
-        clanInvitation=new(++clanInvitationRevision,peer.ObjectId,name,ActionClock()+300000);clanNotice=name+" 申請加入血盟，請接受或拒絕。";
+        clanInvitation=new(++clanInvitationRevision,peer.ObjectId,name,ActionClock()+300000);clanNotice=name+" 申請加入血盟，請在聊天輸入列輸入 Y 接受、N 拒絕後按 Enter。";
+        clanInvitePrompt=OfferClanYesNo(97,[name]);
     }
     void ReceiveClanAnnouncement(byte[] packet){
         var value=ClanProtocol.DecodeAnnouncement(packet);EnsureClanEpoch();ClearClanMembers();
@@ -164,7 +227,20 @@ public sealed partial class WorldSession {
         try{var emblem=ClanProtocol.DecodeEmblem(packet);Emblems.Store(emblem);clanNotice="已收到伺服器盟徽。";}
         catch(ProtocolException){if(packet.Length>=5)Emblems.Reject(BinaryPrimitives.ReadUInt32LittleEndian(packet.AsSpan(1)));clanNotice="收到無法解析的盟徽；保留血盟名稱，未顯示圖像。";}
     }
-    void ReceiveClanAttention(byte[] packet){var value=ClanProtocol.DecodeAttention(packet);EnsureClanEpoch();if(value.Type==2)clanAttention=value.Names;}
+    // TW16 sub_C146E0 rebuilds the list only when the result is 0; type 0 only prints a chat message (3.81 never sends it).
+    void ReceiveClanAttention(byte[] packet){
+        var value=ClanProtocol.DecodeAttention(packet);EnsureClanEpoch();
+        if(value.Type==ClanProtocol.AttentionList&&value.Result==0)clanAttention=value.Names;
+        if(ClanProtocol.AttentionMessage(value) is ushort id){
+            clanAttentionMessage=id;
+            playerChatLines.Enqueue(new(++playerChatSequence,0,PacketBoxMessageRules.Text(id,[])??$"原服訊息 {id}"));
+            while(playerChatLines.Count>100)playerChatLines.Dequeue();
+            playerChatRevision++;
+        }
+    }
+    ushort? clanAttentionMessage;
+    /// <summary>Last S200 type 0 chat message id (3349／3324); null until one arrives. Diagnostic only.</summary>
+    public ushort? ClanAttentionMessage=>clanAttentionMessage;
 }
 
 public sealed partial class LoginConnection {
@@ -201,4 +277,53 @@ public sealed partial class LoginConnection {
         }catch(Exception){if(session==generation){Cancel();Set(LoginState.Faulted,"血盟請求傳送失敗，已斷線；沒有自動重送。");}return false;}
         finally{if(clanSendingGeneration==session)clanSendingGeneration=-1;}
     }
+    // R2-K: C63 rank change and C18 emblem upload share SendClan's guards (one request at a time, same session/world/actor).
+    // The engine only checks that the player has a clan; leader rights and membership stay with the server (219/785/518/201).
+    async Task<bool> SendClanPacket(ClanView view,Func<byte[]> build,string label){
+        bool Current()=>ClanAccess&&view.Session==generation&&view.Epoch==World.WorldEpoch&&view.Actor==World.Actor?.ObjectId&&view.Actor==World.Status?.ObjectId&&view.Name.Length>0&&view.Name==World.Actor?.Clan;
+        if(!Current()||clanSendingGeneration==generation||sendMovementGate==null){
+            if(view.Session==generation&&view.Name.Length==0){clanNoticeGeneration=generation;clanSendNotice="你沒有血盟，不能"+label+"。";}
+            return false;
+        }
+        byte[] packet;
+        try{packet=build();}catch(ArgumentException ex){clanNoticeGeneration=generation;clanSendNotice=ex.Message;return false;}
+        int session=generation;var sender=sendMovementGate;clanSendingGeneration=session;
+        try{
+            bool sent=await sender(packet,Current,()=>{});
+            if(session!=generation||view.Epoch!=World.WorldEpoch)return false;
+            clanNoticeGeneration=session;clanSendNotice=sent?label+"請求已送出；結果以伺服器回報為準。":"角色或場景已變更，請求未送出。";Changed?.Invoke();return sent;
+        }catch(Exception){if(session==generation){Cancel();Set(LoginState.Faulted,label+"請求傳送失敗，已斷線；沒有自動重送。");}return false;}
+        finally{if(clanSendingGeneration==session)clanSendingGeneration=-1;}
+    }
+    /// <summary>
+    /// T316（FU6§1）：C129 關注血盟。原版送出前只檢查名稱非空；君主身分（3.81 isClanPrince／訊息 1064）由伺服器判定，
+    /// 所以這裡不檢查有沒有血盟。刪除時每個勾選的血盟各送一包（sub_B2C2F0），依序送出；任何一包被閘門拒絕就停。
+    /// </summary>
+    public async Task<bool> SendClanAttention(params byte[][] packets){
+        if(packets.Length==0)return false;
+        int session=generation;var actor=World.Actor?.ObjectId;int epoch=World.WorldEpoch;
+        bool Current()=>ClanAccess&&session==generation&&epoch==World.WorldEpoch&&actor==World.Actor?.ObjectId;
+        if(!Current()||clanSendingGeneration==generation||sendMovementGate==null)return false;
+        var sender=sendMovementGate;clanSendingGeneration=session;
+        try{
+            foreach(var packet in packets){
+                bool sent=await sender(packet,Current,()=>{});
+                if(session!=generation)return false;
+                if(!sent){clanNoticeGeneration=session;clanSendNotice="角色或場景已變更，關注請求未送出。";Changed?.Invoke();return false;}
+            }
+            clanNoticeGeneration=session;clanSendNotice="關注血盟請求已送出；結果以伺服器回報為準。";Changed?.Invoke();return true;
+        }catch(Exception){if(session==generation){Cancel();Set(LoginState.Faulted,"關注血盟請求傳送失敗，已斷線；沒有自動重送。");}return false;}
+        finally{if(clanSendingGeneration==session)clanSendingGeneration=-1;}
+    }
+    public Task<bool> AddClanAttention(string name){
+        byte[] packet;try{packet=ClanProtocol.EncodeAttentionAdd(name);}catch(ArgumentException){return Task.FromResult(false);}
+        return SendClanAttention(packet);
+    }
+    public Task<bool> RemoveClanAttention(IEnumerable<string> names){
+        var packets=new List<byte[]>();
+        foreach(var n in names){try{packets.Add(ClanProtocol.EncodeAttentionRemove(n));}catch(ArgumentException){}}
+        return SendClanAttention(packets.ToArray());
+    }
+    public Task<bool> SendClanRank(ClanView view,string name,byte rank)=>SendClanPacket(view,()=>ClanProtocol.EncodeRank(rank,name),"設定階級");
+    public Task<bool> UploadClanEmblem(ClanView view,int[] pixels)=>SendClanPacket(view,()=>ClanEmblemProtocol.EncodeUpload(pixels),"上傳盟徽");
 }

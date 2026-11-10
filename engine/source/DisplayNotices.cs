@@ -19,6 +19,8 @@ public static class DisplayNoticeText {
         (136,3)=>"%0：飽食度%1［重量%2］",
         (137,3)=>"%0：可用次數%1［重量%2］",
         (138,2)=>"%0：［重量%1］",
+        // R8-B：說明編號 1063–1072 的物品不管伺服器送哪個訊息都改用 928，參數個數照原封包（範本只用 %0）。
+        (928,>=1)=>"%0：寵物專用牙",
         (551,2)=>"你的PK次數已達%0。達%1次將下地獄。",
         (552,2)=>"因為你已經殺了 %0 人所以被打入地獄。 你將在這裡停留 %1 分鐘。",
         (637,1)=>"你必須在此地停留 %0 秒。",
@@ -29,6 +31,43 @@ public static class DisplayNoticeText {
         :(ServerMessageText.Decode(id,arguments).Text,false);
     // Color codes are presentation: S_ChangeName(pc,true) and the GM form must not change object identity text.
     public static string PlainName(string raw)=>Control.Replace(raw,"");
+}
+/// <summary>
+/// R8-B（T357／#821，FU8§2，已驗證）：S_IDENTIFY_CODE 處理函式 sub_940070（VA 0x940070／FO 0x53F470）。
+/// 1. 說明編號 1063–1072 → 訊息一律換成 928；
+/// 2. 訊息 134 且說明編號 4139–4142（sub_88E7C0，表 dword_136DD94）→ 只印物品說明；
+/// 3. 其他：先印 string-c.tbl 第「訊息」筆套參數（sub_933850），再印 ItemDesc-c.tbl 第「說明編號」筆。
+/// 兩行都用 sub_7DC850(文字, palette[24], palette[14], −1, −1, 0) 印在聊天欄；沒有視窗、沒有畫面中央的字。
+/// 訊息 0（3.81 只寫說明編號的物品）照第 3 步走：string-c.tbl 第 0 筆照印（本機是「王族」，FU8 推測的空字串不成立；真機再確認），再印說明。
+/// 封包計數外的字串（S_IdentifyDesc() 的重量）原版不讀，所以不顯示。
+/// </summary>
+public static class IdentifyDescRules {
+    public const ushort PetToothFirst=1063,PetToothLast=1072,PetToothMessage=928,WeaponMessage=134,ElementFirst=4139,ElementLast=4142;
+    public const int ChatColorIndex=24,ChatSecondColorIndex=14;
+    public static ushort MessageFor(ushort desc,ushort message)=>desc is >=PetToothFirst and <=PetToothLast?PetToothMessage:message;
+    public static bool DescriptionOnly(ushort desc,ushort message)=>message==WeaponMessage&&desc is >=ElementFirst and <=ElementLast;
+    /// <summary>
+    /// 第一行。有 string-c.tbl 時照表（筆數外原版查不到字，不印）；沒有表時用伺服器註解的範本，訊息 0 沒有表就不知道字，不印。
+    /// 參數裡的 `$數字` 用 desc-c.tbl 展開（sub_933850 的參數名稱查詢 0x5417C0；展開規則沿用 S161，推測）。空字串不印（推測）。
+    /// </summary>
+    public static string? MessageLine(ushort message,string[] arguments){
+        var args=arguments.Select(a=>PlayerChatProtocol.ExpandDesc(a)).ToArray();
+        string text;
+        if(ServerMessageText.Table is {} table){if(message>=table.Count)return null;text=ServerMessageText.Decode(message,args).Text;}
+        else if(message==0)return null;
+        else text=DisplayNoticeText.Format(message,args).Text;
+        text=PlayerChatProtocol.Display(text);
+        return text.Trim().Length>0?text:null;
+    }
+    /// <summary>第二行：ItemDesc-c.tbl 的說明；沒有表、編號 ≥ 筆數或空白時不印。</summary>
+    public static string? DescriptionLine(ushort desc)=>ServerMessageText.ItemDesc?.Text(desc) is {} text&&PlayerChatProtocol.Display(text) is {Length:>0} shown&&shown.Trim().Length>0?shown:null;
+    /// <summary>依原版順序要印進聊天欄的行（0–2 行）。</summary>
+    public static IReadOnlyList<string> Lines(ushort desc,ushort message,IReadOnlyList<string> arguments){
+        var lines=new List<string>(2);ushort id=MessageFor(desc,message);
+        if(!DescriptionOnly(desc,id)&&MessageLine(id,[..arguments]) is {} first)lines.Add(first);
+        if(DescriptionLine(desc) is {} second)lines.Add(second);
+        return lines;
+    }
 }
 // Name colour (object +204, RGB555). Constants and formula: docs/reference/actions-and-names.md 2.4.
 public static class NameColors {
@@ -82,7 +121,14 @@ public sealed partial class WorldSession {
             v=ReadIdentifyDesc(plain,1);if(v.Message!=134||v.Arguments.Length!=4)throw;
             weight=v.Arguments[3];v.Arguments=v.Arguments[..3];
         }
-        // Items outside weapon/armor/etc write only the description id; the rest is padding.
+        // R8-B：原版只把字印在聊天欄（palette[24]），訊息 0 也印物品說明；重量字串不在計數內，不印。
+        var lines=IdentifyDescRules.Lines(v.Desc,v.Message,v.Arguments);
+        foreach(var line in lines){
+            playerChatLines.Enqueue(new(++playerChatSequence,0,line){ColorIndex=IdentifyDescRules.ChatColorIndex});
+            while(playerChatLines.Count>100)playerChatLines.Dequeue();
+        }
+        if(lines.Count>0)playerChatRevision++;
+        // LastIdentifyDesc／ActiveIdentifyDesc 只留作診斷紀錄（畫面不再畫）；內容與 R8-B 之前相同，訊息 0 不更新。
         if(v.Message==0&&v.Arguments.Length==0)return;
         var(text,recognized)=DisplayNoticeText.Format(v.Message,v.Arguments);
         identifyDesc=new(v.Desc,v.Message,v.Arguments,weight,weight==null?text:$"{text}［重量{weight}］",recognized,Environment.TickCount64);
@@ -122,8 +168,8 @@ public sealed partial class ClientForm {
             var head=Camera.ToView(new PointF(v.Foot.X,v.Bounds.IsEmpty?v.Foot.Y-64:v.Bounds.Top));
             if(mark!=null){g.FillPolygon(Brushes.OrangeRed,new PointF[]{new(head.X-7,head.Y-34),new(head.X+7,head.Y-34),new(head.X,head.Y-22)});if(mark.Message.Length>0)PaintNoticeText(g,mark.Message,Color.OrangeRed,new PointF(head.X,head.Y-52),viewport);}
         }
-        if(ServerStatusMessages.CenterNotice(w) is {} red)PaintNoticeText(g,ResolveNpcText(red),Color.Red,new PointF(viewport.Left+viewport.Width/2,viewport.Top+viewport.Height/3),viewport);
-        if(w.ActiveIdentifyDesc() is {} identify)PaintNoticeText(g,ResolveNpcText(identify.Text),Color.White,new PointF(viewport.Left+viewport.Width/2,viewport.Bottom-48),viewport);
+        if(!NativeRedNoticeActive&&ServerStatusMessages.CenterNotice(w) is {} red)PaintNoticeText(g,ResolveNpcText(red),Color.Red,new PointF(viewport.Left+viewport.Width/2,viewport.Top+viewport.Height/3),viewport);
+        // R8-B（FU8§2）：S245 沒有畫面上的字，只印聊天欄（ReceiveIdentifyDesc）。
     }
     void PaintNoticeText(Graphics g,string text,Color color,PointF center,RectangleF viewport){
         var size=g.MeasureString(text,Font,(int)Math.Max(1,viewport.Width-16));

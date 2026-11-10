@@ -35,8 +35,11 @@ public sealed class PlayerHudSlots {
 public static class PlayerHudActions {
     public static PlayerHudStamp Stamp(LoginConnection connection)=>new(connection.SessionGeneration,connection.World.WorldEpoch,connection.World.Actor?.ObjectId??0);
     public static bool Current(LoginConnection connection,PlayerHudStamp stamp)=>connection.State==LoginState.InWorld&&stamp.Actor!=0&&stamp==Stamp(connection);
+    // R6-D (WO §4, byte_13CE51E): while a ghost, the macro slots (F5–F12 and slot double-click, legacy HUD and native
+    // MacroPanel alike — both reach this adapter) do not use items or skills. Nothing is selected and nothing is sent.
+    public static bool GhostBlocks(LoginConnection connection)=>connection.GhostLocalBlocked;
     public static async Task<bool> Activate(LoginConnection connection,PlayerHudStamp stamp,PlayerHudBinding binding,bool walking){
-        if(!Current(connection,stamp)||walking||connection.MovementBusy)return false;
+        if(!Current(connection,stamp)||walking||connection.MovementBusy||GhostBlocks(connection))return false;
         if(binding.Kind==PlayerHudKind.Item){
             var item=connection.World.Inventory.FirstOrDefault(x=>x.ObjectId==binding.Id);
             if(item==null||!item.SupportedUse||item.Count==0||!connection.World.SelectItem(item.ObjectId))return false;

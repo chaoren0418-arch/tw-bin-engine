@@ -1,0 +1,147 @@
+# TW16 q1（run_ida.ps1 -Script ida_t690.py -List q1.txt -Out o1 -Drive W:）
+mkfunc EFF300 F00195
+dec F0F0C0
+dec F01380
+dec 9357E0
+dec 8ABC10
+dec 8ACB20
+dec 8AB390
+vtab 117ECCC 16
+xref 117ECCC
+vtab 1150D34 16
+xref 1150D34
+xref 1150D4C
+dec 990E10
+dec 92D8B0
+dec 92D360
+# TW16 q2（run_ida.ps1 -Script ida_t690.py -List q2.txt -Out o2 -Drive W:）
+fdis 9357E0
+dec B32AB0
+dec 7DC800
+dec 7DC850
+dec 926B80
+dec 9340B0
+dec A4A230
+xref 13D4401
+dec E538D0
+dec 957A80
+dec EFC280
+dec 6EACF0
+dec EFC120
+dec 6EADC0
+dis EFFFF0 120
+xref 13CE3FE
+gstores 13CE3FE
+xref 135C1EB
+dec 8AE600
+dec 8AE5E0
+dec 8AE440
+dec 8ABBB0
+dec A46620
+dec 66D480
+dec A43560
+dec 8AE38D
+dec 8AE5EE
+vtab 117EC80 40
+vtab 1150CE0 24
+dec 542370
+# TW16 q3（run_ida.ps1 -Script ida_t690.py -List q3.txt -Out o3 -Drive W:）
+nameea ??_7Effect@@6B@
+nameea ??_7EffectLoop@@6B@
+vtab 117EB90 70
+dec F00FD0
+dec 957D00
+dec 953BC0
+dec 8ACD20
+fdis EFF300
+fdis F0F0C0
+fdis F00FD0
+grepfuncs 13CE3FE|13CE50C 8BA680
+dis 8BA780 30
+# TW16 q4（run_ida.ps1 -Script ida_t690.py -List q4.txt -Out o4 -Drive W:）
+grepcallers 8AB390 sub_8AB390\(
+dec 8AB550
+dec 8AB710
+dec 8ABA40
+dec 8AB870
+nameea ??_7Lightning@@6B@
+vtab 1150CA0 12
+dec 934530
+dec 8AE3C0
+dec C020D0
+dec C01F50
+dec 926150
+fdis 92D8B0
+fdis 926150
+# TW16 q5（run_ida.ps1 -Script ida_t690.py -List q5.txt -Out o5 -Drive W:）
+dec 930A20
+dec A467A0
+dec A4E880
+dec A507A0
+dec 51EA60
+dec 7C3AB0
+dec 821360
+dec 83CE90
+dec 941000
+dec 942B40
+dec 946CF0
+dec A4FAD0
+dec EA5960
+dec EDB1B0
+dec F466B0
+dec 8AB710
+dec 8AB550
+dec 51EFEF
+dec 5FC27C
+dec E63662
+dec 92FB59
+dec 51E995
+# TW16 q6（run_ida.ps1 -Script ida_t690.py -List q6.txt -Out o6 -Drive W:）
+grepcallers A507A0 sub_A507A0\(
+dec A4AB40
+dec 9494B8
+xref 117EBBC
+xref 1150CBC
+dec 92F6D0
+dec 8AB870
+# TW16 q7（run_ida.ps1 -Script ida_t690.py -List q7.txt -Out o7 -Drive W:）
+dwords 1369D70 60
+dec A11280
+grepfuncs 13D4401 A4E1C0 A50F20
+dec 88CE60
+dec 97B500
+dec 954DF0
+gstores 135C1EB
+grepfuncs 135C1EB 583200 59DD30 59E920 8676F0 89A0F0 997660 998250 999620
+stores B5
+# TW16 q8（run_ida.ps1 -Script ida_t690.py -List q8.txt -Out o8 -Drive W:）
+dec 9551E0
+dec 948A60
+dec 9262D0
+dec 583200
+dec 89A0F0
+xref 13CE0A4
+dec 87B3A0
+# TW16 q9（run_ida.ps1 -Script ida_t690.py -List q9.txt -Out o9 -Drive W:）
+dec 955380
+dec 9552F0
+dec 9553B0
+dec 8AB900
+dis 955380 12
+# TW16 q10（run_ida.ps1 -Script ida_t690.py -List q10.txt -Out o10 -Drive W:）
+grepfuncs sub_8AB710|sub_9340B0|sub_8AB900 92FE40
+dis 930470 40
+# TW16 q11（run_ida.ps1 -Script ida_t690.py -List q11.txt -Out o11 -Drive W:）
+fdis 92FE40
+dec 9340B0
+# TW16 q12（run_ida.ps1 -Script ida_t690.py -List q12.txt -Out o12 -Drive W:）
+setter 24 30
+dec C03720
+dec C038D0
+dec 518CD0
+dec 51DCA0
+# TW16 q13（run_ida.ps1 -Script ida_t690.py -List q13.txt -Out o13 -Drive W:）
+dec C02C40
+grepcallers C02C40 sub_C02C40
+# TW16 q14（run_ida.ps1 -Script ida_t690.py -List q14.txt -Out o14 -Drive W:）
+dec A4B060

@@ -3,9 +3,12 @@ namespace P06;
 // T172（#446）：背景音樂、戰鬥音樂、登入音樂。依據 docs/reference/sound.md §4.3–4.5、§6.2（T163／T171）。
 // 這裡只有播放政策；串流由 IMusicStreamAudio 後端負責（原版是 mss32 AIL_open_stream 管線 B）。
 public enum MusicScene { None, Login, CharacterSelect, World }
-public enum MusicKind { Login, CharacterSelect, Region, Battle, Boss, LargeMap }
+// Boss＝區域 BATTLE 曲；BossSpawn／BossDeath＝頭目出現／死亡曲（T280，FU4§6）。新值附加在最後，不改既有數值。
+public enum MusicKind { Login, CharacterSelect, Region, Battle, Boss, LargeMap, BossSpawn, BossDeath }
 // Music 是 sound\musicN.mp3 的 N；Loop=false 對應 AIL_set_stream_loop_count(s,1) 的單次播放。
-public sealed record MusicTrack(long Number,int Music,bool Loop,MusicKind Kind);
+// R7-L（T351）：Slot 是「明確系統槽」編號（登入 0、選角 8、戰鬥 9／10）；區域選曲、大地圖、頭目曲是 -1。
+// 原版 MIDI 模式（沒有 music*.mp3）遇到 0..8 號系統槽時停播（8F1C30／8F2FB0／8F3B90／8F3D70，見 issue-737 報告）。
+public sealed record MusicTrack(long Number,int Music,bool Loop,MusicKind Kind,int Slot=-1);
 public interface IMusicStreamAudio
 {
     // volume 是最終比例 0..1（淡出係數 × MusicVolume × 曲目音量）。回 false 表示沒有啟動。
@@ -16,7 +19,8 @@ public interface IMusicStreamAudio
     bool Finished(MusicTrack track);
 }
 // Enabled：音樂選項開且未靜音；Volume：MusicVolume 類別 × 主音量（0..1）。Map／X／Y 只在 World 使用。
-public sealed record MusicContext(MusicScene Scene,int Map,int X,int Y,bool Enabled,double Volume);
+// LiveSprites：畫面上還活著（動作 ≠ 8）的物件 gfx（sub_8F15B0）。null＝呼叫端沒有物件資訊，登記過的頭目一律視為在場。
+public sealed record MusicContext(MusicScene Scene,int Map,int X,int Y,bool Enabled,double Volume,IReadOnlySet<int>? LiveSprites=null);
 
 public sealed class BackgroundMusic(MusicDefinition definition,IMusicStreamAudio audio,Random random)
 {
@@ -35,11 +39,47 @@ public sealed class BackgroundMusic(MusicDefinition definition,IMusicStreamAudio
 
     public int FadeLevel(long now)=>fadeAt is long at?Math.Max(0,FadeStart-FadeDecrement*(int)Math.Min(int.MaxValue,(now-at)/FadeStepMs)):FadeStart;
 
-    // 8F3990（呼叫端是封包 226 的 92CB70）登記目前的頭目 sprite。封包掛接不在本任務；這裡只提供規則。
+    // 8F3990 的登記（dword_137223C）：只記 sprite，不換曲。產品由 BossAppeared／BossDied 呼叫（T280，FU4§6）。
     public void RegisterBoss(int sprite){if(sprite>0)bossSprites.Add(sprite);}
-    public void ClearBosses()=>bossSprites.Clear();
+    public void ClearBosses(){bossSprites.Clear();spawnTriggered.Clear();twinSpawned=false;twinDead.Clear();}
+    readonly HashSet<int> spawnTriggered=[]; // 區域記錄 +44「已觸發」：SPAWN 每筆區域只回傳一次。
+    bool twinSpawned;readonly HashSet<int> twinDead=[]; // byte_13D42BE（雙頭目 SPAWN 全域一次）、byte_13D42BF／13D42C8（各自死亡）。
+    // music.def 裡所有頭目 sprite（SPRITE、TWIN_SPRITE1/2）；ClientSoundScene 用來篩出畫面上活著的頭目。
+    public IReadOnlySet<int> BossSpriteIds {get;}=definition.Regions.SelectMany(r=>new[]{r.Sprite,r.TwinSprite1,r.TwinSprite2}).Where(s=>s>0).ToHashSet();
 
-    bool BossActive(MusicRegion r)=>r.Battle!=-1&&(r.TwinBoss?bossSprites.Contains(r.TwinSprite1)&&bossSprites.Contains(r.TwinSprite2):r.Sprite!=-1&&bossSprites.Contains(r.Sprite));
+    static bool IsBossOf(MusicRegion r,int sprite)=>sprite>0&&(r.TwinBoss?sprite==r.TwinSprite1||sprite==r.TwinSprite2:r.Sprite==sprite);
+    // sub_8F16B0：目前地圖、玩家所在矩形內，SPRITE（或雙頭目之一）等於 sprite 的那筆區域。
+    MusicRegion? BossRegion(int sprite)=>last is {Scene:MusicScene.World} ctx&&ctx.Map<=MusicDefinition.LargeMapThreshold?definition.Regions.FirstOrDefault(r=>r.Matches(ctx.Map,ctx.X,ctx.Y)&&IsBossOf(r,sprite)):null;
+    bool MusicOn=>last is {Scene:MusicScene.World,Enabled:true};
+
+    // sub_A50F20 → 8F3990(sprite,0)：頭目物件出現（不在死亡狀態）時播 SPAWN（單次）；查到而且沒在播才換曲，不檢查保護曲目。
+    public void BossAppeared(int sprite,long now)
+    {
+        if(sprite<=0||!BossSpriteIds.Contains(sprite))return;
+        RegisterBoss(sprite);
+        if(!MusicOn||BossRegion(sprite) is not {} r)return;
+        int music=-1;
+        if(r.TwinBoss){twinDead.Remove(sprite);if(!twinSpawned){twinSpawned=true;music=r.Spawn;}} // 推測：重新出現的雙頭目清掉自己的死亡旗標。
+        else if(spawnTriggered.Add(r.Ordinal))music=r.Spawn;
+        if(music>=0&&!IsPlaying(music))Start(music,false,MusicKind.BossSpawn,now,-1);
+    }
+    // S_ACTION（92CB70）動作 8 → 8F3990(sprite,2)：播 DEATH；雙頭目要兩隻都死。
+    public void BossDied(int sprite,long now)
+    {
+        if(sprite<=0||!BossSpriteIds.Contains(sprite))return;
+        RegisterBoss(sprite);
+        if(!MusicOn||BossRegion(sprite) is not {} r)return;
+        if(r.TwinBoss){twinDead.Add(sprite);if(!(twinDead.Contains(r.TwinSprite1)&&twinDead.Contains(r.TwinSprite2)))return;}
+        if(r.Death>=0&&!IsPlaying(r.Death))Start(r.Death,false,MusicKind.BossDeath,now,-1);
+    }
+
+    // sub_8F15B0：頭目物件在場而且沒死（雙頭目兩隻都要在）。沒有物件資訊（LiveSprites=null）時以登記為準。
+    static bool Present(MusicContext? ctx,int sprite)=>ctx?.LiveSprites is not {} live||live.Contains(sprite);
+    bool BossActive(MusicRegion r)=>r.Battle!=-1&&(r.TwinBoss
+        ?bossSprites.Contains(r.TwinSprite1)&&bossSprites.Contains(r.TwinSprite2)&&Present(last,r.TwinSprite1)&&Present(last,r.TwinSprite2)
+        :r.Sprite!=-1&&bossSprites.Contains(r.Sprite)&&Present(last,r.Sprite));
+    // 8F31F0：登記的頭目對到這筆區域，而且 SPAWN／BATTLE／DEATH 有一首正在播，就讓它播完。
+    bool BossTrackPlaying(MusicRegion? r)=>r!=null&&Current is {Kind:MusicKind.BossSpawn or MusicKind.BossDeath or MusicKind.Boss} c&&Playing&&(c.Music==r.Spawn||c.Music==r.Battle||c.Music==r.Death);
 
     // 8F6160：目前曲目＝id 而且仍在播。
     bool IsPlaying(int music)=>Current is {} c&&Playing&&c.Music==music;
@@ -47,11 +87,11 @@ public sealed class BackgroundMusic(MusicDefinition definition,IMusicStreamAudio
 
     void StopCurrent(){if(Current is {} c&&Playing)audio.Stop(c);Current=null;Playing=false;fadeAt=null;}
 
-    bool Start(int music,bool loop,MusicKind kind,long now,int nextInterval)
+    bool Start(int music,bool loop,MusicKind kind,long now,int nextInterval,int slot=-1)
     {
         StopCurrent();
         if(music<0)return false;
-        var track=new MusicTrack(++number,music,loop,kind);
+        var track=new MusicTrack(++number,music,loop,kind,slot);
         if(!audio.Start(track,volume)){retryAt=now+CheckMs;return false;} // 缺檔／後端拒絕：每秒最多重試一次。
         Current=track;Playing=true;startedAt=now;interval=nextInterval;return true;
     }
@@ -79,9 +119,10 @@ public sealed class BackgroundMusic(MusicDefinition definition,IMusicStreamAudio
     {
         LastBattle=now;
         if(last is not {Scene:MusicScene.World,Enabled:true}||!BattleMusicEnabled)return;
-        int music=definition.Slot(targetIsPlayer?MusicDefinition.SlotPlayerKilling:MusicDefinition.SlotHunting);
+        int slot=targetIsPlayer?MusicDefinition.SlotPlayerKilling:MusicDefinition.SlotHunting;
+        int music=definition.Slot(slot);
         if(IsPlaying(music)||Protected)return; // 正在播的曲目不重開；保護曲目不打斷。
-        Start(music,false,MusicKind.Battle,now,-1);
+        Start(music,false,MusicKind.Battle,now,-1,slot);
     }
 
     public void Update(MusicContext ctx,long now)
@@ -108,13 +149,13 @@ public sealed class BackgroundMusic(MusicDefinition definition,IMusicStreamAudio
             {
                 // 8F2E40：本檔沒有 LoginMusic 清單，走系統槽 0；8F2F00 每秒檢查是否播完再換。
                 int music=definition.Slot(MusicDefinition.SlotLogin);
-                if(sceneChanged||now>=nextCheck&&(Current?.Kind!=MusicKind.Login||!Playing))Start(music,false,MusicKind.Login,now,-1);
+                if(sceneChanged||now>=nextCheck&&(Current?.Kind!=MusicKind.Login||!Playing))Start(music,false,MusicKind.Login,now,-1,MusicDefinition.SlotLogin);
                 if(sceneChanged||now>=nextCheck)nextCheck=now+CheckMs;
                 Region=null;return;
             }
             case MusicScene.CharacterSelect:
                 // EC4FE0 狀態 20：系統槽 8 循環播放（8F3AA0(1)，loop 0）。
-                if(sceneChanged||now>=retryAt&&(Current?.Kind!=MusicKind.CharacterSelect||!Playing))Start(definition.Slot(MusicDefinition.SlotCredits),true,MusicKind.CharacterSelect,now,-1);
+                if(sceneChanged||now>=retryAt&&(Current?.Kind!=MusicKind.CharacterSelect||!Playing))Start(definition.Slot(MusicDefinition.SlotCredits),true,MusicKind.CharacterSelect,now,-1,MusicDefinition.SlotCredits);
                 Region=null;return;
         }
         // World。
@@ -133,6 +174,7 @@ public sealed class BackgroundMusic(MusicDefinition definition,IMusicStreamAudio
         if(keyChanged)
         {
             if(sceneChanged||Current==null||!Playing){StartRegion(ctx,now);return;}
+            if(BossTrackPlaying(region))return; // 頭目出現／死亡造成的換鍵：SPAWN／DEATH 播完才回選曲（FU4§6）。
             // 推測：換到另一筆區域記錄（或頭目出現／離開）時，目前曲目若不在新候選中，以 0.8 秒淡出切換（同 8F1C30）。
             int[] candidates=large?[MusicDefinition.LargeMapMusic]:region==null?[]:key.Item3?[region.Battle]:region.Music;
             if(candidates.Contains(Current.Music)){interval=region?.Interval??-1;return;}

@@ -57,23 +57,37 @@ public sealed partial class LoginConnection {
     sealed record PreparedSkillCast(byte[] Bytes,uint Target,ushort X,ushort Y,WorldObject? Object);
 
     public bool CanCastSelectedMagic(SkillCastTarget? target=null)=>TryPrepareSkillCast(target,out _);
+    SkillCastTarget? DefaultSkillTarget(int id,WorldObject? selected)=>SkillCast.Wire(id) switch {
+        "S"=>new(SkillTargetKind.Name,Name:selected?.Name),
+        "HD"=>null, // A bookmark must be chosen explicitly, including random teleport (ID 0).
+        "HH"=>selected==null?null:new(SkillTargetKind.Location,X:selected.X,Y:selected.Y),
+        "DHH" or "DHHS"=>selected==null?null:new(SkillTargetKind.Object,selected.ObjectId),
+        _ when id==51=>new(SkillTargetKind.Summon,SummonId:0),
+        _ when World.MagicTargetsOwn(id)=>new(SkillTargetKind.Self),
+        _=>selected==null?null:new(SkillTargetKind.Object,selected.ObjectId)
+    };
+    // R7-A SV#3（skills-visual.md §1.3，sub_E2AB60）：要目標的技能（物件、座標、名字）在沒有選取目標時進選目標模式。
+    // 「上一個目標」＝引擎的選取目標（World.Target）；書籤（HD）、召喚（51）、對自己施放的技能不進入。
+    // 推定／與原版的差異：已選取但超過 15 格的目標仍照現行規則（技能自己的距離檢查與訊息），不改進選目標模式。
+    internal bool NeedsSpellTargetPick()=>World.SelectedMagicId is int id&&SkillCast.Supported(id)&&World.LearnedMagic.Any(m=>m.Id==id)
+        &&World.Actor!=null&&World.Target==null&&SkillCast.Wire(id)!="HD"&&id!=51&&!World.MagicTargetsOwn(id)&&DefaultSkillTarget(id,null) is null or {Kind:SkillTargetKind.Name,Name:null};
+    /// <summary>選目標模式中點中物件：15 格內、可見、活著（或技能允許屍體）才接受，選取後照一般流程送 C6。</summary>
+    public async Task<bool> PickSpellTarget(uint id,Func<uint,bool>? visible=null){
+        if(!World.SpellTargetPicking){World.EndSpellTargetPick();return false;}
+        int skill=World.SpellTargetPick!.Skill;
+        var obj=World.Objects.FirstOrDefault(o=>o.ObjectId==id);
+        if(World.Actor is not {} actor||obj==null||obj.AppearancePending||visible?.Invoke(id)==false||obj.Dead&&!SkillCast.AllowsDeadTarget(skill)){World.MagicNotice="未送出：請點選可見的施法目標；"+SpellTargeting.PickNotice;return false;}
+        if(!SpellTargeting.Within(actor.X,actor.Y,obj.X,obj.Y)){World.MagicNotice=$"未送出：目標距離 {CombatRules.TileDistance(actor.X,actor.Y,obj.X,obj.Y)} 格，選目標範圍是 {SpellTargeting.Range} 格";return false;}
+        World.EndSpellTargetPick();
+        if(obj.Dead)return await CastSelectedMagic(new SkillCastTarget(SkillTargetKind.Object,id));
+        World.SelectTarget(id);if(World.TargetId!=id)return false;
+        return await CastSelectedMagic();
+    }
     bool TryPrepareSkillCast(SkillCastTarget? requested,out PreparedSkillCast? prepared) {
         prepared=null;
         if(!MovementAvailable||World.SelectedMagicId is not int id||!SkillCast.Supported(id)
             ||!World.LearnedMagic.Any(m=>m.Id==id)||World.Actor is not {} actor)return false;
-        var selected=World.Target;
-        var target=requested;
-        if(target==null) {
-            target=SkillCast.Wire(id) switch {
-                "S"=>new(SkillTargetKind.Name,Name:selected?.Name),
-                "HD"=>null, // A bookmark must be chosen explicitly, including random teleport (ID 0).
-                "HH"=>selected==null?null:new(SkillTargetKind.Location,X:selected.X,Y:selected.Y),
-                "DHH" or "DHHS"=>selected==null?null:new(SkillTargetKind.Object,selected.ObjectId),
-                _ when id==51=>new(SkillTargetKind.Summon,SummonId:0),
-                _ when World.MagicTargetsOwn(id)=>new(SkillTargetKind.Self),
-                _=>selected==null?null:new(SkillTargetKind.Object,selected.ObjectId)
-            };
-        }
+        var target=requested??DefaultSkillTarget(id,World.Target);
         if(target==null)return false;
         uint visualTarget=actor.ObjectId;ushort x=actor.X,y=actor.Y;WorldObject? obj=null;
         if(target.Kind==SkillTargetKind.Object) {

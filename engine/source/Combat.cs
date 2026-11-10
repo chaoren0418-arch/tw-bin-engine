@@ -5,6 +5,8 @@ public sealed record CombatAnimation(int Action,long At,bool Predicted){
     public long Instance {get;}=Interlocked.Increment(ref nextInstance);
     public ActionCadence? Timing{get;init;}
 }
+/// <summary>近戰 S30（24 bytes）解碼後的整包；R7-A 排隊時原樣保留，播出時才套用。</summary>
+public sealed record MeleeAttackPacket(int Action,uint Attacker,uint Target,ushort Word,int Heading,ushort X,ushort Y,int Flags);
 public sealed record AttackReport(long Number,uint Attacker,uint Target,int Action,ushort DamageWord,int Heading,ushort X,ushort Y,int Flags);
 public sealed record ProjectileReport(long Number,uint Attacker,uint Target,int Gfx,int Heading,ushort SourceX,ushort SourceY,ushort TargetX,ushort TargetY,long At,ushort DamageWord=0,ushort CasterGfx=0){public ActionCadence? Timing{get;init;}public long? ActionAt{get;init;}}
 public static class CombatRules {
@@ -47,39 +49,49 @@ public sealed partial class WorldSession {
             if(plain.Length!=24){
                 var packet=AttackSkillPackets.DecodeAttack(plain);
                 if(!packet.IsArrow){ReceiveAttackMagic(packet);return true;}
-                int arrowAction=packet.Action,arrowHeading=packet.Heading;
-                uint arrowAttacker=packet.Caster,arrowTarget=packet.Target;
-                ushort damage=packet.DamageWord,gfx=packet.Gfx,sx=packet.SourceX,sy=packet.SourceY,tx=packet.TargetX,ty=packet.TargetY;
-                byte flight=packet.Flight;
-                LastAttack=new(++AttackReports,arrowAttacker,arrowTarget,arrowAction,damage,arrowHeading,tx,ty,flight);
-                if(arrowTarget==Actor?.ObjectId)LastIncomingAttack=LastAttack;
-                ushort casterGfx=Actor?.ObjectId==arrowAttacker?Actor.Gfx:Objects.FirstOrDefault(o=>o.ObjectId==arrowAttacker)?.Gfx??ushort.MaxValue;
-                ApplySkillCaster(arrowAttacker,arrowAction,(byte)arrowHeading,arrowTarget);var arrowAnimation=ActionFor(arrowAttacker);
-                LastProjectile=new(AttackReports,arrowAttacker,arrowTarget,gfx,arrowHeading,sx,sy,tx,ty,ActionClock(),damage,casterGfx){Timing=arrowAnimation?.Timing,ActionAt=arrowAnimation?.At};
-                projectileReports[LastProjectile.Number]=LastProjectile;
-                foreach(var old in projectileReports.Values.Where(p=>LastProjectile.At-p.At>10000))projectileReports.TryRemove(old.Number,out _);
-                // Actor timing was captured before constructing the projectile report.
-                // Original BIN7C3AB0 -> 759B30 -> 758050 -> A49520 applies hurt at arrival.
-                // The compositor schedules that visual; HP/death still follow original server packets immediately.
-                CombatNotice=$"原服遠程回報 #{AttackReports}：箭矢 {gfx}，傷害欄 {damage}；箭數依原背包回包更新";
+                // R7-A（T340／#803）：箭矢 S30 也在施法者忙碌時整包排隊（SV§2.1、sub_A3C5A0 → sub_A40250）。
+                if(!QueueIfCasterBusy(packet.Caster,packet,null))ApplyArrowAttack(packet);
                 return true;
             }
             if(plain.Length<24)throw new ProtocolException("truncated attack envelope");
             if(plain.Length!=24||plain[13]!=0||plain[14]!=0||plain[15]!=0||plain[16]!=0){Unhandled(opcode);CombatNotice="收到未支援的原服遠程／技能／其他攻擊變體；保留原封包";return true;}
             int action=r.C();uint attacker=r.D(),target=r.D();ushort word=r.H();int heading=r.C();ushort x=r.H(),y=r.H();int flags=r.C();r.Finish();
             if(heading>7)throw new ProtocolException("attack heading");
-            LastAttack=new(++AttackReports,attacker,target,action,word,heading,x,y,flags);
-            if(target==Actor?.ObjectId)LastIncomingAttack=LastAttack;
-            ClientSoundScene.Attack(this,attacker,target,Environment.TickCount64); // T172 戰鬥音樂
-            if(Actor?.ObjectId==attacker)Actor=Actor with{Direction=(byte)heading};
-            else if(objects.ContainsKey(attacker))UpdateObject(attacker,o=>o with{Direction=(byte)heading});
-            AnimateCombat(attacker,action,target:target);
-            if(word>0&&target!=0)AnimateCombat(target,2);
-            CombatNotice=$"原服攻擊回報 #{AttackReports}：{attacker} → {target}，傷害欄 {word}（非 HP 扣除量）";
+            var melee=new MeleeAttackPacket(action,attacker,target,word,heading,x,y,flags);
+            // R7-A：近戰 S30 同樣排隊；整包（轉向、動作、目標受擊、回報）等施法者目前的動作播完才套用。
+            if(!QueueIfCasterBusy(attacker,null,null,melee))ApplyMeleeAttack(melee);
             return true;
         }
         if(opcode==237){uint id=r.D();byte percent=r.C();r.Finish();if(Actor?.ObjectId==id)Actor=Actor with{HpPercent=percent};else UpdateObject(id,o=>o with{HpByte=percent});return true;}
         return false;
+    }
+    void ApplyArrowAttack(AttackSkillPacket packet){
+        int arrowAction=packet.Action,arrowHeading=packet.Heading;
+        uint arrowAttacker=packet.Caster,arrowTarget=packet.Target;
+        ushort damage=packet.DamageWord,gfx=packet.Gfx,sx=packet.SourceX,sy=packet.SourceY,tx=packet.TargetX,ty=packet.TargetY;
+        byte flight=packet.Flight;
+        LastAttack=new(++AttackReports,arrowAttacker,arrowTarget,arrowAction,damage,arrowHeading,tx,ty,flight);
+        if(arrowTarget==Actor?.ObjectId)LastIncomingAttack=LastAttack;
+        ushort casterGfx=Actor?.ObjectId==arrowAttacker?Actor.Gfx:Objects.FirstOrDefault(o=>o.ObjectId==arrowAttacker)?.Gfx??ushort.MaxValue;
+        ApplySkillCaster(arrowAttacker,arrowAction,(byte)arrowHeading,arrowTarget);var arrowAnimation=ActionFor(arrowAttacker);
+        LastProjectile=new(AttackReports,arrowAttacker,arrowTarget,gfx,arrowHeading,sx,sy,tx,ty,ActionClock(),damage,casterGfx){Timing=arrowAnimation?.Timing,ActionAt=arrowAnimation?.At};
+        projectileReports[LastProjectile.Number]=LastProjectile;
+        foreach(var old in projectileReports.Values.Where(p=>LastProjectile.At-p.At>10000))projectileReports.TryRemove(old.Number,out _);
+        // Actor timing was captured before constructing the projectile report.
+        // Original BIN7C3AB0 -> 759B30 -> 758050 -> A49520 applies hurt at arrival.
+        // The compositor schedules that visual; HP/death still follow original server packets immediately.
+        CombatNotice=$"原服遠程回報 #{AttackReports}：箭矢 {gfx}，傷害欄 {damage}；箭數依原背包回包更新";
+    }
+    void ApplyMeleeAttack(MeleeAttackPacket p){
+        int action=p.Action,heading=p.Heading;uint attacker=p.Attacker,target=p.Target;ushort word=p.Word;
+        LastAttack=new(++AttackReports,attacker,target,action,word,heading,p.X,p.Y,p.Flags);
+        if(target==Actor?.ObjectId)LastIncomingAttack=LastAttack;
+        ClientSoundScene.Attack(this,attacker,target,Environment.TickCount64); // T172 戰鬥音樂
+        if(Actor?.ObjectId==attacker)Actor=Actor with{Direction=(byte)heading};
+        else if(objects.ContainsKey(attacker))UpdateObject(attacker,o=>o with{Direction=(byte)heading});
+        AnimateCombat(attacker,action,target:target);
+        if(word>0&&target!=0)AnimateCombat(target,2);
+        CombatNotice=$"原服攻擊回報 #{AttackReports}：{attacker} → {target}，傷害欄 {word}（非 HP 扣除量）";
     }
     public object CombatSnapshot()=>new{reports=AttackReports,lastAttack=LastAttack,lastProjectile=LastProjectile,projectiles=Projectiles,ownAnimation=OwnCombat,ownDead=OwnDead,restartRequested=RestartRequested,arrowCount=ArrowCount,notice=CombatNotice,damageMeaning="ClientLogin=2 original attack damage word, not independently established HP loss; zero does not distinguish miss from zero damage"};
 }

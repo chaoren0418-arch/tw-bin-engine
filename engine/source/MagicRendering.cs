@@ -171,22 +171,79 @@ public static class MagicMotion {
         return((ix+32768)/2,iy,direction,steps,false);
     }
     // Kind 7 (sub_81C490, recursive sub_81C9D0): tiles advanced from the origin toward the target,
-    // using the same one-tile major-axis stepping. Segment stay/advance timing is NOT verified
-    // (skills-visual.md §7.4), so this is data only and the renderer does not draw kind 7.
+    // using the same one-tile major-axis stepping. Data helper only; the renderer draws kind 7 with
+    // EruptionMotion.Plan (T269, segment timing and two-step gfx, ProjectileRendering.cs).
     public static (int X,int Y)[] EruptionPath(int sx,int sy,int tx,int ty){
         var e=new MagicEffect(0,0,0,0,0,0,0,(ushort)sx,(ushort)sy,(ushort)tx,(ushort)ty,0);var path=new List<(int,int)>();
         for(long t=0;path.Count<128;t+=60){var m=At(e,tx,ty,0,t);path.Add((m.X,m.Y));if(m.Arrived)break;}
         return path.ToArray();
     }
 }
+// R2-H / T256 (#617): the hardcoded legacy-asset gfx (ComposeMagic) follow the same caster `!` timing as
+// the native classes (SV#5). S55 effects and casters without a captured action start at once (§2.1, §2.5).
+public static class LegacyMagic {
+    public static bool Handles(MagicEffect e)=>e.RangeType==null&&e.Gfx is 11722 or 221 or 2165 or 189 or 191 or 197 or 167;
+    // R4-G (gap-matrix 5, 109 kind): S30 builds its object from the gfx's 109 kind (sub_930A20 switch), not from the
+    // legacy asset. When the runtime list.spr gives a non-default kind (2 Lightning, 3/4/5 flying, 6, 7, 8 = no object),
+    // the legacy gfx goes through the native class path; kind 5 then flies and kind 8 draws nothing (caster `!` hits).
+    // 167 keeps its own flying + 219 landing path. Without readable metadata the legacy asset path stays.
+    public static bool UsesNativeClass(MagicEffect e,EffectSprite? native)=>e.Gfx!=167&&native!=null&&native.Kind is >=2 and <=8;
+    public static long Start(MagicEffect e)=>(e.ActionAt??e.At)+(e.Timing?.ReleaseMs??0);
+    // Hit time: the effect's own `!` frames when the runtime list.spr is readable (no `!` = no hit, §3);
+    // without native metadata there is no effect object to consult, so the caster `!` hits (sub_A4B060).
+    public static long? Hit(EffectSprite? native,long start,long now)=>now<start?null:native!=null?native.LatestHit(start,now):start;
+}
+// SV#12 (§2.5): while any effect with S42 type (+9) != 0 is alive, the global light L becomes min(15, L+5).
+// S106 gfx 2028–2056 carry the same flag. R4-G: the renderer feeds the live count into Ambience.Begin/EndLightEffect.
+public static class MagicBrighten {
+    public const int Boost=5,Max=15;
+    public static int Apply(int level,int active)=>active>0?Math.Min(Max,level+Boost):level;
+    public static bool LocationEffect(int gfx)=>gfx is >=2028 and <=2056;
+}
+/// <summary>Which native class increments the light counter `0x13CE258` (FU5§3).</summary>
+public enum LightClass {None,Effect,Lightning}
+// R4-G, docs/reference/followups-5.md §3 (TW16 static analysis):
+// - default `Effect` (vtable +144 = sub_8ABC10, also ManyEffect): only when `+9` (LightFlag) != 0; +1 when the frame
+//   index +12 becomes 1, -1 when it finishes. sub_8ABC10 advances the cursor before the first display, so index 1
+//   is reached at the start (offset 0). With fewer than 2 frames index 1 is never reached: no light.
+// - kind 2 `Lightning` (sub_8ACB20): ignores `+9`; +1 when the index becomes 2 (Steps[1] ms after the start), -1 when
+//   it finishes; fewer than 3 frames = no light.
+// - The native defect (finish without a prior +1 drives the counter negative) is not copied: End only after Begin.
+// - Flying classes (3/4/5), kind 6 EarthRising and kind 7 Eruption have their own step functions: no light (FU5 lists
+//   only sub_8ABC10 and sub_8ACB20 as callers of the counter).
+// R7-A（T340／#803，#735 第 2 點）：sub_92FE40（S42）的直接呼叫裡沒有 sub_8AB900（Lightning 建構子），S42 的 kind 2 gfx
+// 建的是預設 Effect（SV§2.2「kind 2 的 S42 建構：同預設」）。所以只有 S30 的 kind 2 是 Lightning；S42 的 kind 2 照 `+9`，
+// 也就是只有 type 8（TYPE_DIR）提亮、type 0 不提亮。
+public static class SkillLight {
+    public static LightClass Class(int kind,bool range)=>kind==2&&!range?LightClass.Lightning
+        :MagicClass.Flies(kind,range)||!range&&kind is 6 or 7 or 8?LightClass.None:LightClass.Effect;
+    /// <summary>`+9` of a skill effect: S42 = packet type (TYPE_DIR 8 lights, TYPE_NODIR 0 does not); S30 = the byte
+    /// after gfx, which AttackSkillPackets only accepts as 0 for magic (3.81 S_UseAttackSkill writes 0).</summary>
+    public static byte Flag(MagicEffect e)=>e.RangeType??0;
+    /// <summary>R5-C：S250 子碼 83 值 3（3.81 S_GlobalEffect(3)）的煙火，sub_9357E0 case 83 以 `+9`＝1 建預設 Effect（FU5§3.2）。</summary>
+    public const byte FireworkFlag=1;
+    public static byte Flag(MagicEffect e,bool firework)=>firework?FireworkFlag:Flag(e);
+    /// <summary>S106 (S_EFFECT_LOC, sub_934530): gfx 2028–2056 build the Effect with `+9` = 1, everything else 0.</summary>
+    public static byte LocationFlag(int gfx)=>MagicBrighten.LocationEffect(gfx)?(byte)1:(byte)0;
+    /// <summary>Offset from the effect start where the counter is incremented; null = this object never lights.</summary>
+    public static long? BeginAfter(EffectSprite effect,LightClass c,byte flag)=>c switch{
+        LightClass.Effect when flag!=0&&effect.Steps.Length>=2=>0,
+        LightClass.Lightning when effect.Steps.Length>=3=>effect.Steps[1].Milliseconds,
+        _=>null};
+    /// <summary>True while the object holds its +1 (from BeginAfter until it finishes playing once).</summary>
+    public static bool Lit(EffectSprite effect,LightClass c,byte flag,long age)=>BeginAfter(effect,c,flag) is long b&&age>=b&&age<effect.Duration;
+    /// <summary>Same rule for a one-shot Effect whose frame offsets are known only as a duration (packaged S106 asset):
+    /// the cursor reaches 1 at the start (the frame-count check cannot be made without list.spr: 推測).</summary>
+    public static bool Lit(double duration,byte flag,long age)=>flag!=0&&age>=0&&age<duration;
+}
 // Native 109 class names used by the renderer (skills-visual.md §2.2).
 public static class MagicClass {
     // Hardcoded kind 3 override (gfx 7972) and S42 757->10771 are TW16 specific and unverified
     // for 3.81 (SV#14); deliberately not applied.
     public static bool Flies(int kind,bool range)=>range?kind==5:kind is 3 or 4 or 5;
-    // S30 kinds that never build an effect object (kind 8: `case 8: break`) or whose drawing is
-    // unverified (kind 7). The caster `!` frame then hits the attached list directly (sub_A4B060).
-    public static bool CasterHits(int kind,bool range)=>!range&&kind is 7 or 8;
+    // S30 kinds that never build an effect object (kind 8: `case 8: break`). The caster `!` frame then
+    // hits the attached list directly (sub_A4B060). Kind 7 hits from its terminal EarthRising (T269).
+    public static bool CasterHits(int kind,bool range)=>!range&&kind==8;
 }
 public sealed record UndrawnMagic(long Number,int Gfx,int Kind,(int X,int Y)[] Path,int EndGfx,string Reason);
 public sealed partial class Renderer {
@@ -198,11 +255,12 @@ public sealed partial class Renderer {
         try{return (effectSprites??=new(GroundSpriteReader.ClientRoot)).Get(gfx);}
         catch(Exception ex) when(ex is IOException or InvalidDataException or UnauthorizedAccessException or CryptographicException or ArgumentException or OverflowException){effectResourceErrors[gfx]=ex.Message;return null;}
     }
-    Frame? DrawNativeEffect(int gfx,int direction,int x,int y,long age,WorldSession session,List<Draw> draws,string layer,bool loop=false,int? step=null){
+    // depth: extra layer depth (EarthDepth, gfx 10147/10145), added to every block's Z and capped at 255.
+    Frame? DrawNativeEffect(int gfx,int direction,int x,int y,long age,WorldSession session,List<Draw> draws,string layer,bool loop=false,int? step=null,int depth=0){
         var effect=NativeEffect(gfx);if(effect==null||age<0||!loop&&age>=effect.Duration||!session.SceneContains(x,y))return null;
         try{
             var frame=effectSprites!.Frame(effect,direction,age,loop,step);
-            draws.AddRange(frame.Blocks.Select(b=>new Draw(2*(x-Coordinates.MinX)+b.A,y-Coordinates.MinY+b.B,b.Z,1200000+b.Order,layer,b.Order,-1,-1,b.Tile)));return frame;
+            draws.AddRange(frame.Blocks.Select(b=>new Draw(2*(x-Coordinates.MinX)+b.A,y-Coordinates.MinY+b.B,EarthDepth.Z(b.Z,depth),1200000+b.Order,layer,b.Order,-1,-1,b.Tile)));return frame;
         }catch(Exception ex) when(ex is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException or OverflowException){effectResourceErrors[gfx]=ex.Message;return null;}
     }
     static bool MagicCasterBlocked(MagicEffect e,WorldSession session){
@@ -224,19 +282,18 @@ public sealed partial class Renderer {
     // on the effect's own `!` frames; flying classes hit on arrival.
     void ComposeNativeMagic(MagicEffect e,WorldSession session,List<Draw> draws,List<MagicVisual> visuals,List<UndrawnMagic> undrawn,long now){
         if(now<e.At)return;
-        var effect=NativeEffect(e.Gfx);bool range=e.RangeType!=null;int kind=effect?.Kind??-1;
+        // R5-C：S_GlobalEffect(3) 煙火由 sub_8AB390 直接建預設 Effect（不看 list.spr 109 kind），`+9`＝1。
+        bool firework=session.IsFireworkEffect(e.Number);
+        var effect=NativeEffect(e.Gfx);bool range=e.RangeType!=null;int kind=firework?0:effect?.Kind??-1;
         bool flies=effect!=null&&MagicClass.Flies(kind,range);
+        // S30 case 6 builds the EarthRising on receipt: dword_13CCBA4 += 29 (TWP §3.2).
+        if(effect!=null&&!range&&kind==6)EarthRisingBuilt(e.Number,-1);
         if(!magicFlights.ContainsKey(e.Number)&&(flies||e.Timing!=null)&&MagicCasterBlocked(e,session))return;
         // Caster `!` frame. A caster without a captured action (absent, caster0) starts at once (§2.1).
         long release=(e.ActionAt??e.At)+(e.Timing?.ReleaseMs??0);if(now<release)return;
-        if(effect==null||MagicClass.CasterHits(kind,range)){
-            CasterFrameHits(e,session,release);
-            if(effect!=null&&kind==7){
-                var aim=session.VisibleTargetPosition(e.Target);
-                undrawn.Add(new(e.Number,e.Gfx,7,MagicMotion.EruptionPath(e.SourceX,e.SourceY,aim?.X??e.TargetX,aim?.Y??e.TargetY),effect.Impact,"kind 7 segment timing unverified (skills-visual §7.4)"));
-            }
-            return;
-        }
+        if(effect==null||MagicClass.CasterHits(kind,range)){CasterFrameHits(e,session,release);return;}
+        // T269: S30 kind 7 Eruption segments, then the terminal EarthRising hits (ProjectileRendering.cs).
+        if(!range&&kind==7){ComposeEruption(e,effect,session,draws,visuals,undrawn,release,now);return;}
         var arrow=new ProjectileReport(e.Number,e.Caster,e.Target,e.Gfx,e.Heading,e.SourceX,e.SourceY,e.TargetX,e.TargetY,e.At);
         bool Arrived(int tx,int ty,long tick)=>kind==3?ProjectileMotion.At(arrow,tx,ty,release,tick)==null:MagicMotion.At(e,tx,ty,release,tick).Arrived;
         if(!magicFlights.TryGetValue(e.Number,out var flight)){
@@ -260,18 +317,29 @@ public sealed partial class Renderer {
                     if(list.Count>0&&list.Any(t=>t.HitFlag!=0))MagicHit(session,list[0].ObjectId,hitAt);
                 }
             }
-            var still=DrawNativeEffect(e.Gfx,e.Heading,flight.X,flight.Y,now-release,session,draws,"magic");
+            // R4-G (FU5§3): default Effect with +9 != 0 from index 1, kind 2 Lightning from index 2, until it finishes.
+            if(SkillLight.Lit(effect,SkillLight.Class(kind,range),SkillLight.Flag(e,firework),now-release))magicBrightening++;
+            int depth=!range&&kind==6&&EarthDepth.Stacks(e.Gfx)?EarthDepthAt(e.Number,-1,effect,now-release):0;   // R6-F: read on every frame advance
+            var still=DrawNativeEffect(e.Gfx,e.Heading,flight.X,flight.Y,now-release,session,draws,"magic",depth:depth);
             if(still!=null)visuals.Add(new(e.Number,e.Gfx,flight.X,flight.Y,e.Heading,still.Key,"effect",release));
             // Default Effect class: sub_8ABC10 spawns `]` children at the effect's own position (effects-2.md §2.1(a)).
-            if(now-release<effect.Duration)ObserveEffectFrames(session,$"magic:{e.Number}",ActionTimeline.Of(effect),now-release,flight.X,flight.Y,e.Heading,now);
+            // T269: S30 kind 2 Lightning (8ACB20) and kind 6 EarthRising (81C7C0) never process `]` (TWP §3.1).
+            // R5-C（T308）查證：S42 不建 Lightning。sub_92FE40（S_ATTACK_MANY，VA 0x92FE40–0x930A20）的直接呼叫裡沒有
+            // sub_8AB900（Lightning 建構子），只有 sub_83CB50（kind 5）、3 處 sub_8AB710（預設類別）與 3 處 sub_8AB390；
+            // 所以 S42 的 kind 2 gfx 是預設 Effect，`]` 照常處理（SV§2.2 表「S42 建構：同預設」）。gap-matrix 14.2
+            // 第 5 點「range 為真時 kind 2 也不處理 `]`」與此不符，維持 range 時處理 `]`（報告 issue-735.md）。
+            if(now-release<effect.Duration&&(range||kind is not (2 or 6)))ObserveEffectFrames(session,$"magic:{e.Number}",ActionTimeline.Of(effect),now-release,flight.X,flight.Y,e.Heading,now);
             return;
         }
         var motion=MagicMotion.At(e,flight.X,flight.Y,release,Math.Min(now,flight.Impact));
         int x=motion.X,y=motion.Y,d=ProjectileMotion.Direction(e.SourceX,e.SourceY,flight.X,flight.Y,e.Heading);
         if(kind==3&&ProjectileMotion.At(arrow,flight.X,flight.Y,release,now) is {} arrowMotion){x=arrowMotion.X;y=arrowMotion.Y;}
         if(now<flight.Impact){
+            // Flying classes do not touch the light counter (FU5§3: only sub_8ABC10 / sub_8ACB20 do).
             var fly=DrawNativeEffect(e.Gfx,d,x,y,now-release,session,draws,"magic",true);
             if(fly!=null)visuals.Add(new(e.Number,e.Gfx,x,y,d,fly.Key,"fly",release));
+            // Flying classes never process `]` (TWP §3.1, T266): recorded as data, never spawned.
+            WithholdFlightFrames(session,$"magic-fly:{e.Number}",effect,now-release,x,y,d,now);
             return;
         }
         var landings=new List<(int X,int Y)>();
@@ -292,10 +360,43 @@ public sealed partial class Renderer {
             if(kind==4)landings.Add((flight.X,flight.Y));
         }
         if(effect.Impact<0)return;
+        var impactEffect=NativeEffect(effect.Impact);int landing=0;
         foreach(var (lx,ly) in landings){
             var frame=DrawNativeEffect(effect.Impact,d,lx,ly,now-flight.Impact,session,draws,"magic");
             if(frame!=null)visuals.Add(new(e.Number,effect.Impact,lx,ly,d,frame.Key,"impact",flight.Impact));
+            // Landing param gfx is a one-shot effect; its own `]` frames spawn children (EF2§2.1(a)).
+            ObserveLandingFrames(session,$"magic-impact:{e.Number}:{landing++}",impactEffect,now-flight.Impact,lx,ly,d,now);
         }
+    }
+    // One-shot landing / legacy effects: `]` children at the effect's position while it plays.
+    void ObserveLandingFrames(WorldSession session,string owner,EffectSprite? effect,long age,int x,int y,int direction,long now){
+        if(effect!=null&&age>=0&&age<effect.Duration)ObserveEffectFrames(session,owner,ActionTimeline.Of(effect),age,x,y,direction,now);
+    }
+    int magicBrightening;
+    /// <summary>SV#12／FU5§3：目前握著提亮計數的特效數（原版 `0x13CE258`）：S30／S42 技能特效與 S106 gfx 2028–2056。</summary>
+    public int MagicBrighteningEffects {get;private set;}
+    /// <summary>SV#12：把明暗 L 套上特效提亮（有任何一個存活時 min(15, L+5)）。純函式；產品路徑已由
+    /// <see cref="SyncLightEffects"/> 經 Ambience.BeginLightEffect／EndLightEffect 套到明暗，不要再對 Ambience 的 L 套一次。</summary>
+    public int MagicLightLevel(int level)=>MagicBrighten.Apply(level,MagicBrighteningEffects);
+    // Begin/End calls this renderer currently holds on that Ambience (lazy: constructor-free test renderers).
+    Ambience? lightAmbience;int lightHeld;
+    /// <summary>R4-G：讓 Ambience 的計數等於目前提亮中的特效數（每個 +1 對應一次 Begin，結束對應一次 End）。</summary>
+    void SyncLightEffects(Ambience ambience,int active){
+        if(!ReferenceEquals(ambience,lightAmbience)){lightAmbience=ambience;lightHeld=0;}
+        while(lightHeld<active){ambience.BeginLightEffect();lightHeld++;}
+        while(lightHeld>active){ambience.EndLightEffect();lightHeld--;}
+    }
+    // S106 (op 106 here; S_EFFECT_LOC sub_934530) builds a default Effect with +9 = 1 for gfx 2028–2056 (FU5§3.2).
+    int LocationLights(WorldSession session,long now){
+        int lit=0;
+        foreach(var p in session.PacketEffects){
+            if(p.Packet.Target!=null)continue;byte flag=SkillLight.LocationFlag(p.Packet.GfxId);if(flag==0)continue;
+            long age=now-p.At;if(age<0)continue;
+            // Runtime list.spr first (frame-accurate); else the packaged appearance that ComposePacketEffects draws.
+            var native=effectResourceErrors==null?null:NativeEffect(p.Packet.GfxId);
+            if(native!=null?SkillLight.Lit(native,LightClass.Effect,flag,age):packetEffectAssets?.Get(p.Packet.GfxId) is {} a&&SkillLight.Lit(a.Duration,flag,age))lit++;
+        }
+        return lit;
     }
     readonly Dictionary<int,ObjectAppearance> magicAppearances=[];
     readonly Dictionary<long,(int X,int Y,long Release,long Impact)> magicFlights=[];
@@ -307,16 +408,32 @@ public sealed partial class Renderer {
     public UndrawnMagic[] UndrawnMagicEffects {get;private set;}=[];
     ObjectAppearance MagicAppearance(int gfx){if(!magicAppearances.TryGetValue(gfx,out var a)){a=new(Path.Combine(assets.Root,$"objects/magic-{gfx}.json"));magicAppearances[gfx]=a;}return a;}
     void ComposeMagic(WorldSession session,List<Draw> draws,long now){
-        if(magicEpoch!=session.WorldEpoch){magicFlights.Clear();magicLandings?.Clear();magicEpoch=session.WorldEpoch;}var visuals=new List<MagicVisual>();var undrawn=new List<UndrawnMagic>();
+        if(magicEpoch!=session.WorldEpoch){magicFlights.Clear();magicLandings?.Clear();ClearEruptions();magicEpoch=session.WorldEpoch;}var visuals=new List<MagicVisual>();var undrawn=new List<UndrawnMagic>();
+        // R5-C（sub_A40250）：施法者動作播完的排隊封包在這一格播出（與收包同一個 UI 執行緒）。
+        session.RunQueuedSkillCasts(session.ActionClock());
+        magicBrightening=0;
         foreach(var e in session.MagicEffects){
-            if(e.RangeType!=null||e.Gfx is not (11722 or 221 or 2165 or 189 or 191 or 197 or 167)){
+            if(!LegacyMagic.Handles(e)||effectResourceErrors!=null&&LegacyMagic.UsesNativeClass(e,NativeEffect(e.Gfx))){
                 ComposeNativeMagic(e,session,draws,visuals,undrawn,now);continue;
             }
             int gfx=e.Gfx,x=e.TargetX,y=e.TargetY,d=e.Heading;long at=e.At;Frame? frame=null;string phase="heal";
             if(now<at)continue;
-            if(gfx!=167&&e.Target!=0&&e.DamageWord>0&&(!projectileHits.TryGetValue(e.Target,out var immediate)||immediate.At<at))projectileHits[e.Target]=new(2,at,false);
-            if(gfx==11722){var a=MagicAppearance(gfx);if(now-at>=a.Duration("heal"))continue;frame=MagicMotion.PureFrame(a,"heal",now-at);}
-            else if(gfx is 221 or 2165 or 189 or 191 or 197){phase="effect";var a=MagicAppearance(gfx);if(now-at>=a.Duration(phase))continue;frame=MagicMotion.PureFrame(a,phase,now-at);}
+            if(gfx!=167){
+                // R2-H: start at the caster `!` (SV#5) instead of the receipt time; once started the
+                // effect is no longer gated by the caster (same as ComposeNativeMagic).
+                if(!magicFlights.TryGetValue(e.Number,out var started)){
+                    if(e.Timing!=null&&MagicCasterBlocked(e,session))continue;
+                    long start=LegacyMagic.Start(e);if(now<start)continue;
+                    started=(x,y,start,start);magicFlights[e.Number]=started;
+                }
+                at=started.Release;phase=gfx==11722?"heal":"effect";
+                // Constructor-free test renderers have no resource state: treat as no native metadata.
+                var native=effectResourceErrors==null?null:NativeEffect(gfx);
+                if(e.Target!=0&&e.DamageWord>0&&LegacyMagic.Hit(native,at,now) is long hitAt)MagicHit(session,e.Target,hitAt);
+                var a=MagicAppearance(gfx);if(now-at>=a.Duration(phase))continue;
+                ObserveEffectFrames(session,$"magic:{e.Number}",native!=null?ActionTimeline.Of(native):ActionTimeline.Pure(a.Sequences[(phase,0)],false),now-at,x,y,d,now);
+                frame=MagicMotion.PureFrame(a,phase,now-at);
+            }
             else if(gfx==167){
                 long release=(e.ActionAt??e.At)+(e.Caster==0?0:e.Timing?.ReleaseMs??MagicRules.ReleaseFor(e.CasterGfx));
                 if(now<release)continue;
@@ -328,11 +445,13 @@ public sealed partial class Renderer {
                 }
                 var motion=MagicMotion.At(e,flight.X,flight.Y,flight.Release,Math.Min(now,flight.Impact));x=motion.X;y=motion.Y;d=motion.Direction;
                 if(now<flight.Impact){phase="fly";frame=MagicAppearance(167).Frames[$"{d}:{(motion.Step-1)%4}"];at=flight.Release;}
-                else {gfx=219;phase="impact";at=flight.Impact;var a=MagicAppearance(gfx);if(now-at>=a.Duration("impact"))continue;frame=MagicMotion.PureFrame(a,"impact",now-at);if(e.Target!=0&&e.DamageWord>0&&(!projectileHits.TryGetValue(e.Target,out var hit)||hit.At<at))projectileHits[e.Target]=new(2,at,false);}
+                else {gfx=219;phase="impact";at=flight.Impact;var a=MagicAppearance(gfx);if(now-at>=a.Duration("impact"))continue;frame=MagicMotion.PureFrame(a,"impact",now-at);if(e.Target!=0&&e.DamageWord>0&&(!projectileHits.TryGetValue(e.Target,out var hit)||hit.At<at))projectileHits[e.Target]=new(2,at,false);
+                    if(effectResourceErrors!=null)ObserveLandingFrames(session,$"magic-impact:{e.Number}:0",NativeEffect(219),now-at,x,y,d,now);}
             }
             if(frame==null||!session.SceneContains(x,y))continue;visuals.Add(new(e.Number,gfx,x,y,d,frame.Key,phase,at));draws.AddRange(frame.Blocks.Select(b=>new Draw(2*(x-Coordinates.MinX)+b.A,y-Coordinates.MinY+b.B,b.Z,1200000+b.Order,"magic",b.Order,-1,-1,b.Tile)));
         }
-        MagicVisuals=visuals.ToArray();UndrawnMagicEffects=undrawn.ToArray();
-        foreach(var k in magicFlights.Where(x=>now-x.Value.Release>15000).Select(x=>x.Key).ToArray()){magicFlights.Remove(k);magicLandings?.Remove(k);}
+        MagicVisuals=visuals.ToArray();UndrawnMagicEffects=undrawn.ToArray();MagicBrighteningEffects=magicBrightening+LocationLights(session,now);
+        SyncLightEffects(session.Ambience,MagicBrighteningEffects);
+        foreach(var k in magicFlights.Where(x=>now-x.Value.Release>15000).Select(x=>x.Key).ToArray()){magicFlights.Remove(k);magicLandings?.Remove(k);ForgetEarthDepth(k);}
     }
 }

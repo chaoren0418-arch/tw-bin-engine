@@ -8,6 +8,8 @@ namespace P06;
 // - 擁有者的狀態旗標（隱身）會複製到子特效（e+195 = actor+195）。
 // - 子特效自己的影格再遇到 `]` 時再生特效（可遞迴，設深度與數量上限防止自我參照無限生成）。
 // - 圖檔在執行期由 EffectSpriteCatalog 從原客戶端 Sprite*.pak 讀取；讀不到就不畫，記下 gfx 編號。
+// - 提亮（R4-G，FU5§3）：`]` 生出的子特效 `+9`＝0，不動提亮計數（SkillLight 只算技能特效與 S106）。
+//   原版 sub_8ACD20 對特定 gfx（758、5893、8077、1819、757、2261 等）另建的子特效會照抄母特效的 `+9`，本引擎沒做（待做）。
 public static class FrameTokens {
     static readonly Regex spawn=new(@"\](\d{1,6})",RegexOptions.CultureInvariant),fadeIn=new(@"\{(\d{1,6})",RegexOptions.CultureInvariant),fadeOut=new(@"\}(\d{1,6})",RegexOptions.CultureInvariant);
     public static int[] Spawns(string? events)=>string.IsNullOrEmpty(events)?[]:spawn.Matches(events).Select(m=>int.Parse(m.Groups[1].Value)).Where(g=>g>0).ToArray();
@@ -91,6 +93,8 @@ public sealed record FrameFade(bool In,int Steps,long At){
 }
 
 public sealed record SubEffect(long Number,int Gfx,int X,int Y,int Direction,long At,string Source,int Depth,bool Hidden);
+/// <summary>飛行物（109 kind 3／4／5 與箭矢）影格上的 `]`。T266 已查證原版飛行類別的每步函式不處理 `]`（trade-window-and-projectiles.md §3.1），只記錄、不生成。</summary>
+public sealed record WithheldSubEffect(string Owner,int OwnerGfx,int Gfx,int X,int Y,int Direction,long At,string Reason);
 public sealed record SubEffectVisual(long Number,int Gfx,int X,int Y,int Direction,string Frame,string Source,int Depth,long At);
 
 /// <summary>`]` 生出的一次性預設 Effect 清單：每格處理自己的 `]`（可遞迴），播完一次就移除。</summary>
@@ -136,9 +140,23 @@ public sealed partial class Renderer {
     Dictionary<(ObjectAppearance,string,int,ActionCadence?),ActionTimeline>? timelines;
     public SubEffectSet SubEffects=>subEffects??=new();
     public SubEffectVisual[] SubEffectVisuals {get;private set;}=[];
+    FrameEventTracker? flightFrames;List<WithheldSubEffect>? withheld;
+    public const int MaxWithheld=64;
+    /// <summary>最近被擋下（未生成）的飛行物 `]`，最多 64 筆；世界重置清空。</summary>
+    public IReadOnlyList<WithheldSubEffect> WithheldSubEffects=>withheld??=[];
     void SubEffectEpoch(WorldSession session){
         if(subEffectEpoch==session.WorldEpoch)return;
-        subEffects?.Clear();ownerFrames?.Clear();fades?.Clear();subEffectEpoch=session.WorldEpoch;
+        subEffects?.Clear();ownerFrames?.Clear();fades?.Clear();flightFrames?.Clear();withheld?.Clear();subEffectEpoch=session.WorldEpoch;
+    }
+    /// <summary>飛行中的特效（循環播放）新跨過的 `]`：只記錄為資料，不建立子特效（原版飛行類別不處理 `]`）。</summary>
+    internal void WithholdFlightFrames(WorldSession session,string owner,EffectSprite? effect,long age,int x,int y,int direction,long now){
+        SubEffectEpoch(session);if(effect==null||age<0)return;
+        var timeline=ActionTimeline.Of(effect,true);if(!timeline.HasTokens)return;
+        foreach(var step in (flightFrames??=new()).Advance(owner,"",timeline,age,now))
+            foreach(int gfx in FrameTokens.Spawns(step.Events)){
+                var list=withheld??=[];if(list.Count>=MaxWithheld)list.RemoveAt(0);
+                list.Add(new(owner,effect.Gfx,gfx,x,y,direction,now-(long)Math.Max(0,age-step.Offset),"flying classes never process `]` (T266 §3.1)"));
+            }
     }
     ActionTimeline Timeline(ObjectAppearance a,string action,int direction,ActionCadence? timing){
         timelines??=[];var key=(a,action,direction,timing);
@@ -159,7 +177,8 @@ public sealed partial class Renderer {
             if(FrameTokens.FadeOut(step.Events) is int m)(fades??=[])[fadeKey]=new(false,m,at);
         }
     }
-    /// <summary>預設 Effect 類別的特效物件（S30/S42 預設類、S55/S106 封包特效）每格的 `]`。</summary>
+    /// <summary>預設 Effect 類別的特效物件（S30/S42 預設類、S55/S106 封包特效、落點圖）每格的 `]`。
+    /// 不可用在 kind 2（Lightning）、kind 6（EarthRising）、kind 7（Eruption）、飛行物與 EffectLoop：原版這些類別不處理 `]`（T266 §3.1）。</summary>
     internal void ObserveEffectFrames(WorldSession session,string owner,ActionTimeline timeline,double age,int x,int y,int direction,long now)=>
         ObserveOwnerFrames(session,owner,uint.MaxValue,timeline,"",timeline.Loop?age:Math.Min(age,timeline.Length),x,y,direction,false,now);
     /// <summary>目前仍在淡入／淡出中的擁有者與 alpha（31 已完成的淡入會移除）。</summary>

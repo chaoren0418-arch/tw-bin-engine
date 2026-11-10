@@ -39,17 +39,22 @@ namespace P06.NativeUi {
     /// server-sent percentages for other objects (null = not sent → not drawn). For Self they are null: the panel computes
     /// them from the server's own HP/MP (sub_8E7290).
     /// </summary>
-    public sealed record HpMpHeadTarget(uint ObjectId,bool Self,Rectangle Box,int? HpPercent=null,int? MpPercent=null);
+    /// <remarks>Origin (FU8§1.1, T356/#820): self only — P = sub_F1A750(obj+16), the sprite block origin, in the same view
+    /// pixels as Box (product: Camera.ToView(Coordinates.Screen(foot) − (24, 12))). null → the bbox rule is used.</remarks>
+    public sealed record HpMpHeadTarget(uint ObjectId,bool Self,Rectangle Box,int? HpPercent=null,int? MpPercent=null,Point? Origin=null);
 
     /// <summary>Extra state the HP/MP module reads; absent → no over-head bars (floating window still uses IUiGameState).</summary>
     public interface IUiHpMpState {
         IReadOnlyList<HpMpHeadTarget> HeadTargets { get; }
+        /// <summary>Own class code byte_1542AA1 (FU6§2; LoginCharacter.Class); picks the own blink checker (7 = warrior). null = unknown.</summary>
+        byte? OwnClass=>null;
     }
 
     /// <summary>IUiGameState plus the over-head targets. Every IUiGameState member forwards to Base unchanged.</summary>
-    public sealed class UiHpMpGameState(IUiGameState inner,IReadOnlyList<HpMpHeadTarget> headTargets):IUiGameState,IUiHpMpState {
+    public sealed class UiHpMpGameState(IUiGameState inner,IReadOnlyList<HpMpHeadTarget> headTargets,byte? ownClass=null):IUiGameState,IUiHpMpState {
         public IUiGameState Base=>inner;
         public IReadOnlyList<HpMpHeadTarget> HeadTargets=>headTargets;
+        public byte? OwnClass=>ownClass;
         public bool InWorld=>inner.InWorld;
         public string? CharacterName=>inner.CharacterName;
         public int? Level=>inner.Level;
@@ -76,11 +81,18 @@ namespace P06 {
             foreach(var t in NameTargets()){
                 var a=Camera.ToView(new PointF(t.Bounds.Left,t.Bounds.Top));var b=Camera.ToView(new PointF(t.Bounds.Right,t.Bounds.Bottom));
                 var box=Rectangle.FromLTRB((int)Math.Floor(a.X),(int)Math.Floor(a.Y),(int)Math.Floor(b.X),(int)Math.Floor(b.Y));
-                if(t.Self){list.Add(new(t.ObjectId,true,box));continue;}
+                if(t.Self){list.Add(new(t.ObjectId,true,box,Origin:SelfHeadOrigin()));continue;}
                 if(!objects.TryGetValue(t.ObjectId,out var o)||o.Dead||o.HpPercent is not int hp)continue;
                 list.Add(new(t.ObjectId,false,box,hp,null));
             }
-            return new UiHpMpGameState(state,list);
+            return new UiHpMpGameState(state,list,login.World.OwnClass);
+        }
+        /// <summary>FU8§1.1: P = Coordinates.Screen(own foot) − (24, 12) (ObjectRendering.cs sub_F1A750 note), through the camera.
+        /// null when the own visual is not built yet (the panel then keeps the bbox rule).</summary>
+        Point? SelfHeadOrigin(){
+            if(renderer.OwnCombatVisual is not {} own)return null;
+            var p=Camera.ToView(new PointF(own.Foot.X-24,own.Foot.Y-12));
+            return new Point((int)Math.Floor(p.X),(int)Math.Floor(p.Y));
         }
     }
 }

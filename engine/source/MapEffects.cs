@@ -12,6 +12,10 @@ public sealed class MapEffectAppearance {
         if(Frames.Length is <1 or >127||Sequence.Length==0||Sequence.Any(s=>s.Ticks<=0||s.Ticks>10000||s.Frame<0||s.Frame>=Frames.Length)||Frames.Any(f=>f.Blocks.Length is <1 or >4096))throw new InvalidDataException("map effect frames/sequence");
     }
     public Frame At(long elapsed){double tick=Math.Max(0,elapsed)*24d/1000%Sequence.Sum(s=>s.Ticks);foreach(var s in Sequence){if(tick<s.Ticks)return Frames[s.Frame];tick-=s.Ticks;}return Frames[Sequence[^1].Frame];}
+    ActionTimeline? timeline;
+    /// <summary>各格開始時間（毫秒，與 At 同一尺度）與 token，循環播放。</summary>
+    public ActionTimeline Timeline=>timeline??=Build();
+    ActionTimeline Build(){double t=0;var steps=new List<TimelineStep>();foreach(var s in Sequence){steps.Add(new(t,s.Events));t+=s.Ticks*1000d/24;}return new(steps.ToArray(),t,true);}
 }
 public sealed class MapEffectCatalog {
     readonly string root;readonly Dictionary<int,JsonElement> entries;readonly Dictionary<int,MapEffectAppearance> cache=[];
@@ -58,43 +62,87 @@ public sealed partial class Renderer {
             var effect=block.Effects[ordinal];var frame=WorldSession.MapEffectFrame(effect,block.Name,ordinal,cache.MapId,now-block.EffectsAt,states);visuals.Add(new(block.Name,block.Generation,effect.Id,effect.X,effect.Y,frame.Key,effect.Appearance.Flags));
             if(effect.Light>0)lights.Add(new(effect.Id,effect.X,effect.Y,effect.Light));
             foreach(var b in frame.Blocks)draws.Add(new(2*(effect.X-Coordinates.MinX)+b.A,effect.Y-Coordinates.MinY+b.B,b.Z,serial++,"map-effect",b.Order,-1,effect.Offset,b.Tile));
+            ObserveMapEffectFrames(session,$"map-effect:{cache.MapId}:{block.Name}:{block.Generation}:{ordinal}",effect,now-block.EffectsAt,now);
         }
         MapAmbientSound.Observe(session,now);
         ClientSoundScene.Observe(session,now); // T172 背景音樂與 envsound.def
         ComposePacketEffects(session,draws,now);
         MapEffectVisuals=visuals.ToArray();MapEffectLightSources=lights.ToArray();
     }
+    // R5-C（T308；TWP§3.4、EF2§2.1）：`.s32` 地圖特效在原版是 UserObject（sub_F0E9B0→sub_A4E5D0→sub_A51920），
+    // 待機動畫（「+194＋3」動作）經佇列走到每格回呼 sub_A4B060，`]N` 那格在特效當下位置建 gfx N 的預設 Effect。
+    // 引擎取捨（推定）：
+    // - 方向取 0（.s32 尾段沒有方向欄；UserObject +8 的初值沒查）。
+    // - 6016（狀態驅動的影格，WorldEffect6016.cs）不是循環待機動畫，不處理。
+    // - 只處理在可見場景內的特效：原版 FPS≥5 時畫面外也照播，但子特效本來就只畫在場景內，這樣可以不讓畫面外的
+    //   地圖特效占滿子特效的 256 筆上限（SubEffectSet.MaxLive）。
+    internal void ObserveMapEffectFrames(WorldSession session,string owner,MapLocalEffect effect,long age,long now){
+        if(effect.Id==6016||age<0||!session.SceneContains(effect.X,effect.Y))return;
+        var timeline=effect.Appearance.Timeline;if(!timeline.HasTokens)return;
+        ObserveEffectFrames(session,owner,timeline,age,effect.X,effect.Y,0,now);
+    }
 }
 
-public sealed record PacketEffect(long Number,int Epoch,ServerEffect Packet,long At,long Expires);
-public sealed record PacketEffectVisual(long Number,int Gfx,int X,int Y,string Frame);
+/// <param name="Direction">R6-A（T332，SV§2.5）：S55 收包當下對象的朝向（0..7）；S106 與其他來源為 0。</param>
+/// <param name="Follows">R6-A：只有 <see cref="PacketEffectRules.Following"/> 的 gfx 每格重讀對象位置。</param>
+/// <param name="Origin">R6-A：S55 收包當下對象的位置；不跟隨的特效一直畫在這裡。</param>
+public sealed record PacketEffect(long Number,int Epoch,ServerEffect Packet,long At,long Expires){
+    public int Direction {get;init;}
+    public bool Follows {get;init;}
+    public (int X,int Y)? Origin {get;init;}
+}
+public sealed record PacketEffectVisual(long Number,int Gfx,int X,int Y,string Frame,int Direction=0);
+
+/// <summary>R6-A（T332）：SV§2.5「S_EFFECT（S55）收包立刻在物件位置以物件朝向播放，不等動作；
+/// 6985、7179、8150、8152、8981、7834、7836 會跟著物件」。其他 gfx 留在收包位置。</summary>
+public static class PacketEffectRules
+{
+    public static readonly IReadOnlySet<int> Following=new HashSet<int>{6985,7179,8150,8152,8981,7834,7836};
+    public static bool Follows(int gfx)=>Following.Contains(gfx);
+}
 
 // Reuse verified packaged appearances; an unknown gfx never becomes a sound ID or a placeholder.
 public sealed class PacketEffectAppearance
 {
     public double Duration {get;}
     // Frame start offsets with their tokens, same selection as At(); the default Effect class handles `]` (SubEffects.cs).
-    public ActionTimeline Timeline {get;}
-    readonly Func<long,Frame> frame;
+    public ActionTimeline Timeline=>TimelineFor(0);
+    readonly Func<long,int,Frame> frame;
+    readonly Func<int,ActionTimeline> timelineOf;
+    readonly Dictionary<int,ActionTimeline> timelines=[];
     public PacketEffectAppearance(MapEffectAppearance appearance)
     {
         Duration=appearance.Sequence.Sum(s=>(double)s.Ticks)*1000/24;
-        frame=appearance.At;
-        double t=0;var steps=new List<TimelineStep>();
-        foreach(var s in appearance.Sequence){steps.Add(new(t,s.Events));t+=s.Ticks*1000d/24;}
-        Timeline=new(steps.ToArray(),t,true);
+        frame=(elapsed,_)=>appearance.At(elapsed); // .s32 地圖特效素材沒有方向。
+        timelineOf=_=>appearance.Timeline;
     }
     public PacketEffectAppearance(ObjectAppearance appearance,string action)
     {
         Duration=appearance.Duration(action);
-        bool pure=appearance.Sequences[(action,0)].All(s=>s.Milliseconds!=null);
-        frame=elapsed=>pure
-            ?MagicMotion.PureFrame(appearance,action,elapsed)
-            :appearance.At(action,0,elapsed%Duration);
-        var sequence=appearance.Sequences[(action,0)];var once=ActionTimeline.Of(sequence,false,Duration);
-        Timeline=pure?ActionTimeline.Pure(sequence,true):new(once.Steps,once.Length,true);
+        // R6-A：依朝向取序列；素材沒有該方向時退回方向 0（與既有行為相同）。
+        int Facing(int direction)=>appearance.Supports(action,direction)?direction:0;
+        frame=(elapsed,direction)=>
+        {
+            int d=Facing(direction);var sequence=appearance.Sequences[(action,d)];
+            return sequence.All(s=>s.Milliseconds!=null)
+                ?appearance.At(action,d,(elapsed+sequence[0].Milliseconds!.Value)%Duration) // 同 MagicMotion.PureFrame，換成方向 d。
+                :appearance.At(action,d,elapsed%Duration);
+        };
+        timelineOf=direction=>
+        {
+            var sequence=appearance.Sequences[(action,Facing(direction))];
+            if(sequence.All(s=>s.Milliseconds!=null))return ActionTimeline.Pure(sequence,true);
+            var once=ActionTimeline.Of(sequence,false,Duration);return new(once.Steps,once.Length,true);
+        };
     }
-    public Frame At(long elapsed)=>frame(Math.Max(0,elapsed));
+    public Frame At(long elapsed)=>At(elapsed,0);
+    public Frame At(long elapsed,int direction)=>frame(Math.Max(0,elapsed),direction is >=0 and <=7?direction:0);
+    public ActionTimeline TimelineFor(int direction)
+    {
+        direction=direction is >=0 and <=7?direction:0;
+        if(!timelines.TryGetValue(direction,out var timeline))timelines[direction]=timeline=timelineOf(direction);
+        return timeline;
+    }
 }
 
 public sealed class PacketEffectAssets(string root)
@@ -141,6 +189,13 @@ public sealed partial class WorldSession
         return obj==null?null:(obj.X,obj.Y);
     }
 
+    // R6-A（SV§2.5）：S55 以對象收包當下的朝向播放。
+    internal int PacketEffectDirection(uint id)
+    {
+        int direction=Actor?.ObjectId==id?Actor.Direction:Objects.FirstOrDefault(o=>o.ObjectId==id)?.Direction??0;
+        return direction is >=0 and <=7?direction:0;
+    }
+
     internal void ReceiveEffectPacket(byte[] plain)
     {
         ReceiveEffectPacketCore(plain);
@@ -157,20 +212,27 @@ public sealed partial class WorldSession
         {
             var reader=new LoginReader(plain);reader.C();ReceiveMagic(55,reader,plain);return;
         }
+        (int X,int Y)? origin=null;int direction=0;bool follows=false;
         if(packet.Target is uint target)
         {
             LastItemEffect=new{number=++ItemEffectNumber,actor=target,effect=packet.GfxId};InventoryRevision++;
-            if(PacketEffectPosition(target)==null)
+            origin=PacketEffectPosition(target);
+            if(origin==null)
             {PacketMediaNotice=$"S55 特效 {packet.GfxId} 的對象不在可見世界；已略過";return;}
+            // R6-A（SV§2.5）：收包當下的朝向與位置；只有 7 個 gfx 之後每格跟著對象。
+            direction=PacketEffectDirection(target);follows=PacketEffectRules.Follows(packet.GfxId);
         }
         long now=PacketMediaClock();
         // Product policy: nonzero time is seconds; absent/zero uses one animation cycle.
         // The 15 s fallback only bounds missing assets until the renderer resolves the real cycle.
         long lifetime=packet.Time is >0?packet.Time.Value*1000L:15000;
-        packetEffects.Add(new(++packetEffectNumber,WorldEpoch,packet,now,now+lifetime));
+        packetEffects.Add(new(++packetEffectNumber,WorldEpoch,packet,now,now+lifetime){Direction=direction,Follows=follows,Origin=origin});
         if(packetEffects.Count>256)packetEffects.RemoveAt(0);
         PacketMediaNotice=$"S{plain[0]} 圖像特效 {packet.GfxId}；time={packet.Time?.ToString()??"無"}";
     }
+
+    // R9-D：跟隨組每段的固定位置（特效編號 → 段號與位置）；只供 PacketEffectFrames 使用。
+    readonly Dictionary<long,(long Segment,int X,int Y)> packetEffectSegments=[];
 
     public PacketEffectVisual[] PacketEffectFrames(long now,Func<int,PacketEffectAppearance?> resolve,Action<Frame,int,int>? draw=null)
     {
@@ -185,11 +247,35 @@ public sealed partial class WorldSession
             }
             long end=item.Packet.Time is >0?item.Expires:item.At+(long)Math.Ceiling(appearance.Duration);
             if(now>=end){packetEffects.Remove(item);continue;}
-            var position=item.Packet.Target is uint target?PacketEffectPosition(target):(item.Packet.X,item.Packet.Y);
-            if(position==null){packetEffects.Remove(item);continue;}
-            var frame=appearance.At(now-item.At);
-            result.Add(new(item.Number,item.Packet.GfxId,position.Value.Item1,position.Value.Item2,frame.Key));
-            draw?.Invoke(frame,position.Value.Item1,position.Value.Item2);
+            (int X,int Y) position;
+            if(item.Packet.Target is not uint target)position=(item.Packet.X,item.Packet.Y);
+            else if(!item.Follows||item.Origin==null)
+            {
+                // R9-D（FU9§2.1 第 3 點，已驗證）：不跟隨的只看動畫長度，位置固定在收包位置；對象消失也在原地播完。
+                if(item.Origin is {} origin)position=origin;
+                else if(PacketEffectPosition(target) is {} current)position=current;
+                else{packetEffects.Remove(item);continue;}
+            }
+            else
+            {
+                // R9-D（FU9§2.1 第 4 點，推測）：跟隨組段內位置固定，段間跳到對象目前位置；
+                // 換段時對象不在就不接下一段（這段已播完，直接結束）。第 0 段用收包位置。
+                long segment=appearance.Duration>0?(long)Math.Floor((now-item.At)/appearance.Duration):0;
+                if(segment<0)segment=0;
+                if(packetEffectSegments.TryGetValue(item.Number,out var held)&&held.Segment==segment)position=(held.X,held.Y);
+                else if(segment==0&&!packetEffectSegments.ContainsKey(item.Number))position=item.Origin.GetValueOrDefault();
+                else if(PacketEffectPosition(target) is {} current)position=current;
+                else{packetEffects.Remove(item);packetEffectSegments.Remove(item.Number);continue;}
+                packetEffectSegments[item.Number]=(segment,position.X,position.Y);
+            }
+            var frame=appearance.At(now-item.At,item.Direction);
+            result.Add(new(item.Number,item.Packet.GfxId,position.X,position.Y,frame.Key,item.Direction));
+            draw?.Invoke(frame,position.X,position.Y);
+        }
+        if(packetEffectSegments.Count>0)
+        {
+            var live=packetEffects.Select(p=>p.Number).ToHashSet();
+            foreach(long number in packetEffectSegments.Keys.Where(n=>!live.Contains(n)).ToArray())packetEffectSegments.Remove(number);
         }
         return result.ToArray();
     }
@@ -209,11 +295,12 @@ public sealed partial class Renderer
             if(!session.SceneContains(x,y))return;
             foreach(var b in frame.Blocks)draws.Add(new(2*(x-Coordinates.MinX)+b.A,y-Coordinates.MinY+b.B,b.Z,serial++,"packet-effect",b.Order,-1,-1,b.Tile));
         });
-        // S55/S106 build the default Effect class (effects-2.md §4.1): its `]` frames spawn sub-effects, direction 0.
+        // S55/S106 build the default Effect class (effects-2.md §4.1): its `]` frames spawn sub-effects
+        // in the effect's direction (R6-A: S55 = target heading at receipt; S106 = 0).
         if(PacketEffectVisuals.Length==0)return;
         var started=session.PacketEffects.ToDictionary(p=>p.Number,p=>p.At);
         foreach(var v in PacketEffectVisuals)
-            if(started.TryGetValue(v.Number,out long at)&&packetEffectAssets.Get(v.Gfx) is {Timeline.HasTokens:true} appearance)
-                ObserveEffectFrames(session,$"packet:{v.Number}",appearance.Timeline,now-at,v.X,v.Y,0,now);
+            if(started.TryGetValue(v.Number,out long at)&&packetEffectAssets.Get(v.Gfx)?.TimelineFor(v.Direction) is {HasTokens:true} timeline)
+                ObserveEffectFrames(session,$"packet:{v.Number}",timeline,now-at,v.X,v.Y,v.Direction,now);
     }
 }
