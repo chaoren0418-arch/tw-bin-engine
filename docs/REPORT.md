@@ -320,3 +320,4 @@
 - 2026-11-10 — #809 T346：R7-G 私商提示（code，claude-local，PR 已合併）→ [報告](reports/issue-809.md)
 - 2026-11-10 — #811 T348：R7-I 選單鈕 2／Ctrl+A 與狀態窗（code，claude-local，PR 已合併）→ [報告](reports/issue-811.md)
 - 2026-11-10 — #812 T349：R7-J 隊伍委任（code，claude-local，PR 已合併）→ [報告](reports/issue-812.md)
+- 2026-11-10 — #814 T351：R7-L 聲音收尾 3（code，claude-local，PR 已合併）→ [報告](reports/issue-814.md)
