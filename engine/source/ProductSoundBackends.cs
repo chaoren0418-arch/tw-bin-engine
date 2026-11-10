@@ -6,7 +6,8 @@ namespace P06;
 // T252（#613，gap-matrix 11.5 R2-B）：背景音樂、envsound.def 環境音、`^` 循環音的產品後端。
 // 三個轉接器共用一個 P24.Audio.AudioStreamPlayer（engine/audio，DirectShow／DSoundRender，與戰鬥音效同一套傳輸方式）。
 // 檔名依 docs/reference/sound.md：音樂 sound\musicN.mp3（§1 管線 B）；環境音與 `^` 先 sound\N.mp3 再 sound\N.wav（§4.7、表 8）。
-// 原版找不到任何音樂 mp3 時改走 MIDI（§1 管線 C）：串流層換成 sound\0.mid 循環（T310），0..8 號系統槽停播（R7-L，ProductMusicAudio.Start）。
+// 原版找不到任何音樂 mp3 時改走 MIDI（§1 管線 C）：串流層換成 sound\0.mid 循環（T310），0..8 號系統槽停播（R7-L，ProductMusicAudio.Start）；
+// 非系統槽之間換曲時 0.mid 在播就沿用、不重頭播（R10-L，ProductMusicAudio.Replace）。
 // 單一曲目缺檔時 Start 回 false，由 BackgroundMusic 每秒重試。
 
 /// <summary>IMusicStreamAudio：volume 已是「淡出 × MusicVolume × 主音量」。</summary>
@@ -24,6 +25,27 @@ public sealed class ProductMusicAudio(IAudioStream stream) : IMusicStreamAudio
         long h = stream.Start(Files(track.Music), track.Loop, Math.Clamp(volume, 0, 1));
         if (h == 0) return false;
         handles[track.Number] = h; return true;
+    }
+    /// <summary>R10-L：MIDI 模式下換到非系統槽時沿用在播的 0.mid（不重頭播）的次數（診斷用）。</summary>
+    public long MidiKept { get; private set; }
+    /// <summary>
+    /// R10-L（T396）：換曲。一般模式＝停舊開新。MIDI 模式照原版 8F1C30／8F2FB0／8F3B90／8F3D70：
+    /// 新曲不在 0..8 而且 0.mid 還在播 → 不關不開，把同一條串流改記到新曲目（只更新音量）；
+    /// 新曲在 0..8 → 關掉 0.mid（8F5510）且不開；0.mid 沒在播 → 照 Start 開（8F63D0(0)）。
+    /// </summary>
+    public bool Replace(MusicTrack? from, MusicTrack to, double volume)
+    {
+        if (!stream.MidiFallback) { if (from != null) Stop(from); return Start(to, volume); }
+        long kept = 0;
+        if (from != null && handles.Remove(from.Number, out long h)) { if (stream.Finished(h)) stream.Stop(h); else kept = h; }
+        if (kept != 0 && !AudioStreamPlayer.SilencesMidi(to.Slot))
+        {
+            handles[to.Number] = kept; MidiKept++;
+            stream.SetVolume(kept, Math.Clamp(volume, 0, 1)); // 淡出後回到全音量（BackgroundMusic 換曲時沒有淡入）。
+            return true;
+        }
+        if (kept != 0) stream.Stop(kept);
+        return Start(to, volume);
     }
     public void SetVolume(MusicTrack track, double volume) { if (handles.TryGetValue(track.Number, out long h)) stream.SetVolume(h, Math.Clamp(volume, 0, 1)); }
     public void Stop(MusicTrack track) { if (handles.Remove(track.Number, out long h)) stream.Stop(h); }
@@ -188,7 +210,7 @@ public static class ProductSound
     {
         status = Status, armed, clientRoot,
         music = Music?.Live ?? 0, env = Env?.Live ?? 0, ambient = Ambient?.Live ?? 0, ambientScale = Ambient?.Scale, oneShot = OneShot?.Live ?? 0,
-        midi = Stream?.MidiFallback ?? false, midiSilenced = Music?.MidiSilenced ?? 0,
+        midi = Stream?.MidiFallback ?? false, midiSilenced = Music?.MidiSilenced ?? 0, midiKept = Music?.MidiKept ?? 0,
         stream = (Stream as AudioStreamPlayer)?.Stats,
     };
 }
