@@ -287,3 +287,4 @@
 - 2026-11-10 — #757 T319：P-A 參考客戶端 UI XML 來源（code，claude-local，PR 已合併）→ [報告](reports/issue-757.md)
 - 2026-11-10 — #758 T320：P-C `.tbt` surf 解碼（code，claude-local，PR 已合併）→ [報告](reports/issue-758.md)
 - 2026-11-10 — #759 T321：P-E 名稱與稱號字型改用原版（code，claude-local，PR 已合併）→ [報告](reports/issue-759.md)
+- 2026-11-10 — #760 T322：P-B 參考客戶端 surf 備援（code，claude-local，PR 已合併）→ [報告](reports/issue-760.md)
