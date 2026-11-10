@@ -54,12 +54,23 @@ public sealed class StatusIconArt(BuffEffectTable table,BuffIconCatalog icons) {
     /// <summary>共用實例；第一次呼叫時在背景讀原客戶端資源，讀完前與失敗時為 null。</summary>
     public static StatusIconArt? Shared{get{
         if(Interlocked.CompareExchange(ref loadState,1,0)==0)_ = Task.Run(()=>{
-            try{var res=UiResources.Shared;Volatile.Write(ref shared,new StatusIconArt(BuffEffectTable.Parse(res.Xml.Load(BuffEffectTable.FileName)),new BuffIconCatalog(res.Sprites)));}
+            try{
+                var table=SharedEffectTable()??throw new UiResourceException("effectlist2 不可用");
+                Volatile.Write(ref shared,new StatusIconArt(table,new BuffIconCatalog(UiResources.Shared.Sprites)));
+            }
             catch(Exception ex){UiResourceLog.Write($"status-icons: effectlist2／Sprite 不可用，狀態列改畫向量符號：{ex.GetType().Name}: {ex.Message}");}
             finally{Volatile.Write(ref loadState,2);}
         });
         return Volatile.Read(ref shared);
     }}
+
+    // R5-F（#738）：只讀 Tile.pak 的 effectlist2（不碰 Sprite），同步、只讀一次；S250/180 的 startMsg 與上面的狀態列共用。
+    static readonly Lazy<BuffEffectTable?> sharedTable=new(()=>{
+        try{return BuffEffectTable.Parse(UiResources.Shared.Xml.Load(BuffEffectTable.FileName));}
+        catch(Exception ex){UiResourceLog.Write($"status-icons: effectlist2 不可用（180 不印 startMsg）：{ex.GetType().Name}: {ex.Message}");return null;}
+    },LazyThreadSafetyMode.ExecutionAndPublication);
+    /// <summary>原客戶端 effectlist2（讀不到為 null，之後不再重試）。</summary>
+    public static BuffEffectTable? SharedEffectTable()=>sharedTable.Value;
 }
 
 public sealed partial class ClientForm {
