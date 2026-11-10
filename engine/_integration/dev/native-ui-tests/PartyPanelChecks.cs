@@ -158,7 +158,8 @@ partial class Checks {
         Click(91,580);Check(log.Count==0,"ban without a selection → nothing sent");
         Click(80,500);Click(91,580);Check(log.Count==1&&log[0]==("kick","Bravo"),"ban → existing \"kick\" with the selected name");
         Click(71,580);Check(log.Count==2&&log[1]==("leave",""),"leave → existing \"leave\"");
-        Click(110,580);Check(log.Count==2,"delegate → no existing action, nothing sent");
+        // R7-J (#812): delegate now sends "delegate" with the selected member (PartyDelegateTests); without a selection nothing is sent.
+        Click(80,560);Click(110,580);Check(log.Count==2,"delegate without a selection → nothing sent");Click(80,500);
         input.Mouse(UiMouseKind.Down,new(71,580),MouseButtons.Left,1);
         {using var canvas=new UiCanvas();ui.Compose(canvas,null);Check(canvas.Bitmap.GetPixel(72,580).ToArgb()==Rgb(BtnD),"pressed button shows a+1");}
         input.Mouse(UiMouseKind.Up,new(30,520),MouseButtons.Left);Check(log.Count==2,"release outside the pressed button → nothing sent");
