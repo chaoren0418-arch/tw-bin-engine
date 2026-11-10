@@ -1,3 +1,4 @@
+using System.Drawing.Imaging;
 using System.Globalization;
 namespace P06.NativeUi;
 
@@ -24,7 +25,7 @@ namespace P06.NativeUi;
 //   with its PushSurf. Warrior_Button is not built (no 3.81 class 7). Male_Back / Female_Back are drawn only for the
 //   selected sex.
 // - ClassName_Screen 7099;4 / ClassDesc_Screen 7142;4 are drawn as they are (one image; whether the binder picks a frame per
-//   class is 待驗證). Front_Image / Back_Image of the class scene have no image id (runtime artwork) → not built.
+//   class is 待驗證). Front_Image / Back_Image of the class scene have no image id: R10-N below sets them at run time.
 // - Stat_Change_Control: the six stat Controls carry Point + Down/Up (Strength, Dexterity, Constitution, Wisdom, Charisma,
 //   Intelligence = CharacterCreation order). Up while points remain and the value is below base+points; Down above base.
 //   Remain_Point = 75 − sum. Reset_Button = class base values.
@@ -46,8 +47,26 @@ namespace P06.NativeUi;
 //   local Text.pak is tried, then the reference client's (UiResources.Text root); SHA-256 logged ("create-char-ui
 //   StatGuage.tbl"), compared with kor25. No table → every bar 0 → nothing drawn.
 // - Stat scene Back_Image = surf 7156 + 2×class + sex (sub_EE4030, called from sub_EE6DD0; class 7: 7265/7266). Missing → not
-//   drawn. The class scene's Front_Image fade (sub_EE5F50: mode 2, effect 1573 + 36×class + 18×sex, 31 steps) is an
-//   animation the engine does not play → still not built.
+//   drawn.
+//
+// R10-N (T398/#913; TW16 CCreateUI decompiled read-only, docs/reports/issue-913.md), 已驗證 in the binary unless marked:
+// - The class scene's pictures are Png (XmlImage this[83] = png id, this[81] = png mode, this[82] = mode-2 level; FU13§5),
+//   base png = sub_EE3F40(class, sex) = 1573 + 36×class + 18×sex (class 7: 1862 / 1880).
+// - Loop (sub_EE3A00, the scene's per-frame update): on the class scene, while Back_Image's png mode is 0 and more than
+//   200 ms passed since the last change: frame + 1 (18 → 0), Back_Image png = base + frame. The last-change time starts at 0,
+//   so the first update after a reset changes at once.
+// - Entering the class scene (sub_EE6DD0 scene 1 → sub_EE5F50(class, 0) / sub_EE6450(sex, 0)): Back_Image mode 0, png =
+//   base, frame and time 0, Front_Image hidden. No fade.
+// - Class change (sub_EE3410 → sub_EE5F50(…, 1)) or sex change (sub_EE3CF0 / sub_EE47B0 → sub_EE6450(…, 1)): the timer
+//   sub_EE3BE0 is cancelled, count this[104] = 31, Back_Image mode 2 level 31 (its png is kept), Front_Image mode 2, png =
+//   new base, level 0, shown; then sub_EE3BE0 every 19 ms (sub_A231C0 one-shot timer, re-armed from the callback): count − 1;
+//   while > 0 Back level = count, Front level = 31 − count; at 0 Back mode 0 with Front's png, frame and time 0, Front hidden.
+// - Mode 2 is drawn by sub_7D7740 with the level (XmlImage draw sub_AFB910 case 2). Level ÷ 31 as the opacity is 推測
+//   (31 = the level the fade starts the old picture at; the end hands over to mode 0 = opaque).
+// - The pngs are not in 0-客戶端 (PakViewer: only 1888–1891.png, class 7 only); kor25 / ly have all 288 (Sprite00–15).
+//   They are read at run time through OptionPngSource (local first, then the reference client, SHA-256 logged); never
+//   copied. A missing png is not drawn.
+// - Not done: double click on a class button (sub_EE3410 515 → set the class without a fade and go to the stat scene).
 // - Username_Edit takes typed characters (IUiTextInput, WM_CHAR after IME) up to LimitText characters; Backspace deletes.
 //   Enter = OK on the stat scene / Next on the class scene; Esc = Prev.
 // - OK: a local Validate error, a refused send or the server's refusal notice is shown in Message_Window (Ok/Cancel close
@@ -180,6 +199,11 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
     public const string GaugeGroup="Gauge_Group",BackImage="Back_Image";
     /// <summary>sub_EE4030: stat scene background surf.</summary>
     public static int BackgroundSurf(int cls,int sex)=>cls==7?(sex!=0?7266:7265):sex+2*cls+7156;
+    /// <summary>R10-N sub_EE3F40: the class scene's base png (frame 0).</summary>
+    public static int ClassScenePng(int cls,int sex)=>cls==7?(sex!=0?1880:1862):36*cls+18*sex+1573;
+    public const string FrontImage="Front_Image";
+    /// <summary>R10-N timing (sub_EE3A00 / sub_EE5F50 / sub_EE3BE0).</summary>
+    public const int Frames=18,FrameMs=200,FadeSteps=31,FadeStepMs=19;
 
     public string Id=>PanelId;
     public UiLayer Layer=>UiLayer.Float;
@@ -213,6 +237,26 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
     public int StatType{get;private set;}
     /// <summary>Gauge_Group's bars in XML (child) order.</summary>
     public IReadOnlyList<CharUiPiece> Gauges{get;private set;}=[];
+    // ---- R10-N class scene pictures (XmlImage png id / mode / level of Back_Image and Front_Image) ----
+    /// <summary>Back_Image png (this[91] [83]).</summary>
+    public int BackPng{get;private set;}
+    /// <summary>Back_Image png mode: 0 plain, 2 = drawn at BackLevel (crossfade).</summary>
+    public int BackMode{get;private set;}
+    public int BackLevel{get;private set;}
+    /// <summary>Front_Image png (this[90] [83]), level and visibility (shown only during a crossfade).</summary>
+    public int FrontPng{get;private set;}
+    public int FrontLevel{get;private set;}
+    public bool FrontShown{get;private set;}
+    /// <summary>Crossfade count (this[104]): 31 → 0; 0 = no fade running.</summary>
+    public int Fade{get;private set;}
+    /// <summary>Loop frame (this[109], 0–17) and the time of the last change (this[108], ms; 0 after a reset).</summary>
+    public int Frame{get;private set;}
+    long lastFrame,fadeDue;
+    /// <summary>Png lookup (product: OptionPngSource, local then the reference client); null → nothing drawn.</summary>
+    internal Func<int,UiSurface?>? PngLookup{get;set;}
+    /// <summary>Millisecond clock (sub_A228B0); tests drive it.</summary>
+    internal Func<long> Clock{get;set;}=()=>Environment.TickCount64;
+    readonly Dictionary<int,UiSurface?> pngs=[];readonly HashSet<int> pngMissing=[];
     bool open,waiting;int generation;string? sentName;byte[] draft=new byte[6];int nameLimit;
     Func<int,UiSurface?>? lookup;readonly Dictionary<int,UiSurface?> dynamic=[];readonly HashSet<int> dynamicMissing=[];readonly HashSet<string> logged=new(StringComparer.Ordinal);
     CharUiPiece? pressed,hover;bool pressedInside;readonly HashSet<string> unhandled=new(StringComparer.Ordinal);
@@ -230,6 +274,7 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
         LoadTables(resources.Root,resources.Text?.Root);
         try{Load(layout,surfs.Get);}
         catch(IOException ex){Clear();Unavailable=ex.Message;UiResourceLog.Write($"create-char-ui {layout.FileName} 版面不符，建角畫面停用：{ex.Message}");return;}
+        PngLookup=new OptionPngSource(resources.Sprites,resources.Xml.Reference).Get;   // R10-N class scene pngs
         if(Missing.Count>0)UiResourceLog.Write($"create-char-ui 缺圖不畫：{string.Join("、",Missing)}");
         if(Unavailable!=null)UiResourceLog.Write($"create-char-ui {Unavailable}");
     }
@@ -272,12 +317,55 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
 
     void Clear(){
         open=false;Host=null;View=null;LayoutFile=null;ClassScene=null;StatScene=null;Message=null;Missing=[];Skipped=[];Unavailable="not loaded";nameLimit=0;
-        Gauges=[];lookup=null;dynamic.Clear();dynamicMissing.Clear();
+        Gauges=[];lookup=null;dynamic.Clear();dynamicMissing.Clear();pngs.Clear();pngMissing.Clear();
         ResetState(0);
     }
     void ResetState(int cls){
         Scene=CreateScene.Class;Class=cls;Sex=0;Name="";draft=CharacterManagementPackets.BaseStats(cls);StatType=0;Pending=false;MessageText=null;waiting=false;sentName=null;
         pressed=null;hover=null;pressedInside=false;
+        SetClassPicture();
+    }
+
+    // ---- R10-N: class scene pictures --------------------------------------------------------------------------------------
+
+    /// <summary>sub_EE5F50 / sub_EE6450 with a3 = 0 (entering the class scene): Back_Image plain at frame 0, no fade.</summary>
+    void SetClassPicture(){
+        BackMode=0;BackLevel=0;BackPng=ClassScenePng(Class,Sex);Frame=0;lastFrame=0;
+        Fade=0;FrontShown=false;FrontLevel=0;
+    }
+    /// <summary>sub_EE5F50 / sub_EE6450 with a3 = 1 (class or sex changed): start the 31-step crossfade to the new base png.</summary>
+    void StartFade(){
+        Fade=FadeSteps;BackMode=2;BackLevel=FadeSteps;   // Back keeps its current png
+        FrontPng=ClassScenePng(Class,Sex);FrontLevel=0;FrontShown=true;
+        fadeDue=Clock()+FadeStepMs;
+    }
+    /// <summary>One update at time now (ms): the 200 ms loop (sub_EE3A00: class scene, Back mode 0), then the fade timer
+    /// (sub_EE3BE0, one step per due time, re-armed from now). The order of the two inside one frame is 推測.</summary>
+    internal void Advance(long now){
+        if(!open)return;
+        if(Scene==CreateScene.Class&&BackMode==0&&now-lastFrame>FrameMs){
+            lastFrame=now;
+            if(++Frame>=Frames)Frame=0;
+            BackPng=ClassScenePng(Class,Sex)+Frame;
+        }
+        if(Fade>0&&now>=fadeDue){
+            if(--Fade<=0){BackMode=0;BackLevel=0;BackPng=FrontPng;Frame=0;lastFrame=0;FrontShown=false;Fade=0;}
+            else{BackLevel=Fade;FrontLevel=FadeSteps-Fade;fadeDue=now+FadeStepMs;}
+        }
+    }
+    UiSurface? Png(int id){
+        if(id<=0||PngLookup==null)return null;
+        if(!pngs.TryGetValue(id,out var s)){pngs[id]=s=PngLookup(id);if(s==null&&pngMissing.Add(id))UiResourceLog.Write($"create-char-ui 缺圖不畫：png {id}");}
+        return s;
+    }
+    /// <summary>Class scene Back_Image / Front_Image (top level, no id in the XML).</summary>
+    bool ClassPicture(CharUiWindow w,CharUiPiece p,string name)=>ReferenceEquals(w,ClassScene)&&p.Kind==CharUiKind.Image&&p.Name==name&&p.Parent==null&&p.Owner==null&&p.Image==null;
+    static void DrawLevel(UiCanvas canvas,UiSurface? s,int x,int y,int level){
+        if(s==null||level<=0)return;
+        if(level>=FadeSteps){canvas.DrawSurface(s,x,y);return;}
+        using var attrs=new ImageAttributes();
+        attrs.SetColorMatrix(new ColorMatrix{Matrix33=level/(float)FadeSteps});
+        canvas.Graphics.DrawImage(s.Bitmap,new Rectangle(x,y,s.Width,s.Height),0,0,s.Width,s.Height,GraphicsUnit.Pixel,attrs);
     }
 
     static string? SkipReason(UiNode n)=>n.Attr("Name") switch{
@@ -291,7 +379,8 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
         Clear();
         var top=layout.Root;
         if(top.Name!=RootNode)throw new UiLayoutException(layout.FileName,top.Path,$"根元素不是 {RootNode}");
-        var b=new CharUiBuilder(layout.FileName,surf,SkipReason);
+        // R10-N: the class scene's Front_Image / Back_Image have no id; their pngs are set at run time (sub_EE6DD0).
+        var b=new CharUiBuilder(layout.FileName,surf,SkipReason,n=>n.Attr("Name") is FrontImage or BackImage);
         CharUiWindow? cls=null,stat=null,message=null;
         foreach(var w in top.Children){
             string? name=w.Name=="Window"?w.Attr("Name"):null;
@@ -325,9 +414,9 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
         Host=host;View=v;generation=v.Generation;ResetState(0);open=true;
         return true;
     }
-    public void Close(){open=false;MessageText=null;pressed=null;hover=null;pressedInside=false;}
+    public void Close(){open=false;MessageText=null;pressed=null;hover=null;pressedInside=false;Fade=0;FrontShown=false;}   // sub_EE3AE0: fade timer cancelled
 
-    public void Update(IUiGameState state)=>Sync();
+    public void Update(IUiGameState state){Sync();Advance(Clock());}
 
     public void Sync(){
         if(!open||Host==null)return;
@@ -387,6 +476,7 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
     public bool ShownPiece(CharUiPiece p){
         if(p.Parent!=null&&!ShownPiece(p.Parent))return false;
         if(p.Owner==GaugeGroup&&p.Kind==CharUiKind.Image&&p.Parent==null)return GaugeWidth(p)>0;
+        if(ClassScene!=null&&ClassPicture(ClassScene,p,FrontImage))return FrontShown;
         if(p.Owner is {} o&&o.StartsWith("Class_",StringComparison.Ordinal)&&o!="Class_Buttons")return o==ClassControls[Class];
         return p.Name switch{"Male_Back"=>Sex==0,"Female_Back"=>Sex==1,_=>true};
     }
@@ -434,6 +524,9 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
         switch(p.Kind){
             case CharUiKind.Image when p.Owner==GaugeGroup&&p.Parent==null&&p.Surface is {} bar:
                 canvas.DrawSurface(bar,new Rectangle(0,0,GaugeWidth(p),bar.Height),x,y);break;
+            // R10-N: class scene pngs; mode 2 at its level (÷ 31, 推測), Back mode 0 plain.
+            case CharUiKind.Image when ClassPicture(w,p,BackImage):DrawLevel(canvas,Png(BackPng),x,y,BackMode==2?BackLevel:FadeSteps);break;
+            case CharUiKind.Image when ClassPicture(w,p,FrontImage):DrawLevel(canvas,Png(FrontPng),x,y,FrontLevel);break;
             case CharUiKind.Image:canvas.DrawSurface(SurfaceOf(w,p),x,y);break;
             case CharUiKind.Board:CharUiPaint.Board(canvas,p,x,y);break;
             case CharUiKind.Label:CharUiPaint.Label(canvas,p,x,y,LabelText(p));break;
@@ -520,12 +613,12 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
         int stat=p.Owner!=null&&StatControls.TryGetValue(p.Owner,out var i)?i:-1;
         switch(p.MouseEvent){
             case ClassEvent when p.Name!=null&&ClassButtons.TryGetValue(p.Name,out int cls):
-                if(cls!=Class){Class=cls;ResetStats();}
+                if(cls!=Class){Class=cls;ResetStats();StartFade();}   // sub_EE3410 → sub_EE5F50(cls, 1)
                 return;
-            case MaleEvent:Sex=0;return;
-            case FemaleEvent:Sex=1;return;
+            case MaleEvent:if(Sex!=0){Sex=0;StartFade();}return;     // sub_EE6450(0, 1)
+            case FemaleEvent:if(Sex!=1){Sex=1;StartFade();}return;   // sub_EE6450(1, 1)
             case NextEvent:EnterStatScene();return;
-            case PrevStatEvent:Scene=CreateScene.Class;return;
+            case PrevStatEvent:Scene=CreateScene.Class;SetClassPicture();return;   // sub_EE6DD0 scene 1
             case PrevClassEvent:Close();return;
             case UpEvent when stat>=0:draft[stat]++;return;
             case DownEvent when stat>=0:draft[stat]--;return;
