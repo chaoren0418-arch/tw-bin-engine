@@ -332,3 +332,4 @@
 - 2026-11-11 — #817 T354：R7-N 參考客戶端字串表（code，claude-local，PR 已合併）→ [報告](reports/issue-817.md)
 - 2026-11-11 — #651 T273：伺服器踢除時顯示模態訊息框（S_KICK）（code，claude-local，PR 已合併）→ [報告](reports/issue-651.md)
 - 2026-11-11 — #845 T361：R9-A 書籤窗原版操作（code，claude-local，PR 已合併）→ [報告](reports/issue-845.md)
+- 2026-11-11 — #846 T362：R9-B 地圖窗右鍵選單與存點窗（code，claude-local，PR 已合併）→ [報告](reports/issue-846.md)
