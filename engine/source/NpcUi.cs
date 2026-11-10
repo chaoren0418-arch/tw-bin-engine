@@ -71,7 +71,18 @@ public sealed partial class ClientForm {
         int queryKey=query?w.QueryRevision:-1;if(npcUiRevision==w.InteractionRevision&&npcUiQueryRevision==queryKey&&npcUiNativePages==nativePages)return;npcUiRevision=w.InteractionRevision;npcUiQueryRevision=queryKey;npcUiNativePages=nativePages;foreach(Control c in npcContent.Controls.Cast<Control>().ToArray())c.Dispose();npcContent.Controls.Clear();shopInputs.Clear();var stamp=CurrentNpcCommand("option");npcShopStamp=CurrentNpcCommand("shop");
         if(query&&!nativePages)AddQueryResult(w,npcOpen);
         if(!nativePages&&w.InteractionPage is {} page){npcContent.Controls.Add(new Label{Text=ResolveNpcText(page.Text),AutoSize=true,MaximumSize=new(400,0),ForeColor=Color.White,Margin=new(6)});foreach(var option in page.Options){var command=stamp with{Option=option.Id};var b=new Button{Text=ResolveNpcText(option.Label),Width=400,AutoSize=true,Enabled=option.Enabled};b.Click+=async(_,_)=>await RunInteraction(command);npcContent.Controls.Add(b);}}
+        if(!nativePages&&w.HtmlNameInput is {} namePrompt)AddHtmlNamePrompt(namePrompt);
         if(!nativeWarehouse)foreach(var row in w.ShopRows){var host=new FlowLayoutPanel{Width=410,Height=66};host.Controls.Add(new Label{Text=$"{ResolveNpcText(row.Name)}\n{w.InteractionPriceLabel} {row.Price:N0} 金幣"+(w.InteractionKind is "sell" or "deposit" or "withdraw"?$" · 最多 {row.Available}":""),ForeColor=Color.White,Width=280,Height=60});var quantity=new NumericUpDown{Width=110,Minimum=0,Maximum=Math.Min(row.Available,int.MaxValue),Value=0,Enabled=row.Available>0};host.Controls.Add(quantity);shopInputs.Add((row.Id,quantity));npcContent.Controls.Add(host);}
+    }
+    // R7-D (#806): WinForms fallback (native UI off) for the HTML clan-name box; the page revision changes on open/close, so this rebuilds.
+    void AddHtmlNamePrompt(HtmlNamePrompt prompt){
+        var row=new FlowLayoutPanel{Width=410,Height=60};
+        var box=new TextBox{Width=200,MaxLength=HtmlActions.NameBytes};
+        var ok=new Button{Text="確定",AutoSize=true};var cancel=new Button{Text="取消",AutoSize=true};
+        ok.Click+=async(_,_)=>{if(!login.HtmlNameCanSend||World.Walking)return;await login.SubmitHtmlName(prompt.Revision,box.Text);};
+        cancel.Click+=(_,_)=>login.CancelHtmlName(prompt.Revision);
+        row.Controls.Add(new Label{Text=prompt.Prompt,AutoSize=true,MaximumSize=new(400,0),ForeColor=Color.White});row.Controls.AddRange([box,ok,cancel]);
+        npcContent.Controls.Add(row);
     }
     // ---- R4-I (#712): page routing to the native HYPER_TEXT_WINDOW (NativeUi/HyperTextPanel.cs) ----
     bool npcUiNativePages;
@@ -103,14 +114,16 @@ public sealed partial class ClientForm {
         var amount=login.AmountPromptSnapshot();
         if(amount.Prompt is {} o&&o.InteractionRevision==w.InteractionRevision)
             number=new(HyperTextNumberKind.Amount,o.Revision,o.Lower,o.Max,o.Suggested,o.Answerable,amount.CanSend&&!World.Walking,AmountPromptProtocol.Range(o));
-        return new(HyperTextSource.Npc,w.InteractionRevision,ResolveNpcText(page.Text),page.Options.Select(x=>new HyperTextLink(x.Id,ResolveNpcText(x.Label),x.Enabled)).ToArray(),ResolveNpcText(w.InteractionNotice),number);
+        return new(HyperTextSource.Npc,w.InteractionRevision,ResolveNpcText(page.Text),page.Options.Select(x=>new HyperTextLink(x.Id,ResolveNpcText(x.Label),x.Enabled)).ToArray(),ResolveNpcText(w.InteractionNotice),number,HtmlNameBox(w,query:false));
     }
+    // R7-D (#806): the in-page clan-name box opened by the HTML actions surrender / cease / pledgefocusadd (NpcInteraction.cs).
+    HyperTextNameBox? HtmlNameBox(WorldSession w,bool query)=>w.HtmlNameInput is {} p&&p.Query==query?new(p.Revision,p.Prompt,login.HtmlNameCanSend&&!World.Walking):null;
     HyperTextView QueryHyperTextView(WorldSession w){
         var page=w.QueryPage!;
         HyperTextNumberBox? number=null;
         if(w.CastlePageOffer is {} c)number=new(HyperTextNumberKind.Castle,c.Revision,c.Min,c.Max,CastleProtocol.Initial(c),true,login.CastleSnapshot().CanSend&&!World.Walking,CastleProtocol.Range(c));
         string notice=string.Join("\n",new[]{ResolveNpcText(page.Limitation),number!=null?w.CastleNotice:""}.Where(s=>s.Length>0));
-        return new(HyperTextSource.Query,w.QueryRevision,ResolveNpcText(page.Text),page.Options.Select(x=>new HyperTextLink(x.Id,ResolveNpcText(x.Label),x.Enabled&&w.QueryActionable)).ToArray(),notice,number);
+        return new(HyperTextSource.Query,w.QueryRevision,ResolveNpcText(page.Text),page.Options.Select(x=>new HyperTextLink(x.Id,ResolveNpcText(x.Label),x.Enabled&&w.QueryActionable)).ToArray(),notice,number,HtmlNameBox(w,query:true));
     }
     /// <summary>The panel's actions go through the same paths as the WinForms/web panel (RunInteraction / RunNpcPrompt); stale pages do nothing.</summary>
     sealed class NativeHyperTextHost(ClientForm form):IHyperTextHost {
@@ -130,6 +143,8 @@ public sealed partial class ClientForm {
             if(!Current(shown)||shown.Number is not {Kind:HyperTextNumberKind.Castle} n)return;
             var w=W;_=form.RunInteraction(new NpcWebCommand("castle-cancel",shown.Revision,w.WorldEpoch,w.TargetRevision,0,[],0,n.Revision));
         }
+        public void SubmitName(HyperTextView shown,string name){if(Current(shown)&&shown.Name is {} n)_=form.login.SubmitHtmlName(n.Revision,name);}
+        public void CancelName(HyperTextView shown){if(Current(shown)&&shown.Name is {} n)form.login.CancelHtmlName(n.Revision);}
         public void Close(HyperTextView shown){
             // Close() may come from UiRoot.Evict in the middle of a frame: do the state change after it (UI thread).
             if(form.IsHandleCreated&&!form.IsDisposed)form.BeginInvoke((Action)ClosePages);else ClosePages();

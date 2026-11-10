@@ -24,8 +24,13 @@ public enum HyperTextSource { Npc, Query }
 public enum HyperTextNumberKind { Amount, Castle }
 /// <summary>頁內數字框：S136（Amount，回 C11）或城堡頁（Castle，回 C19／C56／C44，可取消）。Revision＝詢問版本。</summary>
 public sealed record HyperTextNumberBox(HyperTextNumberKind Kind,long Revision,long Min,long Max,long Initial,bool Answerable,bool CanSend,string Range);
+/// <summary>
+/// R7-D（#806）：頁內血盟名輸入框（HTML 動作 surrender／cease／pledgefocusadd 的 578／579／3361）。Revision＝名稱框版本；
+/// Prompt＝提示文字；CanSend＝宿主說現在可送。原版是共用 InputWindow（sub_AC98E0），畫在頁內是引擎自訂（推測，見 NpcInteraction.cs R7-D）。
+/// </summary>
+public sealed record HyperTextNameBox(long Revision,string Prompt,bool CanSend);
 /// <summary>要顯示的一頁。Revision＝NPC 頁的 InteractionRevision 或查詢頁的 QueryRevision（宿主用來擋過期操作）。</summary>
-public sealed record HyperTextView(HyperTextSource Source,int Revision,string Text,IReadOnlyList<HyperTextLink> Links,string Notice,HyperTextNumberBox? Number);
+public sealed record HyperTextView(HyperTextSource Source,int Revision,string Text,IReadOnlyList<HyperTextLink> Links,string Notice,HyperTextNumberBox? Number,HyperTextNameBox? Name=null);
 
 /// <summary>面板對外的動作。面板不碰 LoginConnection；過期、走路中、重複送出由宿主（NpcUi.cs）擋。</summary>
 public interface IHyperTextHost {
@@ -34,6 +39,10 @@ public interface IHyperTextHost {
     void CancelNumber(HyperTextView shown);
     /// <summary>關窗：同一個視窗裡的頁（含被取代的另一頁）都關掉。</summary>
     void Close(HyperTextView shown);
+    /// <summary>R7-D：名稱框按確定（名稱已去頭尾空白，可能是空字串：原版空白不送，由宿主決定）。預設不做事。</summary>
+    void SubmitName(HyperTextView shown,string name){}
+    /// <summary>R7-D：名稱框按取消。預設不做事。</summary>
+    void CancelName(HyperTextView shown){}
 }
 
 /// <summary>
@@ -78,7 +87,9 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
         public Rectangle Local=>new(Offset,Surface==null?Size.Empty:new Size(Surface.Width,Surface.Height));
         public bool Drawn=>Surface!=null&&Surface.Width>0&&Surface.Height>0;
     }
-    public enum RowKind { Text, Link, Notice, Range, Number }
+    public enum RowKind { Text, Link, Notice, Range, Number, Name }
+    /// <summary>R7-D 名稱框列：輸入框寬（引擎自訂，推測；輸入框＋確定＋取消＝192）。</summary>
+    public const int NameInputWidth=108;
     /// <summary>畫面上的一列（內容座標：第 Index 列）。Link 列帶選項 id。</summary>
     public sealed record Row(RowKind Kind,string Text,int LinkId=-1,bool Enabled=true);
 
@@ -109,8 +120,12 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
     public string Input{get;private set;}="";
     /// <summary>數字框有輸入焦點（點框或新詢問出現時；按 Enter 送出或點窗內其他地方時放開）。</summary>
     public bool InputFocused{get;private set;}
+    /// <summary>R7-D 名稱框目前的字。</summary>
+    public string NameInput{get;private set;}="";
+    /// <summary>R7-D 名稱框有輸入焦點（新框出現或點框時；Enter／Esc 或點窗內其他地方放開）。</summary>
+    public bool NameFocused{get;private set;}
 
-    HyperTextView? view;(HyperTextSource,int)? dismissed;long numberRevision=long.MinValue;
+    HyperTextView? view;(HyperTextSource,int)? dismissed;long numberRevision=long.MinValue,nameRevision=long.MinValue;
     List<Row> rows=[];Rectangle local;string? pressed;
 
     public void Load(UiLayout layout,SurfCatalog surfs)=>Load(layout,surfs.Get);
@@ -128,6 +143,7 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
         local=new[]{Base,Frame,ScrollBar,Up,Down,CloseButton}.Where(e=>e.Drawn).Select(e=>e.Local).Append(TitleBar).Aggregate(Rectangle.Empty,(a,r)=>a.IsEmpty?r:Rectangle.Union(a,r));
         Origin=new(window.Int("x"),window.Int("y"));
         view=null;rows=[];Scroll=0;pressed=null;dismissed=null;Input="";InputFocused=false;numberRevision=long.MinValue;
+        NameInput="";NameFocused=false;nameRevision=long.MinValue;
     }
 
     /// <summary>
@@ -135,7 +151,7 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
     /// 被使用者或堆疊關掉的那一頁，在宿主真的關掉它之前不再打開。
     /// </summary>
     public void Show(HyperTextView? next){
-        if(next==null){view=null;pressed=null;InputFocused=false;dismissed=null;return;}
+        if(next==null){view=null;pressed=null;InputFocused=false;NameFocused=false;dismissed=null;return;}
         var key=(next.Source,next.Revision);
         if(dismissed==key)return;
         dismissed=null;
@@ -143,6 +159,9 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
         view=next;
         if(next.Number is {} n&&n.Revision!=numberRevision){numberRevision=n.Revision;Input=n.Answerable?n.Initial.ToString():"";InputFocused=n.Answerable;}
         else if(next.Number==null){numberRevision=long.MinValue;Input="";InputFocused=false;}
+        // 新的名稱框：清空並取得焦點（數字框讓出焦點）；同一個框只更新可送狀態。
+        if(next.Name is {} nb&&nb.Revision!=nameRevision){nameRevision=nb.Revision;NameInput="";NameFocused=true;InputFocused=false;}
+        else if(next.Name==null){nameRevision=long.MinValue;NameInput="";NameFocused=false;}
         rows=BuildRows(next);
         if(newPage){Scroll=0;pressed=null;}
         Scroll=Math.Clamp(Scroll,0,MaxScroll);
@@ -151,7 +170,7 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
     /// <summary>關閉鈕與堆疊滿（UiRoot.Evict）共用：請宿主關掉頁，面板先藏起來。</summary>
     public void Close(){
         if(view is not {} shown)return;
-        dismissed=(shown.Source,shown.Revision);view=null;pressed=null;InputFocused=false;
+        dismissed=(shown.Source,shown.Revision);view=null;pressed=null;InputFocused=false;NameFocused=false;
         Host?.Close(shown);
     }
 
@@ -163,6 +182,7 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
         if(v.Links.Count>0&&list.Count>0)list.Add(new(RowKind.Text,""));
         foreach(var link in v.Links)foreach(var line in Wrap(link.Label))list.Add(new(RowKind.Link,line,link.Id,link.Enabled));
         if(v.Number is {} n){list.Add(new(RowKind.Text,""));list.Add(new(RowKind.Range,n.Range));list.Add(new(RowKind.Number,""));}
+        if(v.Name is {} nb){list.Add(new(RowKind.Text,""));foreach(var line in Wrap(nb.Prompt))list.Add(new(RowKind.Text,line));list.Add(new(RowKind.Name,""));}
         if(v.Notice.Length>0){list.Add(new(RowKind.Text,""));foreach(var line in Wrap(v.Notice))list.Add(new(RowKind.Notice,line));}
         return list;
     }
@@ -197,9 +217,19 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
     public Rectangle InputRect=>NumberIndex<0?Rectangle.Empty:NumberPart(0,InputWidth);
     public Rectangle SubmitRect=>NumberIndex<0?Rectangle.Empty:NumberPart(InputWidth+ButtonGap,ButtonWidth);
     public Rectangle CancelRect=>view?.Number is {Kind:HyperTextNumberKind.Castle}&&NumberIndex>=0?NumberPart(InputWidth+ButtonGap*2+ButtonWidth,ButtonWidth):Rectangle.Empty;
+    int NameIndex=>rows.FindIndex(r=>r.Kind==RowKind.Name);
+    Rectangle NamePart(int offset,int width){if(ScreenLine(NameIndex) is not int line)return Rectangle.Empty;var p=LineAt(line);return new(p.X+offset,p.Y,width,LineHeight-1);}
+    public Rectangle NameRect=>NameIndex<0?Rectangle.Empty:NamePart(0,NameInputWidth);
+    public Rectangle NameSubmitRect=>NameIndex<0?Rectangle.Empty:NamePart(NameInputWidth+ButtonGap,ButtonWidth);
+    public Rectangle NameCancelRect=>NameIndex<0?Rectangle.Empty:NamePart(NameInputWidth+ButtonGap*2+ButtonWidth,ButtonWidth);
     public IReadOnlyList<Row> VisibleRows=>rows.Skip(Scroll).Take(VisibleLines).ToArray();
     /// <summary>目前輸入可以送出：有詢問、可答、宿主說可送，且值在範圍內。</summary>
     public bool CanSubmit=>view?.Number is {Answerable:true,CanSend:true} n&&long.TryParse(Input,out long v)&&v>=Math.Max(1,n.Min)&&v<=n.Max;
+    /// <summary>名稱框可以按確定（宿主說可送）。空白名稱也可按：原版確定後框照樣關、只是不送（FU6§1.1、§3.2）。</summary>
+    public bool CanSubmitName=>view?.Name is {CanSend:true};
+    /// <summary>名稱框最多幾個 Big5 位元組（同 C129 的 16 字緩衝）。</summary>
+    public const int NameMaxBytes=HtmlActions.NameBytes;
+    static int NameBytes(string s){try{return LoginPackets.TextEncoding.GetByteCount(s);}catch(System.Text.EncoderFallbackException){return int.MaxValue;}}
 
     public void Paint(UiCanvas canvas){
         if(view==null)return;
@@ -210,6 +240,7 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
             var row=visible[r];var p=LineAt(r);
             switch(row.Kind){
                 case RowKind.Number:PaintNumber(canvas);break;
+                case RowKind.Name:PaintName(canvas);break;
                 case RowKind.Link:canvas.DrawText(row.Text,p.X,p.Y,row.Enabled?LinkColor:DisabledColor);break;
                 case RowKind.Notice:case RowKind.Range:canvas.DrawText(row.Text,p.X,p.Y,DisabledColor);break;
                 default:canvas.DrawText(row.Text,p.X,p.Y,TextColor);break;
@@ -225,6 +256,16 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
         var s=SubmitRect;canvas.DrawText("確定",s.X+4,s.Y+1,CanSubmit?LinkColor:DisabledColor);
         if(CancelRect is {IsEmpty:false} c)canvas.DrawText("取消",c.X+4,c.Y+1,LinkColor);
     }
+    // 名稱框外觀同數字框（引擎自訂框＋「確定」／「取消」文字鈕；原版 InputWindow 的外觀沒有在本窗查證）。
+    void PaintName(UiCanvas canvas){
+        if(view?.Name==null)return;
+        var box=NameRect;
+        using(var back=new SolidBrush(Color.Black))canvas.Graphics.FillRectangle(back,box);
+        using(var pen=new Pen(NameFocused?LinkColor:DisabledColor))canvas.Graphics.DrawRectangle(pen,box.X,box.Y,box.Width-1,box.Height-1);
+        canvas.DrawText(NameInput+(NameFocused?"_":""),box.X+3,box.Y+1,TextColor);
+        var s=NameSubmitRect;canvas.DrawText("確定",s.X+4,s.Y+1,CanSubmitName?LinkColor:DisabledColor);
+        var c=NameCancelRect;canvas.DrawText("取消",c.X+4,c.Y+1,LinkColor);
+    }
 
     void ScrollBy(int delta)=>Scroll=Math.Clamp(Scroll+delta,0,MaxScroll);
 
@@ -235,6 +276,9 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
         if(InputRect.Contains(p))return "input";
         if(SubmitRect.Contains(p))return "submit";
         if(CancelRect.Contains(p))return "cancel";
+        if(NameRect.Contains(p))return "name-input";
+        if(NameSubmitRect.Contains(p))return "name-submit";
+        if(NameCancelRect.Contains(p))return "name-cancel";
         for(int r=0;r<VisibleLines;r++){
             int index=Scroll+r;if(index>=rows.Count)break;
             if(rows[index] is {Kind:RowKind.Link,Enabled:true} link&&LineRect(r).Contains(p))return "link:"+link.LinkId;
@@ -253,7 +297,7 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
             case UiMouseKind.Down:
                 if(e.Button!=MouseButtons.Left)return inside;
                 pressed=HitKey(e.Location);
-                if(inside)InputFocused=pressed=="input"&&view.Number is {Answerable:true};
+                if(inside){InputFocused=pressed=="input"&&view.Number is {Answerable:true};NameFocused=pressed=="name-input"&&view.Name!=null;}
                 return inside;
             case UiMouseKind.Up:{
                 var was=pressed;pressed=null;
@@ -273,6 +317,8 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
             case "down":ScrollBy(1);break;
             case "submit":Submit();break;
             case "cancel":Host?.CancelNumber(shown);break;
+            case "name-submit":SubmitName();break;
+            case "name-cancel":CancelName();break;
             default:
                 if(key.StartsWith("link:",StringComparison.Ordinal)&&int.TryParse(key.AsSpan(5),out int id)&&shown.Links.Any(l=>l.Id==id&&l.Enabled))Host?.Link(shown,id);
                 break;
@@ -284,9 +330,29 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
         InputFocused=false;
         Host?.Submit(shown,long.Parse(Input));
     }
+    void SubmitName(){
+        if(view is not {} shown||!CanSubmitName)return;
+        NameFocused=false;
+        Host?.SubmitName(shown,NameInput.Trim());
+    }
+    void CancelName(){
+        if(view is not {Name:not null} shown)return;
+        NameFocused=false;
+        Host?.CancelName(shown);
+    }
 
-    /// <summary>數字框有焦點時：Backspace 刪一字、Enter 送出（並放開焦點，下一個 Enter 照常開聊天）。其他鍵不吃。</summary>
+    /// <summary>
+    /// 數字框有焦點時：Backspace 刪一字、Enter 送出（並放開焦點，下一個 Enter 照常開聊天）。其他鍵不吃。
+    /// R7-D 名稱框有焦點時：Backspace 刪一字、Enter 確定、Esc 取消。
+    /// </summary>
     public bool Key(UiKeyEvent e,IUiCommands commands){
+        if(view!=null&&NameFocused&&view.Name!=null){
+            if(!e.Down)return false;
+            if(e.KeyData==Keys.Back){if(NameInput.Length>0)NameInput=NameInput[..^1];return true;}
+            if(e.KeyData==Keys.Enter){if(!e.Repeat){if(CanSubmitName)SubmitName();else NameFocused=false;}return true;}
+            if(e.KeyData==Keys.Escape){if(!e.Repeat)CancelName();return true;}
+            return false;
+        }
         if(view==null||!InputFocused||view.Number is not {Answerable:true})return false;
         if(!e.Down)return false;
         if(e.KeyData==Keys.Back){if(Input.Length>0)Input=Input[..^1];return true;}
@@ -296,6 +362,12 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
 
     /// <summary>WM_CHAR：數字框有焦點時只收 0–9（最多 10 位）；其他字不吃，交給聊天列。</summary>
     public bool Char(char c){
+        // R7-D 名稱框：收一般字（控制字元與空白不收，C227 的名稱不可含空白），最多 16 個 Big5 位元組；遊戲字集不能表示的字不收。
+        if(view!=null&&NameFocused&&view.Name!=null){
+            if(char.IsControl(c)||char.IsWhiteSpace(c))return true;
+            if(NameBytes(NameInput+c)<=NameMaxBytes)NameInput+=c;
+            return true;
+        }
         if(view==null||!InputFocused||view.Number is not {Answerable:true}||c is <'0' or >'9')return false;
         if(Input.Length<MaxDigits)Input=Input=="0"?c.ToString():Input+c;
         return true;
