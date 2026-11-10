@@ -13,7 +13,21 @@ public interface ILoginSession {
 }
 public readonly record struct LoginAction(bool Accepted,string Message);
 public sealed record LoginStartFailure(string Phase,string Type,int HResult,string[] Frames);
-public sealed class LoginControl(ILoginSession session,Action beforeStart,Action offlinePreview) {
+public sealed class LoginControl {
+    readonly ILoginSession session;readonly Action beforeStart,offlinePreview;
+    public LoginControl(ILoginSession session,Action beforeStart,Action offlinePreview){
+        this.session=session;this.beforeStart=beforeStart;this.offlinePreview=offlinePreview;
+        native.SetTarget(this);   // T326 (#764): native login screen entry (below)
+    }
+    // ---- T326 (#764) native branch: NativeUi/LoginPanel.cs (LoginUI.xml Login_Window) reaches the same guarded Start as the
+    // WinForms strip and the web page. ClientForm builds one LoginControl; the latest one is the native entry (weak, no leak).
+    // With --classic-ui the native UI is never built, so nothing reads it and the WinForms entry is unchanged.
+    static readonly WeakReference<LoginControl> native=new(null!);
+    /// <summary>The LoginControl the native login screen talks to (the latest constructed); null before ClientForm builds one.</summary>
+    public static LoginControl? NativeEntry{get=>native.TryGetTarget(out var c)?c:null;internal set=>native.SetTarget(value!);}
+    public LoginState SessionState=>session.State;
+    /// <summary>Native Login_Button / Enter: the normal-entry endpoint (ProductEntry), current generation and revision.</summary>
+    public LoginAction StartNative(string account,string password)=>Start(ProductEntry.Profile,ProductEntry.Port,account,password,session.SessionGeneration,session.Revision);
     bool running,selecting;int operation;
     public int Revision {get;private set;}
     public string Notice {get;private set;}="請輸入帳號與密碼，或使用離線預覽。";
