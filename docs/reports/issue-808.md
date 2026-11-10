@@ -29,7 +29,7 @@
   - 新增 `Gold`（`ShopTrade.Holding`，背包金幣）、`ChatNotice`。另在本檔加了 `WorldSession` partial 的 `AddBoardChatNotice`（不改 `WorldSession.cs`）。
 - **`engine/_integration/dev/native-ui-tests/BoardPanelChecks.cs`**：只改一行（第 77 行）。舊檢查寫的是「閱讀窗 X → close」，和本任務目標（678 只關閱讀窗）正好相反，所以改成「不送包、清單窗留著、閱讀窗消失」。其他座標檢查都用相對原點，不必改。
   - **注意**：這超出「只改座標」的限制，但不改這行，這組既有測試一定失敗。
-- **新檔 `engine/source/BoardFollowupTests.cs`**：`[WorldModuleTest("board-followup")]`，約 45 項檢查：
+- **新檔 `engine/source/BoardFollowupTests.cs`**：`[WorldModuleTest("board-followup")]`，38 項檢查：
   - (0,0) 座標；
   - `IUiClosablePanel`；
   - 678／658 的行為；
@@ -56,6 +56,7 @@
 - `dotnet build engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release` → 0 錯誤。3 個警告是既有的，不在本任務的檔案。
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py` → `pass`（4252 檔，0 錯誤）。
 - **依規定沒有在本機執行任何測試程式**。`board-followup`、`board-native-content`、`board` 等群組以 PR 的 GitHub Actions CI 為準。
+- **CI（PR #831，run 42824799628／42824799597）**：dotnet、map-continuity、npc-offline 全部 pass。`board-followup` 38 項 pass，`board-native-content` 87 項 pass，0 失敗。
 
 ## 未驗證什麼
 - 沒有開遊戲。要交給 Codex／dot 在真機確認（M17）：
