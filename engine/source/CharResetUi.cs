@@ -62,8 +62,22 @@ public sealed partial class ClientForm {
         int generation=login.SessionGeneration;
         BeginInvoke((Action)(()=>{
             if(IsDisposed||login.SessionGeneration!=generation||login.CharResetSnapshot().Phase!="initial"||OwnedForms.OfType<CharResetUi>().Any())return;
+            // T325 (#763) native routing only: with the native UI on and ResetStatUI.xml usable, the native reset window takes
+            // the offer (same snapshot and SendCharReset path). Otherwise (--classic-ui, no reference client, faulted) the
+            // WinForms dialog below opens exactly as before.
+            if(NativeResetStat() is {} panel){
+                if(panel.Visible)return;
+                ClearInput("char-reset");
+                if(panel.Begin(new CharResetNativeHost(login)))return;
+            }
             ClearInput("char-reset");LeaveGameFocus("char-reset");
             using var dialog=new CharResetUi(login);dialog.ShowDialog(this);
         }));
     }
+    P06.NativeUi.ResetStatPanel? NativeResetStat()=>NativeUiActive&&NativeUiRoot is {} root&&root.Find(P06.NativeUi.ResetStatPanel.PanelId) is P06.NativeUi.ResetStatPanel p&&p.Available&&!root.Faulted.Contains(p)?p:null;
+}
+sealed class CharResetNativeHost(LoginConnection connection):P06.NativeUi.IResetStatHost {
+    public CharResetView Snapshot()=>connection.CharResetSnapshot();
+    public Task<bool> Send(CharResetView stamp,string command,ResetStats stats,int step)=>connection.SendCharReset(stamp,command,stats,step);
+    public void Cancel()=>connection.Cancel();
 }
