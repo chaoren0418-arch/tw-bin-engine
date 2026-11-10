@@ -438,6 +438,12 @@ public sealed partial class LoginConnection {
     public async Task<bool> SendPlayerChat(string text,int session,int world,uint actor){
         // R6-E（FU7§1.5）：刪除物品的確認在聊天輸入列（數量或 Y/N），這一列輸入是答覆，不當聊天送出。
         if(ItemDeletePromptActive)return await AnswerItemDelete(text,session,world,actor);
+        // R10-F（T390／#905，gap-matrix 15.12.6 1:29）：私商 1028 高價確認也在聊天輸入列（sub_4FD770 → sub_AC98E0，回呼 sub_4FE4A0）：
+        // 這一列是答覆（Y＝用原來那一包再送，其他＝不送），不當聊天送出。回 true＝已當作答覆處理（輸入列可清掉）。
+        if(PrivateShopConfirmCurrent!=null){
+            if(!PlayerChatStamp(session,world,actor))return false;
+            await AnswerPrivateShopConfirm(text);return true;
+        }
         if(text=="/loc"||text.StartsWith("/loc ",StringComparison.Ordinal))return await SendLocation(text.Length>5?text[5..]:"",session,world,actor);
         if(TradeAskCommand.Is(text)){
             // R6-E（FU7§1.1）：`/accepttrade` 只切換本機的交易詢問旗標（原版不送包），本引擎另存進 C244 角色設定。

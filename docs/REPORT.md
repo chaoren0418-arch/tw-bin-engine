@@ -364,3 +364,4 @@
 - 2026-11-11 — #902 T387：R10-C 好友／封鎖宿主（code，claude-local，PR 已合併）→ [報告](reports/issue-902.md)
 - 2026-11-11 — #903 T388：R10-D 組隊邀請點選（code，claude-local，PR 已合併）→ [報告](reports/issue-903.md)
 - 2026-11-11 — #906 T391：R10-G 表情保留範圍（code，claude-local，PR 已合併）→ [報告](reports/issue-906.md)
+- 2026-11-11 — #905 T390：R10-F 聊天列確認與提示（code，claude-local，PR 已合併）→ [報告](reports/issue-905.md)
