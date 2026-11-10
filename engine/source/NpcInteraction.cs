@@ -96,6 +96,10 @@ public sealed partial class WorldSession {
     // HyperAct name table (TW16 FO 0xDA78A4 "checkpk", next to "fix"/"getall"/"exitghost"): the client handles
     // this action itself and sends the field-less C_CHECK_PK instead of C_HACTION.
     public const string CheckPkAction="checkpk";
+    // R6-E（FU7§1.1）：HyperAct "accepttrade"（同一個名稱字串區 FO 0xDA7860；類別 HyperActAcceptTrade，sub_581790）：
+    // 客戶端自己把交易詢問旗標取反，不送包；原版接著重開選項頁 option13（本引擎沒有這個本機頁，維持目前的頁）。
+    public const string AcceptTradeAction="accepttrade";
+    public static bool IsAcceptTradeAction(string? action)=>string.Equals(action?.Trim(),AcceptTradeAction,StringComparison.OrdinalIgnoreCase);
     /// <summary>R2-F：目前對話 NPC 的外型（物件 gfx）；對話無效時為 null。xchgspell／buyspell 依此分流（SS2§1.1）。</summary>
     public ushort? InteractionNpcGfx=>InteractionValid&&Target is {} t&&t.ObjectId==InteractionNpc?t.Gfx:null;
     /// <summary>伺服器主動頁上某個可用 action 選項的動作字串；不存在或版本不符為 null。</summary>
@@ -132,6 +136,7 @@ public sealed partial class LoginConnection {
         if(World.OpenQueryLink(option,revision))return true;
         if(interactionSending||MovementBusy||sendMovementGate==null||World.ActionLocked||World.TradeBlocksActions)return false;
         // R2-F：exitghost 由客戶端自己處理（R2-D 的 TryHyperAction 送 C173），不送 C125；送出後照其他動作關頁。
+        if(World.QueryActionValue(option,revision) is {} trade&&WorldSession.IsAcceptTradeAction(trade))return await ToggleAcceptTrade(PlayerHudActions.Stamp(this));
         if(World.QueryActionValue(option,revision) is {} hyper&&TryHyperAction(hyper,out var ghost)){
             bool ok=await ghost;if(ok)World.QueryActionSent(revision);return ok;
         }
@@ -150,6 +155,7 @@ public sealed partial class LoginConnection {
         if(!World.InteractionValid||World.InteractionKind!="dialog")return null;
         var selected=World.InteractionPage?.Options.FirstOrDefault(o=>o.Id==option&&o.Enabled&&o.Kind=="action");if(selected==null)return null;
         string action=selected.Value.Trim();
+        if(WorldSession.IsAcceptTradeAction(action))return ToggleAcceptTrade(PlayerHudActions.Stamp(this));
         if(TryHyperAction(action,out var ghost))return ghost;
         ushort gfx=World.InteractionNpcGfx??0;
         if(!SpellExchangeProtocol.ActionAllowed(action,gfx))return Task.FromResult(false);

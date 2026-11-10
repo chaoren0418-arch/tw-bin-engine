@@ -108,31 +108,32 @@ static class ChatFormatTests {
         t.Throws<ArgumentException>(()=>ChatPartyCommands.Encode("/chatbanish 甲 乙"),"name without spaces");
 
         // 8. 聊天列的檢查（HUD 與原生輸入列共用）。
-        t.Check(PlayerChatProtocol.Valid("/off 全體"),"/off 全體 valid");
-        t.Check(PlayerChatProtocol.Describe("/off 全體").Contains("全體聊天：關"),"/off describes the toggle");
-        t.Check(!PlayerChatProtocol.Valid("/on 血盟"),"/on unknown channel invalid");
-        t.Check(!PlayerChatProtocol.Valid("/on"),"bare /on invalid");
+        // R6-E（#781）：原版語法 `/whisper on|off` 等；舊的 `/on 頻道` 已移除（變成一般聊天文字）。
+        t.Check(PlayerChatProtocol.Valid("/whisper off"),"/whisper off valid");
+        t.Check(PlayerChatProtocol.Describe("/whisper off").Contains("密語聊天：關"),"/whisper describes the toggle");
+        t.Check(!PlayerChatProtocol.Valid("/whisper 血盟"),"/whisper bad argument invalid");
+        t.Check(!PlayerChatProtocol.Valid("/whisper"),"bare /whisper invalid");
         t.Check(PlayerChatProtocol.Valid("/chatbanish 甲")&&!PlayerChatProtocol.Valid("/chatbanish"),"chat-party commands validated");
         t.Check(PlayerChatProtocol.Valid("/loc"),"/loc valid");
         t.Check(PlayerChatProtocol.Describe("$嗨").StartsWith("交易",StringComparison.Ordinal),"$ shows trade");
-        var line=new ChatInputLine();line.Begin(false);foreach(char ch in "/off 密語")line.Type(ch);
-        t.Check(line.Valid,"native input accepts /off 密語");
-        line.Clear();foreach(char ch in "/off 血盟")line.Type(ch);
-        t.Check(!line.Valid,"native input rejects /off 血盟");
+        var line=new ChatInputLine();line.Begin(false);foreach(char ch in "/悄悄話 關")line.Type(ch);
+        t.Check(line.Valid,"native input accepts /悄悄話 關");
+        line.Clear();foreach(char ch in "/whisper 血盟")line.Type(ch);
+        t.Check(!line.Valid,"native input rejects /whisper 血盟");
 
-        // 9. 實際送出流程：/on、/off 走 C26，不送 C136；C199 走同一個送出閘門。
+        // 9. 實際送出流程：/whisper 等走 C26，不送 C136；C199 走同一個送出閘門。
         var sent=new List<byte[]>();
         using(var c=Seed(sent)){
-            t.Check(Say(c,"/off 全體"),"/off 全體 accepted");
-            t.Check(sent.Count>=1&&sent[0].SequenceEqual(ChatChannelPackets.Toggle(ChatChannelKind.World,false)),"first packet is C26 0/0",sent.Select(Convert.ToHexString).ToArray());
-            t.Check(!sent.Any(b=>b[0] is 136 or 40),"no chat packet for /off");
-            t.Check(!c.World.ChatChannels.World,"world channel now off");
-            t.Check(c.PlayerChatSnapshot().Notice.StartsWith("全體聊天：關",StringComparison.Ordinal),"notice reports the toggle",c.PlayerChatSnapshot().Notice);
+            t.Check(Say(c,"/whisper off"),"/whisper off accepted");
+            t.Check(sent.Count>=1&&sent[0].SequenceEqual(ChatChannelPackets.Toggle(ChatChannelKind.Whisper,false)),"first packet is C26 2/0",sent.Select(Convert.ToHexString).ToArray());
+            t.Check(!sent.Any(b=>b[0] is 136 or 40),"no chat packet for /whisper");
+            t.Check(!c.World.ChatChannels.Whisper,"whisper channel now off");
+            t.Check(c.PlayerChatSnapshot().Notice.StartsWith("密語聊天：關",StringComparison.Ordinal),"notice reports the toggle",c.PlayerChatSnapshot().Notice);
             t.Equal(0,c.World.PlayerChatLines.Length,"no local echo");
             sent.Clear();
-            t.Check(!Say(c,"/on 血盟"),"unknown channel not sent");
-            t.Equal(0,sent.Count,"nothing sent for bad channel");
-            t.Equal(ChatChannelCommands.Help,c.PlayerChatSnapshot().Notice,"bad channel notice is the help text");
+            t.Check(!Say(c,"/whisper 血盟"),"bad argument not sent");
+            t.Equal(0,sent.Count,"nothing sent for bad argument");
+            t.Equal(ChatChannelCommands.Help,c.PlayerChatSnapshot().Notice,"bad argument notice is the help text");
             t.Check(Say(c,"/chatparty"),"/chatparty sent");
             t.Check(sent.Count==1&&sent[0].SequenceEqual(P([199,2])),"C199 type 2 through the chat gate");
             t.Check(c.PlayerChatSnapshot().Notice.Contains("聊天隊伍"),"chat-party notice");
@@ -140,7 +141,7 @@ static class ChatFormatTests {
         sent.Clear();
         using(var c=Seed(sent)){
             var s=c.PlayerChatSnapshot();
-            t.Check(!c.SendPlayerChat("/off 全體",s.Generation+1,s.WorldEpoch,s.Actor).GetAwaiter().GetResult()&&sent.Count==0,"stale session: /off not sent");
+            t.Check(!c.SendPlayerChat("/whisper off",s.Generation+1,s.WorldEpoch,s.Actor).GetAwaiter().GetResult()&&sent.Count==0,"stale session: /whisper not sent");
             t.Check(Say(c,"$賣劍")&&sent.Count==1&&sent[0].SequenceEqual(P([40,12],Str("賣劍"))),"$ sent as C40/12");
         }
 

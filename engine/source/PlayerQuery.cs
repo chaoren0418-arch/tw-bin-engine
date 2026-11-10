@@ -1,6 +1,8 @@
 namespace P06;
 
-public enum PlayerQueryKind {None,Who,Rank,Check}
+// R6-E（T335／#781，FU7§6.2）：原版 sub_F56320 註冊 who／360「誰」、rank／779「階級」、checkpk（只有英文）；沒有 check。
+// `/check`（C125 pc_list → C223）不是原版指令，已移除（主控裁定）；伺服器送來的 pc_show 頁照舊顯示。
+public enum PlayerQueryKind {None,Who,Rank,CheckPk}
 
 /// <summary>T331 (#769): a self-addressed ranking page; a handler that shows it natively sets Handled.</summary>
 public sealed class RankingWindowEventArgs(uint objectId,string html,IReadOnlyList<string> arguments,IReadOnlyList<string> lines):EventArgs {
@@ -15,8 +17,7 @@ public sealed class RankingWindowEventArgs(uint objectId,string html,IReadOnlyLi
 // C99 is anti-cheat telemetry and C63/sub1 changes clan rank, so neither is ever sent from here.
 public static class PlayerQueryPackets {
     public const int MaxNameCharacters=52; // Local input budget, same as whisper recipients.
-    public const string RankAction="lv_ranking",CheckAction="pc_list",CheckPrompt="請選擇要查詢的玩家。";
-    static readonly string[] CheckFailures=["目標不存在。","只能對玩家查詢狀態。","查詢失敗。"];
+    public const string RankAction="lv_ranking",CheckAction="pc_list";
     static readonly string[] Equipment=["武器","頭盔","盔甲","內衣","斗篷","手套","長靴","盾牌","項鍊","戒指","戒指","戒指","戒指","耳環","耳環","腰帶","臂甲"];
     public static byte[] Who(string name){
         if(name.Length>MaxNameCharacters||name.Any(c=>char.IsControl(c)||char.IsWhiteSpace(c)))
@@ -26,23 +27,26 @@ public static class PlayerQueryPackets {
     }
     // Self-addressed helper actions: L1ActionPc and PcScannerHandler take the player's own id.
     public static byte[] Rank(uint self)=>NpcPackets.Action(self,RankAction);
+    // C125 pc_list／C223 的封包形狀（舊 /check 用；指令已移除，形狀留給測試向量與寵物目標 C223 對照）。
     public static byte[] CheckBegin(uint self)=>NpcPackets.Action(self,CheckAction);
     public static byte[] CheckTarget(uint self,uint target)=>LoginPackets.Pad([223,..BitConverter.GetBytes(self),0,..BitConverter.GetBytes(target)]);
+    /// <summary>`/checkpk`：Commandcheckpk（sub_F54A30）只送 opcode，3.81 是無欄位的 C51（SS2§5，與 HTML checkpk 同一個封包）。</summary>
+    public static byte[] CheckPk()=>WeaponRepairPackets.CheckPk();
     public static PlayerQueryKind Parse(string input,out string argument){
         argument="";
         int split=0;while(split<input.Length&&!char.IsWhiteSpace(input[split]))split++;
-        var kind=input[..split].ToLowerInvariant() switch{"/who"=>PlayerQueryKind.Who,"/rank"=>PlayerQueryKind.Rank,"/check"=>PlayerQueryKind.Check,_=>PlayerQueryKind.None};
+        var kind=input[..split].ToLowerInvariant() switch{"/who" or "/誰"=>PlayerQueryKind.Who,"/rank" or "/階級"=>PlayerQueryKind.Rank,"/checkpk"=>PlayerQueryKind.CheckPk,_=>PlayerQueryKind.None};
         if(kind==PlayerQueryKind.None)return kind;
         if(input.Any(char.IsControl))throw new ArgumentException("查詢指令必須是單行文字，不可含控制字元。");
         argument=input[split..].Trim();
-        if(kind==PlayerQueryKind.Rank&&argument.Length>0)throw new ArgumentException("排名查詢不需要參數，請只輸入 /rank。");
-        if(kind==PlayerQueryKind.Check&&argument.Length>0)throw new ArgumentException("請先選取玩家，再只輸入 /check。");
+        if(kind==PlayerQueryKind.Rank&&argument.Length>0)throw new ArgumentException("排名查詢不需要參數，請只輸入 /rank（或 /階級）。");
+        if(kind==PlayerQueryKind.CheckPk&&argument.Length>0)throw new ArgumentException("PK 次數查詢不需要參數，請只輸入 /checkpk。");
         return kind;
     }
     public static byte[]? Encode(string input,uint self,uint? target)=>Parse(input,out string argument) switch{
         PlayerQueryKind.Who=>Who(argument),
         PlayerQueryKind.Rank=>Rank(self),
-        PlayerQueryKind.Check=>target is null or 0?throw new ArgumentException("請先選取要查詢的玩家，再輸入 /check。"):CheckBegin(self),
+        PlayerQueryKind.CheckPk=>CheckPk(),
         _=>null};
     // S71/166 is the server's generic "%0" message (352 source call sites), not only S_WhoCharinfo.
     public static string? DecodeTextMessage(byte[] plain){
@@ -52,7 +56,6 @@ public static class PlayerQueryPackets {
     }
     // S_WhoCharinfo always carries exactly one alignment token; other 166 text keeps its normal route.
     public static bool IsWhoInfo(string text)=>text.Contains("($1501)")||text.Contains("($1502)")||text.Contains("($1503)");
-    public static bool IsCheckFailure(string text)=>CheckFailures.Contains(text);
     // Known server alignment tokens only; render as plain text, never as HTML or commands.
     public static string FormatWho(string text)=>"玩家資訊："+Display(text.Replace("($1501)","（正義者）").Replace("($1502)","（中立者）").Replace("($1503)","（邪惡者）"));
     public static string? DecodeWhoMessage(byte[] plain)=>DecodeTextMessage(plain) is {} text&&IsWhoInfo(text)?FormatWho(text):null;
@@ -115,17 +118,6 @@ public static class PlayerQueryPackets {
 }
 
 public sealed partial class WorldSession {
-    TaskCompletionSource<bool>? playerCheck;
-    // A newer request releases the older continuation without sending its target.
-    internal Task<bool> BeginPlayerCheck(){
-        playerCheck?.TrySetResult(false);
-        playerCheck=new(TaskCreationOptions.RunContinuationsAsynchronously);
-        return playerCheck.Task;
-    }
-    internal bool AbandonPlayerCheck(Task<bool> request){
-        if(playerCheck?.Task!=request)return false;
-        playerCheck=null;return true;
-    }
     void AddPlayerQueryLine(string text){
         playerChatLines.Enqueue(new(++playerChatSequence,0,"[查詢] "+text));
         while(playerChatLines.Count>100)playerChatLines.Dequeue();
@@ -138,10 +130,6 @@ public sealed partial class WorldSession {
             // Query information is not an equipment/trade/NPC acknowledgement.
             return true;
         }
-        if(playerCheck is not {} check)return false;
-        // S_SelectTarget precedes this prompt, so the server is already in select mode.
-        if(text==PlayerQueryPackets.CheckPrompt&&!check.Task.IsCompleted){check.TrySetResult(true);return true;}
-        if(PlayerQueryPackets.IsCheckFailure(text)&&check.Task.IsCompleted){playerCheck=null;if(Ready)AddPlayerQueryLine(text);}
         return false;
     }
     // WIN§2 T140: S_HYPERTEXT results belong to the NPC/HTML window, not to chat.
@@ -152,7 +140,6 @@ public sealed partial class WorldSession {
             ShowSelfQuery(who.ObjectId,who.Html,who.Arguments,who.Lines);return true;
         }
         if(PlayerQueryPackets.DecodeCheckHtml(plain) is {} check){
-            if(check.ObjectId==Status?.ObjectId)playerCheck=null;
             ShowSelfQuery(check.ObjectId,check.Html,check.Arguments,check.Lines);return true;
         }
         if(PlayerQueryPackets.DecodeRankHtml(plain) is not {} rank)return false;
@@ -169,32 +156,6 @@ public sealed partial class WorldSession {
 }
 
 public sealed partial class LoginConnection {
-    // Local recovery policy, not a server deadline.
-    public int PlayerCheckTimeoutMs {get;set;}=3000;
-    byte[]? PlayerQueryPacket(string text,int session,int world,uint actor){
-        uint? target=World.TargetId;
-        byte[]? packet=PlayerQueryPackets.Encode(text,actor,target);
-        if(packet!=null&&PlayerQueryPackets.Parse(text,out _)==PlayerQueryKind.Check)
-            _=ContinuePlayerCheck(World.BeginPlayerCheck(),target!.Value,session,world,actor);
-        return packet;
-    }
-    // The target goes out only after the server confirms select mode; no reply means nothing more is sent.
-    async Task ContinuePlayerCheck(Task<bool> request,uint target,int session,int world,uint actor){
-        if(await Task.WhenAny(request,Task.Delay(PlayerCheckTimeoutMs))!=request){
-            if(World.AbandonPlayerCheck(request)&&session==generation){
-                playerChatNotice="未收到伺服器的選取提示，玩家資訊查詢未完成；不會自動重送。";Changed?.Invoke();
-            }
-            return;
-        }
-        if(!await request)return;
-        bool Valid()=>PlayerChatAccess&&PlayerChatStamp(session,world,actor)&&World.TargetId==target;
-        try{
-            bool sent=sendMovementGate is {} sender&&await sender(PlayerQueryPackets.CheckTarget(actor,target),Valid,()=>{});
-            if(session!=generation)return;
-            playerChatNotice=sent?"已送出查詢目標；玩家資訊以伺服器回傳為準。":"目標或場景已變更，玩家資訊查詢未完成。";
-            Changed?.Invoke();
-        }catch(Exception ex){
-            if(session==generation){Cancel();Set(LoginState.Faulted,"玩家資訊查詢傳送失敗："+ex.Message);}
-        }
-    }
+    // `/who`、`/rank`、`/checkpk`（與中文別名）走聊天列的同一個送出閘門與節流。
+    byte[]? PlayerQueryPacket(string text,int session,int world,uint actor)=>PlayerQueryPackets.Encode(text,actor,World.TargetId);
 }

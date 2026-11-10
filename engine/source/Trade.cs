@@ -31,19 +31,21 @@ public sealed partial class WorldSession {
             if(t.X!=a.X+MovementRules.Dx[a.Direction]||t.Y!=a.Y+MovementRules.Dy[a.Direction]||t.Direction!=(a.Direction+4)%8)return null;
             return Objects.Count(o=>o.X==t.X&&o.Y==t.Y&&(o.Flags&4)!=0&&!o.Dead)==1?t:null;}
     }
-    internal void ResetTrade(string notice="交易狀態已清除。"){if(TradeState=="invited")YesNoHandled(252);TradeGeneration++;tradeOffers.Clear();TradePeerName="";TradePeerId=null;TradeChallenge=0;tradeOwnConfirmed=false;tradeOpened=false;TradeCancelRequired=false;TradeState="idle";TradeRevision++;TradeNotice=notice;}
+    internal void ResetTrade(string notice="交易狀態已清除。"){if(TradeState=="invited")YesNoHandled(252);TradeGeneration++;tradeOffers.Clear();TradePeerName="";TradePeerId=null;TradeChallenge=0;tradeOwnConfirmed=false;tradeOpened=false;TradeCancelRequired=false;TradeAutoReject=false;TradeState="idle";TradeRevision++;TradeNotice=notice;}
     public void CheckTrade(){if(TradeBlocksActions&&TradeState is not ("invited" or "attention" or "cancelling")&&!TradePeerPresent){TradeState="attention";TradeRevision++;TradeNotice="交易對象、位置或世界已改變，不能繼續確認；請取消或斷線。";}}
     internal void BeginTradeInvite(){var t=FacingTradeTarget!;ResetTrade();CloseInteraction("已開啟交易操作。");tradeEpoch=WorldEpoch;TradePeerId=t.ObjectId;TradePeerName=t.Name;TradeState="inviting";TradeNotice="已送出面對面交易邀請，等待對方回覆；不會自動重送。";}
-    // byte_136E99D (WIN§2.1): 1 = S219/252 shows the generic Y/N question; otherwise the original auto-replies C121 (op 33).
-    // Where the flag is set and which value the auto-reply carries are unverified (推測), so the engine assumes 1
-    // and the flag-0 path keeps the pre-M7-K manual accept/reject instead of inventing an automatic answer.
-    // R3-E (#674) re-checked: still no verified writer of the flag nor reply value, so this stays as is (gap-matrix §3 C_ASK_XCHG).
-    internal bool TradeAskWindow {get;set;}=true;
+    // byte_136E99D（FU7§1.1，已驗證）：玩家的「接受交易詢問」選項，預設 1（sub_998250）。
+    // 1：S219/252 走通用 Y/N 詢問；0：不問，直接回覆拒絕 C121（sub_92EAD0 case 252，`chdhcs` 33,0,挑戰值,252,0 → TradePackets.Answer(challenge,false)）。
+    // R6-E（#781）：切換入口 `/accepttrade`（PlayerChat.cs）與 HTML 動作 accepttrade（NpcInteraction.cs）；
+    // 值跟 C244 角色設定一起存（ChatChannelSettings.AcceptTrade，原版位元 0x40），沒存過就是 1。
+    internal bool TradeAskWindow {get=>PersistedChatChannels?.AcceptsTrade??true;set=>RememberChatChannels(ChatChannels with{AcceptTrade=value});}
+    // 旗標 0 收到邀請：等連線層送出自動拒絕（借用 TradeCancelRequired 的收包後觸發，LoginConnection.cs:65）。
+    internal bool TradeAutoReject {get;private set;}
     // The shared question is live only while this exact invitation (same challenge, same world) is still waiting.
     internal bool TradeYesNoLive(YesNoPrompt p)=>p.Message==252&&TradeState=="invited"&&TradeChallenge==p.RequestId&&tradeEpoch==p.Epoch&&p.Arguments is [var name]&&name==TradePeerName;
     internal void TradeAdmit(string command){if(TradeState=="invited")YesNoHandled(252);TradeRevision++;switch(command){
         case "accept":TradeState="accepting";TradeNotice="已接受，等待原服開啟交易視窗。";break;
-        case "reject":TradeCancelRequired=false;TradeState="cancelled";TradeNotice="拒絕已送出；本次沒有開啟交易。原服不另回傳拒絕方狀態。";break;
+        case "reject":TradeCancelRequired=false;TradeState="cancelled";TradeNotice=TradeAutoReject?TradePeerName+" 的交易邀請已依「不接受交易詢問」設定自動拒絕（/accepttrade 可切換）。":"拒絕已送出；本次沒有開啟交易。原服不另回傳拒絕方狀態。";TradeAutoReject=false;break;
         case "cancel":TradeCancelRequired=false;TradeState=tradeOpened?"cancelling":"cancelled";TradeNotice=tradeOpened?"取消已送出，等待原服結果；物品與金額以回包為準。":"取消請求已送出，本地已停止等待尚未開啟的交易；沒有宣稱收到原服確認。";break;
         case "add":TradeState="adding";TradeNotice="物品加入請求已送出，等待原服雙方清單；尚未新增本地報價。";break;
         case "confirm":TradeState="confirmed";tradeOwnConfirmed=true;TradeNotice="你的確認已送出，等待原服最終結果；對方確認狀態未由此協議單獨提供。";break;
@@ -59,9 +61,10 @@ public sealed partial class WorldSession {
             if(TradeBlocksActions){TradeState="attention";TradeRevision++;TradeNotice="收到新邀請時已有交易操作；請取消後重新邀請。";return true;}
             var candidates=Objects.Where(o=>o.Name==peer&&!o.Dead&&Actor is {} a&&Math.Abs(o.X-a.X)<=1&&Math.Abs(o.Y-a.Y)<=1).ToArray();
             ResetTrade();CloseInteraction("收到交易邀請，舊NPC操作已失效。");tradeEpoch=WorldEpoch;TradePeerName=peer;TradePeerId=candidates.Length==1?candidates[0].ObjectId:null;TradeChallenge=challenge;TradeState="invited";
-            // M7-K: WIN§2.1 — flag 1 shows the shared Y/N question (chat input line, M7-J); flag 0 auto-replies in the original (value unverified, kept manual here).
+            // M7-K: flag 1 shows the shared Y/N question (chat input line, M7-J).
+            // R6-E (FU7§1.1): flag 0 never asks; the connection sends Answer(challenge,false) once (TradeCancelRequired path).
             if(TradeAskWindow){TradeNotice=peer+" 邀請你交易。請在聊天輸入列輸入 Y 接受、N 拒絕後按 Enter。";OfferYesNo(challenge,252,[peer]);}
-            else TradeNotice=peer+" 邀請你交易。接受前請核對角色名稱；也可拒絕。";
+            else{TradeAutoReject=true;TradeCancelRequired=true;TradeNotice=peer+" 邀請你交易；依「不接受交易詢問」設定自動拒絕中。";}
             return true;
         }
         if(opcode==52){string peer=r.S();r.Finish();if(tradeEpoch!=WorldEpoch||TradeState is not ("inviting" or "accepting")||peer!=TradePeerName)return true;TradeRevision++;tradeOffers.Clear();tradeOwnConfirmed=false;tradeOpened=true;TradeState="open";TradeNotice="原服已開啟交易。逐次加入物品，核對雙方原服清單後才確認。";CheckTrade();return true;}
@@ -75,7 +78,7 @@ public sealed partial class WorldSession {
             TradeRevision++;TradeCancelRequired=false;tradeOwnConfirmed=false;TradeState=status==0?"completed":"cancelled";TradeNotice=status==0?"原服回報交易完成；請核對實際背包與金額。":"原服回報交易取消／拒絕；請核對返還的物品。";return true;}
         return false;
     }
-    public object TradeSnapshot()=>new{revision=TradeRevision,generation=TradeGeneration,epoch=WorldEpoch,state=TradeState,notice=TradeNotice,peer=TradePeerName,peerId=TradePeerId,challenge=TradeChallenge,offers=TradeOffers.Select(o=>new{side=o.Side,icon=o.Icon,name=o.Name,bless=o.Bless}),canAccept=TradeState=="invited"&&TradePeerPresent,canReject=TradeState=="invited",canAdd=TradeCanAdd,canConfirm=TradeCanConfirm,canCancel=TradeCanCancel,ownConfirmed=tradeOwnConfirmed};
+    public object TradeSnapshot()=>new{revision=TradeRevision,generation=TradeGeneration,epoch=WorldEpoch,state=TradeState,notice=TradeNotice,peer=TradePeerName,peerId=TradePeerId,challenge=TradeChallenge,offers=TradeOffers.Select(o=>new{side=o.Side,icon=o.Icon,name=o.Name,bless=o.Bless}),canAccept=TradeState=="invited"&&TradePeerPresent&&!TradeAutoReject,canReject=TradeState=="invited",canAdd=TradeCanAdd,canConfirm=TradeCanConfirm,canCancel=TradeCanCancel,ownConfirmed=tradeOwnConfirmed};
 }
 public sealed partial class LoginConnection {
     bool tradeSending;int tradeSendLease;
@@ -86,7 +89,7 @@ public sealed partial class LoginConnection {
         World.CheckTrade();if(!cancelling&&revision!=World.TradeRevision||tradeSending&&!cancelling||sendMovementGate==null)return false;
         bool Eligible()=>(cancelling||!World.ActionLocked)&&(command switch{
             "invite"=>CanInviteTrade||tradeSending&&!World.TradeBlocksActions&&!MovementBusy&&World.FacingTradeTarget!=null,
-            "accept"=>World.TradeState=="invited"&&World.TradePeerPresent&&!World.OwnDead&&World.Status?.Hp>0,
+            "accept"=>World.TradeState=="invited"&&!World.TradeAutoReject&&World.TradePeerPresent&&!World.OwnDead&&World.Status?.Hp>0,
             "reject"=>World.TradeState=="invited",
             "cancel"=>World.TradeCanCancel,
             "confirm"=>World.TradeCanConfirm,
@@ -101,5 +104,30 @@ public sealed partial class LoginConnection {
     }
     // M7-K: Y/N on the chat input line for S219/252 goes through Trade's own admission and C121 (same bytes as YesNoProtocol.Answer).
     internal Task<bool> TradeYesNo(bool accept)=>Trade(accept?"accept":"reject",World.TradeRevision,World.WorldEpoch,World.TradeGeneration);
-    async Task CancelChangedTrade(){if(World.TradeCancelRequired)await Trade("cancel",World.TradeRevision,World.WorldEpoch,World.TradeGeneration);}
+    // Also runs the flag-0 automatic reject (R6-E): same single C121 as the manual "reject", sent once from the receive loop.
+    internal async Task CancelChangedTrade(){if(World.TradeCancelRequired)await Trade(World.TradeAutoReject?"reject":"cancel",World.TradeRevision,World.WorldEpoch,World.TradeGeneration);}
+
+    public string TradeAskNotice {get;private set;}="";
+    /// <summary>
+    /// R6-E（FU7§1.1）：`/accepttrade` 與 HTML 動作 accepttrade：交易詢問旗標取反，不送包（原版只改本機旗標）。
+    /// 本引擎接著把新值跟 C244 角色設定一起存（位元 0x40）；舊版設定格式不覆寫，只在本場有效。
+    /// </summary>
+    public async Task<bool> ToggleAcceptTrade(PlayerHudStamp stamp){
+        if(!PlayerHudActions.Current(this,stamp))return false;
+        bool next=!World.TradeAskWindow;World.TradeAskWindow=next;
+        string done="交易詢問："+(next?ChatChannelCommands.OnText+"（收到交易邀請時詢問）":ChatChannelCommands.OffText+"（收到交易邀請時自動拒絕）");
+        TradeAskNotice=done;
+        var latest=World.LatestCharacterConfig;
+        if(latest is {Editable:false}){TradeAskNotice=done+"；舊版角色設定格式未支援，本次不保存";return true;}
+        var config=(latest??CharacterConfig.FromSlots(new PlayerHudBinding?[CharacterConfig.SlotCount])).WithChannels(World.ChatChannels);
+        bool saved=await SaveCharacterConfig(stamp,config);
+        if(PlayerHudActions.Current(this,stamp)){TradeAskNotice=saved?done+"；已保存到角色設定":done+"；角色設定未保存，下次登入可能還原";Set(State,TradeAskNotice);}
+        return true;
+    }
+}
+
+/// <summary>R6-E（FU7§1.1、§1.4）：`/accepttrade` 只註冊英文名（sub_F56320 沒有字串表名），沒有參數。英文比對不分大小寫（推測，同其他英文指令）。</summary>
+public static class TradeAskCommand {
+    public const string Name="accepttrade";
+    public static bool Is(string input)=>input.Length>1&&input[0]=='/'&&string.Equals(input[1..].TrimEnd(),Name,StringComparison.OrdinalIgnoreCase);
 }
