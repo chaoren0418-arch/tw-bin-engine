@@ -40,8 +40,9 @@
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：`status: pass`。
 - 依本機規定**沒有在本機執行** DemoChecks 與產品；離線測試結果以 PR 的 CI（`native-ui-canvas` 群組）為準。
 
+- CI（PR #755，run 42726162252／42726162261）：`dotnet`、`map-continuity`、`npc-offline` 全綠；`native-ui-canvas` 步驟（含本組新檢查與更新後的 CanvasChecks）`PASS 473 DEMO checks`。
+
 ## 未驗證什麼（待驗證）
-- 離線測試實際執行結果：等 CI。
 - 真機：預設開啟原生 UI 的正常啟動、`--classic-ui` 回舊 HUD、launcher 搭設定檔 `{"nativeUi":false}`——依使用者裁定由 dot 在 #475 smoke 執行（Codex 額度 11/13 18:11 後）。
 
 ## 產出路徑
