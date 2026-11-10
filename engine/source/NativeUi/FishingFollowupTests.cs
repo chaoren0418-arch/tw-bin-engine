@@ -77,7 +77,7 @@ static class FishingFollowupTests {
         t.Check(o.TitleString==FishObtainPanel.TitleStringId&&o.TitleAt==new Point(30,20),"Total_Label String 3674 at (30,20)");
         t.Equal(new Rectangle(18,37,194,250),o.ListArea,"list area position kept");
         // R10-A（#888）：清單與捲軸照原版接上；這份合成版面的那一列沒有子節點 → 只有那一列記為不建。
-        t.Check(o.Rows.Count==0&&o.ScrollBack?.Surf==904&&o.Skipped.Count==1&&o.Skipped[0].Contains("Item0_Button"),"list built from XML, scrollbar kept (R10-A)",o.Skipped);
+        t.Check(o.Rows.Count==0&&o.ScrollBack?.Surf==904&&o.Skipped.Count==1&&o.Skipped[0].Contains("CheckButton[0]"),"list built from XML, scrollbar kept (R10-A)",o.Skipped);
         t.Check(o.Missing.Count==0,"no missing surf",o.Missing);
         if(ServerMessageText.Table is not {} table||FishObtainPanel.TitleStringId>=table.Count)
             t.Check(o.Title==null,"string 3674 not in the table → no title (no substitute)");
