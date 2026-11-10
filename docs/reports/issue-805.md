@@ -62,6 +62,14 @@
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：`pass`，0 錯誤。
 - XML 核對：讀既有的 kor25 解密檔（task-629 worktree 的 scratch，只讀），SHA-256 `3869aeac…284d1e6d` 與 PAK§4 相符。Bid_Window／AuctionInfo_Window 的元素與屬性照這份實作。資源缺漏沿用 #761 的 PakViewer 全 pak 核對：Bid_Window 的 6239／6247／6248 本機沒有、kor25 有；6125／6126／6240／6241／6244–6246 本機在 `LiTo\LTsurf.pak`；png 2972–2974 本機沒有、kor25 有。本任務沒有新增任何「缺資源」的宣稱。
 - 依 2026-11-09 本機執行限制，**本機沒有執行任何編出來的程式或測試**；`ring-agit-followup` 與既有各組交給 PR 的 GitHub Actions CI。
+- **CI（PR #829）**：
+  - 第 1 輪：`ring-agit-followup` 例外失敗，原因是上面說的 agsel 解析既有 bug。
+  - 第 2 輪：剩 1 項失敗。缺底圖時，沒有大小的按鈕被併進視窗大小，已修。
+  - 第 3 輪（commit `fa2ee8a4`）`dotnet`、`map-continuity`、`npc-offline` **全綠**：
+    - module-tests 共 0 失敗；
+    - `ring-agit-followup` 97 項通過；
+    - `agit-auction-ui` 107 項通過，既有測試沒改；
+    - `ring-windows-teleport` 19 項通過。
 - `rebuild-lock.json` 沒有改動；沒有改 `WorldSession.cs`、`UiPanelRegistry.cs`、`Program.cs`、`DemoChecks.csproj`。
 
 ## 未驗證什麼（待驗證／推測）
