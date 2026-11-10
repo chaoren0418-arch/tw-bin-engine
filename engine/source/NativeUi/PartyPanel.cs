@@ -76,9 +76,28 @@ public sealed class PartyPanel:IUiPanel {
 
     public bool Mouse(UiMouseEvent e,IUiCommands commands){
         if(party==null||e.Button!=MouseButtons.Left)return false;
+        // R10-D（T388／#903）：不是在本窗按下的左鍵放開＝從場景拖人進來（UiInput 只把沒被別的面板捕捉的放開交給命中的面板）。
+        if(e.Kind==UiMouseKind.Up&&!ownPress&&WorldObjectDrag.Take() is uint){DropInvite(commands);return true;}
+        if(e.Kind==UiMouseKind.Down)WorldObjectDrag.Clear();
+        bool handled=MouseCore(e,commands);
+        if(e.Kind==UiMouseKind.Down)ownPress=handled;else if(e.Kind==UiMouseKind.Up)ownPress=false;
+        return handled;
+    }
+    bool ownPress;
+    bool MouseCore(UiMouseEvent e,IUiCommands commands){
         if(e.Kind==UiMouseKind.Down)foreach(var t in tabs)if(!t.Rect.IsEmpty&&t.Rect.Contains(e.Location)){SetPage((Page)t.Tag);return true;}
         if(Current!=Page.Party)return e.Kind==UiMouseKind.Down&&Bounds.Contains(e.Location);
-        return act.Mouse(e,party,buttons,Cell,commands);
+        return act.Mouse(e,party!,buttons,Cell,commands);
+    }
+
+    /// <summary>
+    /// R10-D（T388／#903，FU9§9.1）：拖人到隊伍窗（原版 sub_ED8AC0 收到 517 → type 0／1）。只在隊伍分頁、隊伍快照可操作且可邀請時，
+    /// 走既有 PartyAction("invite")（ClientForm.PartyAction → SendParty：對象＝拖曳開始時選中的玩家 World.TargetId，type 0）。
+    /// 對象是否為玩家、是不是自己、隊長資格等由 SendParty 再擋一次，伺服器回 416／417 等。回傳是否交出邀請。
+    /// </summary>
+    public bool DropInvite(IUiCommands commands){
+        if(Current!=Page.Party||party is not {Available:true,CanInvite:true} shown||PartyStates.CommandsOf(commands) is not {} cmd)return false;
+        cmd.PartyAction("invite",shown,"");return true;
     }
 
     /// <summary>
