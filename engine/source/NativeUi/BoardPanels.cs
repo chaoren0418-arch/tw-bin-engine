@@ -14,6 +14,7 @@ namespace P06.NativeUi;
 //               which is 0 at 800×600 (ui-layout.md V5), so all three windows sit at screen (0,0) (issue-739 report).
 //   Verified (R7-F, #808) — read-window 678 is bound to sub_A59AB0(read window) in sub_7CBA70 (VA 0x7CBDB2–0x7CBDDC):
 //               it hides the read window only; the list window stays up. No packet.
+//   Verified (R9-N, #858) — read-window 672 = previous article, 676 = next article (followups-9 §3.2, BoardNavigation).
 
 public enum BoardButtonRole { Close, Read, Write, Delete, Previous, Next, BackToList, ArticlePrevious, ArticleNext }
 
@@ -32,8 +33,8 @@ public static class BoardWindowLayout {
     ];
     /// <summary>BoardReadWindow buttons, WIN§2 T130 (verified surf + offset).</summary>
     public static readonly BoardButton[] Read=[
-        new(672,56,312,BoardButtonRole.ArticlePrevious), // image: flourish pointing left (meaning unverified → no action)
-        new(676,110,312,BoardButtonRole.ArticleNext),    // image: flourish pointing right (meaning unverified → no action)
+        new(672,56,312,BoardButtonRole.ArticlePrevious), // previous article (R9-N, followups-9 §3.2 sub_7CDEE0, verified)
+        new(676,110,312,BoardButtonRole.ArticleNext),    // next article (R9-N, followups-9 §3.2 sub_7CD470, verified)
         new(678,213,297,BoardButtonRole.Close),          // image: "X"; sub_A59AB0(read window): closes the read window only
         new(674,90,299,BoardButtonRole.BackToList),      // image: upward arrow (inferred: back to the list)
     ];
@@ -49,7 +50,10 @@ public static class BoardWindowLayout {
 public interface IBoardPanelHost {
     /// <summary>Current board snapshot, or null when no board window is open.</summary>
     BoardView? Board { get; }
-    /// <summary>Same actions as the existing board window: "close", "read", "write", "delete", "previous", "next".</summary>
+    /// <summary>
+    /// Same actions as the existing board window: "close", "read", "write", "delete", "previous", "next"; R9-N adds the
+    /// read window's "article-previous" / "article-next" (672 / 676, BoardNavigation).
+    /// </summary>
     void Press(string command);
 }
 
@@ -132,7 +136,20 @@ public abstract class BoardButtonWindow:IUiClosablePanel {
             case BoardButtonRole.Previous:Set.Host.Press("previous");break;
             case BoardButtonRole.Next:Set.Host.Press("next");break;
             case BoardButtonRole.BackToList:Set.ShowList();break;
-            // ArticlePrevious / ArticleNext: meaning unverified (WIN§2 lists only surf + offset) → no action.
+            case BoardButtonRole.ArticlePrevious:Navigate(false);break;
+            case BoardButtonRole.ArticleNext:Navigate(true);break;
+        }
+    }
+    /// <summary>
+    /// R9-N (#858, followups-9 §3.2): 672 / 676. Closing the read window is local (same as 678); reading the neighbour row
+    /// or loading the next page goes to the host ("article-previous" / "article-next"), which re-checks with its own
+    /// snapshot and busy state. Busy (no CanAct) → nothing.
+    /// </summary>
+    void Navigate(bool next){
+        var (step,_)=BoardNavigation.Article(Set.Host.Board,next);
+        switch(step){
+            case BoardArticleStep.CloseRead:Set.ShowList();break;
+            case BoardArticleStep.Read or BoardArticleStep.NextPage:Set.Host.Press(next?"article-next":"article-previous");break;
         }
     }
 }

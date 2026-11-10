@@ -6,6 +6,30 @@ public sealed record BoardPage(uint ObjectId,ushort Fee,BoardRow[] Rows);
 public sealed record BoardView(int Generation,int Epoch,int TargetRevision,int Revision,int OpenRevision,uint ObjectId,
     string Kind,string Notice,BoardRow[] Rows,BoardArticle? Article,ushort Fee,bool CanAct,bool CanPrevious,bool CanNext);
 
+/// <summary>R9-N: what the read window's 672 / 676 does for the current snapshot.</summary>
+public enum BoardArticleStep { None, Read, NextPage, CloseRead }
+
+/// <summary>
+/// R9-N (#858, followups-9 §3.2, verified): read-window 672 / 676.
+///   672 = previous article (sub_7CDEE0 → sub_7CD910 → sub_7CDBD0): busy → nothing; index ≤ 0 → close the read window;
+///         otherwise index − 1 and send C_BoardRead (TW16 op 93 `cdd`(board, topic); 3.81 opcode 114).
+///   676 = next article (sub_7CD470 → sub_7CD850 → sub_7CDA70): the next row is loaded → C_BoardRead; otherwise when there
+///         is a next page (this[7] ≠ 0, inferred server cursor) C_BoardBack (TW16 op 6 `cdd`(board, cursor); 3.81 opcode 23)
+///         loads it first; neither → close the read window.
+/// "Index" is the article's row in the current page (rows are newest first, as the server sends them).
+/// </summary>
+public static class BoardNavigation {
+    public static (BoardArticleStep Step,uint Topic) Article(BoardView? v,bool next){
+        if(v is not {CanAct:true,Kind:"article",Article:{} a})return (BoardArticleStep.None,0u);
+        int i=Array.FindIndex(v.Rows,r=>r.Id==a.Id);
+        // An article that is not on the current page has no index: there is nothing to step to.
+        if(i<0)return (BoardArticleStep.CloseRead,0u);
+        if(!next)return i==0?(BoardArticleStep.CloseRead,0u):(BoardArticleStep.Read,v.Rows[i-1].Id);
+        if(i+1<v.Rows.Length)return (BoardArticleStep.Read,v.Rows[i+1].Id);
+        return v.CanNext?(BoardArticleStep.NextPage,0u):(BoardArticleStep.CloseRead,0u);
+    }
+}
+
 public static class BoardPackets {
     static void Identity(uint id){if(id is 0 or >int.MaxValue)throw new ArgumentException("board identity");}
     public static byte[] List(uint board){Identity(board);return LoginPackets.Pad([10,..BitConverter.GetBytes(board)]);}

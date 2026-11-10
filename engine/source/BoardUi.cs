@@ -55,6 +55,21 @@ public sealed class BoardUi:Form {
             case "delete" when delete.Enabled:await ConfirmDelete();break;
             case "previous" when previous.Enabled:await Run("previous");break;
             case "next" when next.Enabled:await Run("next");break;
+            case "article-previous":await Navigate(false);break;
+            case "article-next":await Navigate(true);break;
+        }
+    }
+    /// <summary>
+    /// R9-N (#858): read-window 672 / 676 (BoardNavigation, followups-9 §3.2). Busy → nothing. The neighbour row becomes the
+    /// selection and is read with the same read action; past the last row the next page is loaded first (C_BoardBack).
+    /// Closing the read window is local to the native panels (BoardPanelSet.ShowList), so nothing is sent here.
+    /// </summary>
+    async Task Navigate(bool forward){
+        if(busy)return;
+        var (step,topic)=BoardNavigation.Article(displayed,forward);
+        switch(step){
+            case BoardArticleStep.Read when read.Enabled:SelectRow(topic);await Run("read",topic);break;
+            case BoardArticleStep.NextPage when next.Enabled:await Run("next");break;
         }
     }
     /// <summary>R5-G: row selected in this window (the native list draws and changes the same selection).</summary>
@@ -83,8 +98,8 @@ public sealed class BoardUi:Form {
     internal void ChatNotice(string text,int color){if(!IsDisposed)connection.World.AddBoardChatNotice(text,color);}
     /// <summary>R5-G: write is possible now (same rule as this window's write button).</summary>
     internal bool CanWrite{get{if(IsDisposed)return false;Sync();return !IsDisposed&&write.Enabled;}}
-    async Task Run(string command){
-        if(busy)return;var stamp=displayed;uint topic=command=="delete"?stamp.Article?.Id??0:(rows.SelectedItem as RowItem)?.Row.Id??0;
+    async Task Run(string command,uint? explicitTopic=null){
+        if(busy)return;var stamp=displayed;uint topic=explicitTopic??(command=="delete"?stamp.Article?.Id??0:(rows.SelectedItem as RowItem)?.Row.Id??0);
         validationNotice="";busy=true;Sync();if(IsDisposed)return;
         bool sent=await connection.SendBoard(command,stamp,topic,title.Text,content.Text);busy=false;
         if(IsDisposed)return;Sync();if(!sent){validationNotice="未送出：操作已失效，或文字不符合長度／Big5 編碼規則。";Sync();}
