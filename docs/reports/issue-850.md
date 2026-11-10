@@ -24,7 +24,7 @@
 
 - **已驗證（本機）**：`dotnet build engine/source/OfflineClient.csproj -c Release` 編譯通過，0 個錯誤（3 個警告都是原本就有的：MagicUi.cs、HtmlActionTests.cs）。worktree 沒有 `engine/vendor`，所以 restore 改用 scratch 裡一份 NuGet 設定，指向原專案的 `engine/vendor`（只讀）。
 - **已驗證（本機）**：`python engine/tools/check-no-game-assets.py` → `pass`，errors 0。
-- **待 CI**：依本機規定不在本機執行編譯出來的程式，`--module-tests`（含新群組 `hypertext-layout` 和既有的 `hypertext-panel`、`hypertext-followup`、`html-action`、`npc-page`）交給 GitHub Actions；結果看 PR 的 CI。
+- **已驗證（CI，PR #882，run 42895000785）**：本機規定不執行編譯出來的程式，所以 `--module-tests` 交給 GitHub Actions 跑。`dotnet`、`map-continuity`、`npc-offline` 三個 job 都通過；新群組 `hypertext-layout` 102 項檢查全部通過；既有的 `hypertext-panel`、`hypertext-followup` 等群組沒有失敗。
 - 測試內容：①5 份自寫 HTML 的純文字、選項數和 `NpcTemplates.Render` 完全一致；②顏色解析與兩種位元組順序；③樣式堆疊；④選項編號、SurfList 換號、pN；⑤var 的 `^`、textwidth、var img；⑥排版：行內連結跨列、逐字換行、段落與 `<br>`、置中／靠右、圖的列高、缺圖時的處理；⑦`$N` 展開後的對照、登記表上限；⑧面板 Rich 列：點字連結、點圖連結、停用的連結不能點、圖與底色畫在算好的位置；⑨對不上（選項數、id、文字）時退回舊排法；⑩高列捲動時的裁切與點擊；⑪`WorldSession` 登記文件。
 - 測試用的 HTML 全部自己寫（格式模仿 `templates.json`），沒有複製遊戲文字或資源。為了決定支援範圍，有唯讀統計 `releases/r29/assets/dialogs/templates.json`（8,896 頁）的標籤用量：`<font fg>` 15,613 個（最常見 `ffffff`、`ffffaf`、`98FB98`）、`<p align>` 8,294 個、`<img>` 3,437 個（`#312 action=buy` 161 個）、`<var>` 4,795 個（`<var img>` 約 695 個）、`bg`／`face`／`size` 14 個、沒有 `textwidth`／`lgap`／`agap`／`pN`。腳本放在 `scratch/survey*.py`，不進 git。
 
