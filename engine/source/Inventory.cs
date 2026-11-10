@@ -85,6 +85,9 @@ public sealed partial class WorldSession {
             if(plain.Length<6||plain[1]!=0||BitConverter.ToUInt32(plain,2)!=0)return false;
             r.C();r.D();string directText=r.S();r.Finish();if(directText.Length==0)return true;
             if(SystemAnnouncements.TryClassify(directText,out string directAnnouncement)){LastAnnouncement=directAnnouncement;return true;}
+            // R9-C（#847，FU9§4.1 第 4 點）：id 0 也走 sub_94AF00 的一般那條：`$` 展開、換第一個 `^`／`!`、去掉開頭 `\fX`（PlayerChatProtocol.CodeText）。
+            // 公告分類（上一行）仍比對原字串。type 2＋id 0（S_SystemMessage(String,boolean)）3.81 沒有呼叫點，照舊不收。
+            directText=PlayerChatProtocol.CodeText(PlayerChatProtocol.ExpandDesc(directText));
             LastServerReply=null;LastServerMessage=directText;PrivateShopMessage();statusOnly=ServerStatusMessages.IsInformational(directText);break;
         case 243:
             if(plain.Length<2||plain[1]!=9)return false;r.C();string systemText=r.S();r.Finish();
