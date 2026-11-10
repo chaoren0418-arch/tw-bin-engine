@@ -17,7 +17,7 @@
 ## 怎麼驗證
 - 已驗證：`dotnet build engine/source/OfflineClient.csproj -c Release` 0 錯誤（本機用 scratch 的 NuGet.Config 指向主專案 `engine/vendor`，避開已知的 WebView2 NETSDK1130 本機還原問題，同 #675／#676）。
 - 已驗證：`engine/tools/check-no-game-assets.py` → pass。
-- 待驗證（CI）：依本機規定不在本機執行測試；既有單元測試與本組 `pickup-ghost-followup` 交給 PR 的 GitHub Actions。
+- 已驗證（CI，PR #799 run 42785457435／42785457515）：`dotnet`、`map-continuity`、`npc-offline` 全部 pass；World module tests 全體 failed 0，`pickup-ghost-followup` pass（27 項檢查）。本機依規定沒有執行測試。
 
 ## 未驗證什麼
 - 真機：F4 實際拾取、轉向動畫、幽靈中按 F5–F12 的畫面提示（交給 Codex／dot 在 P24Lab）。
