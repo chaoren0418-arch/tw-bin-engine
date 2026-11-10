@@ -77,6 +77,7 @@ BIN：`P01-分析基準/input/TW1608262200.bin`，SHA-256 `e12949cf…41a2`，�
 - `DemoChecks.csproj` 在本機單獨建置時找不到產品組件（`P06` 命名空間），這是本機建置環境的問題，與本次修改無關。改由 CI 編譯與執行。
 - `engine/tools/check-no-game-assets.py`：pass（4250 個追蹤檔，0 錯誤）。
 - 單元測試（既有測試＋本組 4 組）依規定**不在本機執行**，交給 PR 的 CI。
+- PR #830 的 CI 全綠：`dotnet`、`map-continuity`、`npc-offline`（run 42822549341／42822549396）。
 
 ## 未驗證／推測
 
