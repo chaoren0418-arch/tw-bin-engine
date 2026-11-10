@@ -627,14 +627,14 @@ namespace P06.NativeUi {
             else if(baseSurface!=null)windowSize=new(baseSurface.Width,baseSurface.Height);
             else{
                 var union=Rectangle.Empty;
-                foreach(var p in pieces)if(!p.Local.IsEmpty)union=union.IsEmpty?p.Local:Rectangle.Union(union,p.Local);
+                foreach(var p in pieces)if(p.Local.Width>0&&p.Local.Height>0)union=union.IsEmpty?p.Local:Rectangle.Union(union,p.Local);
                 windowSize=union.IsEmpty?Size.Empty:new(union.Right,union.Bottom);
             }
             return new(){Name=windowName,Origin=origin,Size=windowSize,MoveableHeight=w.TryInt("Moveable")??0,Base=baseSurface,Frame=frameSurface,Pieces=pieces,Missing=missing,Skipped=skipped};
         }
 
         public AgitSubPiece? ButtonAt(Point location){
-            for(int i=Pieces.Count-1;i>=0;i--){var p=Pieces[i];if(p.Kind==AgitSubPieceKind.Button&&!p.Local.IsEmpty&&At(p).Contains(location))return p;}
+            for(int i=Pieces.Count-1;i>=0;i--){var p=Pieces[i];if(p.Kind==AgitSubPieceKind.Button&&p.Local.Width>0&&p.Local.Height>0&&At(p).Contains(location))return p;}
             return null;
         }
 
