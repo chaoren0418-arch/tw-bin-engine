@@ -137,6 +137,8 @@ public sealed partial class LoginConnection {
         if(interactionSending||MovementBusy||sendMovementGate==null||World.ActionLocked||World.TradeBlocksActions)return false;
         // R2-F：exitghost 由客戶端自己處理（R2-D 的 TryHyperAction 送 C173），不送 C125；送出後照其他動作關頁。
         if(World.QueryActionValue(option,revision) is {} trade&&WorldSession.IsAcceptTradeAction(trade))return await ToggleAcceptTrade(PlayerHudActions.Stamp(this));
+        // R7-D（#806）：surrender／cease／pledgefocusadd 等頁上的客戶端動作（血盟說明頁 optionplp 是伺服器主動頁）；頁不關。
+        if(World.QueryActionValue(option,revision) is {} html&&HtmlClientAction(html,query:true) is {} htmlTask)return await htmlTask;
         if(World.QueryActionValue(option,revision) is {} hyper&&TryHyperAction(hyper,out var ghost)){
             bool ok=await ghost;if(ok)World.QueryActionSent(revision);return ok;
         }
@@ -156,6 +158,7 @@ public sealed partial class LoginConnection {
         var selected=World.InteractionPage?.Options.FirstOrDefault(o=>o.Id==option&&o.Enabled&&o.Kind=="action");if(selected==null)return null;
         string action=selected.Value.Trim();
         if(WorldSession.IsAcceptTradeAction(action))return ToggleAcceptTrade(PlayerHudActions.Stamp(this));
+        if(HtmlClientAction(action,query:false) is {} html)return html;
         if(TryHyperAction(action,out var ghost))return ghost;
         ushort gfx=World.InteractionNpcGfx??0;
         if(!SpellExchangeProtocol.ActionAllowed(action,gfx))return Task.FromResult(false);
@@ -182,5 +185,121 @@ public sealed partial class LoginConnection {
         try{bool sent=await sender(packet,Valid,()=>{if(command=="talk")World.BeginTalk();else if(service!="")World.AwaitNpcService(service,choices);else World.AwaitInteraction(shop);Set(State,World.InteractionNotice);});return sent&&session==generation;}
         catch(Exception){if(session==generation){Cancel();Set(LoginState.Faulted,"互動傳送失敗，已斷線；不會重送。");}return false;}
         finally{if(session==generation)interactionSending=false;}
+    }
+}
+
+// ---- R7-D（T343／#806）：客戶端自己處理的 HTML 動作（HyperAct 工廠 sub_BB5180 註冊的名稱；伺服器不認這些字串，不送 C125）----
+// 依據 FU6§1.1、§3.2、§4.1（docs/reference/followups-6.md），已驗證：
+//   declarewar（HyperActDeclareWar，sub_582280）：取 HTML 參數 1（城門守衛頁的 #1＝城盟名），sub_F46290(名稱, 25)；等級不足印 475。→ C227 type 0
+//   surrender（HyperActSurrender，sub_584E50）／cease（HyperActCease，sub_581D40）：職業碼 ≠ 0 什麼都不做；階級不是 4／10 印 785；
+//     否則開輸入框 578／579，名稱非空才送 C227 type 2／3（sub_504030／sub_4FE550）。
+//   pledgefocusadd（HyperActPledgeFoucsAdd，sub_583860）：與血盟窗「新增」相同，輸入框 3361 → 名稱非空才送 C129 子碼 0。
+//   propose（HyperActPropose，sub_5838F0）／divorce（HyperActDivorce，sub_582730）：只送 C50 `cc` 0／1，不開窗、不檢查。
+// 推測／引擎自訂（標明）：原版的輸入框是共用 InputWindow（sub_AC98E0），本引擎把它畫在同一個 HYPER_TEXT_WINDOW 頁內
+//   （NativeUi/HyperTextPanel.cs 的名稱框；WinForms 備援是頁下方的文字框）；送出後頁面維持不關（原版關窗時機沒查）。
+//   動作名稱大小寫比照 checkpk／accepttrade 不分大小寫（原版比對方式沒查）。
+public enum HtmlNameKind { Surrender, Cease, PledgeFocusAdd }
+/// <summary>頁內血盟名輸入框。Query＝開在伺服器主動頁（否則是 NPC 頁）；PageRevision＝開框時的頁版本，頁換掉就失效。</summary>
+public sealed record HtmlNamePrompt(long Revision,HtmlNameKind Kind,bool Query,int PageRevision,int Epoch,int PromptId,string Prompt);
+public static class HtmlActions {
+    public const string DeclareWar="declarewar",Surrender="surrender",Cease="cease",PledgeFocusAdd="pledgefocusadd",Propose="propose",Divorce="divorce";
+    public static readonly IReadOnlyList<string> Names=[DeclareWar,Surrender,Cease,PledgeFocusAdd,Propose,Divorce];
+    /// <summary>本組處理的動作名稱（正規化成小寫）；不是本組的回 null（照舊交給其他分派或送 C125）。</summary>
+    public static string? Normalize(string? action){string a=action?.Trim()??"";return Names.FirstOrDefault(n=>string.Equals(n,a,StringComparison.OrdinalIgnoreCase));}
+    /// <summary>declarewar 取 HTML 參數 1（r29 城門守衛頁「向 &lt;var src="#1"&gt; 血盟宣戰」）。</summary>
+    public const int DeclareWarArgument=1;
+    /// <summary>輸入框提示：578 投降、579 停戰、3361 關注血盟。</summary>
+    public static int PromptText(HtmlNameKind kind)=>kind switch{HtmlNameKind.Surrender=>ClanWarProtocol.SurrenderInputText,HtmlNameKind.Cease=>ClanWarProtocol.CeaseInputText,_=>ClanProtocol.AttentionInputText};
+    /// <summary>declarewar 的本機檢查：門檻 25、等級不足印 475（其他同 sub_F46290）。</summary>
+    public static ClanWarProtocol.Decision CheckDeclare(ClanWarProtocol.Self self,string name)=>ClanWarProtocol.CheckDeclare(self,name,ClanWarProtocol.SiegeLevel,ClanWarProtocol.SiegeLevelMessage);
+    /// <summary>名稱框最多 16 個 Big5 位元組（C129 的緩衝 0x11＝16 字＋NUL；C227 用同一個框，推測）。</summary>
+    public const int NameBytes=ClanProtocol.AttentionNameBytes;
+}
+
+public sealed partial class WorldSession {
+    HtmlNamePrompt? htmlNamePrompt;long htmlNamePromptRevision;
+    /// <summary>declarewar 用的頁參數（NPC 頁＝S39 的參數；伺服器主動頁＝那一頁的參數）。</summary>
+    internal string[] HtmlActionArguments(bool query)=>query?queryArguments:dialogArguments;
+    bool HtmlNamePageLive(HtmlNamePrompt p)=>p.Epoch==WorldEpoch&&(p.Query
+        ?QueryVisible&&QueryActionable&&p.PageRevision==QueryRevision
+        :InteractionValid&&InteractionKind=="dialog"&&InteractionPage!=null&&p.PageRevision==InteractionRevision);
+    /// <summary>目前開著的頁內名稱框；頁被換掉、關掉或世界改變就自動失效（null）。</summary>
+    public HtmlNamePrompt? HtmlNameInput{get{if(htmlNamePrompt is {} p&&!HtmlNamePageLive(p))htmlNamePrompt=null;return htmlNamePrompt;}}
+    /// <summary>開名稱框：頁版本 +1（WinForms 備援據此重畫；舊頁的點擊因此失效）。同一頁再開會取代前一個框。</summary>
+    internal HtmlNamePrompt OpenHtmlNamePrompt(HtmlNameKind kind,bool query){
+        if(query)QueryRevision++;else InteractionRevision++;
+        int id=HtmlActions.PromptText(kind);
+        return htmlNamePrompt=new(++htmlNamePromptRevision,kind,query,query?QueryRevision:InteractionRevision,WorldEpoch,id,NativeUi.PledgePanel.PromptText(id));
+    }
+    /// <summary>關名稱框（確定或取消）。只有版本相符才關；頁版本 +1 讓 WinForms 備援重畫。</summary>
+    internal bool CloseHtmlNamePrompt(long revision){
+        if(HtmlNameInput is not {} p||p.Revision!=revision)return false;
+        htmlNamePrompt=null;
+        if(p.Query)QueryRevision++;else InteractionRevision++;
+        return true;
+    }
+}
+
+public sealed partial class LoginConnection {
+    /// <summary>
+    /// R7-D：本組的 HTML 動作。回 null＝不是本組的動作（照舊走其他分派或 C125）；否則回「有沒有送出或開框」。
+    /// query＝動作來自伺服器主動頁（QueryOption），否則來自 NPC 頁（ClientHyperAction）。
+    /// </summary>
+    internal Task<bool>? HtmlClientAction(string action,bool query){
+        if(HtmlActions.Normalize(action) is not {} name)return null;
+        var self=World.ClanWarSelf(SelectedCharacterClass);
+        switch(name){
+        case HtmlActions.DeclareWar:{
+            var args=World.HtmlActionArguments(query);
+            string clan=args.Length>HtmlActions.DeclareWarArgument?args[HtmlActions.DeclareWarArgument].Trim():"";
+            var d=HtmlActions.CheckDeclare(self,clan);
+            if(d.Message is ushort id){World.ClanWarLocalMessage(id);Changed?.Invoke();}
+            return d.Send?SendHtmlClanWar(ClanWarCommand.Declare,clan):Task.FromResult(false);}
+        case HtmlActions.Surrender or HtmlActions.Cease:{
+            var (input,message)=ClanWarProtocol.HtmlSurrenderOrCease(self);
+            if(message is ushort id){World.ClanWarLocalMessage(id);Changed?.Invoke();}
+            if(!input)return Task.FromResult(false);
+            World.OpenHtmlNamePrompt(name==HtmlActions.Surrender?HtmlNameKind.Surrender:HtmlNameKind.Cease,query);Changed?.Invoke();
+            return Task.FromResult(true);}
+        case HtmlActions.PledgeFocusAdd:
+            World.OpenHtmlNamePrompt(HtmlNameKind.PledgeFocusAdd,query);Changed?.Invoke();
+            return Task.FromResult(true);
+        default:
+            return SendHtmlMarriage(name==HtmlActions.Divorce);
+        }
+    }
+    /// <summary>名稱框可以送出（血盟操作的共同條件，沒有正在送的血盟／盟戰請求）。</summary>
+    public bool HtmlNameCanSend=>ClanAccess&&clanWarSendingGeneration!=generation&&clanSendingGeneration!=generation&&sendMovementGate!=null;
+    /// <summary>
+    /// 名稱框確定：框先關（原版輸入框按確定就關），名稱非空才送：投降／停戰 C227 type 2／3、關注 C129 子碼 0。
+    /// 版本不符、頁已失效或目前不能送（框保留）時回 false。
+    /// </summary>
+    public async Task<bool> SubmitHtmlName(long revision,string name){
+        if(World.HtmlNameInput is not {} p||p.Revision!=revision||!HtmlNameCanSend)return false;
+        name=name.Trim();World.CloseHtmlNamePrompt(revision);Changed?.Invoke();
+        if(name.Length==0)return false;
+        return p.Kind==HtmlNameKind.PledgeFocusAdd?await AddClanAttention(name)
+            :await SendHtmlClanWar(p.Kind==HtmlNameKind.Surrender?ClanWarCommand.Surrender:ClanWarCommand.Cease,name);
+    }
+    /// <summary>名稱框取消：只關框，不送。</summary>
+    public bool CancelHtmlName(long revision){bool closed=World.CloseHtmlNamePrompt(revision);if(closed)Changed?.Invoke();return closed;}
+    async Task<bool> SendHtmlClanWar(ClanWarCommand command,string name){
+        if(!ClanAccess||clanWarSendingGeneration==generation||sendMovementGate==null)return false;
+        byte[] packet;
+        try{packet=ClanWarProtocol.Encode(command,name);}catch(ArgumentException ex){World.ClanWarNote(ex.Message);Changed?.Invoke();return false;}
+        int session=generation,epoch=World.WorldEpoch;uint? actor=World.Actor?.ObjectId;
+        bool Current()=>ClanAccess&&session==generation&&epoch==World.WorldEpoch&&actor==World.Actor?.ObjectId;
+        return await SendClanWarPacket(packet,Current,()=>World.ClanWarNote(Label(command)+"請求已送出；結果以伺服器回報為準。"),"血盟戰爭請求傳送失敗，已斷線；沒有自動重送。");
+    }
+    /// <summary>HTML propose／divorce：原版只送包（C50 0／1），對象由伺服器判定；送出後的提示與 /propose、/divorce 相同。</summary>
+    async Task<bool> SendHtmlMarriage(bool divorce){
+        if(marriageSending||sendMovementGate==null||!MarriageAccess)return false;
+        int session=generation;var sender=sendMovementGate;marriageSending=true;
+        try{
+            bool sent=await sender(divorce?MarriagePackets.Divorce():MarriagePackets.Propose(),()=>session==generation&&MarriageAccess,()=>World.MarriageCommandSent(divorce));
+            if(session!=generation)return false;Changed?.Invoke();return sent;
+        }
+        catch(Exception){if(session==generation){Cancel();Set(LoginState.Faulted,(divorce?"離婚":"求婚")+"請求傳送失敗，已斷線；沒有自動重送。");}return false;}
+        finally{marriageSending=false;}
     }
 }
