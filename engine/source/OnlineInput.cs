@@ -15,6 +15,22 @@ public sealed partial class ClientForm {
         if(key>=Keys.D1&&key<=Keys.D8){if(fresh&&!World.Walking)_=login.Turn(key-Keys.D1);return;}
         OnlineTick();
     }
+    // R6-D：F4＝Action_Loot（sub_500640，UI§2 V5 (b)）。原生 UI 與舊 HUD 都走這裡；和 P 鍵同一條 LootNearby，
+    // 轉向、整疊、不問數量、不走近、與點擊共用 986／600 ms 節流都在 Ground.cs 的 SendGround。
+    bool PlayerLootKeyActive=>OnlineMode&&login.State==LoginState.InWorld;
+    void LootKeyFromInput(Keys key){
+        if(playerPointer?.Active==true)StopPlayerPointer("鍵盤操作");
+        if(Input.Held.Contains(key))return;   // 自動重複不再觸發；放開（HandleUp）後才算下一次
+        if(login.World.AfflictionInputLocked){RejectKeyboardMovement("異常狀態中，請等待原服解除後再操作。");return;}
+        ClearInput("single-pickup");Input.Down(key);
+        if(!World.Walking)_=LootFromInput();
+    }
+    async Task LootFromInput(){
+        int epoch=login.World.WorldEpoch;bool sent=await login.LootNearby();
+        if(epoch!=login.World.WorldEpoch)return;
+        if(!sent)SetSingleActionNotice(login.World.GroundNotice);
+        SyncPlayerHud();PublishWebState();
+    }
     void SetSingleActionNotice(string notice){
         // ClearInput already cancelled the pointer; do not let that older notice hide this result.
         lastPlayerPointerHudNotice=PlayerPointerNotice;
