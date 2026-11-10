@@ -78,19 +78,45 @@ static class MapEffectFollowupTests {
         w.Receive(S55(123,6985),"offline");
         t.Check(w.PacketEffects.Length==2&&w.PacketEffects[1] is {Direction:3,Follows:true}&&w.PacketEffects[1].Origin==(32600,32940),"self target: own heading; 6985 follows",w.PacketEffects);
 
-        // 對象移動並轉向：不跟隨的留在收包位置、朝向不變；跟隨的每格重讀位置，朝向仍是收包時的。
+        // 對象移動並轉向：不跟隨的留在收包位置、朝向不變；
+        // R9-D（FU9§2.1 第 4 點，推測）：跟隨的段內固定（第 0 段＝收包位置），段間跳到對象目前位置，朝向仍是收包時的。
         Objects(w)[456]=Objects(w)[456] with{X=32610,Y=32950,Direction=1};
         Set(w,"Actor",w.Actor! with{X=32605,Y=32945,Direction=7});
         clock=1100;
         var drawn=new List<(int X,int Y)>();
         var frames=w.PacketEffectFrames(clock,_=>appearance,(_,x,y)=>drawn.Add((x,y)));
         t.Check(frames.Length==2&&frames[0] is {X:32603,Y:32942,Direction:5},"non-following S55 stays at receipt position",frames);
-        t.Check(frames[1] is {X:32605,Y:32945,Direction:3},"following gfx tracks the current position each frame",frames);
-        t.Check(drawn.SequenceEqual([(32603,32942),(32605,32945)]),"drawn at the same positions",drawn);
+        t.Check(frames[1] is {X:32600,Y:32940,Direction:3},"R9-D: following gfx holds the receipt position within segment 0",frames);
+        t.Check(drawn.SequenceEqual([(32603,32942),(32600,32940)]),"drawn at the same positions",drawn);
+        clock=2000;frames=w.PacketEffectFrames(clock,_=>appearance);
+        t.Check(frames.Length==2&&frames[1] is {X:32605,Y:32945,Direction:3},"R9-D: following gfx jumps to the current position at the segment boundary",frames);
+        Set(w,"Actor",w.Actor! with{X=32606,Y=32946});
+        clock=2500;frames=w.PacketEffectFrames(clock,_=>appearance);
+        t.Check(frames.Length==2&&frames[1] is {X:32605,Y:32945},"R9-D: following position fixed within the segment",frames);
 
-        // 對象離開可見世界：照舊結束（PrunePacketMedia 不變）。
+        // R9-D（FU9§2.1 第 3 點，已驗證）：對象離開可見世界，不跟隨的特效不刪，留在 Origin 播完；到自己的結束時間才結束。
         Objects(w).TryRemove(456,out _);
-        t.Check(w.PacketEffects.All(p=>p.Packet.Target!=456),"target gone still retires the effect");
+        t.Check(w.PacketEffects.Any(p=>p.Packet.Target==456),"R9-D: target gone does not retire the non-following effect",w.PacketEffects);
+        frames=w.PacketEffectFrames(clock,_=>appearance);
+        t.Check(frames.SingleOrDefault(v=>v.Gfx==1036) is {X:32603,Y:32942,Direction:5},"R9-D: non-following effect plays out at Origin",frames);
+        clock=3000;
+        t.Check(w.PacketEffects.All(p=>p.Packet.Target!=456),"effect retires at its own end time",w.PacketEffects);
+        t.Check(w.PacketEffectFrames(clock,_=>appearance).Length==0,"both effects end at the deadline");
+
+        // 不帶 time（一輪動畫）：不跟隨的對象消失後仍在原地播完這一輪。
+        long c1=1000;var w1=Seed(()=>c1);
+        w1.Receive(LoginPackets.Pad([55,0xc8,1,0,0,0x0c,4]),"offline"); // target 456, gfx 1036, no time
+        Objects(w1).TryRemove(456,out _);c1=1500;
+        t.Check(w1.PacketEffectFrames(c1,_=>appearance) is [{X:32603,Y:32942}],"R9-D: untimed effect finishes its cycle at Origin");
+        c1=2000;t.Check(w1.PacketEffectFrames(c1,_=>appearance).Length==0&&w1.PacketEffects.Length==0,"untimed effect ends after one cycle");
+
+        // 跟隨組（推測）：對象在段內消失 → 這段在原地播完；換段時找不到對象就不接下一段。
+        long c2=1000;var w2=Seed(()=>c2);
+        w2.Receive(S55(456,8981,3),"offline");
+        Objects(w2).TryRemove(456,out _);c2=1500;
+        t.Check(w2.PacketEffectFrames(c2,_=>appearance) is [{X:32603,Y:32942}],"R9-D: following effect finishes the current segment in place",w2.PacketEffects);
+        c2=2000;
+        t.Check(w2.PacketEffectFrames(c2,_=>appearance).Length==0&&w2.PacketEffects.Length==0,"R9-D: no next segment without the target");
 
         // S106 座標特效：方向 0、位置是封包座標。
         using var s=new MemoryStream();using(var b=new BinaryWriter(s,Encoding.UTF8,true)){b.Write((byte)106);b.Write((ushort)32620);b.Write((ushort)32960);b.Write((ushort)1036);}
