@@ -294,3 +294,4 @@
 - 2026-11-10 — #741 T314：R5-I `QUIT_WINDOW` 備援（code，claude-local，PR #785 已合併）→ [報告](reports/issue-741.md)
 - 2026-11-10 — #746 T316：Q4 補做——血盟關注、盟戰與求婚的入口、代碼聊天名稱、盲目職業加成（code，claude-local，PR 已合併）→ [報告](reports/issue-746.md)
 - 2026-11-10 — #740 T313：R5-H 地圖窗發送座標（code，claude-local，PR #787 已合併）→ [報告](reports/issue-740.md)
+- 2026-11-10 — #768 T330：P-D 原生選項窗（參考客戶端 XML）（code，claude-local，PR #788 已合併）→ [報告](reports/issue-768.md)
