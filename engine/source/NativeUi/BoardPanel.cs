@@ -24,11 +24,15 @@ namespace P06.NativeUi;
 //     按鈕 686 (159,302)＝送出（sub_7CDC70）、678 (213,297)＝關窗、674 (90,299)＝返回（sub_7CDDD0：關掉發文窗）。
 //   清單窗 662「Write」回呼 sub_7CDE00：開發文窗（不是直接送出）。送出 sub_7CDC70：標題空白 → 系統訊息 544「請輸入題目。」，
 //     窗不關；否則送 C_BOARD_WRITE，關發文窗並回到清單。
+//   R7-F（#808）sub_7CDE00（VA 0x7CDE00–0x7CDED1）全文：
+//     [this+0x40]≠0 → 什麼都不做；費用 word [this+0x20]≠0 且 sub_992F80（sub_4F9FF0 單例 +0x54 的道具容器，推定為背包金幣，
+//     回傳 64 位元）＜ 費用 → sub_4EAFF0(189)「金幣不足。」經 sub_7DC850(字, palette[24], palette[14]) 印在聊天列，不開窗；
+//     否則把 [this+0xc]、費用抄進發文窗（[+0x1a]＝0）並 sub_A59AB0 開窗。費用 0 時不看金幣。
 //   UI 原點 dword_154524C／dword_1545250 在 800×600 為 0（ui-layout.md V5）→ 原版三窗都在螢幕 (0,0)。
 //
 // 推定／引擎決定（不是原版資料）：
-//   - 窗的位置：跟 BoardPanels.cs 的按鈕窗共用 Origin（目前 DefaultOrigin (281,60)），讓背景、文字和按鈕對齊。
-//     原版是 (0,0)；改 BoardWindowLayout.DefaultOrigin 一處即可（不在本任務可改檔案內）。
+//   - 窗的位置：跟 BoardPanels.cs 的按鈕窗共用 Origin（R7-F 起 DefaultOrigin＝(0,0)，同原版）。
+//   - 金幣：引擎用背包金幣（ShopTrade.Holding）；背包還沒載入時不擋，交給伺服器。[this+0x40] 的寫入者沒查（不做）。
 //   - 清單窗與閱讀窗的內容畫在 UiLayer.Bar：既有按鈕窗（Window 層）才能疊在背景上，且不多占 4 層視窗堆疊。
 //     兩者合併成同一個面板後應改回 Window 層。發文窗要蓋住清單按鈕，所以在 Window 層。
 //   - 多行內文框的行高 12 px、換行規則（寬 180 px，同 sub_83F260 的 12／6 px 字寬）沒有反組譯 sub_AC3BB0 確認（推定）。
@@ -69,6 +73,12 @@ public sealed record BoardTextItem(string Text,int X,int Y,int Color);
 /// <summary>sub_83F260 的字寬規則與公告板用到的字串表文字。</summary>
 public static class BoardText {
     public const int StringFee=540,StringTitle=541,StringAuthor=542,StringNumber=543,StringNeedTitle=544;
+    /// <summary>R7-F：sub_7CDE00 金幣不足時印的字串 189（「\f1金幣不足。」）。</summary>
+    public const int StringNoGold=189;
+    /// <summary>sub_7CDE00 呼叫 sub_7DC850 的第 1／第 2 色：palette[24]、palette[14]。</summary>
+    public const int NoGoldColor=24,NoGoldSecondColor=14;
+    /// <summary>189 的顯示文字：和伺服器訊息同一張表、同樣去掉 \f 色碼（ServerMessageText；沒有表時用已查證的原文）。</summary>
+    public static string NoGoldText=>ServerMessageText.Decode(StringNoGold,[]).Text;
     static readonly Encoding Cp950=CreateCp950();
     static Encoding CreateCp950(){Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);return Encoding.GetEncoding(950);}
     static readonly Dictionary<int,string> Fallback=new(){
@@ -120,6 +130,10 @@ public interface IBoardContentHost {
     void Submit(string title,string content);
     /// <summary>原版印到系統訊息的提示（例如 544）。</summary>
     void Notice(string text);
+    /// <summary>R7-F：背包金幣；null＝不知道（背包未載入），不擋。</summary>
+    long? Gold=>null;
+    /// <summary>R7-F：sub_7CDE00 經 sub_7DC850 印在聊天列的訊息（189）。預設同 Notice。</summary>
+    void ChatNotice(string text,int color)=>Notice(text);
 }
 
 /// <summary>三個內容面板；位置、模式跟按鈕層 BoardPanelSet 共用。</summary>
@@ -134,12 +148,18 @@ public sealed class BoardContentSet {
     public void LoadSurfaces(SurfCatalog surfs)=>LoadSurfaces(surfs.Get);
     internal void LoadSurfaces(Func<int,UiSurface?> surf){List.Load(surf);Read.Load(surf);Write.Load(surf);}
     internal BoardView? View=>Buttons.Host.Board;
-    /// <summary>原版 662 回呼 sub_7CDE00：開發文窗。只有清單或文章已到時才開。</summary>
+    /// <summary>
+    /// 原版 662 回呼 sub_7CDE00：開發文窗。只有清單或文章已到時才開。
+    /// R7-F：費用不為 0 且金幣不足 → 聊天列印 189，不開窗（費用 0 不看金幣；金幣不明時不擋）。
+    /// </summary>
     public bool OpenWrite(){
         Buttons.Sync();
         if(View is not {Kind:"list" or "article",CanAct:true} v)return false;
+        if(ShortOfGold(v.Fee,Host.Gold)){Host.ChatNotice(BoardText.NoGoldText,BoardText.NoGoldColor);return false;}
         Write.Open(v.Fee);return true;
     }
+    /// <summary>sub_7CDE00 的比較：fee≠0 且 gold＜fee（無號 64 位元）。</summary>
+    public static bool ShortOfGold(ushort fee,long? gold)=>fee!=0&&gold is {} g&&g<fee;
 }
 
 /// <summary>BoardListWindow 的背景與清單列（sub_7CC7C0）。</summary>

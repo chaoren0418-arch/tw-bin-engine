@@ -10,7 +10,10 @@ namespace P06.NativeUi;
 //   Inferred  — window backgrounds (656 / 670), button meaning, write-window surfs (680–687), row/article text positions.
 //               Data only: never painted (gap-matrix §7 rule). Button meaning is used only to route clicks to the existing
 //               board actions, read from the words drawn on the original images (issue-528 report).
-//   Unverified — where the window sits on the 800×600 screen. DefaultOrigin is a placement choice, not original data.
+//   Verified (R7-F, #808) — the window origin: sub_7CC7C0 / sub_7CCB40 paint at the UI origin dword_154524C / dword_1545250,
+//               which is 0 at 800×600 (ui-layout.md V5), so all three windows sit at screen (0,0) (issue-739 report).
+//   Verified (R7-F, #808) — read-window 678 is bound to sub_A59AB0(read window) in sub_7CBA70 (VA 0x7CBDB2–0x7CBDDC):
+//               it hides the read window only; the list window stays up. No packet.
 
 public enum BoardButtonRole { Close, Read, Write, Delete, Previous, Next, BackToList, ArticlePrevious, ArticleNext }
 
@@ -31,15 +34,15 @@ public static class BoardWindowLayout {
     public static readonly BoardButton[] Read=[
         new(672,56,312,BoardButtonRole.ArticlePrevious), // image: flourish pointing left (meaning unverified → no action)
         new(676,110,312,BoardButtonRole.ArticleNext),    // image: flourish pointing right (meaning unverified → no action)
-        new(678,213,297,BoardButtonRole.Close),          // image: "X"
+        new(678,213,297,BoardButtonRole.Close),          // image: "X"; sub_A59AB0(read window): closes the read window only
         new(674,90,299,BoardButtonRole.BackToList),      // image: upward arrow (inferred: back to the list)
     ];
     /// <summary>Inferred only (same colour key and a size that contains every button); not painted.</summary>
     public const int ListBackgroundSurf=656,ReadBackgroundSurf=670;
     /// <summary>Inferred only: "Delete", "Write", "Done", "O.K." images next to the read window; offsets unknown. Not painted.</summary>
     public static readonly int[] WriteWindowSurfs=[680,682,684,686];
-    /// <summary>Unverified placement: a 238×350 box centred above the 130-px bottom bar. Change here once verified.</summary>
-    public static readonly Point DefaultOrigin=new(281,60);
+    /// <summary>R7-F (#808): the original UI origin at 800×600 is (0,0) (ui-layout.md V5, issue-739 report).</summary>
+    public static readonly Point DefaultOrigin=new(0,0);
 }
 
 /// <summary>What a board panel needs from the existing board window (BoardUi). UI modules never touch LoginConnection.</summary>
@@ -71,10 +74,11 @@ public sealed class BoardPanelSet {
     /// <summary>Original "back to list" (inferred) is a local view switch: no packet.</summary>
     internal void ShowList(){listOverArticle=true;Mode=view is {Kind:not "closed"}?"list":"none";}
     public void LoadSurfaces(SurfCatalog surfs){foreach(var p in Panels)p.Load(null!,surfs);}
+    internal void LoadSurfaces(Func<int,UiSurface?> surf){List.Load(surf);Read.Load(surf);}
 }
 
 /// <summary>Shared button window: verified buttons only, at Origin + WIN§2 offset; a missing surf draws and hits nothing.</summary>
-public abstract class BoardButtonWindow:IUiPanel {
+public abstract class BoardButtonWindow:IUiClosablePanel {
     readonly BoardButton[] buttons;readonly UiSurface?[] surfaces;
     protected BoardPanelSet Set{get;}
     int pressed=-1;
@@ -87,8 +91,10 @@ public abstract class BoardButtonWindow:IUiPanel {
     public Rectangle Bounds{get;private set;}
     public bool Visible=>!Bounds.IsEmpty&&Set.Mode==Mode;
     /// <summary>Board windows read no XML (hard-coded in the BIN); layout is ignored and may be null.</summary>
-    public void Load(UiLayout layout,SurfCatalog surfs){
-        for(int i=0;i<buttons.Length;i++)surfaces[i]=surfs.Get(buttons[i].Surf);
+    public void Load(UiLayout layout,SurfCatalog surfs)=>Load(surfs.Get);
+    /// <summary>Same as Load, from any surface source (offline tests use synthetic surfaces).</summary>
+    internal void Load(Func<int,UiSurface?> surf){
+        for(int i=0;i<buttons.Length;i++)surfaces[i]=surf(buttons[i].Surf);
         Bounds=buttons.Select((_,i)=>ButtonRect(i)).Where(r=>!r.IsEmpty).Aggregate(Rectangle.Empty,(a,r)=>a.IsEmpty?r:Rectangle.Union(a,r));
     }
     public Rectangle ButtonRect(int index)=>surfaces[index] is {} s?new(Origin.X+buttons[index].X,Origin.Y+buttons[index].Y,s.Width,s.Height):Rectangle.Empty;
@@ -110,9 +116,16 @@ public abstract class BoardButtonWindow:IUiPanel {
         }
     }
     public bool Key(UiKeyEvent e,IUiCommands commands)=>false;
+    /// <summary>
+    /// IUiClosablePanel (R7-F): the same action as this window's X button (list 658 closes the board, read 678 only the
+    /// read window). Does nothing while the window is not up.
+    /// </summary>
+    public void Close(){Set.Sync();if(Visible)CloseWindow();pressed=-1;}
+    /// <summary>What this window's X button does.</summary>
+    protected abstract void CloseWindow();
     void Activate(BoardButtonRole role){
         switch(role){
-            case BoardButtonRole.Close:Set.Host.Press("close");break;
+            case BoardButtonRole.Close:CloseWindow();break;
             case BoardButtonRole.Read:Set.Host.Press("read");break;
             case BoardButtonRole.Write:Set.Host.Press("write");break;
             case BoardButtonRole.Delete:Set.Host.Press("delete");break;
@@ -127,10 +140,14 @@ public abstract class BoardButtonWindow:IUiPanel {
 public sealed class BoardListWindow(BoardPanelSet set):BoardButtonWindow(set,BoardWindowLayout.List) {
     public override string Id=>"BoardListWindow";
     protected override string Mode=>"list";
+    /// <summary>658 "X": closes the whole board (same as the existing board window's close).</summary>
+    protected override void CloseWindow()=>Set.Host.Press("close");
 }
 public sealed class BoardReadWindow(BoardPanelSet set):BoardButtonWindow(set,BoardWindowLayout.Read) {
     public override string Id=>"BoardReadWindow";
     protected override string Mode=>"read";
+    /// <summary>678 "X" → sub_A59AB0(read window): only the read window goes away, the list stays. Local, no packet.</summary>
+    protected override void CloseWindow()=>Set.ShowList();
 }
 
 /// <summary>
