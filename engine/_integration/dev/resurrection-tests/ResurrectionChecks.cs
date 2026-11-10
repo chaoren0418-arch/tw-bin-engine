@@ -158,13 +158,13 @@ partial class Checks {
         }
     }
     static void ResurrectionPanel(){
-        using var c=RezDead();var sent=new List<byte[]>();RezSender(c,sent);var form=KeyboardForm(c);
-        var panel=new Panel();var notice=new Label();var yes=new Button();var no=new Button();
-        Set(form,"resurrectionPanel",panel);Set(form,"resurrectionNotice",notice);Set(form,"resurrectionYes",yes);Set(form,"resurrectionNo",no);
-        Call(form,"SyncResurrection");Check(!panel.Visible,"panel hidden without prompt");
-        Feed(c,RezPrompt());Call(form,"SyncResurrection");
-        Check(panel.Visible&&yes.Enabled&&no.Enabled&&notice.Text.Contains("復活"),"panel shows prompt with both answers");
-        Feed(c,Resurrection());Call(form,"SyncResurrection");Check(!panel.Visible,"panel closes after S85");
+        // R7-B (T341/#804): the WinForms 321 panel is gone; 321 is answered from the shared input line like 322 (WO §6).
+        using var c=RezDead();var sent=new List<byte[]>();RezSender(c,sent);
+        Check(typeof(ClientForm).GetField("resurrectionPanel",F)==null&&typeof(ClientForm).GetMethod("SyncResurrection",F)==null,"no WinForms resurrection panel");
+        Check(c.YesNoSnapshot().Prompt==null,"shared line empty without prompt");
+        Feed(c,RezPrompt());
+        Check(c.YesNoSnapshot().Prompt is {Message:321,RequestId:0}&&c.ResurrectionSnapshot().Notice.Contains("Y／N"),"321 queued in the shared input line");
+        Feed(c,Resurrection());Check(c.YesNoSnapshot().Prompt==null,"S85 clears the 321 question");
     }
     static async Task MoveLockInput(){
         using(var c=Seed()){

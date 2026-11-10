@@ -6,7 +6,9 @@ namespace P06.NativeUi;
 // 已驗證（WO §6）：Esc（27）走 sub_A58380 同一條路徑，字首不是 y 所以送拒絕。
 // 推定（標明）：鈕的大小 32×14（YesNoButtons.Size，來源沒有讀到）；文字鈕不用 surf，畫法（暗底、淡框、置中字）是引擎自訂。
 // InputWindow 是寫死在程式裡的舊式窗，沒有 XML，所以 Load 不讀版面（同 HpMpPanel 的作法）；面板 id 也是引擎自訂。
-// 提示文字仍由聊天輸入列上方的提示列顯示（YesNoPrompt.cs）；原版把文字放進輸入列 (192, 581) 280×12，本面板不畫（待驗證兩者是否同一列）。
+// R7-B（T341／#804）：提示文字改由本面板畫在輸入列 (192, 581) 280×12（YesNoButtons.Line；WO §6、WIN2 §5.3：sub_7026C0 以
+//   sub_AC3A40(192,581,280,12) 建立、sub_AC9600 把提示放進去）。原生開啟時 WinForms 提示列隱藏（YesNoPrompt.cs SyncYesNo）。
+//   推定（標明）：字不加底色、白字黑影；超過 280 寬的部分被裁掉（原版是否捲動沒查）。點輸入列不攔，交給聊天列／世界。
 
 /// <summary>面板顯示的詢問：Revision 對應 YesNoView.Revision，回覆時用來確認還是同一個詢問。</summary>
 public sealed record YesNoPanelView(int Revision,string Text);
@@ -23,12 +25,15 @@ public sealed class YesNoPanel:IUiPanel {
     [UiPanel(180)] internal static UiPanelRegistration Registration=>new(YesNoPanel.PanelId,YesNoPanel.LayoutName,_=>new YesNoPanel());   // R2-J (#624): InputWindow YES／NO (Float, no XML)
     public const string PanelId="YES_NO_PROMPT";
     public const string LayoutName="uistatus86";   // 不讀 XML；只是借既有的版面檔名讓註冊表能建立
-    static readonly Color Back=Color.FromArgb(40,36,28),Border=Color.FromArgb(120,110,80),Ink=Color.FromArgb(255,230,160);
+    static readonly Color Back=Color.FromArgb(40,36,28),Border=Color.FromArgb(120,110,80),Ink=Color.FromArgb(255,230,160),LineInk=Color.White;
 
     public string Id=>PanelId;
     // Float：疊在 CENTER_WINDOW（聊天）之上，Esc 也先到這裡（UiInput 依 HitOrder 由上往下送）。
     public UiLayer Layer=>UiLayer.Float;
-    public Rectangle Bounds{get;}=Rectangle.Union(YesNoButtons.Logical(true),YesNoButtons.Logical(false));
+    /// <summary>兩顆鈕的範圍；只有這裡會攔滑鼠。</summary>
+    public static readonly Rectangle ButtonBounds=Rectangle.Union(YesNoButtons.Logical(true),YesNoButtons.Logical(false));
+    // 畫面裁切以 Bounds 為準，所以要含輸入列。
+    public Rectangle Bounds{get;}=Rectangle.Union(ButtonBounds,YesNoButtons.Line);
     public bool Visible=>view!=null;
     public IYesNoSource? Source{get;set;}
     YesNoPanelView? view;
@@ -40,6 +45,13 @@ public sealed class YesNoPanel:IUiPanel {
     public void Paint(UiCanvas canvas){
         if(view==null)return;
         var g=canvas.Graphics;
+        if(view.Text.Length>0){
+            var line=YesNoButtons.Line;var state=g.Save();
+            try{
+                g.IntersectClip(line);var size=UiText.Measure(g,view.Text);
+                canvas.DrawText(view.Text,line.X,line.Y+(line.Height-size.Height)/2,LineInk,Color.Black);
+            }finally{g.Restore(state);}
+        }
         foreach(bool accept in new[]{true,false}){
             var r=YesNoButtons.Logical(accept);
             using(var fill=new SolidBrush(Back))g.FillRectangle(fill,r);
@@ -52,7 +64,7 @@ public sealed class YesNoPanel:IUiPanel {
     void Answer(bool accept){if(view is {} v){view=null;Source?.Answer(v.Revision,accept);}}
 
     public bool Mouse(UiMouseEvent e,IUiCommands commands){
-        if(view==null||!Bounds.Contains(e.Location))return false;
+        if(view==null||!ButtonBounds.Contains(e.Location))return false;
         if(e.Kind==UiMouseKind.Down&&e.Button==MouseButtons.Left&&YesNoButtons.Hit(e.Location) is bool accept)Answer(accept);
         return true;   // 兩鈕之間的空隙也不穿透到世界（點地移動）
     }

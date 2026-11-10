@@ -42,9 +42,15 @@ public static class TitleAndEmotePackets {
     /// 讀 byte_153CE6A 的只有兩個輸入處理（0xDF5557、0xF078A7）：旗標為 1 時不呼叫 sub_A4C270(0)（依按住的輸入繼續走／動作）。
     /// </summary>
     public const int HoldMs=1234;
+    /// <summary>
+    /// R7-B（T341／#804）：sub_4FBA70 在本地播放後一律設 byte_153CE69＝1（0x4FBABC）；hold=1 時再清成 0、改設 byte_153CE6A（0x4FBADA）。
+    /// 自己的動作 66–69 結束時（0xA4B573）取消舊的 sub_A400C0 計時器（sub_A23B30）再排 700 ms（0x2BC），sub_A400C0 只做 byte_153CE69＝0。
+    /// 兩個旗標擋同一條輸入路徑（0xDF5401／0xDF540C、0xDF554F、0xF0789F）。
+    /// </summary>
+    public const int SettleMs=700;
     // sub_4FAAF0 interval (BIN e12949cf, 0x4FAB18–0x4FABE4). speedA = 0x14EBF88, written by the haste handler at 0x94C5B6
     // (the same state NormalSpeed reads at 0xA407F8) = own Speed; speedB = 0x14EC00C, written by TW16 op 92's sub_935260
-    // at 0x9352B3 (d c: own object, value) = own Brave. self+547 is S103 type 8 (third speed), which the engine does not keep yet.
+    // at 0x9352B3 (d c: own object, value) = own Brave. self+547 is S103 type 8 (third speed): TimedBuffs.cs OwnThirdSpeed (R7-B).
     public static int ThrottleMs(bool flag547=false,int speedA=0,int speedB=0){
         int ms=flag547?ThrottleBaseMs*29>>5:ThrottleBaseMs;
         ms=speedA switch{1=>ms*3/4,2=>ms*2,3=>ms*7/8,_=>ms};
@@ -91,13 +97,20 @@ public sealed partial class WorldSession {
         foreach(var e in emotes.Values.ToArray()){
             bool current=e.Actor is OwnActor own?ReferenceEquals(Actor,own)&&!OwnDead&&ReferenceEquals(OwnCombat,e.Combat)
                 :e.Actor is WorldObject o&&objects.TryGetValue(e.Id,out var live)&&ReferenceEquals(live,o)&&!live.Dead;
-            if(!current||now-e.At>=10000||now<e.At)emotes.Remove(e.Id);
+            if(!current||now-e.At>=10000||now<e.At){emotes.Remove(e.Id);if(e.Actor is OwnActor)OwnEmoteEnded();}
         }
     }
     // Title (+240) for the name painter: S183 or S87 value, display-cleaned; empty when none.
     public string DisplayTitle(uint id)=>TitleAndEmotePackets.DisplayText(Actor?.ObjectId==id?Actor.Title:objects.TryGetValue(id,out var o)?o.Title:"");
     public EmotePlayback[] ActiveEmotes(long now){PruneEmotes(now);return emotes.Values.ToArray();}
-    internal void EndEmote(uint id)=>emotes.Remove(id);
+    /// <summary>The emote's frames are over (or it has no art): for the own actor this is the 0xA4B573 point.</summary>
+    internal void EndEmote(uint id){if(emotes.Remove(id,out var e)&&e.Actor is OwnActor)OwnEmoteEnded();}
+    /// <summary>
+    /// Engine only: the own actor started walking while its emote played (the renderer drops the emote). The original cannot
+    /// get here (the busy check sub_A3EBF0 keeps held input from moving), so the flag is dropped at once instead of pausing
+    /// a walk that has already begun.
+    /// </summary>
+    internal void InterruptEmote(uint id){if(emotes.Remove(id,out var e)&&e.Actor is OwnActor){emoteSettling=false;emoteSettleClearAt=null;}}
     // A locally played emote is itself a busy action until its sprite frames finish (renderer ends it).
     internal bool OwnEmotePlaying(){PruneEmotes(ActionClock());return Actor is {} a&&emotes.ContainsKey(a.ObjectId);}
 
@@ -111,7 +124,31 @@ public sealed partial class WorldSession {
     internal void StartEmoteHold(bool restart){
         if(!restart&&EmoteHeld)return;
         emoteHoldUntil=ActionClock()+TitleAndEmotePackets.HoldMs;emoteHoldEpoch=WorldEpoch;
+        // 0x4FBADA: the hold path clears byte_153CE69 (the sub_A400C0 timer, if any, is left running and clears nothing new).
+        if(restart)emoteSettling=false;
     }
+
+    // R7-B: byte_153CE69 (TitleAndEmotePackets.SettleMs). The flag and the sub_A400C0 timer are separate, as in the original:
+    // the flag is set by an immediate emote, the timer is (re)armed whenever an own emote ends, and the timer only clears.
+    bool emoteSettling;int emoteSettleEpoch=-1;long? emoteSettleClearAt;
+    void FireEmoteSettleTimer(){if(emoteSettleClearAt is long at&&ActionClock()>=at){emoteSettling=false;emoteSettleClearAt=null;}}
+    void OwnEmoteEnded(){FireEmoteSettleTimer();emoteSettleClearAt=ActionClock()+TitleAndEmotePackets.SettleMs;}
+    public bool EmoteSettling{get{FireEmoteSettleTimer();return emoteSettling&&emoteSettleEpoch==WorldEpoch;}}
+    /// <summary>
+    /// sub_4FBA70 without hold (0x4FBABC), after the local play. 推定: when the engine could not start the local emote
+    /// (no own actor entry), nothing would ever end it, so the 700 ms timer starts at once instead of leaving the flag set.
+    /// </summary>
+    internal void StartEmoteSettle(){
+        FireEmoteSettleTimer();emoteSettling=true;emoteSettleEpoch=WorldEpoch;
+        if(!OwnEmotePlaying())emoteSettleClearAt=ActionClock()+TitleAndEmotePackets.SettleMs;
+    }
+    /// <summary>
+    /// The input path 0xDF5401–0xDF5416 skips sub_A4C270(0) while either flag is set. While the own emote is still playing
+    /// the original is already stopped by the busy check (sub_A3EBF0); the engine keeps its existing rule there (walking ends
+    /// the emote, InterruptEmote), so byte_153CE69 only gates input after the emote is over (the 700 ms tail).
+    /// Read-only on purpose (no pruning): MovementAvailable polls this from the UI.
+    /// </summary>
+    public bool EmoteInputPaused=>EmoteHeld||EmoteSettling&&!(Actor is {} own&&emotes.TryGetValue(own.ObjectId,out var e)&&e.Epoch==WorldEpoch);
 }
 
 public sealed record TitleEmoteStamp(int Generation,int Epoch,uint Actor);
@@ -122,7 +159,7 @@ public sealed partial class LoginConnection {
     long emoteThrottleLastAt;int emoteThrottleGeneration=-1;
     public Task<bool> SendTitle(TitleEmoteStamp? stamp,string name,string title)=>SendTitleEmote(stamp,()=>TitleAndEmotePackets.Title(name,title),null,-1);
     /// <summary>sub_4FAAF0 interval for the current own speed state (Speed＝0x14EBF88, Brave＝0x14EC00C).</summary>
-    internal int EmoteThrottleMs()=>World.Actor is {} a?TitleAndEmotePackets.ThrottleMs(false,a.Speed,a.Brave):TitleAndEmotePackets.ThrottleBaseMs;
+    internal int EmoteThrottleMs()=>World.Actor is {} a?TitleAndEmotePackets.ThrottleMs(World.OwnThirdSpeed,a.Speed,a.Brave):TitleAndEmotePackets.ThrottleBaseMs;
     /// <summary>sub_4FAAF0 sends only when now − last &gt; interval (0x4FABFB jbe skips equality).</summary>
     internal bool EmoteThrottleElapsed()=>emoteThrottleGeneration!=generation||World.ActionClock()-emoteThrottleLastAt>EmoteThrottleMs();
     /// <summary>Sends original emote item 1-4 (68, 69, 67, 66) after the T160 appearance remap.</summary>
@@ -155,7 +192,8 @@ public sealed partial class LoginConnection {
         try{return await sender(bytes,()=>CaptureWorld(Ready),()=>{
             if(emote is not {} plan)return;
             // broadcastPacketAll excludes self: class forms play locally at once; other forms send only and start the interval.
-            if(plan.Delivery==EmoteDelivery.Immediate){if(World.Actor is {} actor)World.StartEmote(actor.ObjectId,(byte)plan.Action);if(plan.Hold)World.StartEmoteHold(true);}
+            // sub_4FBA70: local play, then byte_153CE69＝1; hold=1 swaps it for byte_153CE6A and the 1234 ms timer.
+            if(plan.Delivery==EmoteDelivery.Immediate){if(World.Actor is {} actor)World.StartEmote(actor.ObjectId,(byte)plan.Action);if(plan.Hold)World.StartEmoteHold(true);else World.StartEmoteSettle();}
             else{emoteThrottleGeneration=generation;emoteThrottleLastAt=World.ActionClock();World.StartEmoteHold(false);}
         })&&CaptureWorld(Current);}
         catch(Exception){if(epoch==generation){Cancel();Set(LoginState.Faulted,"稱號／表情傳送失敗，已斷線；不會自動重送。");}return false;}
@@ -296,7 +334,7 @@ public sealed partial class Renderer {
         var commands=original.Commands;bool changed=false;
         foreach(var emote in session.ActiveEmotes(now)){
             bool self=emote.Actor is OwnActor;int gfx,direction,x,y,weapon;
-            if(emote.Actor is OwnActor a){gfx=a.Gfx;direction=a.Direction;x=a.X;y=a.Y;weapon=a.Weapon;if(own.Walking){session.EndEmote(emote.Id);continue;}}
+            if(emote.Actor is OwnActor a){gfx=a.Gfx;direction=a.Direction;x=a.X;y=a.Y;weapon=a.Weapon;if(own.Walking){session.InterruptEmote(emote.Id);continue;}}
             else{var o=(WorldObject)emote.Actor;gfx=o.Gfx;direction=o.Direction;x=o.X;y=o.Y;weapon=o.Action;if(!visuals.Any(v=>v.ObjectId==o.ObjectId&&!v.Walking))continue;}
             try{
                 // Missing emote art falls back to the pose action, then action 0; with no frames at all the emote simply ends.

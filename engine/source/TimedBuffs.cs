@@ -73,11 +73,25 @@ public sealed partial class WorldSession {
         if(seconds==0&&!magicBuffs.ContainsKey(skill))skill=skill==dress?physical:dress;
         ReceiveBuff(skill,seconds,source);
     }
+    // R7-B (T341/#804): object +547 (0x223), the third-speed flag that sub_4FAAF0 reads for the emote interval (2265 ms).
+    // Only the own value is kept; other objects' +547 (animation timing, sub_A3BC30) stays an unhandled gap.
+    // Not tied to WorldEpoch: the server sends type 8 only when the cake is used or at login (CharBuffTable), never after
+    // a teleport, so a map change must not drop it. Reset (new session) does.
+    uint? ownThirdSpeed;
+    public bool OwnThirdSpeed=>ownThirdSpeed is uint id&&id==(Status?.ObjectId??Actor?.ObjectId);
+    [WorldReset] void ResetThirdSpeed()=>ownThirdSpeed=null;
     void ReceiveLiquor(LoginReader r){
         uint id=r.D();byte type=r.C();r.Finish();
-        // Type 8 is the third-speed cake state, sent for any object; it is not drunkenness.
+        uint? own=Status?.ObjectId??Actor?.ObjectId;
+        // sub_9343C0 (0x934401–0x934425): type 0 → +547＝0; type 8 → +547＝1 and the type is then handled as 0
+        // (own drunkenness ends, or level 1 on maps 67／420). Type 8 is the third-speed cake state, not drunkenness.
+        if(type==8){
+            if(id!=own){Unhandled(103);return;}
+            ownThirdSpeed=id;type=0;
+        }
+        else if(type==0&&id==own)ownThirdSpeed=null;
         if(type>3){Unhandled(103);return;}
-        if(id!=(Status?.ObjectId??Actor?.ObjectId))return;
+        if(id!=own)return;
         // The server ends drunkenness on haste without any S103.
         if(!liquorWatchesSpeed){liquorWatchesSpeed=true;SpeedChanged+=()=>{if(Actor?.Speed==1){liquorLevel=0;liquorFrozenPhase=null;}};}
         if(type==0&&TimedBuffRules.MinimumLiquorMap(MapId)){
