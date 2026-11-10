@@ -25,7 +25,7 @@
   - `Styles`：`<a action|link|url>` 有底線，沒有屬性的 `<a>` 和 `</a>` 之後沒有。
   - `PanelRich`：連結底線像素＝RGB(6E,6E,46)；bg `0000ff`→紅（COLORREF）；40 px 圖列的 bg 在第 30 px 仍有底色。
   - `PanelHover`（新增）：預設字色 EEEDEE；hover 到文字連結時變色、移開恢復；停用連結不 hover、維持灰；圖片連結不 hover；移出本文區清除；跨列連結兩段一起變色；hover 蓋過 `<a>` 內的 `font fg`；換頁清除。
-- CI 結果請看 PR 上的檢查。
+- **CI（PR #893）**：第一次跑時 `hypertext-layout` 只有 1 項失敗：底線像素讀到的是底圖色。原因是 `UiCanvas` 用 `PixelOffsetMode.Half`，1 px 的 `DrawLine` 畫在整數 y 時會落在兩列像素之間。改成 1 px 高的 `FillRectangle` 後，`dotnet`、`map-continuity`（含全部 `[WorldModuleTest]`）、`npc-offline` 都是 **pass**。
 
 ## 未驗證什麼
 
