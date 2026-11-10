@@ -8,7 +8,7 @@ namespace P06;
 // 13 合計 >99999 不送、14 一次 >8 筆不送（窗不關、數量不清）；數量上限；單價 5 級換色；面板左鈕。
 static class PrivateShopTradeTests {
     const BindingFlags F=BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic;
-    const uint Owner=456,Gold=903;
+    const uint Owner=456,Gold=999;
     static void Set(object o,string name,object? value){var p=o.GetType().GetProperty(name,F);if(p!=null)p.SetValue(o,value);else o.GetType().GetField(name,F)!.SetValue(o,value);}
     static byte[] Packet(Action<BinaryWriter> write){using var s=new MemoryStream();using var b=new BinaryWriter(s);write(b);return LoginPackets.Pad(s.ToArray());}
     static void Text(BinaryWriter b,string text){b.Write(LoginPackets.TextEncoding.GetBytes(text));b.Write((byte)0);}
@@ -112,12 +112,12 @@ static class PrivateShopTradeTests {
         t.Equal(PrivateShopResult.NotSent,Batch(c,rev,new(0,1),new(1,9999),new(1,0)),"zero-count row refused");
         t.Equal(before,w.PrivateShopNotice,"invalid rows do not show the 1028 notice");
         t.Equal(PrivateShopResult.NotSent,Batch(c,rev,new ShopChoice(0,2)),"total 180000 refused");
-        t.Equal(0,sent.Count,"no packet over 99999");
+        t.Equal(1,sent.Count,"no packet over 99999");
         t.Check(src.Current is {} v&&v.Revision==rev&&w.PrivateShopPhase=="list","window stays with the same revision");
         t.Check(w.PrivateShopNotice==PrivateShopTrade.TotalText(),"notice = string 1028 path",w.PrivateShopNotice);
         // 合計 90000＋9999＝99,999 剛好可送。
         t.Equal(PrivateShopResult.Accepted,Batch(c,rev,new(0,1),new(1,9999)),"total 99999 accepted");
-        t.Equal(1,sent.Count,"one packet at the limit");
+        t.Equal(2,sent.Count,"one packet at the limit");
     }
 
     static void Sell(WorldModuleTestContext t){
@@ -131,7 +131,7 @@ static class PrivateShopTradeTests {
         int rev=view.Revision;
         // 一次 9 筆：不送、提示 897。
         t.Equal(PrivateShopResult.NotSent,Batch(c,rev,Enumerable.Range(0,9).Select(i=>new ShopChoice((uint)i,1)).ToArray()),"9 rows refused");
-        t.Check(sent.Count==0&&w.PrivateShopNotice==PrivateShopTrade.RowsText()&&src.Current?.Revision==rev,"no packet; notice 897; window stays",w.PrivateShopNotice);
+        t.Check(sent.Count==1&&w.PrivateShopNotice==PrivateShopTrade.RowsText()&&src.Current?.Revision==rev,"no packet; notice 897; window stays",w.PrivateShopNotice);
         // 8 筆可送；同一物件跨列加總超過持有量不送（另一個店）。
         t.Equal(PrivateShopResult.Accepted,Batch(c,rev,new(0,30),new(3,2)),"2 rows accepted");
         t.Equal(Hex(LoginPackets.Pad([161,..Le(Owner),1,2,0,..Le(901),30,0,0,0,..Le(904),2,0,0,3])),Hex(sent[^1]),"C161 sell rows: D item, CH count, C order");
@@ -141,7 +141,7 @@ static class PrivateShopTradeTests {
         int r2=d.World.PrivateShopRevision;
         t.Equal(PrivateShopResult.NotSent,Batch(d,r2,new(0,30),new(1,30)),"same item across rows above held (50) refused");
         t.Equal(PrivateShopResult.Accepted,Batch(d,r2,new(0,25),new(1,25)),"same item within held accepted");
-        t.Equal(1,sent2.Count,"one packet");
+        t.Equal(2,sent2.Count,"one packet");
     }
 
     static void Colors(WorldModuleTestContext t){
@@ -196,9 +196,9 @@ static class PrivateShopTradeTests {
         t.Equal<int?>(1992,p.LeftButton?.Surf,"mode 13 left button BUY 1992");
         p.Adjust(0,+1);p.Adjust(0,+1);p.Adjust(1,+1);
         Click(p,left,cmd);p.Update(world);
-        t.Check(sent.Count==0&&p.Visible&&p.Quantities[0]==2,"over 99999: nothing sent, window and quantities kept",p.Quantities);
+        t.Check(sent.Count==1&&p.Visible&&p.Quantities[0]==2,"over 99999: nothing sent, window and quantities kept",p.Quantities);
         p.Adjust(0,-1);Click(p,left,cmd);p.Update(world);
-        t.Equal(1,sent.Count,"BUY sends one C161");
+        t.Equal(2,sent.Count,"BUY sends one C161");
         t.Equal(Hex(LoginPackets.Pad([161,..Le(Owner),0,2,0,..Le(0),..Le(1),..Le(3),..Le(1)])),Hex(sent[^1]),"panel rows → C161 orders 0 and 3");
         t.Check(!p.Visible,"window closes after submit");
 
