@@ -32,6 +32,50 @@ public sealed class ServerStringTable {
         Parse(archive.Read(archive.Single(FileName)??throw new InvalidDataException($"Text 封存沒有 {FileName}")));
 }
 
+/// <summary>
+/// R8-B（T357／#821，FU8§2）：物品說明表 <c>ItemDesc-c.tbl</c>（開機時 <c>sub_87BA80("ItemDesc")</c> 讀進 <c>dword_13CD880</c>，筆數 <c>dword_13CDAA8</c>）。
+/// 格式（本機 Text.pak 第 13249 筆，108,872 B，已驗證）：第一行是筆數（本機 14469），之後每行「說明編號 空白 說明」，編號不連續（本機 2048 行有編號）。
+/// 有幾行編號後面沒有空白；那些編號都 ≥ 筆數，原版不印，所以「編號後的一個空白可有可無」的讀法不影響結果（推測）。
+/// 同一編號出現兩次時取後面那行（推測；本機沒有重複）。執行期從客戶端唯讀解出，不寫入 repo。
+/// </summary>
+public sealed class ItemDescTable {
+    public const string FileName="ItemDesc-c.tbl";
+    /// <summary>本機解出內容的 SHA-256（Text.pak 第 13249 筆）。</summary>
+    public const string Sha256Pin="3afae71a02e1a1f9dc7d9ef6884f71cfacf4a629eeb1e11471086bebb80c64d0";
+    readonly Dictionary<int,string> entries;
+    /// <summary>第一行的筆數；編號 ≥ 筆數不印。</summary>
+    public int Count {get;}
+    /// <summary>有編號的行數。</summary>
+    public int Entries=>entries.Count;
+    public string Sha256 {get;}
+    ItemDescTable(int count,Dictionary<int,string> entries,string sha){Count=count;this.entries=entries;Sha256=sha;}
+    /// <summary>原始文字（含色碼）；編號超出筆數或沒有這一行時是 null。</summary>
+    public string? this[int id]=>id>=0&&id<Count&&entries.TryGetValue(id,out var s)?s:null;
+    /// <summary>要印的說明：去掉色碼；沒有、或只有空白時是 null（原版不印）。</summary>
+    public string? Text(int id)=>this[id] is {} raw&&ServerMessageText.DisplayText(raw) is {} text&&text.Trim().Length>0?text:null;
+    public static ItemDescTable Parse(byte[] decoded){
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        var all=Encoding.GetEncoding(950).GetString(decoded).Split('\n');
+        if(!int.TryParse(all[0].Trim(),System.Globalization.NumberStyles.None,System.Globalization.CultureInfo.InvariantCulture,out int count)||count<0||count>1_000_000)
+            throw new InvalidDataException($"{FileName}：第一行不是筆數");
+        var map=new Dictionary<int,string>();
+        for(int i=1;i<all.Length;i++){
+            string line=all[i].TrimEnd('\r');int j=0;long id=0;
+            while(j<line.Length&&char.IsAsciiDigit(line[j])){id=Math.Min(id*10+(line[j]-'0'),int.MaxValue);j++;}
+            if(j==0)continue;
+            if(j<line.Length&&line[j]==' ')j++;
+            map[(int)id]=line[j..];
+        }
+        return new(count,map,Convert.ToHexString(SHA256.HashData(decoded)).ToLowerInvariant());
+    }
+    /// <summary>讀 Text 封存裡唯一的 <c>ItemDesc-c.tbl</c>，核 pin 後解析（只在記憶體解出）。</summary>
+    public static ItemDescTable Load(TextArchive archive){
+        var decoded=archive.Read(archive.Single(FileName)??throw new InvalidDataException($"Text 封存沒有 {FileName}"));
+        if(!Convert.ToHexString(SHA256.HashData(decoded)).Equals(Sha256Pin,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException($"{FileName} pin 不符");
+        return Parse(decoded);
+    }
+}
+
 public static class ServerMessageText {
     // Without the original table (e.g. CI without the client) only these source-proven ids keep their previous text.
     // 125 = \f1你不能夠放棄此樣物品。 (work/issue-77/text-source.json)
@@ -61,6 +105,28 @@ public static class ServerMessageText {
         lock(gate){var previous=(overridden,overrideTable);overridden=true;overrideTable=replacement;return new Scope(()=>{lock(gate)(overridden,overrideTable)=previous;});}
     }
     sealed class Scope(Action dispose):IDisposable{Action? action=dispose;public void Dispose(){Interlocked.Exchange(ref action,null)?.Invoke();}}
+
+    // R8-B（T357／#821）：ItemDesc-c.tbl，與 string-c.tbl 同樣延遲、唯讀載入；讀不到（例如 CI 沒有客戶端）是 null，鑑定只印第一行。
+    static readonly object itemDescGate=new();
+    static ItemDescTable? itemDesc,itemDescOverride;static bool itemDescLoaded,itemDescOverridden;
+    public static string? ItemDescError {get;private set;}
+    public static ItemDescTable? ItemDesc{get{
+        lock(itemDescGate){
+            if(itemDescOverridden)return itemDescOverride;
+            if(!itemDescLoaded){
+                itemDescLoaded=true;
+                try{itemDesc=ItemDescTable.Load(TextArchive.Open(GroundSpriteReader.ClientRoot));ItemDescError=null;}
+                catch(Exception ex) when(ex is IOException or InvalidDataException or UnauthorizedAccessException or CryptographicException or ArgumentException or DecoderFallbackException){
+                    itemDesc=null;ItemDescError=ex.Message;System.Diagnostics.Trace.WriteLine("[server-message] "+ItemDescTable.FileName+" 無法載入，鑑定不印物品說明："+ex.Message);
+                }
+            }
+            return itemDesc;
+        }
+    }}
+    /// <summary>Tests only: replace the ItemDesc table (null = no table) until the returned scope is disposed.</summary>
+    internal static IDisposable UseItemDesc(ItemDescTable? replacement){
+        lock(itemDescGate){var previous=(itemDescOverridden,itemDescOverride);itemDescOverridden=true;itemDescOverride=replacement;return new Scope(()=>{lock(itemDescGate)(itemDescOverridden,itemDescOverride)=previous;});}
+    }
 
     /// <summary>sub_942B40 general path: the packet is dropped when id &gt;= table count (only known with the table).</summary>
     public static bool IsDropped(ushort id)=>Table is {} t&&id>=t.Count;
