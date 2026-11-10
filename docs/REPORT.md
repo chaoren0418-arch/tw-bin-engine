@@ -347,3 +347,4 @@
 - 2026-11-11 — #862 T378：R7 併入項 179 字串提示與狀態窗 Up 確認（code，claude-local，PR 已合併）→ [報告](reports/issue-862.md)
 - 2026-11-11 — #859 T375：R9-O 選角／建角（code，claude-local，PR 已合併）→ [報告](reports/issue-859.md)
 - 2026-11-11 — #858 T374：R9-N 公告板上一篇／下一篇（code，claude-local，PR 已合併）→ [報告](reports/issue-858.md)
+- 2026-11-11 — #472 ui-bookmark: 原生 UI 模組：書籤視窗 BookmarkUI（263×420 可拖曳）（code，claude-local，PR #883 已合併）→ [報告](reports/issue-472.md)
