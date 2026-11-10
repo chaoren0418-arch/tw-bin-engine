@@ -59,6 +59,10 @@
 - `dotnet build engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release` → 成功。警告都是既有的（`DisplayNoticeChecks.cs`、`MacroChecks.cs`）。
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py` → `pass`（4256 檔，0 錯誤）。
 - 依規定，本機沒有執行任何測試程式。`private-shop-followup` 與 `private-shop-trade` 以 PR 的 GitHub Actions CI（map-continuity 的 `--module-tests`）為準。
+- **CI（PR #833，run 42830679959／42830680151）**：dotnet、map-continuity、npc-offline 全部 pass。
+  - `private-shop-followup`：58 項 pass；
+  - `private-shop-trade`：82 項 pass；
+  - 0 失敗。
 
 ## 未驗證／限制
 - **答 Y 的入口還沒接上（需要下一張任務）**：聊天輸入列的答覆分派在 `PlayerChat.SendPlayerChat`（現在只轉給刪除確認 `AnswerItemDelete`），本任務規定不能動這個檔案。所以目前：
