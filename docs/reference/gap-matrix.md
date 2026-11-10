@@ -1934,3 +1934,50 @@ M7 的驗收（TASKS M7、#503）是：「缺」與「部分」只剩標明「�
   - 82、86、138 的送包入口原版確定有，但要查證才知道怎麼補，所以歸 K2，沒歸 K5。
 - 各任務都沒有真機驗收。「已有」只表示程式和已查證的表現沒有已知差異。
 - 本節的 `檔案:行` 以 main `9b268b30` 為準；PR #801 的內容以 `origin/task/782` `80399196` 為準。
+
+### 15.10 Q6 查證回填（T337／#783，FU8）
+
+依據：[`followups-8.md`](followups-8.md)（FU8）。15.5 的表沒有改，所以 `gap_count_r6.py` 的計數不變；下一輪盤點把本節套進分類表。
+
+**結論**
+- **Q6-6 頭上條**（FU8§1）：自己的 P＝`sub_F1A750(obj+16)`＝精靈區塊偏移原點（引擎 `Coordinates.Screen − (24,12)`）。自己的頭上條 x＝P.x − 80，名稱 X0＝P.x − 56 − 3·len。原版相機讓 P 固定在 (456, 288)，所以兩者都以 x＝400 置中。閃爍只畫自己：一般職業 HP ≤ 35% 閃 5 次、戰士 ≤ 40% 一直閃，間隔 max(300, 26·HP%) ms。其他物件只畫 HP。頭上條沒有 +86／+87 變體（只在 HP 窗）。surf 8393 本機沒有，kor25／ly 有。
+- **Q6-1**（FU8§2）：S_IDENTIFY_CODE 印在聊天欄（淡黃），先印格式化訊息、再印 `ItemDesc-c.tbl` 的說明。特例：1063–1072 → 928；訊息 134＋說明 4139–4142 只印說明。
+- **Q6-2**（FU8§3）：C_DUEL 唯一送出點是聊天指令 `/duel`、`/決鬥`（`Commandduel`，字串 644），無欄位。決鬥對手的游標和粉紅名、敵對血盟同一組。
+- **Q6-4**（FU8§4）：TW16 `BehaviourUI`＝`BehaviourUI.xml`（本機沒有、kor25 有）＋`Actions.xml`（本機有）。回呼 7 個，雙擊格子執行動作，Esc 關窗。本機另有較舊的 `ActionUI(-c).xml`（4 分頁、6×4 格）；推測 3.81 用這份。
+- **Q6-5**（FU8§5）：105 `cloth` 附加層（本機 1,930 個 gfx）、107 `size`、111 `stride`、112 `altdir`、114 `FurnitureSize`、118 `switching` 的讀取者都找到。引擎都沒解析。103、106 本機沒有 gfx 使用。
+- **Q6-7**（FU8§6）：bit 0＝不可通行（地圖屬性＋S_Door），拾取與移動用同一個判斷。
+- **Q6-8**（FU8§7）：`byte_13CE51E`＝1 是「GM 角色（選角清單第 14 欄 > 0）而且 ≤ 50 級」。3.81 一律送 0，不會出現。
+- **Q6-9**（FU8§8）：刪除只有 `alertitems.tbl`（本機 232 筆）內的物品才問 Y/N（3122／4114）；堆疊先問數量（4115）。料理清單 `CCookListBox` 欄距、列距都是 34，矩形 (29, 31)–(165, 233)；執行是 vtable +88 `sub_A5B9C0`。
+- **WidgetSlot**（FU8§9）：與 15.2 第 3 點相同，不再改分類。
+
+**分類變更**（套到 15.5 時用）
+
+| 列 | 原分類 | 新去向 | 依據 |
+|---|---|---|---|
+| 1:181 | K2 | K5 | FU8§2 |
+| 3:C_DUEL(118) | K2 | K5 | FU8§3 |
+| 4:BehaviourUI | K2 | K5 | FU8§4 |
+| 4:`HpMpWindow` | K2 | K5 | FU8§1.3 |
+| 5:`sub_87C890` | K2 | K5 | FU8§5 |
+| 5:`sub_8E66D0` | K2 | K5 | FU8§1 |
+| 5:`sub_5001C0` | K2 | K5 | FU8§6 |
+| 5:`byte_13CE51E` | K2 | K5 | FU8§7 |
+
+套用後：K2 **28** 列（只剩 Q7）；K5 **55** 列。
+
+**建議 code 任務**（原則同 15.6；檔案不和 #784、#801 及 R7 各組重疊）
+
+| 組 | 目標 | 可改的檔案 | 依賴 |
+|---|---|---|---|
+| R8-A 頭上條 | 自己的 x＝P.x − 80；自己的閃爍條（35／5、40／無限、max(300, 26·HP%)；surf 8393 走參考客戶端備援，缺圖不畫） | `NativeUi/HpMpPanel.cs`（只限 `HpMpHeadBarPanel`）、`NativeUi/State/HpMpState.cs`、新檔 `HeadBarFollowupTests.cs` | 無；名稱部分由 #784 照 FU8§1.1 做 |
+| R8-B 鑑定訊息 | S_IDENTIFY_CODE 改印聊天欄＋`ItemDesc-c.tbl` 第二行、928／4139–4142 特例、訊息 0 也印說明、不接重量 | `DisplayNotices.cs`、`ServerMessageText.cs`（只加 ItemDesc 表）、新檔 `IdentifyDescTests.cs` | 無 |
+| R8-C 決鬥指令 | `/duel`、`/決鬥` 送 C5；改 `Duel.cs:55` 的過時提示 | `Duel.cs`、`DuelUi.cs`、新檔 `DuelCommandTests.cs` | 聊天分派照 `PlayerQuery.cs:38` 的做法 |
+| R8-D 動作窗 | 依本機 `ActionUI-c.xml`＋`Actions.xml` 建原生動作窗；雙擊執行；Ctrl+D 開關 | 新檔 `NativeUi/ActionWindowPanel.cs`、`NativeUi/MenuButtonsPanel.cs`（只接 Ctrl+D）、新檔 `ActionWindowTests.cs` | R7-I 也改 `MenuButtonsPanel.cs`，要排在它之後；3.81 用 `ActionUI-c.xml` 是推測 |
+| R8-E list.spr 附加層 | 解析 105 `cloth`、111 `stride`、112 `altdir`；`cloth` 先真機確認 | `MagicRendering.cs`（只限 sprite 目錄解析）、`ObjectRendering.cs`、新檔 `ListSprFieldTests.cs` | #784、#801 合併後；`cloth` 等真機（新 M31） |
+
+R6-D 補充：不同格時用 `ApproachWalk.cs:49` 的通行判斷（FU8§6）；`byte_13CE51E` 只處理 2（FU8§7）。R6-E 補充：刪除的 Y/N 只問 `alertitems.tbl` 內的物品（FU8§8.1，編號欄位要先對 SP 原始碼）。
+
+**新增真機項目**
+- M31：gfx 0／1 等職業外型有沒有 `cloth` 附加層（6262 等）。
+- M32：自己的名稱與頭上條中線，和身體中線的距離（相機原點差）。
+- M33：3.81 動作窗的版面、開窗鍵。
