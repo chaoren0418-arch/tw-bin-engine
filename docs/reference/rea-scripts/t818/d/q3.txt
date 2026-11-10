@@ -1,0 +1,55 @@
+dis 7CBC30 50
+dwords 1172EAC 4
+dec 91C510
+dec 919F10
+dis 8C1900 20
+dis 8C2550 20
+dis 8C5740 20
+dis ECC620 20
+dec ECC655
+dis F552D0 15
+dis F55DF0 15
+xref 11A9960
+dec C006E0
+dec BFFCC0
+dec BFFCF0
+dec BFFEA0
+dec C00EE0
+dec C01090
+dec C00990
+dec BFD090
+dec BFFA10
+vtab 11AC79C 48
+vtab 11ACA64 48
+vtab 11E00B4 48
+dec E65B00
+fdis E65A40
+findstr .?AVXmlAniGauge@@
+findstr .?AVXmlEffect@@
+dec EE09D0
+dec EE0970
+dec B0D100
+dec B08410
+dec B07C90
+dec EEDA90
+dec 623BA0
+dec EF0060
+dec EF1C80
+dec 8F2E40
+dec 8F3B90
+dec EE92F0
+dec EE3F80
+dec 500610
+dec EE7570
+dec EE3860
+dec EE5F30
+dec EE2F70
+dec EE4820
+dec EE8020
+dec EE8130
+dec EE3DE0
+dec EE4030
+dec EE5F50
+dec EE6450
+dec EE6760
+rangegrep EEBB10 EF2300 444\)|0x1BC|\[111\]

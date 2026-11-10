@@ -1,0 +1,23 @@
+dis AD92D0 30
+dis AD9810 30
+dec 581B70
+xref 581B70
+vtab 11EB5B0 12
+xref 94E0E0
+vtab 11E1840 12
+dec 8DB880
+dec 8D33C0
+xref 1180998
+vtab 1180990 8
+findstr %s.xml
+findstr %s-c.xml
+findstr %s%s.xml
+findstr -c.xml
+dec 8D04D0
+dec 8DBAC0
+dec 8E0460
+dec 8DFFD0
+dec 8DBCD0
+xref 8DD840
+dec 8DF7B0
+dec 8E0300
