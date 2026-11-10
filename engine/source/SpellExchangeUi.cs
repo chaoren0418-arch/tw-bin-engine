@@ -5,7 +5,8 @@ namespace P06;
 // 改在原生 TRADE_WINDOW 模式 7 顯示（資料來源 SpellTradeSource.cs；TWP§1.1、§1.6；SS2§1.2）。
 // 接法：TradeWindowPanel 的來源由 WeaponRepairUi.cs 的 AttachTradeWindow 接成 TradeWindowSources（修理＋商店）；
 // 本檔在 NPC 面板同步時把 SpellTradeSource 放到最前面（不改 TradeWindowPanel、WeaponRepairUi 或 UiPanelRegistry）。
-// 模式 7 的列不畫物品圖示：原版用魔法圖示表 word_136D548（未對應到 surf），物品圖示會畫錯圖（推測，見報告）。
+// R9-G（T367／#851，FU9§11）：模式 7 的列照原版畫物品圖示——word_136D548 是物品圖示編號表（SpellTradeProtocol.SpellIcons），
+// 與背包同一條畫圖路（sub_891DF0）；所以直接沿用 WeaponRepairUi.cs 接上的 IconSource（ItemIconSource "<編號>.tbt"），不再包裝。
 // 原生 UI 沒有啟動時：op 175 沒有清單窗（只有 NPC 面板的提示文字）；op 44 照舊列在 NPC 對話面板（NpcServices／NpcUi 的過渡清單）。
 public sealed partial class ClientForm {
     SpellTradeSource? spellTradeSource;
@@ -15,8 +16,6 @@ public sealed partial class ClientForm {
         if(panel?.Source is TradeWindowSources sources&&!sources.Sources.Any(s=>s is SpellTradeSource)){
             spellTradeSource??=new SpellTradeSource(login,()=>World.Walking);
             panel.Source=new TradeWindowSources([spellTradeSource,..sources.Sources]);
-            var icons=panel.IconSource;
-            panel.IconSource=id=>panel.View?.Mode==TradeWindowPanel.ModeSpell?null:icons?.Invoke(id);
         }
         // R4-C（T303／#715）：原生 TRADE_WINDOW 會畫 op 44 金幣學魔法清單時，NPC 面板的舊清單（ShopRows 數量框＋提交鈕）讓位：
         // 整個 WinForms NPC 面板這一輪不顯示（NpcUi.SyncInteraction 每次都重算 Visible，所以清單結束後自動回來）。

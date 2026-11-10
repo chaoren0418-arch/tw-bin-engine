@@ -26,14 +26,24 @@ public sealed partial class WorldSession {
     public bool TradeCanAdd=>TradeState=="open"&&TradePeerPresent&&!OwnDead&&Status?.Hp>0;
     public bool TradeCanConfirm=>TradeCanAdd;
     public bool TradePeerPresent=>tradeEpoch==WorldEpoch&&Actor is {} a&&TradePeerId is uint id&&objects.TryGetValue(id,out var peer)&&!peer.Dead&&peer.Name==TradePeerName&&Math.Abs(a.X-peer.X)<=1&&Math.Abs(a.Y-peer.Y)<=1;
-    public WorldObject? FacingTradeTarget {
-        get{if(!Ready||OwnDead||Status?.Hp<=0||Actor is not {} a||Target is not {} t||t.Dead||(t.Flags&4)==0)return null;
-            if(t.X!=a.X+MovementRules.Dx[a.Direction]||t.Y!=a.Y+MovementRules.Dy[a.Direction]||t.Direction!=(a.Direction+4)%8)return null;
-            return Objects.Count(o=>o.X==t.X&&o.Y==t.Y&&(o.Flags&4)!=0&&!o.Dead)==1?t:null;}
+    public WorldObject? FacingTradeTarget=>FacingTradePeer(Target);
+    /// <summary>t 在面前一格、面向自己、那一格只有它一個活著的玩家（同 3.81 FaceToFace）；否則 null。</summary>
+    internal WorldObject? FacingTradePeer(WorldObject? candidate){
+        if(!Ready||OwnDead||Status?.Hp<=0||Actor is not {} a||candidate is not {} t||t.Dead||(t.Flags&4)==0)return null;
+        if(t.X!=a.X+MovementRules.Dx[a.Direction]||t.Y!=a.Y+MovementRules.Dy[a.Direction]||t.Direction!=(a.Direction+4)%8)return null;
+        return Objects.Count(o=>o.X==t.X&&o.Y==t.Y&&(o.Flags&4)!=0&&!o.Dead)==1?t:null;
+    }
+    /// <summary>R9-C（#847）：面前一格唯一一個活著的玩家（不需選取、不看朝向）；`/trade` 用來判斷 989（對方開著個人商店）。</summary>
+    public WorldObject? PlayerAhead {
+        get{if(!Ready||OwnDead||Status?.Hp<=0||Actor is not {} a)return null;
+            int x=a.X+MovementRules.Dx[a.Direction],y=a.Y+MovementRules.Dy[a.Direction];
+            var found=Objects.Where(o=>o.X==x&&o.Y==y&&(o.Flags&4)!=0&&!o.Dead&&o.ObjectId!=a.ObjectId).ToArray();
+            return found.Length==1?found[0]:null;}
     }
     internal void ResetTrade(string notice="交易狀態已清除。"){if(TradeState=="invited")YesNoHandled(252);TradeGeneration++;tradeOffers.Clear();TradePeerName="";TradePeerId=null;TradeChallenge=0;tradeOwnConfirmed=false;tradeOpened=false;TradeCancelRequired=false;TradeAutoReject=false;TradeState="idle";TradeRevision++;TradeNotice=notice;}
     public void CheckTrade(){if(TradeBlocksActions&&TradeState is not ("invited" or "attention" or "cancelling")&&!TradePeerPresent){TradeState="attention";TradeRevision++;TradeNotice="交易對象、位置或世界已改變，不能繼續確認；請取消或斷線。";}}
-    internal void BeginTradeInvite(){var t=FacingTradeTarget!;ResetTrade();CloseInteraction("已開啟交易操作。");tradeEpoch=WorldEpoch;TradePeerId=t.ObjectId;TradePeerName=t.Name;TradeState="inviting";TradeNotice="已送出面對面交易邀請，等待對方回覆；不會自動重送。";}
+    internal void BeginTradeInvite()=>BeginTradeInvite(FacingTradeTarget!);
+    internal void BeginTradeInvite(WorldObject t){ResetTrade();CloseInteraction("已開啟交易操作。");tradeEpoch=WorldEpoch;TradePeerId=t.ObjectId;TradePeerName=t.Name;TradeState="inviting";TradeNotice="已送出面對面交易邀請，等待對方回覆；不會自動重送。";}
     // byte_136E99D（FU7§1.1，已驗證）：玩家的「接受交易詢問」選項，預設 1（sub_998250）。
     // 1：S219/252 走通用 Y/N 詢問；0：不問，直接回覆拒絕 C121（sub_92EAD0 case 252，`chdhcs` 33,0,挑戰值,252,0 → TradePackets.Answer(challenge,false)）。
     // R6-E（#781）：切換入口 `/accepttrade`（PlayerChat.cs）與 HTML 動作 accepttrade（NpcInteraction.cs）；
@@ -106,6 +116,33 @@ public sealed partial class LoginConnection {
     internal Task<bool> TradeYesNo(bool accept)=>Trade(accept?"accept":"reject",World.TradeRevision,World.WorldEpoch,World.TradeGeneration);
     // Also runs the flag-0 automatic reject (R6-E): same single C121 as the manual "reject", sent once from the receive loop.
     internal async Task CancelChangedTrade(){if(World.TradeCancelRequired)await Trade(World.TradeAutoReject?"reject":"cancel",World.TradeRevision,World.WorldEpoch,World.TradeGeneration);}
+
+    /// <summary>
+    /// R9-C（#847，FU9§9.5）：`/trade`、`/交換`（399）→ sub_F43510：面前一格是開著個人商店的玩家時印 989、不送；否則送 C2（3.81 C_Trade，
+    /// 伺服器 FaceToFace 找對象，台版不用選目標）。面前有面向自己的玩家時，本機交易狀態照 WinForms 鈕一樣進入「邀請中」；
+    /// 沒有時原版照送，伺服器回覆訊息，本機狀態不動。已有交易流程時不送（避免蓋掉正在進行的交易，引擎自加）。
+    /// </summary>
+    internal ChatCommandPlan TradeChatCommand(){
+        var ahead=World.PlayerAhead;
+        if(ahead is {ShopActive:true})return ChatCommandPlan.Refuse(ChatFollowupCommands.ShopTradeText);
+        if(World.TradeBlocksActions||tradeSending)return ChatCommandPlan.Refuse("交易進行中，未送出新的交易邀請。");
+        var peer=World.FacingTradePeer(ahead);uint? peerId=peer?.ObjectId;
+        return new(peer!=null?"已送出面對面交易邀請（"+peer.Name+"），等待對方回覆；不會自動重送。":"已送出交易請求；面前沒有面向你的玩家，結果以原服回覆為準。",
+            [TradePackets.Invite()],
+            ()=>{if(peer!=null&&World.FacingTradePeer(World.PlayerAhead) is {} now&&now.ObjectId==peerId)World.BeginTradeInvite(now);},
+            ()=>!World.TradeBlocksActions&&World.PlayerAhead is not {ShopActive:true}&&(peerId==null||World.FacingTradePeer(World.PlayerAhead)?.ObjectId==peerId));
+    }
+    /// <summary>
+    /// R9-C（FU9§9.4）：`/shop`、`/商店`（907）→ sub_F480C0：自己擺攤中送 C38 type 1 關店並印 903；不在擺攤就切換個人商店設定窗（既有入口）。
+    /// 釣魚中印 2120 的分支沒做：引擎沒有釣魚狀態（報告列為後續）。
+    /// </summary>
+    internal ChatCommandPlan ShopChatCommand(){
+        // 擺攤中＝自己的 S119 動作是 70（同 Equipment.cs 對其他物件的 ShopActive 判斷；原版看 `& 0x400`，推測同義）。
+        if(World.Actor is {Weapon:70})return ChatCommandPlan.Send(ChatFollowupCommands.ShopClosedText,null,PersonalShopPackets.Close());
+        return ChatCommandPlan.Do("已切換個人商店設定窗。",()=>{
+            if(ClientForm.OfferChatWindow(World,ChatWindowRequest.PersonalShop))return true;
+            playerChatNotice="個人商店設定窗未開啟（原生 UI 未啟動）。";return false;});
+    }
 
     public string TradeAskNotice {get;private set;}="";
     /// <summary>
