@@ -8,8 +8,9 @@ namespace P06.NativeUi;
 // - 只在 Field_Map 視窗開著、且清單不是空的時候顯示，貼在 Field_Map 右側（位置是推測，查到原版 UI 後只改 Anchor）；
 // - 每列顯示「寄件者：地區」（與聊天行相同的地區占位，字串 1784／mapDesc 等 Q-2）；點一列只在場景放 ⊕ 標記，
 //   不移動角色、不送封包（與聊天連結相同，LocationShareUi 負責標記）。
-// R5-H（T313／#740）：地圖窗的發送入口 TransferMenu（MapSendEntry，見下方）。本面板在執行期把入口裝到 Field_Map，
-// 送出中（聊天輸入列是「/loc 」開頭）時在清單最上方多一列提示 1785（不可點）。
+// R5-H（T313／#740）：地圖窗的發送入口 TransferMenu（MapSendEntry，見下方）。本面板在執行期把入口裝到 Field_Map。
+// R9-B（T362／#846）：入口改由地圖右鍵選單 MapCommunicationSelectWindow 的鈕 0 觸發（MapCommunicationPanel.cs）；
+// 1785 改畫在聊天輸入列上（MapSendPromptPanel），本面板不再多畫提示列（FU9 §7.4）。
 
 /// <summary>清單的一列：Sequence 是該分享在聊天中的序號（同一 session 內唯一）。</summary>
 public sealed record LocationListRow(long Sequence,string Sender,string Region,ushort Map);
@@ -25,11 +26,11 @@ public interface ILocationListHost {
 
 /// <summary>
 /// R5-H（T313／#740）地圖窗的 TransferMenu 發送入口（WO §5）。
-/// 已驗證（WO §5）：原版地圖視窗事件表 sub_8DE770 註冊 TransferMenu；點擊 → sub_8E0620 在聊天輸入列開提示 1785，
-/// 輸入角色名、按 Enter 後由 sub_8D4A90 送 C_CHANNEL 55/11（＝3.81 C254/11 `S H H H D`）。
+/// 已驗證（FU9 §7.2）：本機的 Field_Map 由右鍵選單 MapCommunicationSelectWindow 鈕 0（sub_A762A0 case 0）→ sub_AC98E0
+/// 在聊天輸入列開提示 1785，輸入角色名、按 Enter 後送 C_CHANNEL 55/11（＝3.81 C254/11 `S H H H D`）。
 /// 引擎做法：打開原生聊天輸入列並填入「/loc 」，之後輸入名稱、Enter 走既有 ChatPanel → SendPlayerChat → SendLocation
 /// （同一套 session／世界／角色戳記、冷卻與 sender gate，不另寫送包）；ESC 照聊天列規則取消。
-/// 推測：原版提示是輸入列本身的提示狀態，引擎改用「/loc 」前綴＋清單面板上的 1785 提示列；原本的草稿會被取代（原版開提示時同樣換掉輸入列）。
+/// 推測：原版提示是輸入列本身的提示狀態，引擎改用「/loc 」前綴＋輸入列上的 1785（MapSendPromptPanel）；原本的草稿會被取代（原版開提示時同樣換掉輸入列）。
 /// 原生 UI 關閉（WinForms HUD）時的入口仍是聊天指令 /loc。
 /// </summary>
 public sealed class MapSendEntry {
@@ -55,39 +56,35 @@ public sealed class MapSendEntry {
 public sealed class LocationListPanel(Func<Rectangle> anchor,Func<string,IUiPanel?>? find=null):IUiClosablePanel {
     /// <summary>引擎自訂的面板 Id（原版視窗名稱待查證，不借用 MapLocationSaveWindow 等原版名稱）。</summary>
     public const string PanelId="R2M_LocationShareList";
-    public const int RowHeight=16,Width=200,PromptWidth=420,Gap=2,Padding=2;
+    public const int RowHeight=16,Width=200,Gap=2,Padding=2;
     // T270（#645）自動發現：註冊宣告在面板旁，不改 UiPanelRegistry.cs。
     [UiPanel(170)] internal static UiPanelRegistration Registration=>new(PanelId,"uistatus86",root=>new LocationListPanel(()=>root.Find(FieldMapPanel.PanelId)?.Bounds??Rectangle.Empty,root.Find));   // R2-M (#619): location-share list, text only beside Field_Map (original window unverified); R5-H (#740): TransferMenu entry
-    public static readonly Color TextColor=Color.White,SelectedColor=Color.Cyan,ShadowColor=Color.Black,PromptColor=Color.Yellow;
+    public static readonly Color TextColor=Color.White,SelectedColor=Color.Cyan,ShadowColor=Color.Black;
 
-    LocationListView shown=LocationListView.Empty;bool inWorld,prompting;long? pressed,dismissed;
+    LocationListView shown=LocationListView.Empty;bool inWorld;long? pressed,dismissed;
     readonly MapSendEntry? entry=find==null?null:new MapSendEntry();
     public ILocationListHost? Host{get;private set;}
     public void Attach(ILocationListHost host)=>Host=host;
     internal LocationListView Shown=>shown;
     /// <summary>TransferMenu 入口（沒有 find 的離線建構＝null，不裝入口）。</summary>
     public MapSendEntry? Entry=>entry;
-    /// <summary>目前是否顯示 1785 提示列。</summary>
-    public bool Prompting=>prompting;
-    int Lead=>prompting?1:0;
     IReadOnlyList<LocationListRow> Rows=>Host!=null&&shown.Revision!=dismissed?shown.Rows:[];
     /// <summary>
     /// R7-H（#810）：堆疊關窗（被擠出、全域 ESC）。引擎自己的過渡畫面沒有原版關窗行為可依，做法：藏起目前這一版清單，
-    /// 清單內容變更（新分享進來，Revision 增加）時再顯示。1785 提示列跟著聊天輸入列（ESC 先由聊天列關掉），這裡不動。
+    /// 清單內容變更（新分享進來，Revision 增加）時再顯示。1785 提示在聊天輸入列上（R9-B），這裡不動。
     /// </summary>
     public void Close(){if(Host!=null&&shown.Rows.Count>0){dismissed=shown.Revision;pressed=null;}}
 
     public string Id=>PanelId;
     public UiLayer Layer=>UiLayer.Window;
     public Rectangle Bounds{get{
-        var a=anchor();int count=Rows.Count+Lead;
+        var a=anchor();int count=Rows.Count;
         if(a.IsEmpty||count==0)return Rectangle.Empty;
-        int width=prompting?PromptWidth:Width;
-        int x=Math.Max(0,Math.Min(a.Right+Gap,UiRoot.LogicalWidth-width)),height=count*RowHeight+Padding*2;
+        int x=Math.Max(0,Math.Min(a.Right+Gap,UiRoot.LogicalWidth-Width)),height=count*RowHeight+Padding*2;
         int y=Math.Max(0,Math.Min(a.Top,UiRoot.LogicalHeight-height));
-        return new(x,y,width,height);
+        return new(x,y,Width,height);
     }}
-    public bool Visible=>inWorld&&(Rows.Count>0||prompting);
+    public bool Visible=>inWorld&&Rows.Count>0;
 
     /// <summary>不讀版面 XML、不用任何 surf（原版畫面待查證）。</summary>
     public void Load(UiLayout layout,SurfCatalog surfs){}
@@ -102,22 +99,18 @@ public sealed class LocationListPanel(Func<Rectangle> anchor,Func<string,IUiPane
             entry.Chat=find!(ChatPanel.WindowName) as ChatPanel;
             entry.CanSend=inWorld&&UiChatGameState.From(state).View is {CanSend:true};
         }
-        prompting=inWorld&&entry is {Prompting:true};
     }
     public static string RowText(LocationListRow row)=>row.Sender+"："+row.Region;
-    /// <summary>1785 提示列的文字（字串表沒載入時是編號占位）。</summary>
-    public static string PromptRowText=>LocationShareProtocol.PromptText;
-    /// <summary>邏輯座標 → 列（null＝不在任何列上；提示列不是清單列）。</summary>
+    /// <summary>邏輯座標 → 列（null＝不在任何列上）。</summary>
     internal LocationListRow? RowAt(Point logical){
         var b=Bounds;if(!b.Contains(logical))return null;
-        int index=(logical.Y-b.Top-Padding)/RowHeight-Lead;
+        int index=(logical.Y-b.Top-Padding)/RowHeight;
         return logical.Y-b.Top>=Padding&&index>=0&&index<Rows.Count?Rows[index]:null;
     }
-    internal Rectangle RowRect(int index){var b=Bounds;return new(b.X,b.Y+Padding+(index+Lead)*RowHeight,b.Width,RowHeight);}
+    internal Rectangle RowRect(int index){var b=Bounds;return new(b.X,b.Y+Padding+index*RowHeight,b.Width,RowHeight);}
 
     public void Paint(UiCanvas canvas){
         if(!Visible)return;
-        if(prompting){var b=Bounds;canvas.DrawText(PromptRowText,b.X+Padding,b.Y+Padding+1,PromptColor,ShadowColor);}
         var rows=Rows;
         for(int i=0;i<rows.Count;i++){
             var row=rows[i];var r=RowRect(i);
