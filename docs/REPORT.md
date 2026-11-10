@@ -339,3 +339,5 @@
 - 2026-11-11 — #851 T367：R9-G 學魔法圖示（code，claude-local，PR 已合併）→ [報告](reports/issue-851.md)
 - 2026-11-11 — #852 T368：R9-H 好友／封鎖窗事件（code，claude-local，PR 已合併）→ [報告](reports/issue-852.md)
 - 2026-11-11 — #854 T370：R9-J 個人商店流程（code，claude-local，PR 已合併）→ [報告](reports/issue-854.md)
+- 2026-11-11 — #855 T371：R9-K 交易數量（code，claude-local，PR 已合併）→ [報告](reports/issue-855.md)
+- 2026-11-11 — #856 T372：R9-L 背包操作（code，claude-local，PR 已合併）→ [報告](reports/issue-856.md)

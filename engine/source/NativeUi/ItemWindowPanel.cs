@@ -171,6 +171,8 @@ public abstract class LegacyWindowPanel:IUiMovablePanel,IUiClosablePanel {
     /// <summary>Clickable rectangles besides close/arrows (subclasses); they are never drag handles.</summary>
     protected virtual IEnumerable<Rectangle> Controls()=>[];
     protected virtual bool Click(Point p,IUiCommands commands)=>false;
+    /// <summary>Left press inside the window that is not close/arrow; the event carries Clicks (2 = double click). Default → Click(point).</summary>
+    protected virtual bool Click(UiMouseEvent e,IUiCommands commands)=>Click(e.Location,commands);
     /// <summary>Left button released (the window keeps the mouse captured after its own press, so drags end here).</summary>
     protected virtual void Release(Point p,IUiCommands commands){}
     /// <summary>Close button. Subclasses may also notify the game (e.g. warehouse cancel).</summary>
@@ -189,11 +191,14 @@ public abstract class LegacyWindowPanel:IUiMovablePanel,IUiClosablePanel {
         if(CloseRect.Contains(e.Location)){CloseClicked(commands);return true;}
         if(ScrollUpRect.Contains(e.Location)){ScrollBy(-1);return true;}
         if(ScrollDownRect.Contains(e.Location)){ScrollBy(1);return true;}
-        Click(e.Location,commands);
+        Click(e,commands);
         return true;
     }
-    /// <summary>No keys here: the window hotkeys (Tab／Ctrl+I, Ctrl+S; FU4§1.1) are dispatched by MenuButtonsPanel (R3-A #678), which stays visible while these windows are closed.</summary>
-    public bool Key(UiKeyEvent e,IUiCommands commands)=>false;
+    /// <summary>
+    /// No window hotkeys here: Tab／Ctrl+I, Ctrl+S (FU4§1.1) are dispatched by MenuButtonsPanel (R3-A #678), which stays visible
+    /// while these windows are closed. Subclasses may take keys that act on their own content (R9-L: Delete in the item window).
+    /// </summary>
+    public virtual bool Key(UiKeyEvent e,IUiCommands commands)=>false;
 
     /// <summary>
     /// Walks the product's game-state decorators (HP/MP → macro → left status → chat → party → buff → red notice → the legacy
@@ -248,8 +253,28 @@ public sealed class UiItemWindowGameState(IUiGameState inner,IUiItemWindowState 
 /// (171, 58), arrows 2042 (171, 44) / 2040 (171, 225), knob 2044 (no position → not drawn), four tab images 2048–2051 all at
 /// (27, 235), trash 2052 (142, 260), chest 2054 (117, 260).
 /// </summary>
-public sealed class ItemWindowPanel(ItemIconSource? icons=null):LegacyWindowPanel {
-    [UiPanel(175)] internal static UiPanelRegistration Registration=>new(WindowId,Layout,root=>new ItemWindowPanel(ItemIconSource.FromRoot(root)));   // R3-A (#678): menu 4 / Tab / Ctrl+I; R4-B (#706): icons = <icon>.tbt
+/// <remarks>
+/// R9-L（T372／#856，FU9§13）背包操作（TW16 RenewalInventoryUI 為準，3.81 LiTo.bin 有殼）：
+/// - 格子雙擊 → 使用（sub_9A6FB0 → sub_9930B0 → C208，已驗證；觸發事件是雙擊屬推測）。引擎：同一格第二下（Clicks ≥ 2）→ 宿主
+///   Use（選取後走既有 UseSelectedItem，同 U 鍵；U 鍵保留）。
+/// - 垃圾桶 InvDelButton（DeleteItem → sub_9A54D0：514 且有選取）與 Delete 鍵（4142 → 同一個 sub_9A52C0，已驗證）→ 宿主 Delete
+///   （LoginConnection.BeginInventoryDelete：單件 668 → alertitems.tbl 內再 3122；堆疊先數量 3054 → alertitems.tbl 內再 4114）。
+///   聊天輸入列開著時 Delete 鍵給聊天列。沒有選取或沒有宿主 → 不詢問、不送。
+/// - 寶箱 2054：TW16 窗沒有對應事件、3.81 用途待驗證 → 只畫圖，不做（FU9§13.3）。
+/// - Esc（27 關窗）不在本組；全域 ESC（R7-H）仍會關本窗。
+/// </remarks>
+public interface IItemWindowHost {
+    /// <summary>雙擊使用。true＝已受理（選取並開始送出）。</summary>
+    bool Use(uint objectId);
+    /// <summary>垃圾桶／Delete：開始刪除詢問。true＝已受理。</summary>
+    bool Delete(uint objectId);
+}
+
+public sealed class ItemWindowPanel(ItemIconSource? icons=null,Func<IItemWindowHost?>? host=null,Func<string,IUiPanel?>? find=null):LegacyWindowPanel {
+    [UiPanel(175)] internal static UiPanelRegistration Registration=>new(WindowId,Layout,root=>new ItemWindowPanel(ItemIconSource.FromRoot(root),find:root.Find));   // R3-A (#678): menu 4 / Tab / Ctrl+I; R4-B (#706): icons = <icon>.tbt; R9-L (#856): host + chat lookup
+    /// <summary>R9-L（#856）：雙擊使用與刪除的送出端（ClientForm.InitItemTransfer 設定）；null → 不使用、不刪除。</summary>
+    public static IItemWindowHost? Host{get;set;}
+    readonly Func<IItemWindowHost?> host=host??(()=>Host);
     public const string WindowId="ITEM_WINDOW",Layout="uimagicitem";
     public const int TabCount=4;
     /// <summary>Tab images in XML order: 全部／裝備／任務／其他 (from the surfName suffixes ALL/EQUIP/QUEST/ETC).</summary>
@@ -321,12 +346,29 @@ public sealed class ItemWindowPanel(ItemIconSource? icons=null):LegacyWindowPane
         if(localSelection is uint id&&items?.Any(i=>i.ObjectId==id)!=true)localSelection=null;
     }
 
-    protected override IEnumerable<Rectangle> Controls()=>[TabStripRect,Logical(Grid.Area)];
-    protected override bool Click(Point p,IUiCommands commands){
+    protected override IEnumerable<Rectangle> Controls()=>[TabStripRect,Logical(Grid.Area),TrashRect];
+    protected override bool Click(UiMouseEvent e,IUiCommands commands){
+        var p=e.Location;
         if(LegacyStrip.SegmentAt(TabStripRect,TabCount,p) is int tab){SetTab(tab);return true;}
-        if(ItemAt(p) is {} item){SelectItem(item.ObjectId);return true;}
+        if(TrashRect.Contains(p)){DeleteSelected();return true;}
+        if(ItemAt(p) is {} item){
+            uint? before=SelectedId;
+            SelectItem(item.ObjectId);
+            // R9-L：同一格的第二下（雙擊）→ 使用。第一下已選取，所以「之前已選這一件」才算。
+            if(e.Clicks>=2&&before==item.ObjectId)UseItem(item.ObjectId);
+            return true;
+        }
         return false;
     }
+    /// <summary>R9-L：Delete（4142）＝垃圾桶。窗開著、沒有修飾鍵、不是自動重複；聊天輸入列開著時不收（字給聊天列）。</summary>
+    public override bool Key(UiKeyEvent e,IUiCommands commands){
+        if(!Visible||!e.Down||e.Repeat||e.Modifiers!=Keys.None||e.KeyCode!=Keys.Delete)return false;
+        if(find?.Invoke(ChatPanel.WindowName) is ChatPanel{Input.Open:true})return false;
+        return DeleteSelected();
+    }
+    /// <summary>目前選取（且在背包清單內）的物品交給宿主刪除；沒有選取或沒有宿主 → false。</summary>
+    public bool DeleteSelected()=>SelectedId is uint id&&items?.Any(i=>i.ObjectId==id)==true&&host() is {} h&&h.Delete(id);
+    bool UseItem(uint id)=>host() is {} h&&h.Use(id);
     /// <summary>Select through the game model when available (shared with the WinForms list and the U key), else locally.</summary>
     public void SelectItem(uint? id){
         if(id!=null&&items?.Any(i=>i.ObjectId==id)!=true)return;
