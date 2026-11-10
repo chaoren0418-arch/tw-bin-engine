@@ -1,6 +1,6 @@
 # TASKS — tw-bin-engine
 
-更新：2026-11-06（#76 範圍凍結；#99、#110 調整 M3；#128 依使用者節流指示改寫驗證方式與 M2；#162 M2 結案、新增 M4；#177 M4 結案、新增 M5；#186 新增 M6 內容擴充；#238 M6 補列 T113–T134；#385 補列 T135–T146；#418 補列 T147–T153；#427 第四層證據：原版表現查證先於開發；#485 補列 T167–T201；#503 新增 M7 重建補缺；#535 M7 補列 T203–T227；#569 M7 補列 T228–T243；#657 M7 補列 T244–T274；#727 M7 補列 T275–T304）。格式：`### ID | 狀態 | 負責 | 範圍`。狀態只用 todo／doing／review／done／blocked。
+更新：2026-11-10（#76 範圍凍結；#99、#110 調整 M3；#128 依使用者節流指示改寫驗證方式與 M2；#162 M2 結案、新增 M4；#177 M4 結案、新增 M5；#186 新增 M6 內容擴充；#238 M6 補列 T113–T134；#385 補列 T135–T146；#418 補列 T147–T153；#427 第四層證據：原版表現查證先於開發；#485 補列 T167–T201；#503 新增 M7 重建補缺；#535 M7 補列 T203–T227；#569 M7 補列 T228–T243；#657 M7 補列 T244–T274；#727 M7 補列 T275–T304；#894 M7 補列 T305–T383）。格式：`### ID | 狀態 | 負責 | 範圍`。狀態只用 todo／doing／review／done／blocked。
 
 **計算規則（凍結）**：
 - 調度台的進度條**只算 `## M*` 區段**；`## Backlog` 只顯示數量，不算進度。
@@ -247,7 +247,7 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 ### T195 | done | 依計畫 | 原生 UI 模組：聊天窗 CENTER_WINDOW（36 px 伸縮、頻道分頁、過濾、輸入列、左右分割）（#468）
 ### T196 | done | 依計畫 | 原生 UI 模組：底列小地圖與 Field_Map 小窗（Map 按鈕開關，讓出 F5）（#470）
 ### T197 | done | 依計畫 | 原生 UI 模組：隊伍底板 PARTY_INTERFACE 與右側隊伍／寵物窗（#471）
-### T198 | todo | 依計畫 | 原生 UI 模組：書籤視窗 BookmarkUI（263×420 可拖曳）（#472）
+### T198 | done | 依計畫 | 原生 UI 模組：書籤視窗 BookmarkUI（263×420 可拖曳）（#472）
 ### T199 | done | 依計畫 | 原生 UI 模組：狀態圖示（依舊封包對照）（#473）
 ### T200 | done | 依計畫 | 原生 UI 模組：紅字（畫面中央系統訊息）（#474）
 ### T201 | blocked | 依計畫 | 原生 UI 真機 smoke：P24Lab 測試角色開 nativeUi 跑一輪（#475）
@@ -255,7 +255,7 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 
 ---
 
-## M7 重建補缺（使用者 2026-11-08 17:53，#503）— 主線 100 項，封頂（#535：U9 兌現 +25，原估最多 +40；#569：依 T225–T227 查證補 +16；#657：第二輪與查證補 +29；#727：第三、四輪與查證補 +29）
+## M7 重建補缺（使用者 2026-11-08 17:53，#503）— 主線 179 項，封頂（#535：U9 兌現 +25，原估最多 +40；#569：依 T225–T227 查證補 +16；#657：第二輪與查證補 +29；#727：第三、四輪與查證補 +29；#894：第五至第七輪、參考客戶端 P 組、R6–R10 與查證補 +79）
 
 **驗收：使用者打開會看到什麼**：`docs/reference/gap-matrix.md` 列出原版每個功能在引擎中的狀態（已有／部分／缺）；依它開出的 code 任務全部合併後，「缺」與「部分」只剩標明「需先查證」或「伺服器不支援」的列，且每列都附原因。
 
@@ -332,7 +332,7 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 ### T270 | done | claude-local | 測試與註冊表改為自動發現（減少共用檔案衝突）（#645）
 ### T271 | done | claude-local | rebuild-lock 改成合併後才重產，PR 不再修改 lock（#646）
 ### T272 | done | claude-local | Q-2 補做——城主王冠、死亡統計值、座標與地圖字串（#649）
-### T273 | todo | claude-local | 伺服器踢除時顯示模態訊息框（S_KICK）（#651）
+### T273 | done | claude-local | 伺服器踢除時顯示模態訊息框（S_KICK）（#651）
 ### T274 | done | claude-local | 測試結果隨環境不同——S245 與 attack-skill-resources（#655）
 ### T275 | done | claude-local | 查證原版——前幾輪留下的未驗證細項（SpellList id、王冠可見、傳送與召喚窗等）（#665）
 ### T276 | done | claude-local | 控制戒指開窗（傳送選書籤、召喚選單）與盟屋地圖 674 鈕（#667）
@@ -349,7 +349,7 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 ### T287 | done | claude-local | 查證原版——第三輪細項（開窗熱鍵、酒醉、光效、隱身例外、倉庫紀錄窗、頭目音樂、聊天第二色）（#680）
 ### T288 | done | claude-local | Q3 補做——血盟倉庫紀錄原生窗、隱身只限同隊、酒醉註解（#689）
 ### T289 | done | claude-local | 查證原版——名稱旁圖示、S250 27／30／31、光效 +5、物品欄位 +36（#690）
-### T290 | todo | claude-local | T272 補做——城主王冠繪製、死亡統計 Reset 與道具窗、地名備援、座標聊天行（#698）
+### T290 | done | claude-local | T272 補做——城主王冠繪製、死亡統計 Reset 與道具窗、地名備援、座標聊天行（#698）
 ### T291 | done | claude-local | gap-matrix 第四輪——盤點剩餘缺口，列出第四批任務與原生 UI 預設開啟前的缺口（#701）
 - T292（併入，不計）：~~S250 子碼 27／30／31 顯示，以及光效亮度 +5 的觸發~~ 併入 R4-G（T298）、R4-H（T299）（#703）
 ### T293 | done | claude-local | R4-A 選單鈕、熱鍵與信件入口（#705）
@@ -361,9 +361,88 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 ### T299 | done | claude-local | R4-H S250 27／30／31 印聊天欄（#711）
 ### T300 | done | claude-local | R4-I 原生 `HYPER_TEXT_WINDOW`（#712）
 ### T301 | done | claude-local | R4-J 原生書籤窗（#713）
-### T302 | doing | claude-local | R4-K 聲音：播放中隨距離改音量（#714）
-### T303 | todo | claude-local | R4-C 交易、商店、修理、學魔法窗收尾（#715）
-### T304 | todo | claude-local | 查證原版——第四輪細項 Q4-3 到 Q4-9（血盟關注、盟戰、求婚、盟屋窗、代碼聊天名稱、世界地圖）（#716）
+### T302 | done | claude-local | R4-K 聲音：播放中隨距離改音量（#714）
+### T303 | done | claude-local | R4-C 交易、商店、修理、學魔法窗收尾（#715）
+### T304 | done | claude-local | 查證原版——第四輪細項 Q4-3 到 Q4-9（血盟關注、盟戰、求婚、盟屋窗、代碼聊天名稱、世界地圖）（#716）
+### T305 | done | claude-local | gap-matrix 第五輪——剩餘缺口、原生 UI 缺口更新，以及 M7 是否可以結案（#730）
+### T306 | done | claude-local | R5-A 原生 UI 開關收尾（#733）
+### T307 | done | claude-local | R5-B 原生書籤窗收尾（#734）
+### T308 | done | claude-local | R5-C 特效收尾（#735）
+### T309 | done | claude-local | R5-D 小協定差異（#736）
+### T310 | done | claude-local | R5-E 聲音收尾（#737）
+### T311 | done | claude-local | R5-F 狀態圖示收尾（#738）
+### T312 | done | claude-local | R5-G 原生公告板內容（#739）
+### T313 | done | claude-local | R5-H 地圖窗發送座標（#740）
+### T314 | done | claude-local | R5-I `QUIT_WINDOW` 備援（#741）
+### T315 | done | claude-local | 查證原版——Q5-1 到 Q5-5，以及複核 K6 的 19 列（#742）
+### T316 | done | claude-local | Q4 補做——血盟關注、盟戰與求婚的入口、代碼聊天名稱、盲目職業加成（#746）
+### T317 | done | claude-local | 原生 UI 改為預設開啟（使用者 #743 決定 1）（#751）
+### T318 | done | claude-local | 用 PakViewer 查遍所有 .pak——K3「缺資源」18 列與先前標「本機沒有」的檔案（#752）
+### T319 | done | claude-local | P-A 參考客戶端 UI XML 來源（#757）
+### T320 | done | claude-local | P-C `.tbt` surf 解碼（#758）
+### T321 | done | claude-local | P-E 名稱與稱號字型改用原版（#759）
+### T322 | done | claude-local | P-B 參考客戶端 surf 備援（#760）
+### T323 | done | claude-local | P-D 原生盟屋拍賣窗（參考客戶端 XML）（#761）
+### T324 | done | claude-local | P-D 原生信件三窗（參考客戶端 XML）（#762）
+### T325 | done | claude-local | P-D 原生能力值重置與能力資訊窗（參考客戶端 XML）（#763）
+### T326 | done | claude-local | P-D 原生登入畫面（參考客戶端 XML）（#764）
+### T327 | done | claude-local | P-D 原生選角與建角畫面（參考客戶端 XML）（#765）
+### T328 | done | claude-local | P-D 原生狀態窗（參考客戶端 XML）（#766）
+### T329 | done | claude-local | P-D 原生釣魚窗（參考客戶端 XML）（#767）
+### T330 | done | claude-local | P-D 原生選項窗（參考客戶端 XML）（#768）
+### T331 | done | claude-local | P-D 原生排名窗（參考客戶端 XML）（#769）
+### T332 | done | claude-local | R6-A 封包特效與地圖單次音效（#778）
+### T333 | done | claude-local | R6-C 私商 `TRADE_WINDOW` 13／14（#779）
+### T334 | done | claude-local | R6-D 鍵盤拾取與幽靈快捷（#780）
+### T335 | done | claude-local | R6-E 聊天指令與本地確認（#781）
+### T336 | done | claude-local | R6-F 料理窗與地裂深度（#782）
+### T337 | done | claude-local | 查證原版——Q6-1、Q6-2、Q6-4 到 Q6-9（頭上條基準、決鬥送出點、BehaviourUI 等）（#783）
+### T338 | done | claude-local | R6-B 自己的名稱位置（#784）
+### T339 | done | claude-local | gap-matrix 第六輪——原生 UI 預設開啟後重新判定、M7 能否結案、真機檢查清單（#800）
+### T340 | done | claude-local | R7-A 戰鬥排隊、S42 光照、選目標游標（#803）
+### T341 | done | claude-local | R7-B 輸入列 Y/N 與表情保留（#804）
+### T342 | done | claude-local | R7-C 戒指與盟屋拍賣（#805）
+### T343 | done | claude-local | R7-D HTML 動作（#806）
+### T344 | done | claude-local | R7-E 狀態圖示變體（#807）
+### T345 | done | claude-local | R7-F 公告板收尾（#808）
+### T346 | done | claude-local | R7-G 私商提示（#809）
+### T347 | done | claude-local | R7-H 視窗堆疊與 ESC（#810）
+### T348 | done | claude-local | R7-I 選單鈕 2／Ctrl+A 與狀態窗（#811）
+### T349 | done | claude-local | R7-J 隊伍委任（#812）
+### T350 | done | claude-local | R7-K 血盟備註（#813）
+### T351 | done | claude-local | R7-L 聲音收尾 3（#814）
+### T352 | done | claude-local | R7-M 登入畫面收尾（#815）
+### T353 | done | claude-local | R7-O WidgetSlot 外觀（#816）
+### T354 | done | claude-local | R7-N 參考客戶端字串表（#817）
+### T355 | done | claude-local | 查證原版——Q7-1 到 Q7-14（第六輪需先查證的 36 列）（#818）
+### T356 | done | claude-local | R8-A 頭上條（#820）
+### T357 | done | claude-local | R8-B 鑑定訊息（#821）
+### T358 | done | claude-local | R8-C 決鬥指令（#822）
+### T359 | done | claude-local | R8-D 動作窗（#823）
+### T360 | done | claude-local | R8-E list.spr 附加層（#824）
+### T361 | done | claude-local | R9-A 書籤窗原版操作（#845）
+### T362 | done | claude-local | R9-B 地圖窗右鍵選單與存點窗（#846）
+### T363 | done | claude-local | R9-C 聊天指令與 S161 文字（#847）
+### T364 | done | claude-local | R9-D S55 不跟隨特效（#848）
+### T365 | done | claude-local | R9-E HyperText 小組（#849）
+### T366 | done | claude-local | R9-F HyperText 排版器（#850）
+### T367 | done | claude-local | R9-G 學魔法圖示（#851）
+### T368 | done | claude-local | R9-H 好友／封鎖窗事件（#852）
+### T369 | done | claude-local | R9-I 私商查詢頁（#853）
+### T370 | done | claude-local | R9-J 個人商店流程（#854）
+### T371 | done | claude-local | R9-K 交易數量（#855）
+### T372 | done | claude-local | R9-L 背包操作（#856）
+### T373 | done | claude-local | R9-M 召喚窗收尾（#857）
+### T374 | done | claude-local | R9-N 公告板上一篇／下一篇（#858）
+### T375 | done | claude-local | R9-O 選角／建角（#859）
+### T376 | done | claude-local | R9-P 釣魚窗（#860）
+### T377 | done | claude-local | R9-Q 選項窗（#861）
+### T378 | done | claude-local | R7 併入項 179 字串提示與狀態窗 Up 確認（#862）
+### T379 | todo | claude-local | gap-matrix 第七輪與 M7 結案判定（#880）
+### T380 | done | claude-local | 查證原版——FishObtainUI 釣魚物品表（#884）
+### T381 | done | claude-local | 查證原版——HyperText 顏色位元組順序與連結色（#886）
+### T382 | doing | claude-local | R10-A FishObtainUI 清單（背包尾段旗標＋desc id 表）（#888）
+### T383 | doing | claude-local | R10-B HyperText 顏色修正（FU11 D1–D7）（#891）
 
 ---
 
