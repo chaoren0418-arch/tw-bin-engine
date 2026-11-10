@@ -76,7 +76,8 @@ static class FishingFollowupTests {
         t.Check(o.CloseButton is {At.X:225,At.Y:15} b&&b.Base?.Surf==902&&b.Push?.Surf==903,"close button (225,15)");
         t.Check(o.TitleString==FishObtainPanel.TitleStringId&&o.TitleAt==new Point(30,20),"Total_Label String 3674 at (30,20)");
         t.Equal(new Rectangle(18,37,194,250),o.ListArea,"list area position kept");
-        t.Check(o.Skipped.Any(s=>s.Contains("等物品表"))&&o.Skipped.Any(s=>s.Contains("捲軸")),"list and scrollbar skipped (#818)",o.Skipped);
+        // R10-A（#888）：清單與捲軸照原版接上；這份合成版面的那一列沒有子節點 → 只有那一列記為不建。
+        t.Check(o.Rows.Count==0&&o.ScrollBack?.Surf==904&&o.Skipped.Count==1&&o.Skipped[0].Contains("Item0_Button"),"list built from XML, scrollbar kept (R10-A)",o.Skipped);
         t.Check(o.Missing.Count==0,"no missing surf",o.Missing);
         if(ServerMessageText.Table is not {} table||FishObtainPanel.TitleStringId>=table.Count)
             t.Check(o.Title==null,"string 3674 not in the table → no title (no substitute)");
@@ -98,7 +99,7 @@ static class FishingFollowupTests {
         t.Check(o.Visible&&quits==0&&!fishing.Unhandled.Contains("FishingNet"),"FishingNet opens FishObtainUI, sends nothing");
         t.Equal(new Point(200,50),o.Origin,"opens right of the fishing window (推測)");
         t.Equal(ObtainBase,Pixel(o,200+18+50,50+37+50),"list area not drawn (base only)");
-        t.Equal(ObtainBase,Pixel(o,200+18+199+2,50+37+14+5),"scrollbar not drawn");
+        t.Equal(Scroll,Pixel(o,200+18+199+2,50+37+14+5),"scrollbar background drawn (R10-A; empty table → no rows)");
         t.Equal(ObtainFrame,Pixel(o,200+1,50+1),"frame drawn over base");
         t.Equal(Close,Pixel(o,200+225+1,50+15+1),"close button drawn");
         Click(fishing,NetX,NetY);
