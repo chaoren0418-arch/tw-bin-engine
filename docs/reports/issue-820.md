@@ -43,7 +43,7 @@
 - 本機編譯：`OfflineClient.csproj`（Release）與 `DemoChecks.csproj` 皆 **0 錯誤**；本次改動沒有新警告。
   - 本機環境備註（與本任務無關，同 #676–#689）：本機 restore 會讓 WebView2 `.winmd` 觸發 NETSDK1130。做法：`NUGET_PACKAGES` 指到 `scratch/t820/packages`，並用只放在 scratch 的 `scratch/t820/nowinmd.targets`（`-p:CustomAfterMicrosoftCommonTargets=…`，把 winmd 換成套件 `lib_manual/netcoreapp3.0` 的 DLL）只為了確認 C# 能編譯；未入 git，產品專案沒改。
 - `python engine/tools/check-no-game-assets.py`：pass（errors 0）。
-- 依本機限制，**沒有在本機執行任何編譯出來的程式**；單元測試（含 `headbar-followup`）交給 PR 的 GitHub Actions CI。
+- 依本機限制，**沒有在本機執行任何編譯出來的程式**；單元測試交給 PR #840 的 GitHub Actions CI：run 42850897959（build：dotnet、map-continuity）與 42850898346（npc-offline）全部 success；`headbar-followup` pass，40 checks、0 failures；既有群組（含 native-ui-hpmp）綠。
 
 ## 未驗證什麼（待驗證）
 - **真機再確認**：自己在畫面上的絕對位置（FU8§1.1 的待驗證：原版 P 固定 (456, 288)，引擎相機把腳下點放畫面中央，可能差約 80 px，屬相機範圍，不是本任務）。建議加進 #475 的 M14／M15 截圖比對。
