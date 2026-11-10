@@ -89,7 +89,8 @@ static class BookmarkPanelTests {
         host.Bookmarks=View(1,2,BookmarkWindowPanel.SingleBookmarkNotice,Rows(4));p.Update(InWorld);
         t.Check(p.Visible&&!p.DestinationMode,"single bookmark (S92) opens the window");
         Click(p,p.ConfirmRect,cmd);
-        t.Check(!p.Visible,"confirm in normal mode closes");
+        t.Check(p.Visible&&host.Calls.Count==0,"confirm in normal mode does not close (R9-A, FU9§1: original saves without closing)");
+        p.Toggle();
         host.Bookmarks=View(1,3,"已收到伺服器書籤清單。",Rows(4));p.Update(InWorld);
         t.Check(!p.Visible,"full list does not open");
         host.Bookmarks=View(2,1,BookmarkWindowPanel.SingleBookmarkNotice,Rows(4));p.Update(InWorld);

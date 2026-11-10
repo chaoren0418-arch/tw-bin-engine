@@ -12,8 +12,10 @@ public sealed class BookmarkPanel:UserControl {
     // 傳送控制戒指＋施放技能 5／69 時開啟：選書籤後按「傳送到此書籤」送一次 C6 HD；「取消」或 ESC 關閉、不送。
     // 這是既有 WinForms 書籤分頁的模式切換；版面不是原版。R4-J（#713）之後原生 UI 開啟時改由原生窗
     // NativeUi/BookmarkPanel.cs（BookmarkWindowPanel）處理，本分頁只在原生 UI 關閉或原生窗不可用時進入此模式（RingWindows.cs）。
-    // R5-B（#734）：原生窗也能新增（Insert 鍵命名）與刪除（Delete 鍵／右鍵＋846 確認），送包同樣走 LoginConnection.SendBookmark
-    // （BookmarkEditHost）；本分頁的新增／刪除保留給原生 UI 關閉時。「原生書籤窗」鈕＝一般模式的開窗入口（原版熱鍵沒查到，過渡入口）。
+    // R5-B（#734）：原生窗也能刪除，送包同樣走 LoginConnection.SendBookmark（BookmarkEditHost）；本分頁的新增／刪除保留給
+    // 原生 UI 關閉時（--classic-ui 的 WinForms 入口）。「原生書籤窗」鈕＝一般模式的開窗入口（原版沒有固定熱鍵，過渡入口）。
+    // R9-A（#845，FU9§1）：原生窗照原版——只有 Delete 鍵刪除（可多選，846 確認後一筆一個 C3，BookmarkEditHost.DeleteMany 依序送）、
+    // 沒有右鍵刪除；Insert＝加進快速移動清單（本次登入有效）；窗內不能新增（新增入口是聊天指令，R9-C）。
     readonly Button native=new(){Dock=DockStyle.Bottom,Height=34,Text="原生書籤窗"};
     readonly Label destination=new(){Dock=DockStyle.Top,Height=40,ForeColor=Color.Gold,Visible=false,Text="傳送控制戒指：請選擇傳送目的地（ESC 取消）"};
     readonly Button teleport=new(){Dock=DockStyle.Bottom,Height=34,Text="傳送到此書籤",Visible=false};
@@ -140,6 +142,23 @@ public sealed partial class ClientForm {
             if(sending||form.World.Walking)return;
             sending=true;form.ClearInput("bookmarks");_ = Go();
             async Task Go(){try{await form.login.SendBookmark(shown,name,id);}finally{sending=false;if(!form.IsDisposed)form.SyncBookmarks();}}
+        }
+        /// <summary>R9-A（#845）：846 多選刪除，一筆一個 C3，依序送（SendBookmark 一次只送一筆、要求 view 是最新 revision，
+        /// 所以每送完一筆重新取快照）；連線、角色換了或任何一筆被拒就停，剩下的不送。</summary>
+        public void DeleteMany(BookmarkView shown,IReadOnlyList<uint> ids){
+            if(sending||form.World.Walking||ids.Count==0)return;
+            sending=true;form.ClearInput("bookmarks");_ = Go();
+            async Task Go(){
+                try{
+                    var view=shown;
+                    foreach(var id in ids){
+                        if(view.Session!=shown.Session||view.Epoch!=shown.Epoch||view.ActorId!=shown.ActorId||form.World.Walking)break;
+                        if(!await form.login.SendBookmark(view,null,id))break;
+                        if(form.IsDisposed)break;
+                        view=form.login.BookmarkSnapshot();
+                    }
+                }finally{sending=false;if(!form.IsDisposed)form.SyncBookmarks();}
+            }
         }
     }
 }

@@ -97,7 +97,8 @@ static class BookmarkPanelFollowupTests {
         p.Key(K(Keys.Delete),cmd);p.Key(K(Keys.Enter),cmd);
         t.Check(ed.Calls.Count==2&&ed.Calls[1]=="delete:1:102","Enter = yes",ed.Calls);
         p.Mouse(M(UiMouseKind.Down,Center(p.RowRect(3)),MouseButtons.Right),cmd);
-        t.Check(p.Selected==104&&p.ConfirmingDelete==104,"right click on a row selects it and asks 846",(p.Selected,p.ConfirmingDelete));
+        t.Check(p.Selected==102&&p.ConfirmingDelete==null,"right click does not select or delete (R9-A: original has no right-click delete)",(p.Selected,p.ConfirmingDelete));
+        Click(p,p.RowRect(3),cmd);p.Key(K(Keys.Delete),cmd);
         p.Key(K(Keys.Y),cmd);
         t.Check(ed.Calls.Last()=="delete:1:104","Y = yes",ed.Calls);
         ed.Sending=true;p.Key(K(Keys.Delete),cmd);
@@ -114,43 +115,20 @@ static class BookmarkPanelFollowupTests {
         host.Bookmarks=View(5,[..Sample.Where(b=>b.Id!=103)]);p.Update(InWorld);
         t.Check(p.ConfirmingDelete==null,"confirmed bookmark vanished → confirm dropped");
 
-        // 3. 新增：Insert → 命名（WM_CHAR）→ Enter 送出；ESC 放棄；名稱檢查
+        // 3. R9-A（FU9§1）：窗內不能新增——Insert 不再命名、不送 C165（Insert＝快速移動清單，見 bookmark-window-original）
         ed.Calls.Clear();host.Bookmarks=View(6);p.Update(InWorld);
-        t.Check(!p.Char('a'),"chars not taken outside naming (go to chat)");
-        p.Key(K(Keys.Insert),cmd);
-        t.Check(p.NamingText=="","Insert starts naming");
-        foreach(char c in "Giran")p.Char(c);
-        p.Key(K(Keys.Back),cmd);
-        t.Equal("Gira",p.NamingText,"typing and backspace");
-        t.Check(!p.Key(K(Keys.A),cmd),"printable keys left to WM_CHAR while naming");
-        p.Char('n');p.Key(K(Keys.Enter),cmd);
-        t.Check(ed.Calls.SequenceEqual(["add:6:Giran"])&&p.NamingText==null,"Enter sends one add (C165 via host)",ed.Calls);
-        p.Key(K(Keys.Insert),cmd);foreach(char c in "aden")p.Char(c);p.Key(K(Keys.Enter),cmd);
-        t.Check(ed.Calls.Count==1&&p.EditError!=null&&p.NamingText=="aden","duplicate name (case-insensitive) rejected locally",p.EditError);
-        p.Key(K(Keys.Escape),cmd);
-        t.Check(p.NamingText==null&&p.Visible,"ESC abandons naming, window stays");
-        p.Key(K(Keys.Insert),cmd);p.Key(K(Keys.Enter),cmd);
-        t.Check(ed.Calls.Count==1&&p.EditError!=null,"empty name rejected (BookmarkPackets.NameError)");
-        Click(p,p.CancelRect,cmd);
-        t.Check(p.NamingText==null&&p.Visible,"cancel button abandons naming");
-        p.Key(K(Keys.Insert),cmd);p.Char('X');Click(p,p.ConfirmRect,cmd);
-        t.Check(ed.Calls.Last()=="add:6:X","confirm button sends the name",ed.Calls);
-        host.Bookmarks=View(7,capacity:5);p.Update(InWorld);
-        p.Key(K(Keys.Insert),cmd);
-        t.Check(p.NamingText==null,"full list (5/5) → no naming");
-        host.Bookmarks=View(8);p.Update(InWorld);
-        p.Key(K(Keys.Insert),cmd);p.Char('Q');
-        host.Bookmarks=View(9,canEdit:false);p.Update(InWorld);
-        t.Check(p.NamingText==null,"CanEdit drops → naming cancelled");
+        t.Check(!p.Char('a'),"chars not taken (go to chat)");
+        Click(p,p.RowRect(0),cmd);p.Key(K(Keys.Insert),cmd);
+        t.Check(!p.Char('a')&&ed.Calls.Count==0&&p.ConfirmingDelete==null,"Insert does not start naming or send an add",ed.Calls);
 
-        // 4. 沒接編輯宿主：不提供新增／刪除；選目的地模式也不提供
+        // 4. 沒接編輯宿主：不提供刪除；選目的地模式也不提供
         var bare=Panel(new Host(),null);Click(bare,bare.RowRect(0),cmd);
-        bare.Key(K(Keys.Delete),cmd);bare.Key(K(Keys.Insert),cmd);
-        t.Check(bare.ConfirmingDelete==null&&bare.NamingText==null,"no editor → no add/delete");
+        bare.Key(K(Keys.Delete),cmd);
+        t.Check(bare.ConfirmingDelete==null,"no editor → no delete");
         var dh=new Host();var de=new Editor();var d=Panel(dh,de);
         dh.Destination=new(5,5);d.Update(InWorld);Click(d,d.RowRect(0),cmd);
-        d.Key(K(Keys.Delete),cmd);d.Key(K(Keys.Insert),cmd);
-        t.Check(d.DestinationMode&&d.ConfirmingDelete==null&&d.NamingText==null,"destination mode → no add/delete");
+        d.Key(K(Keys.Delete),cmd);
+        t.Check(d.DestinationMode&&d.ConfirmingDelete==null&&de.Calls.Count==0,"destination mode → no delete");
         // 確認中再進入選目的地：確認被清掉
         dh.Destination=null;d.Update(InWorld);d.Toggle();d.Update(InWorld);Click(d,d.RowRect(0),cmd);d.Key(K(Keys.Delete),cmd);
         t.Check(d.ConfirmingDelete==101,"confirm pending");
@@ -174,7 +152,7 @@ static class BookmarkPanelFollowupTests {
         // 6. 區域篩選 ZoneFilter_Combobox (129,141)
         var z=Panel(new Host(),null);
         t.Equal(new Rectangle(139,161,105,19),z.ZoneExpandRect,"Expand_Button at combobox (129,141)");
-        t.Equal("ALL",z.ZoneText,"label shows ALL (Item0 Caption)");
+        t.Equal("全部",z.ZoneText,"label shows string 878 (R9-A, FU9§1: item 0 = 878, not the XML Caption ALL)");
         t.Check(z.ZoneItems.SequenceEqual(new ushort?[]{null,0,4,57}),"items = ALL + distinct map ids ascending",z.ZoneItems);
         t.Check(!z.ZoneListOpen,"closed by default");
         Click(z,z.ZoneExpandRect,cmd);
@@ -222,12 +200,10 @@ static class BookmarkPanelFollowupTests {
         // 真實 BookmarkUI.xml：Expand_List 沒有 X、Background_Image 沒有 Y（本檔的合成 XML 照抄這個省略）
         t.Equal(new Rectangle(139,180,55,19),Panel(new Host(),null).ZoneRowRect(0),"omitted X/Y on Expand_List = 0");
 
-        // 8. 關窗時清掉暫態（確認、命名、展開）
+        // 8. 關窗時清掉暫態（確認、展開）
         var w=Panel(new Host(),new Editor());Click(w,w.RowRect(0),cmd);w.Key(K(Keys.Delete),cmd);
         ((IUiClosablePanel)w).Close();
         t.Check(!w.Visible&&w.ConfirmingDelete==null,"close drops the pending 846");
-        w.Toggle();w.Key(K(Keys.Insert),cmd);w.Toggle();
-        t.Check(!w.Visible&&w.NamingText==null,"toggle close drops naming");
-        t.Check(!w.Char('a'),"closed window takes no chars");
+        t.Check(!w.Char('y'),"closed window takes no chars");
     }
 }
