@@ -20,6 +20,7 @@
 - `dotnet build engine/source/OfflineClient.csproj -c Release`（本機，restore 來源指向原專案 `engine/vendor`）：0 錯誤。
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：`status: pass`，errors 0。
 - 依規定**沒有在本機執行**測試；`self-name-layout` 與既有單元測試交給 PR 的 GitHub Actions CI。
+- PR #885 的 CI（commit `14bb9046`）：`dotnet`、`map-continuity`、`npc-offline` 全部 pass；`--module-tests` 中 `self-name-layout`（`P06.SelfNameLayoutTests.Run`）pass，26 項檢查，0 失敗。
 - 沒改 `WorldSession.cs`、`UiPanelRegistry.cs`、`Program.cs`、`DemoChecks.csproj`、`rebuild-lock.json`。
 
 ## 未驗證什麼
