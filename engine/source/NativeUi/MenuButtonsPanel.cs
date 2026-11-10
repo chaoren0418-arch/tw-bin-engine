@@ -81,7 +81,8 @@ public sealed class MenuButtonsPanel(UiRoot? root=null):IUiPanel {
     /// <summary>
     /// R4-A (#705), FU4§1.1 WM_CHAR table (TW13 sub_4D3910; TW16 sub_8C14F0): Ctrl+A (1) CRenewalStatusUI, Ctrl+Q (17) and
     /// Alt+X (0x8058) CUserPlayStatsUI, Ctrl+H (8, Ctrl held — Backspace is not Ctrl+H here) HTML help, Ctrl+V (22) HTML option1,
-    /// Ctrl+C (3) HTML option2／option2p, Ctrl+P (16) screenshot. Ctrl+O／B／D／E are not wired (no engine window).
+    /// Ctrl+C (3) HTML option2／option2p, Ctrl+P (16) screenshot. Ctrl+O／B／E are not wired (no engine window).
+    /// Ctrl+D (4) is handled apart from this table (see <see cref="ActionWindowPanel.Hotkey"/>, R8-D #823).
     /// </summary>
     public static readonly IReadOnlyDictionary<Keys,MenuHotkeyCommand> CommandHotkeys=new Dictionary<Keys,MenuHotkeyCommand>{
         [Keys.Control|Keys.A]=MenuHotkeyCommand.Status,
@@ -266,6 +267,12 @@ public sealed class MenuButtonsPanel(UiRoot? root=null):IUiPanel {
         }
         if(CommandHotkeys.TryGetValue(e.KeyData,out var command)){
             if(e.Down&&!e.Repeat)Run(command,commands,root);
+            return true;
+        }
+        // R8-D (#823): Ctrl+D (TW16 WM_CHAR 4 → BehaviourUI, FU4§1.1; 3.81 推測) toggles the native action window through
+        // UiRoot.Toggle. No usable action window (no ActionUI XML, faulted, no root) → not taken, the key goes on as before.
+        if(e.KeyData==ActionWindowPanel.Hotkey&&ActionWindowPanel.Window(root) is {} actions){
+            if(e.Down&&!e.Repeat)ToggleWindow(root!,actions,()=>actions.Open(),actions.Toggle);
             return true;
         }
         return false;
