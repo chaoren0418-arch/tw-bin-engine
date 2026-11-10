@@ -44,7 +44,7 @@ S241 沒有解除形式，解除條件是引擎自己的政策，**不是原服�
 
 單獨的 S202/7 不解除：它也是物品拒絕的共用回包，不代表位置已校正。未定義的 S241 內容（非 0）記為未處理，不上鎖。
 
-查詢點在 `MovementAvailable`，所以鎖定期間不送 C29，也不送 C225。送出閘門會再查一次，並遞增 `AppearanceRevision`，鎖定前排隊的請求即使在解除後才輪到也不會送出。**附帶影響**：攻擊、施法、門與傳送點都以 `MovementAvailable` 為前提，鎖定期間一併停止，直到收到 S87。另外，表情的 1234 ms 保留（`EmoteHeld`，R5-D）也併進 `MoveLocked`；只有 S241 本身看 `ServerMoveLocked`。
+查詢點在 `MovementAvailable`，所以鎖定期間不送 C29，也不送 C225。送出閘門會再查一次，並遞增 `AppearanceRevision`，鎖定前排隊的請求即使在解除後才輪到也不會送出。**附帶影響**：攻擊、施法、門與傳送點都以 `MovementAvailable` 為前提，鎖定期間一併停止，直到收到 S87。另外，表情的 1234 ms 保留（`EmoteHeld`，R5-D）與立即型表情結束後的 700 ms（`EmoteSettling`，R7-B）也併進 `MoveLocked`（`EmoteInputPaused`）；只有 S241 本身看 `ServerMoveLocked`。321 與 322 都由共用輸入列回覆（R7-B，WO §6），沒有獨立的 WinForms 復活面板。
 
 ## 待驗證
 

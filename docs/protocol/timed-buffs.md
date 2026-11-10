@@ -30,7 +30,7 @@
 
 ## 尚未實作
 
-- S103 type 8（三段加速）不屬於本任務，仍計入 `unhandled`，讓缺口看得到。
+- S103 type 8（三段加速）：R7-B（T341／#804）依 `sub_9343C0`（`0x934401–0x934425`）處理。自己的 type 8 設 `+547`（`WorldSession.OwnThirdSpeed`），之後**當成 type 0** 處理（酒醉解除；地圖 67／420 為醉度 1）；自己的 type 0 清 `+547`。`+547` 給表情節流用（2265 ms）。不跟 `WorldEpoch` 走（伺服器傳送後不重送 type 8），Reset 才清。其他物件的 type 8 仍計入 `unhandled`（`+547` 影響動畫時間 `sub_A3BC30`，未做）。
 - 網頁場景（`PublishSceneWeb`）不搖晃；只有主視窗 `OnPaint` 的場景會搖晃。
 
 ## T179（#481）：酒醉改為逐掃描線正弦

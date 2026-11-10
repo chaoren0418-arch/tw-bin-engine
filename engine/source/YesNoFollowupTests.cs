@@ -68,7 +68,8 @@ static class YesNoFollowupTests {
         {
             var sent=new List<byte[]>();using var c=World(true,sent);
             c.World.Receive(Ask(321),"offline");
-            t.Check(c.YesNoSnapshot().Prompt==null&&WorldSession.ResurrectionUsesPanel(c.ResurrectionSnapshot()),"321 keeps the resurrection panel");
+            // R7-B (T341/#804): 321 moved to the shared input line as well (WO §6); InputLineFollowupTests covers the answers.
+            t.Check(c.YesNoSnapshot().Prompt?.Message==321&&!WorldSession.ResurrectionUsesPanel(c.ResurrectionSnapshot()),"321 uses the shared input line");
         }
         {
             var sent=new List<byte[]>();using var c=World(false,sent);
@@ -152,7 +153,8 @@ static class YesNoFollowupTests {
         t.Equal(1,registrations.Count,"YesNoPanel registered once");
         var p=new YesNoPanel();var src=new Source();p.Source=src;var cmd=new UiNullCommands();
         t.Equal(UiLayer.Float,p.Layer,"Float layer (above the chat window)");
-        t.Equal(Rectangle.Union(YesNoButtons.Logical(true),YesNoButtons.Logical(false)),p.Bounds,"bounds = YES (361,567) ∪ NO (401,567)");
+        // R7-B (T341/#804): the bounds also cover the input line (192,581) 280×12, where the question is drawn.
+        t.Equal(Rectangle.Union(Rectangle.Union(YesNoButtons.Logical(true),YesNoButtons.Logical(false)),YesNoButtons.Line),p.Bounds,"bounds = YES (361,567) ∪ NO (401,567) ∪ input line");
         p.Update(new UiStaticGameState(InWorld:true));
         t.Check(!p.Visible&&!p.Key(new(Keys.Escape,true,false),cmd)&&!p.Mouse(new(UiMouseKind.Down,new(361,567),MouseButtons.Left,1,0,Keys.None),cmd),"hidden without a question");
         src.Current=new(7,"問題");p.Update(new UiStaticGameState(InWorld:false));

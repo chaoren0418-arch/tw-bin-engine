@@ -13,9 +13,10 @@ public static class YesNoProtocol {
     // Generic in the original, but still owned by engine modules outside this file scope
     // (clan join 97 -> ClanUi, clan war 221/222 -> ClanWar). They keep their current UI until R2-K moves them here.
     // R2-J (#624): resurrection 322 (WO §6: S_ASK reads it and enters sub_4FC710) now uses the shared slot.
+    // R7-B (T341/#804): 321 too; it stays in `special` (no string to read) but WO §6 sends it to the same input line.
     static readonly HashSet<ushort> delegated=[97,221,222];
-    // Party, duel, marriage and resurrection 322: queued only after their module admitted the question.
-    public static bool ModuleOwned(ushort message)=>message is 953 or 630 or 654 or 322;
+    // Party, duel, marriage and resurrection 321/322: queued only after their module admitted the question.
+    public static bool ModuleOwned(ushort message)=>message is 953 or 630 or 654 or 321 or 322;
     public static bool Special(ushort message)=>special.Contains(message);
     public static bool Generic(ushort message)=>!special.Contains(message)&&!delegated.Contains(message);
     // Only these four have an automatic reply on timeout (windows.md T141).
@@ -42,10 +43,15 @@ public static class YesNoProtocol {
             630 when first.Length>0=>first+" 要與你決鬥。",
             654 when first.Length>0=>first+" 向你求婚。",
             252 when first.Length>0=>first+" 邀請你交易。",
-            322=>"有人要讓你復活。是否接受？",
+            321 or 322=>"有人要讓你復活。是否接受？",
             _=>"原服詢問 "+message+(args.Length>0?"："+string.Join("、",args):"。")};
     }
     public static string Text(ushort message,string[] args)=>(TableText(message,args)??FallbackText(message,args))+Hint;
+    /// <summary>
+    /// R7-B: text for the native input line (192, 581). The YES／NO buttons are on screen there, so the engine's typing hint
+    /// is dropped and only the formatted question is drawn, as in sub_AC9600.
+    /// </summary>
+    public static string LineText(string text)=>text.EndsWith(Hint,StringComparison.Ordinal)?text[..^Hint.Length]:text;
     // Strict decode with its own reader: header 0, D, H, then non-empty strings and zero padding.
     // Returns null for anything else so the existing S219 consumers keep their own validation.
     public static (uint RequestId,ushort Message,string[] Arguments)? Decode(byte[] plain){
@@ -77,10 +83,10 @@ public sealed partial class WorldSession {
         lock(yesNoGate){
             ClearYesNo("收到新的伺服器詢問，舊詢問已失效。");
             if(!Ready)return;
-            if(ask.Message!=322&&(!YesNoProtocol.Generic(ask.Message)||YesNoProtocol.ModuleOwned(ask.Message)))return;
+            if(!ResurrectionPackets.IsPrompt(ask.Message)&&(!YesNoProtocol.Generic(ask.Message)||YesNoProtocol.ModuleOwned(ask.Message)))return;
         }
-        // 322: ObserveResurrectionPrompt (WorldSession.cs, before ReceiveParty) has already admitted or ignored it.
-        if(ask.Message==322&&!ResurrectionAwaitsAnswer(322))return;
+        // 321/322: ObserveResurrectionPrompt (WorldSession.cs, before ReceiveParty) has already admitted or ignored it.
+        if(ResurrectionPackets.IsPrompt(ask.Message)&&!ResurrectionAwaitsAnswer(ask.Message))return;
         OfferYesNo(ask.RequestId,ask.Message,ask.Arguments);
     }
     internal void OfferYesNo(uint requestId,ushort message,string[] args){
@@ -97,7 +103,7 @@ public sealed partial class WorldSession {
         630=>DuelSnapshot.Phase=="invited",
         654=>MarriagePhaseAfterCheck()=="invited",
         252=>TradeYesNoLive(p), // M7-K: Trade offers 252 itself when byte_136E99D is 1.
-        322=>ResurrectionAwaitsAnswer(322),
+        321 or 322=>ResurrectionAwaitsAnswer(p.Message),
         _=>true};
     string MarriagePhaseAfterCheck(){CheckMarriage();return marriagePhase;}
     // Module state is read outside yesNoGate: Duel takes duelGate, and modules call YesNoHandled.
@@ -142,7 +148,7 @@ public sealed partial class LoginConnection {
             case 630:{var d=World.DuelSnapshot;return await Duel(command,d.Revision,d.Epoch);}
             case 654:return await SendMarriage(command,MarriageSnapshot());
             case 252:return await TradeYesNo(accept);
-            case 322:{var r=ResurrectionSnapshot();return r is {Message:322,Phase:"invited"}&&await AnswerResurrection(r,accept);}
+            case 321 or 322:{var r=ResurrectionSnapshot();return r.Message==p.Message&&r.Phase=="invited"&&await AnswerResurrection(r,accept);}
         }
         return await SendYesNo(p,accept,false);
     }
@@ -171,6 +177,13 @@ public sealed partial class LoginConnection {
 public static class YesNoButtons {
     public static readonly Point YesOrigin=new(361,567),NoOrigin=new(401,567);
     public static readonly Size Size=new(32,14);   // 推定
+    /// <summary>
+    /// R7-B (T341/#804): the input-line object that holds the question text — sub_7026C0 creates it with
+    /// sub_AC3A40(192, 581, 280, 12) and sub_AC9600 (FO 0x6C8A00) puts the prompt into it (WO §6, 已驗證, static).
+    /// </summary>
+    public static readonly Rectangle Line=new(192,581,280,12);
+    /// <summary>The WinForms prompt label is only for the legacy HUD (or a faulted native panel); the native panel draws the line.</summary>
+    public static bool WinFormsLineVisible(bool prompt,bool nativePanel)=>prompt&&!nativePanel;
     public static string Label(bool accept)=>accept?"YES":"NO";
     public static Rectangle Logical(bool accept)=>new(accept?YesOrigin:NoOrigin,Size);
     /// <summary>Logical 800×600 point → true YES, false NO, null neither.</summary>
@@ -187,8 +200,8 @@ public static class YesNoButtons {
     }
 }
 
-// Chat input line prompt. Layout of the original line (800x600 at (192,581), 280x12) is 推測 to be the
-// chat input; this keeps the existing chat TextBox and only shows the question text above the status bar.
+// Chat input line prompt. Native UI: YesNoPanel draws the question on the original line (800x600 at (192,581), 280x12) and
+// this label stays hidden (R7-B). Legacy HUD: the existing chat TextBox is kept and the question is shown above the status bar.
 public sealed partial class ClientForm {
     bool yesNoUiReady,yesNoAnswering;
     readonly Label yesNoLine=new(){AutoSize=false,Height=24,Visible=false,BackColor=Color.FromArgb(20,20,20),ForeColor=Color.FromArgb(255,230,160),
@@ -228,7 +241,7 @@ public sealed partial class ClientForm {
     sealed class YesNoPanelSource(ClientForm form):P06.NativeUi.IYesNoSource {
         public P06.NativeUi.YesNoPanelView? Current{get{
             if(form.login.State!=LoginState.InWorld)return null;
-            var v=form.login.YesNoSnapshot();return v.Prompt==null?null:new(v.Revision,v.Prompt.Text);
+            var v=form.login.YesNoSnapshot();return v.Prompt==null?null:new(v.Revision,YesNoProtocol.LineText(v.Prompt.Text));
         }}
         public void Answer(int revision,bool accept){
             var v=form.login.YesNoSnapshot();
@@ -259,11 +272,12 @@ public sealed partial class ClientForm {
         bool show=login.State==LoginState.InWorld&&view.Prompt!=null;
         if(show&&view.Revision!=yesNoShown){yesNoShown=view.Revision;yesNoLine.Text=view.Prompt!.Text+(PlayerChatFocused?"":"　按 Enter 開啟輸入列。");}
         bool panel=AttachYesNoPanel()!=null;
-        yesNoLine.Visible=show;yesNoYes.Visible=yesNoNo.Visible=show&&!panel;if(!show){yesNoShown=-1;yesNoView=null;return;}
+        // R7-B: with the native panel the question is drawn on the input line (192, 581) by YesNoPanel; the label would cover it.
+        yesNoLine.Visible=YesNoButtons.WinFormsLineVisible(show,panel);yesNoYes.Visible=yesNoNo.Visible=show&&!panel;if(!show){yesNoShown=-1;yesNoView=null;return;}
         yesNoView=view;
+        if(panel)return;
         int width=Math.Min(640,Math.Max(200,ClientSize.Width-16));
         yesNoLine.SetBounds(8,Math.Max(0,ClientSize.Height-bar.Height-yesNoLine.Height-6),width,yesNoLine.Height);yesNoLine.BringToFront();
-        if(panel)return;
         // Native canvas without a usable YesNoPanel (faulted): keep the WinForms buttons at the panel's client rectangle.
         var native=NativeUiActive?NativeUiViewport():(P06.NativeUi.UiViewport?)null;
         foreach(var (b,accept) in new[]{(yesNoYes,true),(yesNoNo,false)}){
