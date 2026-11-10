@@ -37,6 +37,22 @@ public static class PointerFlow {
     public const string TargetUnavailable="未送出：請確認目標仍可見，停下並等待可操作後再點擊。";
 }
 
+/// <summary>
+/// R10-D（T388／#903，FU9§9.1）：從場景拖人到隊伍窗。原版 `sub_ED8AC0`（FO `0xAD7EC0`）收到 517、拖的是別人的 `userObject`
+/// → 送 type 0／1。引擎：場景左鍵按下選中別的玩家時（<see cref="PlayerPointerController.Select"/>）記下物件 id；隊伍窗
+/// （NativeUi/PartyPanel）收到「不是自己按下」的左鍵放開時取走，走既有 PartyAction("invite") → SendParty（C230 type 0）。
+/// 任何新的場景點擊或停止（PlayerPointerController.Cancel）、在隊伍窗上按下都會清掉。只在 UI 執行緒使用。
+/// 拖曳中游標上的人物圖沒畫；窗的類別與「只在隊伍分頁收」是推測（真機再確認）。
+/// </summary>
+public static class WorldObjectDrag {
+    public static uint? Source {get;private set;}
+    public static void Begin(uint id)=>Source=id==0?null:id;
+    public static void Clear()=>Source=null;
+    public static uint? Take(){var s=Source;Source=null;return s;}
+    /// <summary>可以拖去邀請的對象：看得到、活著、玩家旗標（4）、不是自己。</summary>
+    public static bool PlayerCandidate(WorldSession w,uint id)=>id!=0&&id!=w.Actor?.ObjectId&&id!=w.Status?.ObjectId&&w.Objects.Any(o=>o.ObjectId==id&&!o.Dead&&!o.AppearancePending&&(o.Flags&4)!=0);
+}
+
 public sealed class PlayerPointerController {
     readonly LoginConnection login;readonly Func<bool> focused,walking;readonly Func<uint,bool> visible;readonly Func<long> now;
     readonly Queue<Point> route=new();int version;bool sending;long started;Point expected;Stamp? stamp;
@@ -51,7 +67,7 @@ public sealed class PlayerPointerController {
     Stamp Capture(){var w=login.World;return new(login.SessionGeneration,w.WorldEpoch,w.Actor!.ObjectId,w.MapId,w.Corrections,w.AppearanceRevision,w.SpeedRevision);}
     bool Current(Stamp s)=>focused()&&login.MovementAvailable&&s==Capture();
     Point Position=>new(login.World.Actor!.X,login.World.Actor.Y);
-    public void Cancel(string reason){version++;route.Clear();stamp=null;login.CancelMovementInput();Notice="已停止後續滑鼠動作（"+reason+"）；已送出的請求仍以伺服器為準。";}
+    public void Cancel(string reason){version++;route.Clear();WorldObjectDrag.Clear();stamp=null;login.CancelMovementInput();Notice="已停止後續滑鼠動作（"+reason+"）；已送出的請求仍以伺服器為準。";}
     bool RawStep(int x,int y,int h){
         var w=login.World;int nx=x+MovementRules.Dx[h],ny=y+MovementRules.Dy[h];
         // Known doors block only through S209; their object tile is not occupancy.
@@ -73,8 +89,25 @@ public sealed class PlayerPointerController {
         Notice=sent?"已選取施法目標，單次施法已送出；等待原服結果。":login.World.MagicNotice;
         return sent;
     }
+    // R10-D（T388／#903，FU9§9.1）：`/invite` 的選目標模式（Party.cs PartyInvitePick）。點物件＝sub_954FC0：結束選目標，
+    // 是 30 格內的有效玩家才送 C230 type 0（PickPartyInviteTarget；type 1 要 byte_13CE519，本引擎固定 0）；點地面＝取消、不走路。
+    // 施法選目標優先（兩種模式同時開時先處理施法，與原版的先後關係沒查，推測）。
+    public bool PartyInvitePicking=>login.World.PartyInvitePicking;
+    public Task<bool>? LastPartyInvitePick {get;private set;}
+    public const string PartyInviteSentNotice="組隊邀請已送出；結果以原服回覆為準。",PartyInviteRefusedNotice="未送出組隊邀請：對象不是 30 格內可邀請的玩家，或目前不能操作。",PartyInviteCancelNotice="已取消選擇邀請對象。";
+    bool TryPickPartyInvite(uint id){
+        if(!login.World.PartyInvitePicking)return false;
+        Cancel("選邀請對象");
+        LastPartyInvitePick=PartyPickAsync(id);return true;
+    }
+    async Task<bool> PartyPickAsync(uint id){
+        bool sent=await login.PickPartyInviteTarget(id);
+        Notice=sent?PartyInviteSentNotice:PartyInviteRefusedNotice;
+        return sent;
+    }
     public bool MoveTo(Point goal){
         if(login.World.SpellTargetPicking){Cancel("取消選目標");login.World.CancelSpellTargetPick("點了地面");Notice=login.World.MagicNotice;return false;}
+        if(login.World.PartyInvitePicking){Cancel("取消選邀請對象");login.World.CancelPartyInvitePick();Notice=PartyInviteCancelNotice;return false;}
         Cancel("新目的地");if(!focused()||!login.MovementAvailable){Notice="目前無法行走。";return false;}
         var w=login.World;if(!(w.MapCache?.Contains(goal.X,goal.Y)??Coordinates.Inside(goal.X,goal.Y))){Notice="目的地不在已載入地圖內。";return false;}
         // Snapshot occupancy once for bounded A*, then use live RawStep again for every sent edge.
@@ -97,7 +130,14 @@ public sealed class PlayerPointerController {
         }finally{sending=false;}
     }
     bool TargetVisible(uint id)=>visible(id)&&login.World.Objects.Any(o=>o.ObjectId==id&&!o.Dead&&!o.AppearancePending);
-    public bool Select(uint id){if(TryPickSpellTarget(id))return login.World.TargetId==id;Cancel("選取目標");if(!focused()||!login.World.Renderable||!TargetVisible(id))return false;login.World.SelectTarget(id);Notice=$"已選取 {login.World.Target?.Name} #{id}；G 攻擊，選技能後 M 施放。";return login.World.TargetId==id;}
+    // 選目標模式中點到人：送邀請（或不送），不改選取目標，回 false。一般選取選中別的玩家時記下拖曳來源（WorldObjectDrag）。
+    public bool Select(uint id){
+        if(TryPickSpellTarget(id))return login.World.TargetId==id;
+        if(TryPickPartyInvite(id))return false;
+        Cancel("選取目標");if(!focused()||!login.World.Renderable||!TargetVisible(id))return false;login.World.SelectTarget(id);Notice=$"已選取 {login.World.Target?.Name} #{id}；G 攻擊，選技能後 M 施放。";
+        if(login.World.TargetId==id&&WorldObjectDrag.PlayerCandidate(login.World,id))WorldObjectDrag.Begin(id);
+        return login.World.TargetId==id;
+    }
     // R2-C (WO §1–2): double-click on a ground item goes through the object-click flow
     // (GroundUi.PickupGroundClicked → LoginConnection.PickupGround): approach to 1 tile, then the whole
     // stack or the quantity prompt. `pickup` defaults to that flow; the UI passes PickupGroundClicked.
@@ -134,6 +174,8 @@ public sealed class PlayerPointerController {
     public async Task<bool> ActAsync(uint id,bool talk){
         // 選目標模式中，左鍵（攻擊路徑）點物件是選施法目標，不送攻擊。
         if(!talk&&TryPickSpellTarget(id))return await LastSpellPick!;
+        // 選邀請對象時，攻擊路徑（雙擊／Ctrl／直接攻擊）點人也是選對象、不攻擊；回 false 讓 UI 不記成「attack」，結果看 LastPartyInvitePick。
+        if(!talk&&TryPickPartyInvite(id)){await LastPartyInvitePick!;return false;}
         Cancel(talk?"單次交談":"單次攻擊");
         if(Refusal(id,talk) is {} refused){Notice=refused;return false;}
         bool door=login.World.IsDoor(id);

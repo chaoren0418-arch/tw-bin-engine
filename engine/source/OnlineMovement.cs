@@ -58,9 +58,34 @@ public sealed partial class LoginConnection {
     void ResetMovementSend(){inputVersion++;movementLease++;movementSending=false;nextMovementAt=0;lastMovementAt=-1;}
     public async Task<bool> Move(int heading)=>(await SendMovement(heading,true,false)).Sent;
     public async Task<bool> Turn(int heading)=>(await SendMovement(heading,false,false)).Sent;
-    public Task<MovementAttempt> RequestMovement(int heading,bool step,bool walking)=>walking
-        ?Task.FromResult(RefuseMovement("未送出：本地步行尚未結束，請稍候。"))
-        :SendMovement(heading,step,false);
+    public Task<MovementAttempt> RequestMovement(int heading,bool step,bool walking){
+        if(walking)return Task.FromResult(RefuseMovement("未送出：本地步行尚未結束，請稍候。"));
+        if(step&&(HeldMovementPaused||emotePausedMove is {IsCompleted:false})){
+            emotePausedHeading=heading;
+            return emotePausedMove is {IsCompleted:false} pending?pending:emotePausedMove=ResumeAfterEmote();
+        }
+        return SendMovement(heading,step,false);
+    }
+    // R10-G (T391/#906, gap-matrix 1:92, AN§1): during the emote hold (byte_153CE6A) and the 700 ms tail (byte_153CE69)
+    // the original only skips held-input continuation (0xDF5401–0xDF5416 before sub_A4C270(0)); held keys stay held.
+    // So the held keyboard step waits here (one shared wait, latest heading) and resumes when the pause ends.
+    // A key release (CancelMovementInput), a new connection or world drops it. Turns, attack, magic, doors and
+    // portals do not go through this wait.
+    public bool HeldMovementPaused=>World.EmoteInputPaused;
+    internal Func<Task> EmotePauseWait=()=>Task.Delay(15);
+    Task<MovementAttempt>? emotePausedMove;int emotePausedHeading;
+    internal const string EmotePauseNotice="表情動作中：按住的移動暫停，表情結束後繼續。";
+    async Task<MovementAttempt> ResumeAfterEmote(){
+        int epoch=generation,world=World.WorldEpoch,input=inputVersion;
+        World.MotionNotice=EmotePauseNotice;
+        while(true){
+            if(epoch!=generation||world!=World.WorldEpoch)return new(false,"本次移動流程所屬連線或世界已變更；不沿用表情暫停中的移動。");
+            if(input!=inputVersion)return new(false,"未送出：本次移動輸入已取消。");
+            if(!HeldMovementPaused&&!MovementBusy)break;
+            await EmotePauseWait();
+        }
+        return await SendMovement(emotePausedHeading,true,false);
+    }
     public string MovementBlockReason {
         get {
             if(State!=LoginState.InWorld)return "未送出：尚未進入在線世界。";

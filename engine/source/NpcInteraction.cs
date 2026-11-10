@@ -156,6 +156,8 @@ public sealed partial class LoginConnection {
         // R2-F：exitghost 由客戶端自己處理（R2-D 的 TryHyperAction 送 C173），不送 C125；送出後照其他動作關頁。
         if(World.QueryActionValue(option,revision) is {} trade&&WorldSession.IsAcceptTradeAction(trade))return await ToggleAcceptTrade(PlayerHudActions.Stamp(this));
         // R7-D（#806）：surrender／cease／pledgefocusadd 等頁上的客戶端動作（血盟說明頁 optionplp 是伺服器主動頁）；頁不關。
+        // R10-C（#902）：HyperAct addbuddy → 588 輸入框（不送 C125）。
+        if(World.QueryActionValue(option,revision) is {} buddy&&BuddyHyperActs.IsAddBuddy(buddy))return await OpenAddBuddyInput(query:true);
         if(World.QueryActionValue(option,revision) is {} html&&HtmlClientAction(html,query:true) is {} htmlTask)return await htmlTask;
         if(World.QueryActionValue(option,revision) is {} hyper&&TryHyperAction(hyper,out var ghost)){
             bool ok=await ghost;if(ok)World.QueryActionSent(revision);return ok;
@@ -176,6 +178,7 @@ public sealed partial class LoginConnection {
         var selected=World.InteractionPage?.Options.FirstOrDefault(o=>o.Id==option&&o.Enabled&&o.Kind=="action");if(selected==null)return null;
         string action=selected.Value.Trim();
         if(WorldSession.IsAcceptTradeAction(action))return ToggleAcceptTrade(PlayerHudActions.Stamp(this));
+        if(BuddyHyperActs.IsAddBuddy(action))return OpenAddBuddyInput(query:false);   // R10-C（#902）：588 輸入框
         if(HtmlClientAction(action,query:false) is {} html)return html;
         if(TryHyperAction(action,out var ghost))return ghost;
         ushort gfx=World.InteractionNpcGfx??0;
@@ -216,7 +219,7 @@ public sealed partial class LoginConnection {
 // 推測／引擎自訂（標明）：原版的輸入框是共用 InputWindow（sub_AC98E0），本引擎把它畫在同一個 HYPER_TEXT_WINDOW 頁內
 //   （NativeUi/HyperTextPanel.cs 的名稱框；WinForms 備援是頁下方的文字框）；送出後頁面維持不關（原版關窗時機沒查）。
 //   動作名稱大小寫比照 checkpk／accepttrade 不分大小寫（原版比對方式沒查）。
-public enum HtmlNameKind { Surrender, Cease, PledgeFocusAdd }
+public enum HtmlNameKind { Surrender, Cease, PledgeFocusAdd, AddBuddy }
 /// <summary>頁內血盟名輸入框。Query＝開在伺服器主動頁（否則是 NPC 頁）；PageRevision＝開框時的頁版本，頁換掉就失效。</summary>
 public sealed record HtmlNamePrompt(long Revision,HtmlNameKind Kind,bool Query,int PageRevision,int Epoch,int PromptId,string Prompt);
 public static class HtmlActions {
@@ -227,7 +230,7 @@ public static class HtmlActions {
     /// <summary>declarewar 取 HTML 參數 1（r29 城門守衛頁「向 &lt;var src="#1"&gt; 血盟宣戰」）。</summary>
     public const int DeclareWarArgument=1;
     /// <summary>輸入框提示：578 投降、579 停戰、3361 關注血盟。</summary>
-    public static int PromptText(HtmlNameKind kind)=>kind switch{HtmlNameKind.Surrender=>ClanWarProtocol.SurrenderInputText,HtmlNameKind.Cease=>ClanWarProtocol.CeaseInputText,_=>ClanProtocol.AttentionInputText};
+    public static int PromptText(HtmlNameKind kind)=>kind switch{HtmlNameKind.Surrender=>ClanWarProtocol.SurrenderInputText,HtmlNameKind.Cease=>ClanWarProtocol.CeaseInputText,HtmlNameKind.AddBuddy=>BuddyHyperActs.AddInputText,_=>ClanProtocol.AttentionInputText};
     /// <summary>declarewar 的本機檢查：門檻 25、等級不足印 475（其他同 sub_F46290）。</summary>
     public static ClanWarProtocol.Decision CheckDeclare(ClanWarProtocol.Self self,string name)=>ClanWarProtocol.CheckDeclare(self,name,ClanWarProtocol.SiegeLevel,ClanWarProtocol.SiegeLevelMessage);
     /// <summary>名稱框最多 16 個 Big5 位元組（C129 的緩衝 0x11＝16 字＋NUL；C227 用同一個框，推測）。</summary>
@@ -247,7 +250,7 @@ public sealed partial class WorldSession {
     internal HtmlNamePrompt OpenHtmlNamePrompt(HtmlNameKind kind,bool query){
         if(query)QueryRevision++;else InteractionRevision++;
         int id=HtmlActions.PromptText(kind);
-        return htmlNamePrompt=new(++htmlNamePromptRevision,kind,query,query?QueryRevision:InteractionRevision,WorldEpoch,id,NativeUi.PledgePanel.PromptText(id));
+        return htmlNamePrompt=new(++htmlNamePromptRevision,kind,query,query?QueryRevision:InteractionRevision,WorldEpoch,id,kind==HtmlNameKind.AddBuddy?BuddyHyperActs.AddInputPrompt:NativeUi.PledgePanel.PromptText(id));
     }
     /// <summary>關名稱框（確定或取消）。只有版本相符才關；頁版本 +1 讓 WinForms 備援重畫。</summary>
     internal bool CloseHtmlNamePrompt(long revision){
@@ -287,7 +290,7 @@ public sealed partial class LoginConnection {
         }
     }
     /// <summary>名稱框可以送出（血盟操作的共同條件，沒有正在送的血盟／盟戰請求）。</summary>
-    public bool HtmlNameCanSend=>ClanAccess&&clanWarSendingGeneration!=generation&&clanSendingGeneration!=generation&&sendMovementGate!=null;
+    public bool HtmlNameCanSend=>World.HtmlNameInput is {Kind:HtmlNameKind.AddBuddy}?BuddyInputCanSend:ClanAccess&&clanWarSendingGeneration!=generation&&clanSendingGeneration!=generation&&sendMovementGate!=null;
     /// <summary>
     /// 名稱框確定：框先關（原版輸入框按確定就關），名稱非空才送：投降／停戰 C227 type 2／3、關注 C129 子碼 0。
     /// 版本不符、頁已失效或目前不能送（框保留）時回 false。
@@ -296,6 +299,7 @@ public sealed partial class LoginConnection {
         if(World.HtmlNameInput is not {} p||p.Revision!=revision||!HtmlNameCanSend)return false;
         name=name.Trim();World.CloseHtmlNamePrompt(revision);Changed?.Invoke();
         if(name.Length==0)return false;
+        if(p.Kind==HtmlNameKind.AddBuddy)return await AddBuddyFromInput(name);   // R10-C：588 → C207＋C4
         return p.Kind==HtmlNameKind.PledgeFocusAdd?await AddClanAttention(name)
             :await SendHtmlClanWar(p.Kind==HtmlNameKind.Surrender?ClanWarCommand.Surrender:ClanWarCommand.Cease,name);
     }
