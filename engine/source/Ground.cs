@@ -6,9 +6,15 @@ public sealed record GroundItem(uint ObjectId,ushort X,ushort Y,ushort Gfx,uint 
 public static class GroundRules {
     public static byte PickupHeading(ushort x,ushort y,ushort tx,ushort ty,byte old){float dx=Math.Abs(x-tx),dy=Math.Abs(y-ty),distance=Math.Max(dx,dy);if(distance==0)return old;int ax=(int)Math.Floor(dx/distance+0.59f),ay=(int)Math.Floor(dy/distance+0.59f);int sx=ax==0?0:Math.Sign(tx-x),sy=ay==0?0:Math.Sign(ty-y);return (byte)Enumerable.Range(0,8).Single(i=>MovementRules.Dx[i]==sx&&MovementRules.Dy[i]==sy);}
     // R6-D (WO §2; UI §2 V5 (b): F4 = sub_500640): the first class-9 (ground item) object within 1 tile.
-    // Engine scan order is ObjectId; the native visible-object order is unverified. Walls (Q6-7) are not checked.
-    public static GroundItem? LootTarget(ushort x,ushort y,IEnumerable<GroundItem> items)=>
-        items.OrderBy(g=>g.ObjectId).FirstOrDefault(g=>g.Count>0&&ApproachRules.Within(x,y,g.X,g.Y,ApproachRules.PickupRange));
+    // Engine scan order is ObjectId; the native visible-object order is unverified.
+    // R10-K (FU8 §6): with `step`, items whose one step is blocked are skipped and the scan continues.
+    public static GroundItem? LootTarget(ushort x,ushort y,IEnumerable<GroundItem> items,Func<int,int,int,bool>? step=null)=>
+        items.OrderBy(g=>g.ObjectId).FirstOrDefault(g=>g.Count>0&&ApproachRules.Within(x,y,g.X,g.Y,ApproachRules.PickupRange)&&(step==null||PickupStepClear(x,y,g.X,g.Y,step)));
+    // R10-K (FU8 §6 / Q6-7, verified): sub_5001C0 and sub_500640 call sub_F12490 only when the item is not
+    // underfoot: the single step from self toward the item (heading sub_A40EC0, i.e. PickupHeading) must not
+    // carry tile bit 0 (map attribute plus S_Door). Objects standing on that tile are not part of the check.
+    public static bool PickupStepClear(ushort x,ushort y,ushort tx,ushort ty,Func<int,int,int,bool> step)=>
+        x==tx&&y==ty||step(x,y,PickupHeading(x,y,tx,ty,0));
     public static bool Droppable(InventoryItem i)=>GroundCatalog.CanDrop(i);
     // WO §2 step 4 (verified): one timestamp shared by every pickup path; now>=last+986 ms,
     // or 600 ms while dword_13CE514&0x10000. Not yet passed: no send and no queue.
@@ -58,6 +64,13 @@ public sealed partial class WorldSession {
         if(Actor is not {} a||(a.X==item.X&&a.Y==item.Y))return;byte heading=GroundRules.PickupHeading(a.X,a.Y,item.X,item.Y,a.Direction);
         if(heading!=a.Direction){LastPickupHeading=new{from=a.Direction,to=heading,item.X,item.Y,source="local turn before C_GET (WO §2 step 2)"};Actor=a with{Direction=heading};}
     }
+    // R10-K: the engine's counterpart of sub_F12490 — door overlay (S209) plus map attribute, the same
+    // sources as ApproachWalk.RawStep but without the object-occupancy term. PickupTerrain is an offline
+    // test seam. Without a map cache and without assets/terrain0.bin (CI) only the door overlay applies.
+    internal Func<int,int,int,bool>? PickupTerrain {get;set;}
+    static readonly Lazy<bool> pickupTerrainFile=new(()=>File.Exists(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../assets/terrain0.bin"))));
+    public bool PickupStep(int x,int y,int h)=>!DoorBlocks(x,y,h)&&(PickupTerrain?.Invoke(x,y,h)??MapCache?.Passable(x,y,h)??(!pickupTerrainFile.Value||MovementRules.Passable(x,y,h)));
+    public bool PickupReachable(GroundItem g)=>Actor is {} a&&GroundRules.PickupStepClear(a.X,a.Y,g.X,g.Y,PickupStep);
     public bool SelectGround(uint? id){if(id!=null&&!ground.ContainsKey(id.Value))return false;SelectedGroundId=id;GroundSelectionRevision++;GroundRevision++;if(id!=null)SelectTarget(null);return true;}
     void ResetGround(){ground.Clear();SelectedGroundId=null;GroundRevision++;GroundSelectionRevision++;PickupActions=0;LastPickupActor=null;pendingPickup=null;LastPickupHeading=null;PickupPrompt=null;GroundNotice="等待原服地面物品";}
     internal void InvalidatePickupRequest(){pendingPickup=null;}
@@ -82,6 +95,7 @@ public sealed partial class WorldSession {
 }
 public sealed partial class LoginConnection {
     bool groundSending;int groundLease;long nextGroundAt;
+    public const string StepBlockedNotice="未送出：往物品方向那一格被地形或門擋住";
     // Pickup throttle is WO §2's 986 ms (600 ms with the fast flag). Drop keeps the same local guard length.
     public const int GroundClickGuardMs=GroundRules.PickupThrottleMs;
     // R2-C (PG §4, T233): dword_13CE514 is the S139 server feature word; 0x10000 selects 600 ms.
@@ -112,6 +126,8 @@ public sealed partial class LoginConnection {
     }
     Task<bool> PickupArrived(uint id){
         if(World.SelectedGroundId!=id||World.GroundQuantity(true) is not {} snapshot){World.GroundNotice="未送出：地面物品已不存在";return Task.FromResult(false);}
+        // R10-K: WO §2 step 1 runs before the quantity prompt (step 3), so a blocked step opens nothing.
+        if(!World.PickupReachable(World.SelectedGround!)){World.GroundNotice=StepBlockedNotice;return Task.FromResult(false);}
         if(GroundRules.DirectPickupCount(snapshot.Available,World.PickupAll) is uint count)return SendGround(true,count,()=>World.CurrentGroundQuantity(true,snapshot));
         World.OpenPickupPrompt(snapshot,World.SelectedGround!.Name);PickupPromptOpened?.Invoke(snapshot);return Task.FromResult(false);
     }
@@ -129,8 +145,8 @@ public sealed partial class LoginConnection {
     public Task<bool> LootNearby(){
         World.TakePickupPrompt();
         if(!PickupAvailable||World.Actor is not {} a){World.GroundNotice=World.IsGhost?"未送出：幽靈狀態不能拾取":"未送出：目前不能拾取";return Task.FromResult(false);}
-        var item=GroundRules.LootTarget(a.X,a.Y,World.Ground);
-        if(item==null){World.GroundNotice="未送出：1 格內沒有地面物品";return Task.FromResult(false);}
+        var ground=World.Ground;var item=GroundRules.LootTarget(a.X,a.Y,ground,World.PickupStep);
+        if(item==null){World.GroundNotice=GroundRules.LootTarget(a.X,a.Y,ground)!=null?StepBlockedNotice:"未送出：1 格內沒有地面物品";return Task.FromResult(false);}
         World.SelectGround(item.ObjectId);var snapshot=World.GroundQuantity(true)!;
         return SendGround(true,Math.Min(snapshot.Available,(uint)int.MaxValue),()=>World.CurrentGroundQuantity(true,snapshot));
     }
@@ -143,6 +159,7 @@ public sealed partial class LoginConnection {
         bool ValidItem()=>pickup?g!=null&&World.SelectedGround==g&&World.SelectedGroundId==g.ObjectId&&count<=g.Count:item!=null&&World.CanDropGroundItem(item)&&World.SelectedItem==item&&World.SelectedItemId==item.ObjectId&&count<=item.Count;
         if(!GroundAvailable||pickup&&World.IsGhost||MovementBusy||sendMovementGate==null||count==0||count>int.MaxValue||!ValidItem()){World.GroundNotice=pickup&&World.IsGhost?"未送出：幽靈狀態不能拾取":"未送出：選取／數量不符、此物品不可丟棄或忙碌";return false;}
         if(pickup&&!ApproachRules.Within(actor!.X,actor.Y,g!.X,g.Y,ApproachRules.PickupRange)){World.GroundNotice="未送出：距離超過 1 格（點選物品會先自動走近）";return false;}
+        if(pickup&&!World.PickupReachable(g!)){World.GroundNotice=StepBlockedNotice;return false;}
         int epoch=generation,we=World.WorldEpoch,input=inputVersion,speedRevision=World.SpeedRevision,selection=pickup?World.GroundSelectionRevision:World.ItemSelectionRevision,contentRevision=pickup?World.GroundRevision:World.InventoryContentRevision,lease=++groundLease,correction=World.Corrections,appearance=World.AppearanceRevision;
         var sender=sendMovementGate;byte[] bytes=GroundRules.Request(pickup?(byte)112:(byte)25,pickup?g!.X:actor!.X,pickup?g!.Y:actor!.Y,pickup?g!.ObjectId:item!.ObjectId,count);groundSending=true;
         // Replies may change selection, counts, speed or appearance before send completion.
