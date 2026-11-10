@@ -210,7 +210,8 @@ static class OptionPanelTests {
 
     static void Unavailable(WorldModuleTestContext t){
         var none=new OptionPanel();
-        none.Load(UiLayout.Parse("<host/>","uistatus86-c.xml"),new SurfCatalog(new UiXmlSource(new ClientArchive(".",new("Tile","0","0",0))),[]));
+        var noSprites=Enumerable.Range(0,17).Select(i=>new ClientArchive(".",new(RefClientSurfFallback.ArchiveName(i),"0","0",0))).ToArray();
+        none.Load(UiLayout.Parse("<host/>","uistatus86-c.xml"),new SurfCatalog(new UiXmlSource(new ClientArchive(".",new("Tile","0","0",0))),noSprites));
         t.Check(!none.Available&&none.Unavailable!=null&&!none.Open()&&!none.Visible,"no UiResources → unavailable, never opens");
 
         var noBase=Pngs();noBase.Remove(901);
