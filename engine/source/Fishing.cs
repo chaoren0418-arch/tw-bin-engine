@@ -7,6 +7,30 @@ public static class FishingPackets {
     public static byte[] Cancel()=>LoginPackets.Pad([62]);
 }
 
+/// <summary>T329 (#767): own fishing state after a change (start, notice, cancel sent, end).</summary>
+public sealed class FishingWindowEventArgs(uint actor,bool active,bool cancelPending,string notice,int revision):EventArgs {
+    public uint Actor=>actor;
+    public bool Active=>active;
+    public bool CancelPending=>cancelPending;
+    public string Notice=>notice;
+    public int Revision=>revision;
+}
+
+// T329 (#767): open-window event for the native fishing window (NativeUi/FishingPanel). With --classic-ui (or when the
+// reference FishingUI.xml is unavailable) nobody listens and the legacy FishingHud button stays the only entry.
+// Raised on the thread that received the packet (network) or sent the cancel; handlers must only queue.
+public static class FishingWindow {
+    public static event EventHandler<FishingWindowEventArgs>? Changed;
+    internal static void Raise(FishingWindowEventArgs e){
+        if(Changed is not {} handlers)return;
+        foreach(EventHandler<FishingWindowEventArgs> h in handlers.GetInvocationList()){
+            try{h(null,e);}catch(Exception ex){NativeUi.UiResourceLog.Write("fishing-ui 開窗事件失敗（舊式釣魚鈕照舊）："+ex.Message);}
+        }
+    }
+    /// <summary>QuitFishing of the native window: the legacy HUD's C62 path (UI thread). false = nothing sent.</summary>
+    public static bool Quit()=>ClientForm.QuitFishingFromNativeUi();
+}
+
 public sealed partial class WorldSession {
     int fishingEpoch=-1,fishingRevision;
     uint fishingActor;
@@ -34,12 +58,19 @@ public sealed partial class WorldSession {
     internal void FishingCancelSent(){
         fishingCancelPending=true;fishingCancelAt=ActionClock();fishingRevision++;
         fishingNotice="收竿請求已送出，等待伺服器確認。";
+        RaiseFishingWindow();
     }
+    void RaiseFishingWindow()=>FishingWindow.Raise(new(fishingActor,fishingActive,fishingCancelPending,fishingNotice,fishingRevision));
     void EndFishing(string notice){fishingActive=fishingCancelPending=false;fishingRevision++;fishingNotice=notice;}
 
     // Observe with an independent reader: shared S71/S119/S158 still reach their existing handlers.
     // No S250 fishing subtype exists on the verified d287 path (docs/protocol/fishing.md).
     internal void ObserveFishing(byte[] plain){
+        int before=fishingRevision;
+        try{ObserveFishingCore(plain);}
+        finally{if(fishingRevision!=before)RaiseFishingWindow();}   // T329 (#767): open-window event
+    }
+    void ObserveFishingCore(byte[] plain){
         CheckFishing();
         var r=new LoginReader(plain);byte opcode=r.C();
         if(opcode==158){
@@ -110,4 +141,14 @@ public sealed class FishingHud:Button {
 public sealed partial class ClientForm {
     internal FishingView ReadFishingHud()=>login.ReadFishing();
     internal async Task CancelFishingHud(FishingView view){ClearInput("fishing-cancel");await login.CancelFishing(view);}
+    /// <summary>T329 (#767): the native window's QuitFishing → the same C62 path as the HUD button. UI thread only.</summary>
+    internal static bool QuitFishingFromNativeUi(){
+        foreach(var form in Application.OpenForms.OfType<ClientForm>()){
+            if(form.IsDisposed||!form.NativeUiActive)continue;
+            var view=form.ReadFishingHud();
+            if(!view.Active||view.CancelPending)return false;
+            _=form.CancelFishingHud(view);return true;
+        }
+        return false;
+    }
 }
