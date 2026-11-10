@@ -30,7 +30,10 @@
   - 沒有改 repo 的建置檔。
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py` → `pass`，errors 0。
 - 沒有改 `rebuild-lock.json`、`WorldSession.cs`、`UiPanelRegistry.cs`、`Program.cs`、`DemoChecks.csproj`。
-- **CI**：見 PR 頁面。`--module-tests` 應包含 `pledge-memo`，既有的 `pledge-panel` 也應照舊通過。
+- **CI（PR #837，run 42842682653／42842682544）**：`dotnet`、`map-continuity`、`npc-offline` 三個 job 都通過。
+  - `--module-tests` 全部 `failed: 0`；
+  - `pledge-memo`（`P06.PledgeMemoTests.Run`）55 項全部通過；
+  - 既有的 `pledge-panel` 也通過。
 
 ## 未驗證什麼（推定／待真機）
 - 原版 ModifyMemo 的編輯框位置、按鍵、輸入上限沒查 BIN。現在的做法是：畫在自己那列的 Memo_Label，Enter 送出、Esc 取消，上限 62 byte，都是推測。
