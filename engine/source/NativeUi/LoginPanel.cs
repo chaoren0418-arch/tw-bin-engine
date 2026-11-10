@@ -29,10 +29,19 @@ using System.Globalization;
 // Paint order (推測, same rule as AgitAuctionPanel #761): children in reverse XML order (Back_Image is listed last in both
 // windows yet must be at the bottom); hit-testing is the reverse of paint order. The ";n" flag after a surf number is kept
 // (Flag) but not interpreted (待驗證). FontSize, sounds (OverSound / PushSound / FocusSound) and DarkBack are not applied.
-// Not built / not wired (待做, see docs/reports/issue-764.md): Notice_Window (S48 news stays the existing message box),
-// Credit_Window (TextScroller), ChangePass_Button / OTP_Button / Credit_Button / Exit_Button — clicks are logged once as
-// "login-ui … 尚未接上". The character select screen (SelectUI.xml) is a separate task; after the character list arrives the
-// login screen hides and the existing select UI takes over.
+// T352 (#815, R7-M of gap-matrix 15.6):
+//   Notice_Window (Modal): the S48 login news (ClientLogin.QueueLoginNews hands it over through ShowNotice; C16 is sent only
+//   after Ok_NoticeWin / Skip_NoticeWin / Enter / Esc). Size = BaseSurf 7021 (missing, or no Message_Label → not usable and
+//   the news stays the existing message box). Message_Label wraps the text (VAlign top) and scrolls by line: the ScrollBar's
+//   Up/Down buttons (offset = ScrollBar X/Y + button X/Y), the wheel, Up/Down/PageUp/PageDown. The Move_Button thumb is not
+//   built (its position rule was not looked up, 待驗證). Skip = Ok (推測: both close the news; there is no "do not show again"
+//   in 3.81). Note PBW§5.3: TW16 itself shows S48 through the generic modal box sub_8E1E30; the LoginUI Notice_Window comes
+//   from the reference client layout (task decision, gap-matrix 15.6).
+//   Exit_Button (Exit_LoginWin): IUiLoginCommands.ExitClient (UiClientBridge → ClientForm.Close, the normal close path).
+//   Without the command (offline checks) it is logged once as before.
+// Still not built (待做): Credit_Window (TextScroller), ChangePass_Button / OTP_Button / Credit_Button — clicks are logged once
+// as "login-ui … 尚未接上". Back_Image (no Surf) is still not drawn (Q7-14). The character select screen (SelectUI.xml) is a
+// separate task; after the character list arrives the login screen hides and the existing select UI takes over.
 
 namespace P06.NativeUi {
     /// <summary>"BaseSurf=\"6995;1\"" → Attr BaseSurf, Id 6995, Flag 1 (Flag 0 when absent; meaning 待驗證).</summary>
@@ -41,6 +50,12 @@ namespace P06.NativeUi {
     }
 
     public enum LoginPieceKind { Image, Button, Input, Label }
+
+    /// <summary>T352 (#815): login-screen command implemented by the client bridge (found through LegacyWindowPanel.FindCommands).</summary>
+    public interface IUiLoginCommands {
+        /// <summary>Exit_Button: end the client (the normal window close path).</summary>
+        void ExitClient();
+    }
 
     /// <summary>
     /// A drawable / clickable element of one window. Offset is relative to the window origin. Surface null = missing image
@@ -71,6 +86,8 @@ namespace P06.NativeUi {
         public const string LayoutName="LoginUI",WindowNode="Window",LoginWindowName="Login_Window",MessageWindowName="Message_Window";
         public const string IdInput="ID_Input",PasswordInput="Password_Input",MessageLabel="Message_Label";
         public const string LoginEvent="Login_LoginWin",MessageOkEvent="Ok_MessageWin",MessageCancelEvent="Cancel_MessageWin";
+        public const string NoticeWindowName="Notice_Window",ExitEvent="Exit_LoginWin";
+        public const string NoticeOkEvent="Ok_NoticeWin",NoticeSkipEvent="Skip_NoticeWin",NoticeUpEvent="ScrollUp_NoticeWin",NoticeDownEvent="ScrollDown_NoticeWin";
         /// <summary>Layout handed to UiRoot.Build (always in the local Tile.pak); the real layout is LayoutName, read in Load.</summary>
         public const string HostLayout="uistatus86";
         public static readonly Color TextColor=Color.White;
@@ -86,6 +103,8 @@ namespace P06.NativeUi {
         public LoginWindow? Login{get;private set;}
         /// <summary>null when Message_Window is absent or its BaseSurf is missing (no size): refusals are only logged then.</summary>
         public LoginWindow? MessageWindow{get;private set;}
+        /// <summary>T352: null when Notice_Window is absent, has no Message_Label or its BaseSurf is missing (S48 stays the message box).</summary>
+        public LoginWindow? NoticeWindow{get;private set;}
         /// <summary>Images named in the XML but not found (not drawn): "surf 6995 (LoginUI/Window[2]/Button[0]/@BaseSurf)".</summary>
         public IReadOnlyList<string> Missing{get;private set;}=[];
         /// <summary>Elements deliberately not built (other windows, run-time background, TextScroller …), by path.</summary>
@@ -95,7 +114,10 @@ namespace P06.NativeUi {
         public Func<bool> CapsLock{get;set;}=()=>Control.IsKeyLocked(Keys.CapsLock);
 
         public bool Visible=>shown;
-        public Rectangle Bounds=>!shown||Login==null?Rectangle.Empty:Message!=null&&MessageWindow!=null?UiRoot.Canvas:LoginBounds;
+        public Rectangle Bounds=>!shown||Login==null?Rectangle.Empty:Modal?UiRoot.Canvas:LoginBounds;
+        /// <summary>Message_Window or Notice_Window shows: all input goes to it.</summary>
+        bool Modal=>Message!=null&&MessageWindow!=null||NoticeShown;
+        bool NoticeShown=>Notice!=null&&NoticeWindow!=null;
         Rectangle LoginBounds{get{var e=Login!.Extent;e.Offset(Login.Origin);return Rectangle.Intersect(e,UiRoot.Canvas);}}
 
         public string Account{get;private set;}="";
@@ -106,6 +128,13 @@ namespace P06.NativeUi {
         public string? Message{get;private set;}
         /// <summary>A native login was sent and the session has not reached the character list or an end state yet.</summary>
         public bool Attempted{get;private set;}
+        /// <summary>T352: text of the open Notice_Window (S48 news), or null.</summary>
+        public string? Notice{get;private set;}
+        /// <summary>First wrapped line shown in Message_Label of Notice_Window.</summary>
+        public int NoticeScroll{get;private set;}
+        /// <summary>Largest NoticeScroll (wrapped lines − visible lines); updated whenever the notice is painted.</summary>
+        public int NoticeMaxScroll{get;private set;}
+        int noticeVisibleLines=1;Action? noticeConfirm;
 
         bool shown;LoginState? closedIn;
         LoginPiece? pressed,hover;bool pressedInside;
@@ -125,11 +154,12 @@ namespace P06.NativeUi {
             catch(IOException ex){Clear();Unavailable=ex.Message;UiResourceLog.Write($"login-ui {layout.FileName} 版面不符，原生登入畫面停用：{ex.Message}");return;}
             if(Missing.Count>0)UiResourceLog.Write($"login-ui 缺圖不畫：{string.Join("、",Missing)}");
             if(MessageWindow==null)UiResourceLog.Write($"login-ui {MessageWindowName} 不能用（沒有或底圖缺），登入失敗只記在既有登入入口");
+            if(NoticeWindow==null)UiResourceLog.Write($"login-ui {NoticeWindowName} 不能用（沒有、底圖缺或沒有 {MessageLabel}），S48 公告沿用既有訊息框");
         }
 
         void Clear(){
-            shown=false;closedIn=null;pressed=hover=null;pressedInside=false;LayoutFile=null;Login=MessageWindow=null;Missing=[];Skipped=[];
-            Account=Password="";Focus=null;Message=null;Attempted=false;Unavailable="not loaded";
+            shown=false;closedIn=null;pressed=hover=null;pressedInside=false;LayoutFile=null;Login=MessageWindow=NoticeWindow=null;Missing=[];Skipped=[];
+            Account=Password="";Focus=null;Message=null;Attempted=false;Unavailable="not loaded";DropNotice();
         }
 
         /// <summary>Offline checks: images come from the caller (synthetic). Throws UiLayoutException on a layout that does not fit.</summary>
@@ -138,8 +168,9 @@ namespace P06.NativeUi {
             var windows=layout.Root.ChildrenNamed(WindowNode).ToList();
             var login=windows.FirstOrDefault(w=>w.Attr("Name")==LoginWindowName)??throw new UiLayoutException(layout.FileName,layout.Root.Path,$"沒有 Window Name={LoginWindowName}");
             var message=windows.FirstOrDefault(w=>w.Attr("Name")==MessageWindowName);
+            var notice=windows.FirstOrDefault(w=>w.Attr("Name")==NoticeWindowName);
             var missing=new List<string>();var skipped=new List<string>();
-            foreach(var w in windows)if(w.Path!=login.Path&&w.Path!=message?.Path)skipped.Add($"{w.Path}（{w.Attr("Name")}，未做）");
+            foreach(var w in windows)if(w.Path!=login.Path&&w.Path!=message?.Path&&w.Path!=notice?.Path)skipped.Add($"{w.Path}（{w.Attr("Name")}，未做）");
             UiSurface? Resolve(LoginImageRef? r,string path){
                 if(r==null)return null;
                 var s=surf(r.Id);
@@ -156,7 +187,14 @@ namespace P06.NativeUi {
                 var m=Window(message,Resolve,skipped);
                 if(m.BaseImage?.BaseSurface is {} b&&m.Pieces.Any(p=>p.Kind==LoginPieceKind.Label&&p.Name==MessageLabel))msg=m with{Size=new(b.Width,b.Height)};
             }
-            LayoutFile=layout.FileName;Login=built;MessageWindow=msg;Missing=missing;Skipped=skipped;
+            // T352: Notice_Window, same rule as Message_Window (size = BaseSurf, needs Message_Label).
+            LoginWindow? news=null;
+            if(notice!=null){
+                var n=Window(notice,Resolve,skipped);
+                if(n.BaseImage?.BaseSurface is {} b&&n.Pieces.Any(p=>p.Kind==LoginPieceKind.Label&&p.Name==MessageLabel))news=n with{Size=new(b.Width,b.Height)};
+                else skipped.Add($"{notice.Path}（{NoticeWindowName}，底圖缺或沒有 {MessageLabel}，S48 沿用既有訊息框）");
+            }
+            LayoutFile=layout.FileName;Login=built;MessageWindow=msg;NoticeWindow=news;Missing=missing;Skipped=skipped;
             Unavailable=built.Extent.IsEmpty?$"{layout.FileName}: {LoginWindowName} 沒有任何可畫或可點的元素":null;
         }
 
@@ -171,9 +209,9 @@ namespace P06.NativeUi {
         }
 
         static LoginWindow Window(UiNode w,Func<LoginImageRef?,string,UiSurface?> resolve,List<string> skipped){
-            LoginPiece Piece(LoginPieceKind kind,UiNode n,string normalAttr){
+            LoginPiece Piece(LoginPieceKind kind,UiNode n,string normalAttr,Point origin=default){
                 var normal=ImageAttr(n,normalAttr);var hi=ImageAttr(n,"HighlightSurf");var push=ImageAttr(n,"PushSurf");
-                return new(kind,n.Path,n.Attr("Name"),new(n.TryInt("X")??0,n.TryInt("Y")??0),new(n.TryInt("Width")??0,n.TryInt("Height")??0),
+                return new(kind,n.Path,n.Attr("Name"),new(origin.X+(n.TryInt("X")??0),origin.Y+(n.TryInt("Y")??0)),new(n.TryInt("Width")??0,n.TryInt("Height")??0),
                     normal,resolve(normal,n.Path),resolve(hi,n.Path),resolve(push,n.Path),n.Attr("MouseEvent"));
             }
             var pieces=new List<LoginPiece>();
@@ -199,7 +237,16 @@ namespace P06.NativeUi {
                         pieces.Add(new(LoginPieceKind.Label,c.Path,c.Attr("Name"),new(c.TryInt("X")??0,c.TryInt("Y")??0),size,null,null,null,null,null));
                         continue;
                     }
-                    default:skipped.Add(c.Path);continue;   // ScrollBar / TextScroller belong to the windows not built
+                    case "ScrollBar":{
+                        // T352 (Notice_Window): the Up/Down buttons, offset by the ScrollBar's X/Y; the thumb (Move_Button) is not built.
+                        var origin=new Point(c.TryInt("X")??0,c.TryInt("Y")??0);
+                        foreach(var b in c.Children.Reverse()){
+                            if(b.Name=="Button"&&b.Attr("Name")!="Move_Button")pieces.Add(Piece(LoginPieceKind.Button,b,"BaseSurf",origin));
+                            else skipped.Add(b.Path+"（捲動拇指或非按鈕，未做）");
+                        }
+                        continue;
+                    }
+                    default:skipped.Add(c.Path);continue;   // TextScroller belongs to Credit_Window (not built)
                 }
             }
             var baseRef=ImageAttr(w,"BaseSurf");
@@ -214,6 +261,8 @@ namespace P06.NativeUi {
             var s=control?.SessionState;
             if(s!=closedIn)closedIn=null;
             if(control==null||!Available||state.InWorld||s is not LoginState now||!ShowsIn(now)){Hide();Attempted=false;return;}
+            // T352: S48 is only awaited in AwaitList; once the session moves on (cancelled, refused, faulted) the notice is stale.
+            if(Notice!=null&&now!=LoginState.AwaitList)DropNotice();
             if(Attempted){
                 if(now is LoginState.Rejected or LoginState.Disconnected or LoginState.Faulted){Attempted=false;ShowMessage(ProductEntry.StateName(now));}
                 else if(now==LoginState.Cancelled)Attempted=false;
@@ -222,10 +271,40 @@ namespace P06.NativeUi {
             if(!shown){shown=true;Focus=IdInput;pressed=hover=null;pressedInside=false;}
         }
 
-        void Hide(){shown=false;pressed=hover=null;pressedInside=false;Message=null;Focus=null;}
+        void Hide(){shown=false;pressed=hover=null;pressedInside=false;Message=null;Focus=null;DropNotice();}
 
-        /// <summary>IUiClosablePanel: hides the screen until the login state changes (then it shows again).</summary>
-        public void Close(){if(shown)closedIn=source()?.SessionState;Hide();}
+        /// <summary>
+        /// IUiClosablePanel: hides the screen until the login state changes (then it shows again). With the news open it only
+        /// closes the news (same as Ok), so the login never waits on a hidden notice.
+        /// </summary>
+        public void Close(){
+            if(NoticeShown){ConfirmNotice();return;}
+            if(shown)closedIn=source()?.SessionState;Hide();
+        }
+
+        /// <summary>
+        /// T352 (#815): opens Notice_Window with the S48 news; confirm runs once on Ok / Skip / Enter / Esc / Close (the caller
+        /// then sends C16). false (the caller keeps its message box) when Notice_Window cannot be used or the login screen is not
+        /// in a state where it shows. A newer notice replaces an open one (the old confirm is dropped, not run).
+        /// </summary>
+        public bool ShowNotice(string text,Action confirm){
+            if(!Available||NoticeWindow==null||source()?.SessionState is not LoginState s||!ShowsIn(s))return false;
+            closedIn=null;Notice=text;noticeConfirm=confirm;NoticeScroll=NoticeMaxScroll=0;pressed=hover=null;pressedInside=false;
+            return true;
+        }
+
+        /// <summary>Ok_NoticeWin / Skip_NoticeWin: closes the news and runs its confirm.</summary>
+        public void ConfirmNotice(){
+            if(Notice==null)return;
+            var confirm=noticeConfirm;DropNotice();pressed=hover=null;pressedInside=false;
+            Focus=Account.Length>0?PasswordInput:IdInput;
+            confirm?.Invoke();
+        }
+
+        void DropNotice(){Notice=null;noticeConfirm=null;NoticeScroll=NoticeMaxScroll=0;noticeVisibleLines=1;}
+
+        /// <summary>Scrolls Message_Label of Notice_Window by lines, kept inside 0..NoticeMaxScroll.</summary>
+        public void ScrollNotice(int lines){if(Notice!=null)NoticeScroll=Math.Clamp(NoticeScroll+lines,0,NoticeMaxScroll);}
 
         /// <summary>Login_Button / Enter: LoginControl.StartNative with the typed account and password (password cleared).</summary>
         public LoginAction? SubmitLogin(){
@@ -246,7 +325,7 @@ namespace P06.NativeUi {
         // ---- geometry ----
 
         /// <summary>The window drawn on top: Message_Window while a message shows, else Login_Window.</summary>
-        LoginWindow? Active=>Message!=null&&MessageWindow!=null?MessageWindow:Login;
+        LoginWindow? Active=>Message!=null&&MessageWindow!=null?MessageWindow:NoticeShown?NoticeWindow:Login;
         public Rectangle At(LoginWindow w,LoginPiece p)=>new(w.Origin.X+p.Local.X,w.Origin.Y+p.Local.Y,p.Local.Width,p.Local.Height);
         /// <summary>Topmost clickable piece of the active window at a logical point (later in paint order = on top).</summary>
         public LoginPiece? ButtonAt(Point location){
@@ -259,23 +338,48 @@ namespace P06.NativeUi {
 
         public void Paint(UiCanvas canvas){
             if(!shown||Login==null)return;
-            PaintWindow(canvas,Login,Message==null);
-            if(Message!=null&&MessageWindow is {} m){
+            bool message=Message!=null&&MessageWindow!=null;
+            PaintWindow(canvas,Login,!Modal);
+            if(NoticeShown&&NoticeWindow is {} n){
+                canvas.DrawSurface(n.BaseImage?.BaseSurface,n.Origin.X,n.Origin.Y);
+                PaintWindow(canvas,n,!message);
+            }
+            if(message&&MessageWindow is {} m){
                 canvas.DrawSurface(m.BaseImage?.BaseSurface,m.Origin.X,m.Origin.Y);
                 PaintWindow(canvas,m,true);
             }
         }
 
         void PaintWindow(UiCanvas canvas,LoginWindow w,bool live){
+            bool notice=ReferenceEquals(w,NoticeWindow);
             foreach(var p in w.Pieces){
                 int x=w.Origin.X+p.Offset.X,y=w.Origin.Y+p.Offset.Y;
                 switch(p.Kind){
                     case LoginPieceKind.Image:canvas.DrawSurface(p.BaseSurface,x,y);break;
                     case LoginPieceKind.Button:canvas.DrawSurface(live?ButtonSurface(p):p.BaseSurface,x,y);break;
                     case LoginPieceKind.Input:PaintInput(canvas,p,x,y,live&&Focus==p.Name);break;
-                    case LoginPieceKind.Label:if(p.Name==MessageLabel&&Message!=null)PaintMessage(canvas,p,x,y);break;
+                    case LoginPieceKind.Label:
+                        if(p.Name!=MessageLabel)break;
+                        if(notice){if(Notice!=null)PaintNotice(canvas,p,x,y);}
+                        else if(Message!=null)PaintMessage(canvas,p,x,y);
+                        break;
                 }
             }
+        }
+
+        /// <summary>Notice text: wrapped to the label width, VAlign top, from line NoticeScroll; sets NoticeMaxScroll.</summary>
+        void PaintNotice(UiCanvas canvas,LoginPiece label,int x,int y){
+            var g=canvas.Graphics;
+            var lines=Wrap(Notice!,label.DeclaredSize.Width,s=>UiText.Measure(g,s).Width);
+            int lineHeight=Math.Max(1,UiText.Font.Height);
+            SetNoticeLines(lines.Count,Math.Max(1,label.DeclaredSize.Height/lineHeight));
+            for(int i=0;i<noticeVisibleLines&&NoticeScroll+i<lines.Count;i++)canvas.DrawText(lines[NoticeScroll+i],x,y+i*lineHeight,TextColor);
+        }
+
+        /// <summary>Wrapped line count and visible lines of the notice (Paint; offline checks call it directly).</summary>
+        internal void SetNoticeLines(int total,int visible){
+            noticeVisibleLines=Math.Max(1,visible);NoticeMaxScroll=Math.Max(0,total-noticeVisibleLines);
+            NoticeScroll=Math.Clamp(NoticeScroll,0,NoticeMaxScroll);
         }
 
         /// <summary>Push while held; Highlight while hovered; a missing state image falls back to the normal one.</summary>
@@ -328,10 +432,9 @@ namespace P06.NativeUi {
 
         public bool Mouse(UiMouseEvent e,IUiCommands commands){
             if(!shown||Active is not {} w)return false;
-            bool modal=Message!=null&&MessageWindow!=null;
-            bool inside=modal||Bounds.Contains(e.Location);
+            bool inside=Modal||Bounds.Contains(e.Location);
             if(e.Kind==UiMouseKind.Move)hover=ButtonAt(e.Location);
-            if(e.Kind==UiMouseKind.Wheel)return inside;
+            if(e.Kind==UiMouseKind.Wheel){if(ReferenceEquals(w,NoticeWindow)&&e.Delta!=0)ScrollNotice(e.Delta>0?-1:1);return inside;}
             if(e.Button!=MouseButtons.Left&&e.Kind!=UiMouseKind.Move)return inside||pressed!=null;
             switch(e.Kind){
                 case UiMouseKind.Down:{
@@ -345,17 +448,34 @@ namespace P06.NativeUi {
                     return inside||pressed!=null;
                 case UiMouseKind.Up:{
                     var was=pressed;pressed=null;pressedInside=false;
-                    if(was!=null&&At(w,was).Contains(e.Location))Fire(was);
+                    if(was!=null&&At(w,was).Contains(e.Location))Fire(was,commands);
                     return inside||was!=null;
                 }
                 default:return inside;
             }
         }
 
-        void Fire(LoginPiece p){
+        void Fire(LoginPiece p,IUiCommands commands){
             if(Message!=null){if(p.MouseEvent is MessageOkEvent or MessageCancelEvent)CloseMessage();return;}
+            if(NoticeShown){
+                switch(p.MouseEvent){
+                    case NoticeOkEvent or NoticeSkipEvent:ConfirmNotice();return;
+                    case NoticeUpEvent:ScrollNotice(-1);return;
+                    case NoticeDownEvent:ScrollNotice(1);return;
+                }
+                NotWired(p.MouseEvent??p.Name??p.Path);return;
+            }
             if(p.MouseEvent==LoginEvent){SubmitLogin();return;}
+            if(p.MouseEvent==ExitEvent&&ExitClient(commands))return;
             NotWired(p.MouseEvent??p.Name??p.Path);
+        }
+
+        /// <summary>Exit_Button: IUiLoginCommands.ExitClient when the bridge offers it; false (logged as not wired) otherwise.</summary>
+        public bool ExitClient(IUiCommands commands){
+            if(!shown||LegacyWindowPanel.FindCommands<IUiLoginCommands>(commands) is not {} login)return false;
+            Password="";Focus=null;
+            login.ExitClient();
+            return true;
         }
 
         void NotWired(string key){
@@ -372,6 +492,16 @@ namespace P06.NativeUi {
             if(e.KeyCode is >=Keys.F1 and <=Keys.F24||(e.Modifiers&(Keys.Control|Keys.Alt))!=0)return false;
             if(Message!=null&&MessageWindow!=null){
                 if(e.Down&&e.KeyCode is Keys.Enter or Keys.Escape)CloseMessage();
+                return true;
+            }
+            if(NoticeShown){
+                if(e.Down)switch(e.KeyCode){
+                    case Keys.Enter or Keys.Escape:if(!e.Repeat)ConfirmNotice();break;   // 推測: both close the news like Ok
+                    case Keys.Up:ScrollNotice(-1);break;
+                    case Keys.Down:ScrollNotice(1);break;
+                    case Keys.PageUp:ScrollNotice(-noticeVisibleLines);break;
+                    case Keys.PageDown:ScrollNotice(noticeVisibleLines);break;
+                }
                 return true;
             }
             if(Focus==null)return false;
@@ -391,7 +521,7 @@ namespace P06.NativeUi {
 
         /// <summary>WM_CHAR for keys not consumed in Key (e.g. typed through another route): printable ASCII only (English="1").</summary>
         public bool Char(char c){
-            if(!shown||Focus==null||Message!=null&&MessageWindow!=null||c is <' ' or >'~')return false;
+            if(!shown||Focus==null||Modal||c is <' ' or >'~')return false;
             Type(c);return true;
         }
 
