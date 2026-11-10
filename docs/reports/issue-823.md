@@ -57,6 +57,7 @@
   - `rebuild.py --build` 在本機 restore 時失敗（離線 vendor 的環境問題），沒有改 lock。
 - `py -3 engine/tools/check-no-game-assets.py`：`status: pass`，errors 0。
 - 離線測試 `action-window`：依規定**本機不執行**，交給 GitHub Actions CI 的 `--module-tests`。結果以 PR 的 CI 為準。
+  - PR #843 第一次 CI：`dotnet`、`npc-offline` 綠；`map-continuity` 的模組測試 138 項中只有 `action-window` 失敗 1 個檢查。原因是測試本身的預期值寫錯：3 欄時捲一列後第一格是第 4 個動作，不是第 7 個。產品程式沒有改，只修了測試，修正後重跑 CI。
   - 測試涵蓋：
     - Actions 解析與錯誤值；
     - 版面座標（分頁、捲軸相對於格子、關閉鈕、開窗鈕資料）、缺圖清單；

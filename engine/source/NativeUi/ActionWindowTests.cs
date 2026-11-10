@@ -142,7 +142,8 @@ static class ActionWindowTests {
         t.Check(p.ActiveTab==0&&p.TabActions.Count==8,"Total = every action");
         t.Equal(1,p.MaxScroll,"8 actions in 3 columns = 3 rows, 2 shown → 1 scroll step");
         p.ScrollBy(5);t.Equal(1,p.ScrollRow,"scroll clamps at max");
-        t.Equal("Action_SocialAction2",p.ActionInSlot(0)?.Name,"scrolled one row (6th..8th action shown)");
+        t.Equal("Action_InviteParty",p.ActionInSlot(0)?.Name,"scrolled one row (4th action first)");
+        t.Check(p.ActionInSlot(4)?.Name=="Action_AddFriend"&&p.ActionInSlot(5)==null,"second visible row = 7th..8th, last slot empty");
         p.ScrollBy(-9);t.Equal(0,p.ScrollRow,"scroll clamps at 0");
         p.SelectTab(1);
         t.Check(p.TabActions.Select(a=>a.Name).SequenceEqual(["Action_Trade","Action_InviteParty","Action_AddFriend"]),"Community tab");
