@@ -16,6 +16,7 @@
 - 編譯：`dotnet msbuild engine/source/OfflineClient.csproj -t:ResolveReferences;CoreCompile -p:Configuration=Release`：本次改的檔案沒有錯誤或警告。唯一的錯誤是 `WebPanel.cs` 的 WebView2 型別（本機 NETSDK1130 環境問題，與本任務無關，#676／#689 也遇過）。完整建置以 CI 為準。
 - `check-no-game-assets.py`：pass（4328 個追蹤檔案，0 個錯誤）。
 - 依本機規定，**沒有在本機執行任何測試**；`map-effect-followup` 與 SoundPacketChecks 交給 PR 的 CI。
+- CI（PR #867，run 42869164087）：`dotnet`、`map-continuity`、`npc-offline` 全部 pass；`map-effect-followup` pass（51 checks，0 failures），所有 `[WorldModuleTest]` 的 failures 都是空的；SoundPacketChecks 所在的 job 通過。
 
 ## 未驗證什麼
 - 跟隨組「段內固定、段間跳位置」是推測（FU9§2.1 第 4 點：vtable 沒找到每格讀 `+0x290` 改座標的程式），**真機再確認**：例如 8981 長時間特效在角色移動時是否一段一段跳。
