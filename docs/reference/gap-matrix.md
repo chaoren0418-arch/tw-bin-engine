@@ -2032,7 +2032,7 @@ R6-D 補充：不同格時用 `ApproachWalk.cs:49` 的通行判斷（FU8§6）�
 | 4:`ExcludeWindow` | K2 | K5 | FU9§9.2 |
 | 4:SelectUI | K2 | K5 | FU9§14.1 |
 | 4:CreateUI | K2 | K5 | FU9§14.2 |
-| 4:FishingUI | K2 | K5（`AniGauge` 子項 K1） | FU9§14.3 |
+| 4:FishingUI | K2 | K5（`AniGauge` 子項 K1） | FU9§14.3；FishObtainUI 物品表已查（FU10§1，T380／#884）：表 `unk_1542864` 由 S5／S15 尾段延伸區塊 +10 旗標 bit 3 的物品 desc id 填入（比對欄位＝objid 後的 `H`，3.81 有送），3.81 尾段只有 10 byte 全 0 → 表恆空、清單恆空；照原版可做（R10-A，低優先） |
 | 4:OptionUI | K2 | K5 | FU9§14.4 |
 | 5:（`TransferMenu` | K2 | K5 | FU9§7.2 |
 
@@ -2059,7 +2059,7 @@ R6-D 補充：不同格時用 `ApproachWalk.cs:49` 的通行判斷（FU8§6）�
 
 **需要裁定**
 1. 選項窗入口：主選單鈕 6／Ctrl+V 維持 3.81 的 HTML `option1`，還是改開原生 `OptionUI`（TW16 做法）。
-2. FishObtainUI 的清單：原版只列「釣魚物品表」內的物品，但表內容與比對欄位沒查到，3.81 背包封包也不帶模板編號。要列出背包全部、不開清單，還是等查到表再做。
+2. FishObtainUI 的清單：原版只列「釣魚物品表」內的物品，但表內容與比對欄位沒查到，3.81 背包封包也不帶模板編號。要列出背包全部、不開清單，還是等查到表再做。（R9-P 裁定不開；**FU10§1 已查到**：表由背包尾段旗標填，3.81 下恆空，照原版＝空清單）
 3. 交易窗的金幣框：照原版移除（金幣走 140 提示），還是保留並標「引擎自訂」。
 
 **更正**
@@ -2070,7 +2070,7 @@ R6-D 補充：不同格時用 `ApproachWalk.cs:49` 的通行判斷（FU8§6）�
 - R5-H 寫的「右鍵＝TransferMenu」：原版是右鍵放開後選單的鈕 0。
 
 **新增真機項目**（細節見 FU9§16.3）
-- M34：HyperText 的 `<font fg>` 位元組順序與連結色。
+- M34：HyperText 的 `<font fg>` 位元組順序與連結色。**靜態結果（T381／#886，[`followups-11.md`](followups-11.md)）**：已驗證 fg／bg 數值直接當 GDI COLORREF（`0x00BBGGRR`，`sub_866070` `SetTextColor`／`CreateSolidBrush`）；連結 `0x00B0FFFF`＝RGB(FF,FF,B0) 淡黃、hover `0x32F00A`＝RGB(0A,F0,32)、預設字色 `0xEEEDEE`、沒有「已點過」色；bg＝run 寬 × 整列高。R9-F 的 `HyperTextColors.Order` 應改 `Bgr`（FU11§2）。真機只剩截 `helpcom`／`helpcon` 對色與確認 hover。
 - M35：選目標模式下的游標。
 - M36：3.81 倉庫的堆疊數量輸入（1:127）。
 - M37：好友窗的開窗鍵；`/exclude 名稱` 在 3.81 是否讀名稱。

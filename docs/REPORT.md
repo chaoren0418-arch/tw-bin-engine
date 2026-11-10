@@ -349,3 +349,5 @@
 - 2026-11-11 — #858 T374：R9-N 公告板上一篇／下一篇（code，claude-local，PR 已合併）→ [報告](reports/issue-858.md)
 - 2026-11-11 — #472 ui-bookmark: 原生 UI 模組：書籤視窗 BookmarkUI（263×420 可拖曳）（code，claude-local，PR #883 已合併）→ [報告](reports/issue-472.md)
 - 2026-11-11 — #850 T366：R9-F HyperText 排版器（code，claude-local，PR 已合併）→ [報告](reports/issue-850.md)
+- 2026-11-11 — #784 T338：R6-B 自己的名稱位置（code，claude-local，PR 已合併）→ [報告](reports/issue-784.md)
+- 2026-11-11 — #884 T380：查證原版——FishObtainUI 釣魚物品表（resource，claude-local，PR 已合併）→ [報告](reports/issue-884.md)
