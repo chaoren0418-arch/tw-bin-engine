@@ -36,6 +36,7 @@
 - `py -3 -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config`：product／audio／launcher 建置 PASS，沒有 HyperText 相關警告（worktree 沒有離線 `vendor`，所以用 CI 的 NuGet 設定；用暫時 lock，**沒有改** `rebuild-lock.json`）。
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：`status: pass`、errors 0。
 - 離線測試（`hypertext-followup`、既有 `hypertext-panel`、`HtmlActionTests` 的名稱框等）依本機規定**不在本機執行**，交給 PR 的 GitHub Actions CI（`--module-tests`）。
+- PR #868 CI（run 42872026722／42872026975）：`dotnet`、`map-continuity`、`npc-offline` 全綠；`hypertext-followup` pass（68 checks）、`hypertext-panel` pass（83 checks），所有模組 `failures` 都是空的。
 
 ## 未驗證什麼（真機再確認）
 
