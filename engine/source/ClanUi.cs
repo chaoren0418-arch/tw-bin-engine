@@ -73,6 +73,16 @@ public sealed partial class ClientForm {
             try{ClanMatchingProtocol.Announce(text);}catch(ArgumentException ex){MessageBox.Show(window,ex.Message,"血盟",MessageBoxButtons.OK,MessageBoxIcon.Warning);return;}
             buttons.ForEach(b=>b.Enabled=false);await login.SendClanContent(login.ClanMatchingSnapshot(),ClanMatchingProtocol.ContentAnnounce,text);Refresh();
         };
+        // R7-K (#813): own member notes (C78 16) for --classic-ui; the server answers with S250/169.
+        layout.Controls.Add(new Label{Text=$"自己的成員備註（最多 {PledgePanel.MemoByteLimit} byte；伺服器回送後顯示在原生血盟窗）",AutoSize=true});
+        var memoRow=new FlowLayoutPanel{Width=475,Height=32};layout.Controls.Add(memoRow);
+        var memoBox=new TextBox{Width=360,MaxLength=PledgePanel.MemoByteLimit};var memoButton=new Button{Text="送出備註",AutoSize=true};
+        memoRow.Controls.AddRange([memoBox,memoButton]);buttons.Add(memoButton);
+        memoButton.Click+=async(_,_)=>{
+            string text=memoBox.Text;
+            if(PledgePanel.MemoError(text) is {} error){MessageBox.Show(window,error,"血盟",MessageBoxButtons.OK,MessageBoxIcon.Warning);return;}
+            buttons.ForEach(b=>b.Enabled=false);await login.SendClanContent(login.ClanMatchingSnapshot(),ClanMatchingProtocol.ContentNotes,text);Refresh();
+        };
         layout.Controls.Add(attention);
         layout.Controls.Add(announcement);
         members.Columns.Add("成員名稱",210);members.Columns.Add("階級",90);members.Columns.Add("上線狀態",120);layout.Controls.Add(members);
@@ -132,6 +142,12 @@ public sealed class WorldPledgeSource(LoginConnection login,Func<bool> upload):I
     public bool SendNotice(string text){
         var v=login.ClanMatchingSnapshot();if(!v.CanSend||!v.InClan)return false;
         _=login.SendClanContent(v,ClanMatchingProtocol.ContentAnnounce,text);return true;
+    }
+    /// <summary>R7-K (#813): ModifyMemo → C78 16 (own member notes); the 62-byte limit is checked by PledgePanel.MemoError.</summary>
+    public bool SendMemo(string text){
+        if(PledgePanel.MemoError(text)!=null)return false;
+        var v=login.ClanMatchingSnapshot();if(!v.CanSend||!v.InClan)return false;
+        return Dispatched(login.SendClanContent(v,ClanMatchingProtocol.ContentNotes,text));
     }
     public bool SetRank(string member,byte rank){
         var v=login.ClanSnapshot();if(!v.CanSend||v.Name.Length==0)return false;
