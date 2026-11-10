@@ -22,11 +22,19 @@ namespace P06.NativeUi;
 //     推測，原版格子幾何未追）；S35 的 icon＋bless 照 FU5§4 的 IconOf 轉換；堆疊數量畫在格子右下；滑過的格子名稱畫在文字框。
 //     沒有圖示來源（離線測試、資源未載入）時照舊畫文字列。
 //   - 加物品（C37）：原生背包 ITEM_WINDOW 點選的物品（WorldSession.SelectedItemId，與 WinForms 背包共用）＋點自己的清單區
-//     ＝加入整疊（推測：原版是從背包拖進窗，原生背包沒有跨窗拖曳；部分數量請用金幣框或 WinForms 備援）。
-//   - 金幣輸入框：在上下清單之間的空隙（推測位置；原版 ADENA_EXCHANGE_WINDOW 的版面未接）；點框輸入數字、Enter 送 C37
-//     （金幣物件＋數量，上限＝背包金幣），Backspace 刪一位、Esc 離開輸入。
+//     （推測：原版是從背包拖進窗，原生背包沒有跨窗拖曳）。
 //   - IUiClosablePanel：被 4 層上限擠掉（或其他關窗）時送 C86（同關閉 X），並在這筆交易結束前不再畫；
 //     TradeUi 這時把 WinForms 交易面板整個叫回來（原生 UI 下的備援入口）。
+// R9-K（T371／#855，FU9§12.1、gap-matrix 15.11，4:ExchangeUI）：
+//   - 已驗證（FU9§12.1，TW16 sub_82DF30／sub_82DB50／sub_82E560／sub_82E870）：堆疊先問字串 140「要給幾個？ (1-%u， Enter=全部，
+//     Esc=取消)」，空白＝全部、須 ≤ 持有量；單件直接送；送出是 C37（3.81 C_TradeAddItem `D D`＝物件、數量）；自己已放 16 件以上印 255。
+//     本機 string-c.tbl（Text.pak，PakViewer 唯讀解出）：140、255 原文與下方 fallback 相同。
+//   - 裁定（#818）：R4-C 的金幣輸入框是引擎自加的（ADENA_EXCHANGE_WINDOW 不是金幣框，TW16 不讀那段），**已移除**；
+//     金幣是背包裡的一疊，選它再點自己的清單＝同一個 140 提示。
+//   - 引擎做法（標明）：原版的 140 提示在**聊天輸入列**（sub_AC98E0）；聊天輸入列的答覆分派在 PlayerChat.SendPlayerChat（本任務不可改），
+//     所以這裡把提示畫在交易窗的文字框（2008），數字由本窗的 Char()／Key() 接（Enter 送、Esc 取消、Backspace 刪一位）。
+//     改到聊天輸入列留給後續任務。
+//   - 未做：不可交易 941、魔法娃娃使用中 1181、寵物項鍊 1188 的本機檢查（引擎背包沒有這些旗標；伺服器仍會擋）。
 
 /// <summary>交易窗中的一列（Side 0＝自己、1＝對方；Name 已解析成顯示文字；Icon＝IconOf 之後的背包圖示 gfx，0＝無）。</summary>
 public sealed record TransactionOffer(byte Side,string Name,long Adena,int Icon=0) {
@@ -41,7 +49,7 @@ public sealed record TransactionItemChoice(uint Id,string Name,uint Count,int Ic
 
 /// <summary>交易窗內容（由 Trade.cs 的狀態轉出，面板不碰 LoginConnection）。</summary>
 public sealed record TransactionView(int Revision,string Peer,string Notice,IReadOnlyList<TransactionOffer> Offers,bool CanConfirm,bool CanCancel,bool OwnConfirmed,
-        int Generation=0,bool CanAdd=false,TransactionItemChoice? Selected=null,long AdenaHeld=0,uint? AdenaId=null) {
+        int Generation=0,bool CanAdd=false,TransactionItemChoice? Selected=null) {
     public IReadOnlyList<TransactionOffer> Side(byte side)=>Offers.Where(o=>o.Side==side).ToArray();
     public long Adena(byte side)=>Offers.Where(o=>o.Side==side).Sum(o=>o.Adena);
 
@@ -51,15 +59,12 @@ public sealed record TransactionView(int Revision,string Peer,string Notice,IRea
     /// <summary>從 WorldSession 轉出；沒有開著的交易窗時為 null。resolve 把原服名稱（$n 等）轉成顯示文字。</summary>
     public static TransactionView? From(WorldSession w,Func<string,string> resolve){
         if(!w.TradeOpened||!WindowState(w.TradeState))return null;
-        var inventory=w.InventoryLoaded?w.Inventory:[];
-        var gold=inventory.Where(LeftStatusState.IsAdena).ToArray();
         TransactionItemChoice? selected=w.SelectedItem is {Count:>0} s&&s.Equipped!=true
             ?new(s.ObjectId,ItemText.Name(resolve(s.Name),s.Count),s.Count,ItemIconSource.IconOf(s.IconId,s.Bless)):null;
         return new(w.TradeRevision,w.TradePeerName,resolve(w.TradeNotice),
             w.TradeOffers.Select(o=>new TransactionOffer(o.Side,resolve(o.Name),TransactionRules.Adena(o.Name)??0,ItemIconSource.IconOf(o.Icon,o.Bless))).ToArray(),
             w.TradeCanConfirm&&!w.TradeOwnConfirmed,w.TradeCanCancel,w.TradeOwnConfirmed,
-            w.TradeGeneration,w.TradeCanAdd,selected,gold.Aggregate(0L,(n,i)=>n+i.Count),
-            gold.OrderByDescending(i=>i.Count).FirstOrDefault()?.ObjectId);
+            w.TradeGeneration,w.TradeCanAdd,selected);
     }
 }
 
@@ -79,11 +84,38 @@ public static class TransactionRules {
         var m=count.Match(name);
         return m.Success&&uint.TryParse(m.Groups[1].Value,NumberStyles.None,CultureInfo.InvariantCulture,out uint n)&&n>0?n:1;
     }
-    /// <summary>金幣框的數量：1…min(持有, int.MaxValue)；其他（空白、0、超過持有）為 null，不送。</summary>
-    public static uint? AdenaAmount(string text,long held){
-        if(text.Length==0||!ulong.TryParse(text,NumberStyles.None,CultureInfo.InvariantCulture,out ulong v)||v==0)return null;
-        return v<=(ulong)Math.Min(held,int.MaxValue)?(uint)v:null;
+    /// <summary>
+    /// R9-K：140 提示的答覆（sub_82E560）：空白＝全部；否則 1…持有量。C37 的數量欄是 D，另外上限 int.MaxValue（同 TradeUi.Add）。
+    /// 其他（0、非數字、超過持有）為 null，不送。
+    /// </summary>
+    public static uint? Amount(string text,uint held){
+        if(held==0)return null;
+        uint cap=Math.Min(held,(uint)int.MaxValue);
+        if(text.Length==0)return held<=cap?held:null;
+        if(!ulong.TryParse(text,NumberStyles.None,CultureInfo.InvariantCulture,out ulong v)||v==0)return null;
+        return v<=cap?(uint)v:null;
     }
+    /// <summary>R9-K：堆疊（數量 &gt;1）先問 140；單件直接送（FU9§12.1）。</summary>
+    public static bool AsksAmount(uint held)=>held>1;
+    /// <summary>R9-K：自己這邊已放 16 件以上時不送、印 255（sub_82E870）。</summary>
+    public const int MaxOwnOffers=16;
+    public static bool TooManyOffers(int own)=>own>=MaxOwnOffers;
+}
+
+/// <summary>R9-K：交易數量的字串（本機 string-c.tbl 有：140、255；讀不到表時用同樣的原文）。</summary>
+public static class TradeAmountText {
+    public const int AskId=140,TooManyId=255;
+    public const string AskFallback="要給幾個？ (1-%u， Enter=全部，Esc=取消)",TooManyFallback="你一次不能交換１６個以上的物品。";
+    static string? Table(int id)=>ServerMessageText.Table is {} t&&id<t.Count&&t[id].Trim().Length>0?t[id]:null;
+    /// <summary>140，%u＝持有量。</summary>
+    public static string Ask(uint held)=>ServerMessageText.DisplayText((Table(AskId)??AskFallback).Replace("%u",held.ToString(CultureInfo.InvariantCulture))).Trim();
+    /// <summary>255（原文開頭的 \f1 色碼拿掉）。</summary>
+    public static string TooMany()=>ServerMessageText.DisplayText(Table(TooManyId)??TooManyFallback).Trim();
+}
+
+/// <summary>R9-K：等待答覆的 140 提示：哪一筆交易（Generation）、哪個物件、問的時候的持有量、名稱。</summary>
+public sealed record TransactionAmountPrompt(int Generation,uint Item,string Name,uint Held) {
+    public string Text=>TradeAmountText.Ask(Held);
 }
 
 /// <summary>交易窗的資料與動作（TradeUi.cs 的 ClientForm 接到 Trade.cs 既有入口）。</summary>
@@ -103,11 +135,11 @@ public sealed class TransactionPanel(ItemIconSource? icons=null):IUiMovablePanel
     public const string LayoutName="uiextra86";
     /// <summary>推測：清單列高（UiText 9pt 一行約 12 px）。</summary>
     public const int RowHeight=12;
-    /// <summary>推測：金幣框（上下清單間的空隙）寬、高、最多位數。</summary>
-    public const int AdenaBoxWidth=84,AdenaBoxHeight=14,MaxDigits=10;
+    /// <summary>R9-K：140 答覆最多位數（uint 上限 10 位）。</summary>
+    public const int MaxDigits=10;
     const string BaseName="SURF_RENEWAL_WIN_TRANSACT_BASE",CloseName="SURF_RENEWAL_BTN_QUIT_X",TextName="SURF_RENEWAL_WIN_TRANSACT_TEXT_FRAME",
         OkName="SURF_RENEWAL_BTN_TRANSACT_OK",CancelName="SURF_RENEWAL_BTN_TRANSACT_CANCEL",ListNode="ITEM_LIST_ADJUST";
-    static readonly Color BoxColor=Color.FromArgb(200,180,120),BoxFocusColor=Color.FromArgb(255,230,120),DisabledColor=Color.Gray;
+    static readonly Color PromptColor=Color.FromArgb(255,230,120);
 
     /// <summary>XML 元件：第一個 surf、相對窗原點的位置、狀態圖（平常／按下／停留；null＝缺圖）。</summary>
     public sealed record Element(string Name,int Surf,Point Offset,UiSurface? Surface,UiSurface? Push=null,UiSurface? Highlight=null) {
@@ -137,17 +169,20 @@ public sealed class TransactionPanel(ItemIconSource? icons=null):IUiMovablePanel
     public Element? Pressed{get;private set;}
     /// <summary>各清單的捲動（0＝自己、1＝對方）：文字列＝列數，圖示格＝格子列數。</summary>
     public int Scroll(byte side)=>scroll[side];
-    /// <summary>金幣框目前的文字（數字）與是否在輸入中。</summary>
-    public string AdenaInput{get;private set;}="";
-    public bool AdenaFocused{get;private set;}
+    /// <summary>R9-K：等待答覆的 140 提示（null＝沒有）與已輸入的數字。</summary>
+    public TransactionAmountPrompt? Prompt{get;private set;}
+    public string PromptInput{get;private set;}="";
+    /// <summary>R9-K：上一次加物品沒送出的原因（255、數量不合法；文字框顯示，下一次操作或新的版本清掉）。</summary>
+    public string? Refusal{get;private set;}
     /// <summary>滑鼠所在的格子／列（文字框改畫它的名稱）。</summary>
     public TransactionOffer? HoverOffer{get;private set;}
     /// <summary>Close() 之後，這筆交易（Generation）結束前不再畫；TradeUi 依此叫回 WinForms 面板。</summary>
     public bool Dismissed=>dismissed!=null;
 
-    TransactionView? view;Rectangle local;Rectangle ownLocal,peerLocal,boxLocal;readonly int[] scroll=new int[2];int shownRevision=-1;
+    TransactionView? view;Rectangle local;Rectangle ownLocal,peerLocal;readonly int[] scroll=new int[2];int shownRevision=-1;
     LegacyCellGrid ownGrid=LegacyCellGrid.Empty,peerGrid=LegacyCellGrid.Empty;
-    int? dismissed;bool pressList,pressBox;
+    int? dismissed;bool pressList;
+    void ClearPrompt(){Prompt=null;PromptInput="";}
 
     public void Load(UiLayout layout,SurfCatalog surfs)=>Load(layout,surfs.Get);
     internal void Load(UiLayout layout,Func<int,UiSurface?> surf){
@@ -175,13 +210,11 @@ public sealed class TransactionPanel(ItemIconSource? icons=null):IUiMovablePanel
         int width=Base.Drawn?Base.Local.Right-ListOffset.X-Math.Max(0,ListOffset.X-Base.Offset.X):0;
         if(height>0&&width>0){ownLocal=new(ListOffset.X,ListOffset.Y,width,height);peerLocal=new(ListOffset.X,lowerTop,width,height);}
         else ownLocal=peerLocal=Rectangle.Empty;
-        // R4-C 推測：圖示格填滿各清單區；金幣框放在上清單底與下清單頂之間的空隙（靠右）。
+        // R4-C 推測：圖示格填滿各清單區。
         var pitch=new Size(LegacyCellGrid.IconPitch,LegacyCellGrid.IconPitch);
         ownGrid=ownLocal.IsEmpty?LegacyCellGrid.Empty:LegacyCellGrid.Fit(ownLocal.Left,ownLocal.Top,ownLocal.Right,ownLocal.Bottom,pitch);
         peerGrid=peerLocal.IsEmpty?LegacyCellGrid.Empty:LegacyCellGrid.Fit(peerLocal.Left,peerLocal.Top,peerLocal.Right,peerLocal.Bottom,pitch);
-        int gap=peerLocal.Top-ownLocal.Bottom;
-        boxLocal=!ownLocal.IsEmpty&&gap>=AdenaBoxHeight&&ownLocal.Width>=AdenaBoxWidth?new(ownLocal.Right-AdenaBoxWidth,ownLocal.Bottom+(gap-AdenaBoxHeight)/2,AdenaBoxWidth,AdenaBoxHeight):Rectangle.Empty;
-        view=null;shownRevision=-1;scroll[0]=scroll[1]=0;Hover=Pressed=null;HoverOffer=null;dismissed=null;AdenaInput="";AdenaFocused=false;pressList=pressBox=false;
+        view=null;shownRevision=-1;scroll[0]=scroll[1]=0;Hover=Pressed=null;HoverOffer=null;dismissed=null;ClearPrompt();Refusal=null;pressList=false;
     }
     IEnumerable<Element> All=>new[]{Base,CloseButton,TextFrame,Ok,Cancel}.OfType<Element>();
     IEnumerable<Element> Buttons=>new[]{CloseButton,Ok,Cancel}.OfType<Element>();
@@ -191,8 +224,6 @@ public sealed class TransactionPanel(ItemIconSource? icons=null):IUiMovablePanel
     public int VisibleRows=>Math.Max(0,ownLocal.Height/RowHeight);
     /// <summary>圖示格（相對窗原點；0＝自己、1＝對方）。</summary>
     public LegacyCellGrid Grid(byte side)=>side==0?ownGrid:peerGrid;
-    /// <summary>金幣框（邏輯座標；版面放不下時為空）。</summary>
-    public Rectangle AdenaBox=>boxLocal.IsEmpty?boxLocal:new(Origin.X+boxLocal.X,Origin.Y+boxLocal.Y,boxLocal.Width,boxLocal.Height);
     int PageSize(byte side)=>IconMode?Grid(side).PageSize:VisibleRows;
     int Step(byte side)=>IconMode?Grid(side).Columns:1;
     int MaxScroll(byte side){
@@ -204,13 +235,14 @@ public sealed class TransactionPanel(ItemIconSource? icons=null):IUiMovablePanel
         var v=state.InWorld?Source?.Current:null;
         if(v!=null&&dismissed==v.Generation)v=null;   // Close() 之後這筆交易不再畫
         else if(v==null)dismissed=null;
-        if(v==null){view=null;Hover=Pressed=null;HoverOffer=null;scroll[0]=scroll[1]=0;shownRevision=-1;AdenaInput="";AdenaFocused=false;pressList=pressBox=false;return;}
+        if(v==null){view=null;Hover=Pressed=null;HoverOffer=null;scroll[0]=scroll[1]=0;shownRevision=-1;ClearPrompt();Refusal=null;pressList=false;return;}
         bool fresh=view==null;view=v;
-        if(fresh){scroll[0]=scroll[1]=0;AdenaInput="";AdenaFocused=false;}
+        if(fresh){scroll[0]=scroll[1]=0;ClearPrompt();Refusal=null;}
         // 新列進來時捲到最後，讓剛加入的物品看得到。
-        if(v.Revision!=shownRevision){shownRevision=v.Revision;if(!fresh){scroll[0]=MaxScroll(0);scroll[1]=MaxScroll(1);}}
+        if(v.Revision!=shownRevision){shownRevision=v.Revision;Refusal=null;if(!fresh){scroll[0]=MaxScroll(0);scroll[1]=MaxScroll(1);}}
         scroll[0]=Math.Clamp(scroll[0],0,MaxScroll(0));scroll[1]=Math.Clamp(scroll[1],0,MaxScroll(1));
-        if(!v.CanAdd)AdenaFocused=false;
+        // 換了一筆交易，或已經不能加物品（加入中、已確定、取消中）：提示作廢。
+        if(Prompt is {} p&&(p.Generation!=v.Generation||!v.CanAdd))ClearPrompt();
     }
 
     public Rectangle At(Element? e)=>e==null||!e.Drawn?Rectangle.Empty:new(Origin.X+e.Offset.X,Origin.Y+e.Offset.Y,e.Local.Width,e.Local.Height);
@@ -261,23 +293,24 @@ public sealed class TransactionPanel(ItemIconSource? icons=null):IUiMovablePanel
                 if(gold>0){string text=gold.ToString("N0",CultureInfo.InvariantCulture);int w=UiText.Measure(g,text).Width;canvas.DrawText(text,area.Right-2-w,area.Bottom-RowHeight,Color.Gold,Color.Black);}
             }finally{g.Clip=old;}
         }
-        if(AdenaBox is {IsEmpty:false} box){
-            bool usable=view.CanAdd&&view.AdenaId!=null&&view.AdenaHeld>0;
-            string label="金幣";int lw=UiText.Measure(g,label).Width;
-            canvas.DrawText(label,box.X-lw-3,box.Y+1,usable?Color.White:DisabledColor,Color.Black);
-            using(var pen=new Pen(AdenaFocused?BoxFocusColor:usable?BoxColor:DisabledColor))g.DrawRectangle(pen,box.X,box.Y,box.Width-1,box.Height-1);
-            var old=g.Clip;g.SetClip(Rectangle.Intersect(box,canvas.Clip));
-            try{canvas.DrawText(AdenaInput+(AdenaFocused?"_":""),box.X+3,box.Y+1,usable?Color.White:DisabledColor,Color.Black);}finally{g.Clip=old;}
-        }
         if(TextFrame is {Drawn:true} tf){
             var r=At(tf);var old=g.Clip;g.SetClip(Rectangle.Intersect(r,canvas.Clip));
-            try{canvas.DrawText(NoticeText,r.X+4,r.Y+3,Color.White,Color.Black);}finally{g.Clip=old;}
+            try{
+                if(Prompt!=null){
+                    // R9-K 引擎做法：140 提示與輸入畫在文字框（原版在聊天輸入列，見檔頭）。
+                    canvas.DrawText(NoticeText,r.X+4,r.Y+3,PromptColor,Color.Black);
+                    canvas.DrawText(PromptInput+"_",r.X+4,r.Y+3+RowHeight,Color.White,Color.Black);
+                }
+                else canvas.DrawText(NoticeText,r.X+4,r.Y+3,Color.White,Color.Black);
+            }finally{g.Clip=old;}
         }
     }
-    /// <summary>文字框：滑過格子時是那一格的名稱；否則是交易提示（可加物品且背包有選取時另附提示）。</summary>
+    /// <summary>文字框：140 提示（等待答覆時）；滑過格子時是那一格的名稱；沒送出的原因；否則是交易提示（可加物品且背包有選取時另附提示）。</summary>
     public string NoticeText{get{
         if(view==null)return "";
+        if(Prompt is {} p)return p.Text;
         if(HoverOffer is {} h)return h.Name;
+        if(Refusal is {} r)return r;
         if(view.CanAdd&&view.Selected is {} s&&HoverOwnList)return "點這裡加入："+s.Name+(s.Count>1?" × "+s.Count.ToString(CultureInfo.InvariantCulture):"");
         return view.Notice;
     }}
@@ -289,16 +322,34 @@ public sealed class TransactionPanel(ItemIconSource? icons=null):IUiMovablePanel
         if(view.CanCancel)Source?.Cancel(view.Revision);   // 取消鈕、關閉 X：送 C86，窗等原服 S112 才關
     }
 
-    /// <summary>把原生背包點選的物品整疊加入（C37）。false＝沒送（不能加、沒選、不在背包）。</summary>
+    /// <summary>
+    /// 把原生背包點選的物品加入交易（R9-K，sub_82DF30）：堆疊（含金幣）先開 140 提示、回 false（還沒送）；單件直接送 C37、回 true。
+    /// 不能加、沒選、沒有來源時什麼都不做、回 false。
+    /// </summary>
     public bool AddSelected(){
         if(view is not {CanAdd:true,Selected:{} s}||s.Count==0||Source==null)return false;
-        Source.Add(view.Revision,s.Id,s.Count);return true;
+        Refusal=null;
+        if(TransactionRules.AsksAmount(s.Count)){Prompt=new(view.Generation,s.Id,s.Name,s.Count);PromptInput="";return false;}
+        ClearPrompt();
+        return Send(s.Id,1);
     }
-    /// <summary>金幣框：送 C37（金幣物件＋框內數量）。數量不合法時不送、保留輸入。</summary>
-    public bool SubmitAdena(){
-        if(view is not {CanAdd:true,AdenaId:uint gold}||Source==null)return false;
-        if(TransactionRules.AdenaAmount(AdenaInput,view.AdenaHeld) is not uint amount)return false;
-        Source.Add(view.Revision,gold,amount);AdenaInput="";AdenaFocused=false;return true;
+    /// <summary>
+    /// 140 的答覆（Enter）：空白＝全部，否則 1…持有量；合法就送 C37（sub_82E870），不合法不送。兩種情形提示都結束（同聊天輸入列答一次就關）。
+    /// </summary>
+    public bool SubmitAmount(){
+        if(Prompt is not {} p)return false;
+        string typed=PromptInput;ClearPrompt();
+        if(view is not {CanAdd:true} v||v.Generation!=p.Generation||Source==null)return false;
+        if(TransactionRules.Amount(typed,p.Held) is not uint amount){Refusal="未送出：數量不合法（1-"+p.Held.ToString(CultureInfo.InvariantCulture)+"）。";return false;}
+        return Send(p.Item,amount);
+    }
+    /// <summary>Esc：放棄 140 提示，不送（交易窗不關、不送 C86）。</summary>
+    public bool CancelAmount(){if(Prompt==null)return false;ClearPrompt();return true;}
+    /// <summary>送出前的 255 檢查（自己已放 16 件以上）；通過才送 C37（資格由 Trade.cs 再驗一次）。</summary>
+    bool Send(uint item,uint count){
+        if(view==null||Source==null)return false;
+        if(TransactionRules.TooManyOffers(view.Side(0).Count)){Refusal=TradeAmountText.TooMany();return false;}
+        Source.Add(view.Revision,item,count);return true;
     }
 
     public bool Mouse(UiMouseEvent e,IUiCommands commands){
@@ -307,23 +358,20 @@ public sealed class TransactionPanel(ItemIconSource? icons=null):IUiMovablePanel
         switch(e.Kind){
             case UiMouseKind.Move:
                 Hover=hit;HoverOffer=OfferAt(e.Location);HoverOwnList=ListArea(0).Contains(e.Location);
-                return Bounds.Contains(e.Location)||Pressed!=null||pressList||pressBox;
+                return Bounds.Contains(e.Location)||Pressed!=null||pressList;
             case UiMouseKind.Wheel:
                 for(byte side=0;side<2;side++)if(ListArea(side).Contains(e.Location)&&e.Delta!=0){scroll[side]=Math.Clamp(scroll[side]-Math.Sign(e.Delta),0,MaxScroll(side));return true;}
                 return Bounds.Contains(e.Location);
             case UiMouseKind.Down:
                 if(e.Button==MouseButtons.Left){
                     Hover=hit;Pressed=hit;
-                    pressBox=hit==null&&AdenaBox.Contains(e.Location);
-                    pressList=hit==null&&!pressBox&&ListArea(0).Contains(e.Location);
-                    if(!pressBox&&Bounds.Contains(e.Location))AdenaFocused=false;
+                    pressList=hit==null&&ListArea(0).Contains(e.Location);
                 }
                 return Bounds.Contains(e.Location);
             case UiMouseKind.Up:{
-                var pressed=Pressed;bool list=pressList,box=pressBox;Pressed=null;pressList=pressBox=false;Hover=hit;
+                var pressed=Pressed;bool list=pressList;Pressed=null;pressList=false;Hover=hit;
                 if(pressed!=null&&pressed==hit)Fire(pressed);
-                else if(box&&AdenaBox.Contains(e.Location))AdenaFocused=view.CanAdd&&view.AdenaId!=null;
-                else if(list&&ListArea(0).Contains(e.Location))AddSelected();
+                else if(list&&ListArea(0).Contains(e.Location))AddSelected();   // 提示中再點＝換成目前選取的物品重問
                 return true;
             }
             default:return Bounds.Contains(e.Location);
@@ -332,20 +380,20 @@ public sealed class TransactionPanel(ItemIconSource? icons=null):IUiMovablePanel
 
     public bool Key(UiKeyEvent e,IUiCommands commands){
         if(view==null||!e.Down)return false;
-        if(AdenaFocused){
-            if(e.KeyData==Keys.Back){if(AdenaInput.Length>0)AdenaInput=AdenaInput[..^1];return true;}
-            if(e.KeyData==Keys.Enter){if(!e.Repeat)SubmitAdena();return true;}
-            if(e.KeyData==Keys.Escape){AdenaFocused=false;return true;}
+        if(Prompt!=null){
+            if(e.KeyData==Keys.Back){if(PromptInput.Length>0)PromptInput=PromptInput[..^1];return true;}
+            if(e.KeyData==Keys.Enter){if(!e.Repeat)SubmitAmount();return true;}
+            if(e.KeyData==Keys.Escape){CancelAmount();return true;}   // 140 的 Esc＝取消提示，不是取消交易
             // 數字不在這裡吃掉：走 WM_CHAR → Char()（同 HyperTextPanel 的數字框）。
         }
         if(e.KeyCode!=Keys.Escape)return false;
         if(view.CanCancel)Source?.Cancel(view.Revision);
         return true;
     }
-    /// <summary>金幣框的數字（WM_CHAR）。不在輸入中或不是數字時不接。</summary>
+    /// <summary>140 答覆的數字（WM_CHAR）。沒有提示或不是數字時不接。</summary>
     public bool Char(char c){
-        if(view==null||!AdenaFocused||c is <'0' or >'9')return false;
-        if(AdenaInput.Length<MaxDigits)AdenaInput=AdenaInput=="0"?c.ToString():AdenaInput+c;
+        if(view==null||Prompt==null||c is <'0' or >'9')return false;
+        if(PromptInput.Length<MaxDigits)PromptInput=PromptInput=="0"?c.ToString():PromptInput+c;
         return true;
     }
 
@@ -356,7 +404,7 @@ public sealed class TransactionPanel(ItemIconSource? icons=null):IUiMovablePanel
     public void Close(){
         if(view is not {} shown)return;
         // 先標記，再送取消：TradeUi 在送出後同步時就看得到 Dismissed，把 WinForms 面板叫回來。
-        dismissed=shown.Generation;view=null;Hover=Pressed=null;HoverOffer=null;AdenaInput="";AdenaFocused=false;pressList=pressBox=false;
+        dismissed=shown.Generation;view=null;Hover=Pressed=null;HoverOffer=null;ClearPrompt();Refusal=null;pressList=false;
         if(shown.CanCancel)Source?.Cancel(shown.Revision);
     }
 
