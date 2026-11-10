@@ -10,12 +10,17 @@ namespace P06.NativeUi;
 //   - 標籤表 21 個：body a b i p left center right justify scatter br font img var name username time date may subHtml u。
 //   - <font fg bg face Size>：fg／bg 是十六進位數字，不收 0x／#（收到就當成無效、不改顏色）。
 //   - 每個 <a> 開始時文字色設成常數 0x00B0FFFF；連結排在文字流裡（行內），不是一列一個。
+// R10-B（T383／#891）：依 docs/reference/followups-11.md §1、§2（FU11 D1–D7）修正顏色。已驗證（引用 FU11§1）：
+//   - 顏色位元組順序：fg／bg 的數值原封不動當 GDI COLORREF（0x00BBGGRR）（FU11§1 #1、#2，sub_864530、sub_866070 的 SetTextColor／
+//     sub_86E960 的 CreateSolidBrush）。→ HyperTextColors.Order 預設 Bgr；連結常數 0x00B0FFFF＝RGB(FF,FF,B0) 淡黃（#5）。
+//   - 沒有 fg 時的預設字色 0x00EEEDEE＝RGB(EE,ED,EE)（CTextAttr 建構子 sub_862970，#4）。
+//   - 帶 link／action／url 屬性的 <a> 也設底線旗標（0x867B72），</a> 清掉（#13）。
+//   - fg=""（空字串）＝有效、值 0（黑）（sub_864530，#15）。
 //   - <img src="#N"|"pN" align valign link|action|url tooltip highlight>：#N 走 SurfList（312→1109、314→1107、331→601 換號）、
 //     pN 走 PngList；有 link／action 的圖可點。
 //   - <var src="#N">：N 是 S39 帶來的第 N 個資料字串，先 $ 展開、再換第一個 ^（換成空白，同 S161 的 sub_941E40）。
 // 推測（真機再確認，M34）：
-//   - 顏色位元組順序：預設 0xRRGGBB（模板作者寫 98FB98＝palegreen、A2A2A2 等 HTML 慣用值）；連結色同一順序 → B0FFFF（淡青）。
-//     若真機是 COLORREF（0x00BBGGRR）順序，改 HyperTextColors.Order＝Bgr，連結色就變成 FFFFB0（淡黃）。只做資料，等 M34 對色。
+//   - 顏色位元組順序已由 FU11 靜態驗證為 COLORREF（見上）；M34 只需確認 GDI 畫面貼到螢幕時沒有再換通道。
 //   - <p align>／</p>／<center> 是段落：前面有字就換行，並設對齊；<br> 一律換行（可產生空行）。原始檔裡的 \r\n 不算換行（模板都用 <br>）。
 //   - justify／scatter 先當左對齊排（沒有追分散對齊的字距算法）；<p lgap agap>、<img align valign highlight>、face、Size 只存資料。
 //   - <b> 以 1 px 位移重畫一次模擬粗體；<i> 只存資料（UiText 只有一套字型）；<u> 畫底線。bg 畫在字的範圍底下。
@@ -29,23 +34,40 @@ namespace P06.NativeUi;
 
 /// <summary>段落對齊（標籤表的 left／center／right／justify／scatter）。</summary>
 public enum HyperTextAlign { Left, Center, Right, Justify, Scatter }
-/// <summary>fg／bg 數值的位元組順序（M34 待真機對色）。</summary>
+/// <summary>fg／bg 數值的位元組順序。Bgr＝GDI COLORREF 0x00BBGGRR（FU11 已驗證，預設）；Rgb 只留作對照。</summary>
 public enum HyperTextColorOrder { Rgb, Bgr }
 public enum HyperTextNodeKind { Text, Image, Break, Paragraph }
 
 public static class HyperTextColors {
-    /// <summary>每個 &lt;a&gt; 開始時的文字色常數（sub_8676F0，已驗證）。實際顏色依 Order。</summary>
+    /// <summary>每個 &lt;a&gt; 開始時的文字色常數（sub_8676F0 0x867D3B，已驗證）＝COLORREF→RGB(FF,FF,B0) 淡黃。</summary>
     public const uint LinkValue=0x00B0FFFF;
-    /// <summary>位元組順序（推測 Rgb；M34 對色後再定）。</summary>
-    public static HyperTextColorOrder Order{get;set;}=HyperTextColorOrder.Rgb;
+    /// <summary>沒有 fg 時的預設字色（CTextAttr 建構子 sub_862970 0x8629C6，FU11§1 #4，已驗證）＝RGB(EE,ED,EE)。</summary>
+    public const uint DefaultValue=0x00EEEDEE;
+    /// <summary>滑鼠下的文字連結色（sub_866070 0x866787–0x8667A4，FU11§1 #7，已驗證）＝RGB(0A,F0,32) 亮綠。</summary>
+    public const uint HoverValue=0x0032F00A;
+    /// <summary>底線色（sub_866070 0x866B16，FU11§1 #12，已驗證）＝RGB(6E,6E,46)，固定、不跟字色。</summary>
+    public const uint UnderlineValue=0x00466E6E;
+    /// <summary>底線最多畫到本文左界＋198（FU11§1 #12，已驗證）。</summary>
+    public const int UnderlineMaxX=198;
+    /// <summary>位元組順序：已驗證（FU11）＝COLORREF（Bgr）。</summary>
+    public static HyperTextColorOrder Order{get;set;}=HyperTextColorOrder.Bgr;
     public static Color Decode(uint value,HyperTextColorOrder? order=null){
         byte hi=(byte)(value>>16),mid=(byte)(value>>8),lo=(byte)value;
         return (order??Order)==HyperTextColorOrder.Rgb?Color.FromArgb(255,hi,mid,lo):Color.FromArgb(255,lo,mid,hi);
     }
     public static Color Link=>Decode(LinkValue);
-    /// <summary>fg／bg 屬性：只收十六進位數字（不收 0x／#），取低 24 位元；無效回 null（不改顏色）。</summary>
+    public static Color Default=>Decode(DefaultValue);
+    public static Color Hover=>Decode(HoverValue);
+    public static Color Underline=>Decode(UnderlineValue);
+    /// <summary>
+    /// fg／bg 屬性：只收十六進位數字（不收 0x／#）；無效回 null（不改顏色）；沒有屬性（null）回 null。
+    /// 空字串＝有效、值 0（黑）（sub_864530，FU11§1 #15，已驗證）。
+    /// 引擎差異（邊角，維持）：先去頭尾空白；超過 6 位取低 24 位、超過 8 位當無效（原版是 32 位元溢位、不截位，FU11 D7）。
+    /// </summary>
     public static uint? Parse(string? text){
-        string s=text?.Trim()??"";
+        if(text==null)return null;
+        if(text.Length==0)return 0;
+        string s=text.Trim();
         if(s.Length is 0 or >8||!uint.TryParse(s,NumberStyles.AllowHexSpecifier,CultureInfo.InvariantCulture,out uint v))return null;
         return v&0xFFFFFF;
     }
@@ -131,7 +153,9 @@ public static class HyperTextMarkup {
                 fg=HyperTextColors.LinkValue;
                 foreach(var f in fonts.Take(Math.Max(0,fonts.Count-anchorFontDepth)))if(f.SetsFg){fg=f.Style.Fg;break;}
             }
-            return top with{Fg=fg,Bold=bold>0,Italic=italic>0,Underline=underline>0};
+            // R10-B：帶 link／action／url 的 <a> 也有底線（0x867B72，FU11§1 #13）。
+            bool anchorLine=anchor!=null&&(anchor.ContainsKey("link")||anchor.ContainsKey("action")||anchor.ContainsKey("url"));
+            return top with{Fg=fg,Bold=bold>0,Italic=italic>0,Underline=underline>0||anchorLine};
         }
         void Add(HyperTextNode n){if(anchor!=null&&n.Kind is HyperTextNodeKind.Text or HyperTextNodeKind.Image&&n.Link<0)anchorNodes.Add(nodes.Count);nodes.Add(n);}
         void Text(string raw,string? text=null,int minWidth=0){if(raw.Length==0&&minWidth==0)return;Add(new(HyperTextNodeKind.Text,raw,Display(text??raw),Style(),Align:align,MinWidth:minWidth));}
