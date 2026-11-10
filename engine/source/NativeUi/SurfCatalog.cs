@@ -140,7 +140,12 @@ public sealed class UiResources:IDisposable {
         Xml=new UiXmlSource(Tile);
         Surfs=new SurfCatalog(Xml,Sprites,capacity);
     }
-    public static UiResources Open(string? root=null)=>new(root??UiResourcePins.ClientRoot,UiResourcePins.Tile,UiResourcePins.Sprites);
+    /// <summary>Pinned main client plus (T319 #757) the configured reference client for UI XML the main client lacks.</summary>
+    public static UiResources Open(string? root=null){
+        var res=new UiResources(root??UiResourcePins.ClientRoot,UiResourcePins.Tile,UiResourcePins.Sprites);
+        res.Xml.Reference=RefClientXmlSource.Configured(res.Root);
+        return res;
+    }
     static readonly Lazy<UiResources> shared=new(()=>Open(),LazyThreadSafetyMode.ExecutionAndPublication);
     public static UiResources Shared=>shared.Value;
     public void Dispose(){Tile.Dispose();foreach(var s in Sprites)s.Dispose();}
