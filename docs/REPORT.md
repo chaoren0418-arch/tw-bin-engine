@@ -345,3 +345,4 @@
 - 2026-11-11 — #860 T376：R9-P 釣魚窗（code，claude-local，PR 已合併）→ [報告](reports/issue-860.md)
 - 2026-11-11 — #861 T377：R9-Q 選項窗（code，claude-local，PR 已合併）→ [報告](reports/issue-861.md)
 - 2026-11-11 — #862 T378：R7 併入項 179 字串提示與狀態窗 Up 確認（code，claude-local，PR 已合併）→ [報告](reports/issue-862.md)
+- 2026-11-11 — #859 T375：R9-O 選角／建角（code，claude-local，PR 已合併）→ [報告](reports/issue-859.md)
