@@ -85,7 +85,7 @@ Sprite surf（查了 0-客戶端與 kor25 的 `Sprite.idx`、`Sprite00`–`Sprit
 
 - 編譯：`dotnet msbuild engine/source/OfflineClient.csproj -t:ResolveReferences;CoreCompile -p:Configuration=Release -p:EnableWindowsTargeting=true`（restore 用離線 vendor，套件放 worktree 的 scratch）→ **0 錯誤**，本次檔案沒有警告。
 - `python -B -X utf8 engine/tools/check-no-game-assets.py` → `{"status": "pass", "trackedFiles": 4353, "errors": 0}`。
-- 依本機限制，單元測試不在本機執行，以 PR 的 CI 結果為準（見 PR 留言）。
+- 依本機限制，單元測試不在本機執行，以 CI 為準。**CI（PR #881，run 42894667601／42894667643）**：`dotnet`、`map-continuity`、`npc-offline` 都 pass。World module 測試全部群組 failed 0，其中 `char-screen-followup` pass（99 項檢查）、`create-char-ui` pass（69 項）、`select-char-ui` pass（89 項）。CI 沒有客戶端，所以真表核對（LocalTables）依設計略過。
 
 ## 5. 未驗證什麼（待驗證）
 
