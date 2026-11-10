@@ -1,0 +1,15 @@
+dec 8EEBF0
+dec F68DB0
+dec F68930
+grepcallers F691C0 F691C0|operator new|sub_F68|sub_E2|vftable
+dec 8C7C80
+dec 9872A0
+dec ADA220
+dec B1B670
+dec BEA680
+dec BECED0
+dec B1A520
+dec 987750
+findstr exclude
+findstr /exclude
+findstr FriendList
