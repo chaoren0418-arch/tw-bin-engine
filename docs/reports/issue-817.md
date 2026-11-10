@@ -70,7 +70,10 @@
   - 用主專案的 `engine/vendor`（套件快取放 `scratch/t817/packages*`）restore 之後，NuGet 的檔案清單漏掉 WebView2 套件的 `.dll`／`.targets`。結果選到 `lib/*.winmd`，出現 `NETSDK1130`。
   - 這個錯誤在 C# 編譯之前就發生，還沒編到本次改動的檔案。
   - `rebuild.py --build` 失敗在同一步。
-  - 編譯與測試改由 CI 驗證，見 PR 的 CI 結果。
+  - 編譯與測試改由 CI 驗證。
+- **CI（PR #863，run 42864237178／42864237083）**：`dotnet`、`map-continuity`、`npc-offline` 全部 pass。
+  - `--module-tests` 整份 `failed: 0`。
+  - `ref-client-text`（`P06.NativeUi.RefClientTextTests.Run`）46 項檢查全部通過；CI 沒有 kor25，真表核對照設計略過。
 - 依本機執行限制，沒有執行任何編譯出來的程式；`--module-tests` 交給 CI。
 
 ## 4. 已驗證／推測／待驗證
