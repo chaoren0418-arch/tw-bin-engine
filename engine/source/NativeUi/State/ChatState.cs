@@ -173,6 +173,18 @@ public sealed class ChatInputLine {
     public bool Backspace(){if(!Open||text.Length==0)return false;text.Length--;return true;}
     /// <summary>Chat text, or a local command (/on, /off, C199 chat-party, /loc) with valid arguments (R2-G).</summary>
     public bool Valid=>PlayerChatProtocol.Valid(text.ToString());
+    /// <summary>R10-F：有提示等待答覆時，任何一列（含空白＝140 的「全部」、Y/N）都可以送出當作答覆。</summary>
+    public bool ValidFor(ChatLinePrompt? prompt)=>prompt!=null||Valid;
+}
+
+/// <summary>
+/// R10-F（T390／#905，gap-matrix 15.12.6；1:29、4:ExchangeUI）：聊天輸入列上等待答覆的提示（原版 sub_AC98E0：提示字串放進輸入列，
+/// 答一次回呼一次）。Key 用來分辨是不是同一個提示（換了提示就清掉輸入列的草稿）；Text＝提示字串。
+/// Answer 不是 null＝本機答覆（交易 140：答覆直接交給交易窗，不經聊天送出）；null＝答覆照常走 SendChat，由
+/// LoginConnection.SendPlayerChat 的確認分派接手（刪除確認、私商 1028）。Cancel＝Esc（不送）。
+/// </summary>
+public sealed record ChatLinePrompt(object Key,string Text,Func<string,bool>? Answer=null,Action? Cancel=null) {
+    public bool Local=>Answer!=null;
 }
 
 /// <summary>Chat commands (implemented by the client bridge; every member forwards to the existing chat flow).</summary>
