@@ -17,6 +17,11 @@ public sealed class UiXmlSource(ClientArchive tile) {
     static readonly Regex Declaration=new(@"\A(?:\xEF\xBB\xBF)?<\?xml[^>]*?\bencoding\s*=\s*[""']([A-Za-z0-9._\-]+)[""']",RegexOptions.CultureInvariant);
 
     public ClientArchive Archive=>tile;
+    /// <summary>
+    /// T319 (#757): asked only when the main Tile.pak has neither "-c" nor plain name (main client always wins).
+    /// Null (default; synthetic tests) = no reference client.
+    /// </summary>
+    public RefClientXmlSource? Reference{get;set;}
 
     public static bool IsEncrypted(ReadOnlySpan<byte> blob)=>blob.Length>=4&&blob[0]==(byte)'X'&&blob[1]==(byte)'?'&&blob[2]==(byte)'x'&&blob[3]==(byte)'m';
 
@@ -78,7 +83,7 @@ public sealed class UiXmlSource(ClientArchive tile) {
             entry=tile.Find(name);
             if(entry!=null)UiResourceLog.Write($"ui-xml-fallback {localized} -> {name}");
         }
-        if(entry==null)return null;
+        if(entry==null)return Reference?.TryRead(name) is {} r?(r.Plain,r.ResolvedName):null;
         return (Decrypt(tile.Read(entry)),entry.Name);
     }
 
