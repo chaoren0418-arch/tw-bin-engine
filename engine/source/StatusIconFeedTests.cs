@@ -51,10 +51,11 @@ static class StatusIconFeedTests {
         s.Receive(Dk(0),"");t.Equal("",Icons(s),"75 level 0 removes effect 135");
         t.Equal(0,Box(s).GetProperty("dkLevel").GetInt32(),"75 level 0 still recorded as value");
 
-        // 3. 82 殷海薩的祝福：值 → effect 175、模式 1（百分比）；>200 原版用 575（不在表）→ 不列；0 → 移除。
+        // 3. 82 殷海薩的祝福：值 → effect 175、模式 1（百分比）；>200 原版用 575（不在表）→ 不建立；
+        //    R7-E（#807）：sub_736AC0 換變體時不移除舊變體，所以 201 之後 175 仍在（保留最後一次的值 200）；0 → 全部移除。
         s.Receive(Leaves(37),"");t.Equal("175/1/37/-",Icons(s),"82 value 37 → effect 175 percent");
         s.Receive(Leaves(200),"");t.Equal("175/1/200/-",Icons(s),"82 value 200 → effect 175");
-        s.Receive(Leaves(201),"");t.Equal("",Icons(s),"82 value 201 → effect 575, not created");
+        s.Receive(Leaves(201),"");t.Equal("175/1/200/-",Icons(s),"82 value 201 → effect 575 not created; old variant 175 kept");
         s.Receive(Leaves(0),"");t.Equal("",Icons(s),"82 value 0 removes");
 
         // 4. 180 無時間圖示：第一個 D 是 effect id；無期限；字串 id 照收不影響；≥540 不建立；0 關閉。

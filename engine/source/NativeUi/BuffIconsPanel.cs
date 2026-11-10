@@ -18,7 +18,9 @@ namespace P06.NativeUi;
 // R4-F (T297/#709): display mode 1 (percent tooltip "%s: %d%%" with string 1551, sub_9061E0 VA 0x9062FD), per-entry icon override
 // (S250/75 rewrites effect 135's icon), and table-duration countdown for entries that carry ElapsedMs.
 // R5-F (T311/#738): the rest of the sub_9061E0 switch (jump table VA 0x9066D0, 13 cases on byte +0x260), see TooltipText.
-// Effect 470's tail (VA 0x90666D: string 3399 or an appended suffix by a player flag +0x328) is still not done.
+// R7-E (T344/#807): effect 470's tail (VA 0x90666D, reached by every case): player dword +0x328 = 0 → colour index 3 and
+// sprintf(buf, string 3399) (replaces the text); otherwise strcpy(buf, "") (no tooltip). Tooltip colour: index 10 of the
+// dword_1369D70 palette (VA 0x906216), see TooltipColorIndex. Effect 470's special case in the icon draw (sub_9001F0) is not done.
 
 /// <summary>Effect kind list off_138D8FC (13 names, index = kind byte).</summary>
 public enum BuffKind { Slow=0, Curse=1, Paralyse=2, Einhasad=3, Security=4, Dragon=5, MagicDoll=6, Cook=7, Speed=8, Attack=9, Defense=10, Neutrality=11, Legacy=12 }
@@ -186,6 +188,7 @@ public sealed class BuffIconsPanel(IReadOnlyList<ClientArchive>? sprites=null):I
     readonly BuffIconOrder order=new();
     List<Placed> placed=[];
     BuffTooltipText text=BuffTooltipText.None;
+    int vipFlag;
     readonly HashSet<string> logged=[];
 
     public void Load(UiLayout layout,SurfCatalog surfs){
@@ -198,7 +201,7 @@ public sealed class BuffIconsPanel(IReadOnlyList<ClientArchive>? sprites=null):I
 
     public void Update(IUiGameState state){
         var buffs=state.InWorld?BuffState.Of(state)??BuffState.Empty:BuffState.Empty;
-        text=buffs.Text;Unmapped=buffs.Unmapped;
+        text=buffs.Text;vipFlag=buffs.VipFlag;Unmapped=buffs.Unmapped;
         foreach(var u in buffs.Unmapped)Log($"buff-icons 未對照（不畫）{u.Origin}：{u.Reason}");
         var byEffect=new Dictionary<int,BuffEntry>();var present=new List<BuffEffect>();
         if(Table!=null)foreach(var e in buffs.Entries){
@@ -247,9 +250,21 @@ public sealed class BuffIconsPanel(IReadOnlyList<ClientArchive>? sprites=null):I
     ///   5, 9, 10, 11  nothing written → no tooltip
     /// d = left/86400, h = (left − 86400·d)/3600, m = (left − 86400·d − 3600·h)/60, s = left mod 60; C integer division (truncates
     /// toward zero, as C#). The local string-c.tbl has 3484 records, so 4829 is missing there → mode 12 shows no text (not invented).
+    /// R7-E tail (VA 0x90666D, after every case including 5/9/10/11 and modes &gt; 12): effect 470 (cmp [+0x20], 0x1D6) →
+    /// vipFlag (player dword +0x328) = 0 → string 3399 (sprintf with the string as the format; it has no '%') replacing the text;
+    /// vipFlag ≠ 0 → strcpy "" → no tooltip.
     /// </summary>
-    public string? TooltipText(Placed p)=>TooltipText(p.Entry,p.Off,text);
-    public static string? TooltipText(BuffEntry entry,bool off,BuffTooltipText text){
+    public string? TooltipText(Placed p)=>TooltipText(p.Entry,p.Off,text,vipFlag);
+    public static string? TooltipText(BuffEntry entry,bool off,BuffTooltipText text,int vipFlag=0){
+        if(entry.Effect==Vip470Effect)return vipFlag==0?text.Vip470:null;
+        return CaseText(entry,off,text);
+    }
+    /// <summary>R7-E: effect id tested by the sub_9061E0 tail (0x1D6, STR_STATUS_EFFECT_CH_VIP_BUFF).</summary>
+    public const int Vip470Effect=0x1D6;
+    /// <summary>Tooltip colour slot ([ebp+0xC]): palette index 10 at entry (VA 0x906216); the 470 tail with vipFlag 0 sets 3 (VA 0x906687).</summary>
+    public const int TooltipColor=10,Vip470TooltipColor=3;
+    public static int TooltipColorIndex(BuffEntry entry,int vipFlag=0)=>entry.Effect==Vip470Effect&&vipFlag==0?Vip470TooltipColor:TooltipColor;
+    static string? CaseText(BuffEntry entry,bool off,BuffTooltipText text){
         static string N(int v)=>v.ToString(CultureInfo.InvariantCulture);
         switch(entry.DisplayMode){
         case 0 or 6:
@@ -296,11 +311,11 @@ public sealed class BuffIconsPanel(IReadOnlyList<ClientArchive>? sprites=null):I
             if(Icons?.Get(p.Icon) is {} icon)canvas.DrawBitmap(icon.Bitmap,p.Rect.X+icon.Image.OffsetX,p.Rect.Y+icon.Image.OffsetY);
         }
         if(Hovered is {} hp&&TooltipText(hp) is string line){
-            // Box style (colours, padding) is 待驗證; only position, width and text are V3.
+            // Box style (background, padding) is 待驗證; position, width, text and the text colour index (R7-E) are V3.
             var r=TooltipRect(hp.Rect);
             using var back=new SolidBrush(Color.FromArgb(192,0,0,0));
             canvas.Graphics.FillRectangle(back,r);
-            canvas.DrawText(line,r.X+2,r.Y+2,Color.White);
+            canvas.DrawText(line,r.X+2,r.Y+2,ChatPalette.Color(TooltipColorIndex(hp.Entry,vipFlag)));
         }
     }
 

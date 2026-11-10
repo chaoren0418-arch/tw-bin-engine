@@ -127,26 +127,27 @@ static class StatusIconFollowupTests {
         long now=1_000_000;var s=Own(()=>now);s.StartMessageEffects=()=>null;
         Set(s,"MapId",(ushort)4);
         s.Receive(Leaves(37),"");t.Equal("175/1/37",Icons(s),"map 4, no flag → 175");
+        // R7-E（#807）：變體照原版累積（sub_736AC0 只加／更新選到的變體，不移除其他的），以下期望值隨之更新。
         s.Receive(NoneTime(1,293),"");
         t.Check(s.LeavesPcCafeFlag,"effect 293 on → flag");
-        t.Equal("518/1/37,293/0/-1",Icons(s),"effect 293 appears → 82 re-evaluated to 518 with the kept value");
+        t.Equal("175/1/37,518/1/37,293/0/-1",Icons(s),"effect 293 appears → 82 re-evaluated: 518 added with the kept value, 175 kept");
         var b=BuffState.From(s,null,Text);
         t.Check(b.Entries.Single(e=>e.Effect==518) is {DisplayMode:1,Seconds:37},"native buff state carries 518 as percent",b.Entries);
-        s.Receive(Leaves(250),"");t.Equal("293/0/-1",Icons(s),"> 200 with flag → 576, not in the table");
-        s.Receive(Leaves(40),"");t.Equal("518/1/40,293/0/-1",Icons(s),"back to 518");
+        s.Receive(Leaves(250),"");t.Equal("175/1/37,518/1/37,293/0/-1",Icons(s),"> 200 with flag → 576, not in the table; others unchanged");
+        s.Receive(Leaves(40),"");t.Equal("175/1/37,518/1/40,293/0/-1",Icons(s),"back to 518 (only 518 updated)");
         s.Receive(NoneTime(0,293),"");
         t.Check(!s.LeavesPcCafeFlag,"effect 293 off → flag cleared");
-        t.Equal("175/1/40",Icons(s),"effect 293 removed → 175 again");
+        t.Equal("175/1/40,518/1/40",Icons(s),"effect 293 removed → 175 updated, 518 kept");
 
         // 基底地圖只在 82 或 293 增減時重算（原版 0x138BE64 只在那兩個時機被讀）。
         Set(s,"MapId",(ushort)6400);
-        t.Equal("175/1/40",Icons(s),"map change alone does not re-evaluate");
-        s.Receive(Leaves(40),"");t.Equal("",Icons(s),"82 on map 6400 → 574, not in the table");
+        t.Equal("175/1/40,518/1/40",Icons(s),"map change alone does not re-evaluate");
+        s.Receive(Leaves(40),"");t.Equal("175/1/40,518/1/40",Icons(s),"82 on map 6400 → 574, not in the table");
         Set(s,"MapId",(ushort)4);
-        s.Receive(NoneTime(1,293),"");t.Equal("518/1/40,293/0/-1",Icons(s),"293 added on map 4 → re-evaluated to 518");
-        s.Receive(NoneTime(1,293),"");t.Equal("518/1/40,293/0/-1",Icons(s),"repeated 293 on (no new icon) keeps the evaluation");
+        s.Receive(NoneTime(1,293),"");t.Equal("175/1/40,518/1/40,293/0/-1",Icons(s),"293 added on map 4 → re-evaluated to 518");
+        s.Receive(NoneTime(1,293),"");t.Equal("175/1/40,518/1/40,293/0/-1",Icons(s),"repeated 293 on (no new icon) keeps the evaluation");
         Set(s,"MapId",(ushort)0x4000);
-        s.Receive(Leaves(40),"");t.Equal("518/1/40,293/0/-1",Icons(s),"instance map 0x4000 is not 0x1900");
+        s.Receive(Leaves(40),"");t.Equal("175/1/40,518/1/40,293/0/-1",Icons(s),"instance map 0x4000 is not 0x1900");
         s.Receive(Leaves(0),"");t.Equal("293/0/-1",Icons(s),"0 removes every variant");
         s.Reset();t.Check(!s.LeavesPcCafeFlag&&Icons(s)=="","reset clears");
     }

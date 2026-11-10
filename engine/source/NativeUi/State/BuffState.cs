@@ -17,8 +17,13 @@ namespace P06.NativeUi {
     ///   IconOverride  .tbt number replacing the effect's icon (75: the original rewrites effect 135's icon to 0xC9B+3−level).
     ///   ElapsedMs     for DefaultDuration entries: time since the icon was (re)added; the panel then counts down the table duration.
     ///                 null = start unknown (Seconds stays null unless the duration is −1).
+    /// R7-E (T344/#807, S250/82 only):
+    ///   Boost         flag of sub_F71FA0(effect, flag) at VA 0x736B59 (player inside an ExpInfo.xml BoostEvent zone).
+    ///   BoostText     string id given to sub_F71800(effect, text) (4448 when Boost; the original passes "" otherwise → null).
+    ///                 Data only: how the icon button uses the flag and text (sub_F799D0 / sub_F706D0) is not traced → not drawn.
     /// </summary>
-    public sealed record BuffEntry(int Effect,int? Seconds,bool Expired,string Origin,bool DefaultDuration=false,int DisplayMode=0,int? IconOverride=null,long? ElapsedMs=null);
+    public sealed record BuffEntry(int Effect,int? Seconds,bool Expired,string Origin,bool DefaultDuration=false,int DisplayMode=0,int? IconOverride=null,long? ElapsedMs=null,
+            bool Boost=false,int? BoostText=null);
 
     /// <summary>A live state the original would show, but which cannot be mapped to one effect id from the engine model.</summary>
     public sealed record BuffUnmapped(string Origin,string Reason);
@@ -31,18 +36,29 @@ namespace P06.NativeUi {
     /// Local string-c.tbl (decoded SHA-256 4ebbc1a7…43e9, 3484 records, checked in #738): 930 剩餘時間, 931 秒, 2854 魔法效果結束,
     /// 1551 剩餘的祝福指數 (the S250/82 blessing value — matches effect 175 STR_STATUS_EFFECT_BLESS_OF_EINHASAD, whose startMsg is 1550),
     /// 978 剩餘時間, 1587 分, 763 日, 1630 時間; 4829 is past the table → null.
+    /// R7-E (T344/#807): Vip470 = string 3399 (0xD47), which the tail of sub_9061E0 (VA 0x90666D) writes for effect 470
+    /// (STR_STATUS_EFFECT_CH_VIP_BUFF). Local string-c.tbl 3399 is "dummy3401"; kor25 / ly have "VIP 尚未開啟". Read by FromAll only, so
+    /// From keeps its lookup list.
     /// null = table not available → no tooltip text is shown (never invented).
     /// </summary>
     public sealed record BuffTooltipText(string? Label,string? Unit,string? Over,string? Percent=null,
-            string? Remain=null,string? Minute=null,string? Day=null,string? Hour=null,string? Percent12=null) {
+            string? Remain=null,string? Minute=null,string? Day=null,string? Hour=null,string? Percent12=null,string? Vip470=null) {
         public static readonly BuffTooltipText None=new(null,null,null);
         public const int LabelId=930,UnitId=931,OverId=2854,PercentId=1551;
         public const int RemainId=978,MinuteId=1587,DayId=763,HourId=1630,Percent12Id=4829;
+        public const int Vip470Id=0xD47;
         /// <summary>All strings from one lookup (id → text or null).</summary>
         public static BuffTooltipText From(Func<int,string?> s)=>new(s(LabelId),s(UnitId),s(OverId),s(PercentId),s(RemainId),s(MinuteId),s(DayId),s(HourId),s(Percent12Id));
+        /// <summary>From plus the R7-E effect 470 string (3399).</summary>
+        public static BuffTooltipText FromAll(Func<int,string?> s)=>From(s) with{Vip470=s(Vip470Id)};
     }
 
-    public sealed record BuffState(IReadOnlyList<BuffEntry> Entries,IReadOnlyList<BuffUnmapped> Unmapped,BuffTooltipText Text) {
+    /// <summary>
+    /// VipFlag (R7-E): the player-info dword +0x328 (singleton sub_4F9B90) that the effect 470 tooltip tail tests. Only TW16 op 43
+    /// (sub_94E0E0) subtype 72 writes it (VA 0x94EA33, first D; 1–5 also add effects 502/503/504/505/608). The 3.81 server never sends
+    /// S64 subtype 72 (no S_EquipmentWindow／S_CharReset caller uses 72), so the engine keeps it at 0 (推測: the singleton starts at 0).
+    /// </summary>
+    public sealed record BuffState(IReadOnlyList<BuffEntry> Entries,IReadOnlyList<BuffUnmapped> Unmapped,BuffTooltipText Text,int VipFlag=0) {
         public static readonly BuffState Empty=new([],[],BuffTooltipText.None);
 
         /// <summary>Finds the buff adapter through the bridge wrappers (HpMp → Macro → LeftStatus → Chat → Party → Buff). null = none.</summary>
@@ -92,7 +108,8 @@ namespace P06.NativeUi {
             //   180 effect = first D, mode 0, no limit (−1 → tooltip "--")
             foreach(var i in w.PacketBoxStatusIcons){
                 long? elapsed=i.DefaultDuration&&i.ReceivedAt is long at?Math.Max(0,now-at):null;
-                entries.Add(new(i.Effect,i.Value,false,i.Origin,DefaultDuration:i.DefaultDuration,DisplayMode:i.DisplayMode,IconOverride:i.IconOverride,ElapsedMs:elapsed));
+                entries.Add(new(i.Effect,i.Value,false,i.Origin,DefaultDuration:i.DefaultDuration,DisplayMode:i.DisplayMode,IconOverride:i.IconOverride,ElapsedMs:elapsed,
+                    Boost:i.Boost,BoostText:i.BoostText));
             }
             // One icon per effect (sub_F05A90 updates an existing effect instead of adding a second one).
             var unique=entries.GroupBy(x=>x.Effect).Select(g=>g.First()).ToArray();
@@ -212,7 +229,7 @@ namespace P06 {
             int? cls=login.Characters.FirstOrDefault(c=>c.Name==w.Actor?.Name)?.Class;
             var t=ServerMessageText.Table;
             string? S(int id)=>t!=null&&id<t.Count?ServerMessageText.DisplayText(t[id]):null;
-            var text=t==null?BuffTooltipText.None:BuffTooltipText.From(S);
+            var text=t==null?BuffTooltipText.None:BuffTooltipText.FromAll(S);
             return new UiBuffGameState(state,BuffState.From(w,cls,text));
         }
     }
