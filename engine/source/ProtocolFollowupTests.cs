@@ -85,7 +85,8 @@ static class ProtocolFollowupTests {
         t.Check(!c.World.EmoteHeld&&!c.World.MoveLocked,"no hold before the emote");
         var stamp=c.CaptureTitleEmote();
         t.Check(Wait(c.SendEmote(stamp,1))&&sent.Count==1&&sent[0][0]==120&&sent[0][1]==68,"hold emote sends C120 68",new{sent.Count});
-        t.Check(c.World.EmoteHeld&&c.World.MoveLocked&&!c.World.ServerMoveLocked&&!c.MovementAvailable,"hold: movement held off, not a server lock");
+        // R10-G (#906): the hold only pauses held movement (HeldMovementPaused); it is no longer a MoveLocked/MovementAvailable gate.
+        t.Check(c.World.EmoteHeld&&c.HeldMovementPaused&&!c.World.MoveLocked&&!c.World.ServerMoveLocked,"hold: held movement paused, not a lock");
         now=1000+1233;t.Check(c.World.EmoteHeld,"still held at 1233 ms");
         now=1000+1234;t.Check(!c.World.EmoteHeld&&!c.World.MoveLocked,"released at 1234 ms");
         // Class forms send without hold.

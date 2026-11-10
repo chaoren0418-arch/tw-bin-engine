@@ -20,12 +20,12 @@ public sealed partial class WorldSession {
     /// <summary>S241 lock alone (the emote hold is separate).</summary>
     public bool ServerMoveLocked=>moveLock is {} hold&&hold.Epoch==WorldEpoch&&hold.Position==AuthoritativePositionRevision;
     // Pure on purpose: the send gate and UI poll this from outside the receive path.
-    // R5-D: the emote hold (byte_153CE6A, TitleAndEmote.cs EmoteHeld) also keeps held input from moving, for 1234 ms.
-    // R7-B (T341/#804): byte_153CE69 (EmoteSettling, 700 ms after an immediate emote ends) gates the same input path
-    // (0xDF5401–0xDF5416: busy, 153CE5F, 153CE69, 153CE6A all checked before sub_A4C270(0)), so it joins here too.
-    // The original only pauses held-input continuation; narrowing the engine to that needs MovementAvailable's callers
-    // (OnlineMovement.cs, ClientLogin.cs, Program.cs), which are outside this group (issue-804 report).
-    public bool MoveLocked=>ServerMoveLocked||EmoteInputPaused;
+    // R10-G (T391/#906, gap-matrix 1:92, AN§1): the emote hold (byte_153CE6A, EmoteHeld) and the 700 ms tail
+    // (byte_153CE69, EmoteSettling) only pause held-input continuation (0xDF5401–0xDF5416, checked before sub_A4C270(0)).
+    // They are no longer part of MoveLocked, so MovementAvailable (attack, magic, doors, portals) is not blocked and
+    // ClientLogin's "unsupported-movement-state" no longer clears held input; the held step waits in
+    // LoginConnection.RequestMovement (OnlineMovement.cs) instead.
+    public bool MoveLocked=>ServerMoveLocked;
 
     void ReceiveMoveLock(LoginReader r){
         byte mode=r.C();r.Finish();

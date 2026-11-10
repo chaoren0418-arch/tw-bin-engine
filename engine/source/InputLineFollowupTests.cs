@@ -132,9 +132,9 @@ static class InputLineFollowupTests {
             t.Check(c.World.EmoteSettling&&!c.World.EmoteHeld,"byte_153CE69 set, byte_153CE6A not");
             t.Check(!c.World.EmoteInputPaused&&!c.World.MoveLocked,"while the emote plays the engine's own rule applies (not paused)");
             now=1500;c.World.EndEmote(Own);
-            t.Check(c.World.EmoteInputPaused&&c.World.MoveLocked&&!c.World.ServerMoveLocked&&!c.MovementAvailable,"after the emote ends: input paused, not a server lock");
-            now=2199;t.Check(c.World.EmoteSettling&&c.World.MoveLocked,"still set at 699 ms");
-            now=2200;t.Check(!c.World.EmoteSettling&&!c.World.MoveLocked,"cleared 700 ms after the end");
+            t.Check(c.World.EmoteInputPaused&&c.HeldMovementPaused&&!c.World.MoveLocked&&!c.World.ServerMoveLocked,"after the emote ends: held movement paused, not a lock (R10-G)");
+            now=2199;t.Check(c.World.EmoteSettling&&c.HeldMovementPaused,"still set at 699 ms");
+            now=2200;t.Check(!c.World.EmoteSettling&&!c.HeldMovementPaused,"cleared 700 ms after the end");
         }
         {   // The timer only clears: a second emote started before it fires is cleared by the first timer (sub_A23B30 + sub_A231C0).
             var sent=new List<byte[]>();var c=Seed(sent);long now=1000;c.ActionClock=()=>now;var stamp=c.CaptureTitleEmote();
@@ -151,7 +151,7 @@ static class InputLineFollowupTests {
         }
         {   // Walking interrupts the emote (engine only): the flag is dropped, no pause mid-walk.
             var sent=new List<byte[]>();var c=Seed(sent);long now=1000;c.ActionClock=()=>now;Wait(c.SendEmote(c.CaptureTitleEmote(),1));
-            c.World.InterruptEmote(Own);t.Check(!c.World.EmoteSettling&&!c.World.MoveLocked,"walking interrupt drops byte_153CE69");
+            c.World.InterruptEmote(Own);t.Check(!c.World.EmoteSettling&&!c.HeldMovementPaused,"walking interrupt drops byte_153CE69");
         }
         {   // 推定: no local entry → the timer starts at once instead of leaving the flag set forever.
             var sent=new List<byte[]>();var c=Seed(sent);long now=5000;c.ActionClock=()=>now;
@@ -209,11 +209,11 @@ static class InputLineFollowupTests {
         }
     }
 
-    // Records the current scope: the engine still routes the hold through MoveLocked → MovementAvailable (see issue-804 report).
+    // R10-G (T391/#906) narrowed the scope: the hold no longer reaches MoveLocked → MovementAvailable (EmoteHoldScopeTests.cs).
     static void HoldScope(WorldModuleTestContext t){
         var sent=new List<byte[]>();var c=Seed(sent,gfx:6080);long now=1000;c.ActionClock=()=>now;
         Wait(c.SendEmote(c.CaptureTitleEmote(),1));
-        t.Check(c.World.EmoteHeld&&c.World.MoveLocked&&!c.World.ServerMoveLocked,"hold still reaches MoveLocked (narrowing needs files outside R7-B)");
-        now=2234;t.Check(!c.World.EmoteInputPaused&&!c.World.MoveLocked,"released after 1234 ms");
+        t.Check(c.World.EmoteHeld&&c.HeldMovementPaused&&!c.World.MoveLocked&&!c.World.ServerMoveLocked,"hold pauses held movement only, not MoveLocked");
+        now=2234;t.Check(!c.World.EmoteInputPaused&&!c.HeldMovementPaused,"released after 1234 ms");
     }
 }
