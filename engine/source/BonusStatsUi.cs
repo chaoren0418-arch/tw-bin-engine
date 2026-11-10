@@ -31,11 +31,19 @@ public sealed partial class ClientForm {
     }
     async Task DispatchBonusStats(int id,BonusStatsCommand command){bool accepted=await RunBonusStats(command);Reply(id,accepted?login.World.BonusStatsNotice:"能力點操作已過期、狀態未就緒或忙碌；未送出。");PublishWebState();}
     void SyncBonusStats(){
-        var v=login.BonusStatsSnapshot();bonusStatsPanel.Visible=normalProduct&&login.State==LoginState.InWorld;displayedBonusStats=v;
+        var v=login.BonusStatsSnapshot();bonusStatsPanel.Visible=normalProduct&&login.State==LoginState.InWorld;displayedBonusStats=v;SyncNativeStatus(v);
         bonusStatsNotice.Text=v.Notice;bonusStatsRefresh.Enabled=v.CanRefresh&&!World.Walking;bonusStatsSubmit.Enabled=v.CanSubmit&&!World.Walking;
         bonusStatsSubmit.Text=v.Selected is {} key?"確認將「"+BonusStatsRules.Labels[Array.IndexOf(BonusStatsRules.Keys,key)]+"」提昇１點":"請先選擇屬性";
         string signature=JsonSerializer.Serialize(v)+World.Walking;if(signature==bonusStatsSignature)return;bonusStatsSignature=signature;
         foreach(Control old in bonusStatsChoices.Controls.Cast<Control>().ToArray())old.Dispose();bonusStatsChoices.Controls.Clear();
         foreach(var attr in v.Attributes){var command=BonusCommand(v,"bonusSelect",attr.Key);var button=new Button{Width=360,Height=34,Text=$"{(attr.Selected?"已選擇：":"選擇：")}{attr.Label} · 目前 {attr.Value?.ToString()??"未知"}",Enabled=v.CanSelect&&!World.Walking};button.Click+=async(_,_)=>await RunBonusStats(command);bonusStatsChoices.Controls.Add(button);}
+    }
+    // T328 (#766) native routing only: with the native UI on, the ReNStatusUIEx status window gets the same snapshot, and its
+    // stat Up button runs the existing bonusSelect (local choice, no packet; the submit stays on the WinForms panel below).
+    // Native UI off (--classic-ui) or the window unavailable/faulted → nothing changes; the WinForms panel is always kept.
+    void SyncNativeStatus(BonusStatsView v){
+        if(!NativeUiActive||NativeUiRoot is not {} root||root.Find(P06.NativeUi.RenewalStatusPanel.PanelId) is not P06.NativeUi.RenewalStatusPanel panel||root.Faulted.Contains(panel))return;
+        panel.StatPointUp??=key=>{if(displayedBonusStats is {} cur&&BonusStatsRules.Valid(key))_=RunBonusStats(BonusCommand(cur,"bonusSelect",key));};
+        panel.Show(P06.NativeUi.RenewalStatusPanel.ViewOf(login.World.Status,v.CanSelect&&!World.Walking,v.Selected));
     }
 }
