@@ -91,10 +91,30 @@ public sealed class LoginFriendListSource(LoginConnection connection):IFriendLis
     }
 }
 
+/// <summary>
+/// R10-C（T387／#902）：原生 FriendUI／ExcludeUI 清單列 Delete 的送出端（FriendPanels.Host）。
+/// Friend（1813 回答「是」之後）→ C202，送出後本地移除、不另查詢（FU9§9.2 sub_B18F10）；Exclude → C171（3.81 切換；名字在名單上＝解除）。
+/// MailExclude 面板不會呼叫（3.81 不支援）。只做前置檢查並開始送出；結果以原服回覆為準。
+/// </summary>
+public sealed class LoginFriendWindowHost(LoginConnection connection):IFriendWindowHost {
+    public bool Remove(FriendListKind kind,string name){
+        if(kind==FriendListKind.MailExclude)return false;
+        var view=connection.BuddySnapshot();
+        if(kind==FriendListKind.Friend?!view.CanSend:!view.CanToggle)return false;
+        var action=kind==FriendListKind.Friend?BuddyAction.Delete:BuddyAction.ToggleExclude;
+        try{BuddyPackets.Encode(action,name);}catch(ArgumentException){return false;}
+        var task=connection.SendBuddy(action,name,view,localRemove:kind==FriendListKind.Friend);
+        if(task.IsCompleted)return task.Exception==null&&task.Result;
+        _=task.ContinueWith(t=>_=t.Exception,TaskContinuationOptions.OnlyOnFaulted);   // SendBuddy 自己處理送出例外；這裡只避免未觀察的例外
+        return true;
+    }
+}
+
 public sealed partial class ClientForm {
     protected override void OnLoad(EventArgs e){base.OnLoad(e);InitBuddyUi();}
     void InitBuddyUi(){
         FriendPanels.Source=new LoginFriendListSource(login);
+        FriendPanels.Host=new LoginFriendWindowHost(login);   // R10-C（#902）：Delete → 1813 → C202／C171
         if(normalPanels==null)return;
         var page=new TabPage("好友／封鎖"){BackColor=Color.FromArgb(23,38,41)};
         page.Controls.Add(new BuddyPanel(login,ToggleNativeFriendWindow));normalPanels.TabPages.Add(page);
