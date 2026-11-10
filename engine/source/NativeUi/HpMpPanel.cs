@@ -50,14 +50,41 @@ public sealed record HpMpLayout(
             thick?Rectangle.FromLTRB(0,9,33,42):Rectangle.FromLTRB(0,5,33,38),
             (thick?2938:2932)+s,new(27,6));
     }
+
+    /// <summary>
+    /// HP bar surf for a variant (UI§2 V1 "HP 條變體"; FU8§1.3): base (red), +1 when the own object's byte +86 is set
+    /// (sub_A43010, gray), +2 when byte +87 is set (sub_A43030, green). The three images of each (shape, status, thickness)
+    /// are consecutive, which is why the base advances by 3 per status. All 36 images exist in the local client
+    /// (issue-907 report); a missing one is simply not drawn.
+    /// </summary>
+    public int HpSurf(HpBarVariant variant)=>Hp+(int)variant;
+}
+
+/// <summary>
+/// HP bar variant of the floating window (FU8§1.3). 推測: +86 = paralysis/freeze kind (S_PARALYSE types 2/4, 10, 12,
+/// 22/24 call sub_A458F0(1)), +87 = poison (written by sub_A45A60); colours are from the rendered images.
+/// </summary>
+public enum HpBarVariant { Normal=0, Gray=1, Green=2 }
+
+/// <summary>
+/// Optional state for the HP bar variant; absent → Normal. 推測 (FU8§1.3): the product adapter is not wired in this task
+/// (UiHpMpGameState lives in State/HpMpState.cs, outside T392's file scope) — see the issue-907 report.
+/// </summary>
+public interface IUiHpMpVariantState {
+    HpBarVariant OwnHpVariant { get; }
+    /// <summary>Flags → variant. Which flag wins when both are set is not decompiled; gray first (推測, same priority as
+    /// the S165 body tint in Afflictions.cs).</summary>
+    static HpBarVariant FromFlags(bool byte86,bool byte87)=>byte86?HpBarVariant.Gray:byte87?HpBarVariant.Green:HpBarVariant.Normal;
 }
 
 /// <summary>Floating HP/MP window. Float layer, draggable by its drag strip; two buttons toggle shape and cycle length.</summary>
 public sealed class HpMpPanel:IUiMovablePanel {
     [UiPanel(40)] internal static UiPanelRegistration Registration=>new(HpMpPanel.PanelId,"uistatus86",root=>new HpMpPanel());   // ui-hpmp #465 (no XML: V1 hard-coded layout)
     public const string PanelId="HpMpWindow";
-    /// <summary>Low-HP threshold (sub_EDB8E0). 0.40 when byte_1542AA1 == 7 (class unknown here, so not applied).</summary>
-    public const double WarnRatio=0.35;
+    /// <summary>Low-HP threshold (sub_EDB8E0): 0.35, or dword_138B62C = 0.40 when byte_1542AA1 == 7 (warrior, FU6§2).</summary>
+    public const double WarnRatio=0.35,WarriorWarnRatio=0.40;
+    /// <summary>Threshold for the own class code (IUiHpMpState.OwnClass; null = unknown → 0.35).</summary>
+    public static double WarnRatioFor(byte? ownClass)=>ownClass==HpMpHeadBarPanel.WarriorClass?WarriorWarnRatio:WarnRatio;
     public const int WarnTicks=6,WarnTickMs=300;
     /// <summary>Text colours: palette[14] white, second colour palette[0] black (sub_841770 / sub_841190).</summary>
     public static readonly Color TextColor=Color.FromArgb(255,255,255),TextSecond=Color.FromArgb(0,0,0);
@@ -68,6 +95,7 @@ public sealed class HpMpPanel:IUiMovablePanel {
     Point origin;Size frameSize;
     long? hp,maxHp,mp,maxMp;bool inWorld;
     long? lastHp;int warnCounter;long warnNext;
+    double warnRatio=WarnRatio;HpBarVariant variant;
     Button pressed;
 
     public HpMpPanel(HpMpSettings? settings=null){
@@ -93,6 +121,10 @@ public sealed class HpMpPanel:IUiMovablePanel {
     public bool WarnVisible=>warnCounter%2==1;
     public int WarnCounter=>warnCounter;
     public Button Pressed=>pressed;
+    /// <summary>Low-HP threshold in effect (from the last Update's OwnClass).</summary>
+    public double CurrentWarnRatio=>warnRatio;
+    /// <summary>HP bar variant in effect (from the last Update; Normal when the state does not carry it).</summary>
+    public HpBarVariant Variant=>variant;
 
     public void Load(UiLayout layout,SurfCatalog surfs){this.surfs=surfs;Relayout();}
 
@@ -120,9 +152,11 @@ public sealed class HpMpPanel:IUiMovablePanel {
     public void Update(IUiGameState state){
         inWorld=state.InWorld;
         hp=state.Hp;maxHp=state.MaxHp;mp=state.Mp;maxMp=state.MaxMp;
+        warnRatio=WarnRatioFor((state as IUiHpMpState)?.OwnClass);
+        variant=(state as IUiHpMpVariantState)?.OwnHpVariant??HpBarVariant.Normal;
         // Low-HP frame: a new HP value at or below the threshold restarts the counter at 6; it counts down every 300 ms.
         if(inWorld&&hp is long h&&maxHp is long m&&m>0){
-            if(h!=lastHp&&h<=m*WarnRatio){warnCounter=WarnTicks;warnNext=state.Now+WarnTickMs;}
+            if(h!=lastHp&&h<=m*warnRatio){warnCounter=WarnTicks;warnNext=state.Now+WarnTickMs;}
             lastHp=h;
         }else{lastHp=null;warnCounter=0;}
         while(warnCounter>0&&state.Now>=warnNext){warnCounter--;warnNext+=WarnTickMs;}
@@ -147,7 +181,7 @@ public sealed class HpMpPanel:IUiMovablePanel {
         var L=Layout;int ox=origin.X,oy=origin.Y;
         canvas.DrawSurface(surfs.Get(L.Frame),ox,oy);
         if(WarnVisible)canvas.DrawSurface(surfs.Get(L.Warn),ox+L.WarnAt.X,oy+L.WarnAt.Y);
-        PaintBar(canvas,surfs.Get(L.Hp),L.HpBar,hp,maxHp,rightAligned:L.Shape==1,ox,oy);
+        PaintBar(canvas,surfs.Get(L.HpSurf(variant)),L.HpBar,hp,maxHp,rightAligned:L.Shape==1,ox,oy);
         PaintBar(canvas,surfs.Get(L.Mp),L.MpBar,mp,maxMp,rightAligned:false,ox,oy);
         canvas.DrawSurface(surfs.Get(L.ShapeButton+(pressed==Button.Shape?1:0)),ox+L.ShapeButtonRect.X,oy+L.ShapeButtonRect.Y);
         canvas.DrawSurface(surfs.Get(L.LengthButton+(pressed==Button.Length?1:0)),ox+L.LengthButtonRect.X,oy+L.LengthButtonRect.Y);
