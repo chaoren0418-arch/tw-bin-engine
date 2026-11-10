@@ -58,6 +58,7 @@
   - 本機還原的問題沿用 #764 的處理：把主專案 `engine/source/obj`、`engine/audio/obj` 的 assets／g.props／g.targets 讀出來，改成本 worktree 的路徑後放進 worktree 的 `obj/`。主專案只讀。
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：`pass`，0 錯誤。
 - 依 2026-11-09 本機執行限制，**本機沒有執行任何編出來的程式**。`login-followup`、`login-ui` 與其他測試交給 PR 的 GitHub Actions CI，結果見 PR。
+- **CI（PR #838）第一輪全綠**：`dotnet`、`map-continuity`（含 `--module-tests`）、`npc-offline` 都通過。`login-followup` 85 項全部通過，既有 `login-ui` 124 項也全部通過，整份 module-tests 的 `failed` 為 0。
 - `rebuild-lock.json`、`WorldSession.cs`、`UiPanelRegistry.cs`、`Program.cs`、`DemoChecks.csproj` 都沒改。
 
 ## 未驗證什麼（待驗證）
