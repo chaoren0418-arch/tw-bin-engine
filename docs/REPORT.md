@@ -334,3 +334,4 @@
 - 2026-11-11 — #845 T361：R9-A 書籤窗原版操作（code，claude-local，PR 已合併）→ [報告](reports/issue-845.md)
 - 2026-11-11 — #846 T362：R9-B 地圖窗右鍵選單與存點窗（code，claude-local，PR 已合併）→ [報告](reports/issue-846.md)
 - 2026-11-11 — #848 T364：R9-D S55 不跟隨特效（code，claude-local，PR 已合併）→ [報告](reports/issue-848.md)
+- 2026-11-11 — #849 T365：R9-E HyperText 小組（code，claude-local，PR 已合併）→ [報告](reports/issue-849.md)
