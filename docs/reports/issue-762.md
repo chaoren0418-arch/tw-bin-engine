@@ -111,7 +111,7 @@
 - 已合併 `origin/main` 後重新建置，結果相同。
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：`pass`，0 個錯誤。
 - 依 2026-11-09 的本機執行限制，**本機沒有執行任何編譯出來的程式**。`mail-panel` 的離線測試交給 PR 的 GitHub Actions CI（`--module-tests`）。
-- CI 結果：以 PR 上最新 commit 的 CI 為準。
+- **CI（PR #825）全綠**：`dotnet`、`map-continuity`、`npc-offline` 都通過。`map-continuity` 的 `--module-tests` 裡，`mail-panel` 的結果是 `pass: true`，124 項檢查，0 個失敗。
 
 ## 未驗證／待驗證
 
