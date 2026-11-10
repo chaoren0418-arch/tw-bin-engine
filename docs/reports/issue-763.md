@@ -106,7 +106,11 @@
   - 本機 restore 的處理方式同 #761：把主專案 `obj/` 的 `project.assets.json`、`nuget.g.props`、`nuget.g.targets` 讀出來，路徑改成本 worktree 後放進 worktree 的 `obj/`。`engine/audio` 則用一般的 `dotnet restore`。主專案只讀、沒有寫入。
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：`pass`，0 錯誤。
 - 依 2026-11-09 本機執行限制，**本機沒有執行任何編出來的程式**。`reset-stat-ui`、`stat-info-ui` 與既有測試交給 PR 的 GitHub Actions CI。
-- `rebuild-lock.json` 沒有改動。
+- **CI（PR #793）第一輪全綠**：`dotnet`、`map-continuity`（含 `--module-tests`）、`npc-offline` 都通過。
+  - `reset-stat-ui`：103 項檢查，0 失敗。
+  - `stat-info-ui`：32 項檢查，0 失敗。
+  - 全部 `[WorldModuleTest]` 合計 `failed: 0`，既有各組也沒有失敗。
+- `rebuild-lock.json` 沒有改動。開始前已確認與 `origin/main` 同步（Already up to date）。
 
 ## 未驗證什麼（待驗證）
 
