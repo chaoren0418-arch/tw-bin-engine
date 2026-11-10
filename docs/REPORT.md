@@ -306,3 +306,4 @@
 - 2026-11-10 — #779 T333：R6-C 私商 `TRADE_WINDOW` 13／14（code，claude-local，PR 已合併）→ [報告](reports/issue-779.md)
 - 2026-11-10 — #781 T335：R6-E 聊天指令與本地確認（code，claude-local，PR 已合併）→ [報告](reports/issue-781.md)
 - 2026-11-10 — #780 T334：R6-D 鍵盤拾取與幽靈快捷（code，claude-local，PR 已合併）→ [報告](reports/issue-780.md)
+- 2026-11-10 — #782 T336：R6-F 料理窗與地裂深度（code，claude-local，PR 已合併）→ [報告](reports/issue-782.md)
