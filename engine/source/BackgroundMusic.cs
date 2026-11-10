@@ -17,6 +17,9 @@ public interface IMusicStreamAudio
     void Stop(MusicTrack track);
     // 單次播放的曲目自然播完時回 true（原版串流狀態不再是 4）。
     bool Finished(MusicTrack track);
+    // R10-L（T396）：換曲。from＝正在播、要被換掉的曲目（沒有則 null）。預設＝先停舊的再開新的（原本的行為）。
+    // MIDI 後端覆寫成「0.mid 在播就沿用、沒在播才開」（8F1C30／8F2FB0／8F3B90／8F3D70），見 ProductMusicAudio.Replace。
+    bool Replace(MusicTrack? from,MusicTrack to,double volume){if(from!=null)Stop(from);return Start(to,volume);}
 }
 // Enabled：音樂選項開且未靜音；Volume：MusicVolume 類別 × 主音量（0..1）。Map／X／Y 只在 World 使用。
 // LiveSprites：畫面上還活著（動作 ≠ 8）的物件 gfx（sub_8F15B0）。null＝呼叫端沒有物件資訊，登記過的頭目一律視為在場。
@@ -89,10 +92,12 @@ public sealed class BackgroundMusic(MusicDefinition definition,IMusicStreamAudio
 
     bool Start(int music,bool loop,MusicKind kind,long now,int nextInterval,int slot=-1)
     {
-        StopCurrent();
-        if(music<0)return false;
+        // R10-L：換曲交給後端的 Replace（停舊＋開新）；一般後端等同原本的 StopCurrent＋Start。
+        var from=Current is {} c&&Playing?c:null;
+        Current=null;Playing=false;fadeAt=null;
+        if(music<0){if(from!=null)audio.Stop(from);return false;}
         var track=new MusicTrack(++number,music,loop,kind,slot);
-        if(!audio.Start(track,volume)){retryAt=now+CheckMs;return false;} // 缺檔／後端拒絕：每秒最多重試一次。
+        if(!audio.Replace(from,track,volume)){retryAt=now+CheckMs;return false;} // 缺檔／後端拒絕：每秒最多重試一次。
         Current=track;Playing=true;startedAt=now;interval=nextInterval;return true;
     }
 
