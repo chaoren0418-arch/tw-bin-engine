@@ -114,7 +114,8 @@ static class Checks
         Check(s.PacketEffectFrames(now+1000,_=>appearance).Length==0&&s.PacketEffects.Length==0,"one-shot retires at real sequence end");
 
         var actor=JsonSerializer.Deserialize<OwnActor>("{\"ObjectId\":123,\"X\":32600,\"Y\":32940,\"Name\":\"offline\"}")!;
-        Set(s,"Actor",actor);Feed(s,Effect(55,time:2));
+        // R6-A（T332）：只有 SV§2.5 的 7 個 gfx 跟著對象，這裡用其中的 6985；其他 gfx 留在收包位置（MapEffectFollowupTests）。
+        Set(s,"Actor",actor);Feed(s,Effect(55,gfx:6985,time:2));
         Check(s.PacketEffectFrames(now+1500,_=>appearance).Single().Frame=="1","timed effect loops until policy deadline");
         Set(s,"Actor",actor with{X=32601,Y=32941});
         Check(s.PacketEffectFrames(now+1600,_=>appearance).Single() is {X:32601,Y:32941},"S55 follows current target position");
