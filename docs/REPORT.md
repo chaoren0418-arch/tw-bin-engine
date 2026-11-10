@@ -343,3 +343,4 @@
 - 2026-11-11 — #856 T372：R9-L 背包操作（code，claude-local，PR 已合併）→ [報告](reports/issue-856.md)
 - 2026-11-11 — #857 T373：R9-M 召喚窗收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-857.md)
 - 2026-11-11 — #860 T376：R9-P 釣魚窗（code，claude-local，PR 已合併）→ [報告](reports/issue-860.md)
+- 2026-11-11 — #861 T377：R9-Q 選項窗（code，claude-local，PR 已合併）→ [報告](reports/issue-861.md)
