@@ -19,8 +19,12 @@ namespace P06;
 // - 放入檢查（sub_DDED00）：本端做得到的只有 932（裝備中）、940（已在清單）；1181／1188／941／1497／937 要物品屬性，交給伺服器。
 // - 雙擊移除：PersonalShopPanel（Pick 515）。
 // - OK 檢查（sub_DE1AD0）：本端做 876（地圖 303／70）、904（出售總額，上限值推測）＋既有的背包重核；3425／3405／334／927／
-//   4393 需要伺服器狀態或未查清，不做。原版「已開店時 OK 只關窗、Cancel＝關店」要知道真的開店了（自己的動作 70），
-//   引擎沒有這個狀態（OpenSent 只代表已送出），**不做**。
+//   4393 需要伺服器狀態或未查清，不做。
+// R10-M（T397／#912）：原版「已開店時 OK 只關窗、Cancel＝關店」（FU9§9.4）。「已開店」＝自己的 S119 動作是 70（同 Trade.cs `/shop`
+//   的判斷），由 IPersonalShopHost.ShopActive 提供；OpenSent 只代表已送出，不拿來判斷。設定窗 PersonalShopPanel.cs 不在本任務範圍，
+//   它的 Cancel、關閉鈕、Esc 都走同一個 Close()，分不出來；所以用兩個 Float 層的小面板（PersonalShopOpenGuardPanel）蓋在 OK／Cancel
+//   上，只在設定窗開著而且已開店時接手這兩個鈕的點擊：OK → 只關窗（不送 C38）；Cancel → 關窗＋送 C38 type 1。沒開店時看不見、不攔，
+//   原流程不變。關閉鈕與 Esc 照舊只關窗。接手期間按鈕的按下圖不畫（Push 狀態在設定窗內部，本任務不改該檔；真機再確認）。
 // - 訊息：PersonalShopPackets.Chat（PrivateShop.cs）改成 0xFF 分隔、0x00 結尾；外型（Poly）不送（C_Shop 不讀）。
 // 推測（報告列出）：「堆疊」以背包數量 > 1 判斷；收購數量上限＝持有金幣 ÷ 單價；輸入錯誤後提示留著重打；900 的 %d 填 10000000。
 // ---------------------------------------------------------------------------------------------------------------------
@@ -30,6 +34,9 @@ static class PersonalShopPanelRegistration {
     [UiPanel(115)] internal static UiPanelRegistration Registration=>PersonalShopPanel.Registration;
     /// <summary>R9-J（#854）：單價／數量提示（聊天輸入列位置）。共用 PersonalShopUI 版面，不讀任何元素。</summary>
     [UiPanel(116)] internal static UiPanelRegistration Prompt=>PersonalShopPromptPanel.Registration;
+    /// <summary>R10-M（#912）：已開店時接手 OK／Cancel（見檔頭）。</summary>
+    [UiPanel(117)] internal static UiPanelRegistration OkGuard=>PersonalShopOpenGuardPanel.OkRegistration;
+    [UiPanel(118)] internal static UiPanelRegistration CancelGuard=>PersonalShopOpenGuardPanel.CancelRegistration;
 }
 
 /// <summary>控制器需要的外部能力；產品由 ClientForm 實作，離線測試用假的。</summary>
@@ -54,11 +61,15 @@ public interface IPersonalShopHost {
     void BeginTextInput(){}
     /// <summary>提示結束：鍵盤還給遊戲。</summary>
     void EndTextInput(){}
+    /// <summary>R10-M（#912）：自己正在擺攤（S119 動作 70）。不知道＝false（照沒開店的流程）。</summary>
+    bool ShopActive=>false;
 }
 
 /// <summary>R9-J（#854）：字串表（string-c.tbl）的提示；讀不到表時用本機 Text.pak 原文（PakViewer 讀出，見報告）。</summary>
 public static class PersonalShopText {
     public const int Price=898,PriceTooHigh=900,TotalTooHigh=904,CannotOpenHere=876,Equipped=932,Count=933,SellWord=934,BuyWord=935,NoAdena=936,DigitsOnly=938,Listed=940;
+    /// <summary>R10-M（#912）：擺攤中釣魚時 `/shop` 印的字（sub_F480C0，FU9§9.4）。</summary>
+    public const int Fishing=2120;
     /// <summary>單價 ≥ 這個值印 900（FU9§9.4 已驗證）。</summary>
     public const uint PriceLimit=10_000_000;
     /// <summary>904 的上限（推測：同 C_Shop 收購單價上限；BIN 傳給 %d 的值未查）。</summary>
@@ -68,7 +79,8 @@ public static class PersonalShopText {
     static readonly Dictionary<int,string> Fallback=new(){
         [Price]="請設定1件物品的價格。",[PriceTooHigh]="1件物品的價格無法超過 %d金幣。",[TotalTooHigh]="總共販賣價格無法超過 %d金幣。",
         [CannotOpenHere]="無法在此開設個人商店。",[Equipped]="裝備中的道具無法交易。",[Count]="想要\\f2%s\\f>幾個呢？(1-%u，Enter=全部，Esc=取消)",
-        [SellWord]="販售",[BuyWord]="購買",[NoAdena]="金幣不足，無法購買。",[DigitsOnly]="只能輸入數字。",[Listed]="已經陳列到視窗了。"};
+        [SellWord]="販售",[BuyWord]="購買",[NoAdena]="金幣不足，無法購買。",[DigitsOnly]="只能輸入數字。",[Listed]="已經陳列到視窗了。",
+        [Fishing]="釣魚的時候不可以開個人商店"};
     /// <summary>C sprintf 的 %s／%d／%u 依序代入（%% → %），再去掉色碼（\fN、\f&gt;）。</summary>
     public static string Get(int id,params object[] args){
         string raw=ServerMessageText.Table is {} t&&id<t.Count&&t[id].Trim().Length>0?t[id]:Fallback.GetValueOrDefault(id,$"訊息 {id}");
@@ -219,6 +231,8 @@ public sealed class PersonalShopController(IPersonalShopHost host):IPersonalShop
     public async Task<bool> SendOpen(byte[] packet){
         Update();
         if(packet.Length<2||packet[0]!=PersonalShopPackets.Opcode||packet[1]!=0){Say("開店封包格式錯誤，未送出。");return false;}
+        // R10-M（#912）：已開店時 OK 只關窗（保險：OK 鈕平常由 PersonalShopOpenGuardPanel 接手，不會走到這裡）。
+        if(OkWhileOpen())return false;
         if(Sending||!host.CanSend){Say("目前不能送出（不在世界中、傳送中或前一個封包尚未送完）。");return false;}
         CancelPrompt("");
         // R9-J：sub_DE1AD0 的本端檢查中做得到的兩項。
@@ -247,6 +261,78 @@ public sealed class PersonalShopController(IPersonalShopHost host):IPersonalShop
             SentPackets++;OpenSent=false;Say("已送出關店（C38 type 1）。");return true;
         }finally{if(mine==generation)Sending=false;}
     }
+
+    // ---- R10-M（#912）：已開店時的 OK／Cancel（FU9§9.4） ---------------------------------------------------------------
+    /// <summary>自己正在擺攤（S119 動作 70；見 IPersonalShopHost.ShopActive）。</summary>
+    public bool ShopActive=>host.ShopActive;
+    /// <summary>已開店時按 OK：只關設定窗，不送 C38。沒開店或窗沒開回 false（照原本的 OK 流程）。</summary>
+    public bool OkWhileOpen(){
+        Update();
+        if(!host.ShopActive||Panel?.Visible!=true)return false;
+        Panel.Close();Say("已經在開店中：OK 只關閉設定窗，沒有重送開店。");return true;
+    }
+    /// <summary>已開店時按 Cancel：關設定窗並送 C38 type 1 關店。沒開店或窗沒開回 false（照原本只關窗）。</summary>
+    public async Task<bool> CancelWhileOpen(){
+        Update();
+        if(!host.ShopActive||Panel?.Visible!=true)return false;
+        Panel.Close();return await CloseShop();
+    }
+}
+
+/// <summary>
+/// R10-M（T397／#912）：已開店時接手設定窗的 OK 或 Cancel 鈕（FU9§9.4：已開店＝OK 只關窗、Cancel＝關店）。
+/// 範圍＝設定窗該鈕的矩形；只在設定窗可用、控制器接上、而且 ShopActive 時可見，否則 Bounds 空、不攔任何輸入。
+/// 有其他視窗蓋在設定窗上而且碰到這個鈕時也讓開（點擊照原本交給上面的視窗）。不畫任何東西（不畫替代圖）。
+/// 按下與放開都在鈕內才算點擊（同設定窗的按鈕規則）。
+/// </summary>
+public sealed class PersonalShopOpenGuardPanel(UiRoot root,PersonalShopPanel.Part part):IUiClosablePanel {
+    public const string OkId="PersonalShop_OkGuard",CancelId="PersonalShop_CancelGuard";
+    public static UiPanelRegistration OkRegistration=>new(OkId,PersonalShopPanel.LayoutName,r=>new PersonalShopOpenGuardPanel(r,PersonalShopPanel.Part.Ok));
+    public static UiPanelRegistration CancelRegistration=>new(CancelId,PersonalShopPanel.LayoutName,r=>new PersonalShopOpenGuardPanel(r,PersonalShopPanel.Part.Cancel));
+    public PersonalShopPanel.Part Part=>part;
+    public string Id=>part==PersonalShopPanel.Part.Ok?OkId:CancelId;
+    public UiLayer Layer=>UiLayer.Float;
+    bool pressed;
+    PersonalShopPanel? Shop=>root.Find(PersonalShopPanel.WindowId) as PersonalShopPanel;
+    PersonalShopController? Controller=>Shop?.Prompt as PersonalShopController;
+    public Rectangle Bounds{get{
+        if(Shop is not {Visible:true} shop||!root.Usable(shop)||Controller is not {ShopActive:true})return Rectangle.Empty;
+        if(shop.PartRect(part) is not Rectangle r||r.IsEmpty||Covered(shop,r))return Rectangle.Empty;
+        return r;
+    }}
+    public bool Visible=>!Bounds.IsEmpty;
+    /// <summary>z-order 在設定窗之上、而且碰到 r 的可用視窗。</summary>
+    bool Covered(PersonalShopPanel shop,Rectangle r){
+        bool above=false;
+        foreach(var p in root.PaintOrder()){
+            if(p.Layer!=UiLayer.Window)continue;
+            if(ReferenceEquals(p,shop)){above=true;continue;}
+            if(above&&root.Usable(p)&&p.Bounds.IntersectsWith(r))return true;
+        }
+        return false;
+    }
+    public void Load(UiLayout layout,SurfCatalog surfs){
+        if(layout.Root.Name!=PersonalShopPanel.LayoutName)throw new UiLayoutException(layout.FileName,layout.Root.Path,$"根元素應為 {PersonalShopPanel.LayoutName}");
+    }
+    public void Update(IUiGameState state){if(!Visible)pressed=false;}
+    public void Paint(UiCanvas canvas){}
+    public bool Mouse(UiMouseEvent e,IUiCommands commands){
+        var b=Bounds;
+        if(b.IsEmpty){pressed=false;return false;}
+        bool inside=b.Contains(e.Location);
+        if(e.Kind is UiMouseKind.Down or UiMouseKind.Up&&e.Button!=MouseButtons.Left)return inside;
+        switch(e.Kind){
+            case UiMouseKind.Down:pressed=inside;return inside;
+            case UiMouseKind.Up:{bool fire=pressed&&inside;pressed=false;if(fire)Fire();return true;}
+            default:return inside||pressed;
+        }
+    }
+    void Fire(){
+        if(Controller is not {} c)return;
+        if(part==PersonalShopPanel.Part.Ok)c.OkWhileOpen();else _=c.CancelWhileOpen();
+    }
+    public bool Key(UiKeyEvent e,IUiCommands commands)=>false;
+    public void Close(){pressed=false;}
 }
 
 /// <summary>
@@ -287,6 +373,8 @@ public sealed partial class LoginConnection {
     /// <summary>R9-J（#854）：持有金幣（背包未載入＝null）。</summary>
     public long? PersonalShopAdena=>CaptureWorld(()=>ShopTrade.Holding(World));
     public int? PersonalShopMap=>CaptureWorld(()=>(int?)World.MapId);
+    /// <summary>R10-M（#912）：自己正在擺攤（S119 動作 70，同 Trade.cs `/shop`）。</summary>
+    public bool PersonalShopActive=>CaptureWorld(()=>World.Actor is {Weapon:70});
     bool personalShopSending;int personalShopLease;
     bool PersonalShopAccess=>State==LoginState.InWorld&&World.Ready&&World.Status is {} s&&World.Actor?.ObjectId==s.ObjectId&&!World.TeleportPending;
     public bool PersonalShopCanSend=>CaptureWorld(()=>PersonalShopAccess&&!personalShopSending&&sendMovementGate!=null);
@@ -330,6 +418,7 @@ public sealed partial class ClientForm {
         public int? MapId=>form.login.PersonalShopMap;
         public void BeginTextInput()=>form.LeaveGameFocus("personal-shop-prompt");
         public void EndTextInput()=>form.ReturnGameFocus();
+        public bool ShopActive=>form.login.PersonalShopActive;
     }
 
     /// <summary>由 InitPrivateShop 呼叫：在舊「個人商店」頁加入開店設定的過渡控制項，並定時把原生面板接上控制器。</summary>
