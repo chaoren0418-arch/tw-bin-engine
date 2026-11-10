@@ -13,10 +13,21 @@ namespace P06.NativeUi;
 //   - 文字起點 (21,44)、行高 15、一次 16 行：借用同版面的 sub_A559D0（FU4§5）；可用寬度 192（21 到捲軸 217 之前留 4）。
 //   - 關閉鈕用 XML 的 1962 (225,15)（sub_A559D0 寫死的 9183 是那個窗自己的做法）；標題列 (1,1,239,20) 拖曳同 sub_A559D0。
 //   - 窗原點用 XML 的 x／y；連結列用黃色（調色盤 13）、停用選項灰色（7）、提示文字灰色、本文白色（14）。
-//   - 連結各占一列（引擎的對話模板把 HTML 連結拆成選項，原版是行內連結）；數字框畫成引擎自訂的框＋「確定」／「取消」文字鈕
-//     （原版數字框的外觀與位置沒有查證，沒有對應 surf，不畫替代圖）。
+//   - 連結各占一列（引擎的對話模板把 HTML 連結拆成選項，原版是行內連結；行內排版器另組 R9-F）。
 //   - 捲動範圍 0..(行數−16)；滾輪、上下鈕步長 1 列。
-// 待驗證（不做）：ESC 是否關窗；原版連結的滑鼠移入效果；HTML 的顏色／圖片標籤；數字框的上下調整鈕。
+// R9-E（T365／#849），依據 followups-9.md 第 10 節（FU9§10）。已驗證（引用）：
+//   - ESC：sub_875F80（FO 0x475380）收到 27 就關窗。HyperText 窗不在 sub_A57C60 的 4 格堆疊裡，ESC 由窗自己處理。
+//   - 數字框 CNumberInputFrame（sub_862250）：下限 1、上限 N。鍵盤 sub_872BE0：0–9 逐位輸入並夾在 [1, N]、Backspace 去掉最後一位、
+//     Enter 結束；滑鼠 sub_872DC0：上下鈕 surf 5073，放開時 +1／−1，超過上限回下限、低於下限回上限（循環）。
+//   - OK／Cancel：sub_875B20 每次畫圖前把兩鈕的可按狀態設成「頁內有數字框」；OK（sub_876010）只在數值在範圍內時送出。
+// R9-E 推測（真機再確認）：
+//   - 5073 本機只有一張 13×11 朝下三角（Sprite10.idx 的 5073.img）：下鈕原圖、上鈕上下翻轉；兩鈕排在數字框右邊。
+//   - 4203／4205 等同上下鈕，推測是方向鍵 ↑／↓。下限用 max(1, Min)（城堡頁有自己的下限）；輸入夾值只夾 [1, N]（同原版），
+//     低於 Min 時 OK 不送。Backspace 刪到空字串時保留空白（不補 1），OK 不送。
+//   - OK 1114（按下 1115）(47,292)、Cancel 1111（按下 1112）(133,292)：座標取自參考客戶端 ly 的 HyperTextUI.xml（本機 24 個 idx 都沒有
+//     這個 XML；不複製進專案），只在有數字框時畫與可按（停用外觀沒有查證，不畫）。本機缺這幾張圖時退回引擎自訂的「確定」／「取消」
+//     文字鈕（畫在數字框那一列）。Cancel：城堡頁 → CancelNumber；S136 數量頁 → 關窗。
+// 待驗證（不做）：原版連結的滑鼠移入效果；HTML 的顏色／圖片標籤（R9-F）。
 
 /// <summary>頁上的一個連結／選項（Id＝引擎對話模板的選項 id）。</summary>
 public sealed record HyperTextLink(int Id,string Label,bool Enabled);
@@ -75,8 +86,13 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
     public static readonly Rectangle TitleBar=Rectangle.FromLTRB(1,1,239,20);
     public const int VisibleLines=16,LineHeight=15,TextWidth=192;
     public static readonly Point FirstLine=new(21,44);
-    /// <summary>數字框列：輸入框寬、按鈕寬（引擎自訂，推測）。</summary>
-    public const int InputWidth=96,ButtonWidth=36,ButtonGap=6,MaxDigits=10;
+    /// <summary>數字框列：輸入框寬、按鈕寬（引擎自訂，推測）。R9-E：框縮成 72，右邊放 5073 上下鈕，文字鈕排在上下鈕之後。</summary>
+    public const int InputWidth=72,ButtonWidth=36,ButtonGap=6,MaxDigits=10;
+    /// <summary>R9-E：數字框上下鈕 surf 5073（FU9§10，已驗證）；排在框右邊、間隔 2（推測）。</summary>
+    public const int SpinSurf=5073,SpinGap=2;
+    /// <summary>R9-E：OK／Cancel 圖鈕（surf 與座標依 ly HyperTextUI.xml，座標是推測）。</summary>
+    public const int OkSurf=1114,OkDownSurf=1115,CancelSurf=1111,CancelDownSurf=1112;
+    public static readonly Point OkOffset=new(47,292),CancelOffset=new(133,292);
     public static Color TextColor=>ChatPalette.Color(ChatFormat.White);
     public static Color LinkColor=>ChatPalette.Color(ChatFormat.Yellow);
     public static Color DisabledColor=>ChatPalette.Color(ChatFormat.Grey);
@@ -104,7 +120,13 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
     public string Id=>PanelId;
     public UiLayer Layer=>UiLayer.Window;
     public Point Origin{get;private set;}
-    public Rectangle Bounds=>Visible&&!local.IsEmpty?new(Origin.X+local.X,Origin.Y+local.Y,local.Width,local.Height):Rectangle.Empty;
+    public Rectangle Bounds{get{
+        if(!Visible||local.IsEmpty)return Rectangle.Empty;
+        var r=local;
+        // R9-E：OK／Cancel 圖鈕只在有數字框時出現（ly 座標在 uiextra86 底圖之下，推測）。
+        if(HasNumber)foreach(var e in new[]{OkButton,CancelButton})if(e is {Drawn:true})r=Rectangle.Union(r,e.Local);
+        return new(Origin.X+r.X,Origin.Y+r.Y,r.Width,r.Height);
+    }}
     public bool Visible=>view!=null;
     public Element? Base{get;private set;}
     public Element? Frame{get;private set;}
@@ -112,6 +134,15 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
     public Element? Up{get;private set;}
     public Element? Down{get;private set;}
     public Element? CloseButton{get;private set;}
+    /// <summary>R9-E：OK 圖鈕 1114 (47,292)；本機沒有圖時 Drawn＝false，退回數字框列的文字鈕。</summary>
+    public Element? OkButton{get;private set;}
+    /// <summary>R9-E：Cancel 圖鈕 1111 (133,292)。</summary>
+    public Element? CancelButton{get;private set;}
+    UiSurface? okDown,cancelDown,spinDown;Bitmap? spinUp;
+    /// <summary>R9-E：數字框上下鈕的圖（5073）都在才畫、才可點（缺圖就不畫；方向鍵照樣可用）。</summary>
+    public bool SpinDrawn=>spinDown is {Width:>0,Height:>0}&&spinUp!=null;
+    /// <summary>R9-E：頁內有數字框（OK／Cancel 可按的條件，sub_875B20）。</summary>
+    public bool HasNumber=>view?.Number!=null;
     public HyperTextView? View=>view;
     public IReadOnlyList<Row> Rows=>rows;
     public int Scroll{get;private set;}
@@ -140,6 +171,10 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
             return new(name,ids[0],at,surf(ids[0]));
         }
         Base=Find(BaseName);Frame=Find(FrameName,atOrigin:true);ScrollBar=Find(ScrollName);Up=Find(UpName);Down=Find(DownName);CloseButton=Find(CloseName);
+        OkButton=new("OKBtn",OkSurf,OkOffset,surf(OkSurf));CancelButton=new("CancelBtn",CancelSurf,CancelOffset,surf(CancelSurf));
+        okDown=surf(OkDownSurf);cancelDown=surf(CancelDownSurf);
+        spinDown=surf(SpinSurf);spinUp?.Dispose();spinUp=null;
+        if(spinDown is {Width:>0,Height:>0}){spinUp=(Bitmap)spinDown.Bitmap.Clone();spinUp.RotateFlip(RotateFlipType.RotateNoneFlipY);}
         local=new[]{Base,Frame,ScrollBar,Up,Down,CloseButton}.Where(e=>e.Drawn).Select(e=>e.Local).Append(TitleBar).Aggregate(Rectangle.Empty,(a,r)=>a.IsEmpty?r:Rectangle.Union(a,r));
         Origin=new(window.Int("x"),window.Int("y"));
         view=null;rows=[];Scroll=0;pressed=null;dismissed=null;Input="";InputFocused=false;numberRevision=long.MinValue;
@@ -215,8 +250,27 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
     int NumberIndex=>rows.FindIndex(r=>r.Kind==RowKind.Number);
     Rectangle NumberPart(int offset,int width){if(ScreenLine(NumberIndex) is not int line)return Rectangle.Empty;var p=LineAt(line);return new(p.X+offset,p.Y,width,LineHeight-1);}
     public Rectangle InputRect=>NumberIndex<0?Rectangle.Empty:NumberPart(0,InputWidth);
-    public Rectangle SubmitRect=>NumberIndex<0?Rectangle.Empty:NumberPart(InputWidth+ButtonGap,ButtonWidth);
-    public Rectangle CancelRect=>view?.Number is {Kind:HyperTextNumberKind.Castle}&&NumberIndex>=0?NumberPart(InputWidth+ButtonGap*2+ButtonWidth,ButtonWidth):Rectangle.Empty;
+    int SpinWidth=>spinDown?.Width??0;
+    /// <summary>R9-E：文字鈕的起點（框＋兩個上下鈕之後；沒有上下鈕圖時緊接框）。</summary>
+    int TextButtonsAt=>InputWidth+(SpinDrawn?SpinGap+SpinWidth*2+SpinGap:0)+ButtonGap;
+    Rectangle SpinPart(int offset){
+        if(!SpinDrawn||NumberIndex<0||ScreenLine(NumberIndex) is not int line)return Rectangle.Empty;
+        var p=LineAt(line);int h=spinDown!.Height;
+        return new(p.X+offset,p.Y+Math.Max(0,(LineHeight-1-h)/2),SpinWidth,h);
+    }
+    /// <summary>R9-E：5073 上鈕（+1，超過上限回下限）。</summary>
+    public Rectangle SpinUpRect=>view?.Number is {Answerable:true}?SpinPart(InputWidth+SpinGap):Rectangle.Empty;
+    /// <summary>R9-E：5073 下鈕（−1，低於下限回上限）。</summary>
+    public Rectangle SpinDownRect=>view?.Number is {Answerable:true}?SpinPart(InputWidth+SpinGap+SpinWidth):Rectangle.Empty;
+    /// <summary>OK：有 1114 圖時是圖鈕（只在有數字框時），否則是數字框列的文字鈕。</summary>
+    public Rectangle SubmitRect=>!HasNumber?Rectangle.Empty:OkButton is {Drawn:true} ok?At(ok):NumberIndex<0?Rectangle.Empty:NumberPart(TextButtonsAt,ButtonWidth);
+    /// <summary>Cancel：有 1111 圖時是圖鈕（S136 與城堡頁都有，只在有數字框時）；沒有圖時只有城堡頁有文字鈕。</summary>
+    public Rectangle CancelRect=>!HasNumber?Rectangle.Empty:CancelButton is {Drawn:true} c?At(c)
+        :view?.Number is {Kind:HyperTextNumberKind.Castle}&&NumberIndex>=0?NumberPart(TextButtonsAt+ButtonGap+ButtonWidth,ButtonWidth):Rectangle.Empty;
+    /// <summary>R9-E：數字框輸入時的上限（[1, N]，sub_872BE0）。</summary>
+    static long TypeMax(HyperTextNumberBox n)=>Math.Max(1,n.Max);
+    /// <summary>R9-E：上下鈕循環的下限（max(1, Min)，推測）。</summary>
+    static long SpinMin(HyperTextNumberBox n)=>Math.Min(Math.Max(1,n.Min),TypeMax(n));
     int NameIndex=>rows.FindIndex(r=>r.Kind==RowKind.Name);
     Rectangle NamePart(int offset,int width){if(ScreenLine(NameIndex) is not int line)return Rectangle.Empty;var p=LineAt(line);return new(p.X+offset,p.Y,width,LineHeight-1);}
     public Rectangle NameRect=>NameIndex<0?Rectangle.Empty:NamePart(0,NameInputWidth);
@@ -235,6 +289,7 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
         if(view==null)return;
         foreach(var e in new[]{Base,Frame,ScrollBar,Up,Down,CloseButton})
             if(e is {Drawn:true})canvas.DrawSurface(e.Surface,Origin.X+e.Offset.X,Origin.Y+e.Offset.Y);
+        PaintButtons(canvas);
         var visible=VisibleRows;
         for(int r=0;r<visible.Count;r++){
             var row=visible[r];var p=LineAt(r);
@@ -253,8 +308,17 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
         using(var back=new SolidBrush(Color.Black))canvas.Graphics.FillRectangle(back,box);
         using(var pen=new Pen(InputFocused?LinkColor:DisabledColor))canvas.Graphics.DrawRectangle(pen,box.X,box.Y,box.Width-1,box.Height-1);
         canvas.DrawText(Input+(InputFocused?"_":""),box.X+3,box.Y+1,n.Answerable?TextColor:DisabledColor);
-        var s=SubmitRect;canvas.DrawText("確定",s.X+4,s.Y+1,CanSubmit?LinkColor:DisabledColor);
-        if(CancelRect is {IsEmpty:false} c)canvas.DrawText("取消",c.X+4,c.Y+1,LinkColor);
+        if(SpinUpRect is {IsEmpty:false} up)canvas.DrawBitmap(spinUp!,up.X,up.Y);
+        if(SpinDownRect is {IsEmpty:false} down)canvas.DrawSurface(spinDown,down.X,down.Y);
+        // 有圖鈕時由 PaintButtons 畫；否則畫引擎自訂文字鈕。
+        if(OkButton is not {Drawn:true}){var s=SubmitRect;if(!s.IsEmpty)canvas.DrawText("確定",s.X+4,s.Y+1,CanSubmit?LinkColor:DisabledColor);}
+        if(CancelButton is not {Drawn:true}&&CancelRect is {IsEmpty:false} c)canvas.DrawText("取消",c.X+4,c.Y+1,LinkColor);
+    }
+    /// <summary>R9-E：OK／Cancel 圖鈕（只在有數字框時，按住時畫 1115／1112）。</summary>
+    void PaintButtons(UiCanvas canvas){
+        if(!HasNumber)return;
+        if(OkButton is {Drawn:true} ok){var r=At(ok);canvas.DrawSurface(pressed=="submit"&&okDown!=null?okDown:ok.Surface,r.X,r.Y);}
+        if(CancelButton is {Drawn:true} c){var r=At(c);canvas.DrawSurface(pressed=="cancel"&&cancelDown!=null?cancelDown:c.Surface,r.X,r.Y);}
     }
     // 名稱框外觀同數字框（引擎自訂框＋「確定」／「取消」文字鈕；原版 InputWindow 的外觀沒有在本窗查證）。
     void PaintName(UiCanvas canvas){
@@ -274,6 +338,8 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
         if(At(Up).Contains(p))return "up";
         if(At(Down).Contains(p))return "down";
         if(InputRect.Contains(p))return "input";
+        if(SpinUpRect.Contains(p))return "spin-up";
+        if(SpinDownRect.Contains(p))return "spin-down";
         if(SubmitRect.Contains(p))return "submit";
         if(CancelRect.Contains(p))return "cancel";
         if(NameRect.Contains(p))return "name-input";
@@ -297,7 +363,7 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
             case UiMouseKind.Down:
                 if(e.Button!=MouseButtons.Left)return inside;
                 pressed=HitKey(e.Location);
-                if(inside){InputFocused=pressed=="input"&&view.Number is {Answerable:true};NameFocused=pressed=="name-input"&&view.Name!=null;}
+                if(inside){InputFocused=pressed is "input" or "spin-up" or "spin-down"&&view.Number is {Answerable:true};NameFocused=pressed=="name-input"&&view.Name!=null;}
                 return inside;
             case UiMouseKind.Up:{
                 var was=pressed;pressed=null;
@@ -316,7 +382,12 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
             case "up":ScrollBy(-1);break;
             case "down":ScrollBy(1);break;
             case "submit":Submit();break;
-            case "cancel":Host?.CancelNumber(shown);break;
+            case "spin-up":Step(1);break;
+            case "spin-down":Step(-1);break;
+            case "cancel":
+                // R9-E：城堡頁回 CancelNumber（原有）；S136 數量頁的 Cancel 圖鈕關窗（推測）。
+                if(shown.Number is {Kind:HyperTextNumberKind.Castle})Host?.CancelNumber(shown);else if(shown.Number!=null)Close();
+                break;
             case "name-submit":SubmitName();break;
             case "name-cancel":CancelName();break;
             default:
@@ -342,8 +413,8 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
     }
 
     /// <summary>
-    /// 數字框有焦點時：Backspace 刪一字、Enter 送出（並放開焦點，下一個 Enter 照常開聊天）。其他鍵不吃。
-    /// R7-D 名稱框有焦點時：Backspace 刪一字、Enter 確定、Esc 取消。
+    /// 數字框有焦點時：Backspace 刪一字、Enter 送出（並放開焦點，下一個 Enter 照常開聊天）、↑／↓ 同上下鈕。其他鍵不吃。
+    /// R7-D 名稱框有焦點時：Backspace 刪一字、Enter 確定、Esc 取消。R9-E：其餘情況窗開著時 Esc 關窗。
     /// </summary>
     public bool Key(UiKeyEvent e,IUiCommands commands){
         if(view!=null&&NameFocused&&view.Name!=null){
@@ -353,14 +424,32 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
             if(e.KeyData==Keys.Escape){if(!e.Repeat)CancelName();return true;}
             return false;
         }
-        if(view==null||!InputFocused||view.Number is not {Answerable:true})return false;
+        if(view==null)return false;
+        // R9-E：ESC（27）關窗（sub_875F80，已驗證）；名稱框有焦點時上面先處理成 CancelName。
+        if(e.KeyData==Keys.Escape){if(!e.Down)return false;if(!e.Repeat)Close();return true;}
+        if(!InputFocused||view.Number is not {Answerable:true})return false;
         if(!e.Down)return false;
         if(e.KeyData==Keys.Back){if(Input.Length>0)Input=Input[..^1];return true;}
         if(e.KeyData==Keys.Enter){if(!e.Repeat){if(CanSubmit)Submit();else InputFocused=false;}return true;}
+        // R9-E：4203／4205 等同上下鈕（推測是方向鍵）。
+        if(e.KeyData==Keys.Up){Step(1);return true;}
+        if(e.KeyData==Keys.Down){Step(-1);return true;}
         return false;   // 數字走 WM_CHAR → Char()
     }
 
-    /// <summary>WM_CHAR：數字框有焦點時只收 0–9（最多 10 位）；其他字不吃，交給聊天列。</summary>
+    /// <summary>
+    /// R9-E：上下鈕 +1／−1（sub_872DC0）：超過上限回下限、低於下限回上限。空白時 +1 從下限開始、−1 從上限開始（推測）。
+    /// </summary>
+    public void Step(int delta){
+        if(view?.Number is not {Answerable:true} n||delta==0)return;
+        long lo=SpinMin(n),hi=TypeMax(n);
+        long v;
+        if(!long.TryParse(Input,out long cur))v=delta>0?lo:hi;
+        else{v=cur+Math.Sign(delta);if(v>hi)v=lo;else if(v<lo)v=delta<0?hi:lo;}
+        Input=v.ToString();
+    }
+
+    /// <summary>WM_CHAR：數字框有焦點時只收 0–9，逐位夾在 [1, N]（R9-E）；其他字不吃，交給聊天列。</summary>
     public bool Char(char c){
         // R7-D 名稱框：收一般字（控制字元與空白不收，C227 的名稱不可含空白），最多 16 個 Big5 位元組；遊戲字集不能表示的字不收。
         if(view!=null&&NameFocused&&view.Name!=null){
@@ -368,8 +457,10 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
             if(NameBytes(NameInput+c)<=NameMaxBytes)NameInput+=c;
             return true;
         }
-        if(view==null||!InputFocused||view.Number is not {Answerable:true}||c is <'0' or >'9')return false;
-        if(Input.Length<MaxDigits)Input=Input=="0"?c.ToString():Input+c;
+        if(view==null||!InputFocused||view.Number is not {Answerable:true} n||c is <'0' or >'9')return false;
+        // R9-E：逐位輸入並夾在 [1, N]（sub_872BE0，已驗證）；用 decimal 算避免 long 溢位。
+        decimal next=(long.TryParse(Input,out long cur)?cur:0)*10m+(c-'0');
+        Input=((long)Math.Clamp(next,1m,TypeMax(n))).ToString();
         return true;
     }
 

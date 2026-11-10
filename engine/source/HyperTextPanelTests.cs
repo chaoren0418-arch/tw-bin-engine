@@ -129,10 +129,11 @@ static class HyperTextPanelTests {
         t.Equal("submit:Amount:7:42",h.Calls.LastOrDefault(),"Enter submits value with the prompt revision");
         t.Check(!p.InputFocused&&!p.Key(new UiKeyEvent(Keys.Enter,true,false),cmd),"after submit the next Enter goes to the game/chat");
         Click(p,Mid(p.InputRect),cmd);t.Check(p.InputFocused,"click the box focuses it");
-        p.Char('9');t.Equal("429",p.Input,"typed after click");
-        t.Check(!p.CanSubmit,"429 > max 50 → cannot submit");
-        int before=h.Calls.Count;Click(p,Mid(p.SubmitRect),cmd);t.Equal(before,h.Calls.Count,"OK with out-of-range value does nothing");
-        Click(p,Mid(p.InputRect),cmd);p.Key(new UiKeyEvent(Keys.Back,true,false),cmd);Click(p,Mid(p.SubmitRect),cmd);
+        // R9-E（#849）：逐位輸入夾在 [1, N]（sub_872BE0，FU9§10），429 → 50；細節見 HyperTextFollowupTests。
+        p.Char('9');t.Equal("50",p.Input,"typed after click, clamped to max 50 (R9-E)");
+        t.Check(p.CanSubmit,"clamped value can be submitted");
+        p.Key(new UiKeyEvent(Keys.Back,true,false),cmd);p.Key(new UiKeyEvent(Keys.Back,true,false),cmd);p.Char('4');p.Char('2');
+        Click(p,Mid(p.SubmitRect),cmd);
         t.Equal("submit:Amount:7:42",h.Calls.LastOrDefault(),"OK button submits");
         p.Show(Npc(4,"要做幾個？",amount with{CanSend=false}));
         t.Equal("42",p.Input,"same prompt revision keeps the typed value");
