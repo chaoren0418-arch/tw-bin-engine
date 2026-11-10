@@ -1,0 +1,33 @@
+dec B506A0
+dec B4FA80
+dec C00890
+dec C00F50
+dec C00020
+dec C010C0
+dec C01150
+dec C00BF0
+dec C01060
+dec BFDB00
+dec BFFED0
+dec BFD9C0
+rangegrep BFC000 C01400 "|\^|Tooltip|4943|4893|sub_4EAFF0
+dec E65C60
+dec E65940
+dec E65D30
+rangegrep E65600 E66200 \[85\]|\+ 340|sub_9FBC00|GetTickCount|\[89\]
+rangegrep EDC000 EE2300 sub_9FBC00
+dec EDF820
+dec EDD780
+dec 91BEA0
+dec 91BD10
+dec 91BE20
+dec 91BCA0
+dec 91C020
+dec 91C540
+xref 8C5380
+dis 6FC3C0 16
+dwords 11EB640 6
+dwords 11EB6A0 6
+dis BA64E8 12
+dec C03E80
+dec C044B0

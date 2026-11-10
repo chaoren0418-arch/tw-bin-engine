@@ -1,0 +1,24 @@
+dec 931CC0
+dec 931D60
+dec BDC1F0
+xref BDC1F0
+dec 4FE1D0
+xref 4FE1D0
+dec 502720
+xref 502720
+dec BD9F50
+dec BDAA10
+dec BE0F10
+dec 94BFC0
+xref 1656770
+gstores 1656770
+dec 8DE770
+dec 8E0620
+dec 8DC850
+dec 8D4A90
+xref 137AFD4
+xref 137AFA8
+str 137AFD4
+str 137AFA8
+rangegrep BD9F00 BE1800 "[A-Za-z_]{3,}"|sub_9FBC00|sub_8E1E30|sub_7DC850
+rangegrep 8DC000 8E1200 "[A-Za-z_]{3,}"|sub_9FBC00|dword_1656770
