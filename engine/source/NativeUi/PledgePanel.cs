@@ -195,6 +195,8 @@ public interface IPledgeWindowSource {
     bool WarPrecheck()=>true;
     /// <summary>C227 C(type) S(對方血盟)：輸入框 577／578／579 確定後。</summary>
     bool ChangeWar(ClanWarCommand command,string name)=>false;
+    /// <summary>R7-K：C78 C(16) S(備註)——ModifyMemo 確定後，改自己的成員備註。預設＝沒有接上（不送）。</summary>
+    bool SendMemo(string text)=>false;
 }
 
 /// <summary>
@@ -207,7 +209,9 @@ public interface IPledgeWindowSource {
 /// T316（#746，FU6§1、§3）：側欄再加 AddFocusPledge（新增，輸入框 3361 → C129 子碼 0）、CheckFocusPledge（點清單列切換勾選，不送包）、
 /// DelFocusPledge（刪除，確認框 4118 → 每個勾選列各送一包子碼 1）、ChangeWarState 三態（1 宣戰／2 停戰／3 投降，輸入框 577／579／578 → C227）。
 /// 側欄的位置與按鈕外觀是引擎自訂（原版讀 RePledgeUI.xml，本機缺）；輸入框與確認框也畫在側欄內（原版是共用輸入框 sub_AC98E0）。
-/// 排序、寫備註（ModifyMemo）不做。
+/// R7-K（T350／#813，WIN2§3）：ModifyMemo_Button（MouseEvent="ModifyMemo"，本機 PledgeUI.xml 兩個窗都在 (217,24)）進入自己那一列的備註編輯，
+/// 再按一次或 Enter 送 C78 16（ClanMatchingProtocol.Notes）；畫面等伺服器回送 169 才更新，不先改本機備註。
+/// 原版 ModifyMemo 的編輯框位置與按鍵沒查（推測：畫在自己那列的 Memo_Label）。排序不做。
 /// </summary>
 public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
     [UiPanel(175)] internal static UiPanelRegistration Registration=>new(PanelId,LayoutName,_=>new PledgePanel());   // R3-A (#678): opened by S250/171
@@ -224,7 +228,8 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
     public const int NoticeLinePitch=TextHeight;
     /// <summary>
     /// 關注血盟清單（SS2§3，sub_B30040）：一次 7 列（圖示＋名稱），捲動上限＝(筆數 − 7) / 2（照反組譯寫法，意義待驗證）。
-    /// 清單在 PledgeUI 子控制項 (3, 7)；本機 PledgeUI.xml 的對應節點與座標還沒對出來，所以**只做資料、不畫**（待驗證）。
+    /// 原版清單在 PledgeUI 子控制項 (3, 7)（RePledgeUI.xml，本機缺）；本機 PledgeUI.xml 沒有對應節點，所以畫在引擎自訂側欄（R4-E／T316 起，
+    /// 見 AttentionRow／PaintSide）。原版座標與圖示待驗證。
     /// </summary>
     public const int AttentionRows=7;
     /// <summary>
@@ -281,6 +286,8 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
         public Placed? SaveNotice{get;init;}
         /// <summary>R4-E：Pledgename_Control 的 Pledge_Emblem（16×12）；XML 沒有就是 Empty。</summary>
         public Rectangle Emblem{get;init;}
+        /// <summary>R7-K：ModifyMemo_Button（MouseEvent="ModifyMemo"）；XML 沒有就是 null（不能寫備註）。</summary>
+        public Placed? ModifyMemo{get;init;}
         public Size Size=>Base==null?Size.Empty:new(Base.Width,Base.Height);
         public Column Col(string name)=>Columns.First(c=>c.Name==name);
     }
@@ -288,6 +295,11 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
     public const string RankPopupName="ChangeRank_PopupWindow";
     /// <summary>3.81 公告上限 160 字（Notice_Edit LimitText="160"、C_PledgeContent 15）。</summary>
     public const int NoticeLimit=ClanMatchingProtocol.AnnounceMaxChars;
+    /// <summary>
+    /// R7-K：備註上限＝S250/169 的固定 62 byte（Big5）。3.81 C_PledgeContent 16 沒檢查長度，但回送的 S_Pledge(name,notes) 只有 62 byte，
+    /// 超過就回不來；原版輸入框上限沒查（推定）。
+    /// </summary>
+    public const int MemoByteLimit=PledgeProtocol.NotesLength;
 
     WindowLayout? plain,notice;
     IReadOnlyList<Placed> rankButtons=[];
@@ -306,6 +318,9 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
     readonly HashSet<string> checkedAttention=new(StringComparer.OrdinalIgnoreCase);
     SideInputKind sideInput;ClanWarCommand sideWar;
     readonly System.Text.StringBuilder sideDraft=new();
+    // R7-K：ModifyMemo 編輯中的草稿；characterName＝自己的角色名（IUiGameState.CharacterName），用來找自己那一列。
+    bool memoEditing;string? characterName;
+    readonly System.Text.StringBuilder memoDraft=new();
 
     /// <summary>R4-E：對外動作（產品端每個 timer tick 由 ClanUi.cs 接上；離線檢查自己給）。null＝不能送，只顯示。</summary>
     public IPledgeWindowSource? Source{get;set;}
@@ -354,6 +369,18 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
     public string Status=>status;
     public bool EditingNotice=>editing;
     public string NoticeDraft=>draft.ToString();
+    /// <summary>R7-K：ModifyMemo 編輯中。</summary>
+    public bool EditingMemo=>memoEditing;
+    public string MemoDraft=>memoDraft.ToString();
+    /// <summary>R7-K：ModifyMemo_Button（邏輯座標）；目前窗沒有這個節點就是 Empty。</summary>
+    public Rectangle ModifyMemoRect=>Current is {ModifyMemo:{} m}?Abs(m.Rect):Rectangle.Empty;
+    /// <summary>自己在上線名單中的索引；不在名單（或不知道角色名）是 -1。</summary>
+    public int OwnIndex=>string.IsNullOrEmpty(characterName)?-1:Members.ToList().FindIndex(n=>string.Equals(n,characterName,StringComparison.OrdinalIgnoreCase));
+    /// <summary>自己那一列的備註欄（目前可見才有；否則 Empty，草稿改畫在側欄輸入框）。</summary>
+    public Rectangle OwnMemoRect{get{
+        int k=OwnIndex;if(k<0||Current is not {} w||k<scroll||k>=scroll+w.Rows)return Rectangle.Empty;
+        return Cell(k-scroll,"Memo_Label");
+    }}
     /// <summary>目前顯示的「公告」或「存檔」鈕（只有公告窗）；沒有就是 Empty。</summary>
     public Rectangle NoticeEditRect=>Current is {WriteNotice:{} wr,SaveNotice:{} sv}?Abs((editing?sv:wr).Rect):Rectangle.Empty;
     public Rectangle EmblemRect=>Current is {} w?Abs(w.Emblem):Rectangle.Empty;
@@ -428,8 +455,9 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
         }
         var emblem=Rectangle.Empty;
         if(Optional(ctl,"Emblem","Pledge_Emblem") is {} em){var p=XY(em);emblem=new(XY(ctl).X+p.X,XY(ctl).Y+p.Y,ClanEmblemProtocol.Width,ClanEmblemProtocol.Height);}
+        var memo=Optional(w,"Button","ModifyMemo_Button") is {} mb?Place(mb,Point.Empty,"BaseSurf",get):null;
         return new WindowLayout{
-            WriteNotice=write,SaveNotice=save,Emblem=emblem,
+            WriteNotice=write,SaveNotice=save,Emblem=emblem,ModifyMemo=memo,
             Name=name,
             Base=get(SurfOf(w,"BaseSurf")),
             Frame=w.Attr("FrameSurf") is null?null:get(SurfOf(w,"FrameSurf")),
@@ -481,6 +509,7 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
 
     public void Update(IUiGameState state){
         inWorld=state.InWorld;
+        characterName=inWorld?state.CharacterName:null;
         data=inWorld?UiPledgeGameState.Of(state):null;
         attention=inWorld?UiPledgeGameState.AttentionOf(state)??[]:[];
         attentionScroll=Math.Clamp(attentionScroll,0,AttentionMaxScroll);
@@ -495,7 +524,7 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
         if(popupMember!=null&&!Members.Contains(popupMember,StringComparer.OrdinalIgnoreCase))popupMember=null;
     }
     /// <summary>關窗、重開、離開世界：結束公告編輯（草稿丟掉）並關掉改階級彈出窗。</summary>
-    void ResetInteraction(){editing=false;draft.Clear();popupMember=null;CancelSideInput();checkedAttention.Clear();}
+    void ResetInteraction(){editing=false;draft.Clear();popupMember=null;CancelSideInput();CancelMemoEdit();checkedAttention.Clear();}
 
     /// <summary>邏輯座標（視窗左上＋相對座標）。</summary>
     Rectangle Abs(Rectangle r)=>r.IsEmpty?r:new(origin.X+r.X,origin.Y+r.Y,r.Width,r.Height);
@@ -547,6 +576,7 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
         canvas.DrawText(data.Clan,label.X,Middle(label),TextColor);
         if(!w.Emblem.IsEmpty&&Source?.Emblem is {} emblem){var er=Abs(w.Emblem);canvas.DrawBitmap(EmblemBitmap(emblem),er.X,er.Y);}
         if(w.WriteNotice is {} wr&&w.SaveNotice is {} sv)Draw(canvas,editing?sv:wr);
+        if(w.ModifyMemo is {} mm)Draw(canvas,mm);
         if(!w.NoticeText.IsEmpty&&(editing||!string.IsNullOrEmpty(data.Notice))){
             // Notice_Label：VAlign="top" HAlign="left"，從左上逐行往下。編輯中畫草稿＋游標（Notice_Edit 同一區）。
             var nt=Abs(w.NoticeText);var g=canvas.Graphics;
@@ -561,7 +591,8 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
             int tw=UiText.Measure(canvas.Graphics,name).Width;
             canvas.DrawText(name,nc.X+Math.Max(0,(nc.Width-tw)/2),Middle(nc),TextColor);
             var mc=Cell(i,"Memo_Label");
-            canvas.DrawText(data.Memo(name),mc.X,Middle(mc),TextColor);
+            if(memoEditing&&k==OwnIndex)canvas.DrawText(memoDraft+"_",mc.X,Middle(mc),EditColor);   // R7-K 草稿
+            else canvas.DrawText(data.Memo(name),mc.X,Middle(mc),TextColor);
         }
         Draw(canvas,w.ScrollBackground);Draw(canvas,w.ScrollUp);Draw(canvas,w.ScrollDown);
         canvas.DrawSurface(w.ScrollThumb.Surface,ox+w.ScrollThumb.At.X,oy+ThumbY);
@@ -591,9 +622,10 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
         SideButton(FocusAddRect,"新增",sideInput==SideInputKind.AddFocus);
         SideButton(FocusDeleteRect,"刪除",sideInput==SideInputKind.DeleteConfirm);
         for(int i=0;i<WarStates.Length;i++){var c=ClanWarProtocol.WindowState(WarStates[i])!.Value;SideButton(WarStateRect(i),c switch{ClanWarCommand.Declare=>"宣戰",ClanWarCommand.Cease=>"停戰",_=>"投降"},sideInput==SideInputKind.War&&sideWar==c);}
-        if(sideInput is SideInputKind.AddFocus or SideInputKind.War){
+        if(sideInput is SideInputKind.AddFocus or SideInputKind.War||memoEditing&&OwnMemoRect.IsEmpty){
+            // R7-K：自己那列不在畫面上（不在名單）時，備註草稿畫在同一個輸入框。
             var ir=SideInputRect;g.DrawRectangle(pen,ir.X,ir.Y,ir.Width-1,ir.Height-1);
-            canvas.DrawText(sideDraft+"_",ir.X+2,Middle(ir),EditColor);
+            canvas.DrawText((memoEditing?memoDraft:sideDraft)+"_",ir.X+2,Middle(ir),EditColor);
         }
         var cb=ShowEmblemRect;bool? show=Source?.ShowEmblem;
         g.DrawRectangle(pen,cb.X,cb.Y,cb.Width-1,cb.Height-1);
@@ -640,9 +672,10 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
         if(Hit(CloseRect,at)){Close();return true;}
         if(Hit(NoticeRect,at)||Hit(NoticeArrowRect,at)){
             // OpenNotice／CloseNotice：兩個 Window 互換（XML 事件名）；公告區顯示最近一次 168 的文字（沒收到就留白）。換窗時放棄編輯。
-            var o=origin;showNotice=!showNotice;editing=false;draft.Clear();origin=UiInput.ClampInside(o,Bounds.Size);scroll=Math.Clamp(scroll,0,MaxScroll);return true;
+            var o=origin;showNotice=!showNotice;editing=false;draft.Clear();CancelMemoEdit();origin=UiInput.ClampInside(o,Bounds.Size);scroll=Math.Clamp(scroll,0,MaxScroll);return true;
         }
         if(Hit(NoticeEditRect,at)){if(editing)SaveNotice();else BeginNoticeEdit();return true;}
+        if(Hit(ModifyMemoRect,at)){if(memoEditing)SaveMemo();else BeginMemoEdit();return true;}   // R7-K MouseEvent="ModifyMemo"
         if(Hit(ScrollUpRect,at)){ScrollBy(-1);return true;}
         if(Hit(ScrollDownRect,at)){ScrollBy(1);return true;}
         if(Current is {} w&&rankButtons.Count>0)
@@ -670,7 +703,7 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
         if(!checkedAttention.Remove(name))checkedAttention.Add(name);
         return true;
     }
-    void BeginSideInput(SideInputKind kind,int prompt){editing=false;draft.Clear();popupMember=null;sideInput=kind;sideDraft.Clear();status=PromptText(prompt);}
+    void BeginSideInput(SideInputKind kind,int prompt){editing=false;draft.Clear();popupMember=null;CancelMemoEdit();sideInput=kind;sideDraft.Clear();status=PromptText(prompt);}
     public void CancelSideInput(){sideInput=SideInputKind.None;sideDraft.Clear();}
     /// <summary>AddFocusPledge（sub_B2B040）：開輸入框，提示 3361。</summary>
     public bool BeginAddAttention(){
@@ -734,8 +767,38 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
     /// <summary>WriteNotice：以目前公告當草稿開始編輯（只在有 Noticebutton_Control 的公告窗）。</summary>
     public bool BeginNoticeEdit(){
         if(!Visible||!showNotice||NoticeEditRect.IsEmpty)return false;
-        editing=true;draft.Clear();draft.Append(Notice.Length>NoticeLimit?Notice[..NoticeLimit]:Notice);return true;
+        CancelMemoEdit();editing=true;draft.Clear();draft.Append(Notice.Length>NoticeLimit?Notice[..NoticeLimit]:Notice);return true;
     }
+    // ---- R7-K（T350／#813）：ModifyMemo → C78 16 ----
+    /// <summary>備註文字能不能送：C78 16 的字元規則（ClanMatchingProtocol.Notes）加上 169 回送的 62 byte 上限。不合回錯誤訊息。</summary>
+    public static string? MemoError(string text){
+        try{ClanMatchingProtocol.Notes(text);}catch(ArgumentException ex){return ex.Message.Replace("成員備註","備註");}
+        return LoginPackets.TextEncoding.GetByteCount(text)>MemoByteLimit?$"備註最多 {MemoByteLimit} byte（約 {MemoByteLimit/2} 個中文字）。":null;
+    }
+    /// <summary>ModifyMemo（第一次按）：以自己目前的備註當草稿開始編輯；自己不在名單時仍可編輯，草稿畫在側欄輸入框。</summary>
+    public bool BeginMemoEdit(){
+        if(!Visible||ModifyMemoRect.IsEmpty)return false;
+        if(Source==null){status="沒有接上遊戲連線，備註未送出。";return false;}
+        if(string.IsNullOrEmpty(characterName)){status="不知道自己的角色名稱，不能寫備註。";return false;}
+        editing=false;draft.Clear();popupMember=null;CancelSideInput();
+        memoEditing=true;memoDraft.Clear();
+        string current=data?.Memo(characterName)??"";
+        if(MemoError(current)==null)memoDraft.Append(current);
+        // 自己那列不在畫面上時捲過去（推測：原版行為沒查）。
+        if(OwnIndex is >=0 and var k&&Current is {} w&&(k<scroll||k>=scroll+w.Rows))scroll=Math.Clamp(k,0,MaxScroll);
+        status=$"輸入備註（最多 {MemoByteLimit} byte）；Enter 或再按備註鈕送出、Esc 取消。";
+        return true;
+    }
+    /// <summary>ModifyMemo（確定）：送 C78 16；送出後結束編輯，等伺服器回送 169 才更新備註欄。</summary>
+    public bool SaveMemo(){
+        if(!memoEditing)return false;
+        string text=memoDraft.ToString();
+        if(MemoError(text) is {} error){status=error;return false;}
+        if(Source is not {} s){status="沒有接上遊戲連線，備註未送出。";return false;}
+        if(!s.SendMemo(text)){status="目前不能送出備註（沒有血盟、正在送其他請求或角色狀態不允許）。";return false;}
+        CancelMemoEdit();status="已送出成員備註；結果以伺服器回送為準。";return true;
+    }
+    public void CancelMemoEdit(){memoEditing=false;memoDraft.Clear();}
     /// <summary>SaveNotice：送 C78 15；送出後結束編輯，畫面等伺服器回送 168 才更新（不先改本機公告）。</summary>
     public bool SaveNotice(){
         if(!editing)return false;
@@ -771,6 +834,14 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
             if(e.KeyData==Keys.Back){if(draft.Length>0)draft.Length--;return true;}
             return false;
         }
+        if(memoEditing){
+            // R7-K：備註編輯：Esc 取消、Enter 送出、Backspace 刪字（推測：與公告編輯相同；原版 ModifyMemo 的按鍵沒查）。
+            if(!e.Down)return e.KeyCode is Keys.Enter or Keys.Escape or Keys.Back;
+            if(e.KeyData==Keys.Escape){if(!e.Repeat){CancelMemoEdit();status="";}return true;}
+            if(e.KeyData==Keys.Enter){if(!e.Repeat)SaveMemo();return true;}
+            if(e.KeyData==Keys.Back){if(memoDraft.Length>0)memoDraft.Length--;return true;}
+            return false;
+        }
         if(sideInput!=SideInputKind.None){
             // T316：側欄輸入框／確認框：Enter 確定、Esc 取消、Backspace 刪字（推測：與公告編輯相同；原版共用輸入框的按鍵沒查）。
             if(!e.Down)return e.KeyCode is Keys.Enter or Keys.Escape or Keys.Back;
@@ -785,6 +856,12 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
     }
     /// <summary>公告編輯中的字元（LimitText 160；代理字元不收，3.81 C_PledgeContent 會拒絕）；T316 側欄輸入框的字元（最多 16 字）。</summary>
     public bool Char(char c){
+        if(Visible&&memoEditing){
+            // R7-K：超過 62 byte 或不能以 Big5 編碼的字不收（MemoError 擋）。
+            if(char.IsControl(c))return false;
+            if(!char.IsSurrogate(c)&&MemoError(memoDraft.ToString()+c)==null)memoDraft.Append(c);
+            return true;
+        }
         if(Visible&&!editing&&sideInput is SideInputKind.AddFocus or SideInputKind.War){
             if(char.IsControl(c))return false;
             if(!char.IsSurrogate(c)&&sideDraft.Length<SideInputLimit)sideDraft.Append(c);
