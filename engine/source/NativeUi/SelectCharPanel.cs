@@ -29,7 +29,7 @@ namespace P06.NativeUi;
 // - "_Multi"/"_multi" images duplicate the "_Screen" ones; only the screen variant is built.
 // - BigSlot_List has 4 Slot_Controls = the visible rows. Row r = scroll + slot index. r < characters → Select_Button (or
 //   WaitDelete_Button + WaitToDel_Image when the server marks the character for 7-day deletion, class 32–38); r < Slots →
-//   Create_Button; otherwise Slot_Lock_Back + Lock_Button (slot purchase: no 3.81 packet, disabled). Up/Down scroll by one row.
+//   Create_Button; otherwise Slot_Lock_Back + Lock_Button (slot purchase: no 3.81 packet, disabled). Up/Down page (R10-N).
 // - A double click on the selected character's Select_Button enters the world.
 // - CharacterInfo_List: Name, Level, Class, Pledge (clan), Alignment (lawful) and Birthday of the selected character.
 //
@@ -44,7 +44,17 @@ namespace P06.NativeUi;
 //   selected row 7047 in every state) is not in any SelectUI.xml we have; CharacterListSurfs keeps the rule as data only.
 // - Birthday_Label (sub_EECB10): sprintf("%d") of the value, then chars 0–3 '.' 4–5 '.' 6–7 (YYYY.MM.DD for an 8-digit
 //   value; a shorter one stops at its end like the C string). Whether 3.81 S_CharPacks time is YYYYMMDD is 待驗證.
-// - Not changed: Up/Down (TW16 pages by this+352 and swaps 6411–6414; the engine scrolls one row).
+// R10-N (T398/#913; TW16 CSelectUI decompiled read-only, docs/reports/issue-913.md), 已驗證 in the binary:
+// - Up/Down page the slot list (this+352 = page): Up_Button (sub_EF13A0) page−1 while > 0, Down_Button (sub_EECF90) page+1
+//   while < 1, each followed by sub_EF13F0. Row = slot + rows × page (sub_EF13F0 i + v29 × page; the click handlers
+//   sub_EEC3B0 / sub_EEFF10 add 4 × page). TW16 has exactly two pages (the cap 1 is a constant); the engine keeps that and only
+//   adds pages when a server sends more rows than two pages hold (3.81 has 8 slots = 2 × 4, so never in practice).
+// - sub_EF13F0 sets the two buttons' surfs on every refresh: page 0: Up 6411/6411/6411, Down 6413/6414/6414; page > 0:
+//   Up 6411/6412/6412, Down 6413/6413/6413 (normal/highlight/push = sub_AFE580/sub_AFF270/sub_AFFB20 → sub_B0D810). These
+//   replace the XML BaseSurf/HighlightSurf/PushSurf; 6411–6414 are in the pinned local Sprite07–10. A missing one is not drawn.
+// - Keys (sub_EEDF00): Up/Down arrows move the selection and the page follows it (sub_EEEE60: page = index / 4); PageUp /
+//   PageDown (0x1021 / 0x1022) page like the buttons. The engine still selects characters only (TW16 can also select an
+//   empty slot). The mouse wheel pages too (推測: no wheel handler was found in CSelectUI).
 // - Delete_Button → Message_Window confirm (same text as the WinForms MessageBox) → Ok sends. Back_Button logs out.
 //   A refused action or the server's result notice after a delete is shown in Message_Window.
 // - Not built: Character_Ani (Effect, the selected character's animation), DeleteDelay_Image (no image id), Tooltips, the
@@ -110,8 +120,9 @@ public sealed record CharUiWindow(string Name,Point Origin,Size Size,UiSurface? 
 /// <summary>
 /// Builds SelectUI / CreateUI windows (shared by SelectCharPanel and CreateCharPanel). Pieces come out in paint order:
 /// siblings in reverse XML order, a parent before its children. Skip returns a reason to leave an element out (null = build).
+/// Runtime (R10-N) marks an Image without an id whose picture the screen sets at run time: built with no surface, not skipped.
 /// </summary>
-internal sealed class CharUiBuilder(string file,Func<int,UiSurface?> surf,Func<UiNode,string?>? skip=null) {
+internal sealed class CharUiBuilder(string file,Func<int,UiSurface?> surf,Func<UiNode,string?>? skip=null,Func<UiNode,bool>? runtime=null) {
     public readonly List<string> Missing=[],Skipped=[];
     readonly Dictionary<int,UiSurface?> resolved=[];
     UiSurface? Resolve(OptionImageRef? r,string path){
@@ -156,7 +167,7 @@ internal sealed class CharUiBuilder(string file,Func<int,UiSurface?> surf,Func<U
             case "Image":{
                 if(MultiVariant(name)){Skipped.Add(c.Path+"（multi 版，只建 screen 版）");return;}
                 var r=ResetStatPanel.ImageRef(c,"Surf");
-                if(r==null&&c.Children.Count==0){Skipped.Add(c.Path+"（沒有圖號，執行期才定圖）");return;}
+                if(r==null&&c.Children.Count==0&&runtime?.Invoke(c)!=true){Skipped.Add(c.Path+"（沒有圖號，執行期才定圖）");return;}
                 var p=Piece(CharUiKind.Image,r,Resolve(r,c.Path));
                 into.Add(p);Walk(c,at,ctx with{Parent=p},into);return;
             }
@@ -294,6 +305,12 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
     }
     /// <summary>sub_EF13F0: slot Level_Label.</summary>
     public static string SlotLevel(int level)=>"Lv."+level.ToString(CultureInfo.InvariantCulture);
+    /// <summary>R10-N sub_EF13F0: Up_Button (normal, highlight, push) for a page.</summary>
+    public static (int Normal,int Highlight,int Push) UpSurfs(int page)=>page<=0?(6411,6411,6411):(6411,6412,6412);
+    /// <summary>R10-N sub_EF13F0: Down_Button (normal, highlight, push) for a page.</summary>
+    public static (int Normal,int Highlight,int Push) DownSurfs(int page)=>page<=0?(6413,6414,6414):(6413,6413,6413);
+    /// <summary>R10-N: TW16's last page (sub_EECF90 / sub_EEDF00: page &lt; 1).</summary>
+    public const int Tw16LastPage=1;
     /// <summary>Class index of a S93 class byte (32–38 = pending deletion).</summary>
     static int ClassIndex(int cls)=>cls>=32?cls-32:cls;
 
@@ -304,6 +321,8 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
         if(CharacterManagementPackets.PendingDeletion(c)){int w=WaitDeleteSurf(surf,cls,c.Sex);return (w,w,w);}
         return SlotSurfs(surf,c.Name==Selected);
     }
+    /// <summary>R10-N: (normal, highlight, push) of Up_Button / Down_Button on the current page; null for other pieces.</summary>
+    public (int Normal,int Highlight,int Push)? PageButtonSurfs(CharUiPiece p)=>p.MouseEvent switch{UpEvent=>UpSurfs(Page),DownEvent=>DownSurfs(Page),_=>null};
     UiSurface? Dynamic(int id){
         if(id<0||lookup==null)return null;
         if(!dynamic.TryGetValue(id,out var s)){dynamic[id]=s=lookup(id);if(s==null&&dynamicMissing.Add(id))UiResourceLog.Write($"select-char-ui 缺圖不畫：surf {id}");}
@@ -383,14 +402,19 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
         if(!v.Shown)closed=false;
         View=v;
         if(Selected==null||!v.Characters.Any(c=>c.Name==Selected))Selected=v.Characters.FirstOrDefault()?.Name;
-        Scroll=Math.Clamp(Scroll,0,MaxScroll);
+        Scroll=Math.Clamp(Page,0,MaxPage)*Rows;
         if(Shown==CharSelectMessage.ConfirmDelete&&(deleting==null||!v.Characters.Any(c=>c.Name==deleting)))Shown=CharSelectMessage.None;
     }
 
     void ShowMessage(CharSelectMessage kind,string text){Shown=kind;MessageText=text;pressed=null;}
 
     public int TotalRows=>View is not {} v?Rows:Math.Max(Rows,Math.Max(v.Slots,v.Characters.Count));
-    public int MaxScroll=>Math.Max(0,TotalRows-Rows);
+    /// <summary>R10-N: this+352. Scroll is always Page × Rows.</summary>
+    public int Page=>Rows>0?Scroll/Rows:0;
+    /// <summary>R10-N: TW16's two pages (0, 1); more only when the list holds more than two pages of rows.</summary>
+    public int MaxPage=>Rows>0?Math.Max(Tw16LastPage,(TotalRows+Rows-1)/Rows-1):0;
+    public int MaxScroll=>MaxPage*Rows;
+    void SetPage(int page)=>Scroll=Math.Clamp(page,0,MaxPage)*Rows;
     public enum RowKind { Character, Pending, Empty, Locked }
     public RowKind Row(int row){
         var v=View;
@@ -426,8 +450,8 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
         return p.MouseEvent switch{
             SelectEvent=>true,
             CreateEvent=>v.CanCreate,
-            UpEvent=>Scroll>0,
-            DownEvent=>Scroll<MaxScroll,
+            UpEvent=>Page>0,
+            DownEvent=>Page<MaxPage,
             EnterEvent=>v.CanEnter&&SelectedCharacter!=null,
             DeleteEvent=>v.CanDelete&&SelectedCharacter!=null,
             _=>false,   // SlotLock_SelectWin: no 3.81 packet
@@ -477,6 +501,13 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
                 int id=ReferenceEquals(p,pressed)&&pressedInside&&enabled?push:ReferenceEquals(p,hover)&&pressed==null&&enabled?h:n;
                 canvas.DrawSurface(Dynamic(id),x,y);break;
             }
+            case CharUiKind.Button when p.MouseEvent is UpEvent or DownEvent:{
+                // R10-N (sub_EF13F0): the page decides the surfs; the XML ones are replaced.
+                var (n,h,push)=PageButtonSurfs(p)!.Value;
+                bool enabled=Enabled(p);
+                int id=ReferenceEquals(p,pressed)&&pressedInside&&enabled?push:ReferenceEquals(p,hover)&&pressed==null&&enabled?h:n;
+                canvas.DrawSurface(Dynamic(id),x,y);break;
+            }
             case CharUiKind.Button:{
                 bool enabled=Enabled(p);
                 bool selected=p.MouseEvent==SelectEvent&&p.ListName==SlotList&&RowCharacter(Scroll+p.Slot)?.Name==Selected;
@@ -495,7 +526,7 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
     public bool Mouse(UiMouseEvent e,IUiCommands commands){
         if(!Visible)return false;
         if(e.Kind==UiMouseKind.Move&&pressed==null){hover=ButtonAt(e.Location);return true;}
-        if(e.Kind==UiMouseKind.Wheel){if(Shown==CharSelectMessage.None)Scroll=Math.Clamp(Scroll+(e.Delta>0?-1:e.Delta<0?1:0),0,MaxScroll);return true;}
+        if(e.Kind==UiMouseKind.Wheel){if(Shown==CharSelectMessage.None)SetPage(Page+(e.Delta>0?-1:e.Delta<0?1:0));return true;}
         if(e.Button!=MouseButtons.Left)return true;
         var w=InputWindow!;
         switch(e.Kind){
@@ -510,10 +541,11 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
         return true;
     }
 
-    /// <summary>Modal: Enter = message Ok / enter world, Esc = message Cancel, Up/Down = selection.</summary>
+    /// <summary>Modal: Enter = message Ok / enter world, Esc = message Cancel, Up/Down = selection (the page follows),
+    /// PageUp/PageDown = page (R10-N, sub_EEDF00).</summary>
     public bool Key(UiKeyEvent e,IUiCommands commands){
         if(!Visible)return false;
-        if(!e.Down||e.Repeat&&e.KeyCode is not (Keys.Up or Keys.Down))return true;
+        if(!e.Down||e.Repeat&&e.KeyCode is not (Keys.Up or Keys.Down or Keys.PageUp or Keys.PageDown))return true;
         switch(e.KeyCode){
             case Keys.Escape:if(Shown!=CharSelectMessage.None)Shown=CharSelectMessage.None;break;
             case Keys.Enter:
@@ -524,9 +556,11 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
                 int i=Math.Max(0,v.Characters.ToList().FindIndex(c=>c.Name==Selected));
                 i=Math.Clamp(i+(e.KeyCode==Keys.Up?-1:1),0,v.Characters.Count-1);
                 Selected=v.Characters[i].Name;
-                if(i<Scroll)Scroll=i;else if(i>=Scroll+Rows)Scroll=i-Rows+1;
+                if(Rows>0)SetPage(i/Rows);   // sub_EEEE60: page = index / 4
                 break;
             }
+            case Keys.PageUp when Shown==CharSelectMessage.None&&Ready:SetPage(Page-1);break;
+            case Keys.PageDown when Shown==CharSelectMessage.None&&Ready:SetPage(Page+1);break;
         }
         return true;
     }
@@ -545,8 +579,8 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
                 return;
             }
             case CreateEvent:OpenCreate();return;
-            case UpEvent:Scroll=Math.Max(0,Scroll-1);return;
-            case DownEvent:Scroll=Math.Min(MaxScroll,Scroll+1);return;
+            case UpEvent:SetPage(Page-1);return;     // sub_EF13A0
+            case DownEvent:SetPage(Page+1);return;   // sub_EECF90
             case EnterEvent when v!=null&&Selected is {} entering:_=Run(h=>h.Enter(v,entering),false);return;
             case BackEvent:Host?.Logout();return;
             case DeleteEvent when SelectedCharacter is {} target:deleting=target.Name;ShowMessage(CharSelectMessage.ConfirmDelete,DeleteText(target));return;
