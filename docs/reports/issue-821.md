@@ -41,3 +41,7 @@
 ## 給下一棒的提示
 - 真機驗收時鑑定一個「其他類」物品（3.81 只送說明編號）看聊天欄有沒有「王族」那一行；若沒有，改 `IdentifyDescRules.MessageLine` 對訊息 0 回傳 null，並更新 `IdentifyDescTests` 的「訊息 0」案例。
 - `DisplayNoticeChecks.cs` 的 S245 檢查仍測舊的診斷紀錄（含重量字串的 `Text`）；之後若有任務可改那個檔，可以改成檢查聊天欄，並移除 `IdentifyNoticeMs`／`ActiveIdentifyDesc`。
+
+## CI 結果
+- PR #841：dotnet、map-continuity、npc-offline 全部 pass；`identify-desc` 模組測試 56 項、0 失敗（run 42853698081）；既有 `display-notices` 檢查也在 map-continuity 內通過。
+
