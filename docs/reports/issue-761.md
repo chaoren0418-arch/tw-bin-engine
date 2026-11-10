@@ -90,6 +90,7 @@
   - 處理方式：把主專案 11/4 正常還原的 `obj/project.assets.json`、`nuget.g.props`、`nuget.g.targets` 讀出來，路徑改成本 worktree 後放進 worktree 的 `obj/`，再用 `--no-restore` 建置。主專案只讀、沒有寫入。
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：`pass`，0 錯誤。
 - 依 2026-11-09 本機執行限制，**本機沒有執行任何編出來的程式**。`agit-auction-ui` 與既有測試交給 PR 的 GitHub Actions CI。
+- **CI（PR #792）第一輪全綠**：`dotnet`、`map-continuity`（含 `--module-tests`）、`npc-offline` 都通過。`agit-auction-ui` 共 107 項檢查，全部通過、0 失敗；既有各組也沒有失敗。
 - `rebuild-lock.json` 沒有改動。開始前已 merge `origin/main`（含 #767）。
 
 ## 未驗證什麼（待驗證）
