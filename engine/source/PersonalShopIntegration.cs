@@ -164,7 +164,10 @@ public sealed class PersonalShopController(IPersonalShopHost host):IPersonalShop
             long? adena=host.Adena;
             if(!p.Sell&&adena is long a&&price>a){Retry(PersonalShopText.Get(PersonalShopText.NoAdena));return;}
             if(!p.AskCount){Place(p,price,1);return;}
-            uint max=p.Sell?host.HeldCount(p.ObjectId)??1:adena is long b?(uint)Math.Min(b/price,int.MaxValue):int.MaxValue;
+            uint max;
+            if(p.Sell)max=host.HeldCount(p.ObjectId)??1u;
+            else if(adena is long b)max=(uint)Math.Min(b/price,(long)int.MaxValue);
+            else max=int.MaxValue;
             if(max==0){Retry(PersonalShopText.Get(PersonalShopText.NoAdena));return;}
             var next=p with{CountStep=true,Price=price,MaxCount=max,Typed="",Text=PersonalShopText.Get(PersonalShopText.Count,PersonalShopText.Get(p.Sell?PersonalShopText.SellWord:PersonalShopText.BuyWord),max)};
             Prompt=next;Revision++;Say(next.Text);return;
@@ -282,7 +285,7 @@ public sealed partial class LoginConnection {
     /// <summary>R9-J（#854）：背包數量（不在背包＝null）。</summary>
     public uint? PersonalShopHeld(uint objectId)=>CaptureWorld(()=>World.Inventory.FirstOrDefault(i=>i.ObjectId==objectId)?.Count);
     /// <summary>R9-J（#854）：持有金幣（背包未載入＝null）。</summary>
-    public long? PersonalShopAdena=>CaptureWorld(()=>ShopTradeSource.Holding(World));
+    public long? PersonalShopAdena=>CaptureWorld(()=>ShopTrade.Holding(World));
     public int? PersonalShopMap=>CaptureWorld(()=>(int?)World.MapId);
     bool personalShopSending;int personalShopLease;
     bool PersonalShopAccess=>State==LoginState.InWorld&&World.Ready&&World.Status is {} s&&World.Actor?.ObjectId==s.ObjectId&&!World.TeleportPending;
