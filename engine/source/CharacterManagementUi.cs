@@ -44,11 +44,7 @@ public sealed partial class ClientForm {
         Controls.Add(switchCharacter);switchCharacter.Enter+=(_,_)=>LeaveGameFocus("character-switch");
         charactersBox.FormattingEnabled=true;charactersBox.Format+=(_,e)=>{if(e.ListItem is string name&&login.Characters.FirstOrDefault(c=>c.Name==name) is {} character)e.Value=CharacterManagementPackets.Display(character);};
         charactersBox.SelectedIndexChanged+=(_,_)=>SyncCharacterManagement();
-        createCharacter.Click+=async(_,_)=>{
-            ClearInput("character-create");int session=login.SessionGeneration,revision=login.Revision;
-            using var dialog=new CharacterCreationDialog(login.Characters.Count,login.Slots);
-            if(dialog.ShowDialog(this)==DialogResult.OK&&dialog.Creation is {} request)ShowCharacterAction(await login.CreateCharacter(request,session,revision),session);
-        };
+        createCharacter.Click+=async(_,_)=>await OpenCharacterCreationDialog();
         deleteCharacter.Click+=async(_,_)=>{
             if(charactersBox.SelectedItem is not string name||login.Characters.FirstOrDefault(c=>c.Name==name) is not {} character)return;
             ClearInput("character-delete");int session=login.SessionGeneration,revision=login.Revision;
@@ -60,6 +56,44 @@ public sealed partial class ClientForm {
         Resize+=(_,_)=>PositionCharacterSwitch();
         // T280（R3-D）：選角畫面音樂（EC4FE0 狀態 20：系統槽 8 循環）。
         timer.Tick+=(_,_)=>{if(ClientSoundScene.Scene(login.State)==MusicScene.CharacterSelect)ClientSoundScene.ObserveFront(login.State,masterGain,masterMute,Environment.TickCount64);};
+        // T327 (#765): the native UI may become active after the list arrived, so the native screens are attached on the tick too.
+        timer.Tick+=(_,_)=>AttachNativeCharacterScreens();
+    }
+    async Task OpenCharacterCreationDialog(){
+        ClearInput("character-create");int session=login.SessionGeneration,revision=login.Revision;
+        using var dialog=new CharacterCreationDialog(login.Characters.Count,login.Slots);
+        if(dialog.ShowDialog(this)==DialogResult.OK&&dialog.Creation is {} request)ShowCharacterAction(await login.CreateCharacter(request,session,revision),session);
+    }
+    // T327 (#765) native routing only: with the native UI on and SelectUI.xml / CreateUI.xml usable, the native select and create
+    // screens show the character list (same LoginControl / LoginConnection calls and stamps as the WinForms controls). Otherwise
+    // (--classic-ui, no reference client, broken XML, faulted panel) nothing is attached and the WinForms path stays as before;
+    // a usable select screen without a usable create screen opens the WinForms creation dialog (CreateFallback).
+    CharacterScreenHost? nativeCharacterHost;
+    void AttachNativeCharacterScreens(){
+        if(!NativeUiActive||NativeUiRoot is not {} root)return;
+        if(root.Find(P06.NativeUi.SelectCharPanel.PanelId) is not P06.NativeUi.SelectCharPanel select||!select.Available||select.Host!=null||root.Faulted.Contains(select))return;
+        nativeCharacterHost??=new CharacterScreenHost(this);
+        if(root.Find(P06.NativeUi.CreateCharPanel.PanelId) is P06.NativeUi.CreateCharPanel create&&create.Available&&!root.Faulted.Contains(create))select.Create=create;
+        else select.Create=null;
+        select.Attach(nativeCharacterHost);
+        ClearInput("native-character-select");Invalidate();
+    }
+    sealed class CharacterScreenHost(ClientForm form):P06.NativeUi.ICharSelectHost {
+        public P06.NativeUi.CharSelectView Snapshot(){
+            var l=form.login;
+            return new(l.SessionGeneration,l.Revision,l.State,l.Characters,l.Slots,form.loginControl?.CanEnter==true,l.CanCreateCharacter,l.CanDeleteCharacter,l.CharacterNotice);
+        }
+        public Task<LoginAction> Enter(P06.NativeUi.CharSelectView stamp,string name)=>form.EnterLoginCharacter(name,stamp.Generation,stamp.Revision);
+        public async Task<LoginAction> Create(P06.NativeUi.CharSelectView stamp,CharacterCreation request){
+            form.ClearInput("character-create");
+            var r=await form.login.CreateCharacter(request,stamp.Generation,stamp.Revision);form.ShowCharacterAction(r,stamp.Generation);return r;
+        }
+        public async Task<LoginAction> Delete(P06.NativeUi.CharSelectView stamp,string name){
+            form.ClearInput("character-delete");
+            var r=await form.login.DeleteCharacter(name,true,stamp.Generation,stamp.Revision);form.ShowCharacterAction(r,stamp.Generation);return r;
+        }
+        public void Logout()=>form.CancelLogin(form.login.SessionGeneration,false);
+        public void CreateFallback()=>_=form.OpenCharacterCreationDialog();
     }
     void PositionCharacterSwitch(){switchCharacter.Location=new(Math.Max(0,ClientSize.Width-(webHost.Visible?webHost.Width:0)-switchCharacter.Width-12),8);switchCharacter.BringToFront();}
     void ShowCharacterAction(LoginAction action,int session){if(IsDisposed||session!=login.SessionGeneration)return;characterUiNotice=action.Accepted?"":action.Message;characterNoticeRevision=login.Revision;SyncLoginControls();}
