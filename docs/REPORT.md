@@ -354,3 +354,4 @@
 - 2026-11-11 — #886 T381：查證原版——HyperText 顏色位元組順序與連結色（resource，claude-local，PR #889 已合併）→ [報告](reports/issue-886.md)
 - 2026-11-11 — #853 T369：R9-I 私商查詢頁（code，claude-local，PR 已合併）→ [報告](reports/issue-853.md)
 - 2026-11-11 — #824 T360：R8-E list.spr 附加層（code，claude-local，PR 已合併）→ [報告](reports/issue-824.md)
+- 2026-11-11 — #894 T-plan：M7 補列 T305–T383，同步 M6／M7 狀態（plan，claude-chat，PR 已合併）→ [報告](reports/issue-894.md)
