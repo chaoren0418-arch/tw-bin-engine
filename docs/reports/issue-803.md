@@ -81,9 +81,12 @@
   - 選目標模式：進入、換技能失效、書籤不進入、沿用選取目標、超過 15 格與不存在的物件被拒、選中後結束、重置清空。
   - 指標：點地面取消且不走路、左鍵與攻擊路徑改成選施法目標，不送 C229／C123。
 - 依本機限制，**沒有在本機執行任何測試或程式**，結果以 PR 的 CI 為準。
+- **CI（PR #826）**：
+  - 第一次執行時 `combat-queue-followup` 失敗：書籤技能那一步走到 `MovementAvailable`，它要讀 CI 上沒有的 `engine/assets`。
+  - 修正：會走到一般施法流程的呼叫，改成只看狀態、不看送出結果。
+  - 第二次執行：dotnet、map-continuity（含 `--module-tests` 全部 `[WorldModuleTest]` 與 combat-admission 等 demo 群組）、npc-offline 都通過。
 
 ## 未驗證什麼
-- 本機沒跑測試：`combat-queue-followup`、`skill-light` 與既有測試是否全綠，要看 CI。
 - 選中目標之後的完整送出（C6 bytes）在離線測試裡沒有斷言，因為動作節奏要讀 `engine/assets`，CI 沒有。這部分只驗證選目標的狀態。
 - 沒有開遊戲做真機驗收（M23、M25）：
   - 他人連續近戰或射箭時，第二下有沒有等第一下播完；
