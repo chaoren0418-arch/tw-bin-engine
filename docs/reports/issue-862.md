@@ -32,8 +32,10 @@ FU9 結論是維持現狀（`LoginPanel.cs` 不畫），這張的可改檔案也
   - `RenewalStatusPanelTests.cs`（`renewal-status-panel`）新增 `Confirm`：預覽 +1、Up 隱藏／Down 顯示、不送東西、Y/N 條的位置、929 文字（有表、沒有表、各能力名）、YES／NO／Down／Esc／N／Y／Enter、其他按鍵與按住重複會略過、點到條上空白處也會被吃掉、CanRaise 結束／關窗／離開世界都會清掉預覽。`Input` 改成按 Up 只預覽。
   - 既有的 `CombatQueueFollowupTests`（`Cursor==179`、`PickNotice==MagicNotice`）依然成立。
 
+- CI（PR #879）：第一次跑，`renewal-status-panel` 因為測試引用了合成版面裡沒有的 `Int_Label` 而失敗；改用 `HpGauge_Label` 後重跑，`dotnet`、`map-continuity`（所有 `[WorldModuleTest]`）、`npc-offline` **全部通過**。
+
 ## 未驗證什麼
-- 單元測試本機沒跑，結果以 PR 的 CI 為準。
+- 單元測試本機沒跑（依規定），結果以 CI 為準（已通過）。
 - 真機：聊天欄 179 的顏色和位置、進入模式後的游標（M35）、狀態窗 Y/N 的樣子（原版 `sub_EDE380` 的窗）、能力特效 `sub_EBB500(16,k)`、按「是」之後伺服器的回應，都要交給真機（Codex／dot）確認。
 - 原生 UI 的鍵盤事件會不會送到 Window 層的這個面板，沒有實機確認；就算送不到，滑鼠的 YES／NO／Down 也能用。
 - 929 是不是原版這個 Y/N 實際用的字（TW16 用 4471），只是推測的對應。
