@@ -26,11 +26,20 @@ namespace P06.NativeUi {
     /// <summary>
     /// Tooltip strings from the original string table (string-c.tbl, sub_4EAFF0): 930 label, 931 unit, 2854 "time over";
     /// R4-F: 1551 = label of display mode 1 (sub_9061E0 case 1 at VA 0x9062FD: "%s: %d%%" with string 0x60F and the value).
+    /// R5-F (T311/#738), the other sub_9061E0 cases (BuffIconsPanel.TooltipText): 978 label of modes 2/4/7/8, 1587 minute unit,
+    /// 763 day unit, 1630 hour unit (mode 8 seconds reuse 931), 4829 label of mode 12.
+    /// Local string-c.tbl (decoded SHA-256 4ebbc1a7…43e9, 3484 records, checked in #738): 930 剩餘時間, 931 秒, 2854 魔法效果結束,
+    /// 1551 剩餘的祝福指數 (the S250/82 blessing value — matches effect 175 STR_STATUS_EFFECT_BLESS_OF_EINHASAD, whose startMsg is 1550),
+    /// 978 剩餘時間, 1587 分, 763 日, 1630 時間; 4829 is past the table → null.
     /// null = table not available → no tooltip text is shown (never invented).
     /// </summary>
-    public sealed record BuffTooltipText(string? Label,string? Unit,string? Over,string? Percent=null) {
+    public sealed record BuffTooltipText(string? Label,string? Unit,string? Over,string? Percent=null,
+            string? Remain=null,string? Minute=null,string? Day=null,string? Hour=null,string? Percent12=null) {
         public static readonly BuffTooltipText None=new(null,null,null);
         public const int LabelId=930,UnitId=931,OverId=2854,PercentId=1551;
+        public const int RemainId=978,MinuteId=1587,DayId=763,HourId=1630,Percent12Id=4829;
+        /// <summary>All strings from one lookup (id → text or null).</summary>
+        public static BuffTooltipText From(Func<int,string?> s)=>new(s(LabelId),s(UnitId),s(OverId),s(PercentId),s(RemainId),s(MinuteId),s(DayId),s(HourId),s(Percent12Id));
     }
 
     public sealed record BuffState(IReadOnlyList<BuffEntry> Entries,IReadOnlyList<BuffUnmapped> Unmapped,BuffTooltipText Text) {
@@ -79,7 +88,7 @@ namespace P06.NativeUi {
             }
             // R4-F: S250 75/82/180 (PacketBoxStatus.cs, sub_9357E0 cases 0x4B/0x52/0xB4). Effects ≥ 540 are already dropped there.
             //   75  effect 135, mode 0, table duration counted from the last 75, icon rewritten to 3230−level
-            //   82  effect 175, mode 1 (percent = value)
+            //   82  effect 175 (R5-F variants: 518 while effect 293 is shown, 574 on base map 0x1900; 575/576 ≥ 540), mode 1 (percent = value)
             //   180 effect = first D, mode 0, no limit (−1 → tooltip "--")
             foreach(var i in w.PacketBoxStatusIcons){
                 long? elapsed=i.DefaultDuration&&i.ReceivedAt is long at?Math.Max(0,now-at):null;
@@ -203,7 +212,7 @@ namespace P06 {
             int? cls=login.Characters.FirstOrDefault(c=>c.Name==w.Actor?.Name)?.Class;
             var t=ServerMessageText.Table;
             string? S(int id)=>t!=null&&id<t.Count?ServerMessageText.DisplayText(t[id]):null;
-            var text=t==null?BuffTooltipText.None:new BuffTooltipText(S(BuffTooltipText.LabelId),S(BuffTooltipText.UnitId),S(BuffTooltipText.OverId),S(BuffTooltipText.PercentId));
+            var text=t==null?BuffTooltipText.None:BuffTooltipText.From(S);
             return new UiBuffGameState(state,BuffState.From(w,cls,text));
         }
     }

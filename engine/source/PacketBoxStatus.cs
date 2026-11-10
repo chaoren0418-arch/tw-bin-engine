@@ -1,3 +1,4 @@
+using P06.NativeUi;
 namespace P06;
 
 // T230（#548）：S250 狀態圖示類子碼（protocol-gaps.md 第 2.3 節 B2 組、第 8 節）。只做協定與資料：
@@ -38,6 +39,8 @@ namespace P06;
 //   180 case VA 0x938857：解析 sub_C14ED0：C(開關≠0)、D → +8、D → +0xC。開 → sub_F05B10(−1, +8, 0, −1, 1)：
 //       **第一個 D 是 effect id**（無期限，並印 effect 的 startMsg）；關 → sub_F059F0(+8,1,1)。封包的字串 id（+0xC）原版不用。
 //       3.81 呼叫端（ItemVIPTable、TimedRateController、MapRecoveryIconState）傳的也是 effect id。
+// R5-F（T311／#738）：180 開時把 effect 的 startMsg 印進聊天欄（sub_F05B10 → sub_7DC800，色 24）；82 的兩個變體旗標
+// （基底地圖 0x1900 → 574；effect 293 顯示中 → 518／576）依 sub_736AC0 接上，見 PacketBoxStatusRules.LeavesEffectFor。
 
 /// <summary>S250/114 保護（正義／邪惡／遭遇）圖示種類；名稱取自 3.81 `S_PacketBoxProtection` 常數。</summary>
 public enum PacketBoxProtection {JusticeL1=0,JusticeL2=1,JusticeL3=2,EvilL1=3,EvilL2=4,EvilL3=5,Encounter=6}
@@ -89,10 +92,36 @@ public static class PacketBoxStatusRules {
     public const int LeavesEffect=175,LeavesOverflowEffect=575,LeavesMax=200;
     /// <summary>82 值 ≤ 0 時原版移除的 effect（sub_736AC0 尾段）。</summary>
     public static readonly int[] LeavesRemoved=[175,518,574,575,576];
-    /// <summary>82 的 effect：值 ≤ 0 → null（移除）；引擎沒有管理器旗標 +0x10 與全域 0x138BE64 的來源，視為關。</summary>
-    public static int? LeavesEffectFor(int value)=>value<=0?null:value>LeavesMax?LeavesOverflowEffect:LeavesEffect;
+    /// <summary>82 的 effect（兩個變體旗標都關）：值 ≤ 0 → null（移除）。</summary>
+    public static int? LeavesEffectFor(int value)=>LeavesEffectFor(value,false,false);
+    /// <summary>
+    /// R5-F（T311／#738）82 的 effect，sub_736AC0（VA 0x736AC0／FO 0x335EC0）逐條：值 ≤ 0 → null（移除 LeavesRemoved）；
+    /// 全域 0x138BE64＝0x1900（mapBase6400）→ 574（不看值）；值 &gt; 200 → 旗標開 576、關 575；其他 → 旗標開 518、關 175。
+    /// 旗標＝EinhasadExManager +0x10：事件 0x15（圖示新增，sub_F6CB50 → sub_F6D120 push 0x15）的 effect＝0x125（293）時設 1
+    /// （handler VA 0x736070），事件 0x16 時清 0（VA 0x7360C0），兩者之後都重跑 sub_736AC0。
+    /// </summary>
+    public static int? LeavesEffectFor(int value,bool mapBase6400,bool pcCafe)=>value<=0?null
+        :mapBase6400?LeavesMapEffect
+        :value>LeavesMax?(pcCafe?LeavesOverflowPcCafeEffect:LeavesOverflowEffect)
+        :pcCafe?LeavesPcCafeEffect:LeavesEffect;
+    /// <summary>82 變體：574（地圖基底 0x1900）、518（旗標開、值 ≤ 200）、576（旗標開、值 &gt; 200）。</summary>
+    public const int LeavesMapEffect=574,LeavesPcCafeEffect=518,LeavesOverflowPcCafeEffect=576;
+    /// <summary>旗標來源 effect 293（本機 effectlist2：STR_STATUS_EFFECT_PC_CAFE_CHRISTER，kind neutrality）；引擎中只有 180 會送出它。</summary>
+    public const int PcCafeEffect=0x125;
+    /// <summary>0x138BE64 的比較值（sub_F09D74 存的是 sub_F027F0(地圖)＝基底地圖）。</summary>
+    public const int LeavesMapBase=0x1900;
+    /// <summary>
+    /// 基底地圖 sub_F14F90（VA 0xF14F90）：先查客戶端的地圖對照表（std::map，來源未展開，本模組沒有 → 待驗證），
+    /// 查不到時 地圖 &lt; 0x4000 → 原值，否則 地圖 &amp; 0xFE00（已驗證）。
+    /// </summary>
+    public static int BaseMap(int map)=>map<0x4000?map:map&0xFE00;
     /// <summary>180：無期限（sub_F05B10 第一個參數 −1）、模式 0。</summary>
     public const int NoLimit=-1;
+    /// <summary>
+    /// R5-F：180 開時 sub_F05B10 的第 5 參數為 1 → effect 表 +12（startMsg，string-c.tbl id）≠ 0 時 sub_7DC800(startMsg, 色 24, 外框色 14)
+    /// 印進聊天欄（id ≥ 字串表筆數時不印；sub_A11280 的過濾條件未展開）。每次「開」都印，已存在的圖示也一樣。
+    /// </summary>
+    public const int StartMessageColorIndex=24;
 }
 
 public sealed partial class WorldSession {
@@ -106,6 +135,21 @@ public sealed partial class WorldSession {
     readonly SortedDictionary<uint,PacketBoxNoneTimeIcon> packetBoxNoneTimeIcons=[];
     readonly SortedDictionary<int,int> packetBoxStatusCounts=[];
     int packetBoxDelIcons,packetBoxUnknownProtections;
+    // R5-F：82 最近一次評估（82 本身、或 effect 293 的新增／移除）時的基底地圖；原版只在這兩個時機重算，不因換地圖重算。
+    int? packetBoxLeavesMapBase;
+    readonly List<PacketBoxMessageLine> packetBoxStartMessages=[];
+    int packetBoxStartMessagesDropped;
+
+    /// <summary>
+    /// R5-F：180 的 startMsg 查表來源（effectlist2）。預設是 StatusIconArt.SharedEffectTable（原客戶端 Tile.pak，讀不到為 null → 不印、計入 dropped）；
+    /// 測試換成合成表。
+    /// </summary>
+    internal Func<BuffEffectTable?> StartMessageEffects{get;set;}=StatusIconArt.SharedEffectTable;
+    /// <summary>R5-F：180 印進聊天欄的 startMsg（最近 32 行，子碼 180）。</summary>
+    public PacketBoxMessageLine[] NoneTimeStartMessages{get{lock(packetBoxStatusGate)return [..packetBoxStartMessages];}}
+    /// <summary>R5-F：82 的變體旗標 +0x10（effect 293 正在顯示）。</summary>
+    public bool LeavesPcCafeFlag{get{lock(packetBoxStatusGate)return packetBoxNoneTimeIcons.ContainsKey(PacketBoxStatusRules.PcCafeEffect);}}
+    int? CurrentBaseMap()=>MapId is ushort m?PacketBoxStatusRules.BaseMap(m):null;
 
     /// <summary>B2 子碼套用後觸發（參數＝子碼），給狀態列／原生 UI 重新讀取。</summary>
     public event Action<int>? PacketBoxStatusChanged;
@@ -128,8 +172,11 @@ public sealed partial class WorldSession {
         var list=new List<PacketBoxStatusIcon>();
         if(packetBoxDkLevel is byte lv&&lv>0)
             list.Add(new(PacketBoxStatusRules.DkEffect,PacketBoxStatusRules.ModeSeconds,null,true,PacketBoxStatusRules.DkIcon(lv),$"dk:{lv}","弱點曝光",$"第 {lv} 階",packetBoxDkAt));
-        if(packetBoxLeaves is byte v&&PacketBoxStatusRules.LeavesEffectFor(v) is int le&&le<PacketBoxStatusRules.EffectTableCount)
-            list.Add(new(le,PacketBoxStatusRules.ModePercent,v,false,null,$"leaves:{v}","殷海薩的祝福",$"{v}%"));
+        // R5-F：82 依變體旗標選 175／518／574／575／576（≥ 540 的不建立）。原版換變體時不移除舊變體（值 ≤ 0 才一起移除）；
+        // 本模組只列目前的變體（既有測試 StatusIconFeedTests 的 201 → 不列；差異見 docs/reports/issue-738.md）。
+        if(packetBoxLeaves is byte v&&PacketBoxStatusRules.LeavesEffectFor(v,packetBoxLeavesMapBase==PacketBoxStatusRules.LeavesMapBase,
+               packetBoxNoneTimeIcons.ContainsKey(PacketBoxStatusRules.PcCafeEffect)) is int le&&le<PacketBoxStatusRules.EffectTableCount)
+            list.Add(new(le,PacketBoxStatusRules.ModePercent,v,false,null,$"leaves:{v}"+(le==PacketBoxStatusRules.LeavesEffect?"":$":{le}"),"殷海薩的祝福",$"{v}%"));
         foreach(var i in packetBoxNoneTimeIcons.Values)
             if(i.Effect<PacketBoxStatusRules.EffectTableCount)
                 list.Add(new((int)i.Effect,PacketBoxStatusRules.ModeSeconds,PacketBoxStatusRules.NoLimit,false,null,$"none-time:{i.Effect}",$"狀態 {i.Effect}","無期限"));
@@ -186,7 +233,8 @@ public sealed partial class WorldSession {
             // S_PacketBoxExp：C(值) C(0)×3。TW16 case 0x52 讀 `ddd`，第一個 D 正好是值；原版把值當 effect 175 的百分比（T265）。
             // 3.81 的值＝殷海薩祝福經驗 ÷ LeavesSet.EXP。
             byte value=r.C();if(r.C()!=0||r.C()!=0||r.C()!=0)throw new ProtocolException("invalid leaves padding");r.Finish();
-            apply=()=>{lock(packetBoxStatusGate)packetBoxLeaves=value;};
+            int? mapBase=CurrentBaseMap();
+            apply=()=>{lock(packetBoxStatusGate){packetBoxLeaves=value;packetBoxLeavesMapBase=mapBase;}};
             break;}
         case PacketBoxStatusRules.Karma:{
             int karma=unchecked((int)r.D());r.Finish();
@@ -226,7 +274,16 @@ public sealed partial class WorldSession {
         case PacketBoxStatusRules.NoneTimeIcon:{
             byte on=r.C();uint icon=r.D(),text=r.D();if(r.H()!=0)throw new ProtocolException("invalid none-time icon tail");r.Finish();
             if(on>1)throw new ProtocolException("invalid none-time icon switch");
-            apply=()=>{lock(packetBoxStatusGate){if(on==1)packetBoxNoneTimeIcons[icon]=new(icon,text);else packetBoxNoneTimeIcons.Remove(icon);}};
+            int? mapBase=CurrentBaseMap();
+            apply=()=>{
+                lock(packetBoxStatusGate){
+                    bool had=packetBoxNoneTimeIcons.ContainsKey(icon);
+                    if(on==1)packetBoxNoneTimeIcons[icon]=new(icon,text);else packetBoxNoneTimeIcons.Remove(icon);
+                    // R5-F：effect 293 新增（事件 0x15）或移除（0x16）時原版重跑 sub_736AC0 → 以當下的基底地圖重算 82。
+                    if(icon==PacketBoxStatusRules.PcCafeEffect&&had!=(on==1))packetBoxLeavesMapBase=mapBase;
+                }
+                if(on==1&&icon<PacketBoxStatusRules.EffectTableCount)PrintNoneTimeStartMessage((int)icon);
+            };
             break;}
         default:return false;
         }
@@ -237,12 +294,29 @@ public sealed partial class WorldSession {
         return true;
     }
 
+    /// <summary>R5-F：180 開 → effect 的 startMsg（string-c.tbl）進聊天欄，色 24。表或字串讀不到、startMsg 0 → 不印（不猜文字）。</summary>
+    void PrintNoneTimeStartMessage(int effect){
+        BuffEffectTable? table;
+        try{table=StartMessageEffects();}catch(Exception ex) when(ex is UiResourceException or UiLayoutException or IOException or InvalidDataException){table=null;}
+        int id=table?[effect]?.StartMsg??0;
+        string? text=id>0?PacketBoxMessageRules.Text(id,[]):null;
+        lock(packetBoxStatusGate){
+            if(text==null){if(table==null||id>0)packetBoxStartMessagesDropped++;return;}
+            packetBoxStartMessages.Add(new(PacketBoxStatusRules.NoneTimeIcon,id,[],text));
+            if(packetBoxStartMessages.Count>32)packetBoxStartMessages.RemoveAt(0);
+        }
+        playerChatLines.Enqueue(new(++playerChatSequence,0,text){ColorIndex=PacketBoxStatusRules.StartMessageColorIndex});
+        while(playerChatLines.Count>100)playerChatLines.Dequeue();
+        playerChatRevision++;
+    }
+
     [WorldReset]
     void ResetPacketBoxStatus(){
         lock(packetBoxStatusGate){
             packetBoxDkLevel=packetBoxLeaves=packetBoxEvasion=packetBoxWeaponRange=null;packetBoxKarma=null;packetBoxDkAt=null;
             packetBoxCooking=null;packetBoxMapTimes=null;packetBoxProtections.Clear();packetBoxNoneTimeIcons.Clear();
             packetBoxStatusCounts.Clear();packetBoxDelIcons=0;packetBoxUnknownProtections=0;
+            packetBoxLeavesMapBase=null;packetBoxStartMessages.Clear();packetBoxStartMessagesDropped=0;
         }
     }
 
@@ -257,6 +331,8 @@ public sealed partial class WorldSession {
             unknownProtections=packetBoxUnknownProtections,
             noneTimeIcons=packetBoxNoneTimeIcons.Values.Select(i=>new{iconId=i.IconId,stringId=i.StringId}).ToArray(),
             delIcons=packetBoxDelIcons,
+            leavesMapBase=packetBoxLeavesMapBase,leavesPcCafe=packetBoxNoneTimeIcons.ContainsKey(PacketBoxStatusRules.PcCafeEffect),
+            startMessages=packetBoxStartMessages.Select(l=>new{stringId=l.StringId,text=l.Text}).ToArray(),startMessagesDropped=packetBoxStartMessagesDropped,
             statusIcons=PacketBoxStatusIcons.Select(i=>new{effect=i.Effect,mode=i.DisplayMode,value=i.Value,defaultDuration=i.DefaultDuration,iconOverride=i.IconOverride,origin=i.Origin}).ToArray(),
             ui="data only: timed states feed MagicBuffs; 75/82/180 effect ids in statusIcons; icon drawing belongs to native UI buff-icons",
         };
