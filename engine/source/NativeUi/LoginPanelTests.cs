@@ -107,7 +107,7 @@ static class LoginPanelTests {
         int I(string n)=>w.Pieces.ToList().FindIndex(x=>x.Name==n);
         t.Check(I("Exit_Button_Multi")<I("Exit_Button")&&I("EditBox_Back")<I("Password_Input")&&I("Mark")<I("Login_Button")&&I(LoginPanel.IdInput)==w.Pieces.Count-1,"children painted in reverse XML order");
         t.Check(p.Missing.Count==1&&p.Missing[0].StartsWith("surf 99 ",StringComparison.Ordinal)&&p.Missing[0].EndsWith("/@Surf)",StringComparison.Ordinal),"missing surf listed",p.Missing);
-        t.Check(w.Find("Gone") is {BaseSurface:null}&&w.Find("Gone")!.Local.IsEmpty,"missing image kept, not drawn, no area");
+        t.Check(w.Find("Gone") is {BaseSurface:null}&&w.Find("Gone")!.Local.Size.IsEmpty,"missing image kept, not drawn, no area");
         t.Check(p.Skipped.Any(s=>s.Contains("Window[2]/Image[")&&s.Contains("執行期")),"Back_Image without Surf skipped",p.Skipped);
         t.Check(p.Skipped.Any(s=>s.Contains("Notice_Window"))&&p.Skipped.Any(s=>s.Contains("Credit_Window")),"other windows skipped",p.Skipped);
         t.Equal(new Rectangle(295,200,465,380),w.Extent,"window extent = union of built pieces (no declared size)");
