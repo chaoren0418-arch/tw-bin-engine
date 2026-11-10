@@ -10,7 +10,17 @@ namespace P06.NativeUi;
 //   - 名稱與人數的字型、顏色、對齊待驗證 → 用 UiText 預設字、白字、左上 +2 px。
 //   - Moveable="20" 推測為可拖曳的上方高度（px）。
 //   - surf 寫法 "4990;1" 的第二個數字意義待驗證 → 只用第一個 surf。
-//   - 開窗方式（快捷鍵或指令）與 FriendName 等事件的效果待驗證 → 只做選取，不送封包。
+//   - 開窗方式（快捷鍵或指令）待驗證（M37）→ 沿用 BuddyUi.cs 的過渡入口。
+// R9-H（T368／#852）：清單列事件（FU9 §9.2 XML 窗事件表，已驗證，靜態）：
+//   - FriendUI `FriendName` 4142（Delete，sub_B18F10）：Y/N 字串 1813「要刪除你所選擇的好友嗎?」→ 是 → cs 124（＝3.81 C_DelBuddy C202）。
+//     1813 原文已用 docs/reference/rea-scripts/t267/text_tables.py 從 0-客戶端 Text.pak 的 string-c.tbl 讀出確認；執行期照字串表，
+//     表不在時用同一句。提示畫在聊天輸入列 YesNoButtons.Line（FriendDeletePromptPanel）；Y＝是、N／Esc＝否（推測：原版
+//     Y/N 提示的確切回答方式沿用 InputWindow 的 Y/N 規則，真機再確認）。
+//   - FriendUI `FriendName` 515（雙擊，sub_B19030）：把 `"名稱 ` 放進聊天輸入列（密語前綴，PlayerChatProtocol 以 '"' 開頭解析成密語）。
+//   - FriendUI 27（Esc，sub_B191F0）：關窗。ExcludeUI、MailExcludeUI 的 Esc 也只關本窗（推測：XML 同構；R7-H 全域 ESC 仍在後面）。
+//   - ExcludeUI `ExcludeName` 4142（sub_B18D30）：不確認，直接送 cs 7（＝3.81 C_Exclude C171，3.81 是切換：已在名單＝移除）。
+//   - MailExcludeUI 4142：TW16 只在旗標 0x2000 時送 csc 7，3.81 不支援信件封鎖 → 不送（FU9 §9.2）。
+//   送封包經 IFriendWindowHost（由 NativeUi 外的轉接實作；面板不碰 LoginConnection）。沒有宿主時 Delete 不詢問、不送。
 
 public enum FriendListKind { Friend, Exclude, MailExclude }
 
@@ -25,6 +35,18 @@ public sealed record FriendListData(FriendListRow[] Rows) {
 public interface IFriendListSource {
     FriendListData Read(FriendListKind kind);
 }
+
+/// <summary>
+/// R9-H（#852）：清單列事件的送出端（實作在 NativeUi 外，例如 LoginConnection.SendBuddy 的轉接）。
+/// Friend → C202（BuddyAction.Delete）；Exclude → C171（BuddyAction.ToggleExclude）。MailExclude 不會呼叫。
+/// 回傳 true＝已受理（開始送出）；false＝目前不能送（不在世界、名單已更新、名稱不合法）。
+/// </summary>
+public interface IFriendWindowHost {
+    bool Remove(FriendListKind kind,string name);
+}
+
+/// <summary>1813 Y/N 詢問：Revision 每次新詢問 +1，回答時用來確認還是同一個詢問。</summary>
+public sealed record FriendDeleteConfirm(int Revision,string Name,string Text);
 
 /// <summary>What differs between the three XML files (windows.md §1.2 table).</summary>
 public sealed record FriendWindowSpec(FriendListKind Kind,string Layout,string RootName,string WindowName,string TitleImageName,string NameEvent) {
@@ -42,7 +64,61 @@ public static class FriendPanels {
     public static IFriendListSource? Source{get;set;}
     [UiPanel(120)]   // M7-V (#529): Friend_Window嚗xclude_Window嚗ailexclude_Window
     public static IReadOnlyList<UiPanelRegistration> Registrations{get;}=
-        FriendWindowSpec.All.Select(s=>new UiPanelRegistration(s.Id,s.Layout,_=>new FriendPanel(s,()=>Source))).ToArray();
+        FriendWindowSpec.All.Select(s=>new UiPanelRegistration(s.Id,s.Layout,root=>new FriendPanel(s,()=>Source,()=>Host,root.Find))).ToArray();
+    /// <summary>R9-H（#852）：Delete 的送出端。null → Delete 不詢問、不送（接線見 docs/reports/issue-852.md）。</summary>
+    public static IFriendWindowHost? Host{get;set;}
+
+    /// <summary>String 1813（string-c.tbl，FU9 §9.2）。</summary>
+    public const int DeleteConfirmId=1813;
+    /// <summary>0-客戶端 string-c.tbl 1813 原文（text_tables.py 讀出）；字串表不在時用。</summary>
+    public const string DeleteConfirmFallback="要刪除你所選擇的好友嗎?";
+    public static string DeleteConfirmText=>ServerMessageText.Table is {} t&&DeleteConfirmId<t.Count
+        &&ServerMessageText.DisplayText(t[DeleteConfirmId]).Trim() is {Length:>0} s?s:DeleteConfirmFallback;
+    /// <summary>密語前綴：`"名稱 `（sub_B19030）。</summary>
+    public static string WhisperPrefix(string name)=>"\""+name+" ";
+}
+
+/// <summary>
+/// R9-H（#852）：1813 Y/N 提示畫在聊天輸入列（YesNoButtons.Line，InputWindow 放提示的位置；WO §6、WIN2 §5.3）。
+/// 推測（真機再確認）：好友刪除的 Y/N 與伺服器詢問用同一個輸入列提示；Y＝是，N／Esc＝否。
+/// 伺服器詢問（YesNoPanel）顯示中時本面板讓位（不畫、不收鍵），詢問保留到它結束。聊天輸入列開著時不收 Y／N（字給聊天列）。
+/// 滑鼠一律不攔。
+/// </summary>
+public sealed class FriendDeletePromptPanel(Func<string,IUiPanel?>? find=null):IUiPanel {
+    public const string PanelId="R9H_FriendDeletePrompt";
+    [UiPanel(195)] internal static UiPanelRegistration Registration=>new(PanelId,"uistatus86",root=>new FriendDeletePromptPanel(root.Find));   // R9-H (#852): string 1813 Y/N on the chat input line
+
+    bool inWorld;
+    public string Id=>PanelId;
+    public UiLayer Layer=>UiLayer.Float;
+    FriendPanel? Friend=>find?.Invoke(FriendWindowSpec.Friend.Id) as FriendPanel;
+    bool Yielding=>find?.Invoke(YesNoPanel.PanelId) is {Visible:true};
+    bool ChatOpen=>find?.Invoke(ChatPanel.WindowName) is ChatPanel{Input.Open:true};
+    public FriendDeleteConfirm? Current=>inWorld&&!Yielding?Friend?.PendingDelete:null;
+    public bool Visible=>Current!=null;
+    public Rectangle Bounds=>Visible?YesNoButtons.Line:Rectangle.Empty;
+
+    public void Load(UiLayout layout,SurfCatalog surfs){}
+    public void Update(IUiGameState state)=>inWorld=state.InWorld;
+    public void Paint(UiCanvas canvas){
+        if(Current is not {} c)return;
+        var line=YesNoButtons.Line;var g=canvas.Graphics;var saved=g.Save();
+        try{
+            g.IntersectClip(line);var size=UiText.Measure(g,c.Text);
+            canvas.DrawText(c.Text,line.X,line.Y+Math.Max(0,(line.Height-size.Height)/2),Color.White,Color.Black);
+        }finally{g.Restore(saved);}
+    }
+    public bool Mouse(UiMouseEvent e,IUiCommands commands)=>false;
+    public bool Key(UiKeyEvent e,IUiCommands commands){
+        if(Current is not {} c||!e.Down||e.Repeat||Friend is not {} f)return false;
+        if((e.KeyData&Keys.Modifiers)!=Keys.None)return false;
+        var key=e.KeyData&Keys.KeyCode;
+        if(ChatOpen)return false;   // 聊天列開著：Y／N 是打字、Esc 先關聊天列
+        if(key==Keys.Escape)return f.AnswerDelete(c.Revision,false);
+        if(key==Keys.Y)return f.AnswerDelete(c.Revision,true);
+        if(key==Keys.N)return f.AnswerDelete(c.Revision,false);
+        return false;
+    }
 }
 
 /// <summary>Surf attribute of these XML files: "4990;1" or "4429". Only the first number is used (second number 待驗證).</summary>
@@ -114,12 +190,19 @@ public sealed record FriendWindowLayout(
 public sealed class FriendPanel:IUiMovablePanel,IUiClosablePanel {
     enum Press { None, Close, Up, Down, Track }
     readonly Func<IFriendListSource?> source;
+    readonly Func<IFriendWindowHost?> host;
+    readonly Func<string,IUiPanel?>? find;
     Func<int,UiSurface?> surf=_=>null;
     FriendWindowLayout? layout;
     Point location;Size size;Press pressed;bool visible;
     FriendListData data=FriendListData.Empty;
+    bool inWorld,canChat;int confirmRevision;
 
-    public FriendPanel(FriendWindowSpec spec,Func<IFriendListSource?> source){Spec=spec;this.source=source;}
+    /// <param name="host">R9-H：Delete 的送出端（null＝不送）。</param>
+    /// <param name="find">同一 UiRoot 的面板查找（雙擊找聊天面板）；null＝雙擊不放密語前綴。</param>
+    public FriendPanel(FriendWindowSpec spec,Func<IFriendListSource?> source,Func<IFriendWindowHost?>? host=null,Func<string,IUiPanel?>? find=null){
+        Spec=spec;this.source=source;this.host=host??(()=>null);this.find=find;
+    }
     public FriendWindowSpec Spec{get;}
     public string Id=>Spec.Id;
     public UiLayer Layer=>UiLayer.Window;
@@ -129,6 +212,8 @@ public sealed class FriendPanel:IUiMovablePanel,IUiClosablePanel {
     /// <summary>First list index shown in row 0.</summary>
     public int Top{get;private set;}
     public string? SelectedName{get;private set;}
+    /// <summary>R9-H：等待回答的 1813 Y/N（只有 FriendUI 會有）。</summary>
+    public FriendDeleteConfirm? PendingDelete{get;private set;}
     public IReadOnlyList<FriendListRow> Rows=>data.Rows;
     public int MaxTop=>layout==null?0:Math.Max(0,data.Rows.Length-layout.RowCount);
     /// <summary>Text of Count_Label (format 推測: the number of names).</summary>
@@ -141,7 +226,7 @@ public sealed class FriendPanel:IUiMovablePanel,IUiClosablePanel {
         surf=surfaces;layout=l;location=l.Origin;
         size=surf(l.Base.Id) is {} b?new(b.Width,b.Height):Extent(l);
         // Activate="0": the window starts closed (windows.md §1.2).
-        visible=false;pressed=Press.None;Top=0;SelectedName=null;
+        visible=false;pressed=Press.None;Top=0;SelectedName=null;PendingDelete=null;
     }
     // Base surf missing: the window still needs a hit rectangle; use the extent of its XML elements (no invented size).
     static Size Extent(FriendWindowLayout l){
@@ -150,17 +235,23 @@ public sealed class FriendPanel:IUiMovablePanel,IUiClosablePanel {
     }
 
     public void Show(){if(layout!=null)visible=true;}
-    public void Hide(){visible=false;pressed=Press.None;}
+    /// <summary>關窗時未回答的 1813 一併取消（推測：原版 Y/N 是否在關窗後仍可回答沒查；取消＝不送，較安全）。</summary>
+    public void Hide(){visible=false;pressed=Press.None;PendingDelete=null;}
     public void Toggle(){if(visible)Hide();else Show();}
     /// <summary>R7-H（#810）：堆疊關窗（被擠出、全域 ESC）＝關閉鈕（本機關窗，不送封包）。</summary>
     public void Close()=>Hide();
 
     public void Update(IUiGameState state){
+        inWorld=state.InWorld;
+        canChat=inWorld&&UiChatGameState.From(state).View is {CanSend:true};
         var next=state.InWorld&&source() is {} s?s.Read(Spec.Kind):FriendListData.Empty;
         data=next;
         Top=Math.Clamp(Top,0,MaxTop);
-        if(SelectedName!=null&&!data.Rows.Any(r=>string.Equals(r.Name,SelectedName,StringComparison.OrdinalIgnoreCase)))SelectedName=null;
+        if(SelectedName!=null&&!Has(SelectedName))SelectedName=null;
+        // 詢問中的名字已不在名單（伺服器更新、離開世界）→ 詢問作廢。
+        if(PendingDelete is {} p&&(!inWorld||!Has(p.Name)))PendingDelete=null;
     }
+    bool Has(string name)=>data.Rows.Any(r=>string.Equals(r.Name,name,StringComparison.OrdinalIgnoreCase));
     public void ScrollTo(int top)=>Top=Math.Clamp(top,0,MaxTop);
 
     // ---- geometry in logical 800×600 coordinates ----
@@ -211,7 +302,12 @@ public sealed class FriendPanel:IUiMovablePanel,IUiClosablePanel {
                 else if(UpRect.Contains(e.Location)){pressed=Press.Up;ScrollTo(Top-1);}
                 else if(DownRect.Contains(e.Location)){pressed=Press.Down;ScrollTo(Top+1);}
                 else if(TrackRect.Contains(e.Location)){pressed=Press.Track;Track(e.Y);}
-                else Select(e.Location);
+                else{
+                    var before=SelectedName;
+                    // 515（雙擊，sub_B19030）：同一列第二下 → 聊天列放 `"名稱 `（只有 FriendUI）。
+                    if(Select(e.Location) is {} name&&e.Clicks>=2&&Spec.Kind==FriendListKind.Friend&&string.Equals(before,name,StringComparison.OrdinalIgnoreCase))
+                        Whisper(name,commands);
+                }
                 return true;
             case UiMouseKind.Move:
                 if(pressed==Press.Track)Track(e.Y);
@@ -233,16 +329,66 @@ public sealed class FriendPanel:IUiMovablePanel,IUiClosablePanel {
         var t=TrackRect;
         Top=Math.Clamp((int)Math.Round((double)(y-t.Y)*MaxTop/Math.Max(1,t.Height-1)),0,MaxTop);
     }
-    void Select(Point p){
+    /// <summary>點到有名字的列 → 選取並回傳該名字；空列或列外 → null（選取不變）。</summary>
+    string? Select(Point p){
         var l=Layout;
         for(int i=0;i<l.RowCount;i++){
             if(!RowRect(i).Contains(p))continue;
-            int index=Top+i;if(index<data.Rows.Length)SelectedName=data.Rows[index].Name;
-            return;
+            int index=Top+i;if(index>=data.Rows.Length)return null;
+            return SelectedName=data.Rows[index].Name;
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// 515：把 `"名稱 ` 放進原生聊天輸入列（取代原本的草稿；同 MapSendEntry 的作法），不送封包。之後打字、Enter 走既有
+    /// ChatPanel → SendChat → 密語。聊天列不能開（不在世界、不能發話、送出中）→ false。
+    /// </summary>
+    public bool Whisper(string name,IUiCommands commands){
+        if(!canChat||find?.Invoke(ChatPanel.WindowName) is not ChatPanel chat||chat.Input.Pending||UiChatGameState.Commands(commands) is not {} c)return false;
+        if(!chat.Input.Open){
+            if(!c.BeginChatInput())return false;
+            chat.Input.Begin(false);
+        }
+        chat.Input.Clear();
+        string prefix=FriendPanels.WhisperPrefix(name);
+        foreach(char ch in prefix)chat.Input.Type(ch);
+        return chat.Input.Text==prefix;
+    }
+
+    /// <summary>
+    /// 4142（Delete）：FriendUI → 開 1813 Y/N；ExcludeUI → 直接送 C171；MailExcludeUI → 不送（3.81 不支援）。
+    /// 沒有選取、沒有宿主、不在世界 → false（鍵交給其他人）。
+    /// </summary>
+    public bool Delete(){
+        if(!visible||!inWorld||SelectedName is not {} name||!Has(name)||host() is not {} h)return false;
+        switch(Spec.Kind){
+            case FriendListKind.Friend:
+                PendingDelete=new(++confirmRevision,name,FriendPanels.DeleteConfirmText);return true;
+            case FriendListKind.Exclude:
+                h.Remove(FriendListKind.Exclude,name);return true;
+            default:return false;
         }
     }
-    // KeyboardEvent (FriendWindow／FriendName…) behaviour 待驗證: keys go to the game.
-    public bool Key(UiKeyEvent e,IUiCommands commands)=>false;
+    /// <summary>回答 1813：yes → C202；no → 什麼都不送。過期的 revision 不算（true＝這次回答被接受）。</summary>
+    public bool AnswerDelete(int revision,bool yes){
+        if(PendingDelete is not {} p||p.Revision!=revision)return false;
+        PendingDelete=null;
+        if(yes&&inWorld&&Has(p.Name))host()?.Remove(FriendListKind.Friend,p.Name);
+        return true;
+    }
+
+    // KeyboardEvent：Delete（4142）與 Esc（27）。其他鍵交給遊戲。聊天輸入列開著時 Delete 不攔（避免打字時刪人）。
+    public bool Key(UiKeyEvent e,IUiCommands commands){
+        if(!visible||layout==null||!e.Down||e.Repeat||(e.KeyData&Keys.Modifiers)!=Keys.None)return false;
+        switch(e.KeyData&Keys.KeyCode){
+            case Keys.Escape:Hide();return true;
+            case Keys.Delete:
+                if(find?.Invoke(ChatPanel.WindowName) is ChatPanel{Input.Open:true})return false;
+                return Delete();
+        }
+        return false;
+    }
 
     public bool IsDragHandle(Point p)=>visible&&layout!=null&&Bounds.Contains(p)&&p.Y-location.Y<Layout.Moveable&&!CloseRect.Contains(p);
     public void MoveTo(Point p)=>location=p;
