@@ -75,6 +75,30 @@ public sealed class ProductAmbientLoopAudio(IAudioStream stream) : IAmbientLoopA
     }
 }
 
+/// <summary>
+/// R6-A（T332）：地圖特效 `<`／`[` 的單次音效（A060F0）。檔名同 `^`（先 sound\N.mp3 再 sound\N.wav）；
+/// 最終音量＝距離音量/100 × SoundVolume × 主音量（A06D60；類別是推測，見 MapAmbientSound.OneShotScale）。
+/// 單次播放，播完由串流層釋放；這裡只記 handle 以便計數、Disarm 時一起被串流層清掉。
+/// </summary>
+public sealed class ProductOneShotAudio(IAudioStream stream) : IMapOneShotAudio
+{
+    readonly List<long> handles = [];
+    double scale = 1;
+    public double Scale => scale;
+    public int Live { get { Prune(); return handles.Count; } }
+    void Prune() => handles.RemoveAll(stream.Finished);
+    public bool Play(MapOneShotVoice voice, int volume)
+    {
+        Prune();
+        double final = ProductAmbientLoopAudio.Final(volume, scale);
+        if (final <= 0) return false;
+        long h = stream.Start(ProductEnvSoundAudio.Files(voice.SoundId), false, final);
+        if (h == 0) return false;
+        handles.Add(h); return true;
+    }
+    public void SetScale(double value) => scale = double.IsFinite(value) ? Math.Clamp(value, 0, 1) : 0;
+}
+
 /// <summary>進入世界時安裝三個後端（ClientSoundScene.Configure＋MapAmbientSound.Backend）。只有產品 ClientForm 會 Arm。</summary>
 public static class ProductSound
 {
@@ -89,6 +113,7 @@ public static class ProductSound
     public static ProductMusicAudio? Music { get; private set; }
     public static ProductEnvSoundAudio? Env { get; private set; }
     public static ProductAmbientLoopAudio? Ambient { get; private set; }
+    public static ProductOneShotAudio? OneShot { get; private set; }
     public static string Status { get; private set; } = "未啟用";
     public static bool Armed => armed;
 
@@ -106,8 +131,9 @@ public static class ProductSound
         armed = false; loading = null;
         ClientSoundScene.Reset();
         if (ReferenceEquals(MapAmbientSound.Backend, Ambient)) MapAmbientSound.Backend = null;
+        if (ReferenceEquals(MapAmbientSound.OneShotBackend, OneShot)) MapAmbientSound.OneShotBackend = null;
         (Stream as IDisposable)?.Dispose();
-        Stream = null; Music = null; Env = null; Ambient = null; Status = "未啟用";
+        Stream = null; Music = null; Env = null; Ambient = null; OneShot = null; Status = "未啟用";
         factory = root => AudioStreamPlayer.Create(root); load = SoundDefinitionSource.Load;
     }
 
@@ -121,8 +147,9 @@ public static class ProductSound
             clientRoot = Environment.GetEnvironmentVariable(ClientRootVariable) ?? DefaultClientRoot;
             try { Stream = factory(clientRoot); }
             catch (Exception ex) { armed = false; Status = "串流層無法建立：" + ex.Message; return; }
-            Music = new(Stream); Env = new(Stream); Ambient = new(Stream);
+            Music = new(Stream); Env = new(Stream); Ambient = new(Stream); OneShot = new(Stream);
             MapAmbientSound.Backend = Ambient; // `^` 不需要定義檔，立即可用。
+            MapAmbientSound.OneShotBackend = OneShot; // R6-A：`<`／`[` 單次音效，同樣不需要定義檔。
             string root = clientRoot; var read = load;
             loading = Task.Run(() => read(root));
             Status = "讀取 music.def／envsound.def";
@@ -137,7 +164,7 @@ public static class ProductSound
     public static object Snapshot() => new
     {
         status = Status, armed, clientRoot,
-        music = Music?.Live ?? 0, env = Env?.Live ?? 0, ambient = Ambient?.Live ?? 0, ambientScale = Ambient?.Scale,
+        music = Music?.Live ?? 0, env = Env?.Live ?? 0, ambient = Ambient?.Live ?? 0, ambientScale = Ambient?.Scale, oneShot = OneShot?.Live ?? 0,
         stream = (Stream as AudioStreamPlayer)?.Stats,
     };
 }

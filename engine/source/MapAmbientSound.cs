@@ -26,11 +26,25 @@ public sealed record MapAmbientCue(int Mode,int[] Candidates)
     }
 }
 
+// R6-A（T332）：地圖特效 `<`／`[` 的單次音效（A3FBB8／A3FC2E → A060F0，sound.md §2.1、§2.4；REA B04）。
+// Mode＝0（`<`）或 1（`[`），兩者原版行為相同。
+public sealed record MapOneShotVoice(long Number,int SoundId,string Emitter,int Mode);
+/// <summary>A060F0：單次播放（AIL_quick_play 次數 1）。volume 是發聲體 0..100 的距離音量；Play 回 false 表示沒播出。
+/// SetScale：類別音量 × 主音量（0..1），後端乘到距離音量上（A06D60）。</summary>
+public interface IMapOneShotAudio {
+    bool Play(MapOneShotVoice voice,int volume);
+    void SetScale(double scale){}
+}
+
 // T173（#447）：距離音量與 200ms 冷卻改走 SoundRules／SoundCooldown 共用層。產品傳 SoundCooldown.Shared
 // （與戰鬥音效、S22 同一份、同一時鐘 Environment.TickCount64）；未指定時用獨立表，供離線測試隔離。
-public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random,SoundCooldown? cooldownTable=null)
+public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random,SoundCooldown? cooldownTable=null,IMapOneShotAudio? oneShot=null)
 {
     readonly IAmbientLoopAudio audio=audio;
+    /// <summary>R6-A：`<`／`[` 的單次音效後端；null 時不播、也不佔冷卻。</summary>
+    public IMapOneShotAudio? OneShotAudio {get;set;}=oneShot;
+    /// <summary>R6-A：已送出的單次音效數（診斷用）。</summary>
+    public long OneShotsPlayed {get;private set;}
     public const int SourcesPerSound=5,CooldownMs=SoundRules.CooldownMs,Reach=SoundRules.MaxManhattan;
     readonly SoundCooldown cooldown=cooldownTable??new();
     sealed class Emitter(MapAmbientSource source)
@@ -53,6 +67,8 @@ public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random,SoundC
     public static int DistanceSquared(int dx,int dy)=>(int)Math.Min(int.MaxValue,(long)dx*dx+(long)dy*dy);
     public static MapAmbientCue[] Cues(MapEffectAppearance appearance)=>cues.GetValue(appearance,a=>a.Sequence.Select(s=>MapAmbientCue.Parse(s.Events)).ToArray());
     public static bool HasAmbient(MapEffectAppearance appearance)=>Cues(appearance).Any(c=>c.Mode==MapAmbientCue.Ambient&&c.Candidates.Length>0);
+    /// <summary>R6-A：有任何 `<`、`[` 或 `^` 候選的地圖特效都是發聲體。</summary>
+    public static bool HasSound(MapEffectAppearance appearance)=>Cues(appearance).Any(c=>c.Mode>=0&&c.Candidates.Length>0);
     // 24 tick/秒，與 MapEffectAppearance.At 同一時鐘；回傳「第幾次進幀」的絕對序號。
     public static long Step(MapEffectAppearance appearance,long elapsed)
     {
@@ -102,10 +118,14 @@ public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random,SoundC
         if(self is not {} p)return; // A3EF40：自身角色不存在時不選音、不調音量。
         int dx=p.X-emitter.Source.X,dy=p.Y-emitter.Source.Y;
         var cue=Cues(emitter.Source.Appearance)[index];
-        if(cue.Mode==MapAmbientCue.Ambient&&cue.Candidates.Length is >=1 and <=SourcesPerSound)
+        if(cue.Mode>=0&&cue.Candidates.Length is >=1 and <=SourcesPerSound)
         {
             int id=cue.Candidates.Length==1?cue.Candidates[0]:cue.Candidates[random.Next(cue.Candidates.Length)];
-            if(id!=0)Admit(emitter,id,DistanceSquared(dx,dy),now,audible); // 抽到 0 略過，不重抽。
+            if(id!=0) // 抽到 0 略過，不重抽。
+            {
+                if(cue.Mode==MapAmbientCue.Ambient)Admit(emitter,id,DistanceSquared(dx,dy),now,audible);
+                else PlayOnce(emitter,id,cue.Mode,now,audible); // R6-A：`<`＝0、`[`＝1 都走 A060F0。
+            }
         }
         // A091C0：播放在前、調音量在後，所以新音源先用上一輪的音量啟動。走遠只降到 0，不停止。
         int volume=Volume(dx,dy);
@@ -134,6 +154,21 @@ public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random,SoundC
         for(int i=slot.Count-1;i>0&&slot[i].D2<slot[i-1].D2;i--)(slot[i],slot[i-1])=(slot[i-1],slot[i]); // 穩定的泡泡排序。
     }
 
+    // R6-A：A060F0（sound.md §2.4）→ A06020(sample, 1, 0, 1)。
+    // - 沒有槽表、沒有「發聲體音量為 0 不啟動」的前提；同一發聲體同 id 可以重疊播放（不追蹤是否還在播）。
+    // - A06020：三類音量都是 0（audible=false）不播、不佔冷卻；之後每個 id 全域 200ms 冷卻（與 `^`、戰鬥音效同一份）。
+    // - 音量：播放在 A091C0 之前，所以用發聲體上一輪的距離音量。原版音量 0 也會播（無聲）並佔冷卻；
+    //   這裡冷卻同樣佔用，但不送出無聲 voice（同 SoundGate）。
+    // 引擎取捨（推定）：播放中不再跟著距離改音量（原版 A091C0 也會改發聲體名下還在播的單次 sample）。
+    void PlayOnce(Emitter emitter,int id,int mode,long now,bool audible)
+    {
+        if(OneShotAudio is not {} sink)return;
+        if(!audible)return;
+        if(!cooldown.TryAcquire(id,now))return;
+        if(emitter.Volume<=0)return;
+        if(sink.Play(new(++voiceNumber,id,emitter.Source.Key,mode),emitter.Volume))OneShotsPlayed++;
+    }
+
     // A04A20／A04BF0：物件移除時停掉它的每個音源，並從槽表移除、後面往前補。
     void Release(Emitter emitter)
     {
@@ -148,6 +183,8 @@ public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random,SoundC
 
     // 產品掛載：Renderer.ComposeMapEffects 每次組畫面呼叫一次。沒有循環播放後端時不建立任何狀態。
     public static IAmbientLoopAudio? Backend {get;set;}
+    /// <summary>R6-A：`<`／`[` 單次音效的產品後端（ProductSound 設定）；null 時不播。</summary>
+    public static IMapOneShotAudio? OneShotBackend {get;set;}
     static readonly ConditionalWeakTable<WorldSession,MapAmbientSound> sessions=new();
     public static MapAmbientSound? Of(WorldSession session)=>sessions.TryGetValue(session,out var model)?model:null;
     public static void Observe(WorldSession session,long now)
@@ -157,8 +194,10 @@ public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random,SoundC
             if(Backend is not {} backend)return;
             model=new(backend,Random.Shared,SoundCooldown.Shared);sessions.Add(session,model);
         }
+        model.OneShotAudio=OneShotBackend;
         var sources=Sources(session,now);
         if(sources.Length>0||model.Emitters>0)model.audio.SetScale(Scale(session)); // T252：先套類別音量，已在播的循環也跟著變。
+        if(sources.Length>0)model.OneShotAudio?.SetScale(OneShotScale(session));
         model.Update(sources,session.Actor is {} actor?(actor.X,actor.Y):null,now,sources.Length>0&&Audible(session));
     }
     // 音量與靜音沿用 6016 host 已同步的主控制值（ClientForm 維護）。
@@ -166,6 +205,9 @@ public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random,SoundC
     static bool Audible(WorldSession session)=>session.Renderable&&session.Effects6016 is {Closed:false,Muted:false} host&&host.Gain>0&&!ClientSoundScene.Volumes.EffectCategoriesSilent;
     // T252：EnvSoundVolume × 主音量；靜音、關閉或不可繪製時為 0（已在播的循環降到無聲，不停止）。
     public static double Scale(WorldSession session)=>session.Renderable&&session.Effects6016 is {Closed:false,Muted:false} host&&host.Gain>0?ClientSoundScene.Volumes[SoundCategory.EnvSound]*host.Gain:0;
+    // R6-A：單次音效用 SoundVolume × 主音量。推測：sound.md §4.1 只說 A06C30 對有 +5 旗標的 sample 用 EnvSoundVolume，
+    // A060F0 新建的 sample 沒看到設這個旗標，所以取預設的音效類別（待驗證）。
+    public static double OneShotScale(WorldSession session)=>session.Renderable&&session.Effects6016 is {Closed:false,Muted:false} host&&host.Gain>0?ClientSoundScene.Volumes[SoundCategory.Sound]*host.Gain:0;
     public static MapAmbientSource[] Sources(WorldSession session,long now)
     {
         if(session.MapCache is not {} cache||!session.Renderable)return [];
@@ -176,7 +218,7 @@ public sealed class MapAmbientSound(IAmbientLoopAudio audio,Random random,SoundC
             for(int ordinal=0;ordinal<block.Effects.Length;ordinal++)
             {
                 var effect=block.Effects[ordinal];
-                if(effect.Id==6016||!HasAmbient(effect.Appearance))continue; // 6016 由 Effect6016Controller 負責。
+                if(effect.Id==6016||!HasSound(effect.Appearance))continue; // 6016 由 Effect6016Controller 負責。R6-A：含 `<`／`[`。
                 result.Add(new($"{session.WorldEpoch}/{cache.MapId}/{block.Name}@{block.Generation}:{ordinal}",effect.X,effect.Y,effect.Appearance,now-block.EffectsAt));
             }
         }
