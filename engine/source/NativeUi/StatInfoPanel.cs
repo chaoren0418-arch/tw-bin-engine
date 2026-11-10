@@ -1,4 +1,32 @@
-namespace P06.NativeUi;
+namespace P06 {
+    /// <summary>
+    /// R7-I (#811): op 43 → StatInfoUI. TW16 sub_94E0E0 (op 43, = 3.81 S64 S_CharReset kinds 1–3, WIN§2 T142) calls
+    /// dword_15433B4 (StatInfoUI) vtable+0x44 with 0 in kind 1 (0x94E202, again 0x94E25B) and kind 2 (0x94E3DA); kind 3 does
+    /// not touch it. vtable 0x11E2C54 (set by the constructor 0xEDCF00) +0x44 = sub_EDDB80 = SetShow(bool): 0 → close branch.
+    /// So op 43 *closes* the stat info window (static analysis, capstone; scratch/issue-811). Observer only: CharReset.cs keeps
+    /// consuming S64. Only a packet CharResetPackets.Parse accepts posts a request; StatInfoPanel polls it in Update.
+    /// </summary>
+    public static class StatInfoResetHide {
+        static readonly object gate=new();
+        static long revision;
+        /// <summary>Monotonic (never reset): a panel closes when it sees a value different from the one it last saw.</summary>
+        public static long Revision{get{lock(gate)return revision;}}
+        public static long Post(){lock(gate)return ++revision;}
+        /// <summary>S64 kinds that hide StatInfoUI (op 43 subcodes 1 and 2).</summary>
+        public static bool Hides(byte kind)=>kind is 1 or 2;
+    }
+
+    public sealed partial class WorldSession {
+        [WorldReceive(64,Observe=true)]
+        void ObserveStatInfoResetHide(byte[] plain){
+            if(plain.Length<2||!StatInfoResetHide.Hides(plain[1]))return;
+            try{CharResetPackets.Parse(plain);}catch(ProtocolException){return;}
+            StatInfoResetHide.Post();
+        }
+    }
+}
+
+namespace P06.NativeUi {
 
 // T325 (#763, P-D of docs/reference/pak-resources.md §6, row 4:StatInfoUI): the native stat bonus window CStatInfoUI.
 // TW16 reads StatInfoUI.xml; 0-客戶端 does not ship it (PAK§4.2). It is read at run time from the reference client through
@@ -20,6 +48,13 @@ namespace P06.NativeUi;
 // - Opening: RenewalStatusPanel's StatusBonus_Button (MouseEvent ShowStatInfoTooltip) is a CheckButton. When it becomes
 //   checked while the status window is open, this window opens next to the status window's right edge (kept inside
 //   800×600); unchecking it or closing the status window closes this one. Esc (KeyboardEvent CloseStatInfoWindow) closes.
+// - R7-I (#811): the status window now opens from menu button 2 / Ctrl+A (MenuButtonsPanel), so this window can open in the
+//   product. op 43 (S64 kinds 1／2) closes it (StatInfoResetHide above; the original never opens it from op 43 — gap-matrix
+//   15.6 said "op 43 開 StatInfo", the disassembly shows SetShow(0)). The check button keeps its state (原版未查).
+// - R7-I (#811) values: the product sets ValueProvider (BonusStatsUi.cs) to BonusValue over the status-window view. The 22
+//   rows are stat bonuses grouped by stat (BonusRows). TW16 keeps 22 row values in sub_7A7590()+0x23C (stride 0x14, index
+//   < 0x16, sub_EBB050) computed by sub_EB85F0 — not traced. The engine's own totals (MaxHp, MR…) are different numbers, so
+//   no row has a value source yet and every value stays blank (rule 5: no invented numbers; 待查).
 
 public sealed record StatInfoRow(string Name,string? LabelName,string? LabelKind,string? LabelValue,string? ValueName,Point LabelOffset,Size LabelSize,
     Point ValueOffset,Size ValueSize,Color LabelColor,Color ValueColor,string ValueHAlign,string ValueVAlign,string LabelVAlign);
@@ -45,9 +80,26 @@ public sealed class StatInfoPanel(UiResources? resources=null,UiRoot? root=null)
     public IReadOnlyList<string> Missing{get;private set;}=[];
     public IReadOnlyList<string> Skipped{get;private set;}=[];
     public Func<string,string,string?>? TextResolver{get;set;}
-    /// <summary>"DmgBonus_Value" → text; null provider or null result = blank (the product has none yet).</summary>
+    /// <summary>"DmgBonus_Value" → text; null provider or null result = blank. R7-I: the product sets it (BonusStatsUi.cs).</summary>
     public Func<string,string?>? ValueProvider{get;set;}
-    bool open,followed;
+    bool open,followed;long resetSeen=StatInfoResetHide.Revision;
+
+    /// <summary>One bonus row: value label, the stat it belongs to, and how the engine computes it (null = source unknown, blank).</summary>
+    public sealed record BonusRow(string ValueName,string Stat,Func<RenewalStatusView,string?>? Value=null);
+    /// <summary>
+    /// R7-I (#811): the 22 rows of StatInfoUI.xml in XML order (kor25／ly／t89 copies identical, 7,371 B). Groups by stat are
+    /// 推測 from that order: STR 4, DEX 5, INT 5, CON 4, WIS 4 (CarryBonus_Value appears under STR and CON). The labels'
+    /// strings 3857–3878 are "dummy" in the reference string-c.tbl, so the grouping cannot be read from text either.
+    /// </summary>
+    public static readonly IReadOnlyList<BonusRow> BonusRows=[
+        new("DmgBonus_Value","str"),new("HitBonus_Value","str"),new("Critical_Value","str"),new("CarryBonus_Value","str"),
+        new("MissileDmg_Value","dex"),new("MissileHit_Value","dex"),new("MissileCri_Value","dex"),new("ACBonus_Value","dex"),new("ERBonus_Value","dex"),
+        new("MagicDmg_Value","int"),new("MagicHit_Value","int"),new("MagicCri_Value","int"),new("MagicBonus_Value","int"),new("MPReduce_Value","int"),
+        new("MaxHP_Value","con"),new("HPRecover_Value","con"),new("HPPotion_Value","con"),new("CarryBonus_Value","con"),
+        new("MaxMP_Value","wis"),new("MPRecover_Value","wis"),new("MpPotion_Value","wis"),new("MR_Value","wis"),
+    ];
+    /// <summary>Product value of a row for the current character view; null = unknown name, unknown source, or no data.</summary>
+    public static string? BonusValue(string valueName,RenewalStatusView view)=>BonusRows.FirstOrDefault(r=>r.ValueName==valueName)?.Value?.Invoke(view);
 
     public void Load(UiLayout host,SurfCatalog surfs){
         Clear();
@@ -126,6 +178,9 @@ public sealed class StatInfoPanel(UiResources? resources=null,UiRoot? root=null)
     public bool Toggle(){if(open){Close();return true;}return Open();}
 
     public void Update(IUiGameState state){
+        // R7-I: op 43 kinds 1／2 close the window (seen once per packet; following resumes on the next check change).
+        long reset=StatInfoResetHide.Revision;
+        if(reset!=resetSeen){resetSeen=reset;if(open)Close();}
         if(!state.InWorld){if(open)Close();followed=false;return;}
         if(root?.Find(RenewalStatusPanel.PanelId) is not RenewalStatusPanel status)return;
         bool want=status.Visible&&status.StatInfoChecked&&!root.Faulted.Contains(status);
@@ -161,4 +216,5 @@ public sealed class StatInfoPanel(UiResources? resources=null,UiRoot? root=null)
         if(!open||!e.Down||e.Repeat||e.KeyCode!=Keys.Escape)return false;
         Close();return true;
     }
+}
 }

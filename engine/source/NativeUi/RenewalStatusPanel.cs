@@ -32,7 +32,11 @@ namespace P06.NativeUi;
 // - Gauges HpGauge/MpGauge draw their png cropped to cur/max width; LevGauge is not drawn (exp % is not known here).
 // - Stat Up_Button is shown (normal / push while held) only while bonus points can be chosen (RenewalStatusView.CanRaise);
 //   a click calls StatPointUp with the attribute key ("str"…). Down_Button is never shown (the engine has no "undo" step).
-// - Tooltip elements are not built. Not wired (待做): ShowStatInfoTooltip (StatInfoUI) only toggles the check image, Karma.
+// - Tooltip elements are not built. ShowStatInfoTooltip toggles the check image; StatInfoPanel (#763) follows it. Karma not wired.
+//
+// Entry (R7-I, #811; FU4§1.1 TW13 off_8F023C／sub_4D3910): menu button 2 and Ctrl+A toggle this window through
+// UiRoot.Toggle (MenuButtonsPanel.Invoke → Open). Unavailable (no reference XML / faulted) → the dev-tools 「角色」 page,
+// as before. --classic-ui has no native root: the WinForms bonus-stats panel is the only entry, unchanged.
 
 /// <summary>Values shown by the window; null = the server never sent it / the engine does not know it (drawn blank).</summary>
 public sealed record RenewalStatusView(int? Level,long? Hp,long? MaxHp,long? Mp,long? MaxMp,int? Str,int? Int,int? Dex,int? Wis,int? Con,int? Cha,
