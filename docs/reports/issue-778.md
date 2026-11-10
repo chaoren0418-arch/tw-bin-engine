@@ -34,8 +34,9 @@
 - `py -B -X utf8 engine/tools/check-no-game-assets.py`：`status: pass`、errors 0。
 - 依本機規定**沒有在本機執行任何測試程式**；`--module-tests`（含 `map-effect-followup`）與 sound-packets／map-ambient 測試交給 PR 的 GitHub Actions CI。
 
+- **CI（PR #796，run 42776699514）**：dotnet、map-continuity、npc-offline 全部 pass；`map-effect-followup` pass（42 checks）；sound-packets 148 項 PASS。
+
 ## 未驗證什麼（待驗證）
-- CI 結果（push 後看 PR）。
 - 真機：S55 方向在實際有方向的 magic 素材上是否正確；7 個跟隨 gfx 的實際觀感；地圖上 `<`／`[` 音效的音量與頻率。需要開遊戲，交給 Codex／dot。
 - **推測**：單次音效的類別音量用 `SoundVolume`（`sound.md` §4.1 只說 A06C30 對有 `+5` 旗標的 sample 用 `EnvSoundVolume`，A060F0 新建的 sample 沒看到設這個旗標）。
 - **引擎取捨**：單次音效播放中不再跟著距離改音量（原版 A091C0 會改發聲體名下還在播的 sample）；不跟隨的 S55 在對象離開時仍隨對象結束（原版是否繼續留在原地沒查）。
