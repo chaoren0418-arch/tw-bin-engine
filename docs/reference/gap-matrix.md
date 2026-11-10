@@ -2073,12 +2073,12 @@ R6-D 補充：不同格時用 `ApproachWalk.cs:49` 的通行判斷（FU8§6）�
 
 **新增真機項目**（細節見 FU9§16.3）
 - M34：HyperText 的 `<font fg>` 位元組順序與連結色。**靜態結果（T381／#886，[`followups-11.md`](followups-11.md)）**：已驗證 fg／bg 數值直接當 GDI COLORREF（`0x00BBGGRR`，`sub_866070` `SetTextColor`／`CreateSolidBrush`）；連結 `0x00B0FFFF`＝RGB(FF,FF,B0) 淡黃、hover `0x32F00A`＝RGB(0A,F0,32)、預設字色 `0xEEEDEE`、沒有「已點過」色；bg＝run 寬 × 整列高。R9-F 的 `HyperTextColors.Order` 應改 `Bgr`（FU11§2）。真機只剩截 `helpcom`／`helpcon` 對色與確認 hover。
-- M35：選目標模式下的游標。
+- M35：選目標模式下的游標。**靜態結果（T385／#898，[`followups-13.md`](followups-13.md) §2）**：已驗證進入模式（`sub_F691C0`）不換游標，但下一次滑鼠在世界上移動時 `sub_F02BA0`→`sub_F044C0` 換成索引 **8**（BIN 內嵌游標 136／208，橢圓瞄準框）；技能回呼（type 4）依射程 8／19／20，`byte_139FBAF`／`byte_13CE3F8` 時改 15；選完或取消還原 3（手形）。引擎目前不換游標（`Magic.cs:10–16`，FU13 D1／D2）。真機只需對照瞄準游標。
 - ~~M36：3.81 倉庫的堆疊數量輸入（1:127）。~~ **已靜態確認，移除**（T384／#896，FU12§1）：列內 ▼ 數量 ▲＋鍵盤輸入，預設 0。只剩「開過商店後清單上限 1000 殘值」的推測（FU12§1.3），不必專門測。
-- M37：好友窗的開窗鍵；`/exclude 名稱` 在 3.81 是否讀名稱。
+- M37：好友窗的開窗鍵；`/exclude 名稱` 在 3.81 是否讀名稱。**靜態結果（T385／#898，FU13§3）**：已驗證 TW16 **沒有**單獨打開 `FriendUI` 的熱鍵或選單（`dword_153FCB4` 的 21 個讀寫點都不顯示視窗，`Friend_Window` 字串不在 BIN）；名單入口是 `/buddy` 與 HyperAct `buddy`（都送 `c` 56），回覆畫在 TW16 社群窗。`Commandexclude`（`sub_F54D40`）固定傳空字串，TW16 確定不讀名稱。3.81 推測是 S39 `buddy` → 本機 `buddy-c.html` 頁（FU13 D3–D5）。真機剩：3.81 的 `/buddy` 畫面與 `/exclude 名稱` 是否送出。
 - ~~M38：個人商店 0xFF 分隔的顯示；寶箱鈕的作用。~~ **已靜態確認，移除**（T384／#896，FU12§2）：0xFF 切兩行（第一行滿 40 byte 也換行），頭上每 5000 ms 輪流顯示；3.81 `LiTo.bin` 不讀任何 UI XML，`uimagicitem.xml` 的寶箱鈕與 `uiextra86` 的 `ADENA_EXCHANGE_WINDOW` 在 3.81 都不存在（寫死的背包窗有沒有類似鈕未查，維持不做）。
-- M39：召喚窗停用格的外觀與能不能點。
-- M40：登入 `Back_Image`。
+- M39：召喚窗停用格的外觀與能不能點。**靜態結果（T385／#898，FU13§4）**：已驗證 `DisableOverSurf="13"` 不是 surf，是 `XmlBoardImage` 半透明色塊（palette[0]、強度 13），停用格**每幀常駐**畫在格圖上、子元件下，不看滑鼠；停用格的 513／514 不呼叫事件（只有從別處拖來放開才會），提示照常。`SummonPanel.cs:207–208`、`:338` 要改（FU13 D6–D9）。真機只需對照暗度。
+- M40：登入 `Back_Image`。**靜態結果（T385／#898，FU13§5）**：已驗證是 **Png 動畫** 1825–1842（`sub_EEAC50` 設 png 模式 0，`sub_EE8D40` 每 > 200 ms 換下一張，1826 起、1825 收尾，18 張），本機 24 個 idx 沒有、kor25／ly `Sprite*.pak` 有（800×600，SHA-256 見 FU13§5.2）。`LoginPanel.cs` 要改成畫這組動畫（FU13 D11／D12）。真機只需對照。
 
 ### 15.12 第七輪盤點與 M7 結案判定（T379／#880，2026-11-11）
 
