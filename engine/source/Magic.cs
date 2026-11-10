@@ -2,14 +2,21 @@ using System.Buffers.Binary;
 namespace P06;
 public sealed record LearnedMagic(int Id,string Name,bool Supported,string Target,int NominalMp);
 public sealed record MagicEffect(long Number,uint Caster,uint Target,int Gfx,int Action,ushort DamageWord,int Heading,ushort SourceX,ushort SourceY,ushort TargetX,ushort TargetY,long At,uint ServerSequence=0,ushort CasterGfx=0){public ActionCadence? Timing{get;init;}public long? ActionAt{get;init;}public int? CasterWeapon{get;init;}public byte? RangeType{get;init;}}
-/// <summary>SV#3 選目標模式：技能、範圍（格）、游標編號（179 推測，Q7-8）。</summary>
+/// <summary>SV#3 選目標模式：技能、範圍（格）、提示字串編號（179，FU9§8）。</summary>
 public sealed record SpellTargetPick(int Skill,int Range,int Cursor,int Epoch,int TargetRevision);
 public static class SpellTargeting {
     /// <summary>sub_E2AB60 → sub_F691C0(…, 15, 179)：選目標範圍 15 格。</summary>
     public const int Range=15;
-    /// <summary>sub_F691C0 的第 3 個參數；推測是游標編號，沒有對過資源（SV§1.3、Q7-8）。</summary>
-    public const int Cursor=179;
-    public const string PickNotice="請點選施法目標（15 格內）；點地面取消";
+    /// <summary>
+    /// sub_F691C0 的第 3 個參數：字串 179，進入模式時印到聊天欄（已驗證，FU9§8.1：sub_F690D0(179) → sub_7DC800 以 palette[24]
+    /// 印 string-c.tbl 第 179 行「\f1請選擇對象。」）。不是游標編號；進入模式後游標是否改變待真機（M35），引擎不換游標。
+    /// 名稱沿用 Cursor（既有測試與 SpellTargetPick 欄位）；值與 ChatFollowupCommands.SelectTarget 相同。
+    /// </summary>
+    public const int Cursor=ChatFollowupCommands.SelectTarget;
+    /// <summary>sub_7DC800 的聊天列色（palette[24]）。</summary>
+    public const int NoticeColorIndex=24;
+    /// <summary>字串 179（照表去色碼；沒有表時用本機 string-c.tbl 原文「請選擇對象。」）。</summary>
+    public static string PickNotice=>ChatFollowupCommands.SelectTargetText;
     public static bool Within(int x,int y,int tx,int ty)=>CombatRules.TileDistance(x,y,tx,ty)<=Range;
 }
 public static class MagicRules {
@@ -43,9 +50,16 @@ public sealed partial class WorldSession {
     public string MagicNotice {get;internal set;}="等待原服已學技能清單";
     public bool SelectMagic(int? id){if(id!=null&&!learnedMagic.Contains(id.Value))return false;SelectedMagicId=id;MagicSelectionRevision++;MagicRevision++;return true;}
     // R7-A（T340／#803）SV#3（skills-visual.md §1.3，sub_E2AB60）：沒有可用目標時進入選目標模式（sub_F691C0(…, 15, 179)）。
-    // 只做狀態與協定：點中物件後送 C_USE_SPELL（C6）；游標 179 是推測（Q7-8），引擎不換游標、不畫畫面。
+    // 只做狀態與協定：點中物件後送 C_USE_SPELL（C6）。T378（#862，FU9§8）：179 是字串，進入模式時把它印到聊天欄（色 24）；
+    // 引擎不換游標（M35 待真機）、不畫畫面。原版 sub_A11280(179) 為真時不印——那個條件沒查，這裡一律印（推測）。
     public SpellTargetPick? SpellTargetPick {get;private set;}
-    internal void BeginSpellTargetPick(int skill){SpellTargetPick=new(skill,SpellTargeting.Range,SpellTargeting.Cursor,WorldEpoch,TargetRevision);MagicRevision++;MagicNotice=SpellTargeting.PickNotice;}
+    internal void BeginSpellTargetPick(int skill){
+        SpellTargetPick=new(skill,SpellTargeting.Range,SpellTargeting.Cursor,WorldEpoch,TargetRevision);MagicRevision++;
+        string text=SpellTargeting.PickNotice;MagicNotice=text;
+        playerChatLines.Enqueue(new(++playerChatSequence,0,text){ColorIndex=SpellTargeting.NoticeColorIndex});
+        while(playerChatLines.Count>100)playerChatLines.Dequeue();
+        playerChatRevision++;
+    }
     /// <summary>選目標模式有效：同一世界、同一技能、沒有選取目標，而且進入後沒有任何入口改過選取（TargetRevision 不變）。</summary>
     public bool SpellTargetPicking=>SpellTargetPick is {} p&&p.Epoch==WorldEpoch&&SelectedMagicId==p.Skill&&TargetId==null&&p.TargetRevision==TargetRevision;
     public void CancelSpellTargetPick(string reason){if(SpellTargetPick==null)return;SpellTargetPick=null;MagicRevision++;MagicNotice=$"已取消選目標（{reason}）";}

@@ -130,6 +130,7 @@ public sealed partial class ClientForm {
     void SyncRingWindows(){
         if(NativeUiRoot?.Find(AgitMapPanel.PanelId) is AgitMapPanel agit&&agit.Host==null)agit.Attach(new AgitMapHost(this));
         AttachAgitAuctionHost();
+        if(NativeUiRoot?.Find(OptionPanel.PanelId) is OptionPanel option&&option.Host==null)option.Attach(new OptionWindowHost(this));
         var native=NativeBookmarkWindow();
         if(native!=null&&native.Host==null)native.Attach(new BookmarkWindowHost(this));
         if(bookmarkPanel is not {} panel||panel.IsDisposed)return;
@@ -161,6 +162,29 @@ public sealed partial class ClientForm {
             async Task Run(){try{await form.login.SendTeleportDestination(shown.Revision,bookmarkId);}finally{sending=false;}}
         }
         public void CancelTeleport(TeleportDestinationRequest shown)=>form.login.CloseTeleportDestination(shown.Revision);
+    }
+    /// <summary>
+    /// R9-Q（T377／#861，FU9§14.4）：原生選項窗勾選框 → ClientForm 既有設定，點一下就生效。
+    /// ShowNpcNameBtn＝「全部顯示名稱」（0x138BE7F，與 WinForms 勾選框同一個值與同一個檔）；CheckMute＝主音量靜音（SetAudioSettings，
+    /// 聲音關閉時不套用）；EnableElfTelControlBtn＝byte_13A931C → WorldSession.ElfBookmarkTeleportOption（只在記憶體，原版存設定檔，未做）。
+    /// </summary>
+    internal sealed class OptionWindowHost(ClientForm form):IOptionWindowHost {
+        public bool? Value(string mouseEvent)=>mouseEvent switch{
+            OptionPanel.ShowNpcNameEvent=>form.showAllNames,
+            OptionPanel.MuteEvent=>form.audioSettings.Muted,
+            OptionPanel.ElfTeleportEvent=>form.login.World.ElfBookmarkTeleportOption,
+            _=>null};
+        public bool Set(string mouseEvent,bool value){
+            switch(mouseEvent){
+                case OptionPanel.ShowNpcNameEvent:
+                    form.showAllNames=value;NameDisplayOptions.SaveShowAll(value);form.Invalidate();return true;
+                case OptionPanel.MuteEvent:
+                    form.SetAudioSettings(form.audioSettings.Gain,value);return form.audioSettings.Muted==value;
+                case OptionPanel.ElfTeleportEvent:
+                    form.login.World.ElfBookmarkTeleportOption=value;return true;
+                default:return false;
+            }
+        }
     }
     sealed class AgitMapHost(ClientForm form):IAgitMapHost {
         bool sending;
