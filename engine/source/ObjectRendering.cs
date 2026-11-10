@@ -181,9 +181,19 @@ public static class NameLayout {
     public static int ByteLength(string text)=>LoginPackets.TextEncoding.GetByteCount(text);
     // X0(s) = L + (W - 6*len)/2: fixed 6 px per Big5 byte.
     public static int CenterX(Rectangle r,string text)=>r.Left+(r.Width-GlyphWidth*ByteLength(text))/2;
-    public static (PointF? Title,PointF Name,PointF Emblem) Hover(Rectangle r,string title,string name,bool clan,bool partyOther){
-        bool titled=title.Length>0;int dy=partyOther?PartyDy:0,x=CenterX(r,name);
-        PointF? t=titled?new(CenterX(r,title),r.Top+NameDy):null;
+    // R6-B（T338／#784，AN§2.3、FU8§1.1）：sub_EFF300 的自己分支（0xEFF3AD–0xEFF3C8、0xEFF4E8–0xEFF503）
+    // X0 = P.x − 3·len + dword_154524C − 56（800×600 下 dword_154524C＝0）。P＝sub_F1A750(obj+16)＝精靈區塊偏移原點
+    // ＝Coordinates.Screen(腳下格) −(24,12)（與 CrownLayout 同一約定）。Y 仍照外框 T；只有 X 換基準。
+    public const int SelfOriginDx=-24,SelfNameDx=-56;
+    /// <summary>自己的 P.x（場景座標，取整同 <see cref="CrownLayout.Position"/>）。</summary>
+    public static int SelfOriginX(int x,int y)=>(int)Coordinates.Screen(x,y).X+SelfOriginDx;
+    /// <summary>自己的置中基準：P.x − 56 − 3·len。</summary>
+    public static int SelfX(int originX,string text)=>originX+SelfNameDx-GlyphWidth/2*ByteLength(text);
+    static int BaseX(Rectangle r,string text,int? selfOriginX)=>selfOriginX is int p?SelfX(p,text):CenterX(r,text);
+    /// <summary>selfOriginX 有值＝自己：名稱、稱號、盟徽改以 P.x 為基準（盟徽仍是名稱 X0 − 20、血盟名稱 ＋10）。</summary>
+    public static (PointF? Title,PointF Name,PointF Emblem) Hover(Rectangle r,string title,string name,bool clan,bool partyOther,int? selfOriginX=null){
+        bool titled=title.Length>0;int dy=partyOther?PartyDy:0,x=BaseX(r,name,selfOriginX);
+        PointF? t=titled?new(BaseX(r,title,selfOriginX),r.Top+NameDy):null;
         return(t,new(x+(clan?ClanNameShift:0),r.Top+NameDy+(titled?TitleLine:0)+dy),new(x+EmblemDx,r.Top+EmblemDy+(titled?TitleLine:0)+dy));
     }
     // Full-name mode puts the name at T-16 and never draws the title. Its emblem routine (sub_F02870) was not
@@ -229,7 +239,10 @@ public static class NameLayout {
             var marks=w.NameMarksFor(t.ObjectId);ushort outline=LevelDiffOutline(MonsterLevelOption,marks.Kind,marks.LevelDiff)??NameColors.Outline;
             bool war196=w.ClanWarFlag(t.ObjectId)!=0;
             if(hovered==t.ObjectId){
-                string title=w.DisplayTitle(t.ObjectId);bool partyOther=!t.Self&&w.IsPartyMemberId(t.ObjectId);var p=Hover(t.Bounds,title,t.Name,hasClan,partyOther);
+                string title=w.DisplayTitle(t.ObjectId);bool partyOther=!t.Self&&w.IsPartyMemberId(t.ObjectId);
+                // 自己的腳下格取 WorldSession.Actor（走路中不內插，見 issue-784 報告「待驗證」）；全名模式（sub_F01380）沒有查到自己分支，不改。
+                int? selfOrigin=t.Self&&w.Actor is {} me?SelfOriginX(me.X,me.Y):null;
+                var p=Hover(t.Bounds,title,t.Name,hasClan,partyOther,selfOrigin);
                 if(p.Title is {} tp)texts.Add(new(t.ObjectId,true,title,color,tp){Outline=outline});
                 texts.Add(new(t.ObjectId,false,t.Name,color,p.Name){Outline=outline});if(hasClan)emblems.Add(new(t.ObjectId,clanId,p.Emblem,false));
                 // 主人圖示：地圖 ≠ 509、有稱號、非職業外型、+248 非空、非戰爭（+196＝0）（FU5§1）。
