@@ -290,3 +290,4 @@
 - 2026-11-10 — #760 T322：P-B 參考客戶端 surf 備援（code，claude-local，PR 已合併）→ [報告](reports/issue-760.md)
 - 2026-11-10 — #739 T312：R5-G 原生公告板內容（code，claude-local，PR 已合併）→ [報告](reports/issue-739.md)
 - 2026-11-10 — #738 T311：R5-F 狀態圖示收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-738.md)
+- 2026-11-10 — #742 T315：查證原版——Q5-1 到 Q5-5，以及複核 K6 的 19 列（resource，claude-local，PR 已合併）→ [報告](reports/issue-742.md)
