@@ -173,10 +173,17 @@ public sealed partial class WorldSession
 // - 施法者離開畫面（找不到物件）時立即播放（§2.1：施法者不在畫面上時特效直接開始）。
 // - 最多等 MaxWaitMs，超過就照收包順序直接播（防止長度資料錯誤時永遠卡住；原版沒有這個上限）。
 // - 佇列由 Renderer.ComposeMagic 每格推進（UI 執行緒，與收包同一執行緒），也會在下一包到達時推進。
-// - 箭矢 S30（Combat.cs）不在本任務可改範圍，沒有排隊（待做）。
-public sealed record QueuedSkillCast(long Number, uint Caster, long ReceivedAt, AttackSkillPacket? Attack, RangeSkillPacket? Range)
+// R7-A（T340／#803，gap-matrix 15.6）：近戰與箭矢的 S30（Combat.cs）也走同一個佇列（S_ATTACK 的 sub_A3C5A0 → sub_A40250）。
+// - 只排「其他角色」的近戰／箭矢。自己角色的近戰／箭矢 S30 一律立即套用（引擎取捨，推定）：
+//   自己的攻擊已由本地節流（nextCombatAt）控制，而且送出時有預測動作（PredictAction），那一包 S30 就是預測動作的
+//   原服確認；排隊會讓確認延後、動作重播，也會讓 ApplyCombatAcknowledgement 拿不到回報。原版是否本地預測沒查。
+//   自己的法術 S30／S42 維持 #735 的做法（照排）。
+public sealed record QueuedSkillCast(long Number, uint Caster, long ReceivedAt, AttackSkillPacket? Attack, RangeSkillPacket? Range,
+    MeleeAttackPacket? Melee = null)
 {
-    public ushort Gfx => Attack?.Gfx ?? Range!.Gfx;
+    public ushort Gfx => Attack?.Gfx ?? Range?.Gfx ?? 0;
+    /// <summary>"melee"／"arrow"／"magic"（S30 法術）／"range"（S42）。</summary>
+    public string Kind => Melee != null ? "melee" : Attack is { IsArrow: true } ? "arrow" : Attack != null ? "magic" : "range";
 }
 
 public static class SkillCastQueue
@@ -205,25 +212,35 @@ public sealed partial class WorldSession
 
     bool CasterPresent(uint caster) => Actor?.ObjectId == caster || objects.ContainsKey(caster);
 
-    bool QueueIfCasterBusy(uint caster, AttackSkillPacket? attack, RangeSkillPacket? range)
+    bool QueueIfCasterBusy(uint caster, AttackSkillPacket? attack, RangeSkillPacket? range, MeleeAttackPacket? melee = null)
     {
         long now = ActionClock();
         RunQueuedSkillCasts(now);
         // withCastMotion=false（caster 0）沒有施法者動作，不排隊。
         if (caster == 0 || !CasterPresent(caster)) return false;
+        var current = ActionFor(caster);
+        // R7-A：自己角色的近戰／箭矢不排隊（見上方說明）。
+        if ((melee != null || attack is { IsArrow: true }) && Actor?.ObjectId == caster) return false;
         bool behind = queuedSkillCasts.Any(q => q.Caster == caster);
-        if (!behind && SkillCastQueue.BusyUntil(ActionFor(caster), now) == null) return false;
+        if (!behind && SkillCastQueue.BusyUntil(current, now) == null) return false;
         if (queuedSkillCasts.Count >= SkillCastQueue.MaxQueued) ApplyQueued(0);
-        queuedSkillCasts.Add(new(++queuedSkillNumber, caster, now, attack, range));
+        var queued = new QueuedSkillCast(++queuedSkillNumber, caster, now, attack, range, melee);
+        queuedSkillCasts.Add(queued);
         SkillCastsQueued++; MagicRevision++;
-        MagicNotice = $"原服法術：施法者 {caster} 動作未結束，特效 {attack?.Gfx ?? range!.Gfx} 排隊等目前動作播完";
+        if (melee != null || attack is { IsArrow: true })
+            CombatNotice = $"原服攻擊：{caster} 動作未結束，{(melee != null ? "近戰" : "箭矢")} S30 排隊等目前動作播完";
+        else
+            MagicNotice = $"原服法術：施法者 {caster} 動作未結束，特效 {queued.Gfx} 排隊等目前動作播完";
         return true;
     }
 
     void ApplyQueued(int index)
     {
         var q = queuedSkillCasts[index]; queuedSkillCasts.RemoveAt(index);
-        if (q.Attack is { } a) ApplyAttackMagic(a); else ApplyRangeMagic(q.Range!);
+        if (q.Melee is { } m) ApplyMeleeAttack(m);
+        else if (q.Attack is { IsArrow: true } arrow) ApplyArrowAttack(arrow);
+        else if (q.Attack is { } a) ApplyAttackMagic(a);
+        else ApplyRangeMagic(q.Range!);
     }
 
     /// <summary>把動作已結束（或已等太久、施法者已離開）的排隊封包依收包順序播出；回傳播出的數量。</summary>
@@ -251,7 +268,7 @@ public sealed partial class WorldSession
     [WorldSnapshot("skillCastQueue")]
     object? SkillCastQueueSnapshot() => new
     {
-        queued = QueuedSkillCasts.Select(q => new { number = q.Number, caster = q.Caster, receivedAt = q.ReceivedAt, gfx = q.Gfx, range = q.Range != null }).ToArray(),
+        queued = QueuedSkillCasts.Select(q => new { number = q.Number, caster = q.Caster, receivedAt = q.ReceivedAt, gfx = q.Gfx, range = q.Range != null, kind = q.Kind }).ToArray(),
         total = SkillCastsQueued,
     };
 }
