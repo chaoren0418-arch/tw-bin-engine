@@ -187,11 +187,12 @@ static class GameRankingPanelTests {
         t.Check(p.ActiveTab==GameRankingTab.Level&&p.ActiveCells().Count(c=>c.Cell.Name=="Name_Label")==3,"4 rows → 3 slots drawn");
         t.Check(p.Data.ContainsKey(GameRankingTab.Kill)&&p.Data.ContainsKey(GameRankingTab.Level),"data kept per tab");
         var center=p.Pages.Single(x=>x.Tab==GameRankingTab.Level).Lists[0].Rows[0].Cells["Name_Label"];
-        t.Equal(30+(80-20)/2,GameRankingPanel.AlignX(center,20),"center align");
+        // Cell offsets are window-relative: List X=10 + label X.
+        t.Equal(10+30+(80-20)/2,GameRankingPanel.AlignX(center,20),"center align");
         var pledge=p.Pages.Single(x=>x.Tab==GameRankingTab.Pledge).Lists[0].Rows[0].Cells;
-        t.Equal(110+60-10,GameRankingPanel.AlignX(pledge["Point_Label"],10),"right align");
-        t.Equal(30,GameRankingPanel.AlignX(pledge["Name_Label"],10),"left align");
-        t.Equal(30,GameRankingPanel.AlignX(center,200),"too wide → label left");
+        t.Equal(10+110+60-10,GameRankingPanel.AlignX(pledge["Point_Label"],10),"right align");
+        t.Equal(10+30,GameRankingPanel.AlignX(pledge["Name_Label"],10),"left align");
+        t.Equal(10+30,GameRankingPanel.AlignX(center,200),"too wide → label left");
         p.Update(new UiStaticGameState(InWorld:false));
         t.Check(!p.Visible&&p.Data.Count==0,"leaving the world closes and clears");
         t.Check(!Loaded(id=>id==900?null:Get(id)).Offer("y_k_2",Rows(10,"甲,5")),"unavailable panel does not claim");
