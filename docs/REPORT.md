@@ -307,3 +307,4 @@
 - 2026-11-10 — #781 T335：R6-E 聊天指令與本地確認（code，claude-local，PR 已合併）→ [報告](reports/issue-781.md)
 - 2026-11-10 — #780 T334：R6-D 鍵盤拾取與幽靈快捷（code，claude-local，PR 已合併）→ [報告](reports/issue-780.md)
 - 2026-11-10 — #782 T336：R6-F 料理窗與地裂深度（code，claude-local，PR 已合併）→ [報告](reports/issue-782.md)
+- 2026-11-10 — #800 T339：gap-matrix 第六輪——原生 UI 預設開啟後重新判定、M7 能否結案、真機檢查清單（resource，claude-local，PR #802 已合併）→ [報告](reports/issue-800.md)
