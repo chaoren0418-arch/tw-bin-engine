@@ -92,7 +92,11 @@
   - 本機沙箱還原的老問題（#761 已記）：直接 `dotnet build` 會出現 WebView2 的 NETSDK1130。
   - 處理方式：把主專案的 `obj/project.assets.json`、`nuget.g.props`、`nuget.g.targets` 讀出來，專案路徑改成本 worktree、套件資料夾仍指向主專案的 `engine/.nuget`，放進 worktree 的 `obj/`，再用 `--no-restore` 建置。主專案只讀、沒有寫入。
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：`pass`，0 錯誤。
-- 依 2026-11-09 本機執行限制，**本機沒有執行任何編出來的程式**。`login-ui` 與既有測試交給 PR 的 GitHub Actions CI。CI 結果見 PR。
+- 依 2026-11-09 本機執行限制，**本機沒有執行任何編出來的程式**。`login-ui` 與既有測試交給 PR 的 GitHub Actions CI。
+- **CI（PR #794）**：
+  - 第一輪：`map-continuity` 失敗，`login-ui` 124 項中有 1 項沒過，是測試本身寫錯。`Rectangle.IsEmpty` 要求 X/Y 也是 0，但那張缺圖的元素在 (10,10)，所以改成只檢查大小。其他各組都沒有失敗。
+  - 第二輪全綠：`dotnet`、`map-continuity`（含 `--module-tests`）、`npc-offline` 都通過。`login-ui` 124 項全部通過；整份 module-tests 的 `failed` 為 0。
+- 開 PR 前已 merge `origin/main`（含 #763），merge 後重新建置一次，0 錯誤。
 - `rebuild-lock.json` 沒有改動。
 
 ## 未驗證什麼（待驗證）
