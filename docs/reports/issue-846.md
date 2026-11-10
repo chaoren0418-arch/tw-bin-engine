@@ -57,7 +57,8 @@ TW16 IDB（`P01 ida/03-ascii-isolated/TW1608262200.idb`，SHA-256 `3a0bf20659939
   `dotnet build source/OfflineClient.csproj -c Release --no-restore -p:EnableWindowsTargeting=true -r win-x64 -p:SelfContained=false -p:CustomAfterMicrosoftCommonTargets=<scratch>\fix.targets -o scratch\b846\client`
   結果 `0 個錯誤`；4 個警告都不在本次改動的檔案。
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py` → `pass`（4325 檔，0 錯誤）。
-- **單元／離線測試**：依本機執行限制，**沒有在本機執行**，交給 CI（`--module-tests`，包含 `map-popup`、`map-send`、`ui-stack-esc` 等）。結果見 PR 的 CI。
+- **單元／離線測試**：依本機執行限制，**沒有在本機執行**，交給 CI。
+- **CI（PR #866，run 42869056210／42869056443）**：`dotnet`、`map-continuity`、`npc-offline` 全部 pass。`--module-tests` 整份 `failed: 0`，其中 `map-popup` pass（80 項檢查，0 失敗），`map-send` 也 pass。
 - `map-popup` 涵蓋：
   - 三個面板的註冊、圖層、`IUiClosablePanel`；
   - 右鍵按下只記旗標、放開才出選單（也測經過 `UiInput` 的 capture 路徑）；
