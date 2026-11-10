@@ -30,6 +30,7 @@
   5. NPC 頁的 `addbuddy`、大小寫不同的 ` AddBuddy `：開 588 框，不送 C125，頁版本 +1。框內輸入 ` 丙 ` → 送 C207 丙＋C4。名稱不合法 → 聊天欄印 53、不送。空白名稱、按取消 → 只關框。關掉對話 → 框失效。
   6. 伺服器主動頁的 `addbuddy`：在該頁開 588 框、頁不關，確定後送 C207＋C4。
   7. 有字串表時，588 提示照表顯示；另外核對接線用的型別與方法都存在。
+- **CI（PR #927，run 42917262573／42917262470）**：`dotnet`、`map-continuity`、`npc-offline` 全部 pass。`--module-tests` 整份 `failed: 0`，`friend-host` pass（46 項檢查，0 失敗）。第一次 push 時 `friend-host` 失敗：測試裡自己角色 S87 的名稱沒有對上 selected，丟出 `ProtocolException`。第二個 commit 已修正，只改了測試。
 - 既有測試：`html-actions`（六個名稱、578／579／3361）、`friend-window`、`friend-panel`、`chat-command-followup`（`/addbuddy`、`/delbuddy`）的斷言照理不受影響，以 CI 為準。
 
 ## 未驗證／推測（真機再確認）
