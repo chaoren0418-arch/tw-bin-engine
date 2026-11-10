@@ -13,6 +13,14 @@ public sealed record ChatDraw(string Element,int? Surf,Rectangle Rect,string? Te
 /// showing their top h rows (推測: the real 3280 has the title strip with the icons at y≈5, so its top must be the window top).
 /// Lines come from the existing chat model; the input line follows PlayerChatKeyboardFlow (see ChatInputLine).
 /// Not drawn (role 待驗證): scroll track tiles SCROLL1–4, SHORT_CHAT_ICON, WEBBROWSER_ICON, LANGUAGE_ICON, *_FOCUS states.
+/// R10-F（T390／#905，gap-matrix 15.12.6；1:29、4:ExchangeUI）：
+///   - 已驗證（引用 R7-G #809、FU7§1.5、FU9§12.1）：1028、刪除確認、交易 140 都是原版 sub_AC98E0 的**聊天輸入列提示**，不是彈出框。
+///   - 引擎做法：LinePrompts（由 TradeUi.cs 接上）給目前等待答覆的提示（ChatLinePrompt）。輸入列關著時，提示畫在 CHAT_BAR 上；
+///     開著時提示放在輸入文字前面。有提示時任何一列都能送出（空白＝140 的全部），答完關閉輸入列；Esc＝Cancel（不送）。
+///     本機提示（Answer）直接交給交易窗，其他（刪除、1028）照常 SendChat，由 SendPlayerChat 的確認分派接手。
+///   - 引擎做法：沒有提示時，CHAT_BAR 在輸入列關著時畫 PlayerChatView.Notice（playerChatNotice，引擎的狀態訊息；原版沒有這一行）。
+///   - 推測（真機再確認）：提示出現時輸入列不會自動打開；按 Enter 或打字（字母、數字）時才打開，同一個 Enter 就答覆。
+///     提示字色、提示與輸入之間的空白、提示過長時只畫尾端（游標在尾端）。
 /// </summary>
 public sealed class ChatPanel:IUiPanel,IUiTextInput {
     [UiPanel(20)] internal static UiPanelRegistration Registration=>new("CENTER_WINDOW","uistatus86",root=>new ChatPanel());   // ui-chat-window #468
@@ -24,6 +32,12 @@ public sealed class ChatPanel:IUiPanel,IUiTextInput {
     public Rectangle Bounds=>new(Origin.X,Bottom-view.Height,view.Split?SplitWidth:Width,view.Height);
     /// <summary>Text shadow (推測; line colours come from the shared chat palette and ChatFormat runs, R2-G).</summary>
     public static readonly Color TextShadow=Color.Black,InputColor=Color.White;
+    /// <summary>R10-F：輸入列上的提示／狀態訊息字色（推測）。</summary>
+    public static readonly Color PromptColor=Color.FromArgb(255,230,120),NoticeColor=Color.FromArgb(200,200,200);
+    /// <summary>R10-F：目前等待答覆的聊天列提示來源（TradeUi.cs 接上；null＝沒有提示）。</summary>
+    public Func<ChatLinePrompt?>? LinePrompts{get;set;}
+    /// <summary>R10-F：最近一次 Update 取到的提示。</summary>
+    public ChatLinePrompt? Prompt{get;private set;}
 
     public const string Base="CHAT_MAIN_WINDOW/CHAT_WINDOW",LeftBase="CHAT_MAIN_WINDOW/LCHAT_WINDOW",RightBase="CHAT_MAIN_WINDOW/RCHAT_WINDOW",Bar="CHAT_MAIN_WINDOW/CHAT_BAR";
     public const string Frame="CHAT_MAIN_WINDOW/CHAT_BORN",LeftFrame="CHAT_MAIN_WINDOW/LCHAT_BORN",RightFrame="CHAT_MAIN_WINDOW/RCHAT_BORN";
@@ -123,6 +137,10 @@ public sealed class ChatPanel:IUiPanel,IUiTextInput {
         if(v?.Generation!=identity?.Generation||v?.Actor!=identity?.Actor){input.Clear();view.ResetScroll();lastSequence=0;}
         identity=v;
         if(!inWorld||v==null||(input.Open&&chat.GameFocus))input.Close();
+        // R10-F：換了一個提示（新的 Key）時，輸入列給這個提示用，草稿清掉。
+        var next=inWorld&&v!=null?LinePrompts?.Invoke():null;
+        if(next!=null&&!Equals(next.Key,Prompt?.Key))input.Clear();
+        Prompt=next;
     }
 
     // ---- Paint ----
@@ -173,6 +191,23 @@ public sealed class ChatPanel:IUiPanel,IUiTextInput {
         Image(canvas,h>=view.Heights.Steps[^1]&&view.Heights.Steps.Count>1?StepDown:StepUp);
         Image(canvas,Bar);
         if(input.Open)InputText(canvas,cw);
+        else BarText(canvas,cw);
+    }
+    /// <summary>R10-F：輸入列關著時 CHAT_BAR 上的字：提示（PROMPT）優先，否則 playerChatNotice（NOTICE）；畫得下的開頭。</summary>
+    void BarText(UiCanvas canvas,Func<char,int> cw){
+        string? text=Prompt?.Text is {Length:>0} p?p:chat.View?.Notice is {Length:>0} n?n:null;
+        if(text==null)return;
+        var (x,y,room)=BarRoom();
+        int width=0,end=0;
+        while(end<text.Length&&width+cw(text[end])<=room){width+=cw(text[end]);end++;}
+        string shown=text[..end];
+        bool prompt=Prompt!=null;
+        canvas.DrawText(shown,x,y,prompt?PromptColor:NoticeColor,TextShadow);
+        drawn.Add(new(prompt?"PROMPT":"NOTICE",null,new(x,y,width,ChatRules.LineHeight),shown));
+    }
+    (int X,int Y,int Room) BarRoom(){
+        var p=parts[Bar];var at=At(p);int w=Surface(p)?.Width??(ChatRules.TextRight-p.Rel.X);
+        return (at.X+4,at.Y+2,Math.Max(0,w-8));
     }
     void BaseImage(UiCanvas canvas,string path,int h){
         var p=parts[path];if(Surface(p) is not {} s)return;
@@ -201,13 +236,20 @@ public sealed class ChatPanel:IUiPanel,IUiTextInput {
         }
     }
     void InputText(UiCanvas canvas,Func<char,int> cw){
-        var p=parts[Bar];var at=At(p);int w=Surface(p)?.Width??(ChatRules.TextRight-p.Rel.X);
-        int x=at.X+4,y=at.Y+2,room=Math.Max(0,w-8);
+        var (x,y,room)=BarRoom();
+        // R10-F: an open prompt sits in front of the typed text (sub_AC98E0); its part keeps the prompt colour.
+        string prefix=Prompt?.Text is {Length:>0} pt?pt+" ":"";
         // Show the tail that fits (caret is always at the end).
-        string t=input.Text;int width=0,start=t.Length;
+        string t=prefix+input.Text;int width=0,start=t.Length;
         while(start>0&&width+cw(t[start-1])<=room){width+=cw(t[start-1]);start--;}
         string shown=t[start..];
-        canvas.DrawText(shown,x,y,InputColor);drawn.Add(new("INPUT",null,new(x,y,width,ChatRules.LineHeight),shown));
+        if(start<prefix.Length){
+            string head=prefix[start..];int hw=head.Sum(c=>cw(c));
+            canvas.DrawText(head,x,y,PromptColor,TextShadow);drawn.Add(new("PROMPT",null,new(x,y,hw,ChatRules.LineHeight),head));
+            string typed=input.Text;
+            canvas.DrawText(typed,x+hw,y,InputColor);drawn.Add(new("INPUT",null,new(x+hw,y,width-hw,ChatRules.LineHeight),typed));
+        }
+        else{canvas.DrawText(shown,x,y,InputColor);drawn.Add(new("INPUT",null,new(x,y,width,ChatRules.LineHeight),shown));}
         if(now/ChatRules.CaretBlinkMs%2==0){
             using var pen=new Pen(InputColor);canvas.Graphics.DrawLine(pen,x+width,y,x+width,y+ChatRules.LineHeight-2);
             drawn.Add(new("CARET",null,new(x+width,y,1,ChatRules.LineHeight-1),null));
@@ -244,10 +286,21 @@ public sealed class ChatPanel:IUiPanel,IUiTextInput {
             if(e.KeyCode==Keys.Enter)input.EnterUp();
             return false;
         }
+        // R10-F: Esc while a prompt waits = cancel the prompt (nothing sent), and close the line if it was open.
+        if(e.KeyData==Keys.Escape&&Prompt is {} asked&&!e.Repeat){
+            Prompt=null;asked.Cancel?.Invoke();
+            if(input.Open){input.Clear();input.Close();UiChatGameState.Commands(commands)?.EndChatInput();}
+            return true;
+        }
         if(e.KeyData==Keys.Escape&&input.Open){input.Close();UiChatGameState.Commands(commands)?.EndChatInput();return true;}
         if(e.KeyCode==Keys.Enter){
             if(!input.Open){
                 if(e.KeyData!=Keys.Enter)return false;
+                if(Prompt!=null){
+                    // R10-F: the prompt already owns the line; the same Enter opens it and answers (blank = 140's "all").
+                    if(!e.Repeat&&TryOpen(commands,false)&&input.EnterDown(e.Modifiers))_=Submit(commands);
+                    return true;
+                }
                 if(!e.Repeat)TryOpen(commands,true);
                 return true; // Consume opening/repeated Enter, like ProcessPlayerChatKeyboard.
             }
@@ -255,7 +308,15 @@ public sealed class ChatPanel:IUiPanel,IUiTextInput {
             return true;
         }
         if(input.Open&&e.KeyData==Keys.Back){input.Backspace();return true;}
+        // R10-F: typing a letter or digit while a prompt waits opens the line; the key itself still goes on to WM_CHAR → Char().
+        if(!input.Open&&Prompt!=null&&!e.Repeat&&PromptOpensOn(e.KeyData))TryOpen(commands,false);
         return false; // Printable keys must reach WM_CHAR → Char().
+    }
+    /// <summary>R10-F（推測）：提示等待中，哪些鍵會打開輸入列：不帶 Ctrl／Alt 的字母、數字、數字鍵盤數字。</summary>
+    public static bool PromptOpensOn(Keys keyData){
+        if((keyData&(Keys.Control|Keys.Alt))!=0)return false;
+        var k=keyData&Keys.KeyCode;
+        return k is >=Keys.A and <=Keys.Z or >=Keys.D0 and <=Keys.D9 or >=Keys.NumPad0 and <=Keys.NumPad9;
     }
     /// <summary>Typed character while the line is open: consumed even when the 106-character budget is full.</summary>
     public bool Char(char c){
@@ -264,11 +325,21 @@ public sealed class ChatPanel:IUiPanel,IUiTextInput {
     }
 
     async Task Submit(IUiCommands commands){
-        if(input.Pending||UiChatGameState.Commands(commands) is not {} c||chat.View is not {CanSend:true} displayed||!input.Valid)return;
+        if(input.Pending||UiChatGameState.Commands(commands) is not {} c)return;
+        var asked=Prompt;
+        if(asked is {Answer:{} answer}){
+            // R10-F: local prompt (trade 140) — the answer goes straight to its owner, never to the chat send path. One answer only.
+            string typed=input.Text;Prompt=null;input.Clear();input.Close();c.EndChatInput();
+            answer(typed);return;
+        }
+        if(chat.View is not {CanSend:true} displayed||!input.ValidFor(asked))return;
         string text=input.Text;input.Pending=true;
         try{
+            // R10-F: with a prompt (item delete, private shop 1028) SendPlayerChat treats this line as the answer.
             bool sent=await c.SendChat(text,displayed);
-            if(sent&&input.Text==text&&identity?.Generation==displayed.Generation&&identity.Actor==displayed.Actor)input.Clear();
+            bool same=identity?.Generation==displayed.Generation&&identity.Actor==displayed.Actor;
+            if(sent&&input.Text==text&&same)input.Clear();
+            if(asked!=null&&sent&&same&&input.Open){input.Close();c.EndChatInput();}
         }finally{input.Pending=false;}
     }
 }
