@@ -285,3 +285,4 @@
 - 2026-11-10 — #752 T318：用 PakViewer 查遍所有 .pak——K3「缺資源」18 列與先前標「本機沒有」的檔案（resource，claude-local，PR 已合併）→ [報告](reports/issue-752.md)
 - 2026-11-10 — #737 T310：R5-E 聲音收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-737.md)
 - 2026-11-10 — #757 T319：P-A 參考客戶端 UI XML 來源（code，claude-local，PR 已合併）→ [報告](reports/issue-757.md)
+- 2026-11-10 — #758 T320：P-C `.tbt` surf 解碼（code，claude-local，PR 已合併）→ [報告](reports/issue-758.md)
