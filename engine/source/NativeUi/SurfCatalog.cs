@@ -140,6 +140,8 @@ public sealed class UiResources:IDisposable {
     public IReadOnlyList<ClientArchive> Sprites{get;}
     public UiXmlSource Xml{get;}
     public SurfCatalog Surfs{get;}
+    /// <summary>R7-N (#817): string-c.tbl / desc-c.tbl of the same reference client as Xml.Reference; null = none (labels not drawn).</summary>
+    public RefClientTextSource? Text{get;set;}
     public UiResources(string root,ClientArchivePin tilePin,IReadOnlyList<ClientArchivePin> spritePins,long capacity=SurfCatalog.DefaultCapacity){
         if(spritePins.Count!=17)throw new ArgumentException("需要 17 個 Sprite pin",nameof(spritePins));
         Root=Path.GetFullPath(root);
@@ -153,6 +155,7 @@ public sealed class UiResources:IDisposable {
         var res=new UiResources(root??UiResourcePins.ClientRoot,UiResourcePins.Tile,UiResourcePins.Sprites);
         res.Xml.Reference=RefClientXmlSource.Configured(res.Root);
         res.Surfs.Reference=RefClientSurfFallback.For(res.Xml.Reference);
+        res.Text=RefClientTextSource.For(res.Xml.Reference);
         return res;
     }
     static readonly Lazy<UiResources> shared=new(()=>Open(),LazyThreadSafetyMode.ExecutionAndPublication);

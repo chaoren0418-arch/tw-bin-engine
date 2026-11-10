@@ -62,7 +62,7 @@ public sealed record MailWindow(string Name,MailPiece? BaseImage,Size Size,int M
     IReadOnlyList<MailPiece> Pieces,int ScrollStart,int ScrollHeight);
 
 public sealed class MailPanel(UiResources? resources=null):IUiMovablePanel,IUiClosablePanel,IUiTextInput {
-    [UiPanel(188)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,root=>new MailPanel(root.Resources));   // T324 (#762): RenewalMailUI.xml from the reference client (P-A), loaded inside Load
+    [UiPanel(188)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,root=>new MailPanel(root.Resources){TextResolver=RefClientTextSource.Resolver(root.Resources)});   // T324 (#762): RenewalMailUI.xml from the reference client (P-A), loaded inside Load
     public const string PanelId="RenewalMailUI";
     public const string LayoutName="RenewalMailUI",RootNode="RenewalMailUI",WindowNode="Window";
     public const string ListWindow="MailList_Window",ReadWindow="ReadMail_Window",WriteWindow="WriteMail_Window";

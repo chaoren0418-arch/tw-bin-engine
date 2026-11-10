@@ -34,8 +34,10 @@ namespace P06.NativeUi;
 // - OK_Button: edit phase with 0 points left / level phase at max level → Message_Window confirm → send. Phase ended/idle →
 //   closes the window. Esc while a reset is running → Message_Window "disconnect and check after relogin" (the server has
 //   no cancel packet, same text as the WinForms dialog) → Ok = IResetStatHost.Cancel.
-// - Msg_Label (MultiLabel) shows the phase notice / last error; Tip_Label is String 4082 through TextResolver (null in the
-//   product, see #768). Message_Window DarkBack is not painted (no colour/alpha in the XML).
+// - Msg_Label (MultiLabel) shows the phase notice / last error; Tip_Label is String 4082 through TextResolver (R7-N #817: the
+//   reference client's string-c.tbl via RefClientTextSource; null without a reference client). Message_Window DarkBack is
+//   not painted (no colour/alpha in the XML).
+// - R7-N (#817): if this panel faults while a reset is running, CharResetUi.cs closes it and opens the WinForms dialog.
 
 /// <summary>Outward actions of the reset window; the product adapter (CharResetUi.cs) forwards to LoginConnection.</summary>
 public interface IResetStatHost {
@@ -62,7 +64,7 @@ public sealed record ResetWindow(string Name,Point Origin,Size Size,UiSurface? B
 public enum ResetMessage { None, Confirm, Leave }
 
 public sealed class ResetStatPanel(UiResources? resources=null):IUiClosablePanel {
-    [UiPanel(183)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,root=>new ResetStatPanel(root.Resources));   // T325 (#763): ResetStatUI.xml from the reference client (P-A), loaded inside Load
+    [UiPanel(183)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,root=>new ResetStatPanel(root.Resources){TextResolver=RefClientTextSource.Resolver(root.Resources)});   // T325 (#763): ResetStatUI.xml from the reference client (P-A), loaded inside Load
     public const string PanelId="ResetStatUI";
     public const string LayoutName="ResetStatUI",RootNode="ResetStatUI",MainWindow="ResetStat_Win",MessageWindow="Message_Window",SkippedControl="Customizing_Win";
     public const string HostLayout="uistatus86";

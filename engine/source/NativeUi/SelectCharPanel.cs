@@ -224,7 +224,7 @@ internal static class CharUiPaint {
 public enum CharSelectMessage { None, ConfirmDelete, Notice }
 
 public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=null):IUiClosablePanel {
-    [UiPanel(186)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,r=>new SelectCharPanel(r.Resources,r));   // T327 (#765): SelectUI.xml from the reference client (P-A), loaded inside Load
+    [UiPanel(186)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,r=>new SelectCharPanel(r.Resources,r){TextResolver=RefClientTextSource.Resolver(r.Resources)});   // T327 (#765): SelectUI.xml from the reference client (P-A), loaded inside Load
     public const string PanelId="SelectUI";
     public const string LayoutName="SelectUI",RootNode="SelectUI",MainWindow="Character_Select_Window",MessageWindow="Message_Window",SlotList="BigSlot_List",InfoList="CharacterInfo_List";
     public const string HostLayout="uistatus86";

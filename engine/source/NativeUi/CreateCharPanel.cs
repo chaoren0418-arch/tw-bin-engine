@@ -39,7 +39,7 @@ namespace P06.NativeUi;
 public enum CreateScene { Class, Stat }
 
 public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePanel,IUiTextInput {
-    [UiPanel(187)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,r=>new CreateCharPanel(r.Resources));   // T327 (#765): CreateUI.xml from the reference client (P-A), loaded inside Load
+    [UiPanel(187)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,r=>new CreateCharPanel(r.Resources){TextResolver=RefClientTextSource.Resolver(r.Resources)});   // T327 (#765): CreateUI.xml from the reference client (P-A), loaded inside Load
     public const string PanelId="CreateUI";
     public const string LayoutName="CreateUI",RootNode="CreateUI",ClassWindow="Class_Select_Scene",StatWindow="Stat_Setting_Scene",MessageWindow="Message_Window";
     public const string HostLayout="uistatus86";
