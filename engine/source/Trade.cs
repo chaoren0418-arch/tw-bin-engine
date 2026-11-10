@@ -134,11 +134,16 @@ public sealed partial class LoginConnection {
     }
     /// <summary>
     /// R9-C（FU9§9.4）：`/shop`、`/商店`（907）→ sub_F480C0：自己擺攤中送 C38 type 1 關店並印 903；不在擺攤就切換個人商店設定窗（既有入口）。
-    /// 釣魚中印 2120 的分支沒做：引擎沒有釣魚狀態（報告列為後續）。
+    /// R10-M（T397／#912）：擺攤中而且在釣魚 → 印 2120、不送（FU9§9.4：擺攤分支裡先看釣魚）。
     /// </summary>
     internal ChatCommandPlan ShopChatCommand(){
         // 擺攤中＝自己的 S119 動作是 70（同 Equipment.cs 對其他物件的 ShopActive 判斷；原版看 `& 0x400`，推測同義）。
-        if(World.Actor is {Weapon:70})return ChatCommandPlan.Send(ChatFollowupCommands.ShopClosedText,null,PersonalShopPackets.Close());
+        if(World.Actor is {Weapon:70}){
+            // 釣魚中＝World.ReadFishing 的 Active（S158 動作 71 開始，S119／S71 1163 結束）；原生 FishingPanel.State 是同一份狀態
+            // 經 FishingWindow.Changed 送過去的複本，這裡直接讀來源（--classic-ui 也有）。收竿已送、等確認（CancelPending）仍算釣魚中（推測）。
+            if(World.ReadFishing(generation).Active)return ChatCommandPlan.Refuse(PersonalShopText.Get(PersonalShopText.Fishing));
+            return ChatCommandPlan.Send(ChatFollowupCommands.ShopClosedText,null,PersonalShopPackets.Close());
+        }
         return ChatCommandPlan.Do("已切換個人商店設定窗。",()=>{
             if(ClientForm.OfferChatWindow(World,ChatWindowRequest.PersonalShop))return true;
             playerChatNotice="個人商店設定窗未開啟（原生 UI 未啟動）。";return false;});
