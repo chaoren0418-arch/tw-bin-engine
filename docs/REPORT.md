@@ -292,3 +292,4 @@
 - 2026-11-10 — #738 T311：R5-F 狀態圖示收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-738.md)
 - 2026-11-10 — #742 T315：查證原版——Q5-1 到 Q5-5，以及複核 K6 的 19 列（resource，claude-local，PR 已合併）→ [報告](reports/issue-742.md)
 - 2026-11-10 — #741 T314：R5-I `QUIT_WINDOW` 備援（code，claude-local，PR #785 已合併）→ [報告](reports/issue-741.md)
+- 2026-11-10 — #746 T316：Q4 補做——血盟關注、盟戰與求婚的入口、代碼聊天名稱、盲目職業加成（code，claude-local，PR 已合併）→ [報告](reports/issue-746.md)
