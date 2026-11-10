@@ -55,11 +55,14 @@
 - **`DemoChecks.csproj`**：本機單獨建置時找不到產品組件，和 #807 是同一個環境問題，與本 PR 無關，交給 CI。
   - 既有的 `native-ui-macro`（`MacroChecks.cs`）用的合成 Tile 裡沒有 `WidgetSlot.xml`，`Reference` 是 null，所以走原本的 uistatus86 路徑，斷言應該不受影響。
 - **`check-no-game-assets.py`**：pass，errors 0。
-- **離線測試 `widget-slot` 和既有測試**：依本機限制，本機沒有執行，以 PR 的 CI（`--module-tests`、`native-ui-macro`）結果為準。
+- **離線測試 `widget-slot` 和既有測試**：依本機限制，本機沒有執行，以 PR 的 CI 結果為準。
+- **CI（PR #839，run 42848125962、42848125886）**：`dotnet`、`map-continuity`、`npc-offline` 三個 job 全綠。
+  - `--module-tests` 的結果是 `failed: 0`，其中 `widget-slot` 66 項全部通過。
+  - `native-ui-macro`（既有 MacroChecks）也通過。
+  - 第一次推送時有 2 項失敗，是測試的預期顏色寫錯：擴充格的鎖本來就是 3191／3192，面板畫的是對的。第二個 commit 修正了測試。
 
 ## 未驗證（待驗證）
 
-- **CI 結果**：push 後看 PR。
 - **真機外觀（M30）**，在 P24Lab 開遊戲時要看：
   - CornerFrame 3292 是否在 (643,476)，以及是否蓋住第 1 個分頁鈕；
   - 3293／3294 鎖鈕是否在 (643,523)，上鎖和解鎖的圖是否對調；
