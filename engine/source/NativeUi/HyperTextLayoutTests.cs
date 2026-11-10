@@ -8,7 +8,7 @@ namespace P06.NativeUi;
 static class HyperTextLayoutTests {
     [WorldModuleTest("hypertext-layout")]
     static void Run(WorldModuleTestContext t){
-        Parity(t);Colors(t);Styles(t);Options(t);Vars(t);Layout(t);Resolve(t);PanelRich(t);PanelFallback(t);PanelScroll(t);Session(t);
+        Parity(t);Colors(t);Styles(t);Options(t);Vars(t);Layout(t);Resolve(t);PanelRich(t);PanelHover(t);PanelFallback(t);PanelScroll(t);Session(t);
     }
 
     const BindingFlags F=BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic;
@@ -56,12 +56,22 @@ static class HyperTextLayoutTests {
         t.Equal((uint?)0x0FFF00,HyperTextColors.Parse("fff00"),"5 位數照數值（模板有 fg=fff00）");
         t.Equal((uint?)null,HyperTextColors.Parse("#ffffff"),"不收 #");
         t.Equal((uint?)null,HyperTextColors.Parse("0xffffff"),"不收 0x");
-        t.Equal((uint?)null,HyperTextColors.Parse(""),"空白無效");
-        t.Equal(Color.FromArgb(255,0x98,0xFB,0x98).ToArgb(),HyperTextColors.Decode(0x98FB98,HyperTextColorOrder.Rgb).ToArgb(),"Rgb：0xRRGGBB");
+        // R10-B（FU11 D7）：空字串＝有效、值 0（黑）；沒有屬性＝null；只有空白仍無效；超過 6 位維持截位（引擎差異，註明）。
+        t.Equal((uint?)0,HyperTextColors.Parse(""),"空字串＝0（黑）");
+        t.Equal((uint?)null,HyperTextColors.Parse(null),"沒有屬性不改顏色");
+        t.Equal((uint?)null,HyperTextColors.Parse("  "),"只有空白無效");
+        t.Equal((uint?)0x345678,HyperTextColors.Parse("12345678"),"超過 6 位取低 24 位（引擎差異）");
+        t.Equal(Color.FromArgb(255,0x98,0xFB,0x98).ToArgb(),HyperTextColors.Decode(0x98FB98,HyperTextColorOrder.Rgb).ToArgb(),"Rgb：0xRRGGBB（只留作對照）");
         t.Equal(Color.FromArgb(255,0x00,0x00,0xFF).ToArgb(),HyperTextColors.Decode(0xFF0000,HyperTextColorOrder.Bgr).ToArgb(),"Bgr：0x00BBGGRR");
-        t.Equal(HyperTextColorOrder.Rgb,HyperTextColors.Order,"預設 Rgb（M34 待對色）");
-        t.Equal(Color.FromArgb(255,0xB0,0xFF,0xFF).ToArgb(),HyperTextColors.Link.ToArgb(),"連結色 0x00B0FFFF（Rgb 解讀）");
-        t.Equal(Color.FromArgb(255,0xFF,0xFF,0xB0).ToArgb(),HyperTextColors.Decode(HyperTextColors.LinkValue,HyperTextColorOrder.Bgr).ToArgb(),"連結色 Bgr 解讀＝FFFFB0");
+        // R10-B（FU11 D1）：預設 COLORREF。
+        t.Equal(HyperTextColorOrder.Bgr,HyperTextColors.Order,"預設 Bgr（COLORREF，FU11 已驗證）");
+        t.Equal(Color.FromArgb(255,0xFF,0xFF,0xB0).ToArgb(),HyperTextColors.Link.ToArgb(),"連結色 0x00B0FFFF＝RGB(FF,FF,B0) 淡黃");
+        t.Equal(Color.FromArgb(255,0xFF,0xB4,0x00).ToArgb(),HyperTextColors.Decode(0x00B4FF).ToArgb(),"helpcom 的 00b4ff＝橘 RGB(FF,B4,00)");
+        t.Equal(Color.FromArgb(255,0xAF,0xFF,0xFF).ToArgb(),HyperTextColors.Decode(0xFFFFAF).ToArgb(),"ffffaf＝淡青藍 RGB(AF,FF,FF)");
+        t.Equal(Color.FromArgb(255,0xEE,0xED,0xEE).ToArgb(),HyperTextColors.Default.ToArgb(),"預設字色 RGB(EE,ED,EE)");
+        t.Equal(Color.FromArgb(255,0x0A,0xF0,0x32).ToArgb(),HyperTextColors.Hover.ToArgb(),"hover 色 RGB(0A,F0,32)");
+        t.Equal(Color.FromArgb(255,0x6E,0x6E,0x46).ToArgb(),HyperTextColors.Underline.ToArgb(),"底線色 RGB(6E,6E,46)");
+        t.Equal((uint?)0,Doc("<font fg=\"\">黑</font>").Nodes[0].Style.Fg,"<font fg=\"\"> 設成 0（黑）");
     }
 
     static HyperTextDocument Doc(string html,params string[] args)=>HyperTextMarkup.Parse(html,args,"商人","勇者");
@@ -80,6 +90,10 @@ static class HyperTextLayoutTests {
         var all=TextNode(d,"全").Style;t.Check(all.Bold&&all.Italic&&all.Underline,"b／i／u",all);
         var plain=TextNode(d,"平").Style;t.Check(!plain.Bold&&!plain.Italic&&!plain.Underline&&plain.Fg==null,"關閉後還原",plain);
         t.Equal((uint?)null,Doc("<font fg=#ff0000>無</font>").Nodes[0].Style.Fg,"無效 fg 不改顏色");
+        // R10-B（FU11 D5）：帶 link／action／url 的 <a> 也有底線；不帶的 <a> 沒有；</a> 後清掉。
+        var u=Doc("<a action=\"a\">動</a><a link=\"b\">連</a><a url=\"c\">網</a><a>空</a>外");
+        t.Check(TextNode(u,"動").Style.Underline&&TextNode(u,"連").Style.Underline&&TextNode(u,"網").Style.Underline,"帶 action／link／url 的 <a> 有底線");
+        t.Check(!TextNode(u,"空").Style.Underline&&!TextNode(u,"外").Style.Underline,"沒屬性的 <a> 與 </a> 之後沒有底線");
     }
 
     // 4. 選項編號：關閉的 <a> 與帶 link／action 的 <img> 依序 0,1,2…；巢狀 <a> 前一個不成選項；SurfList 換號；pN。
@@ -204,13 +218,63 @@ static class HyperTextLayoutTests {
         t.Equal(0,h.Calls.Count,"圖列的空白處不是連結");
         using var canvas=new UiCanvas();p.Paint(canvas);
         t.Equal(Color.FromArgb(unchecked((int)BuyColor)).ToArgb(),canvas.Bitmap.GetPixel(img.X+10,img.Y+10).ToArgb(),"圖畫在排好的位置");
-        t.Equal(Color.FromArgb(255,0xB0,0xFF,0xFF).ToArgb(),HyperTextPanel.RichLinkColor.ToArgb(),"行內連結色＝0x00B0FFFF 解碼（M34 待對色）");
+        t.Equal(Color.FromArgb(255,0xFF,0xFF,0xB0).ToArgb(),HyperTextPanel.RichLinkColor.ToArgb(),"行內連結色＝0x00B0FFFF 的 COLORREF 解碼 RGB(FF,FF,B0)");
         t.Equal(ChatPalette.Color(ChatFormat.Yellow).ToArgb(),HyperTextPanel.LinkColor.ToArgb(),"舊排法的連結色不變");
-        // 底色
+        t.Equal(ChatPalette.Color(ChatFormat.White).ToArgb(),HyperTextPanel.TextColor.ToArgb(),"舊排法的本文色不變");
+        // R10-B（FU11 D5）：連結（action）底線固定 RGB(6E,6E,46)，畫在列底上 2 px。
+        t.Equal(Color.FromArgb(255,0x6E,0x6E,0x46).ToArgb(),canvas.Bitmap.GetPixel(buy.X+5,buy.Y+15-2).ToArgb(),"連結底線色固定 RGB(6E,6E,46)");
+        // 底色（R10-B：bg 0000ff 是 COLORREF → RGB(FF,00,00)）
         var (bp,_)=New();var bgDoc=Doc("<font bg=0000ff><var src=\"#0\" textwidth=\"60\"></font>","字");
         bp.Show(View(bgDoc,2,[]));
         using var c2=new UiCanvas();bp.Paint(c2);
-        t.Equal(Color.FromArgb(255,0,0,255).ToArgb(),c2.Bitmap.GetPixel(121+50,94+7).ToArgb(),"bg 畫在字（含 textwidth 補白）的範圍底下（Rgb 解讀）");
+        t.Equal(Color.FromArgb(255,255,0,0).ToArgb(),c2.Bitmap.GetPixel(121+50,94+7).ToArgb(),"bg 畫在字（含 textwidth 補白）的範圍底下（COLORREF 解讀）");
+        // R10-B（FU11 D6）：同列有 40 px 的圖時，bg 占整列高。
+        var (tp,_)=New();var tallDoc=Doc("<font bg=00ff00>字</font><var img src=\"#0\">","4000");
+        tp.Show(View(tallDoc,3,[]));
+        t.Equal(40,tp.Lines[0].Height,"有圖的列高 40");
+        using var c3=new UiCanvas();tp.Paint(c3);
+        t.Equal(Color.FromArgb(255,0,255,0).ToArgb(),c3.Bitmap.GetPixel(121+6,94+30).ToArgb(),"bg 用整列高（列底 30 px 處仍有底色）");
+        t.Equal(Color.FromArgb(unchecked((int)TallColor)).ToArgb(),c3.Bitmap.GetPixel(121+12+5,94+30).ToArgb(),"圖照畫在字後面");
+    }
+
+    // 8b. R10-B（FU11 D2–D4）：預設字色、hover 色（只對文字連結）、停用連結維持灰（引擎自訂）。
+    static void PanelHover(WorldModuleTestContext t){
+        var cmd=new UiNullCommands();var (p,_)=New();
+        p.Show(View(Doc(Shop),1,ShopLinks(nextEnabled:false)));
+        HyperTextPiece Piece(int link)=>p.Lines.SelectMany(l=>l.Pieces).First(x=>x.Link==link);
+        HyperTextPiece Plain(string text)=>p.Lines.SelectMany(l=>l.Pieces).First(x=>x.Text==text);
+        int Argb(Color c)=>c.ToArgb();
+        var link=Color.FromArgb(255,0xFF,0xFF,0xB0);var hover=Color.FromArgb(255,0x0A,0xF0,0x32);
+        t.Equal(Argb(Color.FromArgb(255,0xEE,0xED,0xEE)),Argb(p.PieceColor(Plain("歡迎，"))),"沒有 fg 的字＝RGB(EE,ED,EE)");
+        t.Equal(Argb(HyperTextPanel.RichTextColor),Argb(Color.FromArgb(255,0xEE,0xED,0xEE)),"RichTextColor＝EEEDEE");
+        t.Equal(-1,p.HoverLink,"一開始沒有 hover");
+        t.Equal(Argb(link),Argb(p.PieceColor(Piece(0))),"連結 0 平時淡黃");
+        p.Mouse(M(UiMouseKind.Move,Mid(p.LinkRect(0))),cmd);
+        t.Equal(0,p.HoverLink,"滑鼠移到連結 0 的字上");
+        t.Equal(Argb(hover),Argb(p.PieceColor(Piece(0))),"hover 中的文字連結＝RGB(0A,F0,32)");
+        t.Equal(Argb(HyperTextPanel.DisabledColor),Argb(p.PieceColor(Piece(1))),"停用的連結維持灰（引擎自訂）");
+        p.Mouse(M(UiMouseKind.Move,Mid(p.LinkRect(1))),cmd);
+        t.Equal(-1,p.HoverLink,"停用的連結不 hover（引擎自訂）");
+        t.Equal(Argb(link),Argb(p.PieceColor(Piece(0))),"移開後恢復淡黃");
+        p.Mouse(M(UiMouseKind.Move,Mid(p.LinkRect(2))),cmd);
+        t.Equal(-1,p.HoverLink,"圖片連結不 hover（FU11§1 #8）");
+        p.Mouse(M(UiMouseKind.Move,Mid(p.LinkRect(0))),cmd);p.Mouse(M(UiMouseKind.Move,new Point(5,5)),cmd);
+        t.Equal(-1,p.HoverLink,"移出本文區清成 −1");
+        // 跨列連結：滑在後半段，前半段也一起變色（同一個選項 id）。
+        var (q,_)=New();q.Show(View(Doc(Shop),2,ShopLinks()));
+        var halves=q.Lines.SelectMany(l=>l.Pieces).Where(x=>x.Link==1).ToArray();
+        t.Equal(2,halves.Length,"連結 1 跨兩列");
+        q.Mouse(M(UiMouseKind.Move,new Point(121+6,94+45+7)),cmd);
+        t.Equal(1,q.HoverLink,"滑在第二列的「一頁」");
+        t.Check(halves.All(x=>Argb(q.PieceColor(x))==Argb(hover)),"整個連結（兩段）都畫 hover 色");
+        // <a> 內再開 <font fg> 時 hover 仍蓋過（原版 hover 判斷在 attr fg 之前）。
+        var (f,_)=New();var fd=Doc("<a action=\"a\">前<font fg=0000ff>藍</font></a>");f.Show(View(fd,3,[new(0,"前藍",true)]));
+        var blue=f.Lines[0].Pieces.First(x=>x.Text=="藍");
+        t.Equal(Argb(Color.FromArgb(255,0xFF,0,0)),Argb(f.PieceColor(blue)),"<a> 內 <font fg=0000ff>＝COLORREF 紅");
+        f.Mouse(M(UiMouseKind.Move,Mid(f.LinkRect(0))),cmd);
+        t.Equal(Argb(hover),Argb(f.PieceColor(blue)),"hover 蓋過 <a> 內的 font fg");
+        f.Show(View(fd,4,[new(0,"前藍",true)]));
+        t.Equal(-1,f.HoverLink,"換頁清掉 hover");
     }
 
     // 9. 對不上就退回舊排法；登記表找回文件。
