@@ -227,7 +227,7 @@ static class RenewalStatusPanelTests {
         Click(p,up,c);
         t.Equal("str",p.Pending,"Up → preview str");
         t.Equal("19",p.LabelText(Named(p,"Status_Window","Str_Label")),"previewed stat shows value+1 (18 → 19)");
-        t.Equal("12",p.LabelText(Named(p,"Status_Window","Int_Label")),"other stats unchanged");
+        t.Equal("30/120",p.LabelText(Named(p,"Status_Window","HpGauge_Label")),"other labels unchanged");
         t.Check(!p.Shown(Named(p,"Status_Window","Up_Button"))&&p.Shown(Named(p,"Status_Window","Down_Button")),"during the preview: Up hidden, Down shown on the chosen stat");
         t.Equal(Argb(DownC),Pixel(p,100+81+2,50+123+2),"Down button drawn in place of Up");
         t.Equal(0,keys.Count,"preview sends nothing");
