@@ -305,3 +305,4 @@
 - 2026-11-10 — #778 T332：R6-A 封包特效與地圖單次音效（code，claude-local，PR 已合併）→ [報告](reports/issue-778.md)
 - 2026-11-10 — #779 T333：R6-C 私商 `TRADE_WINDOW` 13／14（code，claude-local，PR 已合併）→ [報告](reports/issue-779.md)
 - 2026-11-10 — #781 T335：R6-E 聊天指令與本地確認（code，claude-local，PR 已合併）→ [報告](reports/issue-781.md)
+- 2026-11-10 — #780 T334：R6-D 鍵盤拾取與幽靈快捷（code，claude-local，PR 已合併）→ [報告](reports/issue-780.md)
