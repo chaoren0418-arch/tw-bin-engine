@@ -64,6 +64,7 @@ TW16 IDB 副本 `scratch/rea/ida/tw16.idb`（SHA-256 `3a0bf206…7e82f`，與 FU
 - **新離線測試** `engine/source/CookAndDepthFollowupTests.cs`（`[WorldModuleTest("cook-and-depth-followup")]`，自動發現）：已驗證常數、篩選（≥48 在中間、超過 24 筆、表內順序、位置取圖示／說明）、格子座標與命中、捲動 4 格與上限、選取／製作／雙擊、提示框（只名稱、選取＋滑過的框位置與高度、下半部上移、右緣 796、下緣 600、23 byte 切行、沒有字串表、說明 id 0）、畫面（圖示、surf 24 選取框、缺圖替代框、量表裁切與不畫）、倒數模型與來源、1167／1100 進聊天列且不送、10147 同格不變／下一格讀新值、終點歸 0 後所有活著的 10147／10145 下一格回原本 z。全部合成資料。
 - **依規定不在本機執行測試**，以 PR 的 CI（`map-continuity` 跑全部 `[WorldModuleTest]`）為準。
 - `python -B -X utf8 engine/tools/check-no-game-assets.py`：pass。
+- **CI（PR #801，run 42790193537／42790193444）**：`dotnet`、`map-continuity`（全部 `[WorldModuleTest]`，failed 0）、`npc-offline` 全部 pass；新群組 `cook-and-depth-followup` pass（87 checks，0 failures）。改過斷言的 `cook-book-followup`、`cook-and-history`、`skill-light` 也都通過。
 
 ## 未驗證什麼（待驗證）
 - 真機畫面：圖示格、選取框 surf 24、提示框外觀（`sub_9709D0` 底色、調色盤 7／9、字色 `word_153F240[1]`、名稱外框）都沒看過。
