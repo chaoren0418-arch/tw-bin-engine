@@ -33,6 +33,8 @@ public sealed class SurfCatalog {
     public long Capacity{get;}
     public long CachedBytes{get;private set;}
     public int CachedCount{get{lock(gate)return cache.Count;}}
+    /// <summary>T322 (#760): asked only when the pinned local lookup fails; null (default) keeps the old behaviour.</summary>
+    public RefClientSurfFallback? Reference{get;set;}
 
     /// <param name="sprites">Index 0 = Sprite, index 1+h = Sprite{h:00} (17 archives).</param>
     public SurfCatalog(UiXmlSource tile,IReadOnlyList<ClientArchive> sprites,long capacity=DefaultCapacity){
@@ -107,15 +109,21 @@ public sealed class SurfCatalog {
         lock(gate){
             if(cache.TryGetValue(surf,out var hit)){lru.Remove(hit);lru.AddFirst(hit);return hit.Value;}
             var found=Resolve(surf);
+            UiSurface? surface;
             if(found==null){
-                if(reported.Add(surf))UiResourceLog.Write(LoadList().TryGetValue(surf,out var f)
-                    ?$"surf {surf}: 圖檔不在 Sprite*.pak（file={f}）"+(IconOnlyFile(surf) is {} icon?$"；只有 Icon 群組的 {icon}，原版 surf 不讀 .tbt，不畫":"")
-                    :withoutFile.Contains(surf)?$"surf {surf}: SurfList.xml 此列沒有 file 屬性":$"surf {surf}: SurfList.xml 沒有此 id");
-                return null;
+                // T322 (#760) P-B: one fallback hook — id-named local file, then the reference client's Sprite*.idx.
+                surface=Reference?.Serve(this,surf);
+                if(surface==null){
+                    if(reported.Add(surf))UiResourceLog.Write((LoadList().TryGetValue(surf,out var f)
+                        ?$"surf {surf}: 圖檔不在 Sprite*.pak（file={f}）"+(IconOnlyFile(surf) is {} icon?$"；只有 Icon 群組的 {icon}，原版 surf 不讀 .tbt，不畫":"")
+                        :withoutFile.Contains(surf)?$"surf {surf}: SurfList.xml 此列沒有 file 屬性":$"surf {surf}: SurfList.xml 沒有此 id")
+                        +(Reference is {} r?$"；參考客戶端 {r.Root} 也沒有":""));
+                    return null;
+                }
+            }else{
+                var (_,archive,entry)=found.Value;
+                surface=new UiSurface(surf,entry.Name,archive.Pin.Name,UiImage.Decode(archive.Read(entry),$"{archive.Pin.Name}/{entry.Name}"));
             }
-            var (_,archive,entry)=found.Value;
-            var image=UiImage.Decode(archive.Read(entry),$"{archive.Pin.Name}/{entry.Name}");
-            var surface=new UiSurface(surf,entry.Name,archive.Pin.Name,image);
             var node=lru.AddFirst(surface);cache[surf]=node;CachedBytes+=surface.Cost;
             // Evict least-recently-used entries (never the one just added); evicted bitmaps are left to the GC.
             while(CachedBytes>Capacity&&lru.Last!=node){var last=lru.Last!;lru.RemoveLast();cache.Remove(last.Value.Surf);CachedBytes-=last.Value.Cost;}
@@ -144,6 +152,7 @@ public sealed class UiResources:IDisposable {
     public static UiResources Open(string? root=null){
         var res=new UiResources(root??UiResourcePins.ClientRoot,UiResourcePins.Tile,UiResourcePins.Sprites);
         res.Xml.Reference=RefClientXmlSource.Configured(res.Root);
+        res.Surfs.Reference=RefClientSurfFallback.For(res.Xml.Reference);
         return res;
     }
     static readonly Lazy<UiResources> shared=new(()=>Open(),LazyThreadSafetyMode.ExecutionAndPublication);
