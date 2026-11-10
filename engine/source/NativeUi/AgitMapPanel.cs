@@ -59,7 +59,7 @@ public static class AgitMapLayout {
     public static bool MarkerOn(long elapsedMs)=>elapsedMs>=0&&elapsedMs%BlinkPeriodMs<BlinkOnMs;
 }
 
-public sealed class AgitMapPanel:IUiPanel {
+public sealed class AgitMapPanel:IUiClosablePanel {
     // 沒有 XML：照 HpMpPanel 的做法掛在已載入的 uistatus86 上（版面不讀它）。
     [UiPanel(150)] internal static UiPanelRegistration Registration=>new(AgitMapPanel.PanelId,"uistatus86",_=>new AgitMapPanel());   // W2-C AgitMapWindow (#550)
     public const string PanelId="AgitMap_Window";
@@ -132,11 +132,16 @@ public sealed class AgitMapPanel:IUiPanel {
         if(e.Kind==UiMouseKind.Down){pressed=HitKey(e.Location);return true;}
         if(e.Kind==UiMouseKind.Up){
             string? key=HitKey(e.Location),was=pressed;pressed=null;
-            if(key=="close"&&was=="close"){dismissed=shown!.Revision;shown=null;commands.ReturnGameFocus();}
+            if(key=="close"&&was=="close"){Close();commands.ReturnGameFocus();}
             else if(key=="action"&&was=="action")Host?.Select(shown!);   // 674（sub_543810）：C125 select（T276）
             return true;
         }
         return inside;
     }
     public bool Key(UiKeyEvent e,IUiCommands commands)=>false;
+    /// <summary>R7-H（#810）：堆疊關窗（被擠出、全域 ESC）＝關閉鈕 678：記下這次請求，同一請求不再開（不送封包）。</summary>
+    public void Close(){
+        if(shown==null)return;
+        dismissed=shown.Revision;shown=null;pressed=null;
+    }
 }
