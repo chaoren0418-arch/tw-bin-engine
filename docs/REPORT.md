@@ -313,3 +313,4 @@
 - 2026-11-10 — #803 T340：R7-A 戰鬥排隊、S42 光照、選目標游標（code，claude-local，PR 已合併）→ [報告](reports/issue-803.md)
 - 2026-11-10 — #804 T341：R7-B 輸入列 Y/N 與表情保留（code，claude-local，PR 已合併）→ [報告](reports/issue-804.md)
 - 2026-11-10 — #806 T343：R7-D HTML 動作（code，claude-local，PR 已合併）→ [報告](reports/issue-806.md)
+- 2026-11-10 — #805 T342：R7-C 戒指與盟屋拍賣（code，claude-local，PR 已合併）→ [報告](reports/issue-805.md)
