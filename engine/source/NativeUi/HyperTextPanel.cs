@@ -407,7 +407,8 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
                 if(style.Bold)canvas.DrawText(piece.Text,r.X+1,r.Y,color);   // 推測：1 px 位移模擬粗體
                 // R10-B：底線色固定 RGB(6E,6E,46)，x 最多到本文左界＋198（FU11 D5）。
                 int underEnd=Math.Min(r.Right-1,TextArea.X+HyperTextColors.UnderlineMaxX);
-                if(style.Underline&&underEnd>=r.X)using(var pen=new Pen(HyperTextColors.Underline))g.DrawLine(pen,r.X,r.Y+LineHeight-2,underEnd,r.Y+LineHeight-2);
+                // 用 1 px 高的 FillRectangle（UiCanvas 是 PixelOffsetMode.Half，DrawLine 會落在兩列像素之間）。
+                if(style.Underline&&underEnd>=r.X)using(var line1=new SolidBrush(HyperTextColors.Underline))g.FillRectangle(line1,r.X,r.Y+LineHeight-2,underEnd-r.X+1,1);
             }
         }finally{g.Restore(state);}
     }
