@@ -34,7 +34,7 @@ public sealed class BoardUi:Form {
     internal BoardView? Displayed=>IsDisposed?null:displayed;
     /// <summary>
     /// Native board button (M7-U) → the same action as this window's button, with the same enabled rule and confirmations.
-    /// Read uses the row selected here: the native windows draw no rows (row positions are unverified).
+    /// Read uses the row selected here; the native list (R5-G) changes this selection through SelectRow.
     /// </summary>
     internal async Task Press(string command){
         if(IsDisposed)return;Sync();if(IsDisposed)return;
@@ -47,6 +47,23 @@ public sealed class BoardUi:Form {
             case "next" when next.Enabled:await Run("next");break;
         }
     }
+    /// <summary>R5-G: row selected in this window (the native list draws and changes the same selection).</summary>
+    internal uint? SelectedRow=>IsDisposed?null:(rows.SelectedItem as RowItem)?.Row.Id;
+    internal void SelectRow(uint? id){
+        if(IsDisposed)return;
+        if(id==null){rows.ClearSelected();return;}
+        for(int i=0;i<rows.Items.Count;i++)if(rows.Items[i] is RowItem r&&r.Row.Id==id){rows.SelectedIndex=i;return;}
+    }
+    /// <summary>R5-G: native write window (686) → the same write action (same confirmation, length and Big5 checks).</summary>
+    internal async Task Submit(string titleText,string contentText){
+        if(IsDisposed)return;Sync();if(IsDisposed)return;
+        title.Text=titleText;content.Text=contentText;
+        if(write.Enabled)await ConfirmWrite();
+    }
+    /// <summary>R5-G: text the original prints as a system message (e.g. string 544); shown in this window's notice line.</summary>
+    internal void Notice(string text){if(IsDisposed)return;validationNotice=text;Sync();}
+    /// <summary>R5-G: write is possible now (same rule as this window's write button).</summary>
+    internal bool CanWrite{get{if(IsDisposed)return false;Sync();return !IsDisposed&&write.Enabled;}}
     async Task Run(string command){
         if(busy)return;var stamp=displayed;uint topic=command=="delete"?stamp.Article?.Id??0:(rows.SelectedItem as RowItem)?.Row.Id??0;
         validationNotice="";busy=true;Sync();if(IsDisposed)return;
@@ -91,27 +108,46 @@ public sealed partial class ClientForm {
         AttachNativeBoard(ui);
     }
 
-    // M7-U: with the native UI active, the original board windows (verified buttons only) are drawn on the 800×600 canvas and
-    // drive the same BoardUi actions. Rows, article text and writing stay in BoardUi (transitional, not original behaviour)
-    // until their positions are verified. Switch off / native inactive → nothing changes.
-    BoardPanelSet? nativeBoard;readonly BoardPanelHost nativeBoardHost=new();
+    // M7-U: with the native UI active, the original board windows (verified buttons) are drawn on the 800×600 canvas and
+    // drive the same BoardUi actions. R5-G (#739): backgrounds, list rows, article text and the write window are drawn
+    // natively too (NativeUi/BoardPanel.cs, disassembled layout); BoardUi stays open behind them as the owner of the actions
+    // (and as the whole board when the native UI is off). Switch off / native inactive → nothing changes.
+    BoardPanelSet? nativeBoard;BoardContentSet? nativeBoardContent;readonly BoardPanelHost nativeBoardHost=new();
     void AttachNativeBoard(BoardUi ui){
         nativeBoardHost.Current=ui;
         if(!NativeUiActive||NativeUiRoot is not {Resources:{} resources} root)return;
         try{
             if(nativeBoard==null){
                 var set=new BoardPanelSet(nativeBoardHost);set.LoadSurfaces(resources.Surfs);
+                var content=new BoardContentSet(set,nativeBoardHost);content.LoadSurfaces(resources.Surfs);
+                // List/read content sit on the bar layer (below every window, so the button windows paint over them);
+                // the write window is a window above the list buttons.
+                root.Add(content.List);root.Add(content.Read);
                 foreach(var p in set.Panels)root.Add(p);
-                nativeBoard=set;
+                root.Add(content.Write);
+                nativeBoard=set;nativeBoardContent=content;nativeBoardHost.Content=content;
             }
-            root.BringToFront(nativeBoard.List);root.BringToFront(nativeBoard.Read);Invalidate();
+            nativeBoardContent?.Write.Close();
+            root.BringToFront(nativeBoard.List);root.BringToFront(nativeBoard.Read);
+            if(nativeBoardContent!=null)root.BringToFront(nativeBoardContent.Write);
+            Invalidate();
         }catch(Exception ex) when(ex is UiResourceException or UiLayoutException or InvalidOperationException){
             UiResourceLog.Write("board native panels skipped: "+ex.Message);
         }
     }
-    sealed class BoardPanelHost:IBoardPanelHost {
+    sealed class BoardPanelHost:IBoardPanelHost,IBoardContentHost {
         public BoardUi? Current;
+        public BoardContentSet? Content;
         public BoardView? Board=>Current?.Displayed;
-        public void Press(string command){if(Current is {IsDisposed:false} ui)_=ui.Press(command);}
+        public void Press(string command){
+            if(Current is not {IsDisposed:false} ui)return;
+            // Original 662 (sub_7CDE00) opens the write window; the text is sent from its 686 button.
+            if(command=="write"&&Content!=null){if(ui.CanWrite)Content.OpenWrite();return;}
+            _=ui.Press(command);
+        }
+        public uint? SelectedRow=>Current is {IsDisposed:false} ui?ui.SelectedRow:null;
+        public void SelectRow(uint? id){if(Current is {IsDisposed:false} ui)ui.SelectRow(id);}
+        public void Submit(string title,string content){if(Current is {IsDisposed:false} ui)_=ui.Submit(title,content);}
+        public void Notice(string text){Current?.Notice(text);}
     }
 }
