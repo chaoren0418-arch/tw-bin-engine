@@ -61,11 +61,12 @@
   - restore 用 `scratch/t769/NuGet.Config`，唯讀指向主專案 `engine/vendor`；`NUGET_PACKAGES=scratch/t769/packages`。
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py`：`pass`（4146 檔，0 錯誤）。
 - 依 2026-11-09 本機執行限制，**本機沒有執行任何編出來的程式**。`game-ranking-ui` 與既有測試交給 PR 的 GitHub Actions CI。
+- **CI（PR #789）全綠**：`dotnet`、`map-continuity`（含 `--module-tests`）、`npc-offline` 都通過。
+  - 第一輪有 4 項失敗，全部是對齊測試的期望值寫錯：儲存格座標已含清單 X=10，測試漏算。面板程式沒有改，修正測試後通過。
 - `rebuild-lock.json` 沒有改動。
 
 ## 未驗證什麼（待驗證）
 
-- `game-ranking-ui` 與既有單元測試的執行結果：等 CI。
 - 真實 kor25 的 `GameRankingUI.xml` 經本面板解析後能不能用（Unavailable 是否為 null）：本機不能跑程式，沒有實測。只用靜態方式比對過，元素結構與合成版面相同。
 - 以下規則都是**推測**，綁定函式沒有反組譯：
   - 繪圖順序：同一層先畫 Image。
