@@ -27,11 +27,19 @@ namespace P06.NativeUi;
 //   - OK 1114（按下 1115）(47,292)、Cancel 1111（按下 1112）(133,292)：座標取自參考客戶端 ly 的 HyperTextUI.xml（本機 24 個 idx 都沒有
 //     這個 XML；不複製進專案），只在有數字框時畫與可按（停用外觀沒有查證，不畫）。本機缺這幾張圖時退回引擎自訂的「確定」／「取消」
 //     文字鈕（畫在數字框那一列）。Cancel：城堡頁 → CancelNumber；S136 數量頁 → 關窗。
-// 待驗證（不做）：原版連結的滑鼠移入效果。
+// 原版連結的滑鼠移入效果：R10-B 已做（Rich 列，見下方 R10-B）；舊排法的 Link 列不變色。
 // R9-F（T366／#850）：行內排版器（NativeUi/HyperTextLayout.cs）。頁有原始 HTML 文件（view.Document，或 WorldSession 登記在
 //   HyperTextDocuments.Shared、文字對得上的那份）且選項 id 對得上時，本文改用 RowKind.Rich 列：連結、<font>、<img>、<var>、
 //   <b>/<i>/<u>/<p>/<br>、對齊都排在文字流裡，連結不再另起一列。高於 15 的列（圖）後面接 RowKind.Spacer 佔位，捲動仍以 15 px 為一格。
-//   對不上（查詢頁的退回文字、沒有模板）時維持上面「連結各占一列」的舊排法。顏色位元組順序與連結色待真機對色（M34）。
+//   對不上（查詢頁的退回文字、沒有模板）時維持上面「連結各占一列」的舊排法。
+// R10-B（T383／#891），依據 docs/reference/followups-11.md §1、§2（FU11 D1–D7）。只改 Rich 列（舊排法的顏色不動）。已驗證（引用 FU11§1）：
+//   - 顏色＝COLORREF（HyperTextColors.Order＝Bgr）；連結 RGB(FF,FF,B0)；沒有 fg 的字 RGB(EE,ED,EE)（#2、#4、#5）。
+//   - 滑鼠下的文字連結整個連結（同一個選項 id 的所有片段）畫 RGB(0A,F0,32)；圖片連結不變色；沒有「已點過」色（#7、#8、#9）。
+//     原版每個滑鼠訊息（含 WM_MOUSEMOVE）先做命中測試、先清成 −1 再寫入，所以本面板每次 Move／Down／Up 都重算 HoverLink。
+//   - 底線色固定 RGB(6E,6E,46)、x 最多到本文左界＋198；帶 link／action／url 的 <a> 也有底線（#12、#13）。
+//   - bg 範圍＝片段寬 × 整列高（同列有圖時也用整列高）（#10）。
+// 引擎自訂（原版繪字沒有停用分支，FU11 D4）：停用的連結畫灰、不變 hover 色、不可點。
+// 推測：沒有圖、改畫成文字標籤的可點圖（引擎自訂）仍算圖片連結，不變 hover 色。
 
 /// <summary>頁上的一個連結／選項（Id＝引擎對話模板的選項 id）。</summary>
 public sealed record HyperTextLink(int Id,string Label,bool Enabled);
@@ -199,7 +207,7 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
     /// 被使用者或堆疊關掉的那一頁，在宿主真的關掉它之前不再打開。
     /// </summary>
     public void Show(HyperTextView? next){
-        if(next==null){view=null;pressed=null;InputFocused=false;NameFocused=false;dismissed=null;Document=null;return;}
+        if(next==null){view=null;pressed=null;InputFocused=false;NameFocused=false;dismissed=null;Document=null;HoverLink=-1;return;}
         var key=(next.Source,next.Revision);
         if(dismissed==key)return;
         dismissed=null;
@@ -211,14 +219,14 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
         if(next.Name is {} nb&&nb.Revision!=nameRevision){nameRevision=nb.Revision;NameInput="";NameFocused=true;InputFocused=false;}
         else if(next.Name==null){nameRevision=long.MinValue;NameInput="";NameFocused=false;}
         rows=BuildRows(next);
-        if(newPage){Scroll=0;pressed=null;}
+        if(newPage){Scroll=0;pressed=null;HoverLink=-1;}
         Scroll=Math.Clamp(Scroll,0,MaxScroll);
     }
 
     /// <summary>關閉鈕與堆疊滿（UiRoot.Evict）共用：請宿主關掉頁，面板先藏起來。</summary>
     public void Close(){
         if(view is not {} shown)return;
-        dismissed=(shown.Source,shown.Revision);view=null;pressed=null;InputFocused=false;NameFocused=false;
+        dismissed=(shown.Source,shown.Revision);view=null;pressed=null;InputFocused=false;NameFocused=false;HoverLink=-1;
         Host?.Close(shown);
     }
 
@@ -351,13 +359,28 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
         for(int i=0;i<end;i++)
             if(rows[i] is {Kind:RowKind.Rich,Line:{} line}&&i+Math.Max(1,(line.Height+LineHeight-1)/LineHeight)>Scroll)yield return (i-Scroll,line);
     }
-    /// <summary>R9-F：行內連結的顏色：可按＝文件的字色（&lt;a&gt; 常數 0x00B0FFFF 或之後的 &lt;font fg&gt;），停用＝灰。</summary>
+    /// <summary>R9-F：行內連結的顏色：可按＝文件的字色（&lt;a&gt; 常數 0x00B0FFFF 或之後的 &lt;font fg&gt;），停用＝灰（引擎自訂）。</summary>
     public static Color RichLinkColor=>HyperTextColors.Link;
+    /// <summary>R10-B：Rich 列沒有 fg 時的字色 RGB(EE,ED,EE)（FU11 D2，已驗證）。</summary>
+    public static Color RichTextColor=>HyperTextColors.Default;
+    /// <summary>R10-B：滑鼠下的文字連結 id（−1＝沒有；FU11 D3）。只認可按的文字片段，圖片連結不算。</summary>
+    public int HoverLink{get;private set;}=-1;
     bool LinkEnabled(int id)=>view?.Links.Any(l=>l.Id==id&&l.Enabled)==true;
-    Color PieceColor(HyperTextPiece piece){
+    /// <summary>R10-B：命中測試（同原版 sub_871260：先清成 −1，命中文字連結才寫入）。</summary>
+    int HoverAt(Point p){
+        if(Document==null||!TextArea.Contains(p))return -1;
+        foreach(var (screen,line) in RichInView())foreach(var piece in line.Pieces)
+            if(piece.Link>=0&&piece.Node.Kind==HyperTextNodeKind.Text&&PieceRect(screen,piece).Contains(p))return LinkEnabled(piece.Link)?piece.Link:-1;
+        return -1;
+    }
+    internal Color PieceColor(HyperTextPiece piece){
         var fg=piece.Node.Style.Fg;
-        if(piece.Link>=0)return !LinkEnabled(piece.Link)?DisabledColor:fg is uint lf?HyperTextColors.Decode(lf):RichLinkColor;
-        return fg is uint f?HyperTextColors.Decode(f):TextColor;
+        if(piece.Link>=0){
+            if(!LinkEnabled(piece.Link))return DisabledColor;   // 引擎自訂（FU11 D4）
+            if(piece.Link==HoverLink&&piece.Node.Kind==HyperTextNodeKind.Text)return HyperTextColors.Hover;
+            return fg is uint lf?HyperTextColors.Decode(lf):RichLinkColor;
+        }
+        return fg is uint f?HyperTextColors.Decode(f):RichTextColor;
     }
     /// <summary>R9-F：片段在畫面上的範圍（screen＝畫面第幾列，可為負）。</summary>
     public Rectangle PieceRect(int screen,HyperTextPiece piece){var o=LineAt(screen);return new(o.X+piece.X,o.Y+piece.Y,piece.Width,piece.Height);}
@@ -376,12 +399,16 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
                 var r=PieceRect(screen,piece);
                 if(piece.Image!=null){canvas.DrawSurface(piece.Image,r.X,r.Y);continue;}
                 var style=piece.Node.Style;
-                if(style.Bg is uint bg)using(var back=new SolidBrush(HyperTextColors.Decode(bg)))g.FillRectangle(back,r.X,r.Y,r.Width,LineHeight);
+                // R10-B：bg 用整列高（FU11 D6）。
+                if(style.Bg is uint bg)using(var back=new SolidBrush(HyperTextColors.Decode(bg)))g.FillRectangle(back,r.X,r.Y,r.Width,Math.Max(LineHeight,line.Height));
                 if(piece.Text.Length==0)continue;
                 var color=PieceColor(piece);
                 canvas.DrawText(piece.Text,r.X,r.Y,color);
                 if(style.Bold)canvas.DrawText(piece.Text,r.X+1,r.Y,color);   // 推測：1 px 位移模擬粗體
-                if(style.Underline)using(var pen=new Pen(color))g.DrawLine(pen,r.X,r.Y+LineHeight-2,r.Right-1,r.Y+LineHeight-2);
+                // R10-B：底線色固定 RGB(6E,6E,46)，x 最多到本文左界＋198（FU11 D5）。
+                int underEnd=Math.Min(r.Right-1,TextArea.X+HyperTextColors.UnderlineMaxX);
+                // 用 1 px 高的 FillRectangle（UiCanvas 是 PixelOffsetMode.Half，DrawLine 會落在兩列像素之間）。
+                if(style.Underline&&underEnd>=r.X)using(var line1=new SolidBrush(HyperTextColors.Underline))g.FillRectangle(line1,r.X,r.Y+LineHeight-2,underEnd-r.X+1,1);
             }
         }finally{g.Restore(state);}
     }
@@ -442,10 +469,12 @@ public sealed class HyperTextPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput
     public bool Mouse(UiMouseEvent e,IUiCommands commands){
         if(view==null)return false;
         bool inside=Bounds.Contains(e.Location);
+        // R10-B：每個滑鼠訊息先做 hover 命中測試（同原版 sub_871D60 → sub_871260，FU11§1 #7）。
+        HoverLink=HoverAt(e.Location);
         switch(e.Kind){
             case UiMouseKind.Wheel:
                 if(!inside)return false;
-                if(e.Delta!=0)ScrollBy(-Math.Sign(e.Delta));
+                if(e.Delta!=0){ScrollBy(-Math.Sign(e.Delta));HoverLink=HoverAt(e.Location);}
                 return true;
             case UiMouseKind.Down:
                 if(e.Button!=MouseButtons.Left)return inside;
