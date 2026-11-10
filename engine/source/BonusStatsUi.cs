@@ -38,16 +38,24 @@ public sealed partial class ClientForm {
         foreach(Control old in bonusStatsChoices.Controls.Cast<Control>().ToArray())old.Dispose();bonusStatsChoices.Controls.Clear();
         foreach(var attr in v.Attributes){var command=BonusCommand(v,"bonusSelect",attr.Key);var button=new Button{Width=360,Height=34,Text=$"{(attr.Selected?"已選擇：":"選擇：")}{attr.Label} · 目前 {attr.Value?.ToString()??"未知"}",Enabled=v.CanSelect&&!World.Walking};button.Click+=async(_,_)=>await RunBonusStats(command);bonusStatsChoices.Controls.Add(button);}
     }
-    // T328 (#766) native routing only: with the native UI on, the ReNStatusUIEx status window gets the same snapshot, and its
-    // stat Up button runs the existing bonusSelect (local choice, no packet; the submit stays on the WinForms panel below).
+    // T328 (#766) native routing only: with the native UI on, the ReNStatusUIEx status window gets the same snapshot.
+    // T378 (#862, FU9§14.5): its stat Up is a local +1 preview inside the panel (no packet, no engine state); 是 on its Y/N
+    // calls StatPointConfirm, which runs the existing bonusSelect and then bonusSubmit (C_Attr 479 + stat name, same gates as
+    // the WinForms button); 否／cancel only drops the panel's preview. The WinForms submit button stays as it was.
     // Native UI off (--classic-ui) or the window unavailable/faulted → nothing changes; the WinForms panel is always kept.
     // R7-I (#811): the StatInfoUI window reads its row values from the same view (StatInfoPanel.BonusValue; rows without a
     // known source stay blank). Menu button 2 / Ctrl+A open the status window (MenuButtonsPanel); nothing changes here for that.
     void SyncNativeStatus(BonusStatsView v){
         if(!NativeUiActive||NativeUiRoot is not {} root||root.Find(P06.NativeUi.RenewalStatusPanel.PanelId) is not P06.NativeUi.RenewalStatusPanel panel||root.Faulted.Contains(panel))return;
-        panel.StatPointUp??=key=>{if(displayedBonusStats is {} cur&&BonusStatsRules.Valid(key))_=RunBonusStats(BonusCommand(cur,"bonusSelect",key));};
+        panel.StatPointConfirm??=key=>_=ConfirmNativeBonus(key);
         panel.Show(P06.NativeUi.RenewalStatusPanel.ViewOf(login.World.Status,v.CanSelect&&!World.Walking,v.Selected));
         if(root.Find(P06.NativeUi.StatInfoPanel.PanelId) is P06.NativeUi.StatInfoPanel info)info.ValueProvider??=StatInfoValues(panel);
+    }
+    /// <summary>T378 (#862): 是 on the native stat Y/N → bonusSelect (if not already chosen) then bonusSubmit on the refreshed view.</summary>
+    async Task<bool> ConfirmNativeBonus(string key){
+        if(displayedBonusStats is not {} cur||!BonusStatsRules.Valid(key))return false;
+        if(cur.Selected!=key&&!await RunBonusStats(BonusCommand(cur,"bonusSelect",key)))return false;
+        return displayedBonusStats is {} now&&now.Selected==key&&await RunBonusStats(BonusCommand(now,"bonusSubmit",key));
     }
     /// <summary>R7-I (#811): StatInfoPanel.ValueProvider over the status window's latest view (read at paint time).</summary>
     internal static Func<string,string?> StatInfoValues(P06.NativeUi.RenewalStatusPanel status)=>name=>P06.NativeUi.StatInfoPanel.BonusValue(name,status.View);

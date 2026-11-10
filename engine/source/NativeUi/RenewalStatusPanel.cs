@@ -30,8 +30,17 @@ namespace P06.NativeUi;
 //   Labels with only String/Desc ids go through TextResolver (null in the product: the reference ids would not match the
 //   local string-c.tbl, see #768). HP/MP labels are "cur/max" and the level label is the level number (format 推測).
 // - Gauges HpGauge/MpGauge draw their png cropped to cur/max width; LevGauge is not drawn (exp % is not known here).
-// - Stat Up_Button is shown (normal / push while held) only while bonus points can be chosen (RenewalStatusView.CanRaise);
-//   a click calls StatPointUp with the attribute key ("str"…). Down_Button is never shown (the engine has no "undo" step).
+// - Stat Up_Button is shown (normal / push while held) only while bonus points can be chosen (RenewalStatusView.CanRaise).
+//   T378 (#862, FU9§14.5, 已驗證 StatPointUP = sub_EE09D0): a click is a LOCAL preview only — the stat label shows value+1,
+//   every other Up is hidden and the chosen stat shows its Down_Button; no packet, no engine state change (Pending).
+//   The original then plays the stat effect sub_EBB500(16,k) and, when it ends, sub_EBA6B0 → sub_EDE380 opens a Y/N box.
+//   The effect is not played here (its sprite/table was not traced; 待驗證) — the Y/N opens at once.
+//   Y/N text: TW16 uses string 4471 (stat name + value), but the local string-c.tbl has only 3484 rows; the local row 929
+//   「請再次確認是否要提升\f2%s\f>？(Y/N)」 is used with the stat name (推測對應; colour codes dropped, ConfirmText).
+//   The Y/N box itself (a strip under the window, dark fill, YES/NO text buttons 32×14) is engine-custom: sub_EDE380's
+//   window was not read. 是 (YES click, Y, Enter) → StatPointConfirm(key) (ClientForm runs bonusSelect + bonusSubmit, i.e.
+//   C_Attr 479 + the stat name, as BonusStats.Allocate); 否 (NO click, N, Esc, the Down_Button) → the preview is dropped.
+//   Raising no longer possible (Show with CanRaise=false), closing, or leaving the world also drops it.
 // - Tooltip elements are not built. ShowStatInfoTooltip toggles the check image; StatInfoPanel (#763) follows it. Karma not wired.
 //
 // Entry (R7-I, #811; FU4§1.1 TW13 off_8F023C／sub_4D3910): menu button 2 and Ctrl+A toggle this window through
@@ -105,7 +114,8 @@ public sealed class RenewalStatusPanel(UiResources? resources=null):IUiMovablePa
     public string? LayoutFile{get;private set;}
     public Point Origin{get;private set;}
     public Size Size=>ActivePage?.Size??Pages.FirstOrDefault()?.Size??Size.Empty;
-    public Rectangle Bounds=>Size.IsEmpty?Rectangle.Empty:new(Origin,Size);
+    /// <summary>The window, plus the Y/N strip under it while a stat preview waits for 是／否.</summary>
+    public Rectangle Bounds=>Size.IsEmpty?Rectangle.Empty:Pending!=null?Rectangle.Union(new(Origin,Size),ConfirmBounds):new(Origin,Size);
     public bool Visible=>open;
     public IReadOnlyList<StatusPage> Pages{get;private set;}=[];
     public StatusPage? ActivePage{get;private set;}
@@ -118,8 +128,29 @@ public sealed class RenewalStatusPanel(UiResources? resources=null):IUiMovablePa
     public RenewalStatusView View{get;private set;}=RenewalStatusView.Empty;
     /// <summary>(kind "Desc"/"String", id) → text; null result or null resolver = the label is not drawn.</summary>
     public Func<string,string,string?>? TextResolver{get;set;}
-    /// <summary>Stat Up_Button clicked: the BonusStatsRules key. Set by ClientForm (BonusStatsUi.cs); null = nothing happens.</summary>
-    public Action<string>? StatPointUp{get;set;}
+    /// <summary>是 on the stat Y/N: the BonusStatsRules key. Set by ClientForm (BonusStatsUi.cs: bonusSelect + bonusSubmit); null = nothing is sent.</summary>
+    public Action<string>? StatPointConfirm{get;set;}
+    /// <summary>The stat being previewed (+1, waiting for 是／否), or null. Local only: nothing is sent while it is set.</summary>
+    public string? Pending{get;private set;}
+    /// <summary>Local string-c.tbl row used for the Y/N text (see the file header; TW16 4471 is not in the local table).</summary>
+    public const int ConfirmStringId=929;
+    /// <summary>Row 929 of the local string-c.tbl (used when no table is loaded, e.g. CI).</summary>
+    public const string ConfirmFallback="請再次確認是否要提升%s？(Y/N)";
+    /// <summary>Engine-custom Y/N strip height under the window (推定).</summary>
+    public const int ConfirmHeight=36;
+    /// <summary>Y/N text: string 929 with the stat name (力量…), colour codes dropped; null when nothing is pending.</summary>
+    public string? ConfirmText=>Pending is {} key?ConfirmTextFor(key):null;
+    public static string ConfirmTextFor(string key){
+        string label=BonusStatsRules.Labels[Array.IndexOf(BonusStatsRules.Keys,key)];
+        string template=ServerMessageText.Table is {} t&&ConfirmStringId<t.Count&&t[ConfirmStringId].Trim().Length>0?t[ConfirmStringId]:ConfirmFallback;
+        int at=template.IndexOf("%s",StringComparison.Ordinal);
+        return ServerMessageText.DisplayText(at<0?template:string.Concat(template.AsSpan(0,at),label,template.AsSpan(at+2))).Trim();
+    }
+    public Rectangle ConfirmBounds=>new(Origin.X,Origin.Y+Size.Height,Size.Width,ConfirmHeight);
+    public Rectangle ConfirmButton(bool accept){
+        var b=ConfirmBounds;var s=YesNoButtons.Size;int gap=8,left=b.X+(b.Width-2*s.Width-gap)/2;
+        return new(accept?left:left+s.Width+gap,b.Bottom-s.Height-4,s.Width,s.Height);
+    }
     /// <summary>StatusBonus_Button check state (drawn with its push image; StatInfoUI itself is not built).</summary>
     public bool StatInfoChecked{get;private set;}
     public IReadOnlyCollection<string> Unhandled=>unhandled;
@@ -140,7 +171,7 @@ public sealed class RenewalStatusPanel(UiResources? resources=null):IUiMovablePa
 
     void Clear(){
         open=false;pressed=null;pressedInside=false;LayoutFile=null;Origin=Point.Empty;Pages=[];ActivePage=null;Slots=[];Missing=[];Skipped=[];
-        StatInfoChecked=false;Unavailable="not loaded";
+        StatInfoChecked=false;Pending=null;Unavailable="not loaded";
     }
 
     /// <summary>Offline checks: images come from the caller (synthetic). Throws UiLayoutException on a layout that does not fit.</summary>
@@ -243,10 +274,10 @@ public sealed class RenewalStatusPanel(UiResources? resources=null):IUiMovablePa
     /// <summary>ClientForm (BonusStatsUi.cs) pushes the latest values; a pressed Up button is dropped when raising is no longer possible.</summary>
     public void Show(RenewalStatusView view){
         View=view;
-        if(!view.CanRaise&&pressed is {MouseEvent:StatUpEvent}){pressed=null;pressedInside=false;}
+        if(!view.CanRaise){Pending=null;if(pressed is {MouseEvent:StatUpEvent or StatDownEvent}){pressed=null;pressedInside=false;}}
     }
 
-    public void Update(IUiGameState state){if(!state.InWorld){if(open)Close();View=RenewalStatusView.Empty;}}
+    public void Update(IUiGameState state){if(!state.InWorld){if(open)Close();Pending=null;View=RenewalStatusView.Empty;}}
 
     /// <summary>Opens on the first page. false when the layout is unavailable.</summary>
     public bool Open(){
@@ -254,7 +285,7 @@ public sealed class RenewalStatusPanel(UiResources? resources=null):IUiMovablePa
         open=true;pressed=null;pressedInside=false;ActivePage=Pages[0];
         return true;
     }
-    public void Close(){open=false;pressed=null;pressedInside=false;}
+    public void Close(){open=false;pressed=null;pressedInside=false;Pending=null;}
     public bool Toggle(){if(open){Close();return true;}return Open();}
 
     /// <summary>Page a tab button selects ("StatusTab_Button" → "Status_Window"), or null.</summary>
@@ -268,11 +299,11 @@ public sealed class RenewalStatusPanel(UiResources? resources=null):IUiMovablePa
         ActivePage=page;pressed=null;pressedInside=false;return true;
     }
 
-    /// <summary>Stat Up buttons only while raising is possible; Down buttons never (see the file header).</summary>
+    /// <summary>Stat Up buttons while raising is possible and nothing is previewed; the previewed stat shows its Down button instead.</summary>
     public bool Shown(StatusPiece p){
         if(!p.Active)return false;
         if(p.Kind!=StatusPieceKind.Button)return true;
-        return p.MouseEvent switch{StatUpEvent=>View.CanRaise&&p.Owner!=null&&StatLabels.ContainsKey(p.Owner),StatDownEvent=>false,_=>true};
+        return p.MouseEvent switch{StatUpEvent=>View.CanRaise&&Pending==null&&p.Owner!=null&&StatLabels.ContainsKey(p.Owner),StatDownEvent=>Pending!=null&&p.Owner!=null&&StatLabels.TryGetValue(p.Owner,out var k)&&k==Pending,_=>true};
     }
     IEnumerable<StatusPiece> Live=>ActivePage?.Pieces.Where(Shown)??[];
     public Rectangle At(StatusPiece p)=>new(Origin.X+p.HitLocal.X,Origin.Y+p.HitLocal.Y,p.HitLocal.Width,p.HitLocal.Height);
@@ -282,7 +313,11 @@ public sealed class RenewalStatusPanel(UiResources? resources=null):IUiMovablePa
     /// <summary>The text a label draws now: its runtime value, or the resolved String/Desc id; null = nothing.</summary>
     public string? LabelText(StatusPiece p){
         if(p.Kind!=StatusPieceKind.Label)return null;
-        if(p.Name!=null&&ValueLabels.TryGetValue(p.Name,out var value))return value(View);
+        if(p.Name!=null&&ValueLabels.TryGetValue(p.Name,out var value)){
+            // Preview: the chosen stat shows value+1 (sub_EE09D0, local only).
+            if(Pending!=null&&StatLabels.TryGetValue(p.Name,out var key)&&key==Pending)return value(View) is {} raw&&int.TryParse(raw,NumberStyles.Integer,CultureInfo.InvariantCulture,out int n)?(n+1).ToString(CultureInfo.InvariantCulture):null;
+            return value(View);
+        }
         return p.TextKind==null?null:TextResolver?.Invoke(p.TextKind,p.TextValue!);
     }
 
@@ -290,6 +325,31 @@ public sealed class RenewalStatusPanel(UiResources? resources=null):IUiMovablePa
         if(!open||ActivePage==null)return;
         if(ActivePage.BaseImage?.Surface is {} b)canvas.DrawSurface(b,Origin.X,Origin.Y);
         foreach(var p in Live)PaintPiece(canvas,p);
+        if(ConfirmText is {} question)PaintConfirm(canvas,question);
+    }
+
+    static readonly Color ConfirmBack=Color.FromArgb(40,36,28),ConfirmBorder=Color.FromArgb(120,110,80),ConfirmInk=Color.FromArgb(255,230,160);
+    /// <summary>Engine-custom Y/N strip (see the file header): question line, then YES／NO text buttons.</summary>
+    void PaintConfirm(UiCanvas canvas,string question){
+        var g=canvas.Graphics;var box=ConfirmBounds;
+        using(var fill=new SolidBrush(ConfirmBack))g.FillRectangle(fill,box);
+        using(var pen=new Pen(ConfirmBorder))g.DrawRectangle(pen,box.X,box.Y,box.Width-1,box.Height-1);
+        var size=UiText.Measure(g,question);
+        canvas.DrawText(question,box.X+Math.Max(2,(box.Width-size.Width)/2),box.Y+3,Color.White,Color.Black);
+        foreach(bool accept in new[]{true,false}){
+            var r=ConfirmButton(accept);
+            using(var pen=new Pen(ConfirmBorder))g.DrawRectangle(pen,r.X,r.Y,r.Width-1,r.Height-1);
+            string label=YesNoButtons.Label(accept);var ls=UiText.Measure(g,label);
+            canvas.DrawText(label,r.X+(r.Width-ls.Width)/2,r.Y+(r.Height-ls.Height)/2,ConfirmInk,Color.Black);
+        }
+    }
+
+    /// <summary>是 → StatPointConfirm(key); 否 → the preview is dropped. Either way Pending is cleared first. false when nothing is pending.</summary>
+    public bool Answer(bool accept){
+        if(Pending is not {} key)return false;
+        Pending=null;if(pressed is {MouseEvent:StatDownEvent}){pressed=null;pressedInside=false;}
+        if(accept)StatPointConfirm?.Invoke(key);
+        return true;
     }
 
     void PaintPiece(UiCanvas canvas,StatusPiece p){
@@ -326,6 +386,10 @@ public sealed class RenewalStatusPanel(UiResources? resources=null):IUiMovablePa
         if(!open)return false;
         bool inside=Bounds.Contains(e.Location);
         if(e.Kind==UiMouseKind.Wheel||e.Button!=MouseButtons.Left)return inside||pressed!=null;
+        if(Pending!=null&&ConfirmBounds.Contains(e.Location)){
+            if(e.Kind==UiMouseKind.Down){if(ConfirmButton(true).Contains(e.Location))Answer(true);else if(ConfirmButton(false).Contains(e.Location))Answer(false);}
+            return true;
+        }
         switch(e.Kind){
             case UiMouseKind.Down:
                 pressed=ButtonAt(e.Location);pressedInside=pressed!=null;
@@ -345,11 +409,20 @@ public sealed class RenewalStatusPanel(UiResources? resources=null):IUiMovablePa
     void Fire(StatusPiece p){
         if(p.MouseEvent==CloseEvent){Close();return;}
         if(TabTarget(p) is {} page){ActivePage=page;return;}
-        if(p.MouseEvent==StatUpEvent&&p.Owner!=null&&StatLabels.TryGetValue(p.Owner,out var key)){StatPointUp?.Invoke(key);return;}
+        if(p.MouseEvent==StatUpEvent&&p.Owner!=null&&StatLabels.TryGetValue(p.Owner,out var key)){Pending=key;return;}
+        if(p.MouseEvent==StatDownEvent&&p.Owner!=null&&StatLabels.TryGetValue(p.Owner,out var down)&&down==Pending){Answer(false);return;}
         if(p.Element=="CheckButton")StatInfoChecked=!StatInfoChecked;
         string name=p.MouseEvent??p.Name??p.Path;
         if(unhandled.Add(name))UiResourceLog.Write($"status-ui {name} 尚未接上");
     }
 
-    public bool Key(UiKeyEvent e,IUiCommands commands)=>false;
+    /// <summary>While a preview waits: Y／Enter = 是, N／Esc = 否 (engine-custom keys for the Y/N strip).</summary>
+    public bool Key(UiKeyEvent e,IUiCommands commands){
+        if(!open||Pending==null||!e.Down||e.Repeat)return false;
+        switch(e.KeyData){
+            case Keys.Y or Keys.Enter:return Answer(true);
+            case Keys.N or Keys.Escape:return Answer(false);
+            default:return false;
+        }
+    }
 }
