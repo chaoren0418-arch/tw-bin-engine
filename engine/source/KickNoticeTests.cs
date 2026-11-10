@@ -16,7 +16,7 @@ static class KickNoticeTests {
     [WorldModuleTest("kick-notice")]
     static void Run(WorldModuleTestContext t){
         Rules(t);Registration(t);
-        using(ServerMessageText.UseTable(Strings(100,(64,"\\f3假斷線字"),(359,"不該用到"))))WithTable(t);
+        using(ServerMessageText.UseTable(Strings(400,(64,"\\f3假斷線字"),(359,"不該用到"))))WithTable(t);
         using(ServerMessageText.UseTable(null))WithoutTable(t);
         using(ServerMessageText.UseTable(Strings(64)))ShortTable(t);
         using(ServerMessageText.UseTable(Strings(100,(64,"  "))))BlankEntry(t);
