@@ -12,7 +12,9 @@ namespace P06.NativeUi;
 /// </summary>
 /// R4-A (#705): Mail = action 1 (NewMailWindow → WinForms MailDialog through IUiMenuWindowCommands.OpenMail);
 /// Page = local HTML page of actions 5／6 (option2／option2p, option1; FU4§1.1) shown by IUiMenuWindowCommands.ToggleLocalPage.
-public sealed record MenuButtonAction(int Action,string Title,string? DevToolsPage,string? Window=null,bool PlayStats=false,bool Mail=false,MenuLocalPage? Page=null);
+/// R7-I (#811): Status = action 2 (CRenewalStatusUI): toggles the native RenewalStatusPanel through UiRoot.Toggle when it is
+/// available; DevToolsPage only when it is not (no reference ReNStatusUIEx.xml, faulted, no root).
+public sealed record MenuButtonAction(int Action,string Title,string? DevToolsPage,string? Window=null,bool PlayStats=false,bool Mail=false,MenuLocalPage? Page=null,bool Status=false);
 
 /// <summary>One IMAGE_BUTTON as loaded: logical rectangle (null when the normal surf is missing) and its state surfaces.</summary>
 public sealed record MenuButton(MenuButtonAction Action,int BaseSurf,Point Location,Rectangle? Rect,UiSurface? Normal,UiSurface? Pressed);
@@ -52,13 +54,14 @@ public sealed class MenuButtonsPanel(UiRoot? root=null):IUiPanel {
     /// 13 Map → Field_Map (same as Ctrl+M); 3 Spell → SPELL_WINDOW; 4 Item → ITEM_WINDOW; 7 → CUserPlayStatsUI (play-stats
     /// window, NOT logout). R4-A (#705): 1 NewMailWindow → mail dialog (WinForms, RenewalMailUI XML missing locally, WIN2§8);
     /// 5 HTML option2 (王族 option2p, 社群選項) and 6 HTML option1 (功能選項) → the same-named Text.pak page in the NPC panel until
-    /// R4-I's native HYPER_TEXT_WINDOW; 2 CRenewalStatusUI → dev-tools 「角色」 page (ReNStatusUIEx.xml missing, WIN§1.4).
+    /// R4-I's native HYPER_TEXT_WINDOW; 2 CRenewalStatusUI → native RenewalStatusPanel (R7-I #811; ReNStatusUIEx.xml is read
+    /// from the reference client, #766), dev-tools 「角色」 page only while that window is unavailable.
     /// DevToolsPage is the fallback when the bridge cannot act (dev-tools tab title; no such tab → logged as 待驗證 by the bridge).
     /// </summary>
     public static readonly IReadOnlyDictionary<int,MenuButtonAction> Actions=new Dictionary<int,MenuButtonAction>{
         [13]=new(13,"Map","小地圖",FieldMapPanel.PanelId),
         [1]=new(1,"Mail","信件",Mail:true),
-        [2]=new(2,"Status","角色"),
+        [2]=new(2,"Status","角色",Status:true),
         [3]=new(3,"Spell","魔法",SpellWindowPanel.WindowId),
         [4]=new(4,"Item","背包",ItemWindowPanel.WindowId),
         [5]=new(5,"Pledge","血盟",Page:MenuLocalPage.Option2),
@@ -189,10 +192,18 @@ public sealed class MenuButtonsPanel(UiRoot? root=null):IUiPanel {
     /// <summary>
     /// Toggles the native window of the action when it is registered and usable; otherwise opens the dev-tools page (transition,
     /// 待驗證). Never logs out (action 7 was a logout before #678; the original opens the play-stats window).
+    /// R7-I (#811): native windows go through UiRoot.Toggle (sub_A57C60 for one window, R5-A #733): a window in the stack
+    /// closes, a window pushed out of the stack (evicted / refused) comes back on top instead of being closed, and the
+    /// 509 rule is applied before the window opens.
     /// </summary>
     public static void Invoke(MenuButtonAction action,IUiCommands commands,UiRoot? root){
         if(action.PlayStats){
             if(LegacyWindowPanel.FindCommands<IUiMenuCommands>(commands)?.TogglePlayStats()!=true)commands.ShowDevTools(action.DevToolsPage);
+            return;
+        }
+        if(action.Status){
+            if(StatusWindow(root) is {} status)ToggleWindow(root!,status,()=>status.Open(),()=>status.Toggle());
+            else commands.ShowDevTools(action.DevToolsPage);
             return;
         }
         // R4-A (#705): mail and the local HTML pages go through the bridge; not available → the dev-tools page as before.
@@ -204,12 +215,28 @@ public sealed class MenuButtonsPanel(UiRoot? root=null):IUiPanel {
         }
         if(action.Window is {} id&&root?.Find(id) is {} panel&&!root.Faulted.Contains(panel)){
             switch(panel){
-                case LegacyWindowPanel w:w.Toggle();return;
+                case LegacyWindowPanel w:ToggleWindow(root,w,w.Open,w.Toggle);return;
                 // Original sub_77F510 shows message 1734 when there is no map; that message is not wired (待驗證), nothing opens.
-                case FieldMapPanel f:f.ToggleFromMenu();return;
+                case FieldMapPanel f:ToggleWindow(root,f,()=>f.ToggleFromMenu(),()=>f.ToggleFromMenu());return;
             }
         }
         commands.ShowDevTools(action.DevToolsPage);
+    }
+
+    /// <summary>R7-I (#811): the native status window when it can open (registered, reference XML loaded, not faulted); else null.</summary>
+    public static RenewalStatusPanel? StatusWindow(UiRoot? root)=>
+        root?.Find(RenewalStatusPanel.PanelId) is RenewalStatusPanel p&&p.Available&&!root.Faulted.Contains(p)?p:null;
+
+    /// <summary>
+    /// R7-I (#811): root.Toggle with the panel's own open. Only when the root could not even try (the panel is not one of its
+    /// windows) does the panel toggle itself as before; once open has run, the root's answer stands (an Unavailable result
+    /// after open = the panel did not open, e.g. Field_Map without a current map — nothing else happens).
+    /// </summary>
+    public static UiToggleResult ToggleWindow(UiRoot root,IUiPanel panel,Action open,Action ownToggle){
+        bool opened=false;
+        var result=root.Toggle(panel,()=>{opened=true;open();});
+        if(result==UiToggleResult.Unavailable&&!opened&&!root.Faulted.Contains(panel))ownToggle();
+        return result;
     }
 
     /// <summary>
