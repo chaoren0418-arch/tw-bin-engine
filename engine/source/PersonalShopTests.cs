@@ -52,11 +52,11 @@ static class PersonalShopTests {
         t.Equal("2601000000000000",Convert.ToHexString(PersonalShopPackets.Close()),"close = C38 type 1, padded");
         var sellE=new PersonalShopEntry(0x11223344,7,"a",100,3);var buyE=new PersonalShopEntry(0x55667788,8,"b",2000000000,1);
         var open=PersonalShopPackets.Open([sellE],[buyE],PersonalShopPackets.Chat("AB","C"));
-        t.Equal("2600"+"0100"+"44332211"+"64000000"+"03000000"+"0100"+"88776655"+"00943577"+"01000000"+"41424300",
+        t.Equal("2600"+"0100"+"44332211"+"64000000"+"03000000"+"0100"+"88776655"+"00943577"+"01000000"+"4142FF43",
             Convert.ToHexString(open)[..((2+2+12+2+12+4)*2)],"open = C38 0 H(1){D id,D price,D count} H(1){…} chat");
         t.Equal(0,open.Length%8,"open padded to 8");
-        t.Equal(40,open.Length,"open length 2+14+14+4 → 34 → pad 40");
-        t.Equal("A4A4A4E5"+"00",Convert.ToHexString(PersonalShopPackets.Chat("中","文")),"chat = Big5 line1 + line2 + 00 (join rule 推測)");
+        t.Equal(40,open.Length,"open length 2+14+14+5 → 35 → pad 40");
+        t.Equal("A4A4"+"FF"+"A4E5"+"00",Convert.ToHexString(PersonalShopPackets.Chat("中","文")),"chat = Big5 line1 + FF + line2 + 00 (R9-J #854, FU9§9.4)");
         t.Throws<ArgumentException>(()=>PersonalShopPackets.Open([],[],[0]),"empty shop refused");
         t.Throws<ArgumentException>(()=>PersonalShopPackets.Open([sellE with{Price=0}],[],[0]),"price 0 refused (server kicks)");
         t.Throws<ArgumentException>(()=>PersonalShopPackets.Open([sellE with{Count=0}],[],[0]),"count 0 refused (server kicks)");
@@ -84,7 +84,7 @@ static class PersonalShopTests {
         t.Check(built!=null&&built[0]==38&&built[1]==0&&built[2]==1&&built[3]==0,"OK builds C38 with one sell row");
         int tail=2+2+12+2;
         t.Check(built!=null&&built[tail-2]==0&&built[tail-1]==0,"no buy rows → H(0)");
-        t.Check(built!=null&&built.Skip(tail).Take(45).SequenceEqual(PersonalShopPackets.Chat(new string('甲',20),"歡迎")),"chat bytes follow the lists; poly is not sent");
+        t.Check(built!=null&&built.Skip(tail).Take(46).SequenceEqual(PersonalShopPackets.Chat(new string('甲',20),"歡迎")),"chat bytes follow the lists; poly is not sent");
         s.Clear();t.Check(s.Sell.All(e=>e==null)&&s.Messages.All(m=>m=="")&&s.Poly==0,"clear");
 
         // ---- 3. 從背包取候選。
