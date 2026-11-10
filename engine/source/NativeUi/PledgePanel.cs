@@ -186,6 +186,15 @@ public interface IPledgeWindowSource {
     bool SetShowEmblem(bool show);
     /// <summary>選 16×12 BMP 後送 C18（產品端開檔案對話框）。</summary>
     bool UploadEmblem();
+    // T316（#746，FU6§1、§3）：預設實作＝沒有接上（不送）。產品端 WorldPledgeSource 覆寫。
+    /// <summary>C129 C(0) S(血盟名)：AddFocusPledge 的輸入框（字串 3361）確定後。</summary>
+    bool AddAttention(string name)=>false;
+    /// <summary>C129 C(1) S(血盟名)：DelFocusPledge 確認後，每個勾選的血盟各一包（sub_B2C2F0）。</summary>
+    bool RemoveAttention(IReadOnlyList<string> names)=>false;
+    /// <summary>ChangeWarState 值 1（宣戰）開輸入框 577 前的 478／785 檢查（sub_B34930）；false＝擋下（訊息已印在聊天欄）。</summary>
+    bool WarPrecheck()=>true;
+    /// <summary>C227 C(type) S(對方血盟)：輸入框 577／578／579 確定後。</summary>
+    bool ChangeWar(ClanWarCommand command,string name)=>false;
 }
 
 /// <summary>
@@ -195,7 +204,10 @@ public interface IPledgeWindowSource {
 /// R4-E（#708）：公告窗的「公告」鈕（Writenotice_Button）進入編輯，「存檔」鈕（Savenotice_Button）或 Enter 送 C78 15；
 /// 點成員列的階級欄開 ChangeRank_PopupWindow，點階級鈕送 C63；Pledge_Emblem 畫自己的盟徽；
 /// 本機 PledgeUI.xml 沒有關注清單與「顯示盟徽」節點，所以視窗右側加一個引擎自訂的側欄（關注血盟 7 列、顯示盟徽勾選框、上傳盟徽鈕）。
-/// 排序、寫備註（ModifyMemo）、C129 關注（Q4-3 未查）不做。
+/// T316（#746，FU6§1、§3）：側欄再加 AddFocusPledge（新增，輸入框 3361 → C129 子碼 0）、CheckFocusPledge（點清單列切換勾選，不送包）、
+/// DelFocusPledge（刪除，確認框 4118 → 每個勾選列各送一包子碼 1）、ChangeWarState 三態（1 宣戰／2 停戰／3 投降，輸入框 577／579／578 → C227）。
+/// 側欄的位置與按鈕外觀是引擎自訂（原版讀 RePledgeUI.xml，本機缺）；輸入框與確認框也畫在側欄內（原版是共用輸入框 sub_AC98E0）。
+/// 排序、寫備註（ModifyMemo）不做。
 /// </summary>
 public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
     [UiPanel(175)] internal static UiPanelRegistration Registration=>new(PanelId,LayoutName,_=>new PledgePanel());   // R3-A (#678): opened by S250/171
@@ -223,8 +235,12 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
     /// <summary>公告編輯中的字色（推測：與一般文字區分）。</summary>
     public static readonly Color EditColor=Color.FromArgb(255,255,255,128);
     /// <summary>側欄（引擎自訂版面，原版讀 RePledgeUI.xml 的 PledgeOption_Window，本機缺圖）：寬、內距、列距與各區塊的 y。</summary>
-    public const int SideWidth=112,SidePad=4,SideRowPitch=15,AttentionTop=20,CheckTop=AttentionTop+AttentionRows*SideRowPitch+6,
-        UploadTop=CheckTop+17,StatusTop=UploadTop+20,SideHeight=StatusTop+28;
+    public const int SideWidth=112,SidePad=4,SideRowPitch=15,AttentionTop=20,FocusTop=AttentionTop+AttentionRows*SideRowPitch+4,
+        WarTop=FocusTop+20,CheckTop=WarTop+22,UploadTop=CheckTop+17,InputTop=UploadTop+20,StatusTop=InputTop+20,SideHeight=StatusTop+40;
+    /// <summary>T316：側欄輸入框最多收的字數（C129 名稱 16 byte；C227 名稱另由 ClanWarProtocol 檢查 32 byte）。</summary>
+    public const int SideInputLimit=16;
+    /// <summary>ChangeWarState 三個鈕依序代表的控制項值（1 宣戰、2 停戰、3 投降，FU6§3.2）。</summary>
+    public static readonly int[] WarStates=[1,2,3];
     public static readonly Color SideBack=Color.FromArgb(230,20,26,34),SideBorder=Color.FromArgb(255,113,113,113),Dim=Color.FromArgb(255,150,150,150);
     // ----
 
@@ -285,6 +301,11 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
     string? popupMember;Point popupAt;
     string status="";
     Bitmap? emblemBitmap;int[]? emblemPixels;
+    // T316：關注清單的勾選（CheckFocusPledge）與側欄的輸入框／確認框。
+    public enum SideInputKind { None, AddFocus, DeleteConfirm, War }
+    readonly HashSet<string> checkedAttention=new(StringComparer.OrdinalIgnoreCase);
+    SideInputKind sideInput;ClanWarCommand sideWar;
+    readonly System.Text.StringBuilder sideDraft=new();
 
     /// <summary>R4-E：對外動作（產品端每個 timer tick 由 ClanUi.cs 接上；離線檢查自己給）。null＝不能送，只顯示。</summary>
     public IPledgeWindowSource? Source{get;set;}
@@ -304,7 +325,31 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
     public Rectangle AttentionDownRect=>Side(SideWidth-SidePad-10,AttentionTop+AttentionRows*SideRowPitch-10,10,10);
     public Rectangle ShowEmblemRect=>Side(SidePad,CheckTop,11,11);
     public Rectangle UploadRect=>Side(SidePad,UploadTop,SideWidth-2*SidePad,16);
-    public Rectangle StatusRect=>Side(SidePad,StatusTop,SideWidth-2*SidePad,24);
+    public Rectangle StatusRect=>Side(SidePad,StatusTop,SideWidth-2*SidePad,36);
+    /// <summary>T316：AddFocusPledge／DelFocusPledge 鈕（引擎自訂位置）。</summary>
+    public Rectangle FocusAddRect=>Side(SidePad,FocusTop,(SideWidth-2*SidePad-4)/2,16);
+    public Rectangle FocusDeleteRect=>Side(SidePad+(SideWidth-2*SidePad-4)/2+4,FocusTop,(SideWidth-2*SidePad-4)/2,16);
+    /// <summary>T316：ChangeWarState 第 i 個鈕（WarStates[i]：1 宣戰、2 停戰、3 投降）。</summary>
+    public Rectangle WarStateRect(int i){int w=(SideWidth-2*SidePad-4)/3;return i is <0 or >2?Rectangle.Empty:Side(SidePad+i*(w+2),WarTop,w,16);}
+    /// <summary>T316：側欄輸入框（輸入中才畫草稿）。</summary>
+    public Rectangle SideInputRect=>Side(SidePad,InputTop,SideWidth-2*SidePad,16);
+    /// <summary>關注清單第 i 列的勾選框（列左邊的圖示槽）。</summary>
+    public Rectangle AttentionCheckRect(int i)=>AttentionRow(i) is {IsEmpty:false} r?new(r.X+2,r.Y+2,11,11):Rectangle.Empty;
+    public SideInputKind SideInput=>sideInput;
+    public string SideDraft=>sideDraft.ToString();
+    /// <summary>勾選中的關注血盟（依清單順序）。</summary>
+    public IReadOnlyList<string> CheckedAttention=>attention.Where(checkedAttention.Contains).ToArray();
+    /// <summary>
+    /// 側欄提示文字：有 string-c.tbl 就照表；沒有時用 FU6 記下的本機表文字（3361、577、578、579）。
+    /// 4118（刪除確認）本機表沒有（3484 筆），用編號占位。
+    /// </summary>
+    public static string PromptText(int id){
+        if(ServerMessageText.Table is {} t&&id<t.Count)return ServerMessageText.DisplayText(t[id]);
+        return id switch{
+            ClanProtocol.AttentionInputText=>"請輸入想要查看的血盟名。",ClanWarProtocol.DeclareInputText=>"請輸入要宣戰的對象血盟名稱。",
+            ClanWarProtocol.SurrenderInputText=>"請輸入要投降的血盟名稱。",ClanWarProtocol.CeaseInputText=>"請輸入要停戰的血盟名稱。",
+            _=>$"〔字串 {id}〕"};
+    }
     /// <summary>最近一次血盟窗動作的結果（引擎自訂提示；伺服器結果另由聊天區／WinForms 血盟窗顯示）。</summary>
     public string Status=>status;
     public bool EditingNotice=>editing;
@@ -439,6 +484,7 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
         data=inWorld?UiPledgeGameState.Of(state):null;
         attention=inWorld?UiPledgeGameState.AttentionOf(state)??[]:[];
         attentionScroll=Math.Clamp(attentionScroll,0,AttentionMaxScroll);
+        checkedAttention.RemoveWhere(n=>!attention.Contains(n,StringComparer.OrdinalIgnoreCase));
         if(data?.Online==null){open=false;scroll=0;ResetInteraction();return;}
         if(data.OpenRevision!=seenOpen){
             seenOpen=data.OpenRevision;
@@ -449,7 +495,7 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
         if(popupMember!=null&&!Members.Contains(popupMember,StringComparer.OrdinalIgnoreCase))popupMember=null;
     }
     /// <summary>關窗、重開、離開世界：結束公告編輯（草稿丟掉）並關掉改階級彈出窗。</summary>
-    void ResetInteraction(){editing=false;draft.Clear();popupMember=null;}
+    void ResetInteraction(){editing=false;draft.Clear();popupMember=null;CancelSideInput();checkedAttention.Clear();}
 
     /// <summary>邏輯座標（視窗左上＋相對座標）。</summary>
     Rectangle Abs(Rectangle r)=>r.IsEmpty?r:new(origin.X+r.X,origin.Y+r.Y,r.Width,r.Height);
@@ -531,9 +577,24 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
         g.DrawRectangle(pen,s.X,s.Y,s.Width-1,s.Height-1);
         canvas.DrawText("關注血盟",s.X+SidePad,s.Y+SidePad,TextColor);
         var page=AttentionPage;
-        for(int i=0;i<page.Count;i++){var r=AttentionRow(i);canvas.DrawText(page[i],r.X+18,Middle(r),TextColor);}
+        for(int i=0;i<page.Count;i++){
+            var r=AttentionRow(i);canvas.DrawText(page[i],r.X+18,Middle(r),TextColor);
+            var box=AttentionCheckRect(i);g.DrawRectangle(pen,box.X,box.Y,box.Width-1,box.Height-1);
+            if(checkedAttention.Contains(page[i]))using(var mark=new SolidBrush(TextColor))g.FillRectangle(mark,box.X+3,box.Y+3,box.Width-6,box.Height-6);
+        }
         if(attention.Count==0){var r=AttentionRow(0);canvas.DrawText("（沒有）",r.X+18,Middle(r),Dim);}
         Arrow(g,AttentionUpRect,true,attentionScroll>0);Arrow(g,AttentionDownRect,false,attentionScroll<AttentionMaxScroll);
+        void SideButton(Rectangle r,string text,bool active){
+            g.DrawRectangle(pen,r.X,r.Y,r.Width-1,r.Height-1);
+            int tw=UiText.Measure(g,text).Width;canvas.DrawText(text,r.X+Math.Max(1,(r.Width-tw)/2),Middle(r),Source==null?Dim:active?EditColor:TextColor);
+        }
+        SideButton(FocusAddRect,"新增",sideInput==SideInputKind.AddFocus);
+        SideButton(FocusDeleteRect,"刪除",sideInput==SideInputKind.DeleteConfirm);
+        for(int i=0;i<WarStates.Length;i++){var c=ClanWarProtocol.WindowState(WarStates[i])!.Value;SideButton(WarStateRect(i),c switch{ClanWarCommand.Declare=>"宣戰",ClanWarCommand.Cease=>"停戰",_=>"投降"},sideInput==SideInputKind.War&&sideWar==c);}
+        if(sideInput is SideInputKind.AddFocus or SideInputKind.War){
+            var ir=SideInputRect;g.DrawRectangle(pen,ir.X,ir.Y,ir.Width-1,ir.Height-1);
+            canvas.DrawText(sideDraft+"_",ir.X+2,Middle(ir),EditColor);
+        }
         var cb=ShowEmblemRect;bool? show=Source?.ShowEmblem;
         g.DrawRectangle(pen,cb.X,cb.Y,cb.Width-1,cb.Height-1);
         if(show==true)using(var mark=new SolidBrush(TextColor))g.FillRectangle(mark,cb.X+3,cb.Y+3,cb.Width-6,cb.Height-6);
@@ -593,7 +654,69 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
         if(Hit(AttentionDownRect,at)){ScrollAttention(1);return true;}
         if(Hit(ShowEmblemRect,at)){ToggleShowEmblem();return true;}
         if(Hit(UploadRect,at)){UploadEmblem();return true;}
+        // T316：關注與盟戰。
+        var attentionPage=AttentionPage;
+        for(int i=0;i<attentionPage.Count;i++)if(Hit(AttentionRow(i),at)){ToggleAttention(attentionPage[i]);return true;}
+        if(Hit(FocusAddRect,at)){BeginAddAttention();return true;}
+        if(Hit(FocusDeleteRect,at)){BeginDeleteAttention();return true;}
+        for(int i=0;i<WarStates.Length;i++)if(Hit(WarStateRect(i),at)){BeginWarState(WarStates[i]);return true;}
         return inside;   // 視窗 MouseEvent="Dummy"：窗內點擊不傳給世界
+    }
+
+    // ---- T316（#746）：關注血盟與 ChangeWarState ----
+    /// <summary>CheckFocusPledge（sub_B2B910 → sub_B2B8D0）：只切換該列的勾選，不送包。</summary>
+    public bool ToggleAttention(string name){
+        if(!attention.Contains(name,StringComparer.OrdinalIgnoreCase))return false;
+        if(!checkedAttention.Remove(name))checkedAttention.Add(name);
+        return true;
+    }
+    void BeginSideInput(SideInputKind kind,int prompt){editing=false;draft.Clear();popupMember=null;sideInput=kind;sideDraft.Clear();status=PromptText(prompt);}
+    public void CancelSideInput(){sideInput=SideInputKind.None;sideDraft.Clear();}
+    /// <summary>AddFocusPledge（sub_B2B040）：開輸入框，提示 3361。</summary>
+    public bool BeginAddAttention(){
+        if(!Visible)return false;
+        if(Source==null){status="沒有接上遊戲連線，關注血盟未送出。";return false;}
+        BeginSideInput(SideInputKind.AddFocus,ClanProtocol.AttentionInputText);return true;
+    }
+    /// <summary>DelFocusPledge（sub_B2C4D0）：開確認框（字串 4118，本機缺，用編號占位）；Enter 確定、Esc 取消。</summary>
+    public bool BeginDeleteAttention(){
+        if(!Visible)return false;
+        if(Source==null){status="沒有接上遊戲連線，關注血盟未送出。";return false;}
+        if(CheckedAttention.Count==0){status="請先勾選要刪除的關注血盟。";return false;}
+        BeginSideInput(SideInputKind.DeleteConfirm,ClanProtocol.AttentionDeleteConfirmText);
+        status+="（"+string.Join("、",CheckedAttention)+"）Enter 確定、Esc 取消。";return true;
+    }
+    /// <summary>ChangeWarState（sub_B2B830 → sub_B2B730）：1 宣戰（先查 478／785，再開 577）、2 停戰（579）、3 投降（578）；後兩者沒有本機檢查。</summary>
+    public bool BeginWarState(int value){
+        if(!Visible||ClanWarProtocol.WindowState(value) is not {} command)return false;
+        if(Source is not {} s){status="沒有接上遊戲連線，盟戰請求未送出。";return false;}
+        if(command==ClanWarCommand.Declare&&!s.WarPrecheck()){CancelSideInput();status="不能宣戰（原因見聊天欄）。";return false;}
+        BeginSideInput(SideInputKind.War,ClanWarProtocol.InputText(command));sideWar=command;return true;
+    }
+    /// <summary>輸入框／確認框的「確定」：新增送子碼 0（名稱非空才送）；刪除每個勾選的血盟各送一包子碼 1；盟戰送 C227。</summary>
+    public bool SubmitSideInput(){
+        var kind=sideInput;string text=sideDraft.ToString().Trim();
+        if(kind==SideInputKind.None)return false;
+        if(Source is not {} s){CancelSideInput();status="沒有接上遊戲連線。";return false;}
+        switch(kind){
+        case SideInputKind.AddFocus:
+            if(text.Length==0){CancelSideInput();status="";return false;}   // sub_B2AF90：名稱空白不送
+            CancelSideInput();
+            if(s.AddAttention(text)){status=$"已送出關注「{text}」；清單以伺服器回送為準。";return true;}
+            status="目前不能送出關注請求。";return false;
+        case SideInputKind.DeleteConfirm:{
+            var names=CheckedAttention;CancelSideInput();
+            if(names.Count==0){status="";return false;}
+            // 原版送出後也把這幾列從清單拿掉；本窗的清單只照伺服器 S200 type 2 顯示，所以等伺服器回送新清單。
+            if(s.RemoveAttention(names)){foreach(var n in names)checkedAttention.Remove(n);status=$"已送出刪除 {names.Count} 個關注血盟；清單以伺服器回送為準。";return true;}
+            status="目前不能送出刪除請求。";return false;}
+        default:{
+            var command=sideWar;CancelSideInput();
+            if(text.Length==0){status="";return false;}
+            string label=command switch{ClanWarCommand.Declare=>"宣戰",ClanWarCommand.Surrender=>"投降",_=>"停戰"};
+            if(s.ChangeWar(command,text)){status=$"已送出{label}（{text}）；結果以伺服器回報為準。";return true;}
+            status=$"{label}未送出（原因見聊天欄）。";return false;}
+        }
     }
     static bool Hit(Rectangle r,Point p)=>!r.IsEmpty&&r.Contains(p);
     public void ScrollBy(int rows)=>scroll=Math.Clamp(scroll+rows,0,MaxScroll);
@@ -648,12 +771,25 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
             if(e.KeyData==Keys.Back){if(draft.Length>0)draft.Length--;return true;}
             return false;
         }
+        if(sideInput!=SideInputKind.None){
+            // T316：側欄輸入框／確認框：Enter 確定、Esc 取消、Backspace 刪字（推測：與公告編輯相同；原版共用輸入框的按鍵沒查）。
+            if(!e.Down)return e.KeyCode is Keys.Enter or Keys.Escape or Keys.Back;
+            if(e.KeyData==Keys.Escape){if(!e.Repeat){CancelSideInput();status="";}return true;}
+            if(e.KeyData==Keys.Enter){if(!e.Repeat)SubmitSideInput();return true;}
+            if(e.KeyData==Keys.Back){if(sideDraft.Length>0)sideDraft.Length--;return true;}
+            return false;
+        }
         if(e.KeyCode!=CloseKey||e.Modifiers!=Keys.None)return false;
         if(e.Down&&!e.Repeat){if(popupMember!=null)popupMember=null;else Close();}
         return true;
     }
-    /// <summary>公告編輯中的字元（LimitText 160；代理字元不收，3.81 C_PledgeContent 會拒絕）。</summary>
+    /// <summary>公告編輯中的字元（LimitText 160；代理字元不收，3.81 C_PledgeContent 會拒絕）；T316 側欄輸入框的字元（最多 16 字）。</summary>
     public bool Char(char c){
+        if(Visible&&!editing&&sideInput is SideInputKind.AddFocus or SideInputKind.War){
+            if(char.IsControl(c))return false;
+            if(!char.IsSurrogate(c)&&sideDraft.Length<SideInputLimit)sideDraft.Append(c);
+            return true;
+        }
         if(!Visible||!editing||char.IsControl(c))return false;
         if(!char.IsSurrogate(c)&&draft.Length<NoticeLimit)draft.Append(c);
         return true;

@@ -21,7 +21,7 @@ public static class PlayerChatProtocol {
     public const int MaxCharacters=52;
     // Local input budget: quote + receiver (52) + separator + body (52), or /say + body.
     public const int MaxInputCharacters=106;
-    public const string InputHelp="一般：直接輸入；!喊話 &全體 @血盟 #隊伍 $交易；\"對象 訊息：密語；/say 原文：一般；/loc 角色：發送座標；/on、/off 頻道：頻道開關；/chatparty、/chatoutparty、/chatbanish 名稱：聊天隊伍";
+    public const string InputHelp="一般：直接輸入；!喊話 &全體 @血盟 #隊伍 $交易；\"對象 訊息：密語；/say 原文：一般；/loc 角色：發送座標；/on、/off 頻道：頻道開關；/chatparty、/chatoutparty、/chatbanish 名稱：聊天隊伍；/focus [血盟]：關注；/war、/surrender、/cease 血盟：盟戰；/propose、/divorce：求婚、離婚";
     public static PlayerChatInput ParseInput(string input){
         if(string.IsNullOrWhiteSpace(input))throw new ArgumentException("請輸入 1–52 字的單行訊息。");
         if(input.StartsWith("/say ",StringComparison.Ordinal))return new(PlayerChatChannel.Normal,input[5..]);
@@ -43,6 +43,7 @@ public static class PlayerChatProtocol {
         if(ChatChannelCommands.IsCommand(input)){var c=ChatChannelCommands.Parse(input)!;return "指令 · "+ChatChannelCommands.Describe(c.Channel,c.On);}
         if(ChatPartyCommands.IsCommand(input)){ChatPartyCommands.Encode(input);return "指令 · 聊天隊伍";}
         if(input=="/loc"||input.StartsWith("/loc ",StringComparison.Ordinal))return "指令 · 發送座標";
+        if(ClientChatCommands.Parse(input) is {} client)return "指令 · "+ClientChatCommands.Label(client.Kind);
         var message=ParseInput(input);Encode(message);
         return $"{ChannelName(message.Channel)} · 正文 {message.Text.Length}/52 字";
     }
@@ -97,7 +98,9 @@ public static class PlayerChatProtocol {
             if(speaker==0)return false;
             PlayerChatChannel? codeChannel=codeType switch{0=>PlayerChatChannel.Normal,2=>PlayerChatChannel.Shout,3=>PlayerChatChannel.Global,_=>null};
             if(codeChannel is not {} cc)return false;
-            channel=cc;text=r.S();code=true;break;
+            // T316（FU6§6）：`$數字` 用 desc-c.tbl 展開（sub_94AF00 → sub_A11520）。3.81 的 S161 只有 NPC 會送，所以走「一律展開」那條；
+            // 職業外型說話者「只展開開頭的 $」的分支 3.81 用不到（ExpandDesc 的 leadingOnly）。
+            channel=cc;text=ExpandDesc(r.S());code=true;break;
         case 81:
             byte localType=r.C();
             if(localType is not (0 or 2 or 14))return false;
@@ -127,6 +130,79 @@ public static class PlayerChatProtocol {
         r.Finish();line=new(0,speaker,Display(text),channel){ColorIndex=color,Code=code};return true;
     }
     internal static string Display(string text)=>new(text.Where(c=>!char.IsControl(c)).Take(1024).ToArray());
+
+    // ---- T316（#746，FU6§6）：S161 的 `$數字` ----
+    static readonly object descGate=new();
+    static ServerStringTable? desc,descOverride;static bool descLoaded,descOverridden;
+    /// <summary>desc-c.tbl（dword_153C9C4，sub_8CA220 以 "desc" 載入）：執行期從客戶端 Text.pak 在記憶體解出並核 pin（TextArchive.ReadDesc）；
+    /// 座標分享已經載入時直接共用。讀不到（例如 CI 沒有客戶端）是 null，文字照原樣顯示。</summary>
+    public static ServerStringTable? Desc{get{
+        lock(descGate){
+            if(descOverridden)return descOverride;
+            if(!descLoaded){
+                if(LocationShareProtocol.Desc is {} shared){desc=shared;descLoaded=true;return desc;}
+                descLoaded=true;
+                try{desc=TextArchive.Open(GroundSpriteReader.ClientRoot).ReadDesc();}
+                catch(Exception ex) when(ex is IOException or InvalidDataException or UnauthorizedAccessException or System.Security.Cryptography.CryptographicException or ArgumentException or System.Text.DecoderFallbackException){
+                    desc=null;System.Diagnostics.Trace.WriteLine("[player-chat] "+TextArchive.DescFileName+" 無法載入，代碼聊天的 $ 不展開："+ex.Message);
+                }
+            }
+            return desc;
+        }
+    }}
+    /// <summary>離線測試用：替換 desc 表（null＝沒有表），直到回傳的 scope 釋放。</summary>
+    internal static IDisposable UseDesc(ServerStringTable? replacement){
+        lock(descGate){var previous=(descOverridden,descOverride);descOverridden=true;descOverride=replacement;return new DescScope(()=>{lock(descGate)(descOverridden,descOverride)=previous;});}
+    }
+    sealed class DescScope(Action dispose):IDisposable{Action? action=dispose;public void Dispose(){Interlocked.Exchange(ref action,null)?.Invoke();}}
+    /// <summary>沒有 `$` 時不載入表。</summary>
+    public static string ExpandDesc(string text)=>text.IndexOf('$')<0?text:ExpandDesc(text,Desc);
+    /// <summary>
+    /// sub_A11520（FO 0x610920）的展開規則：`$` 後的十進位數字＝desc-c.tbl 行號；超出範圍換成 `???`；數字後緊接 `;` 一併吃掉；
+    /// 有展開時結果開頭是 `+0` 就去掉前三個字元。`$` 後面不是數字時照原樣保留（推測）。表內容的 `%i` 要代入額外參數，S161 沒有參數，照原樣保留（推測）。
+    /// leadingOnly＝說話者是職業外型的角色時只有文字開頭是 `$` 才展開。沒有表（null）時不改。
+    /// </summary>
+    public static string ExpandDesc(string text,ServerStringTable? table,bool leadingOnly=false){
+        if(table==null||text.IndexOf('$')<0||leadingOnly&&!text.StartsWith('$'))return text;
+        var sb=new System.Text.StringBuilder(text.Length+16);bool expanded=false;
+        for(int i=0;i<text.Length;i++){
+            if(text[i]=='$'&&i+1<text.Length&&char.IsAsciiDigit(text[i+1])){
+                int j=i+1;long id=0;
+                while(j<text.Length&&char.IsAsciiDigit(text[j])){id=Math.Min(id*10+(text[j]-'0'),int.MaxValue);j++;}
+                sb.Append(id<table.Count?table[(int)id]:"???");expanded=true;
+                if(j<text.Length&&text[j]==';')j++;
+                i=j-1;continue;
+            }
+            sb.Append(text[i]);
+        }
+        string result=sb.ToString();
+        return expanded&&result.StartsWith("+0",StringComparison.Ordinal)?result[Math.Min(3,result.Length)..]:result;
+    }
+}
+
+/// <summary>
+/// T316（#746，FU6§1、§3、§4）：原版客戶端自己處理的斜線指令（sub_F56320 依序註冊「建構子 → 英文名 → 字串表名」）。
+/// 中文別名是字串表的文字：3322「注視」、380「宣戰」、381「投降」、382「停戰」、788「求婚」、789「離婚」（本機 string-c.tbl 讀到的字；
+/// 這裡寫死，原版執行期由字串表決定）。指令與參數以第一個空白分開，參數前後空白去掉。
+/// </summary>
+public enum ClientChatCommandKind { Focus, War, Surrender, Cease, Propose, Divorce }
+public sealed record ClientChatCommand(ClientChatCommandKind Kind,string Argument);
+public static class ClientChatCommands {
+    static readonly (string English,string Chinese,ClientChatCommandKind Kind)[] Table=[
+        ("focus","注視",ClientChatCommandKind.Focus),("war","宣戰",ClientChatCommandKind.War),("surrender","投降",ClientChatCommandKind.Surrender),
+        ("cease","停戰",ClientChatCommandKind.Cease),("propose","求婚",ClientChatCommandKind.Propose),("divorce","離婚",ClientChatCommandKind.Divorce)];
+    /// <summary>不是這些指令回 null。英文指令不分大小寫（原版比對方式沒查，推測）。</summary>
+    public static ClientChatCommand? Parse(string input){
+        if(string.IsNullOrEmpty(input)||input[0]!='/')return null;
+        int space=input.IndexOf(' ');
+        string word=space<0?input[1..]:input[1..space],arg=space<0?"":input[(space+1)..].Trim();
+        foreach(var (en,zh,kind) in Table)
+            if(string.Equals(word,en,StringComparison.OrdinalIgnoreCase)||word==zh)return new(kind,arg);
+        return null;
+    }
+    public static string Label(ClientChatCommandKind kind)=>kind switch{
+        ClientChatCommandKind.Focus=>"關注血盟",ClientChatCommandKind.War=>"宣戰",ClientChatCommandKind.Surrender=>"投降",
+        ClientChatCommandKind.Cease=>"停戰",ClientChatCommandKind.Propose=>"求婚",_=>"離婚"};
 }
 
 /// <summary>聊天行的一段文字；Color 是原版調色盤 dword_1369D70 的索引（R2-G）。</summary>
@@ -272,21 +348,53 @@ public sealed partial class LoginConnection {
             playerChatNotice=ChatChannelNotice.Length>0?ChatChannelNotice:"頻道切換未送出。";Changed?.Invoke();return done;
         }
         if(!PlayerChatAccess||!PlayerChatStamp(session,world,actor)||playerChatSending||WorldClock()<playerChatNextAt||sendMovementGate==null)return false;
-        byte[] packet;bool command=ChatPartyCommands.IsCommand(text);
-        try{packet=PlayerQueryPacket(text,session,world,actor)??ChatPartyCommands.Encode(text)??PlayerChatProtocol.Encode(text);}
+        byte[] packet;bool command=ChatPartyCommands.IsCommand(text);string? clientNotice=null;Action? clientAdmitted=null;
+        try{
+            if(ClientChatCommands.Parse(text) is {} client){
+                // T316：/focus、/war、/surrender、/cease、/propose、/divorce（與中文別名）由客戶端自己編成封包，不當聊天送出。
+                if(ClientCommandPacket(client,out string notice,out clientAdmitted) is not {} p){playerChatNotice=notice.Length>0?notice:"指令未送出。";Changed?.Invoke();return false;}
+                packet=p;clientNotice=notice;
+            }
+            else packet=PlayerQueryPacket(text,session,world,actor)??ChatPartyCommands.Encode(text)??PlayerChatProtocol.Encode(text);
+        }
         catch(ArgumentException ex){playerChatNotice=ex.Message;Changed?.Invoke();return false;}
         var sender=sendMovementGate;int lease=++playerChatLease;playerChatSending=true;
         try{
             bool sent=await sender(packet,()=>lease==playerChatLease&&PlayerChatAccess&&PlayerChatStamp(session,world,actor),()=>{
                 // Local double-submit protection, not a claim about the server's chat cadence.
                 playerChatNextAt=WorldClock()+1000;
+                clientAdmitted?.Invoke();
             });
             if(session!=generation||lease!=playerChatLease)return false;
-            playerChatNotice=sent?(command?"聊天隊伍指令已送出；結果以伺服器回傳為準。":"訊息已送出；聊天內容以伺服器回傳為準。"):"角色或場景已變更，訊息未送出。";
+            playerChatNotice=sent?(clientNotice??(command?"聊天隊伍指令已送出；結果以伺服器回傳為準。":"訊息已送出；聊天內容以伺服器回傳為準。")):"角色或場景已變更，訊息未送出。";
             Changed?.Invoke();return sent;
         }catch(Exception ex){
             if(session==generation){Cancel();Set(LoginState.Faulted,"聊天傳送失敗："+ex.Message);}
             return false;
         }finally{if(lease==playerChatLease)playerChatSending=false;}
+    }
+    /// <summary>
+    /// T316：客戶端斜線指令 → 封包。null＝不送（notice 寫原因；本機檢查擋下時原版的訊息已印在聊天欄）。
+    /// /focus：有參數 C129 子碼 0＋名稱，沒有參數子碼 2（取清單，只有這裡會送，FU6§1.1）。
+    /// /war、/surrender、/cease：C227 type 0／2／3＋血盟名，本機檢查照 FU6§3.2（ClanWarRequestPacket）。
+    /// /propose、/divorce：C50 `cc` 0／1，沒有目標欄位，原版不檢查（FU6§4.1）。
+    /// </summary>
+    byte[]? ClientCommandPacket(ClientChatCommand c,out string notice,out Action? admitted){
+        admitted=null;notice="";
+        switch(c.Kind){
+        case ClientChatCommandKind.Focus:
+            if(c.Argument.Length==0){notice="已要求關注血盟清單；結果以伺服器回傳為準。";return ClanProtocol.EncodeAttentionGetList();}
+            try{var p=ClanProtocol.EncodeAttentionAdd(c.Argument);notice="關注血盟請求已送出；結果以伺服器回傳為準。";return p;}
+            catch(ArgumentException ex){notice=ex.Message;return null;}
+        case ClientChatCommandKind.War or ClientChatCommandKind.Surrender or ClientChatCommandKind.Cease:{
+            var command=c.Kind switch{ClientChatCommandKind.War=>ClanWarCommand.Declare,ClientChatCommandKind.Surrender=>ClanWarCommand.Surrender,_=>ClanWarCommand.Cease};
+            var packet=ClanWarRequestPacket(command,c.Argument,"chat",out notice);
+            if(packet!=null){string sentNotice=ClientChatCommands.Label(c.Kind)+"請求已送出；結果以伺服器回報為準。";notice=sentNotice;admitted=()=>World.ClanWarNote(sentNotice);}
+            return packet;}
+        case ClientChatCommandKind.Propose:
+            notice="求婚已送出；對象與結果由伺服器判定。";admitted=()=>World.MarriageCommandSent(false);return MarriagePackets.Propose();
+        default:
+            notice="離婚請求已送出；伺服器會再詢問確認。";admitted=()=>World.MarriageCommandSent(true);return MarriagePackets.Divorce();
+        }
     }
 }

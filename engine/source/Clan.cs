@@ -89,6 +89,30 @@ public static class ClanProtocol {
     public static ushort? AttentionMessage(ClanAttention value)=>value.Type!=AttentionResult?null:value.Result switch{131 or 129=>AttentionLeaderOfflineMessage,138=>AttentionAtWarMessage,_=>null};
     static LoginReader Reader(byte[] packet,byte opcode){var r=new LoginReader(packet);if(r.C()!=opcode)throw new ProtocolException("clan opcode");return r;}
 
+    // T316（#746，FU6§1）：C129（TW16 op 201 C_PLEDGE_WATCH；3.81 C_ClanAttention）。三個送出函式：
+    //   子碼 0 新增 `ccs`（sub_C15C10，CS_PLEDGE_WATCH_ADD_REQ）、子碼 1 刪除 `ccs`（sub_C15C40）、子碼 2 取清單 `cc`（sub_C15C70）。
+    // 名稱緩衝 0x11 byte（16 byte＋NUL），所以名稱截到 16 個 Big5 byte（不切斷雙位元組字）。
+    public const byte AttentionOpcode=129,AttentionAdd=0,AttentionRemove=1,AttentionGetList=2,AttentionNameBytes=16;
+    /// <summary>字串 3361「請輸入想要查看的血盟名。」（新增的輸入框）；4118＝刪除確認（本機 string-c.tbl 只有 3484 筆，查不到，用編號占位）。</summary>
+    public const int AttentionInputText=3361,AttentionDeleteConfirmText=4118;
+    public static byte[] EncodeAttentionAdd(string name)=>LoginPackets.Pad([AttentionOpcode,AttentionAdd,..AttentionName(name),0]);
+    public static byte[] EncodeAttentionRemove(string name)=>LoginPackets.Pad([AttentionOpcode,AttentionRemove,..AttentionName(name),0]);
+    public static byte[] EncodeAttentionGetList()=>LoginPackets.Pad([AttentionOpcode,AttentionGetList]);
+    /// <summary>名稱非空才送（sub_B2AF90）；控制字元不收；超過 16 byte 時截斷在字元邊界。</summary>
+    public static byte[] AttentionName(string name){
+        name=name.Trim();
+        if(name.Length==0||name.Any(char.IsControl))throw new ArgumentException("請輸入血盟名稱。");
+        var result=new List<byte>(AttentionNameBytes);
+        try{
+            foreach(var rune in name.EnumerateRunes()){
+                byte[] b=LoginPackets.TextEncoding.GetBytes(rune.ToString());
+                if(result.Count+b.Length>AttentionNameBytes)break;
+                result.AddRange(b);
+            }
+        }catch(System.Text.EncoderFallbackException){throw new ArgumentException("血盟名稱含遊戲字集無法表示的字元。");}
+        return result.ToArray();
+    }
+
     // Decode only a bounded, uncompressed 16x12 BMP from S118 memory. No image/file loader.
     // Unsupported encodings are reported, never replaced by a fabricated emblem.
     public static ClanEmblem DecodeEmblem(byte[] packet){
@@ -270,6 +294,35 @@ public sealed partial class LoginConnection {
             clanNoticeGeneration=session;clanSendNotice=sent?label+"請求已送出；結果以伺服器回報為準。":"角色或場景已變更，請求未送出。";Changed?.Invoke();return sent;
         }catch(Exception){if(session==generation){Cancel();Set(LoginState.Faulted,label+"請求傳送失敗，已斷線；沒有自動重送。");}return false;}
         finally{if(clanSendingGeneration==session)clanSendingGeneration=-1;}
+    }
+    /// <summary>
+    /// T316（FU6§1）：C129 關注血盟。原版送出前只檢查名稱非空；君主身分（3.81 isClanPrince／訊息 1064）由伺服器判定，
+    /// 所以這裡不檢查有沒有血盟。刪除時每個勾選的血盟各送一包（sub_B2C2F0），依序送出；任何一包被閘門拒絕就停。
+    /// </summary>
+    public async Task<bool> SendClanAttention(params byte[][] packets){
+        if(packets.Length==0)return false;
+        int session=generation;var actor=World.Actor?.ObjectId;int epoch=World.WorldEpoch;
+        bool Current()=>ClanAccess&&session==generation&&epoch==World.WorldEpoch&&actor==World.Actor?.ObjectId;
+        if(!Current()||clanSendingGeneration==generation||sendMovementGate==null)return false;
+        var sender=sendMovementGate;clanSendingGeneration=session;
+        try{
+            foreach(var packet in packets){
+                bool sent=await sender(packet,Current,()=>{});
+                if(session!=generation)return false;
+                if(!sent){clanNoticeGeneration=session;clanSendNotice="角色或場景已變更，關注請求未送出。";Changed?.Invoke();return false;}
+            }
+            clanNoticeGeneration=session;clanSendNotice="關注血盟請求已送出；結果以伺服器回報為準。";Changed?.Invoke();return true;
+        }catch(Exception){if(session==generation){Cancel();Set(LoginState.Faulted,"關注血盟請求傳送失敗，已斷線；沒有自動重送。");}return false;}
+        finally{if(clanSendingGeneration==session)clanSendingGeneration=-1;}
+    }
+    public Task<bool> AddClanAttention(string name){
+        byte[] packet;try{packet=ClanProtocol.EncodeAttentionAdd(name);}catch(ArgumentException){return Task.FromResult(false);}
+        return SendClanAttention(packet);
+    }
+    public Task<bool> RemoveClanAttention(IEnumerable<string> names){
+        var packets=new List<byte[]>();
+        foreach(var n in names){try{packets.Add(ClanProtocol.EncodeAttentionRemove(n));}catch(ArgumentException){}}
+        return SendClanAttention(packets.ToArray());
     }
     public Task<bool> SendClanRank(ClanView view,string name,byte rank)=>SendClanPacket(view,()=>ClanProtocol.EncodeRank(rank,name),"設定階級");
     public Task<bool> UploadClanEmblem(ClanView view,int[] pixels)=>SendClanPacket(view,()=>ClanEmblemProtocol.EncodeUpload(pixels),"上傳盟徽");
