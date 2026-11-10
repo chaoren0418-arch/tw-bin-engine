@@ -316,7 +316,7 @@ public sealed partial class Renderer {
             }
             // R4-G (FU5§3): default Effect with +9 != 0 from index 1, kind 2 Lightning from index 2, until it finishes.
             if(SkillLight.Lit(effect,SkillLight.Class(kind,range),SkillLight.Flag(e,firework),now-release))magicBrightening++;
-            int depth=!range&&kind==6&&EarthDepth.Stacks(e.Gfx)?EarthDepthOf(e.Number,-1):0;
+            int depth=!range&&kind==6&&EarthDepth.Stacks(e.Gfx)?EarthDepthAt(e.Number,-1,effect,now-release):0;   // R6-F: read on every frame advance
             var still=DrawNativeEffect(e.Gfx,e.Heading,flight.X,flight.Y,now-release,session,draws,"magic",depth:depth);
             if(still!=null)visuals.Add(new(e.Number,e.Gfx,flight.X,flight.Y,e.Heading,still.Key,"effect",release));
             // Default Effect class: sub_8ABC10 spawns `]` children at the effect's own position (effects-2.md §2.1(a)).

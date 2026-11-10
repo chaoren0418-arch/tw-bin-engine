@@ -53,18 +53,18 @@ static class CookBookFollowupTests {
         t.Throws<InvalidDataException>(()=>CookRecipeTable.Parse(Cp950("1\n$1 \"$1\" 0 3 0\n")),"unquoted name rejected");
         t.Throws<InvalidDataException>(()=>CookRecipeTable.Parse(Cp950("x\n")),"first line must be a count");
 
-        // 篩選（推測：等級 L 列編號 < 8L）、編號排序、名稱代換。
+        // 篩選（R6-F #782，FU7§3 已驗證：表內順序、編號 ≥48 排除、前 8×L 筆；細節見 CookAndDepthFollowupTests）、名稱代換。
         var l1=CookRecipeTable.Rows(1,Names,r);
-        t.Check(l1.Select(x=>x.Index).SequenceEqual([0,1,7]),"level 1 lists indexes 0..7 in order",l1);
+        t.Check(l1.Select(x=>x.Index).SequenceEqual([0,9,1,7]),"level 1 lists the first 8 rows in table order (≥48 excluded)",l1);
         t.Equal("名901",l1[0].Name,"name resolved through name table");
         t.Equal("名950 ×2",l1[0].Materials,"materials resolved");
-        t.Equal("",l1[1].Materials,"no materials → empty text");
-        t.Check(CookRecipeTable.Rows(2,Names,r).Select(x=>x.Index).SequenceEqual([0,1,7,9]),"level 2 adds 8..15");
-        t.Check(!CookRecipeTable.Rows(11,Names,r).Any(x=>x.Index==80),"special recipe 80 not listed (unverified)");
+        t.Equal("",l1[2].Materials,"no materials → empty text");
+        t.Check(CookRecipeTable.Rows(2,Names,r).Select(x=>x.Index).SequenceEqual([0,9,1,7]),"table shorter than 8 rows: level 2 lists the same rows");
+        t.Check(!CookRecipeTable.Rows(11,Names,r).Any(x=>x.Index==80),"recipe 80 (≥48) not listed");
         t.Equal("名951 ×1、名952 ×3",CookRecipeTable.Rows(2,Names,r).Single(x=>x.Index==9).Materials,"materials joined");
         t.Check(CookRecipeTable.Rows(0,Names,r).Count==0,"level 0 → empty");
         using(CookRecipeTable.UseTable(null))t.Check(CookRecipeTable.Rows(3,Names).Count==0,"no table → empty list");
-        using(CookRecipeTable.UseTable(r))t.Equal(3,CookRecipeTable.Rows(1,Names).Count,"table override used");
+        using(CookRecipeTable.UseTable(r))t.Equal(4,CookRecipeTable.Rows(1,Names).Count,"table override used");
     }
 
     static void Toggle(WorldModuleTestContext t){
@@ -119,7 +119,7 @@ static class CookBookFollowupTests {
         using(CookRecipeTable.UseTable(Recipes)){
             var src=new WorldCookBookSource(()=>w,Names,(rev,r)=>{cooks.Add((rev,r));return Task.FromResult(true);});
             var v=src.Current!;
-            t.Check(v.Recipes!.Select(x=>x.Index).SequenceEqual([0,1,7,9]),"source lists level 2 recipes",v.Recipes);
+            t.Check(v.Recipes!.Select(x=>x.Index).SequenceEqual([0,9,1,7]),"source lists level 2 recipes (table order)",v.Recipes);
             t.Check(ReferenceEquals(v.Recipes,src.Current!.Recipes),"rows cached per revision");
             t.Check(src.Cook(v.Revision,9)&&cooks.SequenceEqual([(v.Revision,9)]),"source forwards cook");
             t.Check(!new WorldCookBookSource(()=>w).Cook(v.Revision,9),"source without callback refuses cook");
@@ -168,59 +168,14 @@ static class CookBookFollowupTests {
     }
 
     static void Panel(WorldModuleTestContext t){
-        var p=new CookBookPanel();p.Load(UiLayout.Parse(CookXml(),"synthetic-uiextra86.xml"),CookSurfaces);var cmd=new UiNullCommands();
-        // 清單區：底左緣 6+8=14 到捲軸左緣 80−2=78；上鈕頂 22 到下鈕底 70+8=78 → 56 px／15 = 3 列。
-        t.Equal(Rectangle.FromLTRB(14,22,78,78),p.ListLocal,"list area between base, scrollbar and buttons (inferred)");
-        t.Equal(3,p.VisibleRows,"3 visible rows");
+        // R6-F（#782）：清單版面改成 4 欄圖示格、量表只在倒數中畫；格子／捲動／選取／提示框／量表的測試移到 CookAndDepthFollowupTests。
+        var p=new CookBookPanel();p.Load(UiLayout.Parse(CookXml(),"synthetic-uiextra86.xml"),CookSurfaces);
         t.Check(!((ICookBookSource)new DefaultSource()).Cook(1,1),"default ICookBookSource.Cook refuses");
-
         var rows=Enumerable.Range(0,5).Select(i=>new CookBookRecipe(i*2,"料理"+i,"")).ToArray();
-        var src=new FakeSource{Current=new(1,0,1,rows)};p.Source=src;
+        var src=new FakeSource{Current=new(3,0,1,rows)};p.Source=src;
         p.Update(new UiStaticGameState(InWorld:true));
         t.Check(p.Visible&&p.Scroll==0&&p.Selected==-1,"opens at top with nothing selected");
-        t.Check(p.VisibleRecipes.Select(r=>r.Name).SequenceEqual(["料理0","料理1","料理2"]),"first 3 rows visible");
-        t.Equal(2,p.MaxScroll,"max scroll = 5 − 3");
-        t.Equal(new Rectangle(10+14,20+22+15,64,15),p.RowRect(1),"row 1 rect");
-
-        // 上下鈕與滾輪。
-        int downX=10+80+2,downY=20+70+2,upX=10+80+2,upY=20+22+2;
-        Click(p,downX,downY,cmd);t.Equal(1,p.Scroll,"down button scrolls one row");
-        Click(p,downX,downY,cmd);Click(p,downX,downY,cmd);t.Equal(2,p.Scroll,"scroll clamps at max");
-        Click(p,upX,upY,cmd);t.Equal(1,p.Scroll,"up button scrolls back");
-        t.Check(p.Mouse(M(UiMouseKind.Wheel,30,40,0,120),cmd)&&p.Scroll==0,"wheel up scrolls up");
-        t.Check(p.Mouse(M(UiMouseKind.Wheel,30,40,0,-120),cmd)&&p.Scroll==1,"wheel down scrolls down");
-        t.Check(!p.Mouse(M(UiMouseKind.Wheel,500,500,0,-120),cmd)&&p.Scroll==1,"wheel outside ignored");
-        t.Check(src.Cooks.Count==0&&src.Closed.Count==0,"scrolling neither cooks nor closes");
-
-        // 選取與製作（scroll 1：第 0 列是清單索引 1）。
-        var row0=p.RowRect(0);var row1=p.RowRect(1);
-        Click(p,row0.X+3,row0.Y+3,cmd);
-        t.Check(p.Selected==1&&p.SelectedRecipe?.Index==2&&src.Cooks.Count==0,"first click selects",p.Selected);
-        Click(p,row1.X+3,row1.Y+3,cmd);t.Check(p.Selected==2&&src.Cooks.Count==0,"click another row moves selection");
-        Click(p,row1.X+3,row1.Y+3,cmd);t.Check(src.Cooks.SequenceEqual([(1L,4)]),"second click on the selected row cooks its index",src.Cooks);
-        p.Mouse(M(UiMouseKind.Down,row1.X+3,row1.Y+3,clicks:2),cmd);p.Mouse(M(UiMouseKind.Up,row1.X+3,row1.Y+3),cmd);
-        t.Equal(2,src.Cooks.Count,"double click cooks once");
-        p.Mouse(M(UiMouseKind.Down,row1.X+3,row1.Y+3),cmd);p.Mouse(M(UiMouseKind.Up,row0.X+3,row0.Y+3),cmd);
-        t.Check(src.Cooks.Count==2&&p.Selected==2,"press and release on different rows does nothing");
-        var below=p.RowRect(3);Click(p,below.X+3,below.Y+3,cmd);
-        t.Check(src.Cooks.Count==2&&p.Selected==2&&p.Visible,"click below the rows does nothing");
-
-        // 量表：等級 1 → 33×1/11＝3 px（推測）；之後不畫量表、露出底圖。
-        using(var canvas=new UiCanvas()){
-            canvas.Clear(Color.Black);canvas.Restrict(p.Bounds);p.Paint(canvas);canvas.Release();
-            var g0=canvas.Bitmap.GetPixel(10+12+1,20+76+1);var g5=canvas.Bitmap.GetPixel(10+12+5,20+76+1);
-            t.Check(g0.R==0x44&&g0.G==0x55&&g0.B==0x66,"gauge filled part painted",g0);
-            t.Check(g5.R==0x20&&g5.G==0x30&&g5.B==0x40,"gauge beyond level/11 not painted",g5);
-        }
-        t.Equal(1/11.0,p.GaugeFill,"gauge fill = level / 11");
-        src.Current=new(1,10,11,rows);p.Update(new UiStaticGameState(InWorld:true));t.Equal(1.0,p.GaugeFill,"level 11 fills the gauge");
-        t.Check(p.Selected==2&&p.Scroll==1,"same revision keeps selection and scroll");
-
-        // 新的一次開窗：捲回頂端、取消選取；清單變短時捲動夾住。
-        src.Current=new(2,0,1,rows[..2]);p.Update(new UiStaticGameState(InWorld:true));
-        t.Check(p.Scroll==0&&p.Selected==-1&&p.MaxScroll==0,"new revision resets scroll and selection");
-        src.Current=new(3,0,1,null);p.Update(new UiStaticGameState(InWorld:true));
-        t.Check(p.Visible&&p.Recipes.Count==0&&p.RowAt(new(row0.X+3,row0.Y+3))==-1,"no table → empty list, window still opens");
+        t.Equal(0,p.GaugePixels,"no countdown → gauge not drawn (3.81)");
 
         // IUiClosablePanel：被 4 層堆疊擠出時與關閉 X 相同。
         ((IUiClosablePanel)p).Close();
@@ -239,15 +194,15 @@ static class CookBookFollowupTests {
         t.Check(CookBookFallbackView.Wanted(false,true,open with{Revision=6},5),"new revision shows again");
         t.Equal("料理書（等級 2，3 道）",CookBookFallbackView.Caption(open,3),"caption");
         var rows=CookRecipeTable.Rows(2,Names,Recipes);
-        t.Check(CookBookFallbackView.Cells(rows[3]).SequenceEqual(["9","名902","名951 ×1、名952 ×3"]),"cells: index, name, materials");
+        t.Check(CookBookFallbackView.Cells(rows[1]).SequenceEqual(["9","名902","名951 ×1、名952 ×3"]),"cells: index, name, materials");
 
         using var window=new CookBookFallbackWindow();
         var cooks=new List<(long,int)>();window.Cook=(rev,r)=>{cooks.Add((rev,r));return Task.CompletedTask;};
         window.SetBook(open,rows,tableLoaded:true);
-        t.Check(window.Revision==5&&window.RowCount==4&&window.Cell(3,1)=="名902"&&window.Cell(0,0)=="0","rows filled",new{window.Revision,window.RowCount});
+        t.Check(window.Revision==5&&window.RowCount==4&&window.Cell(1,1)=="名902"&&window.Cell(0,0)=="0","rows filled",new{window.Revision,window.RowCount});
         t.Equal("料理書（等級 2，4 道）",window.Text,"window caption");
         t.Check(window.SelectedRecipe==null,"nothing selected initially");
-        window.SelectRow(3);t.Equal((int?)9,window.SelectedRecipe?.Index,"selected row maps to recipe index");
+        window.SelectRow(1);t.Equal((int?)9,window.SelectedRecipe?.Index,"selected row maps to recipe index");
         window.SetBook(open with{Revision=6},rows.Take(1).ToArray(),tableLoaded:false);
         t.Check(window.Revision==6&&window.RowCount==1&&window.SelectedRecipe==null,"new revision replaces rows and clears selection");
     }

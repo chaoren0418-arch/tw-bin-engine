@@ -189,8 +189,11 @@ static class SkillLightTests {
         static int[] MagicZ(List<Draw> d)=>d.Where(x=>x.Layer=="magic").Select(x=>x.Z).ToArray();
 
         var w=Seed();w.Receive(Attack(10147),"offline");w.Receive(Attack(10147),"offline");CasterTiming(w);var r=Bare();long release=w.MagicEffects.Max(e=>e.At)+Release;
+        // R6-F（#782，FU7§4.2）：兩個都在收包時建立（+29×2，渲染在收包後第一次 compose 建立），深度在每格推進時讀當下的計數
+        // → 同一刻開始的兩個都拿 58（舊測試的 29／58 是「建立時記住」的推測）。
+        Compose(r,w,w.MagicEffects.Max(e=>e.At));
         var z=MagicZ(Compose(r,w,release));
-        t.Check(z.Length==2&&z.Contains(BlockZ+29)&&z.Contains(BlockZ+58),"stacked S30 kind 6 10147 draw one above another",z);
+        t.Check(z.Length==2&&z.All(x=>x==BlockZ+58),"two S30 kind 6 10147 advancing together share the current counter",z);
         t.Equal(58,r.EarthDepthCounter,"two EarthRisings: counter 58");
 
         w=Seed();w.Receive(Attack(10145),"offline");CasterTiming(w);r=Bare();release=w.MagicEffects.Single().At+Release;
