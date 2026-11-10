@@ -1,0 +1,19 @@
+vtab 11EB720 8
+dec 88B060
+dec DFC1E0
+dec A5AAC0
+findstr .?AUInventoryWindow@@
+findstr .?AUSpellWindow@@
+findstr .?AVCCookWindow@@
+findstr .?AUCCookWindow@@
+findstr WAREHOUSE_WINDOW
+findstr ITEM_WINDOW
+findstr COOK_BOOK_WINDOW
+xref 13CCBA4
+dec A0BA50
+dec 81C7C0
+dec 81C9D0
+dec 81C340
+dec BD3E40
+fdis 9357E0
+xref 153F25C
