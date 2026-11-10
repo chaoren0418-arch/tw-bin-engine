@@ -7,10 +7,20 @@ public sealed partial class WorldSession {
     readonly Dictionary<uint,AfflictionTint> afflictionTints=[];
     int afflictionWorldEpoch;
     public ushort BlindMode {get;private set;}
-    /// <summary>AM§1(f): the own TW16 byte_1542AA1 is 2 or 4 (推測: elf / dark elf). The packet that writes that byte is
-    /// not identified (same gap as AmbienceFrame.NightVision), so the session never sets it; while it is true blind
-    /// mode 2 uses level 3 of table mode 2 (unlit 6/31) instead of 4/31.</summary>
-    public bool BlindClassBonus {get;internal set;}
+    /// <summary>
+    /// T316（FU6§2）：自己的職業碼 byte_1542AA1＝選角清單 S93／S127 的第 3 個欄位（LoginCharacter.Class）。原版在選角按進入時
+    /// （sub_EC9510 0xEC9717／sub_EED2B0 0xEED4B0）把選中角色紀錄的 +0x78 寫進去，進入世界後不再改。
+    /// 由 LoginConnection 提供（OwnClassSource＝選中角色的 Class）；不知道時是 null。
+    /// </summary>
+    public byte? OwnClass=>ownClassFixed??OwnClassSource?.Invoke();
+    internal Func<byte?>? OwnClassSource {get;set;}
+    byte? ownClassFixed;
+    /// <summary>離線測試用：直接指定職業碼（null＝改回 OwnClassSource）。</summary>
+    internal void SetOwnClassForTest(byte? value)=>ownClassFixed=value;
+    bool? blindClassOverride;
+    /// <summary>AM§1(f)／AM§4：自己的職業碼是 2 或 4（妖精／黑暗妖精，3.81 type）時，盲目 2 用表 mode 2 第 3 級（未照亮 6/31），
+    /// 否則 4/31。setter 只給離線測試覆寫。</summary>
+    public bool BlindClassBonus {get=>blindClassOverride??OwnClass is 2 or 4;internal set=>blindClassOverride=value;}
     public bool AfflictionInputLocked=>paralysis.Any(mode=>mode!=6);
 
     bool afflictionObserving;
@@ -68,6 +78,18 @@ public sealed partial class WorldSession {
         if(mode>2)return;
         ObserveAfflictions();BlindMode=mode;
     }
+}
+
+public sealed partial class LoginConnection {
+    /// <summary>
+    /// T316（FU6§2）：選中角色在選角清單的職業碼（byte_1542AA1）。依進入世界時選的名稱（worldSelection，沒有時用自己的名稱）在本連線的
+    /// 角色清單找；找不到回 null。清單只在選角／角色管理時改動，這裡讀複本。
+    /// </summary>
+    internal byte? SelectedCharacterClass{get{
+        string? name=worldSelection??World.Actor?.Name;if(name==null)return null;
+        foreach(var c in characters.ToArray())if(c.Name==name)return c.Class;
+        return null;
+    }}
 }
 
 // RGB555 formulas from docs/reference/ambience-and-map-events.md §4 (TW16, verified there).

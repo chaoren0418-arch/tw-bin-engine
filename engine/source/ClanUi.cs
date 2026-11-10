@@ -142,4 +142,11 @@ public sealed class WorldPledgeSource(LoginConnection login,Func<bool> upload):I
         _=login.SetClanShowEmblem(v,show);return true;
     }
     public bool UploadEmblem()=>upload();
+    // T316 (#746, FU6§1/§3): C129 attention and C227 from the native clan window. A send that the local checks reject
+    // completes synchronously with false (the original message is already in the chat pane).
+    static bool Dispatched(Task<bool> task)=>!task.IsCompleted||task.Result;
+    public bool AddAttention(string name)=>Dispatched(login.AddClanAttention(name));
+    public bool RemoveAttention(IReadOnlyList<string> names)=>Dispatched(login.RemoveClanAttention(names));
+    public bool WarPrecheck()=>login.ClanWarWindowPrecheck();
+    public bool ChangeWar(ClanWarCommand command,string name)=>Dispatched(login.SendClanWarFromWindow(command,name));
 }
