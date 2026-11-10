@@ -56,33 +56,56 @@ public static class EruptionMotion {
 // R4-G, TWP §3.2–§3.3: global dword_13CCBA4. Every EarthRising construction (S30 kind 6, kind 7 terminal) adds 29;
 // the kind 7 terminal sets it back to 0 right after building its EarthRising. gfx 10147 (EarthRising, sub_A0BA50) and
 // gfx 10145 (Eruption segment) add it to the layer depth, capped at 255, so stacked instances draw one above another.
-// 推測: the value is taken when the object is built (a per-draw read of the global would give every live instance
-// the same depth, contradicting "一個比一個高"), and Draw.Z (the SPR block z) stands for the native layer depth.
+// R6-F（T336／#782，FU7§4.2，本輪 IDA 再核對，已驗證）：the global is read on every frame advance, not kept from construction.
+//   - sub_81C7C0 (EarthRising per-frame, FO 0x41BBC0) at 0x81C7FA passes the *current* dword_13CCBA4 to sub_A0BA50 for gfx 10147;
+//     sub_81C9D0 (Eruption segment per-frame, FO 0x41BDD0) at 0x81CA25 does the same for gfx 10145.
+//   - The first advance runs inside the start call (sub_81CEB0 / sub_81CF30 call the per-frame function directly), later ones are
+//     scheduled by sub_A231C0(frame time, sub_81D090 / sub_81C9D0).
+//   - kind 7 terminal (sub_81C9D0 end): sub_81C340 (+29), vtable+24 start (first frame reads the counter with that +29), then = 0.
+//   So instances advancing at the same moment share one depth, and after the terminal reset every live 10147 / 10145 goes back
+//   to its own z on its next frame.
+// 推測: the renderer samples by time, so "a frame advance" = the display ordinal (EarthDepth.Cursor) changed since the last
+// compose; the value read is the counter at that compose (≤ one compose tick after the native advance). Draw.Z (the SPR block z)
+// stands for the native layer depth.
 // `+40` (dword_13CD84C[gfx] = list.spr field 104, actions-and-names.md) is EffectSprite.TileType of the drawn gfx:
 // segments use their own gfx, the terminal EarthRising uses the param gfx's own 104 (DrawNativeEffect(param)).
 public static class EarthDepth {
     public const int Step=29,Max=255;
     public static bool Stacks(int gfx)=>gfx is 10147 or 10145;
     public static int Z(int z,int depth)=>depth<=0?z:Math.Min(Max,z+depth);
+    /// <summary>Display ordinal at age (0 = first shown step), in EffectSprite.At order (the cursor advances before the first display).</summary>
+    public static int Cursor(EffectSprite effect,long age){
+        if(effect.Steps.Length==0||effect.Duration<=0)return 0;
+        long left=Math.Clamp(age,0,effect.Duration-1);
+        for(int i=0;i<effect.Steps.Length;i++){int ms=effect.Steps[(i+1)%effect.Steps.Length].Milliseconds;if(left<ms)return i;left-=ms;}
+        return effect.Steps.Length-1;
+    }
 }
 public sealed partial class Renderer {
     // Lazily created: constructor-free test renderers do not run field initializers.
     Dictionary<long,EruptionPlan>? eruptionPlans;Dictionary<long,(int X,int Y)>? eruptionEnds;
-    // dword_13CCBA4 and the value each object took when built. Index -1 = S30 kind 6, -2 = kind 7 terminal, ≥0 = segment.
-    int earthCounter;Dictionary<(long Number,int Index),int>? earthDepths;
+    // dword_13CCBA4; the EarthRisings already built (+29 once each); and per object the cursor of its last advance and the value read then.
+    // Index -1 = S30 kind 6, -2 = kind 7 terminal, ≥0 = segment.
+    int earthCounter;HashSet<(long Number,int Index)>? earthBuilt;Dictionary<(long Number,int Index),(int Cursor,int Depth)>? earthReads;
     /// <summary>目前的 dword_13CCBA4（測試用）。</summary>
     public int EarthDepthCounter=>earthCounter;
-    int EarthRisingBuilt(long number,int index){
-        var d=earthDepths??=[];if(d.TryGetValue((number,index),out int v))return v;
-        earthCounter+=EarthDepth.Step;d[(number,index)]=earthCounter;return earthCounter;
+    /// <summary>sub_81C340: +29 once per EarthRising object. Returns false when it was already built.</summary>
+    bool EarthRisingBuilt(long number,int index){
+        if(!(earthBuilt??=[]).Add((number,index)))return false;
+        earthCounter+=EarthDepth.Step;return true;
     }
-    int EarthDepthOf(long number,int index)=>earthDepths!=null&&earthDepths.TryGetValue((number,index),out int v)?v:0;
-    int SegmentBuilt(long number,int index){
-        var d=earthDepths??=[];if(!d.TryGetValue((number,index),out int v)){v=earthCounter;d[(number,index)]=v;}return v;
+    /// <summary>Depth for this frame: the counter read at the object's latest frame advance (re-read whenever the cursor moved).</summary>
+    int EarthDepthAt(long number,int index,EffectSprite? effect,long age){
+        int cursor=effect==null?0:EarthDepth.Cursor(effect,age);var d=earthReads??=[];
+        if(d.TryGetValue((number,index),out var read)&&read.Cursor==cursor)return read.Depth;
+        d[(number,index)]=(cursor,earthCounter);return earthCounter;
     }
-    void ForgetEarthDepth(long number){if(earthDepths!=null)foreach(var k in earthDepths.Keys.Where(k=>k.Number==number).ToArray())earthDepths.Remove(k);}
+    void ForgetEarthDepth(long number){
+        if(earthReads!=null)foreach(var k in earthReads.Keys.Where(k=>k.Number==number).ToArray())earthReads.Remove(k);
+        earthBuilt?.RemoveWhere(k=>k.Number==number);
+    }
     // Called from ComposeMagic's world-epoch reset.
-    void ClearEruptions(){eruptionPlans?.Clear();eruptionEnds?.Clear();earthDepths?.Clear();earthCounter=0;}
+    void ClearEruptions(){eruptionPlans?.Clear();eruptionEnds?.Clear();earthReads?.Clear();earthBuilt?.Clear();earthCounter=0;}
     /// <summary>The kind 7 plan fixed at the caster `!` (null before it starts).</summary>
     public EruptionPlan? EruptionPlanFor(long number)=>eruptionPlans?.GetValueOrDefault(number);
     // S30 kind 7. Starts at the caster `!`; the end is the target's current position at that moment (81CF30).
@@ -96,9 +119,10 @@ public sealed partial class Renderer {
         }
         foreach(var s in plan.Segments){
             long at=release+s.Offset;if(now<at)continue;
-            // Segment built at its offset: gfx 10145 takes the current dword_13CCBA4 as extra depth.
-            int segmentDepth=SegmentBuilt(e.Number,s.Index);if(now-at>=effect.Duration)continue;
-            var frame=DrawNativeEffect(e.Gfx,plan.Direction,s.X,s.Y,now-at,session,draws,"magic",depth:EarthDepth.Stacks(e.Gfx)?segmentDepth:0);
+            if(now-at>=effect.Duration)continue;
+            // R6-F: gfx 10145 reads the current dword_13CCBA4 on every frame advance (sub_81C9D0 0x81CA25).
+            int segmentDepth=EarthDepth.Stacks(e.Gfx)?EarthDepthAt(e.Number,s.Index,effect,now-at):0;
+            var frame=DrawNativeEffect(e.Gfx,plan.Direction,s.X,s.Y,now-at,session,draws,"magic",depth:segmentDepth);
             if(frame!=null)visuals.Add(new(e.Number,e.Gfx,s.X,s.Y,plan.Direction,frame.Key,"segment",at));
         }
         if(!plan.Chains){
@@ -110,17 +134,20 @@ public sealed partial class Renderer {
         var ends=eruptionEnds??=[];
         // EarthRising start (81CEB0): moves to the target's current position if the target still exists.
         if(!ends.TryGetValue(e.Number,out var end)){var aim=session.VisibleTargetPosition(e.Target);end=(aim?.X??plan.EndX,aim?.Y??plan.EndY);ends[e.Number]=end;}
-        // Terminal EarthRising built (+29), then dword_13CCBA4 = 0 (TWP §3.3), once per eruption.
-        bool built=earthDepths!=null&&earthDepths.ContainsKey((e.Number,-2));int depth=EarthRisingBuilt(e.Number,-2);if(!built)earthCounter=0;
+        // Terminal EarthRising built (+29), started (its first frame reads the counter, +29 included), then dword_13CCBA4 = 0
+        // (TWP §3.3; R6-F order from sub_81C9D0), once per eruption.
+        if(EarthRisingBuilt(e.Number,-2)){(earthReads??=[])[(e.Number,-2)]=(0,earthCounter);earthCounter=0;}
         // The terminal object is always the EarthRising class, whatever the param gfx's own 109 kind is.
-        ComposeEarthRising(e,effect.Impact,plan.Direction,end.X,end.Y,start,session,draws,visuals,now,"terminal",depth);
+        ComposeEarthRising(e,effect.Impact,plan.Direction,end.X,end.Y,start,session,draws,visuals,now,"terminal",-2);
     }
     // kind 6 EarthRising (sub_81C7C0): no movement, plays once; every `!` frame hits while damage≠0
     // (damage is never cleared); never processes `]`. Only gfx 10147 uses the stacking depth (sub_A0BA50).
-    void ComposeEarthRising(MagicEffect e,int gfx,int direction,int x,int y,long start,WorldSession session,List<Draw> draws,List<MagicVisual> visuals,long now,string phase,int depth=0){
+    // depthIndex: the earthReads key of this object (R6-F: depth read on every frame advance).
+    void ComposeEarthRising(MagicEffect e,int gfx,int direction,int x,int y,long start,WorldSession session,List<Draw> draws,List<MagicVisual> visuals,long now,string phase,int depthIndex){
         var rising=NativeEffect(gfx);if(rising==null||now<start)return;
         if(e.DamageWord>0&&e.Target!=0&&rising.LatestHit(start,now) is long hitAt)MagicHit(session,e.Target,hitAt);
-        var frame=DrawNativeEffect(gfx,direction,x,y,now-start,session,draws,"magic",depth:EarthDepth.Stacks(gfx)?depth:0);
+        int depth=EarthDepth.Stacks(gfx)&&now-start<rising.Duration?EarthDepthAt(e.Number,depthIndex,rising,now-start):0;
+        var frame=DrawNativeEffect(gfx,direction,x,y,now-start,session,draws,"magic",depth:depth);
         if(frame!=null)visuals.Add(new(e.Number,gfx,x,y,direction,frame.Key,phase,start));
     }
     readonly Dictionary<string,Frame> projectileFrames=[];

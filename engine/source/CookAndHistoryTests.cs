@@ -88,8 +88,9 @@ static class CookAndHistoryTests {
             t.Check(basePx.R==0x20&&basePx.G==0x30&&basePx.B==0x40,"base painted at origin + offset",basePx);
             var level=canvas.Bitmap.GetPixel(10+50+1,20+80+1);
             t.Equal(Color.FromArgb(unchecked((int)(0xFF000000|3*0x10))).ToArgb(),level.ToArgb(),"only the selected level image painted on top");
+            // R6-F（#782，FU7§3）：量表只在製作倒數中畫；沒有倒數 → 露出底圖。
             var gauge=canvas.Bitmap.GetPixel(10+12+1,20+76+1);
-            t.Check(gauge.R==0x44&&gauge.G==0x55&&gauge.B==0x66,"gauge painted",gauge);
+            t.Check(gauge.R==0x20&&gauge.G==0x30&&gauge.B==0x40,"gauge not painted without a countdown",gauge);
             t.Equal(Color.Black.ToArgb(),canvas.Bitmap.GetPixel(10+5,20+7).ToArgb(),"frame without coordinates not painted");
         }
 

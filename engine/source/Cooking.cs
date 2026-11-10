@@ -18,9 +18,19 @@ namespace P06;
 // - 清單：執行期從原客戶端 Text.pak 的 recipe.tbl 讀（CP950，記憶體內解碼，不存檔、不進 repo）。本機 0-客戶端 唯讀核對（2026-11-10）：
 //   第一行筆數 27；每行 "名稱" "全名" 編號 欄4 材料數 ("材料" 數量)×材料數；名稱、材料是 $n（道具名稱表）；編號 0–23 與 80–82；欄4 全是 3（意義未查）。
 // - 製作：C_USE_ITEM(164) D(料理書物件) C(1) C(編號)（docs/protocol/item-use.md，ItemUseArguments.Cooking）；料理書是收到 S250 52 時選取中的料理書。
-// 推測（標明，待真機或 IDA 查 CCookWindow sub_A5AAC0 確認）：
-//   - 料理書等級 L 列出編號 < 8×L 的食譜（每級 8 道）；編號 80–82 的特殊食譜不列（不知道原版何時顯示），仍可從背包的料理書對話框輸入編號製作。
-//   - 量表 2256 的填充比例＝等級／11（等級圖 11 張）；原版量表的資料來源未查。
+//
+// R6-F（T336／#782，依據 docs/reference/followups-7.md 第 3 節＝FU7§3，本輪 IDA 再核對）：
+// - 已驗證 讀表 sub_A5CE60（FO 0x65C260）：每行「名稱、全名、編號 d、欄 4 h、材料數 c、材料×n」；欄 4 存在食譜 +0x104（word），
+//   是製作秒數（S_MESSAGE_CODE 6392／6394 時倒數＝欄4×2，見 CookCountdown）。編號 ≥ 0x30（48）的整筆不算數（v27[4] −= v23）。
+//   編號 < 24 的說明字串 id＝dword_137A0C0[3i+2]（.data FO 0xF788C0，i＝表內位置），≥ 24 時 0。
+// - 已驗證 清單 sub_A5CDE0（FO 0x65C1E0）：表內位置 0..23 各加一格，圖示＝dword_137A0C0[3i+1]（RecipeIcons）。
+// - 已驗證 等級篩選 sub_A5CB70（FO 0x65BF70）：前 8×L 格設為顯示（L＝料理書等級）。所以篩選是「表內順序、≥48 排除、前 24 格、前 8×L 筆」，
+//   不是「編號 < 8×L」（本機 recipe.tbl 0–23 已依序排，兩者結果相同；80–82 因 ≥48 排除）。
+// - 已驗證 製作 sub_A5D2A0（FO 0x65C6A0）：料理書不明（dword_153F294＝−1）→ 聊天列印字串 1167；倒數中（dword_153F28C＞0）→ 印 1100；
+//   都不是才送 cdcc 208（C_USE_ITEM）。兩個提示都是 sub_7DC850(字, 色 24, 色 14)。
+// - 推測：送出的「編號」原版是清單格的位置 i（清單項目 +4）；本機表位置＝編號，引擎沿用食譜的編號欄。
+// - 推測：3.81 伺服器不送 6392／6394（本機 string-c.tbl 只有 3484 筆），所以倒數不會開始、量表不畫；本模組只提供倒數模型（BeginCookCountdown），
+//   S_MESSAGE_CODE 的收包檔不在本任務範圍，沒有接。
 
 /// <summary>料理窗目前狀態。Level＝value＋1（料理書等級）；Revision 每次變動遞增；BookObjectId＝開窗時選取中的料理書（0＝不明）。</summary>
 public sealed record CookBookState(bool Open,byte Value,int Level,uint Magic,long Revision,uint BookObjectId=0);
@@ -34,12 +44,28 @@ public static class CookingProtocol {
     // uiextra86.xml COOK_BOOK_WINDOW（windows-2.md 第 7 節）：底圖、捲軸、等級圖（11 張）與位置、量表與位置。
     public const int BackgroundSurf=2254,ScrollSurf=2039,LevelSurfFirst=2545,LevelSurfLast=2555,GaugeSurf=2256;
     public static readonly (int X,int Y) LevelPosition=(116,257),GaugePosition=(35,251);
-    /// <summary>推測：每一級料理書多 8 道食譜。</summary>
+    /// <summary>已驗證（sub_A5CB70）：等級 L 顯示前 8×L 格。</summary>
     public const int RecipesPerLevel=8;
-    /// <summary>recipe.tbl 裡編號 80 起是特殊食譜（80–82）；推測：不在一般清單列出。</summary>
-    public const int SpecialRecipeFirst=80;
+    /// <summary>已驗證（sub_A5CE60）：編號 ≥ 48 的整筆不算數。</summary>
+    public const int ExcludedIndexFirst=48;
+    /// <summary>已驗證（sub_A5CDE0 i&lt;24）：清單最多 24 格。</summary>
+    public const int ListCapacity=24;
+    /// <summary>已驗證（sub_A5CE60）：編號 &lt; 24 才有說明字串 id。</summary>
+    public const int DescribedIndexLimit=24;
     /// <summary>C_USE_ITEM 料理書第一個參數：1＝製作。</summary>
     public const int MakeMode=1;
+    /// <summary>已驗證（sub_A5D2A0）：沒有料理書時印的字串、倒數中印的字串、聊天列色（sub_7DC850 第 1 色）。</summary>
+    public const int NeedBookText=1167,BusyText=1100,NoticeColorIndex=24;
+    /// <summary>本機 string-c.tbl 的原文（字串表讀不到時用）。</summary>
+    public const string NeedBookFallback="為了製作料理，所以需要料理書。",BusyFallback="正在執行中...";
+    /// <summary>
+    /// 已驗證：dword_137A0C0（.data FO 0xF788C0）每 3 個 dword 一組 (等級, 圖示, 說明字串)，表內位置 0..23。
+    /// 圖示傳給清單項目（sub_88BAC0 的第 1 參數，與背包圖示同一套 id）；說明字串交給 sub_89AAE0 以 23 byte 一行切開，畫在提示框。
+    /// </summary>
+    public static readonly int[] RecipeIcons=[2612,2578,2609,2576,2610,2611,2580,2582, 2723,2721,2726,2725,2720,2722,2719,2724, 2949,2942,2948,2943,2945,2944,2947,2946];
+    public static readonly int[] RecipeTexts=[1144,1145,1146,1147,1148,1149,1150,1151, 1211,1212,1213,1214,1215,1216,1217,1218, 1394,1395,1396,1397,1398,1399,1400,1401];
+    /// <summary>字串表第 id 筆（ServerMessageText.Table）；讀不到時用 fallback。</summary>
+    public static string Text(int id,string fallback)=>ServerMessageText.Table is {} t&&id>=0&&id<t.Count&&t[id].Trim().Length>0?ServerMessageText.DisplayText(t[id]):fallback;
 
     public static (uint Magic,byte Open,byte Value) Decode(byte[] plain){
         var r=new LoginReader(plain);
@@ -51,8 +77,35 @@ public static class CookingProtocol {
     public static int BookItemId(byte value)=>BookItemBase+value;
     /// <summary>等級圖（推定：第 value 張）；超出 11 張回 null。</summary>
     public static int? LevelSurf(byte value)=>LevelSurfFirst+value<=LevelSurfLast?LevelSurfFirst+value:null;
-    /// <summary>推測：等級 level 的料理書列出的食譜（編號 &lt; 8×level，特殊食譜 80 起不列）。</summary>
-    public static bool Listed(CookRecipe recipe,int level)=>level>0&&recipe.Index<SpecialRecipeFirst&&recipe.Index<RecipesPerLevel*level;
+    /// <summary>
+    /// 已驗證（sub_A5CE60＋sub_A5CDE0＋sub_A5CB70）：等級 level 的清單＝表內順序、編號 ≥ 48 排除、最多 24 格、前 8×level 筆。
+    /// 回傳 (表內位置, 食譜)；位置決定圖示與說明字串。
+    /// </summary>
+    public static IEnumerable<(int Position,CookRecipe Recipe)> Listed(IEnumerable<CookRecipe> table,int level){
+        if(level<=0)return [];
+        return table.Where(r=>r.Index<ExcludedIndexFirst).Take(ListCapacity).Select((r,i)=>(i,r)).Take(Math.Min(ListCapacity,RecipesPerLevel*level));
+    }
+    public static int IconAt(int position)=>position>=0&&position<RecipeIcons.Length?RecipeIcons[position]:0;
+    /// <summary>說明字串 id：編號 ≥ 24 時 0（sub_A5CE60 +264）。</summary>
+    public static int TextAt(int position,int index)=>index<DescribedIndexLimit&&position>=0&&position<RecipeTexts.Length?RecipeTexts[position]:0;
+    /// <summary>已驗證（sub_A5C5E0）：量表寬＝50 ×（剩餘 &gt;&gt; 1）／總量，高 8；剩餘 ≤ 0 或總量 ≤ 0 時不畫（0）。</summary>
+    public const int GaugeWidth=50,GaugeHeight=8;
+    public static int GaugePixels(int remaining,int total)=>remaining<=0||total<=0?0:Math.Clamp(GaugeWidth*(remaining>>1)/total,0,GaugeWidth);
+}
+
+/// <summary>
+/// 製作倒數（已驗證，S_MESSAGE_CODE sub_942B40 VA 0x9441F0 起＋sub_A5B920）：開始時 剩餘＝食譜欄4×2、總量＝欄4，之後每 500 ms 剩餘減 1；
+/// 剩餘已是 0 的下一個 500 ms 才把總量歸 0（倒數結束）。Start＝開始的毫秒時刻。
+/// </summary>
+public sealed record CookCountdown(int Seconds,long Start) {
+    public const int TickMs=500;
+    long Ticks(long now)=>Math.Max(0,(now-Start)/TickMs);
+    /// <summary>now 時的剩餘（dword_153F288，半秒數）；結束後 0。</summary>
+    public int Remaining(long now)=>Seconds<=0?0:(int)Math.Max(0,2L*Seconds-Ticks(now));
+    /// <summary>總量還沒歸 0（dword_153F28C ＞ 0）：製作時印 1100、不送。</summary>
+    public bool Busy(long now)=>Seconds>0&&Ticks(now)<=2L*Seconds;
+    /// <summary>量表寬（只在剩餘 ＞ 0 時畫）。</summary>
+    public int GaugePixels(long now)=>CookingProtocol.GaugePixels(Remaining(now),Busy(now)?Seconds:0);
 }
 
 /// <summary>recipe.tbl 的一行：名稱、全名、編號（C_USE_ITEM 送的值）、欄 4（意義未查）、材料。</summary>
@@ -135,13 +188,14 @@ public static class CookRecipeTable {
     }
     sealed class Scope(Action dispose):IDisposable{Action? action=dispose;public void Dispose(){Interlocked.Exchange(ref action,null)?.Invoke();}}
 
-    /// <summary>料理窗要列的食譜（編號順序），名稱與材料經 names 代換 $n。</summary>
+    /// <summary>料理窗要列的食譜（R6-F：表內順序、≥48 排除、前 8×L 筆，見 CookingProtocol.Listed），名稱與材料經 names 代換 $n。</summary>
     public static IReadOnlyList<CookBookRecipe> Rows(int level,Func<string,string>? names=null,IReadOnlyList<CookRecipe>? recipes=null){
         var source=recipes??Table;
         if(source==null||level<=0)return [];
         string N(string s)=>names==null?s:names(s);
-        return source.Where(r=>CookingProtocol.Listed(r,level)).OrderBy(r=>r.Index)
-            .Select(r=>new CookBookRecipe(r.Index,N(r.Name),string.Join("、",r.Materials.Select(m=>$"{N(m.Name)} ×{m.Count}")))).ToArray();
+        return CookingProtocol.Listed(source,level)
+            .Select(x=>new CookBookRecipe(x.Recipe.Index,N(x.Recipe.Name),string.Join("、",x.Recipe.Materials.Select(m=>$"{N(m.Name)} ×{m.Count}")),
+                CookingProtocol.IconAt(x.Position),CookingProtocol.TextAt(x.Position,x.Recipe.Index),x.Recipe.Column4)).ToArray();
     }
 }
 
@@ -180,8 +234,22 @@ public sealed partial class WorldSession {
         return books.Length==1?books[0]:null;
     }
 
+    // R6-F：製作倒數（CookCountdown）。原版由 S_MESSAGE_CODE 6392／6394 開始；3.81 不送（推測），所以平常是 null。
+    CookCountdown? cookCountdown;
+    public CookCountdown? CookingCountdown{get{lock(cookBookGate)return cookCountdown;}}
+    /// <summary>開始製作倒數（秒數＝食譜欄 4）。收包端沒有接（S_MESSAGE_CODE 的檔案不在 R6-F 範圍），測試與日後接線用。</summary>
+    internal void BeginCookCountdown(int seconds,long now){lock(cookBookGate)cookCountdown=seconds>0?new(seconds,now):null;}
+    /// <summary>R6-F：sub_A5D2A0 的提示（1167／1100）印在聊天列，色 24。</summary>
+    internal void AddCookingNotice(int id){
+        string text=CookingProtocol.Text(id,id==CookingProtocol.NeedBookText?CookingProtocol.NeedBookFallback:CookingProtocol.BusyFallback);
+        playerChatLines.Enqueue(new(++playerChatSequence,0,text){ColorIndex=CookingProtocol.NoticeColorIndex});
+        while(playerChatLines.Count>100)playerChatLines.Dequeue();
+        playerChatRevision++;
+        ItemNotice=text;
+    }
+
     [WorldReset]
-    void ResetCooking(){lock(cookBookGate)cookBook=new(false,0,0,0,cookBook.Revision+1);}
+    void ResetCooking(){lock(cookBookGate){cookBook=new(false,0,0,0,cookBook.Revision+1);cookCountdown=null;}}
     [WorldSnapshot("cooking")]
     object? CookingSnapshot(){
         var book=CookBook;
@@ -202,7 +270,9 @@ public sealed partial class LoginConnection {
         var book=World.CookBook;
         if(!book.Open||book.Revision!=revision){World.ItemNotice="未送出：料理窗已關閉或已更新，請重新開啟料理書";return Task.FromResult(false);}
         if(recipe is <0 or >255){World.ItemNotice="未送出：食譜編號無效";return Task.FromResult(false);}
-        if(World.CookingBookItem(book) is not {} item){World.ItemNotice="未送出：背包裡找不到開窗的料理書";return Task.FromResult(false);}
+        // R6-F（sub_A5D2A0）：料理書不明 → 1167；倒數中 → 1100；兩者都印在聊天列、不送。
+        if(World.CookingBookItem(book) is not {} item){World.AddCookingNotice(CookingProtocol.NeedBookText);return Task.FromResult(false);}
+        if(World.CookingCountdown is {} countdown&&countdown.Busy(Environment.TickCount64)){World.AddCookingNotice(CookingProtocol.BusyText);return Task.FromResult(false);}
         if(State!=LoginState.InWorld||World.Actor is not {} actor){World.ItemNotice="未送出：尚未進入遊戲";return Task.FromResult(false);}
         if(World.SelectedItemId!=item.ObjectId&&!World.SelectItem(item.ObjectId)){World.ItemNotice="未送出：料理書已離開背包";return Task.FromResult(false);}
         var request=new ItemUseRequest(item,generation,World.WorldEpoch,World.MapId,actor.ObjectId,
@@ -213,12 +283,14 @@ public sealed partial class LoginConnection {
 }
 
 /// <summary>R3-C（#672）：把 WorldSession 的料理窗狀態轉給原生面板（面板不碰 LoginConnection）。R4-D：加食譜清單與製作。</summary>
-public sealed class WorldCookBookSource(Func<WorldSession> world,Func<string,string>? names=null,Func<long,int,Task<bool>>? cook=null):ICookBookSource {
+public sealed class WorldCookBookSource(Func<WorldSession> world,Func<string,string>? names=null,Func<long,int,Task<bool>>? cook=null,Func<long>? clock=null):ICookBookSource {
     (long Revision,int Level,IReadOnlyList<CookBookRecipe> Rows)? cache;
     public CookBookView? Current{get{
-        var b=world().CookBook;if(!b.Open)return null;
+        var w=world();var b=w.CookBook;if(!b.Open)return null;
         if(cache is not {} c||c.Revision!=b.Revision||c.Level!=b.Level){c=(b.Revision,b.Level,CookRecipeTable.Rows(b.Level,names));cache=c;}
-        return new(b.Revision,b.Value,b.Level,c.Rows);
+        // R6-F：量表只在製作倒數中畫（3.81 不開始倒數 → 0，不畫）。
+        int gauge=w.CookingCountdown is {} cd?cd.GaugePixels((clock??(()=>Environment.TickCount64))()):0;
+        return new(b.Revision,b.Value,b.Level,c.Rows,gauge);
     }}
     public void Close(long revision)=>world().CloseCookBook(revision);
     public bool Cook(long revision,int recipe){

@@ -5,7 +5,8 @@ namespace P06;
 // 收到 S250 52（Cooking.cs）→ 列出這一級料理書的食譜（recipe.tbl，名稱經道具名稱表代換）與材料；選一道按「製作」
 // → LoginConnection.CookRecipe（C_USE_ITEM D C(1) C(編號)）。關閉＝本機關窗（不送封包），與原生窗關閉 X 相同。
 // 由 Cooking.cs 的 AttachNativeCookBook（共用 timer tick，UI 執行緒）每 tick 呼叫 SyncCookBookFallback。
-// 清單內容與篩選規則與原生窗相同（Cooking.cs 檔頭的推測：等級 L 列編號 < 8×L）；本窗是引擎的暫行畫面，不是原版外觀。
+// 清單內容與篩選規則與原生窗相同（R6-F #782：CookRecipeTable.Rows → CookingProtocol.Listed，表內順序、編號 ≥48 排除、前 8×L 筆）；
+// 本窗是引擎的暫行畫面，不是原版外觀。製作時的 1167／1100 提示由 LoginConnection.CookRecipe 印在聊天列，也顯示在本窗的提示列。
 
 /// <summary>暫行清單的顯示文字（離線測試可直接驗）。</summary>
 public static class CookBookFallbackView {
