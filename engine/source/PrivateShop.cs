@@ -11,12 +11,22 @@ public sealed record PrivateShopRow(int Id,byte Order,uint ItemId,ushort Icon,st
 public sealed record PrivateShopView(int Generation,int Epoch,int Revision,int TargetRevision,uint ActorId,uint OwnerId,string OwnerName,string Phase,bool Sell,string Notice,string ServerText,int? SelectedRow,uint Quantity,bool CanQuery,bool CanChoose,bool CanSubmit,PrivateShopRow[] Rows,bool CanQueryBuy,bool CanQuerySell);
 public static class PrivateShopPackets {
     public static byte[] Query(uint owner,bool sell){if(owner==0)throw new ArgumentException("owner");return LoginPackets.Pad([47,(byte)(sell?1:0),..BitConverter.GetBytes(owner)]);}
-    // One row only. The PC sell count is CH (24 bits), followed by the server's C order.
+    // One row. The PC sell count is CH (24 bits), followed by the server's C order.
     // DE sell consumes D item + CH count and ignores the final order byte for this single row.
-    public static byte[] Submit(uint owner,bool sell,PrivateShopRow row,uint count){
-        if(owner==0||count==0||count>row.Maximum||count>row.ListedCount||count>int.MaxValue||(sell&&(row.ItemId==0||count>0xFFFFFF||(long)row.Price*count>2000000000)))throw new ArgumentException("private shop quantity/identity");
-        uint item=sell?row.ItemId:row.Order;uint packed=sell?count|((uint)row.Order<<24):count;
-        return LoginPackets.Pad([161,..BitConverter.GetBytes(owner),(byte)(sell?1:0),1,0,..BitConverter.GetBytes(item),..BitConverter.GetBytes(packed)]);
+    public static byte[] Submit(uint owner,bool sell,PrivateShopRow row,uint count)=>SubmitMany(owner,sell,[(row,count)]);
+    /// <summary>私商買賣上限：一次最多 8 筆（C_Result mode_sellpc／mode_buypc 的 isRemoveFromList[8]、order &lt; 8；原版模式 14 &gt;8 筆不送）。</summary>
+    public const int MaxRows=8;
+    // R6-C（T333／#779）：多筆一包 C161。SP C_Result（1-伺服器 src，mode_buypc／mode_sellpc）：D owner, C type, C size, C(未用)，
+    // 之後 size 筆、每筆 8 byte——買 `D order, D count`；賣 `D 物件, CH count, C order`。原版 sub_A2BB90 也是一包、每筆 8 byte（TWP§1.6）。
+    public static byte[] SubmitMany(uint owner,bool sell,IReadOnlyList<(PrivateShopRow Row,uint Count)> rows){
+        if(owner==0||rows.Count==0||rows.Count>MaxRows)throw new ArgumentException("private shop row count");
+        var p=new List<byte>{161};p.AddRange(BitConverter.GetBytes(owner));p.Add((byte)(sell?1:0));p.Add((byte)rows.Count);p.Add(0);
+        foreach(var (row,count) in rows){
+            if(count==0||count>row.Maximum||count>row.ListedCount||count>int.MaxValue||(sell&&(row.ItemId==0||count>0xFFFFFF||(long)row.Price*count>2000000000)))throw new ArgumentException("private shop quantity/identity");
+            uint item=sell?row.ItemId:row.Order;uint packed=sell?count|((uint)row.Order<<24):count;
+            p.AddRange(BitConverter.GetBytes(item));p.AddRange(BitConverter.GetBytes(packed));
+        }
+        return LoginPackets.Pad(p.ToArray());
     }
 }
 public sealed partial class WorldSession {
@@ -184,13 +194,14 @@ public sealed partial class LoginConnection {
     void ResetPrivateShopSend(){privateShopLease++;privateShopSending=false;}
     bool PrivateShopAccess=>State==LoginState.InWorld&&World.NearbyPrivateOwner&&!World.ActionLocked&&!World.TradeBlocksActions&&!MovementBusy&&!interactionSending&&World.InteractionKind is "closed" or "timedout";
     bool PrivateStamp(int generation,int epoch,int revision,int target,uint own)=>generation==SessionGeneration&&epoch==World.WorldEpoch&&revision==World.PrivateShopRevision&&target==World.TargetRevision&&own!=0&&own==World.Status?.ObjectId&&own==World.Actor?.ObjectId;
-    public PrivateShopView PrivateShopSnapshot(){World.CheckPrivateShop();bool access=PrivateShopAccess&&!privateShopSending;return new(SessionGeneration,World.WorldEpoch,World.PrivateShopRevision,World.TargetRevision,World.Status?.ObjectId??0,World.TargetId??0,World.Target?.Name??"未選店主",World.PrivateShopPhase,World.PrivateShopSell,World.PrivateShopDisplayNotice,World.PrivateShopServerText,World.PrivateShopSelectedRow,World.PrivateShopQuantity,access&&!World.PrivateShopPending&&(!World.PrivateShopQueryUncertain(false)||!World.PrivateShopQueryUncertain(true)),access&&World.PrivateShopPhase=="list",access&&World.PrivateShopSelectedRow is int row&&World.ValidPrivateOrder(row,1),World.PrivateShopRows,access&&!World.PrivateShopPending&&!World.PrivateShopQueryUncertain(false),access&&World.InventoryLoaded&&!World.PrivateShopPending&&!World.PrivateShopQueryUncertain(true));}
+    // R6-C（#779）：原生 TRADE_WINDOW 接上時（PrivateShopNativeWindow），買賣列只給原生窗；舊清單只留查詢／選店主／關閉。
+    public PrivateShopView PrivateShopSnapshot(){World.CheckPrivateShop();bool access=PrivateShopAccess&&!privateShopSending,legacy=!World.PrivateShopNativeWindow;return new(SessionGeneration,World.WorldEpoch,World.PrivateShopRevision,World.TargetRevision,World.Status?.ObjectId??0,World.TargetId??0,World.Target?.Name??"未選店主",World.PrivateShopPhase,World.PrivateShopSell,World.PrivateShopDisplayNotice,World.PrivateShopServerText,World.PrivateShopSelectedRow,World.PrivateShopQuantity,access&&!World.PrivateShopPending&&(!World.PrivateShopQueryUncertain(false)||!World.PrivateShopQueryUncertain(true)),legacy&&access&&World.PrivateShopPhase=="list",legacy&&access&&World.PrivateShopSelectedRow is int row&&World.ValidPrivateOrder(row,1),legacy?World.PrivateShopRows:[],access&&!World.PrivateShopPending&&!World.PrivateShopQueryUncertain(false),access&&World.InventoryLoaded&&!World.PrivateShopPending&&!World.PrivateShopQueryUncertain(true));}
     public bool ChoosePrivateShop(int row,uint count,PrivateShopView stamp){World.CheckPrivateShop();return !privateShopSending&&PrivateShopAccess&&PrivateStamp(stamp.Generation,stamp.Epoch,stamp.Revision,stamp.TargetRevision,stamp.ActorId)&&stamp.OwnerId==World.TargetId&&World.ChoosePrivateRow(row,count);}
     public bool ClosePrivateShop(PrivateShopView stamp){if(!PrivateStamp(stamp.Generation,stamp.Epoch,stamp.Revision,stamp.TargetRevision,stamp.ActorId))return false;World.ClosePrivateShop();return true;}
     public async Task<PrivateShopResult> SendPrivateShop(bool query,bool sell,int row,uint count,PrivateShopView stamp){
         World.CheckPrivateShop();bool Stamp()=>PrivateStamp(stamp.Generation,stamp.Epoch,stamp.Revision,stamp.TargetRevision,stamp.ActorId)&&stamp.OwnerId==World.TargetId;
         if(privateShopSending||!PrivateShopAccess||!Stamp()||World.PrivateShopPending||query&&(World.PrivateShopQueryUncertain(sell)||sell&&!World.InventoryLoaded)||sendMovementGate==null)return PrivateShopResult.NotSent;
-        if(!query&&(sell!=World.PrivateShopSell||!World.ValidPrivateOrder(row,count)))return PrivateShopResult.NotSent;
+        if(!query&&(World.PrivateShopNativeWindow||sell!=World.PrivateShopSell||!World.ValidPrivateOrder(row,count)))return PrivateShopResult.NotSent;
         var selected=query?null:World.PrivateShopRows.Single(r=>r.Id==row);byte[] packet=query?PrivateShopPackets.Query(stamp.OwnerId,sell):PrivateShopPackets.Submit(stamp.OwnerId,sell,selected!,count);
         var sender=sendMovementGate;int lease=++privateShopLease;privateShopSending=true;bool admitted=false;
         try{bool Valid(){World.CheckPrivateShop();return lease==privateShopLease&&PrivateShopAccess&&Stamp()&&!World.PrivateShopPending&&(!query||!World.PrivateShopQueryUncertain(sell)&&(!sell||World.InventoryLoaded))&&(query||sell==World.PrivateShopSell&&World.ValidPrivateOrder(row,count));}bool sent=await sender(packet,Valid,()=>{admitted=true;if(query)World.BeginPrivateQuery(sell);else World.BeginPrivateSubmit();Set(State,World.PrivateShopNotice);});return admitted?(sent&&stamp.Generation==SessionGeneration?PrivateShopResult.Accepted:PrivateShopResult.Unknown):PrivateShopResult.NotSent;}
