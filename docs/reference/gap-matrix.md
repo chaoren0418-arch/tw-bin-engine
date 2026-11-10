@@ -1978,7 +1978,7 @@ M7 的驗收（TASKS M7、#503）是：「缺」與「部分」只剩標明「�
 R6-D 補充：不同格時用 `ApproachWalk.cs:49` 的通行判斷（FU8§6）；`byte_13CE51E` 只處理 2（FU8§7）。R6-E 補充：刪除的 Y/N 只問 `alertitems.tbl` 內的物品（FU8§8.1，編號欄位要先對 SP 原始碼）。
 
 **新增真機項目**
-- M31：gfx 0／1 等職業外型有沒有 `cloth` 附加層（6262 等）。
+- M31：gfx 0／1 等職業外型有沒有 `cloth` 附加層（6262 等）。**FU14 更新（T386／#899）**：3.81 `LiTo.bin` 會解析並畫 `cloth`（FU14§3.5），6262 等是釣魚線，只在動作 71 看得到；M31 改為 smoke 時順便看，不再擋 `ClothVerified`。
 - M32：自己的名稱與頭上條中線，和身體中線的距離（相機原點差）。
 - M33：3.81 動作窗的版面、開窗鍵。
 
@@ -2200,7 +2200,7 @@ R6-D 補充：不同格時用 `ApproachWalk.cs:49` 的通行判斷（FU8§6）�
 | 類 | 列（節:列，以「；」分隔） | 原因 |
 |---|---|---|
 | K1 伺服器不支援／不建議 | 1:108；1:132；2:42、67、83、215；3:C_ATTACK(43)；3:C_TELEPORT(226)；4:LoadingWindowUI；4:NpcDialogUI；4:CommunityUI；4:`PetInventoryWindow`；4:`TelTablesWindow`；4:`AgitWindow`；4:BookmarkMemoryWindowUI；4:PopUpUI；4:GameRankingUI；4:MapUI | 15.5 的 K1 不變，另加 15.11 的 2 列：<br>• 1:132：3.81 沒有 `S_UseMap`，FU9§5。<br>• MapUI：本機資源與 BIN 都用不到，FU9§7.1。<br>「缺」裡已標「伺服器不支援／不建議」的 39 列預設歸 K1，不逐列列出 |
-| K2 需先查證 | 1:127；4:StatInfoUI；5:`sub_87C890` | • 1:127：3.81 倉庫怎麼輸入數量，只能真機（M36）或脫殼的 `LiTo.bin` 確認，**不能離線完成**。<br>• StatInfoUI：22 列的值都空白（`StatInfoPanel.cs:94–100`），數值來源 `sub_EB85F0` 沒追，可以離線查（Q8-1）。<br>• `sub_87C890`：`ListSprLayers` 沒有產品呼叫者。`cloth` 等真機（M31）；`altdir` 換 gfx 的時機、`stride` 的表 `byte_1379D40` 都沒查，可以離線查（Q8-2） |
+| K2 需先查證 | 1:127；4:StatInfoUI；5:`sub_87C890` | • 1:127：3.81 倉庫怎麼輸入數量，只能真機（M36）或脫殼的 `LiTo.bin` 確認，**不能離線完成**。<br>• StatInfoUI：22 列的值都空白（`StatInfoPanel.cs:94–100`），數值來源 `sub_EB85F0` 沒追，可以離線查（Q8-1）。<br>• `sub_87C890`：`ListSprLayers` 沒有產品呼叫者。`cloth` 等真機（M31）；`altdir` 換 gfx 的時機、`stride` 的表 `byte_1379D40` 都沒查，可以離線查（Q8-2）。<br>• **FU14 回填（T386／#899）**：三項都查完，3.81 `LiTo.bin` 同構（FU14§0.3），`ClothVerified` 可以打開（FU14§3.5）→ 5:`sub_87C890` **改 K5** |
 | K5 仍有 code 差異 | 1:92；1:29；1:52；3:C_INVITE_PARTY(82)；3:C_ADD_BUDDY(138)；4:AgitAuctionUI；4:LoginUI；4:`HpMpWindow`；4:BehaviourUI；4:BookmarkWindowUI；4:FriendUI；4:`ExcludeWindow`；4:PersonalShopUI；4:ExchangeUI；4:SelectUI；4:CreateUI；4:OptionUI；5:（名稱；5:`sub_5001C0`；5:music.def | 20 列，都能離線寫程式，逐列見 15.12.5；分到 15.12.6 的 R10-C–O |
 
 各類列數（`gap_count_r7.py` 輸出）：
@@ -2249,7 +2249,7 @@ K1 的 54 列，理由見 15.12.4 與 15.5，本輪沒有變動，這裡不逐�
 | 5:music.def | K5 | MIDI 模式下，非系統槽換曲會重頭播 0.mid；原版是「沒在播才開」（#814 報告列為引擎差異）。響度曲線另等 M26 | `ProductSoundBackends.cs` | 能，R10-L |
 | 1:127 | K2 | 3.81 倉庫的堆疊數量怎麼輸入。現在點一列就選整疊（`WarehouseWindowPanel.cs:153–167`） | `WarehouseWindowPanel.cs` | 不能，等真機（M36）或脫殼 `LiTo.bin` |
 | 4:StatInfoUI | K2 | 22 列數值沒有來源，全部空白；`sub_EB85F0` 沒追 | `NativeUi/StatInfoPanel.cs:94–100`、`BonusStatsUi.cs:52` | 查完才能轉（Q8-1）；若數值要向伺服器要，改 K1 |
-| 5:`sub_87C890` | K2 | 105 `cloth`、111 `stride`、112 `altdir` 已解析（`MagicRendering.cs:71`），但 `ListSprLayers` 沒接到 `ComposeObjects`（`ClothVerified=false`） | `ObjectRendering.cs:123–131` | `stride`／`altdir` 查完（Q8-2）能轉；`cloth` 等真機（M31） |
+| 5:`sub_87C890` | ~~K2~~ → **K5**（FU14） | 105 `cloth`、111 `stride`、112 `altdir` 已解析（`MagicRendering.cs:71`），但 `ListSprLayers` 沒接到 `ComposeObjects`（`ClothVerified=false`）。FU14：<br>• `altdir` 只用在沒有動作表的靜態外型，每幀依朝向 6 重算（§1）；<br>• `stride` 是每走一步換走路動作，表＝{0,4,11,20,24,40}（§2，更正 FU8§5 的「站立時」）；<br>• `cloth` 在 3.81 也畫，職業外型的 6262 等是釣魚線（§3） | `ObjectRendering.cs:8–9`、`:16`、`:22`、`:33–40`、`:62–65`、`:123–131`；`ClientLogin.cs:53` | 能（FU14§1.3、§2.4、§3.6）；M31 不再阻擋 |
 
 #### 15.12.6 第七批 code 任務分組（R10-C–O，13 組）
 
@@ -2279,7 +2279,7 @@ K1 的 54 列，理由見 15.12.4 與 15.5，本輪沒有變動，這裡不逐�
 
 **Q8（建議開 1 張 resource 任務；IDA 唯讀照 #417，subst 磁碟先檢查；宣稱缺資源前先用 PakViewer 查過全部 pak）**
 - **Q8-1 StatInfo 數值**：`sub_EB85F0` 22 列各讀什麼（4:StatInfoUI）。
-- **Q8-2 list.spr**：`altdir` 換 gfx 的時機、`stride` 表 `byte_1379D40`（5:`sub_87C890`）。
+- ~~**Q8-2 list.spr**：`altdir` 換 gfx 的時機、`stride` 表 `byte_1379D40`（5:`sub_87C890`）。~~ **完成**（T386／#899，[`followups-14.md`](followups-14.md)）：連同 `cloth` 一起查完，5:`sub_87C890` 改 K5。
 - **Q8-3 不改分類的子項**：
   - ESC 和 Y/N 的吃鍵順序（`sub_8CA740`）；
   - 委任前有沒有 Y/N；
@@ -2352,7 +2352,7 @@ K1 的 54 列，理由見 15.12.4 與 15.5，本輪沒有變動，這裡不逐�
 | M28 | 用妖精、黑暗妖精角色各中一次盲目 2，看 6／31 光圈（`Afflictions.cs:23`、`:219`） |
 | M29 | 戴傳送控制戒指，選技能 5 或 69 按 M（`Magic.cs:106` → `AbilityStatus.cs:92–98`），在限制地圖也要開書籤窗、不出現 276，選書籤後送 C6 `HD`（`RingWindows.cs:80`）。死亡後讓他人復活，321／322 應出現在聊天輸入列，打 Y＋Enter 或按 YES 送 C121（`YesNoPrompt.cs:19`、`YesNoPanel.cs:36`） |
 | M30 | Trace 看 `widget-slot WidgetSlot ->`（`MacroPanel.cs:270`）；看 CornerFrame (643,476)、鎖鈕 3293／3294 (643,523)；按 ButtonMode (637,498)，Trace 應出現 `尚未接上（行為待真機確認 M30）`（`:280`）。同時在原版 3.81 看 ModeChange 做什麼 |
-| M31 | 在原版 3.81 用 gfx 0、1、37 的角色截圖，對照有沒有多一層 6262／6261／6263。引擎目前不畫 `cloth`（`ObjectRendering.cs:124` `ClothVerified=false`） |
+| M31 | ~~在原版 3.81 用 gfx 0、1、37 的角色截圖，對照有沒有多一層 6262／6261／6263。~~ **FU14 改為非阻擋**：3.81 會畫 `cloth`（FU14§3.5）。smoke 時順便看：<br>• 職業角色釣魚（動作 71）時有沒有釣魚線（6262 等只有釣魚的 8 個子檔有圖）；<br>• NPC 的衣物層（例：201–210）。<br>引擎目前不畫 `cloth`（`ObjectRendering.cs:124` `ClothVerified=false`），接線見 FU14§3.6 |
 | M32 | 站著不動截圖，比對自己的名稱、頭上條與身體中線（`HpMpState.cs:84`、`:92`、`ObjectRendering.cs:203`）；走一步時再截（R10-H 前名稱不內插）；HP 壓到 35% 以下看閃爍（戰士要 40%，R10-H 前仍是 35%） |
 | M33 | 按 Ctrl+D 開動作窗（`MenuButtonsPanel.cs:285`、`ActionWindowPanel.cs:90`），雙擊各動作。R10-E 前 Trace 會出現 `action-ui <名稱>（…）尚未接上，未執行`（`:344`）；版面載入失敗時是 `action-ui 無法載入`（`:159`）。在原版 3.81 看動作窗的版面與開窗鍵 |
 | M34 | 開有 `<font fg>` 與 `<a action>` 的 NPC 頁（`NpcInteraction.cs:64–67`、`HyperTextPanel.cs:246`），對色：連結淡黃 RGB(FF,FF,B0)、滑鼠移上去 RGB(0A,F0,32)、預設字色 `0xEEEDEE`。先找能開 `helpcom`／`helpcon` 的入口，開不到就改截 `silrein34`、`helpagi01` |
@@ -2389,7 +2389,7 @@ K1 的 54 列，理由見 15.12.4 與 15.5，本輪沒有變動，這裡不逐�
 
 （#888、#891 已在本輪合併，對應的 4 列已改「已有」。）
 
-做完以後，非「已有」只會剩 K1、1:127（M36）、`cloth`（M31），就符合結案標準。真機 smoke（M1–M40）不在 M7 的驗收條件裡，但原生 UI 預設開啟後還沒在真機跑過，建議和 M7 結案一起排。
+做完以後，非「已有」只會剩 K1、1:127（M36）、`cloth`（M31），就符合結案標準。（FU12 已把 1:127 改 K5；FU14 已把 `cloth` 改 K5、Q8-2 完成。所以這裡改成：只剩 K1，加上 R8-E 接線那一張 code 任務。）真機 smoke（M1–M40）不在 M7 的驗收條件裡，但原生 UI 預設開啟後還沒在真機跑過，建議和 M7 結案一起排。
 
 **需要裁定**
 1. 嚴格度：1:52、CreateUI、ExchangeUI、SelectUI 只剩小的查證差異。要照本節的做法排進 R10，還是裁定為「引擎取捨」直接改「已有」。裁定為後者的話，M7 的阻擋列會少 4 列。
