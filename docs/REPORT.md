@@ -283,3 +283,4 @@
 - 2026-11-10 — #736 T309：R5-D 小協定差異（code，claude-local，PR 已合併）→ [報告](reports/issue-736.md)
 - 2026-11-10 — #751 T317：原生 UI 改為預設開啟（使用者 #743 決定 1）（code，claude-local，PR 已合併）→ [報告](reports/issue-751.md)
 - 2026-11-10 — #752 T318：用 PakViewer 查遍所有 .pak——K3「缺資源」18 列與先前標「本機沒有」的檔案（resource，claude-local，PR 已合併）→ [報告](reports/issue-752.md)
+- 2026-11-10 — #737 T310：R5-E 聲音收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-737.md)
