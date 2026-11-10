@@ -67,11 +67,20 @@ public sealed partial class ClientForm {
         // BeginInvoke: Changed is raised inside the receive loop; the modal must not run re-entrantly before the loop awaits confirmation.
         BeginInvoke(()=>{
             if(IsDisposed||!login.NewsPending||login.NewsRevision!=revision||login.SessionGeneration!=session)return;
-            LeaveGameFocus("login-news");
-            MessageBox.Show(this,LoginNewsText.Display(login.News),"公告",MessageBoxButtons.OK,MessageBoxIcon.None);
-            if(!IsDisposed&&login.SessionGeneration==session)login.ConfirmNews(revision);
+            // T352（#815，R7-M）：原生登入畫面的 Notice_Window 可用時改由它顯示（UiClientBridge.ShowNativeLoginNotice）；不可用（--classic-ui、
+            // 面板停用或 Faulted、版面缺 Notice_Window）時沿用模態訊息框。
+            if(ShowNativeLoginNotice(LoginNewsText.Display(login.News),revision,session))return;
+            ShowLoginNewsBox(revision,session);
         });
     }
+    void ShowLoginNewsBox(int revision,int session){
+        if(IsDisposed||!login.NewsPending||login.NewsRevision!=revision||login.SessionGeneration!=session)return;
+        LeaveGameFocus("login-news");
+        MessageBox.Show(this,LoginNewsText.Display(login.News),"公告",MessageBoxButtons.OK,MessageBoxIcon.None);
+        ConfirmLoginNews(revision,session);
+    }
+    /// <summary>公告框（訊息框或原生 Notice_Window）按確定：同一 session 才確認，LoginConnection 隨後送 C16。</summary>
+    void ConfirmLoginNews(int revision,int session){if(!IsDisposed&&login.SessionGeneration==session)login.ConfirmNews(revision);}
     internal void BeforeLoginStart(){networkMode=false;network.Disconnect("login selected");ClearInput("login");}
     void SyncLoginControls(){if(loginControl==null)return;SyncCharacterManagement();loginConnect.Enabled=loginControl.CanLogin;loginProfile.Enabled=loginPort.Enabled=loginAccount.Enabled=loginPassword.Enabled=loginControl.CanLogin;loginCancel.Enabled=loginControl.CanCancel;charactersBox.Enabled=loginControl.CanEnter;enterWorld.Enabled=loginControl.CanEnter&&charactersBox.SelectedItem!=null;loginLabel.Text=normalProduct?(login.State is LoginState.ManagingCharacters or LoginState.SwitchingCharacter?"處理角色操作":ProductEntry.StateName(login.State))+" · "+(login.World.BonusStatsNotice.Length>0?login.World.BonusStatsNotice:login.CharacterNotice.Length>0?login.CharacterNotice:loginControl.Notice):$"{login.State} • {login.Detail}\n{loginControl.Notice}";if(characterUiNotice.Length>0)loginLabel.Text=characterUiNotice;else if(login.State==LoginState.Faulted)loginLabel.Text=login.Detail;}
     LoginAction BeginLogin(string profile,int port,string account,string password,int generation,int revision){loginPassword.Clear();if(normalProduct&&(profile!=ProductEntry.Profile||port!=ProductEntry.Port))return new(false,"正常入口僅使用本機遊戲伺服器。");return loginControl.Start(profile,port,account,password,generation,revision);}

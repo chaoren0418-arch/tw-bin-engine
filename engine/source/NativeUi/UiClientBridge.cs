@@ -64,6 +64,7 @@ public sealed partial class ClientForm {
         // R5-A (#733): the window stack's 509 rule reads the current map (sub_A57C60, *dword_138BE60).
         nativeUiRoot!.CurrentMap=NativeUiMap();
         nativeUiRoot.Update(NativeUiGameState());
+        CheckNativeLoginNotice();
         nativeUiRoot.Compose(canvas,PaintNativeWorld);
     }
     // World layer: the existing scene painter with viewport = WorldRect, so Camera.View = WorldRect.Size (§3.2).
@@ -114,6 +115,34 @@ public sealed partial class ClientForm {
         return used;
     }
     void ResetNativeUiInput()=>nativeUiInput?.Reset();
+
+    // T352 (#815, R7-M): S48 news in the native Notice_Window (LoginPanel.ShowNotice). The (revision, session) handed over is
+    // kept so that, should the panel fault or drop the notice while LoginConnection still waits for that confirmation, the news
+    // falls back to the existing message box instead of leaving the login waiting.
+    (int Revision,int Session)? nativeLoginNotice;
+    /// <summary>The login panel when registered and not faulted; visible = also painted and given input now (UiRoot.Usable).</summary>
+    LoginPanel? NativeLoginPanel(bool visible)=>NativeUiActive&&nativeUiRoot?.Find(LoginPanel.PanelId) is LoginPanel p&&!nativeUiRoot.Faulted.Contains(p)&&(!visible||nativeUiRoot.Usable(p))?p:null;
+    /// <summary>true = the native Notice_Window shows the news (its Ok confirms); false = the caller shows the message box.</summary>
+    bool ShowNativeLoginNotice(string text,int revision,int session){
+        // Not required to be visible yet: ShowNotice re-opens a closed login screen, it shows on the next UiRoot.Update.
+        if(NativeLoginPanel(false) is not {} panel)return false;
+        if(!panel.ShowNotice(text,()=>{nativeLoginNotice=null;ConfirmLoginNews(revision,session);}))return false;
+        nativeLoginNotice=(revision,session);
+        LeaveGameFocus("login-news");ClearInput("login-news");Invalidate();
+        events.Add(new{kind="native-ui-login-news",revision,session});
+        return true;
+    }
+    void CheckNativeLoginNotice(){
+        if(nativeLoginNotice is not {} handed)return;
+        var (revision,session)=handed;
+        if(!login.NewsPending||login.NewsRevision!=revision||login.SessionGeneration!=session){nativeLoginNotice=null;return;}
+        // Runs right after UiRoot.Update: the notice must be open in a panel that is painted and gets input (not faulted,
+        // not pushed out of the window stack); otherwise the message box takes over.
+        if(NativeLoginPanel(true) is {Notice:not null})return;
+        nativeLoginNotice=null;
+        events.Add(new{kind="native-ui-login-news",revision,session,fallback="message-box"});
+        BeginInvoke(()=>ShowLoginNewsBox(revision,session));
+    }
     int? NativeUiMap()=>login.State==LoginState.InWorld?login.World.MapId:null;
 
     IUiGameState NativeUiGameState(){
@@ -235,7 +264,13 @@ public sealed partial class ClientForm {
         public void Dismiss(){bool dying=death.Current!=null;form.menuPlayStats=false;if(dying)death.Dismiss();}
     }
 
-    sealed class NativeUiCommands(ClientForm form):IUiChatCommands,IUiPartyCommands,IUiWarehouseCommands,IUiMenuCommands,IUiMenuWindowCommands {
+    sealed class NativeUiCommands(ClientForm form):IUiChatCommands,IUiPartyCommands,IUiWarehouseCommands,IUiMenuCommands,IUiMenuWindowCommands,IUiLoginCommands {
+        // T352 (#815, R7-M): LoginUI Exit_Button → the normal window close (FormClosing / FormClosed: audio shutdown, login.Dispose).
+        // BeginInvoke: the click is still being dispatched by UiInput when the form starts closing.
+        public void ExitClient(){
+            form.ClearInput("native-ui-exit");form.events.Add(new{kind="native-ui-login",action="exit"});
+            form.BeginInvoke(()=>{if(!form.IsDisposed)form.Close();});
+        }
         // R4-A (#705): menu 1 → mail dialog; 5／6 and Ctrl+H／V／C → local HTML page; Ctrl+P → screenshot.
         public bool OpenMail()=>form.RequestMail();
         public bool ToggleLocalPage(MenuLocalPage page)=>form.ToggleMenuLocalPage(page);
