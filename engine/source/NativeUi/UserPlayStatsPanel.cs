@@ -29,7 +29,7 @@ public interface IUserPlayStatsSource {
     void Reset(){}
 }
 
-public sealed class UserPlayStatsPanel:IUiMovablePanel {
+public sealed class UserPlayStatsPanel:IUiMovablePanel,IUiClosablePanel {
     [UiPanel(150)] internal static UiPanelRegistration Registration=>new(UserPlayStatsPanel.PanelId,UserPlayStatsPanel.LayoutName,_=>new UserPlayStatsPanel());   // R2-D (#615): death window (UserPlayUI.xml)
     public const string PanelId=UserPlayStatsLayout.RootName;
     public const string LayoutName=UserPlayStatsLayout.FileName;
@@ -238,5 +238,16 @@ public sealed class UserPlayStatsPanel:IUiMovablePanel {
     public bool Key(UiKeyEvent e,IUiCommands commands){
         if(view==null||!e.Down||e.KeyCode!=Keys.Escape)return false;
         Source?.Dismiss();return true;
+    }
+
+    /// <summary>
+    /// R7-H（#810）：堆疊關窗（被擠出、全域 ESC；sub_A57C60 的 vtable+36）＝取消鈕：只關窗、計時照走（Source.Dismiss），
+    /// 一併關 UserObtainUI 清單窗。面板先藏起來（下一次 Update 由 Source.Current 決定）。明確介面實作：
+    /// 公開成員 Close 已是「關閉鈕」屬性。
+    /// </summary>
+    void IUiClosablePanel.Close(){
+        if(view==null)return;
+        view=null;Hover=null;Pressed=null;ObtainListOpen=false;
+        Source?.Dismiss();
     }
 }

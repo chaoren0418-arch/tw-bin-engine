@@ -52,7 +52,7 @@ public sealed class MapSendEntry {
     public bool Prompting=>Chat is {Input.Open:true} chat&&chat.Input.Text.StartsWith(Command,StringComparison.Ordinal);
 }
 
-public sealed class LocationListPanel(Func<Rectangle> anchor,Func<string,IUiPanel?>? find=null):IUiPanel {
+public sealed class LocationListPanel(Func<Rectangle> anchor,Func<string,IUiPanel?>? find=null):IUiClosablePanel {
     /// <summary>引擎自訂的面板 Id（原版視窗名稱待查證，不借用 MapLocationSaveWindow 等原版名稱）。</summary>
     public const string PanelId="R2M_LocationShareList";
     public const int RowHeight=16,Width=200,PromptWidth=420,Gap=2,Padding=2;
@@ -60,7 +60,7 @@ public sealed class LocationListPanel(Func<Rectangle> anchor,Func<string,IUiPane
     [UiPanel(170)] internal static UiPanelRegistration Registration=>new(PanelId,"uistatus86",root=>new LocationListPanel(()=>root.Find(FieldMapPanel.PanelId)?.Bounds??Rectangle.Empty,root.Find));   // R2-M (#619): location-share list, text only beside Field_Map (original window unverified); R5-H (#740): TransferMenu entry
     public static readonly Color TextColor=Color.White,SelectedColor=Color.Cyan,ShadowColor=Color.Black,PromptColor=Color.Yellow;
 
-    LocationListView shown=LocationListView.Empty;bool inWorld,prompting;long? pressed;
+    LocationListView shown=LocationListView.Empty;bool inWorld,prompting;long? pressed,dismissed;
     readonly MapSendEntry? entry=find==null?null:new MapSendEntry();
     public ILocationListHost? Host{get;private set;}
     public void Attach(ILocationListHost host)=>Host=host;
@@ -70,7 +70,12 @@ public sealed class LocationListPanel(Func<Rectangle> anchor,Func<string,IUiPane
     /// <summary>目前是否顯示 1785 提示列。</summary>
     public bool Prompting=>prompting;
     int Lead=>prompting?1:0;
-    IReadOnlyList<LocationListRow> Rows=>Host!=null?shown.Rows:[];
+    IReadOnlyList<LocationListRow> Rows=>Host!=null&&shown.Revision!=dismissed?shown.Rows:[];
+    /// <summary>
+    /// R7-H（#810）：堆疊關窗（被擠出、全域 ESC）。引擎自己的過渡畫面沒有原版關窗行為可依，做法：藏起目前這一版清單，
+    /// 清單內容變更（新分享進來，Revision 增加）時再顯示。1785 提示列跟著聊天輸入列（ESC 先由聊天列關掉），這裡不動。
+    /// </summary>
+    public void Close(){if(Host!=null&&shown.Rows.Count>0){dismissed=shown.Revision;pressed=null;}}
 
     public string Id=>PanelId;
     public UiLayer Layer=>UiLayer.Window;
@@ -82,7 +87,7 @@ public sealed class LocationListPanel(Func<Rectangle> anchor,Func<string,IUiPane
         int y=Math.Max(0,Math.Min(a.Top,UiRoot.LogicalHeight-height));
         return new(x,y,width,height);
     }}
-    public bool Visible=>inWorld&&((Host!=null&&shown.Rows.Count>0)||prompting);
+    public bool Visible=>inWorld&&(Rows.Count>0||prompting);
 
     /// <summary>不讀版面 XML、不用任何 surf（原版畫面待查證）。</summary>
     public void Load(UiLayout layout,SurfCatalog surfs){}
