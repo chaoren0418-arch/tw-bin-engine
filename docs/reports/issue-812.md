@@ -33,7 +33,10 @@
   - 用只放在 `scratch/issue-812/no-winmd.targets` 的 hook（`-p:CustomAfterMicrosoftCommonTargets`）拿掉 winmd，改參考套件的 `lib_manual/netcoreapp3.0` DLL；
   - 沒有改 repo 的建置檔。
 - `py -3 -B -X utf8 engine/tools/check-no-game-assets.py` → `pass`，errors 0。
-- 單元測試（`--module-tests` 的 `party-delegate`、DemoChecks 的 `native-ui-party`、`party`）交給 PR 的 CI 執行，結果見 PR。
+- **CI（PR #835，run 42837194807／42837195145）**：`dotnet`、`map-continuity`、`npc-offline` 三個 job 都通過。
+  - `--module-tests` 全部 `failed: 0`，其中 `party-delegate` 32 項全部通過；
+  - DemoChecks 的 `native-ui-party` 也通過，含改過的第 161 行。
+  - 依本機限制，沒有在本機執行任何編譯出來的程式。
 
 ## 未驗證什麼
 - **真機**：
