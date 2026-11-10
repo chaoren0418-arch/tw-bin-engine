@@ -96,10 +96,11 @@ static class InputLineFollowupTests {
         public List<(int Revision,bool Accept)> Answers{get;}=[];
         public void Answer(int revision,bool accept)=>Answers.Add((revision,accept));
     }
-    static bool Lit(UiCanvas canvas,Rectangle area){
-        for(int y=area.Top;y<area.Bottom;y++)for(int x=area.Left;x<area.Right;x++)if(canvas.Bitmap.GetPixel(x,y).A!=0)return true;
-        return false;
+    static Point? FirstLit(UiCanvas canvas,Rectangle area){
+        for(int y=area.Top;y<area.Bottom;y++)for(int x=area.Left;x<area.Right;x++)if(canvas.Bitmap.GetPixel(x,y).A!=0)return new(x,y);
+        return null;
     }
+    static bool Lit(UiCanvas canvas,Rectangle area)=>FirstLit(canvas,area)!=null;
     static void Panel(WorldModuleTestContext t){
         var p=new YesNoPanel();var src=new Source();p.Source=src;var cmd=new UiNullCommands();
         t.Check(p.Bounds.Contains(YesNoButtons.Line)&&p.Bounds.Contains(YesNoPanel.ButtonBounds),"bounds (= paint clip) cover the input line and both buttons",p.Bounds);
@@ -108,7 +109,9 @@ static class InputLineFollowupTests {
             canvas.Restrict(p.Bounds);p.Paint(canvas);canvas.Release();
             t.Check(Lit(canvas,YesNoButtons.Line),"question drawn inside the input line");
             // Inside the bounds but left of the buttons and above the line: nothing (the line clip holds the text).
-            t.Check(!Lit(canvas,Rectangle.FromLTRB(192,567,361,581)),"nothing drawn above the line");
+            // 2 px margin to the YES button and to the line: GDI+ PixelOffsetMode.Half may touch the neighbouring pixel.
+            var above=FirstLit(canvas,Rectangle.FromLTRB(192,567,359,579));
+            t.Check(above==null,"nothing drawn above the line",above);
         }
         using(var canvas=new UiCanvas()){
             src.Current=new(4,"");p.Update(new UiStaticGameState(InWorld:true));
