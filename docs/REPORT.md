@@ -384,3 +384,4 @@
 - 2026-11-11 — #916 T401：R10-Q 個人商店頭上訊息兩行輪流（code，claude-local，PR 已合併）→ [報告](reports/issue-916.md)
 - 2026-11-11 — #918 T403：R10 小清理（刪除取消、227 開框、InputHelp、過時註解）（code，claude-local，PR 已合併）→ [報告](reports/issue-918.md)
 - 2026-11-11 — #948 T411：一般產品入口接受 `--evidence <dir>`（code，claude-local，PR 已合併）→ [報告](reports/issue-948.md)
+- 2026-11-11 — #952 T412：gap-matrix 第八輪與 M7 結案判定（resource，claude-local，PR 已合併）→ [報告](reports/issue-952.md)
