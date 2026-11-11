@@ -127,8 +127,9 @@ static class ListSprWiringTests {
         t.Check(w.OwnStridePose(1062,ListSprLayers.StrideHoldAction)==null,"自己姿勢 8 不換");
         w.AdvanceOwnStride(1063);t.Check(w.OwnStrideCounter==1&&w.OwnStrideStep==0,"沒有 stride 的外型不動計數");
         t.Check(w.OwnStridePose(1063,4)==null,"沒有 stride 的外型照原姿勢");
-        var snap=WorldModuleTestContext.SnapshotJson(w);
-        t.Check(snap.TryGetProperty("extensions",out var ext)&&ext.TryGetProperty("stride",out var s)&&s.GetProperty("own").GetProperty("counter").GetInt32()==1,"快照 stride");
+        // 只取擴充快照（完整 Snapshot() 會讀 engine/assets 的外型表，CI 沒有）。
+        var ext=WorldExtensionRegistry.Default.Snapshot(w);
+        t.Check(ext.TryGetValue("stride",out var s)&&JsonSerializer.SerializeToElement(s).GetProperty("own").GetProperty("counter").GetInt32()==1,"快照 stride");
         w.Reset();t.Check(w.OwnStrideCounter==0&&w.OwnStrideStep==0,"Reset 歸 0");
     }
     static void Cloth(WorldModuleTestContext t){
