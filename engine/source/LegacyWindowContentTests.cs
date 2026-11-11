@@ -190,7 +190,7 @@ static class LegacyWindowContentTests {
         [3007]=(60,14),[3014]=(50,18),[3017]=(50,18),[3008]=(30,12),[3009]=(30,12),[3010]=(9,9),[3012]=(9,9),
         [3020]=(180,20),[3021]=(180,20),[3022]=(180,20),[3023]=(180,20)});
 
-    // 4. 倉庫：列、圖示、點選、拖到確定鈕、分頁點擊、捲動。
+    // 4. 倉庫：列、圖示、點選、列內 ▼▲（R10-P #915；不再有拖到確定鈕）、分頁點擊、捲動。
     static void Warehouse(WorldModuleTestContext t){
         var icons=new Icons(5,7);
         var p=new WarehouseWindowPanel(icons.Source){ResolveName=s=>ItemText.Resolve(s,["零","箭","長劍"])};
@@ -207,29 +207,28 @@ static class LegacyWindowContentTests {
         t.Check(p.ScrollOffset==3&&p.VisibleRows[0].Id==104,"scroll by row, clamped at rows − 7");
         Tap(p,Mid(p.ScrollUpRect),cmd);Tap(p,Mid(p.ScrollUpRect),cmd);Tap(p,Mid(p.ScrollUpRect),cmd);
 
-        // Click toggles a row (whole count); press on one row and release on another does nothing.
+        // R10-P (#915, FU12§1): a row click only focuses it (count stays 0); ▼ / ▲ inside the row set the count.
         Tap(p,Mid(p.RowRect(0)),cmd);
-        t.Check(p.Selection.TryGetValue(101,out var c)&&c==500&&cmd.Calls.Count==0,"click row 0 → 101 × 500 selected, nothing sent");
-        Tap(p,Mid(p.RowRect(0)),cmd);t.Check(p.Selection.Count==0,"second click clears it");
-        Press(p,Mid(p.RowRect(1)),cmd);Drop(p,Mid(p.RowRect(2)),cmd);
-        t.Check(p.Selection.Count==0&&cmd.Calls.Count==0,"release on another row → nothing");
+        t.Check(p.FocusedRow==101&&p.Selection.Count==0&&cmd.Calls.Count==0,"click row 0 → focused, count 0, nothing selected or sent");
+        Press(p,Mid(p.CountUpRect(1)),cmd);Drop(p,Mid(p.RowRect(2)),cmd);
+        t.Check(p.Selection.Count==0&&cmd.Calls.Count==0,"▲ pressed, released on another row → nothing");
         t.Check(!p.IsDragHandle(Mid(p.RowRect(3))),"rows are not drag handles");
 
-        // Drag a row onto OK: selects it and submits once; already-selected rows are submitted with it.
-        Tap(p,Mid(p.RowRect(2)),cmd);
+        // No drag to OK: only rows with a count are sent.
+        Tap(p,Mid(p.CountDownRect(2)),cmd);
         Press(p,Mid(p.RowRect(0)),cmd);Drop(p,Mid(p.OkRect),cmd);
-        t.Check(cmd.Calls.SequenceEqual(new[]{"submit:4:101x500,103x3"})&&p.Selection.Count==0,"row 0 dragged to OK → submit 101×500 with the selected 103×3, in server order");
-        Press(p,Mid(p.RowRect(1)),cmd);Drop(p,new(400,400),cmd);
-        t.Check(cmd.Calls.Count==1&&p.Selection.Count==0,"released outside the window (captured) → nothing");
+        t.Check(cmd.Calls.Count==0&&p.CountOf(103)==3,"row dragged to OK sends nothing; ▼ at 0 → 103 × 3 (all)");
+        Tap(p,Mid(p.OkRect),cmd);
+        t.Check(cmd.Calls.SequenceEqual(new[]{"submit:4:103x3"})&&p.Selection.Count==0,"OK → only the row with a count");
         var plain=new UiNullCommands();
-        Press(p,Mid(p.RowRect(1)),plain);Drop(p,Mid(p.OkRect),plain);
-        t.Check(plain.Calls.SequenceEqual(new[]{"dev-tools:npc"})&&p.Selection.ContainsKey(102),"no warehouse commands → NPC page (transition), selection kept");
+        Tap(p,Mid(p.CountUpRect(1)),plain);Tap(p,Mid(p.OkRect),plain);
+        t.Check(plain.Calls.SequenceEqual(new[]{"dev-tools:npc"})&&p.CountOf(102)==1,"no warehouse commands → NPC page (transition), count kept");
         p.Select(102,0);
 
-        // Sorting keeps the drag mapping on the drawn row.
+        // Sorting keeps the ▲ mapping on the drawn row.
         Tap(p,Mid(p.AmountSortRect),cmd);Tap(p,Mid(p.AmountSortRect),cmd);
         t.Equal(101u,p.VisibleRows[0].Id,"amount descending → 500 arrows first");
-        Tap(p,Mid(p.RowRect(1)),cmd);t.Check(p.Selection.ContainsKey(110),"click maps to the sorted row (110 × 10)");
+        Tap(p,Mid(p.CountUpRect(1)),cmd);t.Check(p.CountOf(110)==1&&p.FocusedRow==110,"▲ maps to the sorted row (110 → 1)");
 
         // Tabs: clickable quarters (rows are not split: S176 rows carry no use type, 待驗證).
         var strip=p.TabStripRect;
@@ -241,7 +240,7 @@ static class LegacyWindowContentTests {
             var r0=p.RowRect(0);var r1=p.RowRect(1);
             t.Equal(Icons.ColourOf(5),canvas.Bitmap.GetPixel(r0.X+10,r0.Y+8).ToArgb(),"row 0 (101) icon 5");
             t.Equal(Icons.ColourOf(7),canvas.Bitmap.GetPixel(r1.X+10,r1.Y+8).ToArgb(),"row 1 (110) icon 7");
-            t.Equal(Color.FromArgb(255,230,120).ToArgb(),canvas.Bitmap.GetPixel(r1.Right-1,r1.Y+16).ToArgb(),"selected row framed");
+            t.Equal(Color.FromArgb(255,230,120).ToArgb(),canvas.Bitmap.GetPixel(r1.Right-1,r1.Y+16).ToArgb(),"focused row framed");
         }
         // A new list resets selection and scroll.
         p.Update(S(new UiWarehouseView("deposit",5,rows[..3],0)));
