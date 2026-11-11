@@ -12,18 +12,35 @@ public sealed record BuddyView(int Generation,int Epoch,uint Actor,int Revision,
 /// <summary>
 /// R10-C（T387／#902）：好友相關的 HyperAct（FU9§9.2，已驗證）：`addbuddy` → 輸入框 588「在好友清單上增加誰？」。
 /// 588 原文用 docs/reference/rea-scripts/t267/text_tables.py 從 0-客戶端 Text.pak 的 string-c.tbl（sha256 4ebbc1a7…2d43e9）讀出；
-/// 執行期照字串表，表不在時用同一句。`buddy`／`refreshbuddy`（56）、`delbuddy`（589）不在本任務範圍。
-/// R10-V（T409／#926，FU13§3.1）：HyperAct `buddy` 原版只送 `c` 56（＝3.81 C4），是好友名單的入口之一（另一個是 `/buddy`）；
-/// 動作分派在 NpcInteraction.cs（本任務不能改），接線留給後續任務。
+/// 執行期照字串表，表不在時用同一句。
+/// R10-V（T409／#926，FU13§3.1）：HyperAct `buddy` 原版只送 `c` 56（＝3.81 C4），是好友名單的入口之一（另一個是 `/buddy`）。
+/// R11-C（T417／#959，FU9§9.2 第 357 行，已驗證）：`buddy`／`refreshbuddy` → `c` 56（3.81 C4）；`delbuddy` → 輸入框 589「在好友清單上刪除誰？」
+/// （589 原文同樣從 string-c.tbl sha256 4ebbc1a7…2d43e9 讀出）→ 名稱送 C202＋C4（同 `/delbuddy 名稱`，原版 `cs` 124＋`c` 56）。
+/// 分派入口是 LoginConnection.BuddyHyperAction（NpcInteraction.cs 的 ClientHyperAction／QueryOption 各一行）。
+/// 推測／引擎自訂（標明）：589 框名稱不合法時印 53、不送（比照 588／sub_F43160；delbuddy 輸入框原版的名稱檢查沒查）；
+/// 送出後頁面不關（同 588，原版關窗時機沒查）；C4 回覆的 S39 buddy 照 R10-V 開 buddy 頁。
 /// </summary>
+public enum BuddyHyperAct { Query, Add, Delete }
 public static class BuddyHyperActs {
-    public const string AddBuddy="addbuddy";
-    public const int AddInputText=588;
-    public const string AddInputFallback="在好友清單上增加誰？";
+    public const string AddBuddy="addbuddy",Buddy="buddy",RefreshBuddy="refreshbuddy",DelBuddy="delbuddy";
+    public const int AddInputText=588,DelInputText=589;
+    public const string AddInputFallback="在好友清單上增加誰？",DelInputFallback="在好友清單上刪除誰？";
     /// <summary>動作名稱比照 checkpk／accepttrade：去頭尾空白、不分大小寫（原版比對方式沒查）。</summary>
     public static bool IsAddBuddy(string? action)=>string.Equals(action?.Trim(),AddBuddy,StringComparison.OrdinalIgnoreCase);
-    public static string AddInputPrompt=>ServerMessageText.Table is {} t&&AddInputText<t.Count
-        &&ServerMessageText.DisplayText(t[AddInputText]).Trim() is {Length:>0} s?s:AddInputFallback;
+    /// <summary>本組（好友 HyperAct）處理的動作；不是本組的回 null（照舊交給其他分派或送 C125）。</summary>
+    public static BuddyHyperAct? Classify(string? action){
+        string a=action?.Trim()??"";
+        bool Is(string n)=>string.Equals(a,n,StringComparison.OrdinalIgnoreCase);
+        return Is(AddBuddy)?BuddyHyperAct.Add:Is(DelBuddy)?BuddyHyperAct.Delete:Is(Buddy)||Is(RefreshBuddy)?BuddyHyperAct.Query:null;
+    }
+    /// <summary>名稱框是好友輸入框（588／589）。</summary>
+    public static bool IsInput(HtmlNameKind kind)=>kind is HtmlNameKind.AddBuddy or HtmlNameKind.DelBuddy;
+    public static int InputText(HtmlNameKind kind)=>kind==HtmlNameKind.DelBuddy?DelInputText:AddInputText;
+    public static string InputPrompt(HtmlNameKind kind)=>kind==HtmlNameKind.DelBuddy?DelInputPrompt:AddInputPrompt;
+    public static string AddInputPrompt=>Prompt(AddInputText,AddInputFallback);
+    public static string DelInputPrompt=>Prompt(DelInputText,DelInputFallback);
+    static string Prompt(int id,string fallback)=>ServerMessageText.Table is {} t&&id<t.Count
+        &&ServerMessageText.DisplayText(t[id]).Trim() is {Length:>0} s?s:fallback;
 }
 
 /// <summary>
@@ -227,26 +244,43 @@ public sealed partial class LoginConnection {
             return ExcludeToggle(name,"已送出解除封鎖「"+name+"」，等待原服回覆。");
         }
     }
-    /// <summary>R10-C：HyperAct `addbuddy` 開 588 輸入框（頁內名稱框，同 R7-D 的 HtmlNamePrompt）；不送包。</summary>
-    internal Task<bool> OpenAddBuddyInput(bool query){
-        World.OpenHtmlNamePrompt(HtmlNameKind.AddBuddy,query);Changed?.Invoke();return Task.FromResult(true);
+    /// <summary>
+    /// R11-C（#959）：好友 HyperAct 分派（NPC 頁與伺服器主動頁共用）。回 null＝不是好友動作（照舊走其他分派或 C125）；
+    /// 否則回「有沒有送出或開框」，不會再落到 C125。
+    /// addbuddy → 588 框；delbuddy → 589 框（不送包）；buddy／refreshbuddy → 只送 C4。
+    /// </summary>
+    internal Task<bool>? BuddyHyperAction(string action,bool query)=>BuddyHyperActs.Classify(action) switch{
+        BuddyHyperAct.Add=>OpenBuddyInput(HtmlNameKind.AddBuddy,query),
+        BuddyHyperAct.Delete=>OpenBuddyInput(HtmlNameKind.DelBuddy,query),
+        BuddyHyperAct.Query=>SendBuddySequence(()=>World.BeginBuddyRequest(BuddyAction.Query,""),BuddyPackets.Encode(BuddyAction.Query)),
+        _=>null};
+    /// <summary>R10-C／R11-C：開 588／589 輸入框（頁內名稱框，同 R7-D 的 HtmlNamePrompt）；不送包。</summary>
+    Task<bool> OpenBuddyInput(HtmlNameKind kind,bool query){
+        World.OpenHtmlNamePrompt(kind,query);Changed?.Invoke();return Task.FromResult(true);
     }
-    /// <summary>588 輸入框現在可以送出（名單存取同 SendBuddy；沒有正在送的名單請求）。</summary>
+    /// <summary>588／589 輸入框與 HyperAct C4 現在可以送出（名單存取同 SendBuddy；沒有正在送的名單請求）。</summary>
     internal bool BuddyInputCanSend{get{CheckBuddySendGeneration();return BuddyAccess&&!buddySending&&sendMovementGate!=null;}}
     /// <summary>
     /// R10-C：588 輸入框確定 → 同 `/addbuddy 名稱`（sub_F43160）：名稱檢查失敗印 53、不送；成功送 C207＋C4（原版 `cs` 138＋`c` 56）。
-    /// 第一包放行後才送 C4；C4 被擋只少了查詢。
+    /// R11-C：589 輸入框確定 → 同 `/delbuddy 名稱`：送 C202＋C4（原版 `cs` 124＋`c` 56）；不本地移除（那是 FriendUI Delete 的做法）。
+    /// 名稱不合法印 53 是比照 588（推測）。
     /// </summary>
-    internal async Task<bool> AddBuddyFromInput(string name){
+    internal Task<bool> BuddyFromInput(HtmlNameKind kind,string name){
+        if(!BuddyInputCanSend)return Task.FromResult(false);
+        var action=kind==HtmlNameKind.DelBuddy?BuddyAction.Delete:BuddyAction.Add;
+        byte[] first;
+        try{first=BuddyPackets.Encode(action,name);}
+        catch(ArgumentException){World.BuddyLocalLine(ChatFollowupCommands.InvalidNameText);Changed?.Invoke();return Task.FromResult(false);}
+        return SendBuddySequence(()=>World.BeginBuddyRequest(action,name),first,BuddyPackets.Encode(BuddyAction.Query));
+    }
+    /// <summary>依序送出；第一包放行後才送後面的包（C4 被擋只少了查詢）。apply 只在第一包放行時執行。</summary>
+    async Task<bool> SendBuddySequence(Action apply,byte[] first,params byte[][] rest){
         if(!BuddyInputCanSend)return false;
-        byte[] add;
-        try{add=BuddyPackets.Encode(BuddyAction.Add,name);}
-        catch(ArgumentException){World.BuddyLocalLine(ChatFollowupCommands.InvalidNameText);Changed?.Invoke();return false;}
         var sender=sendMovementGate!;int session=generation,lease=++buddyLease;buddySending=true;
         bool Valid()=>session==generation&&lease==buddyLease&&BuddyAccess;
         try{
-            bool sent=await sender(add,Valid,()=>World.BeginBuddyRequest(BuddyAction.Add,name));
-            if(sent&&session==generation)await sender(BuddyPackets.Encode(BuddyAction.Query),Valid,()=>{});
+            bool sent=await sender(first,Valid,apply);
+            foreach(var packet in rest){if(!sent||session!=generation)break;await sender(packet,Valid,()=>{});}
             if(session==generation)Changed?.Invoke();return sent&&session==generation;
         }catch(Exception ex){if(session==generation){Cancel();Set(LoginState.Faulted,"名單傳送失敗："+ex.Message);}return false;}
         finally{if(lease==buddyLease)buddySending=false;}
