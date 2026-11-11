@@ -10,7 +10,9 @@ namespace P06.NativeUi;
 //   - 名稱與人數的字型、顏色、對齊待驗證 → 用 UiText 預設字、白字、左上 +2 px。
 //   - Moveable="20" 推測為可拖曳的上方高度（px）。
 //   - surf 寫法 "4990;1" 的第二個數字意義待驗證 → 只用第一個 surf。
-//   - 開窗方式（快捷鍵或指令）待驗證（M37）→ 沿用 BuddyUi.cs 的過渡入口。
+// 已驗證：TW16 無開窗鍵（FU13§3.1）：FriendUI 指標的 21 個讀寫點都不顯示窗，窗名字串不在 BIN；名單入口照原版是
+//   `/buddy` 與 HyperAct `buddy`（送 C4），回覆 S39 buddy 由 3.81 開 buddy-c.html 頁（Buddies.cs BuddyPage，R10-V #926）。
+//   本窗不是原版入口能開的；保留 BuddyUi.cs 的 WinForms 過渡鈕（--classic-ui 也保留）。
 // R9-H（T368／#852）：清單列事件（FU9 §9.2 XML 窗事件表，已驗證，靜態）：
 //   - FriendUI `FriendName` 4142（Delete，sub_B18F10）：Y/N 字串 1813「要刪除你所選擇的好友嗎?」→ 是 → cs 124（＝3.81 C_DelBuddy C202）。
 //     1813 原文已用 docs/reference/rea-scripts/t267/text_tables.py 從 0-客戶端 Text.pak 的 string-c.tbl 讀出確認；執行期照字串表，
