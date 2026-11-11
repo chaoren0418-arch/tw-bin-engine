@@ -394,3 +394,4 @@
 - 2026-11-11 — #960 T418：R11-D 選角空格／建角雙擊（code，claude-local，PR 已合併）→ [報告](reports/issue-960.md)
 - 2026-11-11 — #968 T424：Q8-B① 盟屋拍賣出價步進（code，claude-local，PR 已合併）→ [報告](reports/issue-968.md)
 - 2026-11-11 — #967 T423：Q8-A 聊天列提示（血盟備註、委任）（code，claude-local，PR 已合併）→ [報告](reports/issue-967.md)
+- 2026-11-11 — #970 T426：Q8-C 小項（470 圖示、信件提示、公告板等待、ESC 順序）（code，claude-local，PR 已合併）→ [報告](reports/issue-970.md)

@@ -213,14 +213,27 @@ public sealed class BuffIconsPanel(IReadOnlyList<ClientArchive>? sprites=null):I
         var list=new List<Placed>();
         foreach(var (def,cell) in order.Cells()){
             var entry=ApplyDefaultDuration(byEffect[def.Id],def);
-            bool off=def.OffIcon>0&&entry.Expired&&entry.DisplayMode is 0 or 6;   // sub_902840: offIcon only in display mode 0/6
-            list.Add(new(def,entry,new Rectangle(Cell(cell),new Size(IconSize,IconSize)),off?def.OffIcon:entry.IconOverride??def.Icon,off));
+            var (icon,off)=IconFor(def,entry,vipFlag);
+            list.Add(new(def,entry,new Rectangle(Cell(cell),new Size(IconSize,IconSize)),icon,off));
         }
         placed=list;
         if(Hover is int h&&!placed.Any(x=>x.Effect.Id==h))Hover=null;
         UpdateBounds();
     }
     void Log(string line){if(logged.Add(line))UiResourceLog.Write(line);}
+
+    /// <summary>
+    /// Icon id and "offIcon drawn" for one entry. Normal effects: sub_902840 — offIcon only when it exists, the time is over
+    /// and the display mode is 0/6. T426 (#970, FU15§2.9 已驗證): sub_9001F0 (VA 0x9001F0 / FO 0x4FF5F0) skips sub_902840 for
+    /// effect 470 and reads the player dword +0x328 (vipFlag) instead: ≠ 0 → icon, 0 → offIcon (table column +9), regardless
+    /// of time and mode. offIcon 0 (none in the table) → the icon (no substitute).
+    /// </summary>
+    public static (int Icon,bool Off) IconFor(BuffEffect def,BuffEntry entry,int vipFlag){
+        bool off=entry.Effect==Vip470Effect
+            ?vipFlag==0&&def.OffIcon>0
+            :def.OffIcon>0&&entry.Expired&&entry.DisplayMode is 0 or 6;
+        return (off?def.OffIcon:entry.IconOverride??def.Icon,off);
+    }
 
     /// <summary>
     /// Seconds of an entry whose time is the effect's table duration (S171 invisible, R4-F S250/75): duration −1 → no limit;
