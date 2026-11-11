@@ -17,7 +17,9 @@ namespace P06.NativeUi;
 //   伺服器 Npc_AuctionBoard 回 S39 `agsel`（拍賣資訊頁），由既有 NPC 對話窗顯示（followups-3.md 第 4.1 節，已驗證）。
 //   面板不碰 LoginConnection：按下＋放開都在 674 鈕內時呼叫宿主（IAgitMapHost，RingWindows.cs 的轉接），送出由宿主擋重複與過期。
 //   推測：送出後地圖窗不關（原版 sub_543810 之後沒有看到關窗呼叫，未逐行追）。
-// 待驗證（不做）：按鈕的按下圖；ESC 行為；3.81 伺服器實際送的盟屋編號（DB house 表）；agsel 頁在原版是否另開窗。
+// ESC：本面板 Key 不吃鍵；R7-H（#810）起全域 ESC（UiInput.GlobalEscape → UiRoot.CloseAll）會關掉視窗堆疊，經 Close() 和
+//   關閉鈕 678 一樣（記下這次請求、不送封包）。原版這個窗自己怎麼處理 ESC 沒追（推測同全域 ESC，sub_A57C60(0)）。
+// 待驗證（不做）：按鈕的按下圖；3.81 伺服器實際送的盟屋編號（DB house 表）；agsel 頁在原版是否另開窗。
 
 /// <summary>674 鈕的宿主：對 shown 這一次的 S187 送「select」。不合法或過期時由宿主拒絕。</summary>
 public interface IAgitMapHost { void Select(AgitMapOpenRequest shown); }

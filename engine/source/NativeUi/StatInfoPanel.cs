@@ -42,15 +42,16 @@ namespace P06.NativeUi {
 // - One Window BonusStatusTooltip_Window. Size = BasePng image. Moveable="340" = drag strip height (the whole window).
 // - List Vertical="1": children stacked top to bottom from the List origin, each advancing by its declared Height.
 //   Coordinates inside are relative to the parent; a missing X/Y is 0.
-// - "*_Label" Labels with String ids go through TextResolver (null in the product: the reference ids would not match the
-//   local string-c.tbl, see #768). "*_Value" Labels show ValueProvider(name); the engine has no bonus values (damage,
+// - "*_Label" Labels with String ids go through TextResolver. Since R7-N (#817) the product sets it to the reference client's
+//   own string table (RefClientTextSource.Resolver, registration below), because the reference ids do not match the local
+//   string-c.tbl (#768); with no reference client it is null and the labels are not drawn. "*_Value" Labels show ValueProvider(name); the engine has no bonus values (damage,
 //   hit, critical, carry, ER, MR …) yet, so in the product they are blank — the design-time Caption "0" is never drawn (待做).
 // - Opening: RenewalStatusPanel's StatusBonus_Button (MouseEvent ShowStatInfoTooltip) is a CheckButton. When it becomes
 //   checked while the status window is open, this window opens next to the status window's right edge (kept inside
 //   800×600); unchecking it or closing the status window closes this one. Esc (KeyboardEvent CloseStatInfoWindow) closes.
 // - R7-I (#811): the status window now opens from menu button 2 / Ctrl+A (MenuButtonsPanel), so this window can open in the
-//   product. op 43 (S64 kinds 1／2) closes it (StatInfoResetHide above; the original never opens it from op 43 — gap-matrix
-//   15.6 said "op 43 開 StatInfo", the disassembly shows SetShow(0)). The check button keeps its state (原版未查).
+//   product. op 43 (S64 kinds 1／2) closes it (StatInfoResetHide above; the original never opens it from op 43; gap-matrix
+//   15.6's R7-I row, which once said "op 43 開 StatInfo", was corrected in T403/#918 — the disassembly shows SetShow(0)). The check button keeps its state (原版未查).
 // - R7-I (#811) values: the product sets ValueProvider (BonusStatsUi.cs) to BonusValue over the status-window view. The 22
 //   rows are stat bonuses grouped by stat (BonusRows). TW16 keeps 22 row values in sub_7A7590()+0x23C (stride 0x14, index
 //   < 0x16, sub_EBB050) computed by sub_EB85F0 — not traced. The engine's own totals (MaxHp, MR…) are different numbers, so

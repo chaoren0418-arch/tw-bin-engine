@@ -70,7 +70,8 @@ public sealed partial class LoginConnection {
 /// 1. 可堆疊且數量 &gt;1：先問數量（字串 4115，本機 string-c.tbl 沒有，用引擎文字）；輸入空白＝全部，有輸入就照數字（sub_500900）。
 /// 2. 確認 Y/N：數量 1 用字串 3122（有表讀表），數量 &gt;1 用 4114（本機表沒有，用引擎文字）；Y 開頭才刪（同 YesNoProtocol.Accepts）。
 /// 3.81 的 C138 只有物件編號、伺服器整疊刪除，所以數量只能是全部；輸入比持有量少時不送、說明原因。
-/// 哪些物品需要確認（sub_996B10 的虛擬判斷）沒有逐類追（Q6-9），這裡一律確認。
+/// 哪些物品需要確認（sub_996B10 的虛擬判斷）沒有逐類追（Q6-9）；BeginItemDelete 一律確認，產品的兩條路徑（原生背包窗、
+/// WinForms 垃圾桶，R9-L／T403）都改照 alertitems.tbl（AlertOnly）。
 /// </summary>
 /// <param name="AskFirst">R9-L（#856）：這一步是 668「真的要把 "%s" 刪除嗎？」（背包窗的單件刪除）。</param>
 /// <param name="AlertOnly">R9-L（#856）：背包窗流程——3122／4114 只在物品列在 alertitems.tbl 時才問（FU8§8.1）；false＝R6-E 一律問。</param>
@@ -179,12 +180,27 @@ public sealed partial class LoginConnection {
     /// R9-L（T372／#856，FU9§13、FU8§8.1）：背包窗（垃圾桶、Delete 鍵）的刪除流程，sub_9A52C0 → sub_98D2E0：
     /// 單件 → 668 Y/N → 是 → 物品在 alertitems.tbl 才再問 3122，否則直接送；
     /// 堆疊（數量 &gt;1）→ 數量提示（4115／3054）→ 物品在 alertitems.tbl 才再問 4114，否則直接送。
-    /// 「堆疊」用數量 &gt;1 判斷（推測：數量 1 的可堆疊物品原版走哪一支沒追，真機再確認）。WinForms 垃圾桶仍走 R6-E（BeginItemDelete）。
+    /// 「堆疊」用數量 &gt;1 判斷（推測：數量 1 的可堆疊物品原版走哪一支沒追，真機再確認）。WinForms 垃圾桶走 BeginClassicItemDelete（T403，同樣照 alertitems.tbl，不問 668）。
     /// </summary>
     public ItemDeletePrompt? BeginInventoryDelete(ItemTransferRequest request,string name,Func<bool>? uiCurrent=null){
         if(!request.Delete||request.Selection.Session!=generation)return null;
         bool amount=request.Count>1;
         return StartItemDelete(new(++itemDeletePromptIds,request,name,amount,amount?ItemDeleteText.Amount(name,request.Count):ItemDeleteText.AskFirst(name),uiCurrent,AskFirst:!amount,AlertOnly:true));
+    }
+    /// <summary>
+    /// T403（#918，gap-matrix 15.12.6 小清理）：classic 路徑（WinForms 垃圾桶、拖到垃圾桶）也照 alertitems.tbl 決定要不要問 3122／4114：
+    /// 單件 → 物品在清單內才問 3122，不在就直接送（不問 668：668 是原生背包窗的單件刪除，WinForms 垃圾桶沒有這一步）；
+    /// 堆疊（數量 &gt;1）→ 照舊先問數量（4115／3054），之後物品在清單內才問 4114。讀不到表時一律問（同 R9-L）。
+    /// 回傳等待中的提示；直接送出時回 null（結果寫在聊天列提示）。
+    /// </summary>
+    public async Task<ItemDeletePrompt?> BeginClassicItemDelete(ItemTransferRequest request,string name,Func<bool>? uiCurrent=null){
+        if(!request.Delete||request.Selection.Session!=generation)return null;
+        bool amount=request.Count>1;
+        var p=new ItemDeletePrompt(++itemDeletePromptIds,request,name,amount,amount?ItemDeleteText.Amount(name,request.Count):ItemDeleteText.Confirm(name,request.Count),uiCurrent,AlertOnly:true);
+        if(amount||ItemDeleteAlertList.NeedsConfirm(request.Selection.Item))return StartItemDelete(p);
+        if(itemDeletePrompt is {} old){Interlocked.Exchange(ref old.Request.Consumed,1);itemDeletePrompt=null;}
+        await FinishItemDelete(p,true,generation);
+        return null;
     }
     ItemDeletePrompt StartItemDelete(ItemDeletePrompt p){
         if(itemDeletePrompt is {} old)Interlocked.Exchange(ref old.Request.Consumed,1);
@@ -297,8 +313,11 @@ public sealed partial class ClientForm {
         if(request.Delete){
             // R6-E（FU7§1.5）：原版的刪除確認在聊天輸入列（數量→Y/N），不是彈出框；答覆由 SendPlayerChat 接手。
             string name=ItemName(request.Selection.Item);Func<bool> current=()=>!World.Walking&&!IsDisposed;
-            if(inventoryWindow)login.BeginInventoryDelete(request,name,current);else login.BeginItemDelete(request,name,current);
-            OpenPlayerChat(false);if(playerHud!=null)playerHud.UpdateChat(login.PlayerChatSnapshot());
+            // T403（#918）：classic 路徑也照 alertitems.tbl（BeginClassicItemDelete）；不在清單內的單件直接送，不開輸入列。
+            bool asking=inventoryWindow?login.BeginInventoryDelete(request,name,current)!=null:await login.BeginClassicItemDelete(request,name,current)!=null;
+            if(IsDisposed)return;
+            if(asking)OpenPlayerChat(false);
+            if(playerHud!=null)playerHud.UpdateChat(login.PlayerChatSnapshot());
             SyncInventory();PublishWebState();return;
         }
         transferDialogOpen=true;
