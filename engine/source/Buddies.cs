@@ -2,7 +2,9 @@ namespace P06;
 
 public enum BuddyAction { Query, Add, Delete, ToggleExclude }
 public sealed record BuddyEntry(string Name,bool Online);
-public sealed record BuddyListPacket(uint Owner,BuddyEntry[] Entries);
+/// <param name="All">S39 第一個字串原文（全部名單，空格分隔）；R10-V 開 buddy 頁用。</param>
+/// <param name="Online">S39 第二個字串原文（在線名單）。</param>
+public sealed record BuddyListPacket(uint Owner,BuddyEntry[] Entries,string All="",string Online="");
 public sealed record ExcludePacket(byte Kind,string[] Names);
 public sealed record BuddyView(int Generation,int Epoch,uint Actor,int Revision,bool CanSend,bool CanToggle,
     bool Loaded,bool Stale,string Notice,BuddyEntry[] Friends,string[] Excluded,string[] MailExcluded);
@@ -11,6 +13,8 @@ public sealed record BuddyView(int Generation,int Epoch,uint Actor,int Revision,
 /// R10-C（T387／#902）：好友相關的 HyperAct（FU9§9.2，已驗證）：`addbuddy` → 輸入框 588「在好友清單上增加誰？」。
 /// 588 原文用 docs/reference/rea-scripts/t267/text_tables.py 從 0-客戶端 Text.pak 的 string-c.tbl（sha256 4ebbc1a7…2d43e9）讀出；
 /// 執行期照字串表，表不在時用同一句。`buddy`／`refreshbuddy`（56）、`delbuddy`（589）不在本任務範圍。
+/// R10-V（T409／#926，FU13§3.1）：HyperAct `buddy` 原版只送 `c` 56（＝3.81 C4），是好友名單的入口之一（另一個是 `/buddy`）；
+/// 動作分派在 NpcInteraction.cs（本任務不能改），接線留給後續任務。
 /// </summary>
 public static class BuddyHyperActs {
     public const string AddBuddy="addbuddy";
@@ -20,6 +24,26 @@ public static class BuddyHyperActs {
     public static bool IsAddBuddy(string? action)=>string.Equals(action?.Trim(),AddBuddy,StringComparison.OrdinalIgnoreCase);
     public static string AddInputPrompt=>ServerMessageText.Table is {} t&&AddInputText<t.Count
         &&ServerMessageText.DisplayText(t[AddInputText]).Trim() is {Length:>0} s?s:AddInputFallback;
+}
+
+/// <summary>
+/// R10-V（T409／#926，FU13 D4）：收到 S39 `buddy` 時 3.81 開的 HTML 頁（已驗證，靜態，3.81 OEP 快照
+/// `LiTo.unpacked-oep-current.exe` SHA-256 4271d92f…2ab6e9；地址皆 VA，快照 FO＝VA−0x400000）：
+///   - S_HYPERTEXT 處理函式 sub_4A5220 用 "dssh" 讀 objid、htmlid、（第一個 H 當 1 字元字串吃掉）、參數數 n；
+///     htmlid 是 "pledgeM"／"pledge"／"buddy"（0x4A549B–0x4A554D）→ HTML 物件 dword_647E14 的旗標 +0x181＝1。
+///   - 逐一讀 n 個字串（0x4A5567）：旗標為 1 且（不是第 0 個，或 htmlid＝"buddy"）時，先把「字串裡空格的個數」
+///     用 "%d" 加成一個變數（0x4A55D6–0x4A561F），再加字串本身（0x4A5631；sub_43A710＝strdup 後 push 到 +0x290 的陣列）。
+///   - 然後 vtable+0x54(htmlid,1) 開頁（0x4A5654）。頁面 `<var src="#n">` 直接取陣列第 n 個（0x4369A8 解析 '#'＋數字，n＜900 時 0x438740 取 [+0x294]+4n）。
+/// 所以 3.81 伺服器（S_Buddy：H2 H2 S 全部 S 在線）的變數是 [全部空格數, 全部, 在線空格數, 在線]；
+/// buddy-c.html（`好友名單(全部#0人／在線#1人)：<br><p>#2`）實際顯示 #0＝全部人數、#1＝全部名單字串、#2＝在線人數。
+/// 這和 FU13 推測的「#0／#1 人數、#2 名單」不同；本引擎照 3.81 的實際陣列（真機再確認畫面）。
+/// </summary>
+public static class BuddyPage {
+    public const string Html="buddy";
+    /// <summary>3.81 數的是空格字元個數（伺服器每個名字後面帶一個空格，所以通常＝人數）。</summary>
+    public static int SpaceCount(string text)=>text.Count(c=>c==' ');
+    public static string[] Arguments(string all,string online)=>
+        [SpaceCount(all).ToString(System.Globalization.CultureInfo.InvariantCulture),all,SpaceCount(online).ToString(System.Globalization.CultureInfo.InvariantCulture),online];
 }
 
 // Field layouts and source identities: docs/protocol/buddies.md.
@@ -42,7 +66,7 @@ public static class BuddyPackets {
         if(owner==0||r.H()!=2||r.H()!=2)throw new ProtocolException("buddy header");
         string all=r.S(),online=r.S();r.Finish();
         var names=Names(all);var connected=Names(online).ToHashSet(StringComparer.OrdinalIgnoreCase);
-        packet=new(owner,names.Select(n=>new BuddyEntry(n,connected.Contains(n))).ToArray());return true;
+        packet=new(owner,names.Select(n=>new BuddyEntry(n,connected.Contains(n))).ToArray(),all,online);return true;
     }
     static string[] Names(string text){
         var names=text.Split(' ',StringSplitOptions.RemoveEmptyEntries);
@@ -89,7 +113,11 @@ public sealed partial class WorldSession {
         if(BuddyPackets.TryBuddy(plain,out var friends)){
             if(Status?.ObjectId!=friends!.Owner)throw new ProtocolException("buddy owner");
             buddies=friends.Entries;BuddyLoaded=true;BuddyStale=false;BuddyRevision++;
-            BuddyNotice="已收到好友清單；在線狀態以本次查詢為準。";return true;
+            BuddyNotice="已收到好友清單；在線狀態以本次查詢為準。";
+            // R10-V（#926，FU13 D4）：3.81 每次收到 S39 buddy 都開 buddy 頁（BuddyPage）；放在伺服器查詢頁（HYPER_TEXT_WINDOW），
+            // 不動 NPC 對話。沒有模板時以解碼後的參數文字顯示（HyperTextFallbackNotice）。
+            if(Ready){var args=BuddyPage.Arguments(friends.All,friends.Online);ShowQueryPage(friends.Owner,BuddyPage.Html,args,args);}
+            return true;
         }
         if(BuddyPackets.TryExclude(plain,out var block)){
             if(block!.Kind==17){excluded.Clear();excluded.UnionWith(block.Names);pendingExclude=null;}
@@ -168,10 +196,11 @@ public sealed partial class LoginConnection {
 
     /// <summary>
     /// R9-C（#847，FU9§9.2）：好友／封鎖聊天指令。3.81：C4 C_Buddy、C207 C_AddBuddy、C202 C_DelBuddy、C171 C_Exclude（切換）。
-    /// - `/buddy`（947）→ C4。
+    /// - `/buddy`（947）→ C4（FU13§3.1：TW16 沒有開 FriendUI 的鍵；名單入口就是 /buddy 與 HyperAct buddy）。回覆 S39 buddy 開 buddy 頁（BuddyPage）。
     /// - `/addbuddy 名稱`（948，sub_F43160）：名稱檢查失敗印 53；成功送 C207＋C4（原版 `cs` 138＋`c` 56）。
     /// - `/delbuddy 名稱`（949）→ C202＋C4（原版 `cs` 124＋56）。
-    /// - `/exclude 名稱`（366）：原版固定傳空字串（開封鎖頁或送 TW16 擴充包）；3.81 只有以名稱切換的 C171，所以帶名稱時送 C171（推測，M37）。
+    /// - `/exclude 名稱`（366）：原版固定傳空字串（開封鎖頁或送 TW16 擴充包；已驗證，FU13§3.2：Commandexclude sub_F54D40 → sub_F40FC0("")）；
+    ///   3.81 伺服器只認以名稱切換的 C171，所以帶名稱時維持送 C171。
     ///   已在封鎖名單時不送（C171 會變成解除），提示改用 /include；不帶名稱只提示。
     /// - `/include 名稱`（470）：原版送 C217，3.81 沒有；改用 C171 切換，只在名稱已在封鎖名單（以伺服器回覆的名單為準）時送。
     /// </summary>
