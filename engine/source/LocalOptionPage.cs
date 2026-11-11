@@ -49,7 +49,8 @@ public static class LocalOptionPage {
         bool disabled=false;
         var options=page.Options.Select(o=>{
             if(o.Kind=="link"||!o.Enabled)return o;
-            bool on=o.Kind=="action"&&available(Of(o.Value));
+            var act=o.Kind=="action"?Of(o.Value):LocalOptionAct.None;
+            bool on=act!=LocalOptionAct.None&&available(act);   // 不是本組的動作一律停用，不看 available
             if(!on)disabled=true;
             return on?o:o with{Enabled=false};
         }).ToArray();
