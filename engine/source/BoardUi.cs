@@ -182,12 +182,15 @@ public sealed partial class ClientForm {
         public BoardView? Board=>Current?.Displayed;
         public void Press(string command){
             if(Current is not {IsDisposed:false} ui)return;
+            // T426 (#970, FU15§2.11): while the list / read reply is pending ([this+0x40]≠0) row reads and 662 Write do nothing.
+            if(command is "read" or "write"&&BoardPanelSet.IsWaiting(ui.Displayed))return;
             // Original 662 (sub_7CDE00) opens the write window; the text is sent from its 686 button.
             if(command=="write"&&Content!=null){if(ui.CanWrite)Content.OpenWrite();return;}
             _=ui.Press(command);
         }
         public uint? SelectedRow=>Current is {IsDisposed:false} ui?ui.SelectedRow:null;
-        public void SelectRow(uint? id){if(Current is {IsDisposed:false} ui)ui.SelectRow(id);}
+        /// <summary>T426 (#970, FU15§2.11): sub_7CD080 swallows list clicks while waiting → the selection does not change.</summary>
+        public void SelectRow(uint? id){if(Current is {IsDisposed:false} ui&&!BoardPanelSet.IsWaiting(ui.Displayed))ui.SelectRow(id);}
         public void Submit(string title,string content){if(Current is {IsDisposed:false} ui)_=ui.Submit(title,content);}
         public void Notice(string text){Current?.Notice(text);}
         public long? Gold=>Current is {IsDisposed:false} ui?ui.Gold:null;

@@ -78,15 +78,30 @@ public sealed class UiInput {
     /// hidden but still own their toggle key (e.g. Ctrl+M), which is how they close and can open again on top.
     /// R7-H (#810): when no panel takes ESC, the global ESC closes the stacked windows (<see cref="GlobalEscape"/>).
     /// false = not for the UI (game keys continue).
+    /// T426 (#970, FU15§2.1 已驗證): sub_8CA740 gives the key to the chat input line while a prompt is active (step 4,
+    /// sub_AC7AF0 → the prompt callback with 27) before the XML windows (step 5, sub_B557C0). So while the YES/NO prompt is
+    /// up, ESC goes to <see cref="YesNoPanel"/> before the focused panel (<see cref="PromptEscape"/>).
     /// </summary>
     public bool Key(UiKeyEvent e){
         root.SyncWindows();
         if(Focused!=null&&!root.Usable(Focused))Focused=null;
-        if(Focused!=null&&DeliverKey(Focused,e))return true;
         var order=root.HitOrder().ToArray();
+        if(PromptEscape(order,e))return true;
+        if(Focused!=null&&DeliverKey(Focused,e))return true;
         foreach(var p in order)if(p!=Focused&&root.Usable(p)&&DeliverKey(p,e))return true;
         foreach(var p in order)if(root.IsEvicted(p)&&p.Visible&&!root.Faulted.Contains(p)&&DeliverKey(p,e))return true;
         return GlobalEscape(e);
+    }
+
+    /// <summary>
+    /// T426 (#970): ESC with an active YES/NO prompt (a usable, visible <see cref="YesNoPanel"/>) → the prompt first
+    /// (refusal, same as sub_4FCA30 with 27 and an empty line). Other keys and no prompt → the normal order. The legacy stack
+    /// windows (sub_8CA740 step 3, before the chat line) were not traced for ESC (FU15§2.1); the engine has no such window.
+    /// </summary>
+    bool PromptEscape(IUiPanel[] order,UiKeyEvent e){
+        if(e.KeyData!=Keys.Escape||!e.Down)return false;
+        foreach(var p in order)if(p is YesNoPanel{Visible:true}&&root.Usable(p)&&DeliverKey(p,e))return true;
+        return false;
     }
 
     /// <summary>

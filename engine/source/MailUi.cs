@@ -51,7 +51,17 @@ public sealed partial class ClientForm {
             form.ClearInput("mail");
             return form.login.Mail(command, box, id, shown.Stamp, receiver, subject, body, () => panel.Visible);
         }
+        /// <summary>
+        /// T426 (#970, FU15§2.7): the native UI prints mail results in the chat window like sub_941000 (sub_7DC850,
+        /// palette[24]). --classic-ui keeps them in the MailDialog notice line (this host is not used there).
+        /// </summary>
+        public void ChatNotice(string text) {
+            if (form.login.State != LoginState.InWorld) return;
+            form.login.CaptureWorld(() => { form.login.World.AddBoardChatNotice(text, MailChatColor); return true; });
+        }
     }
+    /// <summary>sub_7DC850 first colour for the mail result lines: palette[24] (FU15§2.7; same slot as the board's 189).</summary>
+    internal const int MailChatColor = 24;
 }
 
 // Modal native editor owns keyboard focus; the game cannot interpret body text as movement.

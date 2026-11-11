@@ -77,6 +77,15 @@ public sealed class BoardPanelSet {
     }
     /// <summary>Original "back to list" (inferred) is a local view switch: no packet.</summary>
     internal void ShowList(){listOverArticle=true;Mode=view is {Kind:not "closed"}?"list":"none";}
+    /// <summary>
+    /// T426 (#970, FU15§2.11 已驗證): the list window's [this+0x40] "waiting for the server" — set when a list / read request
+    /// is sent (sub_7CD880, sub_7CDA70, sub_7CD970, sub_7CDBD0, sub_7CD490), cleared when the list (sub_7CD600) or the
+    /// article (sub_7CD9F0) arrives. Engine counterpart: the board kinds "list-wait" / "read-wait" (Board.cs BoardSent →
+    /// ReceiveBoardList / ReceiveBoardRead). While waiting the list mouse (sub_7CD080) does nothing and 662 Write
+    /// (sub_7CDE00) does not open the write window.
+    /// </summary>
+    public static bool IsWaiting(BoardView? v)=>v is {Kind:"list-wait" or "read-wait"};
+    public bool Waiting=>IsWaiting(Host.Board);
     public void LoadSurfaces(SurfCatalog surfs){foreach(var p in Panels)p.Load(null!,surfs);}
     internal void LoadSurfaces(Func<int,UiSurface?> surf){List.Load(surf);Read.Load(surf);}
 }
@@ -131,7 +140,7 @@ public abstract class BoardButtonWindow:IUiClosablePanel {
         switch(role){
             case BoardButtonRole.Close:CloseWindow();break;
             case BoardButtonRole.Read:Set.Host.Press("read");break;
-            case BoardButtonRole.Write:Set.Host.Press("write");break;
+            case BoardButtonRole.Write:if(!Set.Waiting)Set.Host.Press("write");break;   // sub_7CDE00: [this+0x40]≠0 → nothing
             case BoardButtonRole.Delete:Set.Host.Press("delete");break;
             case BoardButtonRole.Previous:Set.Host.Press("previous");break;
             case BoardButtonRole.Next:Set.Host.Press("next");break;

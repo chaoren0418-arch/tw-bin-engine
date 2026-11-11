@@ -33,7 +33,12 @@ namespace P06.NativeUi;
 //   characters come through IUiTextInput.Char (WM_CHAR); Back/Tab/Enter/Esc/arrows are taken in Key while an edit has focus.
 //   Esc (KeyboardEvent) = the window's close event.
 // - Delete/Store act on the checked rows (list) or on the mail being read; there is no confirmation prompt. ExcludeMail
-//   (MailExcludeUI) is not wired (待做). Server notices (MailView.Notice) are not drawn.
+//   (MailExcludeUI) is not wired (待做). Notices (MailView.Notice) are not drawn in the window.
+// - T426 (#970, FU15§2.7 已驗證): the original op 99 handler sub_941000 (FO 0x540400) prints the mail results in the chat
+//   window (sub_7DC800 / sub_7DC850, palette[24] / [14]), never in a window. Engine: MailNoticeRelay hands each new
+//   MailView.Notice to IMailPanelHost.ChatNotice (the texts the engine already has; no new strings). Notices set while one of
+//   this panel's own requests is in flight (send acknowledgements, local validation) are absorbed, so what reaches the
+//   chat line is the server-reply notice (推測 for the exact set: the engine notice is one string, not the 1239/1240/… ids).
 // - T403 (#918): the scroll thumb (ScrollBar Move_Button) can be dragged. It is hit where it is drawn (ThumbOffset); while the
 //   left button is held the position follows the pointer along the track (ScrollHeight − thumb height), rounded to the
 //   nearest row/line, keeping the grab point under the pointer (推測: the original drag rule was not traced). A thumb press
@@ -45,6 +50,26 @@ public interface IMailPanelHost {
     MailView? View { get; }
     /// <summary>LoginConnection.Mail with the stamp of the shown view ("list", "read", "delete", "store", "write", "clan").</summary>
     Task<bool> Run(MailView shown,string command,byte box,uint id,string receiver="",string subject="",string body="");
+    /// <summary>T426 (#970): print one mail notice as a chat system line (sub_941000 → sub_7DC850). Default: nothing.</summary>
+    void ChatNotice(string text){}
+}
+
+/// <summary>
+/// T426 (#970, FU15§2.7): decides which MailView.Notice changes go to the chat line. A new mail identity (stamp) only sets the
+/// baseline (nothing printed); while a request is in flight the change is absorbed; otherwise a notice different from the
+/// last one seen is printed once. Empty notices are never printed.
+/// </summary>
+public sealed class MailNoticeRelay {
+    MailStamp? stamp;string? last;
+    /// <summary>Text to print for this snapshot, or null.</summary>
+    public string? Next(MailView v,bool inFlight){
+        if(stamp!=v.Stamp){stamp=v.Stamp;last=v.Notice;return null;}
+        if(v.Notice==last)return null;
+        last=v.Notice;
+        return inFlight||v.Notice.Length==0?null:v.Notice;
+    }
+    /// <summary>Takes the current notice as seen without printing it (after a request returns).</summary>
+    public void Absorb(MailView? v){if(v!=null&&stamp==v.Stamp)last=v.Notice;}
 }
 
 public enum MailPieceKind { Image, Label, Button, Edit }
@@ -309,8 +334,11 @@ public sealed class MailPanel(UiResources? resources=null):IUiMovablePanel,IUiCl
 
     public void Update(IUiGameState state){
         if(!state.InWorld){if(open)Close();View=null;return;}
-        if(!open||Host==null)return;
+        if(Host==null)return;
         var v=Host.View;
+        // T426 (#970): results go to the chat line whether or not the window is open (sub_941000 does not look at the window).
+        if(v!=null&&Notices.Next(v,inFlight>0) is {} line)Host.ChatNotice(line);
+        if(!open)return;
         if(v==null||stamp!=null&&v.Stamp!=stamp){Close();return;}
         View=v;
         ListScroll=Math.Clamp(ListScroll,0,Math.Max(0,v.Headers.Length-RowSlots));
@@ -347,9 +375,17 @@ public sealed class MailPanel(UiResources? resources=null):IUiMovablePanel,IUiCl
         bool ok=true;
         foreach(var (command,id) in steps){
             if(!open)return;
-            if(!await Host!.Run(shown,command,box,id)){ok=false;break;}
+            if(!await Tracked(Host!.Run(shown,command,box,id))){ok=false;break;}
         }
         if(ok)after?.Invoke();
+    }
+    /// <summary>T426 (#970): the chat relay for MailView.Notice; notices set during this panel's own requests are absorbed.</summary>
+    public MailNoticeRelay Notices{get;}=new();
+    int inFlight;
+    async Task<bool> Tracked(Task<bool> run){
+        inFlight++;
+        try{return await run;}
+        finally{inFlight--;Notices.Absorb(Host?.View);}
     }
     void SendDraft(){
         if(Host==null||View==null||Busy||Submitted)return;
@@ -359,7 +395,7 @@ public sealed class MailPanel(UiResources? resources=null):IUiMovablePanel,IUiCl
         pending=SendAsync(shown,command,To,Subject,Body);
     }
     async Task SendAsync(MailView shown,string command,string receiver,string title,string text){
-        if(await Host!.Run(shown,command,Box,0,receiver,title,text)){Submitted=true;Focus=null;if(open)ShowWindow(ListWindow);}
+        if(await Tracked(Host!.Run(shown,command,Box,0,receiver,title,text))){Submitted=true;Focus=null;if(open)ShowWindow(ListWindow);}
     }
 
     // ---- visibility / hit testing
