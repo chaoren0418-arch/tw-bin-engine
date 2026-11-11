@@ -282,7 +282,11 @@ static class RingAgitFollowupTests {
         t.Check(host.Bids.Count==0,"host cannot send: nothing");
         host.CanBid=true;Click(p,p.Window.At(p.Window.Find("Ok_Button")!),cmd);
         t.Check(host.Bids.Count==1&&host.Bids[0]==(offer,150000L),"Ok → host.Bid(offer, 150000)",host.Bids);
-        t.Check(p.Key(K(Keys.Enter),cmd)&&host.Bids.Count==2,"Enter = Ok");
+        // T429（#986）：Ok 送出後關窗（FU15§2.10），所以 Enter 用下一筆 S136 重開再按；送出後同樣關窗。
+        var again=offer with{Revision=60};host.BidOffer=again;p.Update(InWorld);
+        t.Check(p.Visible&&p.Key(K(Keys.Enter),cmd)&&host.Bids.Count==2&&host.Bids[1]==(again,100000L)&&!p.Visible,"Enter = Ok (sends, then closes)",host.Bids);
+        host.BidOffer=offer with{Revision=61};p.Update(InWorld);
+        while(p.Input.Length>0)p.Key(K(Keys.Back),cmd);foreach(char ch in "150000")p.Char(ch);
         Click(p,p.Window.At(p.Window.Find("Plus_Button")!),cmd);
         t.Check(!p.Unhandled.Contains("Plus_BidWin")&&p.Input=="150001","Plus: +1 (T424, FU15§2.10)");
         Click(p,p.Window.At(p.Window.Find("Cancel_Button")!),cmd);

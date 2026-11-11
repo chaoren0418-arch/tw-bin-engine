@@ -138,11 +138,14 @@ static class BidStepTests {
         t.Check(host.Bids.Count==0&&p.Input=="200"&&host.Chat.Count==2,"Ok above the maximum: not sent, edit = maximum, no 4381");
         Click(p,"Ok_Button",cmd);
         t.Check(host.Bids.Count==1&&host.Bids[0].Value==200,"Ok at the maximum sends",host.Bids);
+        // T429（#986）：送出後關窗（FU15§2.10），下一筆 S136 重開。
+        host.BidOffer=host.BidOffer! with{Revision=2};p.Update(At(0));
         Type(p,"100",cmd);Click(p,"Ok_Button",cmd);
         t.Check(host.Bids.Count==2&&host.Bids[1].Value==100&&host.Chat.Count==2,"Ok at the minimum sends, no 4381");
+        host.BidOffer=host.BidOffer! with{Revision=3};p.Update(At(0));
         host.CanBid=false;Type(p,"5",cmd);Click(p,"Ok_Button",cmd);
         t.Check(host.Bids.Count==2&&p.Input=="100"&&host.Chat.Count==3,"host cannot send: still clamps and prints 4381 (sub_545920 checks the value first)");
-        // 宿主沒有聊天欄輸出（產品 RingWindows.cs 的 AgitAuctionHost）：記一次 log，Notice 留字。
+        // 宿主沒有聊天欄輸出（產品的 AgitAuctionHost 自 T429／#986 起已實作，這裡用合成宿主）：記一次 log，Notice 留字。
         var plain=new Host();var q=Open(plain,150,100,200);
         Type(q,"5",cmd);Click(q,"Ok_Button",cmd);
         t.Check(q.Input=="100"&&q.Notice==BelowText&&q.Unhandled.Contains("4381-chat")&&plain.Bids.Count==0,"no chat host: logged once, Notice kept",q.Unhandled);
