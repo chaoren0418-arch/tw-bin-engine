@@ -28,7 +28,8 @@ namespace P06.NativeUi;
 //   - 同一列有圖時列高＝最高的圖（至少 15），字與圖都靠上。每列開頭的空白去掉（HTML 的空白收合，簡化版）。
 //   - pN（PngList）圖的載入沒有接：當成沒有圖。沒有圖的可點圖改畫成文字標籤（「購買」／「出售」／alt；引擎自訂，避免功能消失）；
 //     沒有圖、不可點的圖不畫（缺圖就不畫）。
-//   - N ≥ 1000 的客戶端狀態變數（567／568 開關等）沒有接，與 NpcTemplates 相同顯示「缺少參數」。<may>／<subHtml> 不輸出。
+//   - N ≥ 1000 的客戶端狀態變數：Q9-D（T439／#1010）起，引擎有設定的號碼輸出 567／568 或 573／574（HyperTextOptionVars）；
+//     其他與 NpcTemplates 相同顯示「缺少參數」。<may>／<subHtml> 不輸出。
 // Q9-C（T438／#1009）：依 docs/reference/followups-17.md §3.2、§3.4（已驗證）：<date>＝「%2d%s %2d%s」（月＋字串 762＋日＋字串 763）、
 //   <time>＝「%02d:%02d」、<var src="#999">＝「%2d:%2d」、<var src="#998">＝玩家名稱；時間值經 sub_A23760 的 0x80000000 規則換算（HyperTextClock）。
 // 選項編號：與 NpcTemplates.Render 完全相同（每個關閉的 <a> 與每個帶 link／action 的 <img> 依出現順序 0,1,2…），面板據此把
@@ -193,6 +194,8 @@ public static class HyperTextMarkup {
                     // Q9-C：#998＝玩家名稱、#999＝「%2d:%2d」遊戲時間（客戶端變數，不讀參數；同 NpcTemplates）。
                     if(i==HyperTextClock.PlayerNameVar)value=player;
                     else if(i==HyperTextClock.ClockVar)value=HyperTextClock.VarTime(HyperTextClock.Value);
+                    // Q9-D：1002–1029 引擎有設定的選項值（567／568、573／574）；沒有的照舊（同 NpcTemplates）。
+                    else if(i>=1000&&HyperTextOptionVars.Value(i) is {} option)value=option;
                     else if(i<args.Length)value=args[i];else if(i==0&&npc.Length>0)value=npc;else value=$"〔缺少參數 #{i}〕";
                 }else value="〔不支援的參數〕";
                 if(Flag(part,"img")&&int.TryParse(value.Trim(),out int img)&&img>=0){Add(new(HyperTextNodeKind.Image,value,"",Style(),-1,align,Surf:SurfList(img),Src:"#"+img));break;}
@@ -256,6 +259,8 @@ public static class HyperTextClock {
 
     static readonly object gate=new();
     static WeakReference<WorldSession>? session;static bool statusLast;
+    /// <summary>Q9-D：最後收到 S123／S8 的 session（HyperTextOptionVars 讀選項值用）；沒有回 null。</summary>
+    internal static WorldSession? Session{get{lock(gate)return session!=null&&session.TryGetTarget(out var s)?s:null;}}
     static Func<uint?>? overrideSource;static bool overridden;
     /// <summary>NpcTemplates.cs 的 S123／S8 觀察器呼叫：記下 session 與最後一個時間封包是哪一種。</summary>
     internal static void Observed(WorldSession s,bool status){lock(gate){session=new(s);statusLast=status;}}
@@ -276,6 +281,69 @@ public static class HyperTextClock {
         lock(gate){var previous=(overridden,overrideSource);overridden=true;overrideSource=source;return new Scope(()=>{lock(gate)(overridden,overrideSource)=previous;});}
     }
     sealed class Scope(Action dispose):IDisposable{Action? action=dispose;public void Dispose(){Interlocked.Exchange(ref action,null)?.Invoke();}}
+}
+
+/// <summary>
+/// Q9-D（T439／#1010）：HTML 的 &lt;var src="#N"&gt;，N 在 1002–1029（3.81 範圍）裡引擎已有對應設定的選項值
+/// （docs/reference/followups-17.md §3.4，TW16 sub_435640 同號 case；3.81 快照也有這些 case）。
+/// 開關 → 字串 567「開」／568「關」；1019（573／574 那一組）→ 573「可使用」／574「無法使用」。字串表沒有時用這幾個已驗證的字。
+/// 對應（引擎設定 ← 原版全域變數）：
+///   1002 getall      ← WorldSession.PickupAll（byte_135C1E4，world-objects.md 已驗證同一個旗標）
+///   1003 bubbleon    ← HeadBubbleOptions.BubbleFrames（byte_13AAF28，FU16 已驗證）
+///   1005 dowhisper   ← WorldSession.ChatChannels.Whisper（byte_135C1E6＝/whisper 旗標，FU7§1.4 已驗證）
+///   1019 accepttrade ← WorldSession.TradeAskWindow（byte_136E99D，FU7§1.1 已驗證；573／574）
+///   1020 dotradechat ← WorldSession.ChatChannels.Trade（unk_1656980＝/tradechat 旗標，FU7§1.4 已驗證）
+///   1023 showhpmp    ← HpMpSettings.ShowCharacterHpMp（byte_138BE7C，ui-layout.md 已驗證）
+///   1024 showfloathpmp ← HpMpSettings.Show（byte_138BE7D FloatingHPMP.show；它怎麼控制浮動窗是 ui-layout.md 的待驗證）
+///   1027 showMargetMsg ← HeadBubbleOptions.ShopMessages（byte_136E99F，FU16 已驗證）
+/// 其他號碼（1004 dochat 的 unk_1656948 沒追、1009 語言過濾引擎一律開、1025 透明度、1028 組隊分配等引擎沒有設定）回 null，
+/// 呼叫端照舊顯示「缺少參數」。1030 以上、2001 以上是 TW16 專有，不做。
+/// 來源：世界值取 HyperTextClock 記下的 session（最後收到 S123／S8 的那個；推測與 NPC 對話是同一個 session）；
+/// HP/MP 設定只在原生 UI 的 HpMpPanel 裡，由 HpMp 掛上（沒掛＝null＝缺少參數）。
+/// </summary>
+public static class HyperTextOptionVars {
+    public const int OnString=567,OffString=568,UsableString=573,UnusableString=574;
+    /// <summary>引擎有對應設定的號碼（遞增）。</summary>
+    public static readonly int[] Supported=[1002,1003,1005,1019,1020,1023,1024,1027];
+    /// <summary>用 573／574（可使用／無法使用）的號碼；其他用 567／568。</summary>
+    public static bool UsesUsable(int id)=>id==1019;
+    /// <summary>原生 UI 的 HP/MP 設定來源（例如 () =&gt; OptionPanel.HpMpWindow(root)?.Settings）；null＝沒有。</summary>
+    public static Func<HpMpSettings?>? HpMp{get;set;}
+
+    static readonly object gate=new();
+    static bool overridden;static WorldSession? overrideWorld;static Func<HpMpSettings?>? overrideHpMp;
+    static (WorldSession? World,Func<HpMpSettings?>? HpMp) Sources(){
+        lock(gate)if(overridden)return (overrideWorld,overrideHpMp);
+        return (HyperTextClock.Session,HpMp);
+    }
+    /// <summary>測試用：換成指定的世界與 HP/MP 來源，直到 Dispose。</summary>
+    internal static IDisposable Use(WorldSession? world,Func<HpMpSettings?>? hpMp=null){
+        lock(gate){
+            var previous=(overridden,overrideWorld,overrideHpMp);overridden=true;overrideWorld=world;overrideHpMp=hpMp;
+            return new Scope(()=>{lock(gate)(overridden,overrideWorld,overrideHpMp)=previous;});
+        }
+    }
+    sealed class Scope(Action dispose):IDisposable{Action? action=dispose;public void Dispose(){Interlocked.Exchange(ref action,null)?.Invoke();}}
+
+    /// <summary>選項目前的開關；沒有對應設定或沒有來源回 null。</summary>
+    public static bool? Flag(int id){
+        if(Array.BinarySearch(Supported,id)<0)return null;
+        var (w,hp)=Sources();
+        return id switch{
+            1002=>w?.PickupAll,
+            1003=>HeadBubbleOptions.BubbleFrames,
+            1005=>w?.ChatChannels.Whisper,
+            1019=>w?.TradeAskWindow,
+            1020=>w?.ChatChannels.Trade,
+            1023=>hp?.Invoke()?.ShowCharacterHpMp,
+            1024=>hp?.Invoke()?.Show,
+            1027=>HeadBubbleOptions.ShopMessages,
+            _=>null};
+    }
+    /// <summary>&lt;var src="#N"&gt; 要顯示的字；null＝引擎沒有這個值（呼叫端顯示「缺少參數」）。</summary>
+    public static string? Value(int id)=>Flag(id) is bool on?Text(UsesUsable(id)?(on?UsableString:UnusableString):(on?OnString:OffString)):null;
+    static string Text(int id)=>ServerMessageText.Table is {} t?(id<t.Count?t[id]:""):id switch{
+        OnString=>"開",OffString=>"關",UsableString=>"可使用",UnusableString=>"無法使用",_=>""};
 }
 
 /// <summary>排好的一個片段：X／Y 相對於該列左上角（已含對齊位移）。Text 是畫的字（圖為空字串；沒有圖的可點圖是標籤）。</summary>
