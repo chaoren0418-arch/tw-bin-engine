@@ -96,7 +96,13 @@ public sealed partial class LoginConnection {
         PacketTrace.In(plain,sequence);PacketReceived?.Invoke(new{kind="server-packet",sequence,plainHex=Convert.ToHexString(plain)});
         if(!CharacterManagementRead)return true;
         var r=new LoginReader(plain);byte opcode=r.C();
-        if(opcode==227)throw new ProtocolException("server disconnect during character management");
+        if(opcode==227){
+            // T403（#918，gap-matrix 15.12.6 小清理）：角色管理途中（建角、刪角、C7 換角）這個 hook 在世界分派之前收下封包，
+            // 原本直接丟例外，KickNotice 的觀察器（WorldSession.ObserveKick）沒機會記下通知，所以不開框。
+            // 先跑同一組觀察器（記下 Kick、交給 ClientForm 開 64「連線中斷。」框），再照舊丟例外結束連線，和世界中的 case 227 一樣。
+            World.ObserveCharacterManagementPacket(opcode,plain);
+            throw new ProtocolException("server disconnect during character management");
+        }
         if(characterOperation==CharacterOperation.Switch){
             if(opcode==250&&r.C()==42){
                 for(int i=0;i<6;i++)if(r.C()!=0)throw new ProtocolException("invalid character selection marker");r.Finish();
@@ -133,4 +139,9 @@ public sealed partial class LoginConnection {
         characters.Clear();characters.AddRange(refreshedCharacters);Expected=refreshedCount;Slots=refreshedSlots;
         CompleteCharacterManagement("角色清單已更新；標示七日待刪除的角色可再次按刪除以取消排程。");
     }
+}
+
+public sealed partial class WorldSession {
+    /// <summary>T403（#918）：角色管理 hook 收下、不進世界分派的封包，也交給自動發現的觀察器（目前只用在 S227 踢除通知）。</summary>
+    internal void ObserveCharacterManagementPacket(byte opcode,byte[] plain)=>ObserveExtensions(opcode,plain);
 }

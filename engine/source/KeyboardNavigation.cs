@@ -25,8 +25,25 @@ public sealed partial class ClientForm {
         _=AnswerYesNoShown(view,false,"yes-no-escape");
         return true;
     }
+    // T403 (#918, gap-matrix 15.12.6 小清理): Esc while an item-delete prompt waits on the chat line (R6-E / R9-L, sub_AC98E0)
+    // cancels it (CancelItemDelete, nothing sent) — like the native ChatPanel's R10-F Esc. Here for the WinForms chat line
+    // and inventory (list, trash button, game view), and for the native inventory window when no native panel took the Esc
+    // (ItemWindowPanel itself does not take it, so the native ChatPanel normally cancels first). After the server's YES/NO
+    // (that prompt is older on the same line; the original order is Q8-3, not traced). The chat line closes as with its own Esc.
+    internal static bool ItemDeleteEscapeCancels(Keys keyData,bool inWorld,bool prompt,bool ownerFocus,bool repeat)=>
+        keyData==Keys.Escape&&inWorld&&prompt&&ownerFocus&&!repeat;
+    bool ProcessItemDeleteEscape(ref Message msg,Keys keyData){
+        if(keyData!=Keys.Escape||ActiveForm!=this)return false;
+        bool owner=Focused||PlayerChatFocused||playerHud?.ChatButtonFocused==true||inventoryList.Focused||deleteItemButton.Focused;
+        if(!ItemDeleteEscapeCancels(keyData,login.State==LoginState.InWorld,login.ItemDeletePromptCurrent!=null,owner,((long)msg.LParam&(1L<<30))!=0))return false;
+        if(!login.CancelItemDelete())return false;
+        if(playerHud!=null){playerHud.UpdateChat(login.PlayerChatSnapshot());if(playerHud.ChatPanelOpen){ExitPlayerChat();return true;}}
+        PublishWebState();
+        return true;
+    }
     bool ProcessLoginKeyboardEnter(ref Message msg,Keys keyData){
         if(ProcessYesNoEscape(ref msg,keyData))return true; // Same ProcessCmdKey slot, before chat's own Esc (PlayerChatKeyboardFlow).
+        if(ProcessItemDeleteEscape(ref msg,keyData))return true;
         int disposition=LoginEnterDisposition(keyData,normalProduct,loginAccount.Focused||loginPassword.Focused,loginControl?.CanLogin==true,loginConnect.Enabled,((long)msg.LParam&(1L<<30))!=0);
         if(disposition==2)loginConnect.PerformClick(); // Existing Click -> StartLogin -> guarded LoginControl.Start.
         return disposition!=0;

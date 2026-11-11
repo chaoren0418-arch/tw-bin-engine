@@ -3,7 +3,9 @@ using P06.NativeUi;
 namespace P06;
 
 // C2 (Issue #463): connects the native UI to ClientForm behind the nativeUi switch (docs/design/native-ui.md §1.1, §3).
-// Switch off (default) → nothing here runs and the legacy HUD path is unchanged.
+// Switch (UiOptions.Resolve): on by default for the normal product (UiOptions.DefaultOn); off with --classic-ui, with
+// native-ui.json "nativeUi": false, or for the diagnostic harness entries (--demo, --evidence …) unless --native-ui is given.
+// Switch off → nothing here runs and the legacy HUD path is unchanged.
 // Switch on → the client verifies the pinned client resources in the background (several GB of SHA-256). Until that
 // finishes the legacy HUD stays in charge; on success the native canvas takes over (legacy HUD hidden and deaf, because
 // PlayerHudActive is false); on any failure the legacy HUD stays and one red line says why. Legacy HUD controls are still
