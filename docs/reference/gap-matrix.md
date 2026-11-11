@@ -2402,3 +2402,191 @@ K1 的 54 列，理由見 15.12.4 與 15.5，本輪沒有變動，這裡不逐�
 - 「已有」只表示靜態看程式沒有已知差異，全部都沒有真機驗收。
 - #888、#891 在本輪盤點時合併；這 4 列依 main `5d8073c3` 讀過程式，但沒有派子代理逐項重核。
 - 本節的 `檔案:行` 以 main `1a1762f0` 為準；#888、#891 的 4 列以 `5d8073c3` 為準。這兩張 PR 改到 `Inventory.cs`、`FishingPanel.cs`、`HyperTextPanel.cs`，所以本節引用的這幾個檔案行號可能差幾行。
+### 15.13 第八輪盤點與 M7 結案判定（T412／#952，2026-11-11）
+
+依 main `2ee155ab`。第七輪（15.12）之後合併的有：
+- R10-C–Q（#902–#916）、R10-S #923、R10-T #924、R10-U #925、R10-V／T409 #926、小清理 T403 #918；
+- 查證 FU12（#896）、FU13（#898）、FU14（#899）；真機前置 T404 #919、smoke 腳本 T410 #944。
+
+開始時還在跑的三張，都還沒合併（沒有 PR 或只有開著的 PR），照各自的目標算進預期結果：
+
+| 任務 | 對應列 | 本節怎麼算 |
+|---|---|---|
+| Q8 #917（T402，resource） | 4:StatInfoUI | 唯讀查證，不改程式。查完只會把這列從 K2 轉成 K5（數值能從客戶端資料算）或 K1（要向伺服器要），不會直接變「已有」。所以本節維持「部分」，歸 **K7 進行中（#917）** |
+| R10-R #922（T405，code） | 5:`sub_87C890` | 目標是把 FU14§1.3、§2.4、§3.6 全部接上（altdir、stride、cloth、動作 71）。照目標完成後只剩推定項與真機 M31，所以本節記「部分→已有」，標「進行中（#922）」。**#922 沒合併前這列實際仍是 K5** |
+| T411 #948（PR #951，code） | 無 | 只改證據輸出的入口（`--normal-product` 接受 `--evidence`），不對應任何列；只影響 `smoke-m7.md` §0.3／§11 K-1、K-2，那兩段由 #951 自己改，本輪不碰 |
+
+計數用 `rea-scripts/gap_count_r8.py`：它依序套 15.3、15.12、15.13 的狀態變更表，分類只讀本節。`gap_count_r7.py` 改成讀到 15.13 之前就停，仍能重現第七輪的數字。
+
+#### 15.13.1 方法
+
+- **判定規則**同 15.12.1，照樣**嚴格套用「已有」**：還有「有查證依據、但程式沒做」的子項，不論多小，都歸 K5。只有推定的子項、只能真機看的差異、任務報告自己標「選做」的，不擋「已有」。
+- **逐列核對**：第七輪的 20 列 K5、3 列 K2（含 FU12、FU14 已改判的 1:127、5:`sub_87C890`）分給 2 個唯讀子代理。每個子代理讀對應任務報告（`docs/reports/issue-902`–`926.md`、`issue-918.md`）的「未做／未驗證」，再到產品碼（不含 `*Tests.cs`、`*Checks.cs`、`[WorldModuleTest]`）找呼叫點。
+- **主控複核**：仍判 K5 的「沒做」說法，我另外讀過程式：
+  - `NativeUi/ActionWindowPanel.cs:136–138`：`Action_ViewDropItemName`、`Action_CorpseTransparent` 仍是 `ActionRouteKind.None`，註解寫「引擎沒有」，但 R10-I 已做了兩個開關（`RingWindows.cs:202–203`、`:216–217` → `ObjectRendering.cs:481–488`）；
+  - `NativeUi/ActionWindowPanel.cs:133–135`：`Action_InviteParty` 註「踢人分支未做」，`Action_AddFriend`／`Action_Exclude` 註「點選對象未做」；
+  - `NpcInteraction.cs`：只分派 `addbuddy`（`:160`、`:181`），沒有 `buddy`／`refreshbuddy`／`delbuddy`（FU9§9.2 第 357 行已驗證；#902、#926 報告都列為未做）；
+  - `DuelUi.cs:45–51`：瞄準游標只認 `SpellTargetPicking`，組隊選目標不換（FU13 M35：「回呼不為空」就換游標 8）；
+  - `ObjectRendering.cs:287–290`：商店訊息仍畫成全名模式的 +252 行；#916 報告第 36、40 行查到 TW16 走 `sub_7CE710` 頭上對話框、不受全名模式限制；
+  - `RingWindows.cs:221–224`：音樂／效果／環境三條捲軸都對到同一個主音量（`OptionPanel.MasterVolumeBars`），#908 報告第 33 行自己標「引擎簡化」；
+  - #913 報告第 144–145 行：職業鈕雙擊（`sub_EE3410` 515）、選角選空格，查到但沒做。
+- **其餘「已有」列**（第七輪前的 213 列）：沒有逐列重看。本輪合併的任務報告裡沒有回退。
+- **PakViewer**：本輪沒有新的「缺資源」宣稱，所以沒有新查。#925 的 png 1825–1842 只在參考客戶端（#925 報告已查）。
+- 沒有開 IDA，沒有建置或執行程式，也沒有啟動遊戲、伺服器或 DB。
+
+#### 15.13.2 狀態變更表
+
+「原狀態」是套用 15.12.2 之後的狀態。
+
+| 節 | 列 | 原狀態 | 新狀態 | 補上的任務 | 剩下的差異／依據（真機代號） |
+|---|---|---|---|---|---|
+| 1 | 92 | 部分 | 已有 | #906 | `Resurrection.cs:28` 只剩 S241 鎖、`OnlineMovement.cs:56`、`:61–88` 只等按住的步行；滑鼠按住的路徑照常走是推定（M23③） |
+| 1 | 29 | 部分 | 已有 | #905 | 1028 的 Y → `PlayerChat.cs:457–459` → `AnswerPrivateShopConfirm`；`ChatPanel.cs:196–206` 畫 notice；原版 CHAT_BAR 有沒有這一行是推定（M11） |
+| 1 | 52 | 部分 | 已有 | #914、#924 | `SummonPanel.cs:425` 拖曳圖、`PetUi.cs:67–72` 743；位置與 13/32 透明度是推定（M39） |
+| 1 | 127 | 部分 | 已有 | #896、#915 | FU12§1：列內「▼ 數量 ▲」（`WarehouseWindowPanel.cs:134`、`:141`、`:152–160`）；▲▼ 圖號、位置是推定（M7） |
+| 4 | AgitAuctionUI | 部分 | 已有 | #914 | `NpcUi.cs:115`、`:124–125` 原生出價窗可用時不放數字框；步進值屬 Q8-3（M20） |
+| 4 | LoginUI | 部分 | 已有 | #904、#925 | S48 一律模態訊息框（`UiClientBridge.cs:132–141`，15.12.8 第 2 點裁定）；`Back_Image` 動畫（`LoginPanel.cs:140`、`:210`、`:401`）；捲軸拇指屬 Q8（M3、M40） |
+| 4 | `HpMpWindow` | 部分 | 已有 | #907 | 門檻依 `OwnClass`（`HpMpPanel.cs:85–87`、`:155`）；+86／+87 只有繪製路徑，產品沒有 `IUiHpMpVariantState` 提供者，旗標意義是推測（M32） |
+| 4 | BookmarkWindowUI | 部分 | 已有 | #909 | 隨機傳送 id 0（`AbilityStatus.cs:116`、`RingWindows.cs:175`）、`/qbookmark`（`PlayerChat.cs:565`）、拖曳（`BookmarkPanel.cs:546`）；區域表屬 Q8-3（M24①、M29） |
+| 4 | FriendUI | 部分 | 已有 | #902、#926 | `BuddyUi.cs:99–110` 宿主、`:117` 設定；TW16 沒有開窗鍵（FU13§3.1）（M37） |
+| 4 | `ExcludeWindow` | 部分 | 已有 | #902 | 同 FriendUI；舊式 `ExcludeWindow` 依 15.12.5 不另做 |
+| 4 | ExchangeUI | 部分 | 已有 | #905 | 140 在聊天列問（`TransactionPanel.cs:183–185`、`:309`、`:321`；`TradeUi.cs:52`、`:58`）（M10） |
+| 5 | （名稱 | 部分 | 已有 | #907 | 自己的名稱用 `OwnCombatVisual.Foot`（`ObjectRendering.cs:267`、`:280`、`:521`）（M32） |
+| 5 | `sub_5001C0` | 部分 | 已有 | #910 | `Ground.cs:72–73`、`:130`、`:148–149`、`:162`；斜向相鄰格是推定 |
+| 5 | music.def | 部分 | 已有 | #911 | `ProductSoundBackends.cs:36–43`（`MidiKept`）、`BackgroundMusic.cs:100`；響度曲線等 M26 |
+| 5 | `sub_87C890` | 部分 | 已有 | 進行中（#922） | **預期**：照 #922 目標接上 FU14 的 altdir／stride／cloth 與動作 71。現在 `ListSprLayers`（`ObjectRendering.cs:138–147`）仍沒有產品呼叫者、`ClothVerified=false`（`:139`）。合併後剩 stride 初值 0 等推定與 M31 |
+
+合計「部分→已有」**15 列**，其中 1 列（5:`sub_87C890`）是預期結果。
+
+#### 15.13.3 統計（第八輪，含預期）
+
+執行：`py -3 -I docs/reference/rea-scripts/gap_count_r8.py docs/reference/gap-matrix.md`（加 `--list` 印出所有非「已有」列與分類）。
+
+| 節 | 已有 | 部分 | 缺 | 其中需先查證 | 其中伺服器不支援／不建議 | 其中可直接補 |
+|---|---:|---:|---:|---:|---:|---:|
+| 1. 收包：第一組 dispatch | 103 | 1 | 10 | 0 | 9 | 1 |
+| 2. 收包：第二組 | 8 | 1 | 4 | 0 | 4 | 0 |
+| 3. 送包：`sub_951F80` 名稱表 | 43 | 4 | 5 | 0 | 5 | 0 |
+| 4. UI 視窗 | 37 | 15 | 21 | 0 | 20 | 1 |
+| 5. 物件、技能、道具、地圖事件與繪製的處理函式 | 37 | 0 | 1 | 0 | 1 | 0 |
+| **合計** | **228** | **21** | **41** | 0 | 39 | 2 |
+
+和第七輪（213／36／41）比：「部分→已有」15 列，「缺」沒有變。不算 #922 的預期時是 227／22／41。
+
+#### 15.13.4 分類（每列一類；取代 15.12.4）
+
+| 類 | 列（節:列，以「；」分隔） | 原因 |
+|---|---|---|
+| K1 伺服器不支援／不建議 | 1:108；1:132；2:42、67、83、215；3:C_ATTACK(43)；3:C_TELEPORT(226)；4:LoadingWindowUI；4:NpcDialogUI；4:CommunityUI；4:`PetInventoryWindow`；4:`TelTablesWindow`；4:`AgitWindow`；4:BookmarkMemoryWindowUI；4:PopUpUI；4:GameRankingUI；4:MapUI | 同 15.12.4，本輪沒有變動。「缺」裡已標「伺服器不支援／不建議」的 39 列預設歸 K1，不逐列列出 |
+| K5 仍有 code 差異 | 3:C_INVITE_PARTY(82)；3:C_ADD_BUDDY(138)；4:BehaviourUI；4:PersonalShopUI；4:SelectUI；4:CreateUI；4:OptionUI | 7 列，都能離線寫程式（PersonalShopUI 要先反編譯版面），逐列見 15.13.5；分到 15.13.6 的 R11-A–G |
+| K7 進行中 | 4:StatInfoUI | Q8-1（#917）。查完轉 K5 或 K1 |
+
+K2 沒有列了：1:127 由 FU12＋R10-P 補上，5:`sub_87C890` 由 FU14 轉 K5、再由 #922 處理（預期「已有」），4:StatInfoUI 正在 #917 查。
+
+各類列數（`gap_count_r8.py` 輸出）：
+
+| 類 | §1 | §2 | §3 | §4 | §5 | 部分 | 缺 | 合計 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| K1 | 11 | 5 | 7 | 30 | 1 | 13 | 41 | 54 |
+| K5 | 0 | 0 | 2 | 5 | 0 | 7 | 0 | 7 |
+| K7 | 0 | 0 | 0 | 1 | 0 | 1 | 0 | 1 |
+
+**290 列的去向**：
+
+| 去向 | 列數 | 和第七輪比 |
+|---|---:|---|
+| 已有 | 228 | +15（R10 補上 14 列；5:`sub_87C890` 是 #922 的預期） |
+| K1 伺服器不支援 | 54 | 0 |
+| K2 需先查證 | 0 | −3（1:127→已有；`sub_87C890`→K5→預期已有；StatInfoUI→K7） |
+| K5 仍有 code 差異 | 7 | −13（20 列中 13 列改已有；剩 7 列，見 15.13.5） |
+| K7 進行中 | 1 | +1（4:StatInfoUI，#917） |
+| **合計** | **290** | |
+
+#### 15.13.5 K5 與 K7 的逐列說明
+
+| 列 | 類 | 還缺什麼（有查證依據、程式沒做） | 對應檔案 | 能否再分組 |
+|---|---|---|---|---|
+| 3:C_INVITE_PARTY(82) | K5 | 點人邀請、拖人到隊伍窗都已有（`PlayerPointer.cs:98–107`、`PartyPanel.cs:98–100`）。剩：組隊選目標時不換瞄準游標。FU13 M35 已驗證「選目標回呼不為空」就換游標 8，但 `DuelUi.cs:47` 只認 `SpellTargetPicking`（#923 報告自己列為未接） | `DuelUi.cs` | 能，R11-A |
+| 3:C_ADD_BUDDY(138) | K5 | `/addbuddy`、HyperAct `addbuddy` 588 都已有（`NpcInteraction.cs:160`、`:181`、`Buddies.cs:231–253`）。剩：HyperAct `buddy`／`refreshbuddy` → C4、`delbuddy` → 589 輸入框（FU9§9.2；同列含 C_REMOVE_BUDDY、C_QUERY_BUDDY），現在這三個動作會落到 C125 | `NpcInteraction.cs`（只加分派）、`Buddies.cs` | 能，R11-C |
+| 4:BehaviourUI | K5 | `NativeUiCommands : IUiActionCommands` 與常駐鈕已有（`UiClientBridge.cs:281–321`、`ActionWindowPanel.cs:458–459`）。剩：① `Action_ViewDropItemName`、`Action_CorpseTransparent` 只切 `byte_138BE7E`／`byte_138BFAA`（FU8§4.3），引擎開關已有，但路線仍是 None（`ActionWindowPanel.cs:136–138`）；② `Action_InviteParty` 的踢人分支（隊長點已在隊上的人，`sub_ADA6B0`，FU9）；③ `Action_AddFriend`、`Action_Exclude`、`Action_InviteChatParty` 原版選定對象後直接送（FU13 第 70 行、FU8 第 16 行），引擎改成放聊天列前綴；④ 常駐鈕提示 3118（FU8）沒畫。拖到巨集格是選做，toggle 勾選圖沒依據 | `NativeUi/ActionWindowPanel.cs`、`NativeUi/UiClientBridge.cs`（只限 `NativeUiCommands`） | 能，R11-B（③ 要 R11-A 的選目標入口） |
+| 4:PersonalShopUI | K5 | OK／Cancel、`/shop` 2120、兩行輪流都已有（`PersonalShopIntegration.cs:269–280`、`Trade.cs:144`、`PrivateShop.cs:187–199`）。剩：商店訊息應走 `sub_7CE710` 頭上對話框（加框、5 秒、不受全名模式限制），引擎畫在全名模式的 +252 行（`ObjectRendering.cs:287–290`）；`byte_136E99F` 開關沒做。對話框的版面函式（`sub_7CE080`、`sub_7CF080`、`sub_7D01E0`、`sub_7D07C0`）還沒反編譯（#916 報告第 61、72 行） | `ObjectRendering.cs`（只限商店訊息）、`PrivateShop.cs`、新的頭上對話框檔 | 能，先 Q9-1 再 R11-E；排在 #922 之後 |
+| 4:SelectUI | K5 | 整頁翻頁已有（`SelectCharPanel.cs:309–311`）。剩：TW16 可以選到空格，引擎只選角色（#913 報告第 145 行） | `NativeUi/SelectCharPanel.cs` | 能，R11-D |
+| 4:CreateUI | K5 | 職業頁動畫已有（`CreateCharPanel.cs:203`、`:344–351`；#913 更正：循環的是 `Back_Image`）。剩：職業鈕雙擊（`sub_EE3410` 515：不淡入、直接進能力頁，#913 報告第 144、158 行） | `NativeUi/CreateCharPanel.cs` | 能，R11-D |
+| 4:OptionUI | K5 | 妖精選項存檔與 Lv<50 清 0、兩個顯示開關都已有（`RingWindows.cs:185–187`、`:202–203`、`:212–217`）。剩：Music／Effect／Env 三條捲軸原版各自獨立，引擎三條共用一個主音量（`RingWindows.cs:221–224`；#908 報告第 33 行標「引擎簡化」）。Voice、WindowAlpha 是選做（3.81 沒有語音） | `RingWindows.cs`（只限 `OptionWindowHost.Level`／`SetLevel`）、`PlayerAudioSettings.cs`、`ProductSoundBackends.cs`、`BackgroundMusic.cs` | 能，R11-F；**或裁定為引擎取捨**（15.13.7 第 1 點） |
+| 4:StatInfoUI | K7（#917） | 22 列都沒給 `Value`（`StatInfoPanel.cs:95–101`），`BonusStatsUi.cs:52` 已接 `ValueProvider`。數值來源 `sub_EB85F0` 正在 #917 查 | `NativeUi/StatInfoPanel.cs` | #917 查完：能從客戶端資料算 → 開 code 任務（R11-H，只改 `StatInfoPanel.cs` 的 `BonusRows`）；要向伺服器要 → K1 |
+
+#### 15.13.6 第八批 code 任務分組（R11-A–G，7 組）與查證 Q9
+
+**原則**（同 15.6、15.12.6）
+- 同一個既有檔案只分給一組；不得不共用時標明先後。
+- 新封包、新面板、新測試一律用自動發現。
+- 不改 `WorldSession.cs`、`UiPanelRegistry.cs`、`Program.cs`、`DemoChecks.csproj`；PR 不改 `rebuild-lock.json`。
+- 新面板要實作 `IUiClosablePanel`。
+- `ObjectRendering.cs` 正在 #922 改，本批只有 R11-E 碰它，排在 #922 之後。
+- 驗收照 #503 暫行政策：CI 編譯與既有測試綠，每組另加自己的離線測試（新檔）。
+
+| 組 | 目標（列） | 可改的檔案 | 依賴 |
+|---|---|---|---|
+| R11-A 選目標模式共用游標 | 組隊選目標（`/invite` 不帶名稱）也換瞄準游標，規則同 FU13 M35「回呼不為空」；把「選定對象」做成可重用的入口，給 R11-B 的對象型動作用（3:C_INVITE_PARTY） | `DuelUi.cs`、`PlayerPointer.cs`（只加通用的選對象回呼）、新檔 `TargetPickCursorTests.cs` | 無 |
+| R11-B 動作窗收尾 | ① 地面名稱、透明屍體改成 Toggle，接到 R10-I 的開關；② `Action_InviteParty` 隊長點已在隊上的人＝踢人；③ `Action_AddFriend`、`Action_Exclude`、`Action_InviteChatParty` 選定對象後直接送（送什麼照 FU13 第 70 行、FU8 第 16 行，任務內先核對）；④ 常駐鈕提示 3118；更正 `:125`、`:136–138` 的過時註解（4:BehaviourUI） | `NativeUi/ActionWindowPanel.cs`、`NativeUi/UiClientBridge.cs`（只限 `NativeUiCommands`）、新檔 `ActionWindowFollowupTests.cs` | ③ 在 R11-A 之後；①②④ 可先做 |
+| R11-C 好友 HyperAct | HyperAct `buddy`／`refreshbuddy` → C4；`delbuddy` → 589 輸入框 → C202＋C4（照 `addbuddy` 的 `HtmlNameKind` 做法，#902 報告第 53 行）（3:C_ADD_BUDDY） | `NpcInteraction.cs`（只加分派）、`Buddies.cs`、新檔 `BuddyHyperActTests.cs` | 無 |
+| R11-D 選角空格／建角雙擊 | 選角可選空格（TW16）；建角職業鈕雙擊 515 直接進能力頁、不淡入（#913 報告第 158 行）（4:SelectUI、4:CreateUI） | `NativeUi/SelectCharPanel.cs`、`NativeUi/CreateCharPanel.cs`、新檔 `CharScreenFollowup3Tests.cs` | 無；外觀等真機（M4） |
+| R11-E 頭上對話框 | 商店訊息改畫成 `sub_7CE710` 頭上對話框（加框、5 秒、不受全名模式限制）；`byte_136E99F` 開關；`NameMarksFor` 的 `Line252` 改回真正的 +252 欄位（4:PersonalShopUI）。一般聊天的頭上對話框也走同一函式，可選做 | `ObjectRendering.cs`（只限商店訊息與 +252）、`PrivateShop.cs`、新檔（頭上對話框繪製）、新檔 `HeadBubbleTests.cs` | **Q9-1 之後**；`ObjectRendering.cs` 排在 #922 之後 |
+| R11-F 分開音量 | 音樂、效果、環境音量各自獨立，對到 OptionUI 三條捲軸（4:OptionUI ③） | `RingWindows.cs`（只限 `OptionWindowHost.Level`／`SetLevel`）、`PlayerAudioSettings.cs`、`ProductSoundBackends.cs`、`BackgroundMusic.cs`、新檔 `SplitVolumeTests.cs` | 先裁定（15.13.7 第 1 點）；捲軸刻度是不是線性屬推定 |
+| R11-G 小清理（不對應列） | 更正過時註解：`PrivateShopTradeSource.cs:23`、`:25`、`:132`（「答 Y 還沒接上」「ChatPanel 不畫 notice」）、`TitleAndEmote.cs:117`（「移動由 `MoveLocked` 擋住」） | `PrivateShopTradeSource.cs`、`TitleAndEmote.cs`（都只改註解） | 無 |
+
+**Q9（建議開 1 張 resource 任務；IDA 唯讀照 #417，subst 磁碟先檢查；宣稱缺資源前先用 PakViewer 查過全部 pak）**
+- **Q9-1 頭上對話框版面**：反編譯 TW16 `sub_7CE080`（建框物件）、`sub_7CF080`（斷行）、`sub_7D01E0`（寬度，16／20 字）、`sub_7D07C0`（畫）與 `sub_7CE710` 的位置計算（`+223`／`+224`、全名模式 −32、否則 −12），框用的 surf 要先用 PakViewer 查全部 pak。給 R11-E 用。
+- Q8-3 的子項仍在 #917，不重複開。
+
+**建議順序**
+- 可以馬上派：R11-A、C、D、G、Q9；R11-B 的 ①②④。
+- R11-B ③ 在 R11-A 之後；R11-E 在 Q9-1 與 #922 之後；R11-F 等裁定。
+- #917 完成後，依結果加開 R11-H（StatInfo 數值）或把 4:StatInfoUI 改 K1。
+
+#### 15.13.7 M7 判定
+
+**判定：M7 現在還不能結案。**
+
+結案條件（#952）：K5 已清空，或只剩真機才能判定的列，而且 K2 為 0。
+
+對照現況：
+- **K1 54 列**：每列都有理由，不擋。
+- **K2 0 列**：符合；但 4:StatInfoUI 是從 K2 移到 K7，要等 #917 才知道去向。
+- **阻擋的列**（全部都能離線完成，沒有一列是「只能真機」）：
+
+  | 阻擋原因 | 列數 | 列 | 怎麼解 |
+  |---|---:|---|---|
+  | K5，能離線寫程式 | 7 | 3:C_INVITE_PARTY(82)；3:C_ADD_BUDDY(138)；4:BehaviourUI；4:PersonalShopUI；4:SelectUI；4:CreateUI；4:OptionUI | R11-A–F（15.13.6），還沒開成任務 |
+  | K7 進行中 | 1 | 4:StatInfoUI | #917 查完；轉 K5 就再加 R11-H |
+  | 預期結果還沒落地 | 1 | 5:`sub_87C890` | #922 合併（沒合併就是第 8 列 K5） |
+
+**結案條件**：
+1. R11-A–F 合併，或其中子項經使用者裁定為「引擎取捨、不做」；
+2. #922 合併；
+3. #917 查完，4:StatInfoUI 轉 K1，或轉 K5 後 R11-H 合併。
+
+做完以後，非「已有」只剩 K1 54 列，符合結案標準。真機 smoke（`docs/testing/smoke-m7.md`）不在 M7 的結案條件裡，但建議和 M7 結案一起排。
+
+**結案摘要草稿**（條件都達成時，給 PLAN／TASKS 用；數字以那時重跑 `gap_count_r8.py` 的結果為準）：
+> M7（原版功能對照補齊）結案：gap-matrix 290 列中 236 列「已有」、54 列 K1（伺服器 3.81 不支援或不建議做），K2、K5 為 0。八輪盤點（T202、T244、T277、T291、T305、T339、T379、T412）與 R6–R11 的 code 任務已全部合併。「已有」只代表靜態核對，真機驗收照 `docs/testing/smoke-m7.md` 另排。
+
+**需要裁定**
+1. 嚴格度：4:OptionUI（三條音量共用主音量）、4:SelectUI（選空格）、4:CreateUI（職業鈕雙擊）只剩小差異，R11-B ④（提示 3118）也一樣。要照本節排進 R11，還是裁定為「引擎取捨」直接改「已有」。如果裁定為後者，阻擋列少 3 列，R11-D、R11-F 不必開。
+2. 4:PersonalShopUI 的頭上對話框要先查證（Q9-1）才能寫，工作量比其他組大。要排進 M7，還是裁定移到 M7 之後。
+
+#### 15.13.8 真機項目的變動（對 `smoke-m7.md`）
+
+本輪沒有新的 M 代號。合併的 R10 任務帶出的真機核對點，已補進 `docs/testing/smoke-m7.md` §13：
+- 新增 **SM57 選項窗**（R10-I #908：Ctrl+V、音量捲軸、地面名稱、透明屍體、妖精選項 Lv<50），原腳本沒有獨立項目。
+- 新增 **SM58 附加層 stride／altdir**（#922 合併後才測）；SM30 釣魚線、SM52 NPC 衣物層的預期改成「#922 合併後應畫」。
+- 既有項目補步驟：SM23（1028 時聊天列 notice 那一行）、SM34（NPC 頁 `addbuddy` 588 輸入框）、SM38（`/qbookmark`、隨機傳送鈕）、SM41③（表情保留期間滑鼠按住走路）、SM46（關著的門後的物品不該撿）。
+- 🔴／🟢 變動：本輪合併的任務沒有把任何 🔴 項的「要判定」解掉（剩下的都是外觀、時序或伺服器回應），所以沒有 🔴 改 🟢。
+
+#### 15.13.9 限制
+
+- 只讀報告與原始碼，沒有建置或執行。「產品沒有呼叫」「沒做」是用 Grep 判斷的；經由反射、委派或事件間接呼叫的地方可能漏掉。15.13.1 列的 7 項我另外複核過，其餘 `檔案:行` 由子代理提供，沒有逐一重看。
+- 第七輪前已是「已有」的 213 列沒有逐列重看。
+- 5:`sub_87C890` 的「已有」是預期；#922 的實作若和 FU14 不同，下一輪要重判。
+- 「已有」只表示靜態看程式沒有已知差異，全部都沒有真機驗收。
+- 本節的 `檔案:行` 以 main `2ee155ab` 為準；#922 合併後 `ObjectRendering.cs` 的行號會變。
