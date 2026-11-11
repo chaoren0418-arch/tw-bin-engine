@@ -139,6 +139,67 @@ public static class PersonalShopPackets {
     }
 }
 /// <summary>
+/// R10-Q（T401／#916）：別人個人商店的頭上訊息（S158 動作 70 後面的 byte）。照 TW16 `sub_A4EF80`（存兩行）與
+/// `sub_7CFFC0`（輪流顯示）做；3.81 的 `sub_4E9140`／`sub_414320`（FU12§2.3）結果相同，差異寫在 docs/reports/issue-916.md。
+/// <list type="bullet">
+/// <item>先複製最多 80 byte（遇 0 停）。</item>
+/// <item>逐 byte 放進兩行：遇 0xFF 結束這一行、換下一行；第一行到第 40 byte 還沒遇到 0xFF 就強制換行，第 41 個 byte
+/// （就算是 0xFF）直接當第二行開頭。第二個 0xFF 之後的內容 TW16 不存（3.81 存但不顯示）。</item>
+/// <item>顯示：每 5000 ms 換一次。第一次顯示第一行；輪到第二行而第二行空白時仍顯示第一行。第一行空白時那一輪
+/// 不顯示、也不排下一次（TW16 `strlen` 為 0 就不呼叫 `sub_A231C0`），所以第一行空白＝整段不顯示。</item>
+/// </list>
+/// </summary>
+public static class PersonalShopTitle {
+    public const int CopyLimit=80,LineBytes=40,RotateMs=5000;
+    public const byte Separator=PersonalShopPackets.MessageSeparator;
+    /// <summary>TW16 `sub_A4EF80` 的切行（以 byte 計，不管雙位元組字是否被切開，與原版相同）。</summary>
+    public static (byte[] First,byte[] Second) Split(ReadOnlySpan<byte> raw){
+        int n=0;while(n<raw.Length&&n<CopyLimit&&raw[n]!=0)n++;
+        var lines=new[]{new List<byte>(),new List<byte>()};int line=0;
+        for(int j=0;j<n&&line<2;j++){
+            if(line==0&&j==LineBytes){line=1;lines[1].Add(raw[j]);continue;}
+            if(raw[j]==Separator){line++;continue;}
+            lines[line].Add(raw[j]);
+        }
+        return (lines[0].ToArray(),lines[1].ToArray());
+    }
+    static readonly System.Text.Encoding Lenient=MakeLenient();
+    static System.Text.Encoding MakeLenient(){var e=(System.Text.Encoding)LoginPackets.TextEncoding.Clone();e.EncoderFallback=System.Text.EncoderFallback.ReplacementFallback;e.DecoderFallback=System.Text.DecoderFallback.ReplacementFallback;return e;}
+    /// <summary>CP950 解碼；被強制換行切開的半個雙位元組字換成替代字元（原版直接畫那個 byte，畫面待真機）。</summary>
+    public static string Text(byte[] line)=>Lenient.GetString(line);
+    /// <summary>沒有原始 byte 時（例如物件是從字串建立）把字串轉回 CP950 byte 再切。</summary>
+    public static byte[] Bytes(string text)=>Lenient.GetBytes(text);
+    /// <summary>
+    /// 開店後經過 <paramref name="elapsedMs"/> 時該顯示哪一行（TW16 `sub_7CFFC0`：`+97` 每次反轉，第二行不空且輪到才顯示第二行）。
+    /// `+97` 的初值當 0（物件建立時清零，推測），所以第一輪是第一行。
+    /// </summary>
+    public static string Shown(string first,string second,long elapsedMs){
+        if(first.Length==0)return "";
+        long turn=Math.Max(0,elapsedMs)/RotateMs;
+        return turn%2==1&&second.Length>0?second:first;
+    }
+    public static string Shown(ReadOnlySpan<byte> raw,long elapsedMs){var (a,b)=Split(raw);return Shown(Text(a),Text(b),elapsedMs);}
+}
+public sealed partial class WorldSession {
+    // R10-Q（#916）：S158 動作 70 的原始 byte（物件處理器只存 CP950 解碼後的字串，0xFF 不一定能還原）。觀察器先於物件處理器執行。
+    readonly System.Collections.Concurrent.ConcurrentDictionary<uint,byte[]> shopTitleRaw=new();
+    [WorldReceive(158,Observe=true)]
+    void ObserveShopTitle(byte[] plain){
+        if(plain.Length<7||plain[5]!=70)return;
+        uint id=System.Buffers.Binary.BinaryPrimitives.ReadUInt32LittleEndian(plain.AsSpan(1));
+        int end=Array.IndexOf(plain,(byte)0,6);if(end<0)return;   // 格式錯誤留給物件處理器
+        shopTitleRaw[id]=plain[6..end];
+    }
+    [WorldReset]
+    void ResetShopTitles()=>shopTitleRaw.Clear();
+    /// <summary>此刻頭上該顯示的商店訊息那一行；不在擺攤或沒有訊息時是空字串。</summary>
+    internal string ShopTitleLine(WorldObject o,long? now=null){
+        if(!o.ShopActive||o.ShopText.Length==0)return "";
+        var raw=shopTitleRaw.TryGetValue(o.ObjectId,out var b)?b:PersonalShopTitle.Bytes(o.ShopText);
+        return PersonalShopTitle.Shown(raw,(now??Environment.TickCount64)-o.ShopAt);
+    }
+}
+/// <summary>
 /// 開店設定窗的本機狀態（不碰網路）。出售、收購各 8 格（一頁 8 格，WIN§1.1；伺服器上限也是 8），兩行訊息各 20 字
 /// （LimitText=20；以 UTF-16 字元計，原版以字元或 CP950 byte 計**待驗證**），3 種外型（只在本機，伺服器忽略）。
 /// </summary>
