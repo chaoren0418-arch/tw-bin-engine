@@ -45,7 +45,8 @@
 - `dotnet build engine/source/OfflineClient.csproj -c Release -r win-x64 -p:SelfContained=false`：成功，0 警告 0 錯誤。
 - `dotnet build engine/_integration/dev/mail-tests/MailChecks.csproj -c Release`：成功（product DLL 放在 `engine/build/client-product-dev/`）。
 - `python -B -X utf8 engine/tools/check-no-game-assets.py`：pass（4583 檔，0 錯誤）。
-- 依本機規定**沒有在本機執行任何測試**。單元測試、MailChecks、DemoChecks 都交給 PR 的 GitHub Actions CI，結果見 PR。
+- 依本機規定**沒有在本機執行任何測試**。單元測試、MailChecks、DemoChecks 都交給 PR 的 GitHub Actions CI。
+- **CI（PR #1003，第一個 commit）全綠**：`build`（run 43028808888：`dotnet`、`map-continuity`）、`npc-offline`（run 43028808767）。World module 測試有跑 `mail-notice-strings`、`mail-notice-world`、`mail-notice-relay`、`q8-mail-notice-chat`；MailChecks 印 `PASS 119 mail checks`。
 - `Q8FollowupTests.cs` 的 `q8-mail-notice-chat`（舊 6 參數、serial 0、沒有 `Recent`）照新邏輯逐條推過一遍，預期結果不變；這是推演，以 CI 結果為準。
 
 ## 未驗證什麼
