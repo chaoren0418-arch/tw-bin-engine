@@ -196,9 +196,16 @@ public sealed partial class WorldSession {
             centerMessages.AddFirst(new CenterMessage(++centerMessageSequence,type,text,now,PacketBoxScreenRules.MessageMs,PacketBoxScreenRules.TextColorIndex,PacketBoxScreenRules.OutlineColorIndex,type!=1));
             packetBoxScreenCounts["84/"+type]=packetBoxScreenCounts.GetValueOrDefault("84/"+type)+1;
         }
+        // T434（#992，classic-ui-audit G9）：沒有原生中央訊息面板時（--classic-ui、面板故障）改印進聊天欄，色＝同一格 palette[2]。
+        // 原版只有畫面中央這一種顯示；聊天欄是引擎的備援，不是原版行為。原生面板接著時不印（避免同一則出現兩次）。
+        if(CenterMessagesToChat)AddBoardChatNotice(PacketBoxScreenRules.Resolve(text,CenterMessageNames),PacketBoxScreenRules.TextColorIndex);
         PacketBoxScreenChanged?.Invoke(PacketBoxScreenRules.GreenMessage);
         return true;
     }
+    /// <summary>T434（#992，G9）：S250/84 也印進聊天欄（沒有原生中央訊息面板時由 ClientForm 設 true）。預設 false＝原本行為。</summary>
+    public bool CenterMessagesToChat {get;set;}
+    /// <summary>T434（#992，G9）：印進聊天欄前的 `$nnn` 名稱表（同中央訊息面板的 Names）；null＝原文。</summary>
+    public Func<string,string>? CenterMessageNames {get;set;}
 
     [WorldReset]
     void ResetPacketBoxScreen(){
@@ -239,8 +246,10 @@ public sealed partial class ClientForm {
     void AttachPacketBoxScreen(){
         if(renderer is null)return;
         if(!packetBoxScreenHooked){packetBoxScreenHooked=true;renderer.ScreenShake??=()=>login.World.ScreenShakeOffset;}
-        if(NativeUiActive&&NativeUiRoot?.Find(CenterMessagePanel.PanelId) is CenterMessagePanel panel&&panel.Source==null)
-            panel.Source=new WorldCenterMessageSource(()=>login.World,ResolveNpcText);
+        var native=NativeUiActive&&NativeUiRoot is {} root&&root.Find(CenterMessagePanel.PanelId) is CenterMessagePanel p&&!root.Faulted.Contains(p)?p:null;
+        if(native!=null&&native.Source==null)native.Source=new WorldCenterMessageSource(()=>login.World,ResolveNpcText);
+        // T434（#992，G9）：沒有可用的原生中央訊息面板 → 84 印進聊天欄（classic）。
+        var w=login.World;w.CenterMessagesToChat=native==null;w.CenterMessageNames??=ResolveNpcText;
     }
 }
 }

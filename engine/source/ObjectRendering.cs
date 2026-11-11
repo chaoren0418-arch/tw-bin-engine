@@ -691,9 +691,37 @@ public sealed partial class ClientForm {
             // R11-E（#961）：option12 #1027「個人商店名稱」（byte_136E99F，預設開、存檔）；option12 頁面引擎沒有，先放這裡。
             var shopBox=new CheckBox{Text="個人商店名稱",AutoSize=true,Checked=HeadBubbleOptions.ShopMessages,AccessibleName="個人商店名稱"};
             shopBox.CheckedChanged+=(_,_)=>{HeadBubbleOptions.ShopMessages=shopBox.Checked;Invalidate();};
-            if(normalPanels!=null){var page=new TabPage("名稱顯示");var flow=new FlowLayoutPanel{Dock=DockStyle.Fill,AutoSize=true};flow.Controls.Add(box);flow.Controls.Add(shopBox);page.Controls.Add(flow);normalPanels.TabPages.Add(page);}
-            else{box.Dock=DockStyle.Right;bar.Controls.Add(box);box.BringToFront();shopBox.Dock=DockStyle.Right;bar.Controls.Add(shopBox);shopBox.BringToFront();}
+            // T434（#992，classic-ui-audit G5）：OptionUI 另外三個勾選框的 WinForms 入口（地面物品名稱、死怪透明、妖精記憶傳送），
+            // 經同一個 OptionWindowHost（RingWindows.cs）讀寫，與原生選項窗同一份值、同一個存檔（option-ui.txt）。
+            var options=ClassicOptionBoxes();
+            if(normalPanels!=null){
+                var page=new TabPage("名稱顯示");var flow=new FlowLayoutPanel{Dock=DockStyle.Fill,AutoSize=true};flow.Controls.Add(box);flow.Controls.Add(shopBox);
+                foreach(var o in options)flow.Controls.Add(o);
+                page.Controls.Add(flow);normalPanels.TabPages.Add(page);
+                page.Enter+=(_,_)=>{box.Checked=showAllNames;SyncClassicOptionBoxes(options);};
+            }
+            else{
+                box.Dock=DockStyle.Right;bar.Controls.Add(box);box.BringToFront();shopBox.Dock=DockStyle.Right;bar.Controls.Add(shopBox);shopBox.BringToFront();
+                foreach(var o in options){o.Dock=DockStyle.Right;bar.Controls.Add(o);o.BringToFront();}
+            }
         });
+    }
+    OptionWindowHost? classicOptionHost;
+    CheckBox[] ClassicOptionBoxes(){
+        var host=classicOptionHost??=new OptionWindowHost(this);
+        var boxes=ClassicOptionEntries.Items.Select(i=>new CheckBox{Text=i.Text,AutoSize=true,AccessibleName=i.Text,Tag=i.Event,Checked=host.Value(i.Event)==true}).ToArray();
+        foreach(var b in boxes)b.CheckedChanged+=(_,_)=>{
+            if(b.Tag is not string ev||host.Value(ev)==b.Checked)return;
+            // 寫不進去（例如妖精傳送在 Lv &lt; 50 被清回 0）→ 勾選框回到實際值。
+            if(!host.Set(ev,b.Checked))b.Checked=host.Value(ev)==true;
+            Invalidate();
+        };
+        return boxes;
+    }
+    /// <summary>分頁切回來時重讀實際值（原生選項窗或等級規則可能改過）。</summary>
+    void SyncClassicOptionBoxes(CheckBox[] boxes){
+        if(classicOptionHost is not {} host)return;
+        foreach(var b in boxes)if(b.Tag is string ev&&host.Value(ev) is bool v&&b.Checked!=v)b.Checked=v;
     }
     // Pointer pixel owner (own pixels carry no id, so the own rectangle stands in); ground items have their own label.
     uint? NameHoverTarget(Point point){
@@ -806,4 +834,12 @@ public sealed partial class ClientForm {
         PaintDisplayNotices(g);
     }
     object ObjectUiSnapshot()=>new{ownCombatVisual=renderer.OwnCombatVisual,magic=renderer.MagicVisuals,subEffects=renderer.SubEffectVisuals,subEffectMissingGfx=renderer.SubEffects.Missing,subEffectDropped=renderer.SubEffects.Dropped,fades=renderer.FadeAlphas(Environment.TickCount64),projectile=renderer.CurrentProjectileVisual,projectiles=renderer.ProjectileVisuals,visuals=objectVisuals,presence=PresenceSnapshot(),missing=missingObjects.Select(o=>new{o.ObjectId,o.Gfx,o.Action,o.Speed,o.Brave,o.ReceivedAction,o.Name,o.X,o.Y,o.ShopActive}),target=login.World.Target,targetName=login.World.Target is {} t?objectAssets?.DisplayName(t):null,world=login.World.Snapshot()};
+}
+
+/// <summary>T434（#992，classic-ui-audit G5）：WinForms 勾選框對應的 OptionUI 事件名與標題（標題是引擎的說明文字，非原版字串）。</summary>
+public static class ClassicOptionEntries {
+    public static readonly (string Event,string Text)[] Items=[
+        (P06.NativeUi.OptionPanel.ShowDropItemNameEvent,"地面物品名稱"),
+        (P06.NativeUi.OptionPanel.TransparentDeadMonsterEvent,"死亡怪物半透明"),
+        (P06.NativeUi.OptionPanel.ElfTeleportEvent,"妖精記憶座標傳送（Lv 50 以上）")];
 }
