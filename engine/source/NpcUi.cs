@@ -112,10 +112,17 @@ public sealed partial class ClientForm {
         var page=w.InteractionPage!;
         HyperTextNumberBox? number=null;
         var amount=login.AmountPromptSnapshot();
-        if(amount.Prompt is {} o&&o.InteractionRevision==w.InteractionRevision)
+        if(amount.Prompt is {} o&&o.InteractionRevision==w.InteractionRevision&&!HyperTextOmitsNumber(o.Html,NativeAgitBidAvailable()))
             number=new(HyperTextNumberKind.Amount,o.Revision,o.Lower,o.Max,o.Suggested,o.Answerable,amount.CanSend&&!World.Walking,AmountPromptProtocol.Range(o));
         return new(HyperTextSource.Npc,w.InteractionRevision,ResolveNpcText(page.Text),page.Options.Select(x=>new HyperTextLink(x.Id,ResolveNpcText(x.Label),x.Enabled)).ToArray(),ResolveNpcText(w.InteractionNotice),number,HtmlNameBox(w,query:false));
     }
+    /// <summary>
+    /// R10-O (#914, WIN2§5.3): the original hands S136 `agapply` to CAgitAuctionUI (Bid_Window), never to the HyperText page. So while
+    /// the native Bid_Window can show it, the page carries no number box for agapply — also after the user closed Bid_Window (the
+    /// original has no second box either). Native UI off, or Bid_Window faulted / unusable (missing AgitAuctionUI.xml) → page box as before.
+    /// </summary>
+    internal static bool HyperTextOmitsNumber(string html,bool nativeBidAvailable)=>nativeBidAvailable&&html==AgitBidPanel.ApplyHtml;
+    bool NativeAgitBidAvailable()=>NativeUiActive&&NativeUiRoot is {} root&&root.Find(AgitBidPanel.PanelId) is AgitBidPanel p&&!root.Faulted.Contains(p)&&p.Available;
     // R7-D (#806): the in-page clan-name box opened by the HTML actions surrender / cease / pledgefocusadd (NpcInteraction.cs).
     HyperTextNameBox? HtmlNameBox(WorldSession w,bool query)=>w.HtmlNameInput is {} p&&p.Query==query?new(p.Revision,p.Prompt,login.HtmlNameCanSend&&!World.Walking):null;
     HyperTextView QueryHyperTextView(WorldSession w){

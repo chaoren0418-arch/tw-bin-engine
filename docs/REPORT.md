@@ -371,3 +371,4 @@
 - 2026-11-11 — #913 T398：R10-N 選角／建角收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-913.md)
 - 2026-11-11 — #912 T397：R10-M 個人商店收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-912.md)
 - 2026-11-11 — #915 T400：R10-P 倉庫列內數量（code，claude-local，PR 已合併）→ [報告](reports/issue-915.md)
+- 2026-11-11 — #914 T399：R10-O 召喚與盟屋拍賣小項（code，claude-local，PR 已合併）→ [報告](reports/issue-914.md)
