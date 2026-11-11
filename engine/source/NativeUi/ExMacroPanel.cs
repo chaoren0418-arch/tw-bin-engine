@@ -7,8 +7,10 @@ namespace P06.NativeUi;
 /// No F-key is bound to these slots in the traced code; click selects and double click uses (推測: same as the main box).
 /// <para>R7-O (T353/#816): when WidgetSubSlot.xml is found (main Tile.pak, else the reference client) the box also draws its
 /// ButtonLock (BaseSurf 3191 = locked / PushSurf 3192 = unlocked, at Window+(149,37); it toggles the same MacroBook lock as the
-/// main box — 推測) and ButtonMode (BasePng 3350 / PushPng 3351 via OptionPngSource, ModeChange not wired, M30). Without the
-/// file the uistatus86 look is unchanged.</para>
+/// main box — 推測) and ButtonMode (BasePng 3350 / PushPng 3351 via OptionPngSource). Without the file the uistatus86 look is
+/// unchanged.</para>
+/// <para>T425 (#969): ButtonMode release (ModeChange 514, SubSlotWidgetUI sub_F6B4A0 registers the same sub_9F9C70) switches the
+/// WidgetSlot mode back to 0 = minimap (<see cref="WidgetSlotMode"/>); saved like the main box's button.</para>
 /// </summary>
 public sealed class ExMacroPanel:IUiPanel {
     [UiPanel(70)] internal static UiPanelRegistration Registration=>new(ExMacroPanel.WindowId,"uistatus86",root=>new ExMacroPanel(root.SlotGroup(UiSlotGroup.Bar485),root.Resources));   // ui-macro-bar #466
@@ -38,6 +40,8 @@ public sealed class ExMacroPanel:IUiPanel {
     public string WidgetStatus{get;private set;}="absent";
     public Rectangle LockRect=>widget?.Lock?.Rect??Rectangle.Empty;
     public bool ModePressed=>modePressed;
+    /// <summary>Where the WidgetSlot mode is saved (default: option-ui.txt); offline checks put an in-memory store here.</summary>
+    internal IWidgetSlotModeStore ModeStore{get;set;}=WidgetSlotMode.SettingsFile;
 
     public void Load(UiLayout layout,SurfCatalog surfs){
         var (xml,png,error)=WidgetSlotLayout.Open(resources,WidgetSlotLayout.SubFile);
@@ -86,10 +90,15 @@ public sealed class ExMacroPanel:IUiPanel {
     }
 
     public bool Mouse(UiMouseEvent e,IUiCommands commands){
-        if(e.Kind==UiMouseKind.Up&&modePressed){modePressed=false;return true;}
+        // ModeChange on release over the button (514); a release elsewhere only ends the press.
+        if(e.Kind==UiMouseKind.Up&&modePressed){
+            modePressed=false;
+            if(widget?.Mode is {} m&&m.Hit(e.Location))WidgetSlotMode.Toggle(group,ModeStore,WidgetSlotLayout.SubFile);
+            return true;
+        }
         if(macro==null||e.Kind!=UiMouseKind.Down||e.Button!=MouseButtons.Left)return false;
         var book=macro.Macros;
-        if(widget?.Mode is {} mode&&mode.Hit(e.Location)){modePressed=true;WidgetSlotLayout.ModeChangeNotWired(WidgetSlotLayout.SubFile);return true;}
+        if(widget?.Mode is {} mode&&mode.Hit(e.Location)){modePressed=true;return true;}
         if(widget?.Lock is {} l&&l.Hit(e.Location)){book.ToggleLock();return true;}
         int k=SlotAt(e.Location);if(k<0)return false;
         book.SelectExtended(k);
