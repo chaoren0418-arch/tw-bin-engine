@@ -192,7 +192,8 @@ public sealed partial class WorldSession {
     }
     [WorldReset]
     void ResetShopTitles()=>shopTitleRaw.Clear();
-    /// <summary>此刻頭上該顯示的商店訊息那一行；不在擺攤或沒有訊息時是空字串。</summary>
+    /// <summary>此刻頭上該顯示的商店訊息那一行；不在擺攤或沒有訊息時是空字串。R11-E（#961）：畫成頭上對話框
+    /// （HeadBubbleShops.Sync，TW16 sub_7CFFC0 → sub_7CE710），不再當成全名模式的 +252 行。</summary>
     internal string ShopTitleLine(WorldObject o,long? now=null){
         if(!o.ShopActive||o.ShopText.Length==0)return "";
         var raw=shopTitleRaw.TryGetValue(o.ObjectId,out var b)?b:PersonalShopTitle.Bytes(o.ShopText);
