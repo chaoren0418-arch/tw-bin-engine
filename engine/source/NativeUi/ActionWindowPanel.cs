@@ -23,14 +23,16 @@ namespace P06.NativeUi;
 // - 捲動以列為單位（6 格一列），最大值＝列數 − 4；XML 的 MaxValue＝8、ScrollStart／ScrollHeight 只留資料。拇指在 Move_Button.Y 到
 //   Down_Button.Y − 拇指高之間依比例移動；拖拇指、點軌道不做。滾輪在視窗內上下捲一列。
 // - Esc：不由本窗攔（ActionUI 的 KeyboardEvent 內容沒查）；全域 ESC（R7-H，UiRoot.CloseAll）照樣會關它。
-// 只做資料（標「真機再確認」）：常駐開窗鈕 ActionUI_Button (774,470) 5156／5157 與提示 3118（是否常駐待驗證，不畫、不收點擊）；
-//   格子 Drag="1"（把動作拖到巨集列，待做）；toggle 類動作的開關狀態（原版切換的 byte 旗標沒接，不畫勾選）。
+// 只做資料（標「真機再確認」）：格子 Drag="1"（把動作拖到巨集列，選做，未做）；toggle 類動作的開關狀態（不畫勾選）。
+// R10-E（T389／#904）：常駐開窗鈕 ActionUI_Button (774,470) 5156／5157 改由 ActionOpenButtonPanel 畫在 Bar 層、收點擊
+//   （OpenButtonPressed 514／515 → 開關本窗，FU8§4.3）；提示 3118 不畫（tooltip 未做）；位置與是否常駐仍待真機（M33）。
 //
-// 執行（原版 sub_ADC200 依名稱找處理函式，FU8§4.3）。引擎依序：
-// 1. 指令物件實作 IUiActionCommands 且 RunAction 回 true（產品橋接 NativeUiCommands 尚未實作：不在本張可改範圍，交下一棒）；
-// 2. 面板自己能做的：Action_OpenBookmarkWin → 原生書籤窗（UiRoot.Toggle，同選單鈕）；
-// 3. Action_SocialAction1–4 → 開發工具「稱號／表情」分頁（過渡；表情目前只能從那裡送，TitleAndEmote.cs）；
-// 4. 其他 → 不送任何封包，記一次 log（Unhandled）。control="target" 的「指定對象」模式不做。
+// 執行（原版 sub_ADC200 依名稱找處理函式，FU8§4.3）。路線表在 ActionRoutes（25 個動作各一列）。引擎依序：
+// 1. 指令物件實作 IUiActionCommands 且 RunAction 回 true（R10-E：產品 NativeUiCommands 接表情、拾取、聊天指令、全部拾取）；
+// 2. 面板自己能做的：Action_OpenBookmarkWin → 原生書籤窗（UiRoot.Toggle，同選單鈕）；指定名稱的動作（邀請聊天／加好友／封鎖）
+//    → 把指令前綴放進原生聊天輸入列（過渡：原版 control="target" 是點選對象或開輸入框）；HP／MP 回復顯示 → HpMpPanel 設定；
+// 3. Action_SocialAction1–4 → 開發工具「稱號／表情」分頁（沒有橋接時的退路，TitleAndEmote.cs）；
+// 4. 其他 → 不送任何封包，記一次 log（Unhandled；原因在 ActionRoutes 的 Note）。
 // 開關：Ctrl+D（FU4§1.1 TW16 的 BehaviourUI 鍵；3.81 是否同鍵待驗證）由 MenuButtonsPanel 經 UiRoot.Toggle 開關本窗。
 // --classic-ui 沒有原生 UI 根：本窗不存在，WinForms 開發工具的「稱號／表情」分頁照舊是唯一入口。
 
@@ -77,14 +79,71 @@ public static class ActionCatalog {
 }
 
 /// <summary>
-/// R8-D：動作的對外執行（產品由 ClientForm 的橋接指令實作；尚未接）。true＝已處理；false＝做不到，面板改走自己的退路。
+/// R8-D：動作的對外執行（產品由 ClientForm 的 NativeUiCommands 實作，R10-E）。true＝已處理；false＝做不到，面板改走自己的退路。
 /// </summary>
 public interface IUiActionCommands {
     bool RunAction(ActionEntry action);
 }
 
-/// <summary>雙擊一格之後實際走了哪條路（檢查與 log 用）。</summary>
-public enum ActionRunResult { Bridge, Window, DevTools, Unhandled }
+/// <summary>雙擊一格之後實際走了哪條路（檢查與 log 用）。ChatLine＝指令前綴放進聊天列；Toggled＝面板切換了既有設定。</summary>
+public enum ActionRunResult { Bridge, Window, DevTools, Unhandled, ChatLine, Toggled }
+
+/// <summary>
+/// R10-E：一個動作接到引擎的哪條既有入口。Emote＝表情（Item 1–4）；Loot＝F4 拾取；ChatCommand＝當作在聊天列輸入 Argument 送出
+/// （走既有斜線指令）；ChatLine＝把 Argument（指令前綴）放進聊天輸入列等使用者打名稱；Toggle＝切換既有設定（Argument＝設定名）；
+/// Window＝開關原生視窗（Argument＝面板 Id）；None＝引擎沒有對應，不做（Note＝原因）。
+/// </summary>
+public enum ActionRouteKind { None, Emote, Loot, ChatCommand, ChatLine, Toggle, Window }
+public sealed record ActionRoute(ActionRouteKind Kind,string? Argument=null,int Item=0,string? Note=null);
+
+/// <summary>
+/// R10-E（T389／#904，FU8§4.3、FU9§9）：Actions.xml 25 個動作的路線表。原版處理函式見 FU8§4.3 表；推測的對應在 Note 標明。
+/// </summary>
+public static class ActionRoutes {
+    public const string LootAllToggle="loot-all",HpMpRecoveryToggle="hpmp-recovery";
+    /// <summary>本機 Actions.xml 的 25 個動作名稱（XML 順序；名稱是識別字，不是遊戲資源）。</summary>
+    public static readonly IReadOnlyList<string> Known=[
+        "Action_ShoutOfSurvival","Action_Loot","Action_SocialAction1","Action_SocialAction2","Action_SocialAction3","Action_SocialAction4",
+        "Action_OpenMacroWin","Action_Trade","Action_InviteChatParty","Action_InviteParty","Action_AddFriend","Action_Exclude",
+        "Action_OpenBookmarkWin","Action_OpenShop","Action_OpenPetManagementWin","Action_Report","Action_ViewDropItemName","Action_LootAll",
+        "Action_CorpseTransparent","Action_HPMPRecoveryEffect","Action_ShowDisableStatusIcon","Action_DungeonTimeLimit","Action_BrodcastToPledge",
+        "Action_PotionHelper","Action_NumberingMarker"];
+    public static ActionRoute Of(string name)=>name switch{
+        // sub_ADACB0／ADADE0／ADAED0／ADAFC0：C_ACTION 68／69／67／66，動作槽路徑（menu=false，AN§1.1 的重映射）。
+        "Action_SocialAction1"=>new(ActionRouteKind.Emote,Item:1),
+        "Action_SocialAction2"=>new(ActionRouteKind.Emote,Item:2),
+        "Action_SocialAction3"=>new(ActionRouteKind.Emote,Item:3),
+        "Action_SocialAction4"=>new(ActionRouteKind.Emote,Item:4),
+        // sub_ADA840 → sub_500640（F4 鍵盤拾取，R6-D）。
+        "Action_Loot"=>new(ActionRouteKind.Loot),
+        // sub_ADB030 → sub_F43510（同 /trade，FU9§12）；sub_ADA960 → sub_4FFCD0("shop",1)（同 /shop，FU9§9.4）。
+        "Action_Trade"=>new(ActionRouteKind.ChatCommand,"/trade"),
+        "Action_OpenShop"=>new(ActionRouteKind.ChatCommand,"/shop"),
+        // sub_ADA6B0：選對象邀請。R10-D（#903）的入口＝不帶名稱的 /invite → World.BeginPartyInvitePick，之後點玩家送 C230。
+        "Action_InviteParty"=>new(ActionRouteKind.ChatCommand,"/invite",Note:"踢人分支（隊長點已在隊上的人）未做"),
+        // control="target" domain="global"：原版點選對象或開輸入框（sub_9FBC00）；引擎改放指令前綴到聊天列（過渡，推測可接受）。
+        "Action_InviteChatParty"=>new(ActionRouteKind.ChatLine,"/chatinvite ",Note:"原版 sub_9FBC00(120,3) 輸入框，未做"),
+        "Action_AddFriend"=>new(ActionRouteKind.ChatLine,"/addbuddy ",Note:"原版 sub_ADA220 → sub_B18300，點選對象未做"),
+        "Action_Exclude"=>new(ActionRouteKind.ChatLine,"/exclude ",Note:"點選對象未做"),
+        "Action_OpenBookmarkWin"=>new(ActionRouteKind.Window,BookmarkWindowPanel.PanelId),
+        // byte_135C1E4：WorldSession.TogglePickupAll（Ground.cs）。
+        "Action_LootAll"=>new(ActionRouteKind.Toggle,LootAllToggle),
+        // sub_ADA630 切換 ShowHPMPRecovery；對到 HpMpSettings.ShowRecovery（OptionUI HPMPBarRecoveryBtn 同一個值）是推測。
+        "Action_HPMPRecoveryEffect"=>new(ActionRouteKind.Toggle,HpMpRecoveryToggle,Note:"ShowHPMPRecovery＝HpMpSettings.ShowRecovery 是推測"),
+        "Action_ShoutOfSurvival"=>new(ActionRouteKind.None,Note:"處理函式與封包沒查（FU8§4.3 未列）"),
+        "Action_OpenMacroWin"=>new(ActionRouteKind.None,Note:"原版開的巨集編輯窗引擎沒有"),
+        "Action_OpenPetManagementWin"=>new(ActionRouteKind.None,Note:"target／map 類，寵物窗由伺服器狀態開啟，沒有手動入口"),
+        "Action_Report"=>new(ActionRouteKind.None,Note:"sub_ADABC0 → sub_9FBC00(55,42) 檢舉輸入框與封包引擎沒有"),
+        "Action_ViewDropItemName"=>new(ActionRouteKind.None,Note:"byte_138BE7E：引擎沒有地面名稱開關（R10-I）"),
+        "Action_CorpseTransparent"=>new(ActionRouteKind.None,Note:"byte_138BFAA：引擎沒有透明屍體繪製（R10-I）"),
+        "Action_ShowDisableStatusIcon"=>new(ActionRouteKind.None,Note:"對應的旗標沒查"),
+        "Action_DungeonTimeLimit"=>new(ActionRouteKind.None,Note:"byte_1379424 的用途沒查"),
+        "Action_BrodcastToPledge"=>new(ActionRouteKind.None,Note:"對應的旗標沒查"),
+        "Action_PotionHelper"=>new(ActionRouteKind.None,Note:"處理函式沒查"),
+        "Action_NumberingMarker"=>new(ActionRouteKind.None,Note:"target／view 類，處理函式沒查"),
+        _=>new(ActionRouteKind.None,Note:"不在本機 Actions.xml 的 25 個動作內"),
+    };
+}
 
 public sealed class ActionWindowPanel(UiResources? resources=null,UiRoot? root=null,ItemIconSource? icons=null):IUiMovablePanel,IUiClosablePanel {
     [UiPanel(191)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,r=>new ActionWindowPanel(r.Resources,r,ItemIconSource.FromRoot(r)));   // R8-D (#823): ActionUI-c.xml + Actions.xml (local Tile.pak), loaded inside Load
@@ -135,6 +194,10 @@ public sealed class ActionWindowPanel(UiResources? resources=null,UiRoot? root=n
     public UiSurface? SelectionSurface{get;private set;}
     public bool GridDrag{get;private set;}
     public OpenButtonSpec? OpenButton{get;private set;}
+    /// <summary>R10-E：開窗鈕的底圖／停留圖（ActionOpenButtonPanel 畫）；缺圖＝null，記在 OpenButtonMissing。</summary>
+    public UiSurface? OpenButtonBase{get;private set;}
+    public UiSurface? OpenButtonHighlight{get;private set;}
+    public IReadOnlyList<string> OpenButtonMissing{get;private set;}=[];
     /// <summary>XML 有寫但找不到的圖（不畫）："surf 5141 (ActionUI/Window[0]/@BaseSurf)"。</summary>
     public IReadOnlyList<string> Missing{get;private set;}=[];
     public int ActiveTab{get;private set;}
@@ -160,13 +223,14 @@ public sealed class ActionWindowPanel(UiResources? resources=null,UiRoot? root=n
         try{Load(ui,actions,surfs.Get);}
         catch(IOException ex){Clear();Unavailable=ex.Message;UiResourceLog.Write($"action-ui {ui.FileName}／{actions.FileName} 版面不符，動作窗停用：{ex.Message}");return;}
         if(Missing.Count>0)UiResourceLog.Write($"action-ui 缺圖不畫：{string.Join("、",Missing)}");
+        if(OpenButtonMissing.Count>0)UiResourceLog.Write($"action-ui 開窗鈕缺圖不畫：{string.Join("、",OpenButtonMissing)}");
         if(Unavailable!=null)UiResourceLog.Write($"action-ui {Unavailable}");
     }
 
     void Clear(){
         open=false;placed=false;pressed=null;hover=null;pressedInside=false;Unavailable="not loaded";Origin=Point.Empty;Size=Size.Empty;MoveableHeight=0;
         BaseSurface=null;FrameSurface=null;Actions=[];Tabs=[];Exit=null;Scroll=null;Grid=LegacyCellGrid.Empty;SelectionSurface=null;GridDrag=false;
-        OpenButton=null;Missing=[];ActiveTab=0;ScrollRow=0;Selected=null;LastRun=null;
+        OpenButton=null;OpenButtonBase=null;OpenButtonHighlight=null;OpenButtonMissing=[];Missing=[];ActiveTab=0;ScrollRow=0;Selected=null;LastRun=null;
     }
 
     /// <summary>離線測試用：surf 由呼叫端提供（合成圖）。版面不合 → UiLayoutException。</summary>
@@ -183,9 +247,14 @@ public sealed class ActionWindowPanel(UiResources? resources=null,UiRoot? root=n
         Part PartOf(UiNode n,Point parent)=>new(n.Attr("Name")??n.Name,new(parent.X+(n.TryInt("X")??0),parent.Y+(n.TryInt("Y")??0)),
             Get(n,"BaseSurf"),Get(n,"PushSurf"),Get(n,"HighlightSurf")??Get(n,"HighLightSurf"),n.Attr("MouseEvent"));
 
-        if(root.ChildrenNamed("Button").FirstOrDefault(b=>b.Attr("Name")=="ActionUI_Button") is {} ob)
+        if(root.ChildrenNamed("Button").FirstOrDefault(b=>b.Attr("Name")=="ActionUI_Button") is {} ob){
             OpenButton=new(new(ob.Int("X"),ob.Int("Y")),OptionPanel.ImageAttr(ob,"BaseSurf")?.Id,OptionPanel.ImageAttr(ob,"HighlightSurf")?.Id,
                 ob.ChildrenNamed("Tooltip").FirstOrDefault()?.TryInt("String"));
+            // R10-E：開窗鈕的圖另記（不進 Missing：缺了只是不畫開窗鈕，本窗照常）。
+            var obMissing=new List<string>();
+            UiSurface? O(int? id){if(id is not int v)return null;var s=surf(v);if(s==null)obMissing.Add($"surf {v} (ActionUI/ActionUI_Button)");return s;}
+            OpenButtonBase=O(OpenButton.BaseSurf);OpenButtonHighlight=O(OpenButton.HighlightSurf);OpenButtonMissing=obMissing;
+        }
 
         var w=root.ChildrenNamed(WindowNode).SingleOrDefault(n=>n.Attr("Name")==WindowName)
             ??throw new UiLayoutException(ui.FileName,root.Path,$"沒有 Window {WindowName}");
@@ -341,17 +410,94 @@ public sealed class ActionWindowPanel(UiResources? resources=null,UiRoot? root=n
     public ActionRunResult Execute(ActionEntry action,IUiCommands commands){
         var result=Run(action,commands);
         LastRun=(action,result);
-        if(result==ActionRunResult.Unhandled&&unhandled.Add(action.Name))UiResourceLog.Write($"action-ui {action.Name}（{action.Control}）尚未接上，未執行");
+        if(result==ActionRunResult.Unhandled&&unhandled.Add(action.Name))
+            UiResourceLog.Write($"action-ui {action.Name}（{action.Control}）尚未接上，未執行"+(ActionRoutes.Of(action.Name).Note is {} note?"："+note:""));
         return result;
     }
 
     ActionRunResult Run(ActionEntry action,IUiCommands commands){
         if(LegacyWindowPanel.FindCommands<IUiActionCommands>(commands)?.RunAction(action)==true)return ActionRunResult.Bridge;
+        var route=ActionRoutes.Of(action.Name);
         if(action.Name==OpenBookmarkAction&&root?.Find(BookmarkWindowPanel.PanelId) is BookmarkWindowPanel bm&&!root.Faulted.Contains(bm)){
             var r=MenuButtonsPanel.ToggleWindow(root,bm,()=>{if(!bm.Visible)bm.Toggle();},bm.Toggle);
             if(r is UiToggleResult.Opened or UiToggleResult.Closed)return ActionRunResult.Window;
         }
+        if(route is {Kind:ActionRouteKind.ChatLine,Argument:{} prefix}&&ChatLine(prefix,commands))return ActionRunResult.ChatLine;
+        if(route is {Kind:ActionRouteKind.Toggle,Argument:ActionRoutes.HpMpRecoveryToggle}&&root!=null&&OptionPanel.HpMpWindow(root) is {} hp){
+            hp.Apply(hp.Settings with{ShowRecovery=!hp.Settings.ShowRecovery});
+            return ActionRunResult.Toggled;
+        }
         if(SocialActions.Contains(action.Name)){commands.ShowDevTools(EmoteDevToolsPage);return ActionRunResult.DevTools;}
         return ActionRunResult.Unhandled;
     }
+
+    /// <summary>
+    /// R10-E：把指令前綴（"/addbuddy " 等）放進原生聊天輸入列（取代草稿，同 FriendPanel.Whisper），不送封包；之後打名稱、Enter 走既有
+    /// ChatPanel → SendChat → 斜線指令。沒有聊天窗、輸入列送出中、輸入列正等提示的答覆（R10-F）、聊天列不能開 → false。
+    /// </summary>
+    bool ChatLine(string prefix,IUiCommands commands){
+        if(root?.Find(ChatPanel.WindowName) is not ChatPanel chat||root.Faulted.Contains(chat)||chat.Input.Pending||chat.Prompt!=null||UiChatGameState.Commands(commands) is not {} c)return false;
+        if(!chat.Input.Open){
+            if(!c.BeginChatInput())return false;
+            chat.Input.Begin(false);
+        }
+        chat.Input.Clear();
+        foreach(char ch in prefix)chat.Input.Type(ch);
+        return chat.Input.Text==prefix;
+    }
+}
+
+/// <summary>
+/// R10-E（T389／#904）：ActionUI-c.xml 的常駐開窗鈕 ActionUI_Button（根元素下、MostTop="1"，FU8§4.2）。
+/// 已驗證（XML）：(774,470)、BaseSurf 5156、HighlightSurf 5157、Tooltip String 3118、MouseEvent OpenButtonPressed；
+///   FU8§4.3：OpenButtonPressed 收 514（放開）與 515（雙擊）→ 開關動作窗（vtable+76）。
+/// 推測（真機再確認，M33）：在世界中常駐顯示；畫在 Bar 層（不進視窗堆疊，全域 ESC 不關它）；滑鼠停留畫 HighlightSurf；
+///   提示 3118 不畫（tooltip 沒做）。圖與座標由 ActionWindowPanel 讀（同一份 XML）；動作窗不可用或缺底圖 → 不畫、不收點擊。
+/// IUiClosablePanel.Close 只清掉按住／停留狀態（鈕本身常駐，不會被關掉）。
+/// </summary>
+public sealed class ActionOpenButtonPanel(UiRoot? root=null):IUiClosablePanel {
+    [UiPanel(192)] internal static UiPanelRegistration Registration=>new(PanelId,ActionWindowPanel.HostLayout,r=>new ActionOpenButtonPanel(r));   // R10-E (#904): ActionUI_Button, data from ActionWindowPanel
+    public const string PanelId="ActionUI_Button";
+    public string Id=>PanelId;
+    public UiLayer Layer=>UiLayer.Bar;
+    bool inWorld,hover,pressed;
+    ActionWindowPanel? Window=>ActionWindowPanel.Window(root);
+    public Rectangle Bounds=>Window is {OpenButton:{} spec,OpenButtonBase:{} s}?new(spec.Location,new Size(s.Width,s.Height)):Rectangle.Empty;
+    public bool Visible=>inWorld&&!Bounds.IsEmpty;
+    public bool Hover=>hover;
+
+    public void Load(UiLayout layout,SurfCatalog surfs){}
+    public void Update(IUiGameState state){inWorld=state.InWorld;if(!inWorld)Close();}
+    public void Close(){hover=false;pressed=false;}
+
+    public void Paint(UiCanvas canvas){
+        if(!Visible||Window is not {} w)return;
+        var at=w.OpenButton!.Location;
+        canvas.DrawSurface(hover?w.OpenButtonHighlight??w.OpenButtonBase:w.OpenButtonBase,at.X,at.Y);
+    }
+
+    /// <summary>開關動作窗（同 Ctrl+D：經 UiRoot.Toggle 進視窗堆疊）。</summary>
+    void Fire(){
+        if(root==null||Window is not {} w)return;
+        MenuButtonsPanel.ToggleWindow(root,w,()=>w.Open(),w.Toggle);
+    }
+
+    public bool Mouse(UiMouseEvent e,IUiCommands commands){
+        if(!Visible){hover=false;pressed=false;return false;}
+        bool inside=Bounds.Contains(e.Location);
+        switch(e.Kind){
+            case UiMouseKind.Move:hover=inside;return inside||pressed;
+            case UiMouseKind.Down:
+                if(!inside)return false;
+                if(e.Button==MouseButtons.Left){pressed=true;if(e.Clicks>=2)Fire();}   // 515 雙擊也切換一次
+                return true;
+            case UiMouseKind.Up:{
+                bool was=pressed;pressed=false;
+                if(was&&inside&&e.Button==MouseButtons.Left)Fire();   // 514 放開
+                return was||inside;
+            }
+            default:return inside;
+        }
+    }
+    public bool Key(UiKeyEvent e,IUiCommands commands)=>false;
 }
