@@ -1,0 +1,13 @@
+dec 7CE710
+dec 7CE080
+dec 7CF080
+dec 7D01E0
+dec 7D07C0
+fdis 7CE710
+fdis 7CE080
+fdis 7D01E0
+fdis 7D07C0
+fdis 7CF080
+xref 7CE710
+xref 7CE080
+grepcallers 7CE710 sub_7CE710

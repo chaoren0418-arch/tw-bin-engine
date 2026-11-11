@@ -268,7 +268,7 @@
 | SpecialPolymorphUI | CSpecialPolymorphUI | `0xA09770`／`0x608B70` | 有（`SPolymorphUI.xml`＋`SPolymorphList.xml`） | 特殊變身選擇 | （無） | 缺 | WIN2§4：由 S_EVENT 開，確定鈕送 TW16 op 208（用道具＋名稱）；3.81 不送開窗封包，不建議做 |
 | ResetStatUI | CResetStatUI | `0x9CF150`／`0x5CE550` | 缺檔 | 能力值重置 | `CharResetUi.cs` | 部分 | WIN2§8：他版客戶端有 `ResetStatUI.xml`，事件 8／8；本機缺 23 個 surf，只能部分重現 |
 | RenewalStatusUI | CRenewalStatusUI | `0xEDCBE0`／`0xADBFE0` | 讀 `ReNStatusUIEx.xml`（缺檔） | 裝備／能力窗 | `BonusStatsUi.cs`、`InventoryUi.cs` | 部分 | WIN§1.4：本機 `ReNStatusWinUI-c.xml` TW16 不讀 |
-| StatInfoUI | StatInfoUI | `0xEDCF00`／`0xADC300` | 缺檔 | 能力說明 | （無） | 缺 | WIN2§6：由 op 43（重置）開；隨重置窗處理（WIN2§8） |
+| StatInfoUI | StatInfoUI | `0xEDCF00`／`0xADC300` | 缺檔 | 能力說明 | （無） | 缺 | WIN2§6：由 op 43（重置）開；隨重置窗處理（WIN2§8）。**FU15§1（T402／#917）**：22 列數值是伺服器 protobuf 回覆的字串（C157 子 id 484 要求；擴充收包 id 0x79 → `sub_EBA270`），`sub_EB85F0` 只算換色；3.81 沒有 protobuf → 15.13.4 改 K1 |
 | UserPlayStatsUI | CUserPlayStatsUI | `0xC0AB50`／`0x809F50` | 有（`UserPlayUI.xml`） | 死亡統計窗 | `Recovery.cs`（自製面板） | 部分 | WO 第 6 節（T151 審查中） |
 | UserObtainUI、FishObtainUI | CUserObtainUI（同一建構子） | `0xC03330`／`0x802730` | `UserObtainUI.xml` 有；`FishObtainUI.xml` 缺檔 | 取得物品提示 | （無） | 缺 | WIN2§6：背包新增／移除時的本機提示（op 30／216／98／164）；`FishObtainUI.xml` 他版客戶端有（WIN2§8）；低優先 |
 | FishingUI | CFishingUI（LineageFishing） | `0xE65660`／`0xA64A60` | 缺檔 | 釣魚 | `Fishing.cs`（HUD 按鈕） | 部分 | WIN2§8：他版客戶端有 `FishingUI.xml`，事件 2／2；圖只有 `.tbt`；開窗為本機觸發，S250 55 只顯示訊息 |
@@ -2130,7 +2130,7 @@ R6-D 補充：不同格時用 `ApproachWalk.cs:49` 的通行判斷（FU8§6）�
 | 1 | 152 | 部分 | 已有 | #808 | 原生開啟時 `BoardUi` 改 `RunHidden`（`BoardUi.cs:144`），原點 (0,0)（`BoardPanels.cs:46`）（M17） |
 | 1 | 248 | 部分 | 已有 | #808、#858 | 672／676（`BoardPanels.cs:149–152` → `BoardUi.cs:58–69`）（M17） |
 | 1 | 86 | 部分 | 已有 | #848 | 不跟隨的特效留在 Origin 播完（`SoundPackets.cs:164–175`、`MapEffects.cs:252–269`）；跟隨組分段是推測；光源子項 K1（M25） |
-| 1 | 36 | 部分 | 已有 | #784 | `ObjectRendering.cs:205–208`、`:260`；稱號條件 `0x15442E4` 是推測（M32、M14） |
+| 1 | 36 | 部分 | 已有 | #784 | `ObjectRendering.cs:205–208`、`:260`；稱號條件 `0x15442E4` 是推測 → FU15§2.6：已驗證，一致（M32、M14） |
 | 1 | 245 | 部分 | 已有 | #651 | S227 開 MessageBox 後 `Close()`（`KickNotice.cs:31–60`）；角色管理途中的 227 歸小清理（M24） |
 | 1 | 89 | 部分 | 已有 | #810 | `Recovery.cs:10`、`:360–364`、`:549`（M23） |
 | 1 | 91 | 部分 | 已有 | #814 | `MapAmbientSound.cs:142–143`、`ProductSoundBackends.cs:106`；響度曲線等真機（M26） |
@@ -2150,12 +2150,12 @@ R6-D 補充：不同格時用 `ApproachWalk.cs:49` 的通行判斷（FU8§6）�
 | 4.1 | Inventory | 部分 | 已有 | #810、#856 | 雙擊、Delete、垃圾桶（`ItemWindowPanel.cs:358`、`:365`；`ItemTransfer.cs:184`）；雙擊是推測；分頁分類等真機（M6） |
 | 4.1 | Warehouse | 部分 | 已有 | #810 | `WarehouseWindowPanel.cs:34`、`:137`；分頁分類與數量輸入等真機（M7、M36） |
 | 4.1 | SpellUI | 部分 | 已有 | #810 | 鈕 3／Ctrl+S；509 拒絕開窗（`UiRoot.cs:126`）（M8） |
-| 4.1 | PartyUI | 部分 | 已有 | #812 | 委任送 C230 3（`PartyPanel.cs:194` → `Party.cs:169`）；委任前有沒有 Y/N 沒查（Q8） |
-| 4.1 | PledgeUI | 部分 | 已有 | #813 | ModifyMemo 送 C78 16（`PledgePanel.cs:678`、`ClanUi.cs:147`）（M12） |
+| 4.1 | PartyUI | 部分 | 已有 | #812 | 委任送 C230 3（`PartyPanel.cs:194` → `Party.cs:169`）；委任前有沒有 Y/N 沒查（Q8）→ FU15§2.2：有（4051），Q8-A |
+| 4.1 | PledgeUI | 部分 | 已有 | #813 | ModifyMemo 送 C78 16（`PledgePanel.cs:678`、`ClanUi.cs:147`）；原版走聊天輸入列 3325、上限 60 byte（FU15§2.3，Q8-A）（M12） |
 | 4.1 | RenewalMailUI | 部分 | 已有 | #762 | `MailPanel.cs:65`；ExcludeMail 3.81 不支援（K1 子項）；拖捲軸滑塊歸小清理 |
 | 4.1 | ResetStatUI | 部分 | 已有 | #817 | Faulted 時改開 WinForms（`CharResetUi.cs:89–101`）；9 個 P-D 面板的 `TextResolver` 都已設定（M19） |
 | 4.1 | RenewalStatusUI | 部分 | 已有 | #811、#862 | 鈕 2／Ctrl+A 開原生窗（`MenuButtonsPanel.cs:66`、`:207–208`）；Up＝Y/N 後才送（`BonusStatsUi.cs:50–58`）（M15） |
-| 4.1 | WidgetSlot | 部分 | 已有 | #816 | `MacroPanel.cs:15`、`ExMacroPanel.cs:14`；`ModeChange` 的處理函式沒追（Q8）（M30） |
+| 4.1 | WidgetSlot | 部分 | 已有 | #816 | `MacroPanel.cs:15`、`ExMacroPanel.cs:14`；`ModeChange` 的處理函式沒追（Q8）→ FU15§2.4，Q8-B（M30） |
 | 4.2 | `QuitWindow` | 部分 | 已有 | #810 | `QuitWindowPanel.cs:18–19`（M23） |
 | 4.2 | `InventoryWindow` | 部分 | 已有 | #810 | 同 Inventory（M6） |
 | 4.2 | `SpellWindow` | 部分 | 已有 | #810 | 同 SpellUI（M8） |
@@ -2164,14 +2164,14 @@ R6-D 補充：不同格時用 `ApproachWalk.cs:49` 的通行判斷（FU8§6）�
 | 4.2 | `CCookWindow` | 部分 | 已有 | #782 | S250/52 → `Cooking.cs:208`、`CookBookPanel.cs:56`；倒數 6392／6394 3.81 不送（K1 子項）（M16） |
 | 4.2 | `MapLocationSaveWindow` | 部分 | 已有 | #846 | 右鍵放開 → `MapCommunicationPanel.cs:128–133` → `MapLocationSavePanel.cs:48`；記憶體存點是引擎自訂 |
 | 4.2 | `TradeWindow` | 部分 | 已有 | #851 | 模式 7 圖示（`SpellExchangeUi.cs:9`）；缺圖同 op 44（M9） |
-| 5 | `sub_A57C60` | 部分 | 已有 | #810、#811 | 全域 ESC（`UiInput.cs:89`、`:99` → `UiRoot.CloseAll` `:173`）；全部 Window 層面板都實作 `IUiClosablePanel`；ESC 和 Y/N 的吃鍵順序沒查（Q8） |
-| 5 | `sub_8FB4D0` | 部分 | 已有 | #807 | 同 op 25；470 在圖示繪製的特例（`sub_9001F0`）沒查（Q8） |
+| 5 | `sub_A57C60` | 部分 | 已有 | #810、#811 | 全域 ESC（`UiInput.cs:89`、`:99` → `UiRoot.CloseAll` `:173`）；全部 Window 層面板都實作 `IUiClosablePanel`；ESC 和 Y/N 的吃鍵順序沒查（Q8）→ FU15§2.1 |
+| 5 | `sub_8FB4D0` | 部分 | 已有 | #807 | 同 op 25；470 在圖示繪製的特例（`sub_9001F0`）沒查（Q8）→ FU15§2.9，Q8-C |
 | 5 | （109 kind | 部分 | 已有 | #782 | `EarthDepthAt`（`MagicRendering.cs:354`、`ProjectileRendering.cs:98`）（M25） |
 | 5 | `byte_13CE51E` | 部分 | 已有 | #780 | 巨集格擋下（`PlayerHudModel.cs:40–42`）；值 1 在 3.81 不會出現 |
 | 5 | （`TransferMenu` | 部分 | 已有 | #846 | `FieldMapPanel.cs:115` ← `MapCommunicationPanel.cs:133`；1785 的位置是推測 |
 | 5 | `sub_8E66D0` | 部分 | 已有 | #820 | `HpMpState.cs:84`、`:92`、`HpMpPanel.cs:225`；相機原點差等真機（M32） |
-| 5 | `sub_F0E9B0` | 部分 | 已有 | #814 | 同 op 91；物件移除時要不要停單次音效（A04A20）沒查（Q8）（M26） |
-| 1 | 144 | 部分 | 已有 | #849、#850、#891 | ESC、數字框 5073（`HyperTextPanel.cs`）、排版器（`HyperTextLayout.Build`）；顏色改 COLORREF（`HyperTextLayout.cs:53` `Order=Bgr`）、預設字色 `0xEEEDEE`（`:45`）。`pN`、`<subHtml>`、`<time>`、`<date>` 沒接，用量沒統計（Q8-3）（M34） |
+| 5 | `sub_F0E9B0` | 部分 | 已有 | #814 | 同 op 91；物件移除時要不要停單次音效（A04A20）沒查（Q8）→ FU15§2.5：不停，一致（M26） |
+| 1 | 144 | 部分 | 已有 | #849、#850、#891 | ESC、數字框 5073（`HyperTextPanel.cs`）、排版器（`HyperTextLayout.Build`）；顏色改 COLORREF（`HyperTextLayout.cs:53` `Order=Bgr`）、預設字色 `0xEEEDEE`（`:45`）。`pN`、`<subHtml>`、`<time>`、`<date>` 沒接，用量沒統計（Q8-3）→ FU15§2.12（M34） |
 | 4.1 | HyperTextUI | 部分 | 已有 | #849、#850、#891 | 同 op 144（M34） |
 | 4.1 | FishingUI | 部分 | 已有 | #860、#888 | `FishingNet` 開關 FishObtainUI、收竿前問 1516（`FishingPanel.cs:279`、`:291–297`）；`AniGauge` 子項是 K1（M21） |
 | 4.1 | UserObtainUI | 部分 | 已有 | #698、#888 | 取得清單沒有 `ItemsListClick` 回呼（FU9§6）。FishObtainUI 的表由背包尾段旗標填（`Inventory.cs:65`、`FishObtainTable.cs`），清單只列表內物品（`FishObtainPanel.cs:171`），照原版 3.81 下是空清單（FU10§1）（M21） |
@@ -2248,7 +2248,7 @@ K1 的 54 列，理由見 15.12.4 與 15.5，本輪沒有變動，這裡不逐�
 | 5:`sub_5001C0` | K5 | 拾取只看距離（`Ground.cs:107`、`:145`），不同格時沒查「往物件那一步」能不能走（FU8§6）。15.10 的「R6-D 補充」沒有人做（git log 沒有 `5001C0`） | `Ground.cs`（`PickupArrived`／`SendGround`／`LootTarget`），可借 `ApproachWalk.cs:49` | 能，R10-K |
 | 5:music.def | K5 | MIDI 模式下，非系統槽換曲會重頭播 0.mid；原版是「沒在播才開」（#814 報告列為引擎差異）。響度曲線另等 M26 | `ProductSoundBackends.cs` | 能，R10-L |
 | 1:127 | K2 | 3.81 倉庫的堆疊數量怎麼輸入。現在點一列就選整疊（`WarehouseWindowPanel.cs:153–167`） | `WarehouseWindowPanel.cs` | 不能，等真機（M36）或脫殼 `LiTo.bin` |
-| 4:StatInfoUI | K2 | 22 列數值沒有來源，全部空白；`sub_EB85F0` 沒追 | `NativeUi/StatInfoPanel.cs:94–100`、`BonusStatsUi.cs:52` | 查完才能轉（Q8-1）；若數值要向伺服器要，改 K1 |
+| 4:StatInfoUI | K2 → **K1**（FU15） | 22 列數值沒有來源，全部空白；`sub_EB85F0` 沒追。**FU15§1**：數值是伺服器 protobuf 回覆（C157／484 → 擴充收包 0x79），`sub_EB85F0` 是換色；3.81 不送 | `NativeUi/StatInfoPanel.cs:94–100`、`BonusStatsUi.cs:52` | 不能（K1）；只更正 `StatInfoPanel.cs:55–58` 的註解 |
 | 5:`sub_87C890` | ~~K2~~ → **K5**（FU14） | 105 `cloth`、111 `stride`、112 `altdir` 已解析（`MagicRendering.cs:71`），但 `ListSprLayers` 沒接到 `ComposeObjects`（`ClothVerified=false`）。FU14：<br>• `altdir` 只用在沒有動作表的靜態外型，每幀依朝向 6 重算（§1）；<br>• `stride` 是每走一步換走路動作，表＝{0,4,11,20,24,40}（§2，更正 FU8§5 的「站立時」）；<br>• `cloth` 在 3.81 也畫，職業外型的 6262 等是釣魚線（§3） | `ObjectRendering.cs:8–9`、`:16`、`:22`、`:33–40`、`:62–65`、`:123–131`；`ClientLogin.cs:53` | 能（FU14§1.3、§2.4、§3.6）；M31 不再阻擋 |
 
 #### 15.12.6 第七批 code 任務分組（R10-C–O，13 組）
@@ -2278,21 +2278,21 @@ K1 的 54 列，理由見 15.12.4 與 15.5，本輪沒有變動，這裡不逐�
 | R10-O 召喚與盟屋拍賣小項 | 召喚窗畫 `SummonDrag_Image`、面板路徑顯示 743；原生 UI 下 `agapply` 不在 HyperText 頁重複出數字框（1:52、4:AgitAuctionUI） | `NativeUi/SummonPanel.cs`、`PetUi.cs`、`NpcUi.cs`（只限 agapply 判斷）、新檔 `SummonAgitFollowupTests.cs` | 無；停用格的外觀等真機（M39） |
 
 **Q8（建議開 1 張 resource 任務；IDA 唯讀照 #417，subst 磁碟先檢查；宣稱缺資源前先用 PakViewer 查過全部 pak）**
-- **Q8-1 StatInfo 數值**：`sub_EB85F0` 22 列各讀什麼（4:StatInfoUI）。
+- **Q8-1 StatInfo 數值**：`sub_EB85F0` 22 列各讀什麼（4:StatInfoUI）。**完成**（T402／#917，[`followups-15.md`](followups-15.md) §1）：數值來自 protobuf，改 K1。
 - ~~**Q8-2 list.spr**：`altdir` 換 gfx 的時機、`stride` 表 `byte_1379D40`（5:`sub_87C890`）。~~ **完成**（T386／#899，[`followups-14.md`](followups-14.md)）：連同 `cloth` 一起查完，5:`sub_87C890` 改 K5。
-- **Q8-3 不改分類的子項**：
-  - ESC 和 Y/N 的吃鍵順序（`sub_8CA740`）；
-  - 委任前有沒有 Y/N；
-  - ModifyMemo 的處理函式與 62 byte 上限；
-  - WidgetSlot `ModeChange`；
-  - A04A20 的單次音效停播；
-  - `0x15442E4` 稱號條件；
-  - 信件 `MailView.Notice` 的位置；
-  - 書籤區域表 `sub_F35D90`；
-  - 470 圖示特例 `sub_9001F0`；
-  - `CAgitAuctionUI` 的 agsel 與步進值；
-  - `[this+0x40]` 公告板分支；
-  - R9-F 沒接的 HTML 標記用量。
+- **Q8-3 不改分類的子項**（**完成**，T402／#917，FU15§2；code 分組見 FU15§3 的 Q8-A–C）：
+  - ESC 和 Y/N 的吃鍵順序（`sub_8CA740`）；→ FU15§2.1：聊天輸入列（Y/N）排在舊式堆疊窗之後、XML 窗之前；ESC＝依輸入文字回答（空白＝拒絕）。Q8-C ④（低）
+  - 委任前有沒有 Y/N；→ FU15§2.2：**有**，4051 在聊天輸入列問，Y 才送 42 type 3。Q8-A
+  - ModifyMemo 的處理函式與 62 byte 上限；→ FU15§2.3：`sub_B2D740` → 聊天輸入列 3325；上限 60 byte（超過印 3328），62 是緩衝區。Q8-A
+  - WidgetSlot `ModeChange`；→ FU15§2.4：模式 0／1 切換（元件 2／4 互換顯示），Alt+R 同一個，存進設定；元件對應待查。Q8-B
+  - A04A20 的單次音效停播；→ FU15§2.5：單次音效繼續播完（擁有者正在播時才停），和引擎一致，不改
+  - `0x15442E4` 稱號條件；→ FU15§2.6：是顯示旗標（只寫 `0x2000`），實際＝有稱號就畫，和引擎一致，不改
+  - 信件 `MailView.Notice` 的位置；→ FU15§2.7：印在聊天欄（`sub_941000`）。Q8-C ②
+  - 書籤區域表 `sub_F35D90`；→ FU15§2.8：是空 `std::map` 建構子，不是載入函式；群組來自窗內 72 byte 紀錄的 `+66`，填表者待查（Q9-2）
+  - 470 圖示特例 `sub_9001F0`；→ FU15§2.9：旗標 `+0x328`≠0 畫 icon，否則 offIcon，不看時間。Q8-C ①
+  - `CAgitAuctionUI` 的 agsel 與步進值；→ FU15§2.10：步進 ±1、夾在 [最小, 最大]、按住連續；agsel 交接待查。Q8-B
+  - `[this+0x40]` 公告板分支；→ FU15§2.11：「等伺服器回應」狀態（1–4），期間點擊與 Write 都不動作。Q8-C ③
+  - R9-F 沒接的 HTML 標記用量。→ FU15§2.12：本機 `pN` 0、`<time>` 0、`<subHtml>` 45、`<date>` 19、`var` N≥1000 32 頁；語義歸 Q9-4
 
 **小清理**（不對應任何列，可以合成一張小任務）
 - `CancelItemDelete` 接聊天列與原生背包的 Esc（`ItemTransfer.cs`、`KeyboardNavigation.cs`）。
@@ -2444,10 +2444,10 @@ K1 的 54 列，理由見 15.12.4 與 15.5，本輪沒有變動，這裡不逐�
 | 1 | 29 | 部分 | 已有 | #905 | 1028 的 Y → `PlayerChat.cs:457–459` → `AnswerPrivateShopConfirm`；`ChatPanel.cs:196–206` 畫 notice；原版 CHAT_BAR 有沒有這一行是推定（M11） |
 | 1 | 52 | 部分 | 已有 | #914、#924 | `SummonPanel.cs:425` 拖曳圖、`PetUi.cs:67–72` 743；位置與 13/32 透明度是推定（M39） |
 | 1 | 127 | 部分 | 已有 | #896、#915 | FU12§1：列內「▼ 數量 ▲」（`WarehouseWindowPanel.cs:134`、`:141`、`:152–160`）；▲▼ 圖號、位置是推定（M7） |
-| 4 | AgitAuctionUI | 部分 | 已有 | #914 | `NpcUi.cs:115`、`:124–125` 原生出價窗可用時不放數字框；步進值屬 Q8-3（M20） |
+| 4 | AgitAuctionUI | 部分 | 已有 | #914 | `NpcUi.cs:115`、`:124–125` 原生出價窗可用時不放數字框；步進值屬 Q8-3 → FU15§2.10：±1，Q8-B（M20） |
 | 4 | LoginUI | 部分 | 已有 | #904、#925 | S48 一律模態訊息框（`UiClientBridge.cs:132–141`，15.12.8 第 2 點裁定）；`Back_Image` 動畫（`LoginPanel.cs:140`、`:210`、`:401`）；捲軸拇指屬 Q8（M3、M40） |
 | 4 | `HpMpWindow` | 部分 | 已有 | #907 | 門檻依 `OwnClass`（`HpMpPanel.cs:85–87`、`:155`）；+86／+87 只有繪製路徑，產品沒有 `IUiHpMpVariantState` 提供者，旗標意義是推測（M32） |
-| 4 | BookmarkWindowUI | 部分 | 已有 | #909 | 隨機傳送 id 0（`AbilityStatus.cs:116`、`RingWindows.cs:175`）、`/qbookmark`（`PlayerChat.cs:565`）、拖曳（`BookmarkPanel.cs:546`）；區域表屬 Q8-3（M24①、M29） |
+| 4 | BookmarkWindowUI | 部分 | 已有 | #909 | 隨機傳送 id 0（`AbilityStatus.cs:116`、`RingWindows.cs:175`）、`/qbookmark`（`PlayerChat.cs:565`）、拖曳（`BookmarkPanel.cs:546`）；區域表屬 Q8-3 → FU15§2.8（Q9-2）（M24①、M29） |
 | 4 | FriendUI | 部分 | 已有 | #902、#926 | `BuddyUi.cs:99–110` 宿主、`:117` 設定；TW16 沒有開窗鍵（FU13§3.1）（M37） |
 | 4 | `ExcludeWindow` | 部分 | 已有 | #902 | 同 FriendUI；舊式 `ExcludeWindow` 依 15.12.5 不另做 |
 | 4 | ExchangeUI | 部分 | 已有 | #905 | 140 在聊天列問（`TransactionPanel.cs:183–185`、`:309`、`:321`；`TradeUi.cs:52`、`:58`）（M10） |
@@ -2477,29 +2477,30 @@ K1 的 54 列，理由見 15.12.4 與 15.5，本輪沒有變動，這裡不逐�
 
 | 類 | 列（節:列，以「；」分隔） | 原因 |
 |---|---|---|
-| K1 伺服器不支援／不建議 | 1:108；1:132；2:42、67、83、215；3:C_ATTACK(43)；3:C_TELEPORT(226)；4:LoadingWindowUI；4:NpcDialogUI；4:CommunityUI；4:`PetInventoryWindow`；4:`TelTablesWindow`；4:`AgitWindow`；4:BookmarkMemoryWindowUI；4:PopUpUI；4:GameRankingUI；4:MapUI | 同 15.12.4，本輪沒有變動。「缺」裡已標「伺服器不支援／不建議」的 39 列預設歸 K1，不逐列列出 |
+| K1 伺服器不支援／不建議 | 1:108；1:132；2:42、67、83、215；3:C_ATTACK(43)；3:C_TELEPORT(226)；4:LoadingWindowUI；4:NpcDialogUI；4:CommunityUI；4:`PetInventoryWindow`；4:`TelTablesWindow`；4:`AgitWindow`；4:BookmarkMemoryWindowUI；4:PopUpUI；4:GameRankingUI；4:MapUI；4:StatInfoUI | 同 15.12.4。「缺」裡已標「伺服器不支援／不建議」的 39 列預設歸 K1，不逐列列出。<br>**FU15 回填（T402／#917）**：加 4:StatInfoUI。22 列數值是伺服器 protobuf 回覆的字串（C157 子 id 484 要求、擴充收包 0x79 → `sub_EBA270` 填表），`sub_EB85F0` 只算換色；3.81 沒有 protobuf（FU15§1.4） |
 | K5 仍有 code 差異 | 3:C_INVITE_PARTY(82)；3:C_ADD_BUDDY(138)；4:BehaviourUI；4:PersonalShopUI；4:SelectUI；4:CreateUI；4:OptionUI | 7 列，都能離線寫程式（PersonalShopUI 要先反編譯版面），逐列見 15.13.5；分到 15.13.6 的 R11-A–G |
-| K7 進行中 | 4:StatInfoUI | Q8-1（#917）。查完轉 K5 或 K1 |
+| K7 進行中 | 無（FU15 回填後清空） | 原本是 Q8-1（#917）的 StatInfoUI，查完改 K1 |
 
-K2 沒有列了：1:127 由 FU12＋R10-P 補上，5:`sub_87C890` 由 FU14 轉 K5、再由 #922 處理（預期「已有」），4:StatInfoUI 正在 #917 查。
+K2 沒有列了：1:127 由 FU12＋R10-P 補上，5:`sub_87C890` 由 FU14 轉 K5、再由 #922 處理（預期「已有」），4:StatInfoUI 經 #917（FU15）改 K1。
 
 各類列數（`gap_count_r8.py` 輸出）：
 
 | 類 | §1 | §2 | §3 | §4 | §5 | 部分 | 缺 | 合計 |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
-| K1 | 11 | 5 | 7 | 30 | 1 | 13 | 41 | 54 |
+| K1 | 11 | 5 | 7 | 31 | 1 | 14 | 41 | 55 |
 | K5 | 0 | 0 | 2 | 5 | 0 | 7 | 0 | 7 |
-| K7 | 0 | 0 | 0 | 1 | 0 | 1 | 0 | 1 |
+
+（FU15 回填前是 K1 54／K7 1；4:StatInfoUI 從 K7 移到 K1。）
 
 **290 列的去向**：
 
 | 去向 | 列數 | 和第七輪比 |
 |---|---:|---|
 | 已有 | 228 | +15（R10 補上 14 列；5:`sub_87C890` 是 #922 的預期） |
-| K1 伺服器不支援 | 54 | 0 |
-| K2 需先查證 | 0 | −3（1:127→已有；`sub_87C890`→K5→預期已有；StatInfoUI→K7） |
+| K1 伺服器不支援 | 55 | +1（4:StatInfoUI，FU15） |
+| K2 需先查證 | 0 | −3（1:127→已有；`sub_87C890`→K5→預期已有；StatInfoUI→K7→K1） |
 | K5 仍有 code 差異 | 7 | −13（20 列中 13 列改已有；剩 7 列，見 15.13.5） |
-| K7 進行中 | 1 | +1（4:StatInfoUI，#917） |
+| K7 進行中 | 0 | 0（4:StatInfoUI 曾在 K7，#917 查完改 K1） |
 | **合計** | **290** | |
 
 #### 15.13.5 K5 與 K7 的逐列說明
@@ -2513,7 +2514,7 @@ K2 沒有列了：1:127 由 FU12＋R10-P 補上，5:`sub_87C890` 由 FU14 轉 K5
 | 4:SelectUI | K5 | 整頁翻頁已有（`SelectCharPanel.cs:309–311`）。剩：TW16 可以選到空格，引擎只選角色（#913 報告第 145 行） | `NativeUi/SelectCharPanel.cs` | 能，R11-D |
 | 4:CreateUI | K5 | 職業頁動畫已有（`CreateCharPanel.cs:203`、`:344–351`；#913 更正：循環的是 `Back_Image`）。剩：職業鈕雙擊（`sub_EE3410` 515：不淡入、直接進能力頁，#913 報告第 144、158 行） | `NativeUi/CreateCharPanel.cs` | 能，R11-D |
 | 4:OptionUI | K5 | 妖精選項存檔與 Lv<50 清 0、兩個顯示開關都已有（`RingWindows.cs:185–187`、`:202–203`、`:212–217`）。剩：Music／Effect／Env 三條捲軸原版各自獨立，引擎三條共用一個主音量（`RingWindows.cs:221–224`；#908 報告第 33 行標「引擎簡化」）。Voice、WindowAlpha 是選做（3.81 沒有語音） | `RingWindows.cs`（只限 `OptionWindowHost.Level`／`SetLevel`）、`PlayerAudioSettings.cs`、`ProductSoundBackends.cs`、`BackgroundMusic.cs` | 能，R11-F；**或裁定為引擎取捨**（15.13.7 第 1 點） |
-| 4:StatInfoUI | K7（#917） | 22 列都沒給 `Value`（`StatInfoPanel.cs:95–101`），`BonusStatsUi.cs:52` 已接 `ValueProvider`。數值來源 `sub_EB85F0` 正在 #917 查 | `NativeUi/StatInfoPanel.cs` | #917 查完：能從客戶端資料算 → 開 code 任務（R11-H，只改 `StatInfoPanel.cs` 的 `BonusRows`）；要向伺服器要 → K1 |
+| 4:StatInfoUI | ~~K7（#917）~~ → **K1**（FU15） | 22 列都沒給 `Value`（`StatInfoPanel.cs:95–101`），`BonusStatsUi.cs:52` 已接 `ValueProvider`。**FU15§1**：值是伺服器 protobuf 回覆的字串，客戶端只轉字串與換色（`sub_EB85F0`）；3.81 不送 | `NativeUi/StatInfoPanel.cs` | 不開 R11-H；`StatInfoPanel.cs:55–58` 的註解更正併入 R11-G |
 
 #### 15.13.6 第八批 code 任務分組（R11-A–G，7 組）與查證 Q9
 
@@ -2533,16 +2534,17 @@ K2 沒有列了：1:127 由 FU12＋R10-P 補上，5:`sub_87C890` 由 FU14 轉 K5
 | R11-D 選角空格／建角雙擊 | 選角可選空格（TW16）；建角職業鈕雙擊 515 直接進能力頁、不淡入（#913 報告第 158 行）（4:SelectUI、4:CreateUI） | `NativeUi/SelectCharPanel.cs`、`NativeUi/CreateCharPanel.cs`、新檔 `CharScreenFollowup3Tests.cs` | 無；外觀等真機（M4） |
 | R11-E 頭上對話框 | 商店訊息改畫成 `sub_7CE710` 頭上對話框（加框、5 秒、不受全名模式限制）；`byte_136E99F` 開關；`NameMarksFor` 的 `Line252` 改回真正的 +252 欄位（4:PersonalShopUI）。一般聊天的頭上對話框也走同一函式，可選做 | `ObjectRendering.cs`（只限商店訊息與 +252）、`PrivateShop.cs`、新檔（頭上對話框繪製）、新檔 `HeadBubbleTests.cs` | **Q9-1 之後**；`ObjectRendering.cs` 排在 #922 之後 |
 | R11-F 分開音量 | 音樂、效果、環境音量各自獨立，對到 OptionUI 三條捲軸（4:OptionUI ③） | `RingWindows.cs`（只限 `OptionWindowHost.Level`／`SetLevel`）、`PlayerAudioSettings.cs`、`ProductSoundBackends.cs`、`BackgroundMusic.cs`、新檔 `SplitVolumeTests.cs` | 先裁定（15.13.7 第 1 點）；捲軸刻度是不是線性屬推定 |
-| R11-G 小清理（不對應列） | 更正過時註解：`PrivateShopTradeSource.cs:23`、`:25`、`:132`（「答 Y 還沒接上」「ChatPanel 不畫 notice」）、`TitleAndEmote.cs:117`（「移動由 `MoveLocked` 擋住」） | `PrivateShopTradeSource.cs`、`TitleAndEmote.cs`（都只改註解） | 無 |
+| R11-G 小清理（不對應列） | 更正過時註解：`PrivateShopTradeSource.cs:23`、`:25`、`:132`（「答 Y 還沒接上」「ChatPanel 不畫 notice」）、`TitleAndEmote.cs:117`（「移動由 `MoveLocked` 擋住」）；**FU15 加**：`StatInfoPanel.cs:55–58`（「computed by sub_EB85F0 — not traced」改成 FU15§1：值來自 protobuf、`sub_EB85F0` 是換色） | `PrivateShopTradeSource.cs`、`TitleAndEmote.cs`、`NativeUi/StatInfoPanel.cs`（都只改註解） | 無 |
+| （FU15）Q8-A／B／C | Q8-3 能轉 code 的 6 項：聊天列提示（備註 3325／60 byte、委任 4051）、出價步進 ±1 與 WidgetSlot 模式、470 圖示／信件結果印聊天欄／公告板等回應／ESC 順序 | 見 [`followups-15.md`](followups-15.md) §3 | Q8-B ② 要先 Q9-3 |
 
 **Q9（建議開 1 張 resource 任務；IDA 唯讀照 #417，subst 磁碟先檢查；宣稱缺資源前先用 PakViewer 查過全部 pak）**
 - **Q9-1 頭上對話框版面**：反編譯 TW16 `sub_7CE080`（建框物件）、`sub_7CF080`（斷行）、`sub_7D01E0`（寬度，16／20 字）、`sub_7D07C0`（畫）與 `sub_7CE710` 的位置計算（`+223`／`+224`、全名模式 −32、否則 −12），框用的 surf 要先用 PakViewer 查全部 pak。給 R11-E 用。
-- Q8-3 的子項仍在 #917，不重複開。
+- Q8-3 的子項仍在 #917，不重複開。**FU15 回填**：Q8-3 已完成；查不完的併成 Q9-2（書籤窗 72 byte 紀錄的填表者）、Q9-3（`sub_7058B0` 元件登記）、Q9-4（`<subHtml>`／`<date>`／`<var>` N≥1000 的語義）、Q9-5（`sub_51F5D0` 對備註 `*` 的處理），見 FU15§3。
 
 **建議順序**
 - 可以馬上派：R11-A、C、D、G、Q9；R11-B 的 ①②④。
 - R11-B ③ 在 R11-A 之後；R11-E 在 Q9-1 與 #922 之後；R11-F 等裁定。
-- #917 完成後，依結果加開 R11-H（StatInfo 數值）或把 4:StatInfoUI 改 K1。
+- #917 完成後，依結果加開 R11-H（StatInfo 數值）或把 4:StatInfoUI 改 K1。**FU15**：已改 K1，不開 R11-H。
 
 #### 15.13.7 M7 判定
 
@@ -2551,25 +2553,25 @@ K2 沒有列了：1:127 由 FU12＋R10-P 補上，5:`sub_87C890` 由 FU14 轉 K5
 結案條件（#952）：K5 已清空，或只剩真機才能判定的列，而且 K2 為 0。
 
 對照現況：
-- **K1 54 列**：每列都有理由，不擋。
-- **K2 0 列**：符合；但 4:StatInfoUI 是從 K2 移到 K7，要等 #917 才知道去向。
+- **K1 54 列**：每列都有理由，不擋。（FU15 回填後 55 列，加 4:StatInfoUI。）
+- **K2 0 列**：符合；但 4:StatInfoUI 是從 K2 移到 K7，要等 #917 才知道去向。（FU15：#917 查完改 K1，K7 清空。）
 - **阻擋的列**（全部都能離線完成，沒有一列是「只能真機」）：
 
   | 阻擋原因 | 列數 | 列 | 怎麼解 |
   |---|---:|---|---|
   | K5，能離線寫程式 | 7 | 3:C_INVITE_PARTY(82)；3:C_ADD_BUDDY(138)；4:BehaviourUI；4:PersonalShopUI；4:SelectUI；4:CreateUI；4:OptionUI | R11-A–F（15.13.6），還沒開成任務 |
-  | K7 進行中 | 1 | 4:StatInfoUI | #917 查完；轉 K5 就再加 R11-H |
+  | ~~K7 進行中~~ | ~~1~~ → 0 | 4:StatInfoUI | **已解**：#917（FU15§1）查完改 K1，不開 R11-H |
   | 預期結果還沒落地 | 1 | 5:`sub_87C890` | #922 合併（沒合併就是第 8 列 K5） |
 
 **結案條件**：
 1. R11-A–F 合併，或其中子項經使用者裁定為「引擎取捨、不做」；
 2. #922 合併；
-3. #917 查完，4:StatInfoUI 轉 K1，或轉 K5 後 R11-H 合併。
+3. ~~#917 查完，4:StatInfoUI 轉 K1，或轉 K5 後 R11-H 合併。~~ **已達成**（FU15：轉 K1）。
 
-做完以後，非「已有」只剩 K1 54 列，符合結案標準。真機 smoke（`docs/testing/smoke-m7.md`）不在 M7 的結案條件裡，但建議和 M7 結案一起排。
+做完以後，非「已有」只剩 K1 ~~54~~ 55 列（FU15 加 4:StatInfoUI），符合結案標準。真機 smoke（`docs/testing/smoke-m7.md`）不在 M7 的結案條件裡，但建議和 M7 結案一起排。
 
 **結案摘要草稿**（條件都達成時，給 PLAN／TASKS 用；數字以那時重跑 `gap_count_r8.py` 的結果為準）：
-> M7（原版功能對照補齊）結案：gap-matrix 290 列中 236 列「已有」、54 列 K1（伺服器 3.81 不支援或不建議做），K2、K5 為 0。八輪盤點（T202、T244、T277、T291、T305、T339、T379、T412）與 R6–R11 的 code 任務已全部合併。「已有」只代表靜態核對，真機驗收照 `docs/testing/smoke-m7.md` 另排。
+> M7（原版功能對照補齊）結案：gap-matrix 290 列中 235 列「已有」、55 列 K1（伺服器 3.81 不支援或不建議做），K2、K5 為 0。八輪盤點（T202、T244、T277、T291、T305、T339、T379、T412）與 R6–R11 的 code 任務已全部合併。「已有」只代表靜態核對，真機驗收照 `docs/testing/smoke-m7.md` 另排。
 
 **需要裁定**
 1. 嚴格度：4:OptionUI（三條音量共用主音量）、4:SelectUI（選空格）、4:CreateUI（職業鈕雙擊）只剩小差異，R11-B ④（提示 3118）也一樣。要照本節排進 R11，還是裁定為「引擎取捨」直接改「已有」。如果裁定為後者，阻擋列少 3 列，R11-D、R11-F 不必開。
