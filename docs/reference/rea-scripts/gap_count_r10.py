@@ -64,6 +64,7 @@ for sec in re.split(r"\n## ", text):
         r7, sep2, rest = rest.partition("\n### 15.13")
         r8, sep3, rest = rest.partition("\n### 15.14")
         r9, sep4, r10 = rest.partition("\n### 15.15")
+        r10 = r10.partition("\n### 15.16")[0]  # T443 (#1024): 15.16 is round 11 (gap_count_r11.py)
         if not (sep and sep2 and sep3):
             sys.exit("15.12, 15.13 or 15.14 not found")
         if upto == 10 and not sep4:
