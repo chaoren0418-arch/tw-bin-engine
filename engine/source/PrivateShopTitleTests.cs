@@ -78,21 +78,29 @@ static class PrivateShopTitleTests {
         w.Receive(ShopAction(Shop,[..Big5("賣藥水"),0xFF,..Big5("便宜賣")]),"offline");
         var o=w.Objects.Single(x=>x.ObjectId==Shop);
         t.Check(o.ShopActive,"S158 70（含 0xFF）仍進入擺攤狀態",o);
-        t.Equal("賣藥水",w.NameMarksFor(Shop,o.ShopAt).Line252,"開店時：第一行");
-        t.Equal("便宜賣",w.NameMarksFor(Shop,o.ShopAt+5000).Line252,"5 秒後：第二行");
-        t.Equal("賣藥水",w.NameMarksFor(Shop,o.ShopAt+10000).Line252,"10 秒後：回到第一行");
+        // R11-E（#961）：商店訊息不再是 +252 行，改走頭上對話框（HeadBubbleTests 另外測版面）。
+        string Shown(long at)=>w.ShopTitleLine(w.Objects.Single(x=>x.ObjectId==Shop),at);
+        t.Equal("賣藥水",Shown(o.ShopAt),"開店時：第一行");
+        t.Equal("便宜賣",Shown(o.ShopAt+5000),"5 秒後：第二行");
+        t.Equal("賣藥水",Shown(o.ShopAt+10000),"10 秒後：回到第一行");
+        t.Equal("",w.NameMarksFor(Shop,o.ShopAt).Line252,"商店訊息不是 +252（#916）");
         var targets=new[]{new NameTarget(Shop,"商人",new(200,200,48,64),false)};
-        string Line(long at)=>NameLayout.Plan(w,targets,null,true,at).Texts.Single(x=>x.Line252).Text;
-        t.Equal("賣藥水",Line(o.ShopAt+1),"全名模式：第一行");
-        t.Equal("便宜賣",Line(o.ShopAt+5001),"全名模式：5 秒後換第二行");
+        t.Check(!NameLayout.Plan(w,targets,null,true,o.ShopAt+1).Texts.Any(x=>x.Line252),"全名模式不再畫商店訊息");
+        var board=new HeadBubbleBoard();var bubbleTargets=new[]{new HeadBubbleTarget(Shop,new(300,200,48,64),324,false)};
+        string Bubble(long at){HeadBubbleShops.Sync(board,w,bubbleTargets,true,true,at,new(0,0));return board.Bubbles.Count==1?PersonalShopTitle.Text(board.Bubbles[0].Text):"";}
+        HeadBubbleOptions.SetCached(true);
+        try{
+            t.Equal("賣藥水",Bubble(o.ShopAt+1),"頭上對話框：第一行");
+            t.Equal("便宜賣",Bubble(o.ShopAt+5001),"頭上對話框：5 秒後換第二行");
+        }finally{HeadBubbleOptions.SetCached(null);}
         // 沒有 0xFF、超過 40 byte：第 41 byte 起是第二行。
         var longText=new string('a',40)+"bcd";
         w.Receive(ShopAction(Shop,Big5(longText)),"offline");o=w.Objects.Single(x=>x.ObjectId==Shop);
-        t.Equal(new string('a',40),w.NameMarksFor(Shop,o.ShopAt).Line252,"滿 40 byte：第一行");
-        t.Equal("bcd",w.NameMarksFor(Shop,o.ShopAt+5000).Line252,"滿 40 byte：第二行");
+        t.Equal(new string('a',40),Shown(o.ShopAt),"滿 40 byte：第一行");
+        t.Equal("bcd",Shown(o.ShopAt+5000),"滿 40 byte：第二行");
         // 收攤（S158 其他動作）→ 沒有訊息。
         w.Receive(P([158],Le32(Shop),[0]),"offline");
-        t.Equal("",w.NameMarksFor(Shop,Environment.TickCount64).Line252,"收攤後不顯示");
+        t.Equal("",Shown(Environment.TickCount64),"收攤後不顯示");
         // 世界重設清掉原始 byte。
         var raw=(System.Collections.ICollection)typeof(WorldSession).GetField("shopTitleRaw",F)!.GetValue(w)!;
         t.Check(raw.Count==1,"觀察器存了原始 byte",raw.Count);
