@@ -84,9 +84,9 @@ public sealed partial class WorldSession {
         var page=RenderHyperText(html,args,Actor?.Name??"",lines);
         // Player-query results (y_who, pc_show, /rank): links/actions stay visible but disabled.
         if(page.Options.Length>0)page=page with{Options=page.Options.Select(o=>o with{Enabled=false}).ToArray(),Limitation=string.Join("\n",new[]{page.Limitation,"查詢結果頁的選項尚未支援。"}.Where(s=>s.Length>0))};
-        QueryPage=page;QueryHtml=html;queryEpoch=WorldEpoch;QueryActionable=false;queryArguments=[];QueryRevision++;
+        QueryPage=page;QueryHtml=html;queryEpoch=WorldEpoch;QueryActionable=false;QueryLocal=false;queryArguments=[];QueryRevision++;
     }
-    public bool CloseQueryPage(){if(QueryPage==null)return false;QueryPage=null;QueryHtml="";QueryActionable=false;queryArguments=[];QueryRevision++;return true;}
+    public bool CloseQueryPage(){if(QueryPage==null)return false;QueryPage=null;QueryHtml="";QueryActionable=false;QueryLocal=false;queryArguments=[];QueryRevision++;return true;}
     // W2-A（T234／#556，windows-2.md §4）：伺服器主動送、物件 id 是自己的 S39（3.81 S_ShowPolyList 的 monlist、pledge 等）。
     // 原版一律交給同一個 NPC 對話窗（S_HYPERTEXT sub_940030 → sub_BBCB00）；id 剛好是 "monlist" 時走一般 HTML（sub_874A10）。
     // 這裡放在查詢頁（與 NPC 對話共用面板），不取代進行中的 NPC 對話／交易，也不受選取目標改變影響。
@@ -94,14 +94,16 @@ public sealed partial class WorldSession {
     public bool QueryActionable {get;private set;}
     uint queryObject;string[] queryArguments=[];
     void ReceiveServerPage(uint self,string html,string[] args,string[]? fallback){
-        if(html.Length==0){if(QueryActionable)CloseQueryPage();return;}
+        // R13-A：伺服器的「關頁」只關伺服器頁；選單開的本機頁不是伺服器開的，不關（推測）。
+        if(html.Length==0){if(QueryActionable&&!QueryLocal)CloseQueryPage();return;}
         ShowServerPage(self,html,args,fallback);
     }
     void ShowServerPage(uint self,string html,string[] args,string[]? fallback){
-        QueryPage=RenderHyperText(html,args,Actor?.Name??"",fallback);QueryHtml=html;queryEpoch=WorldEpoch;queryObject=self;queryArguments=args;QueryActionable=true;QueryRevision++;
+        QueryPage=RenderHyperText(html,args,Actor?.Name??"",fallback);QueryHtml=html;queryEpoch=WorldEpoch;queryObject=self;queryArguments=args;QueryActionable=true;QueryLocal=false;QueryRevision++;
     }
     NpcOption? FindQueryOption(int option,int revision,string kind)=>QueryVisible&&QueryActionable&&revision==QueryRevision?QueryPage!.Options.FirstOrDefault(o=>o.Id==option&&o.Enabled&&o.Kind==kind):null;
-    public bool OpenQueryLink(int option,int revision){if(FindQueryOption(option,revision,"link") is not {} o)return false;ShowServerPage(queryObject,o.Value,queryArguments,null);return true;}
+    // R13-A：本機頁的 link 換到同名的本機頁（仍是本機頁模式），不送封包。
+    public bool OpenQueryLink(int option,int revision){if(FindQueryOption(option,revision,"link") is not {} o)return false;if(QueryLocal)ShowLocalOptionPage(o.Value);else ShowServerPage(queryObject,o.Value,queryArguments,null);return true;}
     // HyperAct "checkpk" is handled by the client itself (C51), same as on NPC pages.
     public byte[]? QueryActionPacket(int option,int revision){
         if(FindQueryOption(option,revision,"action") is not {} o||queryObject==0||Status?.ObjectId!=queryObject)return null;
@@ -113,7 +115,7 @@ public sealed partial class WorldSession {
     // this action itself and sends the field-less C_CHECK_PK instead of C_HACTION.
     public const string CheckPkAction="checkpk";
     // R6-E（FU7§1.1）：HyperAct "accepttrade"（同一個名稱字串區 FO 0xDA7860；類別 HyperActAcceptTrade，sub_581790）：
-    // 客戶端自己把交易詢問旗標取反，不送包；原版接著重開選項頁 option13（本引擎沒有這個本機頁，維持目前的頁）。
+    // 客戶端自己把交易詢問旗標取反，不送包；原版接著重開選項頁 option13（R13-A：本機頁上點時重畫目前這頁，見 LocalOptionPage.cs；伺服器頁維持目前的頁）。
     public const string AcceptTradeAction="accepttrade";
     public static bool IsAcceptTradeAction(string? action)=>string.Equals(action?.Trim(),AcceptTradeAction,StringComparison.OrdinalIgnoreCase);
     /// <summary>R2-F：目前對話 NPC 的外型（物件 gfx）；對話無效時為 null。xchgspell／buyspell 依此分流（SS2§1.1）。</summary>
@@ -152,6 +154,8 @@ public sealed partial class LoginConnection {
     public async Task<bool> QueryOption(int option,int revision,int epoch){
         if(State!=LoginState.InWorld||epoch!=World.WorldEpoch||revision!=World.QueryRevision||!World.QueryVisible||!World.QueryActionable)return false;
         if(World.OpenQueryLink(option,revision))return true;
+        // R13-A：本機頁的動作只在本機執行（LocalOptionPage.cs），其他動作已停用，永遠不送 C125。
+        if(World.QueryLocal)return await LocalOptionAction(option,revision,epoch);
         if(interactionSending||MovementBusy||sendMovementGate==null||World.ActionLocked||World.TradeBlocksActions)return false;
         // R2-F：exitghost 由客戶端自己處理（R2-D 的 TryHyperAction 送 C173），不送 C125；送出後照其他動作關頁。
         if(World.QueryActionValue(option,revision) is {} trade&&WorldSession.IsAcceptTradeAction(trade))return await ToggleAcceptTrade(PlayerHudActions.Stamp(this));
