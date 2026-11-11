@@ -420,3 +420,4 @@
 - 2026-11-11 — #1010 T439：Q9-D HTML `<var>` 選項值（3.81 範圍）（code，claude-local，PR 已合併）→ [報告](reports/issue-1010.md)
 - 2026-11-11 — #1012 T441：gap-matrix 第十輪與 M7 結案判定（resource，claude-local，PR 已合併）→ [報告](reports/issue-1012.md)
 - 2026-11-11 — #1021 T442：R13-A 本機選項頁可操作（code，claude-local，PR 已合併）→ [報告](reports/issue-1021.md)
+- 2026-11-11 — #1024 T443：M7 結案覆核——R13-A 合併後重算 gap-matrix（15.16）（resource，claude-local，PR 已合併）→ [報告](reports/issue-1024.md)
