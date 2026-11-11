@@ -15,8 +15,14 @@ namespace P06.NativeUi;
 // - 提示（sub_B0DAF0 FO 0x70CEF0）：desc-c.tbl 第 desc 行；`^`＝強制換行（最多 64 行）；框寬＝最寬一行 6 px×位元組數 +20、
 //   取 4 的倍數，框高＝12×（行數＋1）；字色 0xBDF7（RGB565）。
 // - 鍵盤 sub_C01060：27（ESC）→ 關窗。
+// R10-T（T407／#924，FU13§4，D6–D10）已驗證：
+// - OverSurf＝可用格滑鼠移上去時畫；DisableOverSurf="13" 不是 surf 編號，是 XmlBoardImage 的色塊強度（sub_AED660 存 +393）：
+//   停用格**每一幀都畫**一塊格子大小的 palette[0] 半透明矩形（sub_B44890 → sub_970B80），與滑鼠無關；
+//   畫在怪物圖（＝格子的 BaseSurf）之上、徽章與等級字（子元件）之下。強度 1–30 半透明、≥31 實心、0＝不畫。
+// - 停用格不吃點擊、不能拖，提示仍顯示（sub_B47010，FU13§4.3）。
+// - 可用格的順序（sub_B45320）：Base → Highlight（滑鼠在上且沒按著）→ Over（滑鼠在上）→ Push（按著）；SummonUI 的格子沒有 Highlight／Push。
+// 推測（真機再確認）：palette[0] 先用黑色、強度刻度 /32（13/32 ≈ 40%）；快速格裡的怪物停用時也畫色塊（同一套 XmlListItem 規則）。
 // 推測（報告已列，真機再確認 M39）：
-// - OverSurf／DisableOverSurf 是滑鼠移上去時畫（可用格 OverSurf、停用格 DisableOverSurf）；停用格不吃點擊、不能拖。
 // - 「放進這一格（或交換）」的交換：拖來的怪物已在另一格時兩格互換；快速格有內容時只畫怪物圖（不畫空格底圖 4958）。
 // - 提示框位置：XML 的 HAlign="center" VAlign="bottom" 解讀成「格子正下方置中」，再夾進 800×600；沒有 `^` 時不自動換行（框寬來源沒追）；
 //   框底色＝XML BackColor（0,0,0）不透明；字從框內 (10,6) 起每行 12 px。
@@ -138,7 +144,14 @@ public sealed class SummonPanel:IUiMovablePanel,IUiClosablePanel {
     public static Color TooltipTextColor=>From565(TooltipColor565);
     internal static Color From565(ushort c)=>Color.FromArgb((c>>11&31)*255/31,(c>>5&63)*255/63,(c&31)*255/31);
     internal sealed record Part(string Key,Rectangle Rect,int Base,int? Push);
-    internal sealed record Slot(Part Part,Point LabelOrigin,Size LabelSize,string Caption,Point LabelImageAt,int LabelImage,int Over,int? DisableOver,int? TooltipDesc,Color TooltipBack);
+    /// <summary>DisableOver＝停用色塊強度（DisableOverSurf 的數字，不是 surf；null＝XML 沒寫）；Highlight／Push＝ListItem 的 HighlightSurf／PushSurf（沒寫＝null）。</summary>
+    internal sealed record Slot(Part Part,Point LabelOrigin,Size LabelSize,string Caption,Point LabelImageAt,int LabelImage,int Over,int? DisableOver,int? TooltipDesc,Color TooltipBack,int? Highlight=null,int? Push=null);
+    /// <summary>FU13§4.1：palette[0]（dword_1369D70[0]）推測是黑色。</summary>
+    public static readonly Color DisableOverColor=Color.Black;
+    /// <summary>sub_B44890：強度 ≥ 31 畫實心色塊。</summary>
+    public const int DisableOverSolid=31;
+    /// <summary>強度 → 色塊不透明度（0–255）：0＝不畫、1–30＝強度/32、≥31＝實心。</summary>
+    public static int DisableOverAlpha(int strength)=>strength<=0?0:strength>=DisableOverSolid?255:(strength*255+DragAlphaScale/2)/DragAlphaScale;
 
     readonly UiResources? resources;
     Func<int,UiSurface?> surf=_=>null;
@@ -225,7 +238,8 @@ public sealed class SummonPanel:IUiMovablePanel,IUiClosablePanel {
             var tip=item.ChildrenNamed("Tooltip").FirstOrDefault(c=>c.Attr("Name")=="Desc_Tooltip");
             return new(new(key,rect,SurfId(item,"BaseSurf"),null),new(label.Int("X"),label.Int("Y")),new(label.Int("Width"),label.Int("Height")),
                 label.RequiredAttr("Caption"),new(image.Int("X"),image.Int("Y")),SurfId(image,"Surf"),SurfId(item,"OverSurf"),
-                item.Attr("DisableOverSurf")!=null?SurfId(item,"DisableOverSurf"):null,tip?.TryInt("Desc"),ParseColor(tip?.Attr("BackColor"))??Color.Black);
+                item.Attr("DisableOverSurf")!=null?DisableOverStrength(item):null,tip?.TryInt("Desc"),ParseColor(tip?.Attr("BackColor"))??Color.Black,
+                item.Attr("HighlightSurf")!=null?SurfId(item,"HighlightSurf"):null,item.Attr("PushSurf")!=null?SurfId(item,"PushSurf"):null);
         }
         var quickList=Direct(window,"List","QuickSummonLevel_List");
         quick=Flow(quickList,Pos(quickList,zero),Measure,missing).Select((x,i)=>ToSlot(x.Node,x.Rect,"quick:"+i)).ToArray();
@@ -260,6 +274,13 @@ public sealed class SummonPanel:IUiMovablePanel,IUiClosablePanel {
         if(!int.TryParse(parts[2].Trim(),System.Globalization.NumberStyles.None,System.Globalization.CultureInfo.InvariantCulture,out int a)||a>DragAlphaScale)
             throw new UiLayoutException(image.Layout.FileName,image.Path,$"{DragImageName} Surf=\"{image.Attr("Surf")}\" 第三欄不是 0–{DragAlphaScale}");
         return a;
+    }
+    /// <summary>DisableOverSurf="13" → 13（sub_AED660 以 atoi 存成色塊強度，FU13§4.1）；不是非負整數 → 版面錯誤（不猜）。</summary>
+    internal static int DisableOverStrength(UiNode item){
+        string raw=item.RequiredAttr("DisableOverSurf").Trim();
+        if(!int.TryParse(raw.Split(';')[0].Trim(),System.Globalization.NumberStyles.None,System.Globalization.CultureInfo.InvariantCulture,out int v))
+            throw new UiLayoutException(item.Layout.FileName,item.Path,$"DisableOverSurf=\"{raw}\" 不是色塊強度");
+        return v;
     }
     /// <summary>"0,0,0" → Color；格式不對 → null。</summary>
     static Color? ParseColor(string? raw){
@@ -305,7 +326,8 @@ public sealed class SummonPanel:IUiMovablePanel,IUiClosablePanel {
 
     IEnumerable<SummonMonster> LevelMonsters=>selectedLevel is int i?monsters.Where(m=>m.Level==LevelOf(i)):[];
     internal bool Enabled(SummonMonster m)=>shown is {} s&&SummonCatalog.Usable(s.Level,s.Charisma,m);
-    /// <summary>目前可點的元件（相對視窗座標）：快速格兩頁都在（按下召喚、也是拖放目標）；停用的怪物格不在（推測，M39）。</summary>
+    /// <summary>目前可點的元件（相對視窗座標）：快速格兩頁都在（按下召喚、也是拖放目標）；停用的怪物格不在
+    /// （已驗證，FU13§4.3：停用的 XmlListItem 按下不呼叫 MouseEvent、不開始拖曳；提示仍顯示，見 SlotAt）。</summary>
     internal IEnumerable<Part> Active(){
         yield return close;
         foreach(var q in quick)yield return q.Part;
@@ -364,12 +386,21 @@ public sealed class SummonPanel:IUiMovablePanel,IUiClosablePanel {
             canvas.DrawText(text,origin.X+at.X+(box.Width-m.Width)/2,origin.Y+at.Y+(box.Height-m.Height)/2,Color.White);
         }
         void Button(Part p)=>Draw(pressed==p.Key&&p.Push is int push?push:p.Base,p.Rect.Location);
-        // 格子：底圖 → 滑鼠移上去的 Over／DisableOver → 怪物圖 → 徽章（XML Surf＋type）→ 等級字。
+        // 格子（sub_B45320，FU13§4.2）：底圖 → 怪物圖（原版＝這一格的 BaseSurf）→
+        //   停用：DisableOverSurf 色塊（常駐，與滑鼠無關）；可用：Highlight（滑鼠在上且沒按著）→ Over（滑鼠在上）→ Push（按著）
+        //   → 子元件：徽章（XML Surf＋type）→ 等級字。
         void DrawSlot(Slot s,SummonMonster? m,bool quickSlot){
             var at=s.Part.Rect.Location;
             if(!quickSlot||m==null||surf(m.Surf)==null)Draw(s.Part.Base,at);
-            if(hover==s.Part.Key){int? over=m==null||Enabled(m)?s.Over:s.DisableOver;if(over is int o)Draw(o,at);}
             if(m!=null)Draw(m.Surf,at);
+            if(m!=null&&!Enabled(m)){
+                if(s.DisableOver is int strength)FillDisableOver(canvas,Absolute(s.Part.Rect),strength);
+            }else{
+                bool over=hover==s.Part.Key,down=pressed==s.Part.Key;
+                if(over&&!down&&s.Highlight is int hl)Draw(hl,at);
+                if(over)Draw(s.Over,at);
+                if(down&&s.Push is int push)Draw(push,at);
+            }
             Draw(s.LabelImage+(m?.Type??0),new(at.X+s.LabelImageAt.X,at.Y+s.LabelImageAt.Y));
             Text(m?.Level.ToString(System.Globalization.CultureInfo.InvariantCulture)??s.Caption,new(at.X+s.LabelOrigin.X,at.Y+s.LabelOrigin.Y),s.LabelSize);
         }
@@ -392,6 +423,13 @@ public sealed class SummonPanel:IUiMovablePanel,IUiClosablePanel {
         }
         // R10-O：拖曳中的怪物圖畫在最上層（SummonDrag_Image，透明度 dragAlpha/32，推測）。
         if(DragImage is {} drag&&dragging is {} dm&&surf(dm.Surf) is {} ds&&dragAlpha is int alpha)DrawTranslucent(canvas,ds,drag.Location,alpha);
+    }
+    /// <summary>sub_B44890 → sub_970B80：格子大小的 palette[0] 色塊，不透明度＝DisableOverAlpha(強度)。</summary>
+    internal static void FillDisableOver(UiCanvas canvas,Rectangle rect,int strength){
+        int a=DisableOverAlpha(strength);
+        if(a<=0||rect.Width<=0||rect.Height<=0)return;
+        using var brush=new SolidBrush(Color.FromArgb(a,DisableOverColor));
+        canvas.Graphics.FillRectangle(brush,rect);
     }
     static void DrawTranslucent(UiCanvas canvas,UiSurface s,Point at,int alpha){
         if(alpha<=0)return;
