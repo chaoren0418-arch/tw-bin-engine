@@ -42,12 +42,49 @@ public static class UiResourcePins {
 }
 
 /// <summary>Debug-only log lines (e.g. ui-xml-fallback, missing surf). The original client logs none of these.</summary>
+/// <remarks>T404 (#919): with <c>--evidence &lt;dir&gt;</c> on the command line every line is also appended, with a local
+/// timestamp, to <c>&lt;dir&gt;/native-ui.log</c> for the real-machine smoke (gap-matrix 15.12.6/15.12.7). Without the
+/// argument nothing changes. A failed write is swallowed (only remembered in <see cref="LastEvidenceError"/>).</remarks>
 public static class UiResourceLog {
+    public const string EvidenceFileName="native-ui.log";
     static readonly object gate=new();
     static readonly Queue<string> recent=new();
+    static readonly System.Text.UTF8Encoding utf8=new(false);
+    static string? evidenceDirectory;static bool evidenceResolved;
+    /// <summary>Value after <c>--evidence</c> in <paramref name="argv"/>, or null when absent/empty.</summary>
+    public static string? EvidenceArgument(IReadOnlyList<string> argv){
+        for(int i=0;i+1<argv.Count;i++)if(argv[i]=="--evidence")return string.IsNullOrWhiteSpace(argv[i+1])?null:argv[i+1];
+        return null;
+    }
+    /// <summary>Directory receiving native-ui.log; resolved once from the process command line. Settable for tests (null = off).</summary>
+    public static string? EvidenceDirectory{
+        get{lock(gate)return ResolveEvidence();}
+        set{lock(gate){evidenceDirectory=string.IsNullOrWhiteSpace(value)?null:value;evidenceResolved=true;}}
+    }
+    public static string? LastEvidenceError{get;private set;}
+    static string? ResolveEvidence(){
+        if(!evidenceResolved){
+            try{evidenceDirectory=EvidenceArgument(Environment.GetCommandLineArgs());}catch(Exception){evidenceDirectory=null;}
+            evidenceResolved=true;
+        }
+        return evidenceDirectory;
+    }
     public static void Write(string line){
-        lock(gate){recent.Enqueue(line);while(recent.Count>200)recent.Dequeue();}
+        lock(gate){
+            recent.Enqueue(line);while(recent.Count>200)recent.Dequeue();
+            if(ResolveEvidence() is string dir)AppendEvidence(dir,line);
+        }
         System.Diagnostics.Trace.WriteLine("[native-ui] "+line);
+    }
+    static void AppendEvidence(string dir,string line){
+        try{
+            string text=DateTimeOffset.Now.ToString("yyyy-MM-dd'T'HH:mm:ss.fffzzz",System.Globalization.CultureInfo.InvariantCulture)
+                +" [native-ui] "+(line??"").Replace("\r\n"," ").Replace('\r',' ').Replace('\n',' ')+"\n";
+            Directory.CreateDirectory(dir);
+            using var file=new FileStream(Path.Combine(dir,EvidenceFileName),FileMode.Append,FileAccess.Write,FileShare.ReadWrite|FileShare.Delete);
+            file.Write(utf8.GetBytes(text));
+            LastEvidenceError=null;
+        }catch(Exception ex){LastEvidenceError=ex.GetType().Name+": "+ex.Message;} // never affects the game
     }
     public static string[] Recent(){lock(gate)return recent.ToArray();}
 }
