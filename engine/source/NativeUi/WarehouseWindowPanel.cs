@@ -28,20 +28,35 @@ public enum WarehouseSortColumn { None, Name, Amount }
 /// WAREHOUSE_WINDOW (windows-2.md §2.2): base 3001 (6, 9), frame 3002, exit 3031 (225, 15), scrollbar 3024 (217, 61), arrows 3025
 /// (217, 47) / 3027 (217, 285), total 3007 (19, 25), name 3008 (117, 35), amount 3009 (162, 35), sort buttons 3010/3012 at
 /// (150, 37) and (206, 37), tabs 3020–3023 at (17, 300), OK 3014 (60, 326), cancel 3017 (127, 326). Elements without a position
-/// (knob 3029, 3003/3005, mail 2303/2304) are not drawn. Opens by itself when a warehouse list arrives.
+/// (knob 3029, mail 2303/2304) are not drawn as window parts. Opens by itself when a warehouse list arrives.
+///
+/// R10-P (T400／#915; docs/reference/followups-12.md §1, 已驗證 for 3.81 LiTo.bin): the count is chosen inside each row — "▼ count ▲",
+/// starting at 0; only rows whose count is above 0 are selected and sent. ▲ +1 (above the held count → 0); ▼ −1 (at 0 → the held
+/// count). Clicking a row focuses it and clears the input buffer; then '0'–'9' type digits (buffer × 10 + digit, capped at the held
+/// count), Backspace drops the last digit, numpad + / − act as ▲ / ▼. OK sends only the rows with a count; withdraw shows
+/// "kinds × 30" adena. No quantity prompt in the chat line (the original has none).
 /// </summary>
-public sealed class WarehouseWindowPanel(ItemIconSource? icons=null):LegacyWindowPanel {
-    [UiPanel(175)] internal static UiPanelRegistration Registration=>new(WindowId,Layout,root=>new WarehouseWindowPanel(ItemIconSource.FromRoot(root)));   // R3-A (#678): opened by the warehouse list (S176 / deposit), no hotkey; R4-B (#706): row icons
+public sealed class WarehouseWindowPanel(ItemIconSource? icons=null,Func<string,IUiPanel?>? find=null):LegacyWindowPanel {
+    [UiPanel(175)] internal static UiPanelRegistration Registration=>new(WindowId,Layout,root=>new WarehouseWindowPanel(ItemIconSource.FromRoot(root),root.Find));   // R3-A (#678): opened by the warehouse list (S176 / deposit), no hotkey; R4-B (#706): row icons; R10-P (#915): chat lookup for the digit keys
     public const string WindowId="WAREHOUSE_WINDOW",Layout="uiextra86";
     public const int TabCount=4;
     public static readonly string[] TabNames=["SURF_RENEWAL_WAREHOUSE_TAB_ALL","SURF_RENEWAL_WAREHOUSE_TAB_EQUIP","SURF_RENEWAL_WAREHOUSE_TAB_QUEST","SURF_RENEWAL_WAREHOUSE_TAB_ETC"];
     const string SortUp="SURF_RENEWAL_WAREHOUSE_SORT_UP_OFF",SortDown="SURF_RENEWAL_WAREHOUSE_SORT_DOWN_OFF";
+    /// <summary>The two unplaced buttons of WAREHOUSE_WINDOW (3003 / 3005, 7 × 7 in the local client), used as the row ▲ / ▼ (推測 from the names).</summary>
+    public const string CountUpName="SURF_RENEWAL_WAREHOUSE_UP_OFF",CountDownName="SURF_RENEWAL_WAREHOUSE_DOWN_OFF";
+    /// <summary>
+    /// Row count geometry, relative to the row rectangle. 已驗證 (FU12§1.2, sub_4D83B0 / sub_4D8C40): 12 × 12 buttons, ▲ at x + 180,
+    /// name at x + 38, y + 3, count on the second line between ▼ and ▲. 推測 (not traced): ▼ at x + 120, the second line at
+    /// y + height − 14 (3.81 rows are 34 high, the uiextra86 rows 32).
+    /// </summary>
+    public const int CountButtonSize=12,CountUpX=180,CountDownX=120,NameX=38,NameY=3;
     public override string Id=>WindowId;
     public override string LayoutName=>Layout;
     Part? ok,cancel,nameSort,amountSort,total;Part[] tabParts=[];
+    UiSurface? countUp,countDown;
     UiWarehouseView? view;int? shownRevision;
     readonly Dictionary<uint,uint> selection=[];
-    uint? pressed;
+    (uint Id,int Step)? pressed;
 
     public ItemIconSource Icons{get;set;}=icons??ItemIconSource.None;
     public Func<string,string> ResolveName{get;set;}=ItemText.Resolve;
@@ -92,16 +107,65 @@ public sealed class WarehouseWindowPanel(ItemIconSource? icons=null):LegacyWindo
         };
     }}
     protected override int ScrollCount=>RowGrid.ScrollPositions(view?.Rows.Count??0);
+    /// <summary>Rows whose count is above 0 (the only selected rows, FU12§1.5 item 1) and their counts.</summary>
     public IReadOnlyDictionary<uint,uint> Selection=>selection;
-    /// <summary>Total fee of the selection: withdraw charges the per-row fee once per selected row (NpcServices: not per count).</summary>
+    /// <summary>
+    /// Total fee of the selection: withdraw charges the per-row fee once per selected kind, not per count (已驗證 sub_4DA9D0:
+    /// "selected rows × 30"; NpcServices does the same). Deposit has no fee.
+    /// </summary>
     public long SelectedFee=>view?.Kind=="withdraw"?(long)view.FeePerRow*selection.Count:0;
+    /// <summary>Row clicked last (keyboard target, sub_4D96E0 "first selected row"); null = none, keys pass through.</summary>
+    public uint? FocusedRow{get;private set;}
+    /// <summary>Digit input buffer of the focused row (list +0x90); a row click clears it to 0.</summary>
+    public uint InputBuffer{get;private set;}
+    public uint CountOf(uint id)=>selection.GetValueOrDefault(id);
 
-    /// <summary>Selects count of a row (0 clears it). Rejects unknown rows and counts above what the list allows.</summary>
+    /// <summary>Sets the count of a row (0 clears it). Rejects unknown rows and counts above what the list allows.</summary>
     public bool Select(uint id,uint count){
         var row=view?.Rows.FirstOrDefault(r=>r.Id==id);
         if(row==null||count>row.Available)return false;
         if(count==0)selection.Remove(id);else selection[id]=count;
         return true;
+    }
+    /// <summary>
+    /// ▲ (step +1, sub_4D8870): +1, above the held count → 0. ▼ (step −1, sub_4D8830): −1, at 0 → the held count (all).
+    /// The input buffer is not touched (the original keeps it apart from the count). false = unknown row.
+    /// </summary>
+    public bool Step(uint id,int step){
+        if(view?.Rows.FirstOrDefault(r=>r.Id==id) is not {} row||step==0)return false;
+        uint c=CountOf(id);
+        uint next=step>0?(c>=row.Available?0:c+1):(c==0?row.Available:c-1);
+        return Select(id,next);
+    }
+    /// <summary>Focuses a row and clears the input buffer (mouse press on a row, sub_4D8C40 this+144 = 0).</summary>
+    public bool Focus(uint id){
+        if(view?.Rows.Any(r=>r.Id==id)!=true)return false;
+        FocusedRow=id;InputBuffer=0;return true;
+    }
+    /// <summary>
+    /// '0'–'9' on the focused row (sub_4D9770): buffer = buffer × 10 + digit, capped at the held count (the buffer keeps the cap),
+    /// written to the row's count. false = no focused row.
+    /// </summary>
+    public bool TypeDigit(int digit){
+        if(digit is <0 or >9)throw new ArgumentOutOfRangeException(nameof(digit));
+        if(FocusedRow is not uint id||view?.Rows.FirstOrDefault(r=>r.Id==id) is not {} row)return false;
+        ulong next=(ulong)InputBuffer*10+(uint)digit;
+        InputBuffer=(uint)Math.Min(next,row.Available);
+        return Select(id,InputBuffer);
+    }
+    /// <summary>Backspace: buffer ÷ 10 (已驗證); the shortened buffer is written to the count as well (推測: same write-back as a digit).</summary>
+    public bool Backspace(){
+        if(FocusedRow is not uint id||view?.Rows.Any(r=>r.Id==id)!=true)return false;
+        InputBuffer/=10;
+        return Select(id,InputBuffer);
+    }
+    /// <summary>▲ button of a visible row (logical); 12 × 12 at row x + 180 on the second line. Empty for rows that are not shown.</summary>
+    public Rectangle CountUpRect(int row)=>CountButton(row,CountUpX);
+    public Rectangle CountDownRect(int row)=>CountButton(row,CountDownX);
+    Rectangle CountButton(int row,int x){
+        if(row<0||row>=VisibleRows.Count)return Rectangle.Empty;
+        var r=RowRect(row);
+        return new(r.X+x,r.Bottom-CountButtonSize-2,CountButtonSize,CountButtonSize);
     }
     public IReadOnlyList<ShopChoice> Choices=>view==null?[]:view.Rows.Where(r=>selection.ContainsKey(r.Id)).Select(r=>new ShopChoice(r.Id,selection[r.Id])).ToArray();
 
@@ -125,18 +189,23 @@ public sealed class WarehouseWindowPanel(ItemIconSource? icons=null):LegacyWindo
         RowGrid=LegacyCellGrid.Fit(tabs.X,Math.Min(up.Y,down.Y),right,tabs.Y,new(right-tabs.X,LegacyCellGrid.IconPitch),right-tabs.X);
         if(RowGrid.PageSize==0)throw new UiLayoutException(w.FileName,w.WindowId,"倉庫清單沒有空間（分頁／捲軸／上箭頭的位置不合理）");
         nameRight=w.Placed(SortUp,0).Offset!.Value.X-2;
-        Tab=0;SortColumn=WarehouseSortColumn.None;NameAscending=AmountAscending=true;view=null;shownRevision=null;selection.Clear();pressed=null;
+        // R10-P: the row ▲ / ▼ images; no position in the XML, drawn per row. Missing element or surf → not drawn (buttons still work).
+        countUp=w.Elements.FirstOrDefault(e=>e.SurfName==CountUpName) is {} cu?surfs(cu.Surf):null;
+        countDown=w.Elements.FirstOrDefault(e=>e.SurfName==CountDownName) is {} cd?surfs(cd.Surf):null;
+        Tab=0;SortColumn=WarehouseSortColumn.None;NameAscending=AmountAscending=true;view=null;shownRevision=null;ClearCounts();
     }
+    void ClearCounts(){selection.Clear();pressed=null;FocusedRow=null;InputBuffer=0;}
 
     protected override void OnUpdate(IUiGameState state){
         var next=FindState<IUiWarehouseState>(state)?.Warehouse;
-        if(next==null){view=null;shownRevision=null;selection.Clear();if(!RenderWithoutData)Close();return;}
+        if(next==null){view=null;shownRevision=null;ClearCounts();if(!RenderWithoutData)Close();return;}
         if(next.Revision!=shownRevision){
-            // A new list (new interaction revision): open, reset selection/scroll/tab/sort.
-            shownRevision=next.Revision;selection.Clear();ResetScroll();Tab=0;SortColumn=WarehouseSortColumn.None;NameAscending=AmountAscending=true;
+            // A new list (new interaction revision): open, every count back to 0 (row constructor +0x88 = 0), reset scroll/tab/sort.
+            shownRevision=next.Revision;ClearCounts();ResetScroll();Tab=0;SortColumn=WarehouseSortColumn.None;NameAscending=AmountAscending=true;
             view=next;Open();
         }else view=next;
         foreach(var id in selection.Keys.ToArray())if(next.Rows.FirstOrDefault(r=>r.Id==id) is not {} row||selection[id]>row.Available)selection.Remove(id);
+        if(FocusedRow is uint f&&!next.Rows.Any(r=>r.Id==f)){FocusedRow=null;InputBuffer=0;}
     }
 
     protected override IEnumerable<Rectangle> Controls()=>[OkRect,CancelRect,NameSortRect,AmountSortRect,TabStripRect,Logical(RowGrid.Area)];
@@ -147,39 +216,62 @@ public sealed class WarehouseWindowPanel(ItemIconSource? icons=null):LegacyWindo
         if(CancelRect.Contains(p)){CloseClicked(commands);return true;}
         if(OkRect.Contains(p)){Submit(commands);return true;}
         if(LegacyStrip.SegmentAt(TabStripRect,TabCount,p) is int tab){SetTab(tab);return true;}
-        if(RowAt(p) is {} row){pressed=row.Id;return true;}
+        if(RowGrid.SlotAt(Local(p)) is int slot&&slot<VisibleRows.Count){
+            // Press on a row (513 / 515 alike, no double-click action): focus it, clear the buffer, remember a ▼ / ▲ press.
+            var row=VisibleRows[slot];Focus(row.Id);
+            int step=CountUpRect(slot).Contains(p)?1:CountDownRect(slot).Contains(p)?-1:0;
+            if(step!=0)pressed=(row.Id,step);
+            return true;
+        }
         return false;
     }
     /// <summary>
-    /// Row press → release on the same row toggles it (whole count; a quantity prompt for stacks is 待驗證 and stays on the
-    /// WinForms NPC page); release on OK selects it (if not yet) and submits — "drag to OK". Elsewhere: nothing.
+    /// Release (514) still on the ▼ / ▲ that was pressed (same row, even after sorting) → one step. Anywhere else: nothing — the
+    /// original has no "drag to OK" and no whole-stack toggle (FU12§1.2).
     /// </summary>
     protected override void Release(Point p,IUiCommands commands){
-        if(pressed is not uint id){return;}
+        if(pressed is not var (id,step))return;
         pressed=null;
-        var row=view?.Rows.FirstOrDefault(r=>r.Id==id);if(row==null)return;
-        if(OkRect.Contains(p)){if(!selection.ContainsKey(id))Select(id,row.Available);Submit(commands);return;}
-        if(RowAt(p)?.Id==id)Toggle(id);
+        for(int r=0;r<VisibleRows.Count;r++)if(VisibleRows[r].Id==id){
+            if((step>0?CountUpRect(r):CountDownRect(r)).Contains(p))Step(id,step);
+            return;
+        }
     }
-    /// <summary>Selects the whole available count of a row, or clears it when already selected.</summary>
-    public bool Toggle(uint id){
-        var row=view?.Rows.FirstOrDefault(r=>r.Id==id);if(row==null)return false;
-        return selection.ContainsKey(id)?Select(id,0):Select(id,row.Available);
+    /// <summary>
+    /// Keys on the focused row (sub_4D9770): '0'–'9' (top row or numpad), Backspace, numpad + / − (4203 / 4205 = ▲ / ▼); Enter is
+    /// taken and does nothing (OK is a button). Without a focused row, while the chat input is open, or with modifiers: not taken.
+    /// </summary>
+    public override bool Key(UiKeyEvent e,IUiCommands commands){
+        if(!Visible||!e.Down||e.Modifiers!=Keys.None||FocusedRow is not uint id||view?.Rows.Any(r=>r.Id==id)!=true)return false;
+        if(find?.Invoke(ChatPanel.WindowName) is ChatPanel{Input.Open:true})return false;
+        var k=e.KeyCode;
+        if(k is >=Keys.D0 and <=Keys.D9){TypeDigit(k-Keys.D0);return true;}
+        if(k is >=Keys.NumPad0 and <=Keys.NumPad9){TypeDigit(k-Keys.NumPad0);return true;}
+        switch(k){
+            case Keys.Back:Backspace();return true;
+            case Keys.Add:Step(id,1);return true;
+            case Keys.Subtract:Step(id,-1);return true;
+            case Keys.Enter:return true;
+            default:return false;
+        }
     }
 
     protected override void PaintContent(UiCanvas canvas){
-        var rows=VisibleRows;
+        var rows=VisibleRows;var inv=System.Globalization.CultureInfo.InvariantCulture;
         for(int r=0;r<rows.Count;r++){
-            var rect=RowRect(r);var row=rows[r];bool on=selection.TryGetValue(row.Id,out uint count);
+            var rect=RowRect(r);var row=rows[r];uint count=CountOf(row.Id);
             ItemIconSource.Draw(canvas,Icons.For(row),rect.Location);
-            int textY=rect.Y+(rect.Height-UiText.Font.Height)/2;
-            var color=on?SelectedColor:TextColor;
-            DrawClipped(canvas,NameOf(row),rect.X+ItemIconSource.IconSize+4,textY,At(new(nameRight,0)).X,color);
-            DrawRightAligned(canvas,(on?count:row.Available).ToString(System.Globalization.CultureInfo.InvariantCulture),rect.Right-3,textY,color);
-            if(on)DrawFrame(canvas,rect,SelectedColor);
+            var color=count>0?SelectedColor:TextColor;
+            // Line 1: name (x + 38, y + 3) and the held count right-aligned; line 2: ▼ count ▲.
+            DrawClipped(canvas,NameOf(row),rect.X+NameX,rect.Y+NameY,At(new(nameRight,0)).X,color);
+            DrawRightAligned(canvas,row.Available.ToString(inv),rect.Right-3,rect.Y+NameY,TextColor);
+            var up=CountUpRect(r);var down=CountDownRect(r);
+            DrawCentered(canvas,countDown,down);DrawCentered(canvas,countUp,up);
+            DrawRightAligned(canvas,count.ToString(inv),up.X-2,up.Y+(up.Height-UiText.Font.Height)/2,color);
+            if(FocusedRow==row.Id)DrawFrame(canvas,rect,SelectedColor);
         }
-        // Withdraw fee of the selection after the TOTAL label (推測 position: right of the label, same line).
-        if(view?.Kind=="withdraw"&&selection.Count>0&&total?.Image is {} t){
+        // Withdraw fee (kinds × fee) after the TOTAL label (推測 position: right of the label, same line); 3.81 always draws it.
+        if(view?.Kind=="withdraw"&&total?.Image is {} t){
             var at=At(new(total.Offset.X+t.Width+4,total.Offset.Y));
             canvas.DrawText(SelectedFee.ToString(System.Globalization.CultureInfo.InvariantCulture),at.X,at.Y,TextColor,TextShadow);
         }
@@ -189,19 +281,24 @@ public sealed class WarehouseWindowPanel(ItemIconSource? icons=null):LegacyWindo
         else SortColumn=column;
         ResetScroll();
     }
+    static void DrawCentered(UiCanvas canvas,UiSurface? image,Rectangle box){
+        if(image==null||box.IsEmpty)return;
+        canvas.DrawSurface(image,box.X+(box.Width-image.Width)/2,box.Y+(box.Height-image.Height)/2);
+    }
     /// <summary>
-    /// OK: with a selection, forwards it once through IUiWarehouseCommands. Without those commands (the bridge does not provide
-    /// them yet) the dev-tools NPC page is opened instead — a transition, not original behaviour. Nothing is sent twice.
+    /// OK: sends only the rows whose count is above 0 (sub_4D9930), once, through IUiWarehouseCommands; nothing selected → nothing.
+    /// Without those commands (the bridge does not provide them yet) the dev-tools NPC page is opened instead — a transition,
+    /// not original behaviour.
     /// </summary>
     void Submit(IUiCommands commands){
         if(view==null||selection.Count==0)return;
-        if(FindCommands<IUiWarehouseCommands>(commands) is {} wc){wc.SubmitWarehouse(view.Revision,Choices);selection.Clear();}
+        if(FindCommands<IUiWarehouseCommands>(commands) is {} wc){wc.SubmitWarehouse(view.Revision,Choices);ClearCounts();}
         else commands.ShowDevTools("npc");
     }
     /// <summary>Exit / cancel: tells the game (when it can listen) and hides the window until the next list.</summary>
     protected override void CloseClicked(IUiCommands commands){
         if(view!=null)FindCommands<IUiWarehouseCommands>(commands)?.CancelWarehouse(view.Revision);
-        selection.Clear();Close();
+        ClearCounts();Close();
     }
 
     // ---------------------------------------------------------------- offline checks (synthetic XML and surfaces only)
