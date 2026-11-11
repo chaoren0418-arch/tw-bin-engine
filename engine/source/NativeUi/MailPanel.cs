@@ -36,9 +36,8 @@ namespace P06.NativeUi;
 //   (MailExcludeUI) is not wired (待做). Notices (MailView.Notice) are not drawn in the window.
 // - T426 (#970, FU15§2.7 已驗證): the original op 99 handler sub_941000 (FO 0x540400) prints the mail results in the chat
 //   window (sub_7DC800 / sub_7DC850, palette[24] / [14]), never in a window. Engine: MailNoticeRelay hands each new
-//   MailView.Notice to IMailPanelHost.ChatNotice (the texts the engine already has; no new strings). Notices set while one of
-//   this panel's own requests is in flight (send acknowledgements, local validation) are absorbed, so what reaches the
-//   chat line is the server-reply notice (推測 for the exact set: the engine notice is one string, not the 1239/1240/… ids).
+//   MailView.Notice to IMailPanelHost.ChatNotice. T431 (#988): Notice is the original string (MailNoticeLine: 1239–1244,
+//   1261＋400, 428, string-c.tbl); list / body replies and the engine's own messages (MailView.Status) print nothing.
 // - T403 (#918): the scroll thumb (ScrollBar Move_Button) can be dragged. It is hit where it is drawn (ThumbOffset); while the
 //   left button is held the position follows the pointer along the track (ScrollHeight − thumb height), rounded to the
 //   nearest row/line, keeping the grab point under the pointer (推測: the original drag rule was not traced). A thumb press
@@ -58,18 +57,31 @@ public interface IMailPanelHost {
 /// T426 (#970, FU15§2.7): decides which MailView.Notice changes go to the chat line. A new mail identity (stamp) only sets the
 /// baseline (nothing printed); while a request is in flight the change is absorbed; otherwise a notice different from the
 /// last one seen is printed once. Empty notices are never printed.
+/// T431 (#988): Notice is now only the original result line (string-c.tbl 1239–1244, 1261＋400, 428; MailView.Line) and
+/// MailView.Status (engine messages) is never relayed. A new NoticeSerial is a new line even with the same text (two
+/// deletions print 1243 twice, as sub_941000 does per reply). A new serial is a server reply, so it is printed even while one
+/// of the panel's requests is in flight and Absorb never swallows it (the original prints every reply); in-flight / Absorb
+/// still drop changes that carry no new serial.
 /// </summary>
 public sealed class MailNoticeRelay {
-    MailStamp? stamp;string? last;
-    /// <summary>Text to print for this snapshot, or null.</summary>
-    public string? Next(MailView v,bool inFlight){
-        if(stamp!=v.Stamp){stamp=v.Stamp;last=v.Notice;return null;}
-        if(v.Notice==last)return null;
-        last=v.Notice;
-        return inFlight||v.Notice.Length==0?null:v.Notice;
+    MailStamp? stamp;string? last;int serial;
+    /// <summary>Text to print for this snapshot, or null (the newest line when several arrived; see Lines).</summary>
+    public string? Next(MailView v,bool inFlight)=>Lines(v,inFlight) is {Count:>0} lines?lines[^1]:null;
+    /// <summary>
+    /// Every line to print for this snapshot, oldest first. When the serial moved by k and the view carries Recent, the last k
+    /// of Recent (at most its length) are printed, so two replies seen in one frame are two chat lines; otherwise Notice.
+    /// </summary>
+    public IReadOnlyList<string> Lines(MailView v,bool inFlight){
+        if(stamp!=v.Stamp){stamp=v.Stamp;last=v.Notice;serial=v.NoticeSerial;return [];}
+        if(v.Notice==last&&v.NoticeSerial==serial)return [];
+        int moved=v.NoticeSerial-serial;
+        last=v.Notice;serial=v.NoticeSerial;
+        if(moved==0&&inFlight)return [];
+        if(moved>0&&v.Recent is {Length:>0} recent)return recent[Math.Max(0,recent.Length-moved)..].Where(x=>x.Length>0).ToArray();
+        return v.Notice.Length==0?[]:[v.Notice];
     }
-    /// <summary>Takes the current notice as seen without printing it (after a request returns).</summary>
-    public void Absorb(MailView? v){if(v!=null&&stamp==v.Stamp)last=v.Notice;}
+    /// <summary>Takes the current notice as seen without printing it (after a request returns); a new reply line is kept for Next.</summary>
+    public void Absorb(MailView? v){if(v!=null&&stamp==v.Stamp&&v.NoticeSerial==serial)last=v.Notice;}
 }
 
 public enum MailPieceKind { Image, Label, Button, Edit }
@@ -337,7 +349,7 @@ public sealed class MailPanel(UiResources? resources=null):IUiMovablePanel,IUiCl
         if(Host==null)return;
         var v=Host.View;
         // T426 (#970): results go to the chat line whether or not the window is open (sub_941000 does not look at the window).
-        if(v!=null&&Notices.Next(v,inFlight>0) is {} line)Host.ChatNotice(line);
+        if(v!=null)foreach(var line in Notices.Lines(v,inFlight>0))Host.ChatNotice(line);   // T431 (#988): every reply line
         if(!open)return;
         if(v==null||stamp!=null&&v.Stamp!=stamp){Close();return;}
         View=v;
