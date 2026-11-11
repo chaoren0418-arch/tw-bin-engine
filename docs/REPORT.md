@@ -388,3 +388,4 @@
 - 2026-11-11 — #922 T405：R10-R list.spr 附加層接線（altdir／stride／cloth）（code，claude-local，PR #955 已合併）→ [報告](reports/issue-922.md)
 - 2026-11-11 — #917 T402：查證原版——Q8（StatInfo 數值與第七輪子項）（resource，claude-local，PR 已合併）→ [報告](reports/issue-917.md)
 - 2026-11-11 — #956 T414：查證原版——Q9-1 頭上對話框版面（resource，claude-local，PR 已合併）→ [報告](reports/issue-956.md)
+- 2026-11-11 — #957 T415：R11-A 選目標模式共用游標（code，claude-local，PR 已合併）→ [報告](reports/issue-957.md)
