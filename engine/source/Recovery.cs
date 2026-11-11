@@ -423,6 +423,8 @@ public sealed partial class ClientForm {
     bool nativeRecoveryShown;
     void InitRecovery(){
         recoveryPanel.Controls.AddRange([recoveryNotice,restartButton,deathQuitButton,deathCancelButton,deathCloseButton,deathResetButton]);Controls.Add(recoveryPanel);Controls.Add(deathReopenButton);
+        // T433（#991，classic-ui-audit G1）：死亡窗與「死亡選單」鈕屬於場景，不讓 InitDevTools 搬進開發工具（--classic-ui 死亡時才看得到）。
+        KeepOnScene(recoveryPanel,deathReopenButton);
         deathResetButton.Click+=(_,_)=>{
             long now=Environment.TickCount64;if(now<deathResetReadyAt)return;
             login.ResetUserPlayStats();deathResetReadyAt=now+UserPlayStatsRules.ResetCooldownMs;SyncRecovery();
@@ -486,10 +488,28 @@ public sealed partial class ClientForm {
         try{if(await login.CheckDeathTimeout())ClearInput("death-timeout-quit");SyncRecovery();}
         finally{deathTicking=false;}
     }
-    async Task DeathRestart(){ClearInput("restart-after-death");await login.RestartAfterDeath();SyncRecovery();}
+    async Task DeathRestart(){classicMenuPlayStats=false;ClearInput("restart-after-death");await login.RestartAfterDeath();SyncRecovery();}
     // "結束" (MouseEvent=Quit): the original handler is not verified; it uses the existing logout path (no packet).
-    void DeathQuit(){ClearInput("death-quit");CancelLogin(login.SessionGeneration,false);SyncRecovery();}
-    void DeathDismiss(){login.DismissDeathWindow();SyncRecovery();}
+    void DeathQuit(){classicMenuPlayStats=false;ClearInput("death-quit");CancelLogin(login.SessionGeneration,false);SyncRecovery();}
+    void DeathDismiss(){classicMenuPlayStats=false;login.DismissDeathWindow();SyncRecovery();}
+
+    // T433（#991，G8）：classic 的選單 7／Ctrl+Q／Alt+X 統計窗。比照原生 MenuPlayStatsSource（UiClientBridge.cs）：手動開啟只多一個
+    // 旗標；死亡中再按＝關閉死亡窗（Dismiss），否則切換旗標。手動開啟不送 C63（原生同樣只在死亡窗由關變開時送）。
+    bool classicMenuPlayStats;
+    internal bool ToggleClassicPlayStats(){
+        if(NativeUiActive||login.State!=LoginState.InWorld)return false;
+        var next=ClassicPlayStatsToggle(recoveryPanel.Visible,login.DeathSnapshot().WindowOpen);
+        classicMenuPlayStats=next.Menu;
+        if(next.DismissDeath)login.DismissDeathWindow();
+        SyncRecovery();return true;
+    }
+    /// <summary>G8：目前顯示中→關（死亡窗開著就 Dismiss）；沒顯示→手動開。</summary>
+    internal static (bool Menu,bool DismissDeath) ClassicPlayStatsToggle(bool shown,bool deathWindowOpen)=>shown?(false,deathWindowOpen):(true,false);
+    /// <summary>G1／G8：WinForms 死亡（統計）窗是否顯示。原生面板可用（native）時一律不顯示。</summary>
+    internal static bool ClassicRecoveryVisible(bool native,bool inWorld,bool deathWindowOpen,bool menuPlayStats)=>!native&&inWorld&&(deathWindowOpen||menuPlayStats);
+    /// <summary>G1：「死亡選單」鈕（死亡窗被關掉後重開）。原生面板可用時不顯示；死亡窗本身顯示時也不重複顯示。</summary>
+    internal static bool ClassicDeathReopenVisible(bool native,bool inWorld,bool dismissed,bool quitSent,bool ownDead,bool recoveryShown)=>
+        !native&&inWorld&&dismissed&&!quitSent&&ownDead&&!recoveryShown;
 
     // R2-D (#615): with the native UI active, UserPlayStatsUI and QUIT_WINDOW are IUiPanels; the WinForms panel stays the
     // fallback when the native UI is off or the panel faulted.
@@ -547,13 +567,15 @@ public sealed partial class ClientForm {
         if(nativeShown!=nativeRecoveryShown)Invalidate();
         nativeRecoveryShown=nativeShown;
         SyncQuitFallback();   // R5-I (#741): WinForms QUIT_WINDOW when no native panel is usable.
-        recoveryPanel.Visible=!native&&login.State==LoginState.InWorld&&view.WindowOpen;
-        deathReopenButton.Visible=login.State==LoginState.InWorld&&view.Dismissed&&!view.QuitSent&&login.World.OwnDead;
+        bool inWorld=login.State==LoginState.InWorld;
+        if(!inWorld||native)classicMenuPlayStats=false;
+        recoveryPanel.Visible=ClassicRecoveryVisible(native,inWorld,view.WindowOpen,classicMenuPlayStats);
+        deathReopenButton.Visible=ClassicDeathReopenVisible(native,inWorld,view.Dismissed,view.QuitSent,login.World.OwnDead,recoveryPanel.Visible);
         if(deathReopenButton.Visible){deathReopenButton.Location=new(Math.Max(0,(ClientSize.Width-deathReopenButton.Width)/2),160);deathReopenButton.BringToFront();}
         if(!recoveryPanel.Visible)return;
         // Screen position of the window is not in the XML (X=0,Y=0 is window-relative); centred like the previous panel.
         recoveryPanel.Location=new(Math.Max(0,(ClientSize.Width-recoveryPanel.Width)/2),160);
-        recoveryNotice.Text=(login.World.RestartRequested?"已送出重新開始，等待伺服器恢復。":"角色已死亡。")+(deathLayoutNotice.Length>0?"\n"+deathLayoutNotice:"");
+        recoveryNotice.Text=(login.World.RestartRequested?"已送出重新開始，等待伺服器恢復。":view.WindowOpen?"角色已死亡。":"遊戲統計（手動開啟）。")+(deathLayoutNotice.Length>0?"\n"+deathLayoutNotice:"");
         var stats=login.UserPlayStatsSnapshot();
         foreach(var (label,id) in deathValueLabels){string text=UserPlayStatsText.Value(stats,id)??UserPlayStatsPanel.ValuePlaceholder;if(label.Text!=text)label.Text=text;}
         restartButton.Enabled=login.CanRestart;deathResetButton.Enabled=Environment.TickCount64>=deathResetReadyAt;recoveryPanel.BringToFront();

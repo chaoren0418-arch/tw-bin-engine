@@ -15,7 +15,9 @@ namespace P06.NativeUi;
 /// R7-I (#811): Status = action 2 (CRenewalStatusUI): toggles the native RenewalStatusPanel through UiRoot.Toggle when it is
 /// available; DevToolsPage only when it is not (no reference ReNStatusUIEx.xml, faulted, no root).
 /// R9-Q (#861, #818 ruling): Option = action 6 (and Ctrl+V) toggles the native OptionPanel when it is available; HTML option1
-/// (Page) only when it is not. --classic-ui builds no native UI, so option1 stays the 3.81 entry there.
+/// (Page) only when it is not. --classic-ui builds no native UI (so no RIGHT_WINDOW and none of these hotkeys through this
+/// panel); there the HTML pages are reached through the dev-tools 「NPC」 tab buttons and the classic Ctrl+H／V／C／Q／P,
+/// Alt+X branch in DevToolsForm.cs (T433 #991, classic-ui-audit G6／G8), both calling the same ToggleMenuLocalPage.
 public sealed record MenuButtonAction(int Action,string Title,string? DevToolsPage,string? Window=null,bool PlayStats=false,bool Mail=false,MenuLocalPage? Page=null,bool Status=false);
 
 /// <summary>One IMAGE_BUTTON as loaded: logical rectangle (null when the normal surf is missing) and its state surfaces.</summary>
