@@ -45,7 +45,7 @@ namespace P06.NativeUi {
 // - "*_Label" Labels with String ids go through TextResolver. Since R7-N (#817) the product sets it to the reference client's
 //   own string table (RefClientTextSource.Resolver, registration below), because the reference ids do not match the local
 //   string-c.tbl (#768); with no reference client it is null and the labels are not drawn. "*_Value" Labels show ValueProvider(name); the engine has no bonus values (damage,
-//   hit, critical, carry, ER, MR …) yet, so in the product they are blank — the design-time Caption "0" is never drawn (待做).
+//   hit, critical, carry, ER, MR …) yet, so in the product they are blank — the design-time Caption "0" is never drawn (K1, see the R7-I values note below).
 // - Opening: RenewalStatusPanel's StatusBonus_Button (MouseEvent ShowStatInfoTooltip) is a CheckButton. When it becomes
 //   checked while the status window is open, this window opens next to the status window's right edge (kept inside
 //   800×600); unchecking it or closing the status window closes this one. Esc (KeyboardEvent CloseStatInfoWindow) closes.
@@ -53,9 +53,12 @@ namespace P06.NativeUi {
 //   product. op 43 (S64 kinds 1／2) closes it (StatInfoResetHide above; the original never opens it from op 43; gap-matrix
 //   15.6's R7-I row, which once said "op 43 開 StatInfo", was corrected in T403/#918 — the disassembly shows SetShow(0)). The check button keeps its state (原版未查).
 // - R7-I (#811) values: the product sets ValueProvider (BonusStatsUi.cs) to BonusValue over the status-window view. The 22
-//   rows are stat bonuses grouped by stat (BonusRows). TW16 keeps 22 row values in sub_7A7590()+0x23C (stride 0x14, index
-//   < 0x16, sub_EBB050) computed by sub_EB85F0 — not traced. The engine's own totals (MaxHp, MR…) are different numbers, so
-//   no row has a value source yet and every value stays blank (rule 5: no invented numbers; 待查).
+//   rows are stat bonuses grouped by stat (BonusRows). TW16 keeps 22 row strings in sub_7A7590()+0x23C (stride 0x14, index
+//   < 0x16; copied by sub_EBC240). FU15 (T402/#917, followups-15.md §1, 已驗證): the values are strings from a server protobuf
+//   reply (C157 sub id 484); the client only converts and recolours them. sub_EB85F0 (via sub_EBB050, +0x24C) picks the
+//   colour (current vs. base string), it does not compute values. 3.81 has no protobuf channel, so these rows are K1
+//   (server unsupported): every value stays blank on purpose (rule 5: no invented numbers). The engine's own totals
+//   (MaxHp, MR…) are different numbers and are not used here.
 
 public sealed record StatInfoRow(string Name,string? LabelName,string? LabelKind,string? LabelValue,string? ValueName,Point LabelOffset,Size LabelSize,
     Point ValueOffset,Size ValueSize,Color LabelColor,Color ValueColor,string ValueHAlign,string ValueVAlign,string LabelVAlign);
