@@ -29,6 +29,7 @@
 - 全部資料都是合成的（自寫的小 XML、單色圖），不讀主客戶端或參考客戶端。
 
 ## 怎麼驗證
+- PR #936 的 CI（run 42927776193／42927775021）：`dotnet`、`map-continuity`、`npc-offline` 都通過。`--module-tests` 裡 `summon-agit-followup` 是 pass、41 項 checks、0 failures；既有的 `summon-window`、`summon-panel` 等群組也都綠。
 - `python engine/tools/check-no-game-assets.py`：pass（tracked 4464、errors 0）。
 - 資源查詢（PakViewer CLI，唯讀，輸出放 `scratch/pak914/`，不進 repo）：`D:\lineage開發\0-客戶端\Tile.idx` 有 `SummonUI.xml`（8332 bytes）與 `summonList.xml`（2982 bytes）；`SummonUI.xml` 第一個元素就是 `<Image Name = "SummonDrag_Image" X ="0" Y = "0" Surf = "0;2;13" Activate="0"/>`。本任務沒有宣稱缺資源。
 - 本機編譯：**沒有成功跑完，原因跟本次修改無關**。在這台機器上，NuGet 解出 `Microsoft.Web.WebView2 1.0.4258.31` 時，assets 清單只列出 `.xml`、沒有 `.dll`（nupkg 裡其實有 DLL，`lib/net462/*.dll` 也解出來了），所以退回參照 `lib/*.winmd`，出現 NETSDK1130。改用 vendor 來源、`.github/nuget.ci.config` 或另指 `--packages scratch/nuget914` 都一樣，`rebuild.py --build` 也在 product-build 停在同一個錯誤。看起來是本機執行環境列不到 .dll 檔，不是原始碼的問題。編譯與測試以 PR 的 CI（ubuntu 交叉建置＋`--module-tests`）為準。
