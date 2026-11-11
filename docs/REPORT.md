@@ -396,3 +396,4 @@
 - 2026-11-11 — #967 T423：Q8-A 聊天列提示（血盟備註、委任）（code，claude-local，PR 已合併）→ [報告](reports/issue-967.md)
 - 2026-11-11 — #970 T426：Q8-C 小項（470 圖示、信件提示、公告板等待、ESC 順序）（code，claude-local，PR 已合併）→ [報告](reports/issue-970.md)
 - 2026-11-11 — #963 T421：R11-G 小清理（不對應列）（code，claude-local，PR 已合併）→ [報告](reports/issue-963.md)
+- 2026-11-11 — #961 T419：R11-E 頭上對話框（code，claude-local，PR 已合併）→ [報告](reports/issue-961.md)
