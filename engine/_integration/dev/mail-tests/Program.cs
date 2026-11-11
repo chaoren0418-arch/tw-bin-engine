@@ -111,7 +111,7 @@ static class Checks {
         Check(connection.World.MailSnapshot() is { ReadingId: 42, Body: "本文" } && connection.World.MailSnapshot().Headers[0].ReadStatus == 1, "read response applied");
         Check(await connection.Mail("store", 0, 42, stamp), "store existing id");
         Feed(connection, Ack(0x40, 42));
-        Check(connection.World.MailSnapshot().Headers.Length == 2 && connection.World.MailSnapshot().Notice.Contains("確認存入"), "store keeps server mixed list");
+        Check(connection.World.MailSnapshot().Headers.Length == 2 && connection.World.MailSnapshot().Line == new MailNoticeLine(MailNoticeLine.Stored), "store keeps server mixed list; result line 1241 (T431)");
         Check(await connection.Mail("delete", 2, 42, stamp) && connection.World.MailSnapshot().Headers.Length == 2, "delete waits for ACK");
         Feed(connection, Ack(0x32, 42));
         Check(connection.World.MailSnapshot() is { ReadingId: null, Body: "" } && connection.World.MailSnapshot().Headers.Length == 1, "delete response clears selected body");
@@ -120,10 +120,10 @@ static class Checks {
         Feed(connection, Body(0x10, 42, "late"));
         Check(connection.World.MailSnapshot().ReadingId == null, "late read of removed mail ignored");
         Feed(connection, LoginPackets.Pad([186, 0, 255, 255]));
-        Check(connection.World.MailSnapshot().Headers.Single().Id == 43 && connection.World.MailSnapshot().Notice.Contains("無法解析"), "invalid reply does not replace mailbox");
-        Check(await connection.Mail("write", 0, 0, stamp, "AB", "標題", "本文") && connection.World.MailSnapshot().Notice.Contains("沒有成功 ACK"), "send is not delivery success");
+        Check(connection.World.MailSnapshot().Headers.Single().Id == 43 && connection.World.MailSnapshot().Status.Contains("無法解析"), "invalid reply does not replace mailbox");
+        Check(await connection.Mail("write", 0, 0, stamp, "AB", "標題", "本文") && connection.World.MailSnapshot().Status.Contains("沒有成功 ACK"), "send is not delivery success (engine status, not a chat line)");
         Feed(connection, LoginPackets.Pad([186, 0x20]));
-        Check(connection.World.MailSnapshot().Notice.Contains("無法寄出"), "mailbox full failure");
+        Check(connection.World.MailSnapshot().Line == new MailNoticeLine(MailNoticeLine.RecipientFull), "mailbox full failure: 1240 (T431)");
         before = sends;
         Check(!await connection.Mail("write", 0, 0, stamp, "AB", "", "bad\0body") && before == sends, "validation at send boundary");
         var release = new TaskCompletionSource();

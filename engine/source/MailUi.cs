@@ -62,10 +62,24 @@ public sealed partial class ClientForm {
     }
     /// <summary>sub_7DC850 first colour for the mail result lines: palette[24] (FU15§2.7; same slot as the board's 189).</summary>
     internal const int MailChatColor = 24;
+    /// <summary>
+    /// T431 (#988): sub_7DC800 / sub_7DC850 second colour, palette[14] (dword_1369D70[14] in sub_941000). The chat line
+    /// (AddBoardChatNotice) takes one colour, the same as the board's 189 (BoardText.NoGoldSecondColor); kept as data.
+    /// </summary>
+    internal const int MailChatSecondColor = 14;
+}
+
+public sealed partial class MailDialog {
+    /// <summary>
+    /// T431 (#988, #980 第 2 點裁定): the --classic-ui notice line. The engine's own message (Status: waiting, validation,
+    /// unparsable reply) while there is one, else the original result string (Notice, FU15§2.7); then the last server message.
+    /// </summary>
+    internal static string NoticeText(MailView view, string? server, Func<string, string> display) =>
+        (view.Status.Length > 0 ? view.Status : view.Notice) + (server == null ? "" : "\n最近伺服器訊息：" + display(server));
 }
 
 // Modal native editor owns keyboard focus; the game cannot interpret body text as movement.
-public sealed class MailDialog : Form {
+public sealed partial class MailDialog : Form {
     readonly LoginConnection connection;
     readonly Func<string, string> displayMessage;
     readonly MailStamp stamp;
@@ -153,7 +167,7 @@ public sealed class MailDialog : Form {
             letters.EndUpdate(); refreshing = false; ShowSelectedBody();
         }
         string? server = connection.CaptureWorld(() => connection.World.LastServerMessage);
-        notice.Text = view.Notice + (server == null ? "" : "\n最近伺服器訊息：" + displayMessage(server));
+        notice.Text = NoticeText(view, server, displayMessage);
         UpdateButtons();
     }
     void UpdateButtons() {
