@@ -82,7 +82,7 @@ public sealed partial class ClientForm {
         memoButton.Click+=async(_,_)=>{
             string text=memoBox.Text;
             if(PledgePanel.MemoPromptError(text) is {} error){MessageBox.Show(window,error,"血盟",MessageBoxButtons.OK,MessageBoxIcon.Warning);return;}
-            buttons.ForEach(b=>b.Enabled=false);await login.SendClanContent(login.ClanMatchingSnapshot(),ClanMatchingProtocol.ContentNotes,text);Refresh();
+            buttons.ForEach(b=>b.Enabled=false);await login.SendClanContent(login.ClanMatchingSnapshot(),ClanMatchingProtocol.ContentNotes,ObsceneFilter.Apply(text));Refresh();   // T437 (#1008): obscene filter before sending
         };
         layout.Controls.Add(attention);
         layout.Controls.Add(announcement);

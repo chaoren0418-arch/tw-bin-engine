@@ -28,7 +28,9 @@ namespace P06.NativeUi;
 //   - 同一列有圖時列高＝最高的圖（至少 15），字與圖都靠上。每列開頭的空白去掉（HTML 的空白收合，簡化版）。
 //   - pN（PngList）圖的載入沒有接：當成沒有圖。沒有圖的可點圖改畫成文字標籤（「購買」／「出售」／alt；引擎自訂，避免功能消失）；
 //     沒有圖、不可點的圖不畫（缺圖就不畫）。
-//   - N ≥ 1000 的客戶端狀態變數（567／568 開關等）沒有接，與 NpcTemplates 相同顯示「缺少參數」。<time>／<date>／<may>／<subHtml> 不輸出。
+//   - N ≥ 1000 的客戶端狀態變數（567／568 開關等）沒有接，與 NpcTemplates 相同顯示「缺少參數」。<may>／<subHtml> 不輸出。
+// Q9-C（T438／#1009）：依 docs/reference/followups-17.md §3.2、§3.4（已驗證）：<date>＝「%2d%s %2d%s」（月＋字串 762＋日＋字串 763）、
+//   <time>＝「%02d:%02d」、<var src="#999">＝「%2d:%2d」、<var src="#998">＝玩家名稱；時間值經 sub_A23760 的 0x80000000 規則換算（HyperTextClock）。
 // 選項編號：與 NpcTemplates.Render 完全相同（每個關閉的 <a> 與每個帶 link／action 的 <img> 依出現順序 0,1,2…），面板據此把
 //   HyperTextView.Links 的 id 對到行內位置；對不上（數量或文字不同）就退回舊的「連結各占一列」排法。
 
@@ -188,12 +190,17 @@ public static class HyperTextMarkup {
                 string value;
                 if(src.StartsWith('#')&&int.TryParse(src.AsSpan(1),out int i)&&i>=0){
                     // 原版 0x8676F0：缺 #0 時用目前對話對象的名字；明確給的空字串維持空白（同 NpcTemplates）。
-                    if(i<args.Length)value=args[i];else if(i==0&&npc.Length>0)value=npc;else value=$"〔缺少參數 #{i}〕";
+                    // Q9-C：#998＝玩家名稱、#999＝「%2d:%2d」遊戲時間（客戶端變數，不讀參數；同 NpcTemplates）。
+                    if(i==HyperTextClock.PlayerNameVar)value=player;
+                    else if(i==HyperTextClock.ClockVar)value=HyperTextClock.VarTime(HyperTextClock.Value);
+                    else if(i<args.Length)value=args[i];else if(i==0&&npc.Length>0)value=npc;else value=$"〔缺少參數 #{i}〕";
                 }else value="〔不支援的參數〕";
                 if(Flag(part,"img")&&int.TryParse(value.Trim(),out int img)&&img>=0){Add(new(HyperTextNodeKind.Image,value,"",Style(),-1,align,Surf:SurfList(img),Src:"#"+img));break;}
                 Text(value,ReplaceFirstCaret(value),minWidth);break;}
             case "name":Text(npc);break;
             case "username":Text(player);break;
+            case "date":Text(HyperTextClock.Date(HyperTextClock.Value));break;   // Q9-C：case 17
+            case "time":Text(HyperTextClock.Time(HyperTextClock.Value));break;   // Q9-C：case 16
             case "br":Break(false,"\n");break;
             case "p":
                 Break(true,"\n");pAlign.Push(align);
@@ -212,11 +219,63 @@ public static class HyperTextMarkup {
             case "b":bold++;break;case "/b":bold=Math.Max(0,bold-1);break;
             case "i":italic++;break;case "/i":italic=Math.Max(0,italic-1);break;
             case "u":underline++;break;case "/u":underline=Math.Max(0,underline-1);break;
-            default:break;   // body／html／pre／time／date／may／subHtml 等：不輸出（同 NpcTemplates）
+            default:break;   // body／html／pre／may／subHtml 等：不輸出（同 NpcTemplates）
             }
         }
         return new(nodes,links);
     }
+}
+
+/// <summary>
+/// Q9-C（T438／#1009）：HTML 的 &lt;date&gt;／&lt;time&gt;／&lt;var src="#999"&gt; 用的遊戲時間（docs/reference/followups-17.md §3.2，已驗證）。
+/// 換算 sub_A23760（FO 0x622B60）：值 &lt; 0x80000000 直接當 time_t；否則減 2019686400（正好 23376 日）、年份 +64；再交給 sub_A23F20（推測 gmtime，UTC）。
+/// 時間來源：原版是全域 dword_154334C（寫入者推測是 S_TIME）。引擎取最後一個 S123（WorldSession.ServerTime）或 S8（Status.Time）的值，
+///   由 NpcTemplates.cs 的觀察器記下目前的 session（推測；與 Ambience 同樣兩個來源，真機再確認）。都還沒收到時用 0（原版全域初值，推測）。
+/// CodePage 1252 的 strftime("%b %d") 分支不做（本客戶端是 CP950）。
+/// </summary>
+public static class HyperTextClock {
+    public const uint HighBase=0x80000000;
+    public const long HighOffset=2019686400;
+    public const int PlayerNameVar=998,ClockVar=999;
+    /// <summary>字串表 762「月」、763「日」（§3.2）；沒有表（例如 CI）時用這兩個已驗證的字。</summary>
+    public const int MonthString=762,DayString=763;
+    public readonly record struct GameTime(int Year,int Month,int Day,int Hour,int Minute,int Second);
+    /// <summary>sub_A23760 ＋ gmtime。</summary>
+    public static GameTime Convert(uint value){
+        bool high=value>=HighBase;
+        var d=DateTime.UnixEpoch.AddSeconds(high?value-HighOffset:value);
+        return new(d.Year+(high?64:0),d.Month,d.Day,d.Hour,d.Minute,d.Second);
+    }
+    static string Str(int id,string fallback)=>ServerMessageText.Table is {} t?(id<t.Count?t[id]:""):fallback;
+    /// <summary>&lt;date&gt;（case 17）：「%2d%s %2d%s」＝月（寬 2）＋762＋空白＋日（寬 2）＋763。</summary>
+    public static string Date(uint value){var g=Convert(value);return string.Create(CultureInfo.InvariantCulture,$"{g.Month,2}{Str(MonthString,"月")} {g.Day,2}{Str(DayString,"日")}");}
+    /// <summary>&lt;time&gt;（case 16）：「%02d:%02d」（時:分）。</summary>
+    public static string Time(uint value){var g=Convert(value);return string.Create(CultureInfo.InvariantCulture,$"{g.Hour:00}:{g.Minute:00}");}
+    /// <summary>&lt;var src="#999"&gt;：「%2d:%2d」（時:分，空白補寬）。</summary>
+    public static string VarTime(uint value){var g=Convert(value);return string.Create(CultureInfo.InvariantCulture,$"{g.Hour,2}:{g.Minute,2}");}
+
+    static readonly object gate=new();
+    static WeakReference<WorldSession>? session;static bool statusLast;
+    static Func<uint?>? overrideSource;static bool overridden;
+    /// <summary>NpcTemplates.cs 的 S123／S8 觀察器呼叫：記下 session 與最後一個時間封包是哪一種。</summary>
+    internal static void Observed(WorldSession s,bool status){lock(gate){session=new(s);statusLast=status;}}
+    /// <summary>目前的遊戲時間原始值；還沒收到任何時間封包時是 null。</summary>
+    public static uint? Seconds{get{
+        WorldSession? s;bool status;
+        lock(gate){
+            if(overridden)return overrideSource?.Invoke();
+            if(session==null||!session.TryGetTarget(out s))return null;
+            status=statusLast;
+        }
+        uint? server=s.ServerTime,own=s.Status?.Time;
+        return status?own??server:server??own;
+    }}
+    public static uint Value=>Seconds??0;
+    /// <summary>測試用：換成指定的時間來源，直到 Dispose。</summary>
+    internal static IDisposable Use(Func<uint?> source){
+        lock(gate){var previous=(overridden,overrideSource);overridden=true;overrideSource=source;return new Scope(()=>{lock(gate)(overridden,overrideSource)=previous;});}
+    }
+    sealed class Scope(Action dispose):IDisposable{Action? action=dispose;public void Dispose(){Interlocked.Exchange(ref action,null)?.Invoke();}}
 }
 
 /// <summary>排好的一個片段：X／Y 相對於該列左上角（已含對齊位移）。Text 是畫的字（圖為空字串；沒有圖的可點圖是標籤）。</summary>
