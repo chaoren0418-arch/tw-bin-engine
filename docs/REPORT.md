@@ -392,3 +392,4 @@
 - 2026-11-11 — #959 T417：R11-C 好友 HyperAct（code，claude-local，PR 已合併）→ [報告](reports/issue-959.md)
 - 2026-11-11 — #962 T420：R11-F 分開音量（code，claude-local，PR 已合併）→ [報告](reports/issue-962.md)
 - 2026-11-11 — #960 T418：R11-D 選角空格／建角雙擊（code，claude-local，PR 已合併）→ [報告](reports/issue-960.md)
+- 2026-11-11 — #968 T424：Q8-B① 盟屋拍賣出價步進（code，claude-local，PR 已合併）→ [報告](reports/issue-968.md)
