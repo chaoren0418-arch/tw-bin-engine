@@ -53,8 +53,20 @@ namespace P06.NativeUi;
 //   Up 6411/6412/6412, Down 6413/6413/6413 (normal/highlight/push = sub_AFE580/sub_AFF270/sub_AFFB20 → sub_B0D810). These
 //   replace the XML BaseSurf/HighlightSurf/PushSurf; 6411–6414 are in the pinned local Sprite07–10. A missing one is not drawn.
 // - Keys (sub_EEDF00): Up/Down arrows move the selection and the page follows it (sub_EEEE60: page = index / 4); PageUp /
-//   PageDown (0x1021 / 0x1022) page like the buttons. The engine still selects characters only (TW16 can also select an
-//   empty slot). The mouse wheel pages too (推測: no wheel handler was found in CSelectUI).
+//   PageDown (0x1021 / 0x1022) page like the buttons. The mouse wheel pages too (推測: no wheel handler was found in CSelectUI).
+// R11-D (T418/#960; TW16 CSelectUI decompiled read-only, docs/reports/issue-960.md), 已驗證 in the binary:
+// - The selection this+344 is a row index, so an empty slot can be selected. CreateChar_SelectWin = sub_EEC3B0: 514 (click)
+//   selects the row when it differs (sub_EF0060), 515 (double click) opens the create screen (sub_EEC4A0). Up/Down keys
+//   move ±1 inside 0 … slots − 1 (sub_EEDF00 / sub_EEEE60: < byte_1542A97 and < 8) over characters and empty slots alike;
+//   locked rows are never selected. Enter on an empty slot opens the create screen (sub_EEDF00 → sub_EEC4A0). Opening the
+//   screen with nothing selected selects row 0 (sub_EF0490), i.e. the first empty slot when there is no character.
+// - Create_Button surfs (sub_EF13F0, empty row): p = its XML PushSurf; the selected row: normal = highlight = p; otherwise
+//   normal p − 2, highlight p − 1; push stays p. No PushSurf in the XML → its XML surfs are kept.
+// - An empty slot selected: the six CharacterInfo_List labels are set to "" (sub_EECB10; the six strings at 0x11E3C63 …
+//   0x11E3C77 are empty), Ok_SelectWin (sub_EEFDD0 → sub_EED8A0) and DeleteChar_SelectWin (sub_EEC6B0 → sub_EEC6D0) do
+//   nothing (class −1). The engine keeps those three disabled / hidden, which shows the same.
+// - The engine keeps the selection by name for characters (the list can change under it); an empty-slot selection is kept
+//   by row and becomes the character that later appears in that row (TW16: the index simply points at it).
 // - Delete_Button → Message_Window confirm (same text as the WinForms MessageBox) → Ok sends. Back_Button logs out.
 //   A refused action or the server's result notice after a delete is shown in Message_Window.
 // - Not built: Character_Ani (Effect, the selected character's animation), DeleteDelay_Image (no image id), Tooltips, the
@@ -98,6 +110,8 @@ public sealed class CharUiPiece {
     public UiSurface? Surface{get;init;}
     public UiSurface? Highlight{get;init;}
     public UiSurface? Push{get;init;}
+    /// <summary>A Button's XML PushSurf reference (R11-D: Create_Button derives its surfs from it, sub_EF13F0).</summary>
+    public OptionImageRef? PushImage{get;init;}
     public string? MouseEvent{get;init;}
     public string? TextKind{get;init;}
     public string? TextValue{get;init;}
@@ -158,7 +172,7 @@ internal sealed class CharUiBuilder(string file,Func<int,UiSurface?> surf,Func<U
         string? name=c.Attr("Name");
         if(skip?.Invoke(c) is {} reason){Skipped.Add($"{c.Path}（{name??c.Name}：{reason}）");return;}
         CharUiPiece Piece(CharUiKind kind,OptionImageRef? image=null,UiSurface? surface=null,UiSurface? high=null,UiSurface? push=null,
-            string? textKind=null,Color? color=null,int alpha=255)=>new(){Kind=kind,Path=c.Path,Name=name,Owner=ctx.Owner,ListName=ctx.List,Slot=ctx.Slot,Parent=ctx.Parent,Offset=at,
+            string? textKind=null,Color? color=null,int alpha=255,OptionImageRef? pushImage=null)=>new(){PushImage=pushImage,Kind=kind,Path=c.Path,Name=name,Owner=ctx.Owner,ListName=ctx.List,Slot=ctx.Slot,Parent=ctx.Parent,Offset=at,
             DeclaredSize=new(c.TryInt("Width")??0,c.TryInt("Height")??0),MouseEvent=c.Attr("MouseEvent"),
             Align=(c.Attr("Align")??c.Attr("HAlign")??"left").Trim().ToLowerInvariant(),VAlign=(c.Attr("VAlign")??"top").Trim().ToLowerInvariant(),LineMargin=c.TryInt("LineMargin")??0,
             Image=image,Surface=surface,Highlight=high,Push=push,TextKind=textKind,TextValue=textKind==null?null:c.Attr(textKind)!.Trim(),Color=color??Color.White,Alpha=alpha,
@@ -188,7 +202,7 @@ internal sealed class CharUiBuilder(string file,Func<int,UiSurface?> surf,Func<U
                 var ns=Resolve(normal,c.Path);
                 var hs=high==null?null:Resolve(high,c.Path+"/@HighlightSurf");
                 var ps=push==null?null:Resolve(push,c.Path+"/@PushSurf");
-                var b=Piece(CharUiKind.Button,normal,ns,hs,ps);
+                var b=Piece(CharUiKind.Button,normal,ns,hs,ps,pushImage:push);
                 into.Add(b);Walk(c,at,ctx with{Parent=b},into);return;
             }
             case "Edit":{
@@ -271,6 +285,11 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
     public int Rows{get;private set;}
     public int Scroll{get;private set;}
     public string? Selected{get;private set;}
+    /// <summary>R11-D: the selected empty slot's row (TW16 this+344 on an empty row); null while a character (or nothing) is selected.</summary>
+    public int? SelectedEmpty{get;private set;}
+    /// <summary>R11-D: the selected row (TW16 this+344): the character's index, the empty slot's row, or -1.</summary>
+    public int SelectedRow=>SelectedEmpty??(View is {} v&&Selected!=null?IndexOf(v,Selected):-1);
+    static int IndexOf(CharSelectView v,string name){for(int i=0;i<v.Characters.Count;i++)if(v.Characters[i].Name==name)return i;return -1;}
     public CharSelectMessage Shown{get;private set;}
     public string? MessageText{get;private set;}
     public bool Pending{get;private set;}
@@ -309,6 +328,8 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
     public static (int Normal,int Highlight,int Push) UpSurfs(int page)=>page<=0?(6411,6411,6411):(6411,6412,6412);
     /// <summary>R10-N sub_EF13F0: Down_Button (normal, highlight, push) for a page.</summary>
     public static (int Normal,int Highlight,int Push) DownSurfs(int page)=>page<=0?(6413,6414,6414):(6413,6413,6413);
+    /// <summary>R11-D sub_EF13F0: Create_Button (normal, highlight, push) of an empty row from its XML PushSurf p.</summary>
+    public static (int Normal,int Highlight,int Push) CreateSurfs(int push,bool selected)=>selected?(push,push,push):(push-2,push-1,push);
     /// <summary>R10-N: TW16's last page (sub_EECF90 / sub_EEDF00: page &lt; 1).</summary>
     public const int Tw16LastPage=1;
     /// <summary>Class index of a S93 class byte (32–38 = pending deletion).</summary>
@@ -354,7 +375,7 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
         Host=null;View=null;LayoutFile=null;Main=null;Message=null;Missing=[];Skipped=[];Unavailable="not loaded";Rows=0;lookup=null;dynamic.Clear();dynamicMissing.Clear();
         ResetState();
     }
-    void ResetState(){Scroll=0;Selected=null;Shown=CharSelectMessage.None;MessageText=null;Pending=false;deleting=null;closed=false;managing=false;pressed=null;hover=null;pressedInside=false;}
+    void ResetState(){Scroll=0;Selected=null;SelectedEmpty=null;Shown=CharSelectMessage.None;MessageText=null;Pending=false;deleting=null;closed=false;managing=false;pressed=null;hover=null;pressedInside=false;}
 
     /// <summary>Offline checks: images come from the caller (synthetic). Throws UiLayoutException on a layout that does not fit.</summary>
     internal void Load(UiLayout layout,Func<int,UiSurface?> surf){
@@ -401,7 +422,16 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
         if(!v.Shown){managing=false;if(Shown==CharSelectMessage.ConfirmDelete)Shown=CharSelectMessage.None;}
         if(!v.Shown)closed=false;
         View=v;
-        if(Selected==null||!v.Characters.Any(c=>c.Name==Selected))Selected=v.Characters.FirstOrDefault()?.Name;
+        // R11-D: an empty-slot selection stays on its row; a character that now fills the row takes it (TW16 index).
+        if(SelectedEmpty is int e){
+            var kind=Row(e);
+            if(kind is RowKind.Character or RowKind.Pending){Selected=v.Characters[e].Name;SelectedEmpty=null;}
+            else if(kind!=RowKind.Empty)SelectedEmpty=null;
+        }
+        if(SelectedEmpty==null&&(Selected==null||!v.Characters.Any(c=>c.Name==Selected))){
+            Selected=v.Characters.FirstOrDefault()?.Name;
+            if(Selected==null&&Row(0)==RowKind.Empty)SelectedEmpty=0;   // sub_EF0490: nothing selected → row 0
+        }
         Scroll=Math.Clamp(Page,0,MaxPage)*Rows;
         if(Shown==CharSelectMessage.ConfirmDelete&&(deleting==null||!v.Characters.Any(c=>c.Name==deleting)))Shown=CharSelectMessage.None;
     }
@@ -449,7 +479,7 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
         var v=View!;
         return p.MouseEvent switch{
             SelectEvent=>true,
-            CreateEvent=>v.CanCreate,
+            CreateEvent=>true,   // R11-D: a click selects the empty slot; the double click opens the create screen only while CanCreate
             UpEvent=>Page>0,
             DownEvent=>Page<MaxPage,
             EnterEvent=>v.CanEnter&&SelectedCharacter!=null,
@@ -498,6 +528,13 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
                 // R9-O (sub_EF13F0): the class picture of the character; selection / pending as in RowSurfs.
                 bool enabled=Enabled(p);
                 if(RowSurfs(rc) is not (int n,int h,int push))break;
+                int id=ReferenceEquals(p,pressed)&&pressedInside&&enabled?push:ReferenceEquals(p,hover)&&pressed==null&&enabled?h:n;
+                canvas.DrawSurface(Dynamic(id),x,y);break;
+            }
+            case CharUiKind.Button when p.ListName==SlotList&&p.Name=="Create_Button"&&p.PushImage is {IsSurf:true} pushRef:{
+                // R11-D (sub_EF13F0): surfs from the XML PushSurf; the selected empty row shows it in every state.
+                bool enabled=Enabled(p);
+                var (n,h,push)=CreateSurfs(pushRef.Id,SelectedEmpty==Scroll+p.Slot);
                 int id=ReferenceEquals(p,pressed)&&pressedInside&&enabled?push:ReferenceEquals(p,hover)&&pressed==null&&enabled?h:n;
                 canvas.DrawSurface(Dynamic(id),x,y);break;
             }
@@ -550,13 +587,13 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
             case Keys.Escape:if(Shown!=CharSelectMessage.None)Shown=CharSelectMessage.None;break;
             case Keys.Enter:
                 if(Shown!=CharSelectMessage.None)FireEvent(MsgOkEvent,commands);
+                else if(SelectedEmpty!=null){if(Ready)OpenCreate();}   // R11-D: sub_EEDF00 13 on an empty slot → sub_EEC4A0
                 else if(Main!.Pieces.FirstOrDefault(p=>p.MouseEvent==EnterEvent) is {} enter&&Enabled(enter))FireEvent(EnterEvent,commands);
                 break;
-            case Keys.Up or Keys.Down when Shown==CharSelectMessage.None&&View is {} v&&v.Characters.Count>0:{
-                int i=Math.Max(0,v.Characters.ToList().FindIndex(c=>c.Name==Selected));
-                i=Math.Clamp(i+(e.KeyCode==Keys.Up?-1:1),0,v.Characters.Count-1);
-                Selected=v.Characters[i].Name;
-                if(Rows>0)SetPage(i/Rows);   // sub_EEEE60: page = index / 4
+            case Keys.Up or Keys.Down when Shown==CharSelectMessage.None&&View is {} v:{
+                // R11-D (sub_EEDF00 4134 / 4136 → sub_EEEE60): ±1 inside the slot rows, characters and empty slots alike.
+                int i=SelectedRow+(e.KeyCode==Keys.Up?-1:1);
+                if(i>=0&&i<Math.Max(v.Slots,v.Characters.Count)&&SelectRow(i)&&Rows>0)SetPage(i/Rows);   // sub_EEEE60: page = index / 4
                 break;
             }
             case Keys.PageUp when Shown==CharSelectMessage.None&&Ready:SetPage(Page-1);break;
@@ -574,11 +611,16 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
         var v=View;
         switch(p.MouseEvent){
             case SelectEvent when RowCharacter(Scroll+p.Slot) is {} picked:{
-                bool again=Selected==picked.Name;Selected=picked.Name;
+                bool again=Selected==picked.Name;Selected=picked.Name;SelectedEmpty=null;
                 if(clicks>=2&&again&&v is {CanEnter:true})_=Run(h=>h.Enter(v,picked.Name),false);
                 return;
             }
-            case CreateEvent:OpenCreate();return;
+            case CreateEvent:{
+                // R11-D sub_EEC3B0: 514 selects the empty slot (sub_EF0060); 515 opens the create screen (sub_EEC4A0).
+                if(!SelectRow(Scroll+p.Slot))return;
+                if(clicks>=2)OpenCreate();
+                return;
+            }
             case UpEvent:SetPage(Page-1);return;     // sub_EF13A0
             case DownEvent:SetPage(Page+1);return;   // sub_EECF90
             case EnterEvent when v!=null&&Selected is {} entering:_=Run(h=>h.Enter(v,entering),false);return;
@@ -595,9 +637,19 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
         if(unhandled.Add(id))UiResourceLog.Write($"select-char-ui {id} 尚未接上");
     }
 
-    /// <summary>Create_Button: the native create screen when it is usable, otherwise the WinForms dialog.</summary>
+    /// <summary>R11-D sub_EF0060 / sub_EEEE60: select a character or empty-slot row (locked rows: false, nothing changes).</summary>
+    bool SelectRow(int row){
+        switch(Row(row)){
+            case RowKind.Character or RowKind.Pending:Selected=View!.Characters[row].Name;SelectedEmpty=null;return true;
+            case RowKind.Empty:Selected=null;SelectedEmpty=row;return true;
+            default:return false;
+        }
+    }
+
+    /// <summary>Create_Button double click / Enter on an empty slot: the native create screen when it is usable, otherwise the
+    /// WinForms dialog. Nothing while the list cannot take a new character (CanCreate false).</summary>
     void OpenCreate(){
-        if(Host==null)return;
+        if(Host==null||View is not {CanCreate:true})return;
         if(Create is {Available:true} c&&c.Begin(Host))return;
         Host.CreateFallback();
     }

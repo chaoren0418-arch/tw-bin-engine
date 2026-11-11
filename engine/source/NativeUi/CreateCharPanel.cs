@@ -66,7 +66,11 @@ namespace P06.NativeUi;
 // - The pngs are not in 0-客戶端 (PakViewer: only 1888–1891.png, class 7 only); kor25 / ly have all 288 (Sprite00–15).
 //   They are read at run time through OptionPngSource (local first, then the reference client, SHA-256 logged); never
 //   copied. A missing png is not drawn.
-// - Not done: double click on a class button (sub_EE3410 515 → set the class without a fade and go to the stat scene).
+// - R11-D (T418/#960, sub_EE3410 decompiled read-only): a double click (515) on a class button sets a different class with
+//   sub_EE5F50(class, 0) — no fade: Back_Image plain at the new base png, frame 0 — and then goes to the stat scene
+//   (vtable +196 with scene 2), also when the class is already selected. In a real double click the first release (514)
+//   already changed the class and started the fade; the 515 then only changes the scene (the fade keeps counting there,
+//   unseen; Prev resets the class scene). Whether sub_EE5F50 a3 = 0 cancels a running fade timer is 推測 (the engine stops it).
 // - Username_Edit takes typed characters (IUiTextInput, WM_CHAR after IME) up to LimitText characters; Backspace deletes.
 //   Enter = OK on the stat scene / Next on the class scene; Esc = Prev.
 // - OK: a local Validate error, a refused send or the server's refusal notice is shown in Message_Window (Ok/Cancel close
@@ -568,7 +572,7 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
             case UiMouseKind.Move:pressedInside=pressed!=null&&CharUiPaint.At(w,pressed).Contains(e.Location);return true;
             case UiMouseKind.Up:{
                 var was=pressed;pressed=null;pressedInside=false;
-                if(was!=null&&CharUiPaint.At(w,was).Contains(e.Location)&&Enabled(was))Fire(was);
+                if(was!=null&&CharUiPaint.At(w,was).Contains(e.Location)&&Enabled(was))Fire(was,e.Clicks);
                 return true;
             }
         }
@@ -609,11 +613,16 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
         if(w?.Pieces.FirstOrDefault(p=>p.MouseEvent==ev&&ShownPiece(p)) is {} p&&Enabled(p))Fire(p);
     }
 
-    void Fire(CharUiPiece p){
+    void Fire(CharUiPiece p,int clicks=1){
         int stat=p.Owner!=null&&StatControls.TryGetValue(p.Owner,out var i)?i:-1;
         switch(p.MouseEvent){
+            case ClassEvent when p.Name!=null&&ClassButtons.TryGetValue(p.Name,out int cls)&&clicks>=2:
+                // R11-D sub_EE3410 515: sub_EE5F50(cls, 0) when it differs (no fade), then the stat scene.
+                if(cls!=Class){Class=cls;ResetStats();SetClassPicture();}
+                EnterStatScene();
+                return;
             case ClassEvent when p.Name!=null&&ClassButtons.TryGetValue(p.Name,out int cls):
-                if(cls!=Class){Class=cls;ResetStats();StartFade();}   // sub_EE3410 → sub_EE5F50(cls, 1)
+                if(cls!=Class){Class=cls;ResetStats();StartFade();}   // sub_EE3410 514 → sub_EE5F50(cls, 1)
                 return;
             case MaleEvent:if(Sex!=0){Sex=0;StartFade();}return;     // sub_EE6450(0, 1)
             case FemaleEvent:if(Sex!=1){Sex=1;StartFade();}return;   // sub_EE6450(1, 1)
