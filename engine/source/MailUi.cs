@@ -4,7 +4,8 @@ public static class MailUi {
     public static void Attach(PlayerHudView hud, FlowLayoutPanel menu) {
         var button = new Button { Text = "信件", AccessibleName = "信件", Width = 58, Height = 30,
             Margin = new(3, 2, 3, 2), FlatStyle = FlatStyle.Flat, BackColor = PlayerHudPainter.Panel, ForeColor = Color.White };
-        button.Click += (_, _) => { if (hud.FindForm() is ClientForm form) form.OpenMail(); };
+        // T436 (#994, classic-ui-audit G19): same queued entry as the native menu button 1 (RequestMail → BeginInvoke(OpenMail)).
+        button.Click += (_, _) => { if (hud.FindForm() is ClientForm form) form.RequestMail(); };
         menu.Controls.Add(button);
     }
 }

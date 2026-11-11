@@ -32,7 +32,8 @@ public sealed partial class ClientForm {
             return;
         }
         if(clanWarehouseHistoryInbox?.Take() is not {} history)return;
-        if(NativeUiActive&&NativeUiRoot?.Find(ClanWarehouseHistoryPanel.PanelId) is ClanWarehouseHistoryPanel panel){
+        // T436（#994，G16）：面板已註冊且沒有故障才交給原生窗（比照 QuitFallbackUi）；故障時改開 WinForms 暫行清單。
+        if(NativePanelActive(ClanWarehouseHistoryPanel.PanelId)&&NativeUiRoot?.Find(ClanWarehouseHistoryPanel.PanelId) is ClanWarehouseHistoryPanel panel){
             if(clanWarehouseHistoryWindow is {IsDisposed:false,Visible:true} legacy)legacy.Hide();
             panel.Show(new(ClanWarehouseHistoryText.Lines(history,ResolveNpcText),ClanWarehouseHistoryText.EmptyText));
             NativeUiRoot?.BringToFront(panel);
