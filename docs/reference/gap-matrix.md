@@ -2592,3 +2592,187 @@ K2 沒有列了：1:127 由 FU12＋R10-P 補上，5:`sub_87C890` 由 FU14 轉 K5
 - 5:`sub_87C890` 的「已有」是預期；#922 的實作若和 FU14 不同，下一輪要重判。
 - 「已有」只表示靜態看程式沒有已知差異，全部都沒有真機驗收。
 - 本節的 `檔案:行` 以 main `2ee155ab` 為準；#922 合併後 `ObjectRendering.cs` 的行號會變。
+
+### 15.14 第九輪盤點與 M7 結案判定（T427／#980，2026-11-11）
+
+依 main `80801578`。第八輪（15.13）之後合併的有：
+- R10-R #922（PR #955）；R11-A #957、R11-B #958（PR #981，本輪開始時合併）、R11-C #959、R11-D #960、R11-E #961、R11-F #962、R11-G #963；
+- Q8-A #967、Q8-B① #968、Q8-C #970；查證 FU15（#917）、FU16（#956，Q9-1）。
+
+開始時還在跑的四張，到推送時都還沒合併，照各自的目標算進預期結果：
+
+| 任務 | 對應列 | 本節怎麼算 |
+|---|---|---|
+| R11-B #958（code） | 4:BehaviourUI | **開始時已合併**（PR #981），直接讀合併後的程式判定，見 15.14.2 |
+| Q8-B② #969（T425，code，等 #966 的 Q9-3） | 4:WidgetSlot | FU15§2.4 已驗證 `ModeChange`／Alt+R 切換模式並存檔，程式還沒做（`MacroPanel.cs` 按了只記 log）。照嚴格規則實際是「部分」K5；#969 的目標是把它做完，所以本節記**預期「已有」**，歸 **K7 進行中（#969）**。#969 沒合併前這列實際是 K5 |
+| Q9-2–5 #966（T422，resource） | 4:BookmarkWindowUI（Q9-2）、1:144（Q9-4）、4:PledgeUI（Q9-5）；4:PersonalShopUI 的 option12 `#1003`／`#1027` HyperAct 也屬 Q9-4 | 唯讀查證，查的都是「還沒有查證依據」的子項，依 15.13.1 不擋「已有」。本節維持「已有」，標「進行中（#966）」。查完若有「有依據、程式沒做」的子項，下一輪轉 K5 |
+| `--classic-ui` 盤點 #953（T413，resource） | 無 | 盤點 WinForms 備援，不對應任何列（gap-matrix 判定的是原版功能，classic 是引擎備援）。結果只影響 `smoke-m7.md` 的 C 輪，見 15.14.8 |
+
+計數用 `rea-scripts/gap_count_r9.py`：依序套 15.3、15.12、15.13、15.14 的狀態變更表，分類只讀本節；K7 的列另外印一份「不算預期」。`gap_count_r8.py` 改成讀到 15.14 之前就停，仍能重現第八輪的數字（228／21／41，K1 55、K5 7）。
+
+#### 15.14.1 方法
+
+- **判定規則**同 15.13.1，嚴格套用「已有」：有查證依據、程式沒做的子項，不論多小都歸 K5；推定項、只能真機看的差異、任務報告標「選做」的不擋。
+- **逐列核對**：第八輪的 7 列 K5 與 5:`sub_87C890`（預期列），各讀對應任務報告（`docs/reports/issue-922.md`、`issue-957.md`–`963.md`）的「未做／未驗證」，再到產品碼（不含 `*Tests.cs`）找呼叫點。主控抽查過的呼叫點：
+  - R11-A／B：`DuelUi.cs:44`、`PlayerPointer.cs:231`（`BeginObjectPick`）、`NativeUi/UiClientBridge.cs:340`（產品呼叫者）、`NativeUi/ActionWindowPanel.cs:133`；
+  - R11-C：`NpcInteraction.cs:160`、`:181` → `Buddies.cs:252`（`BuddyHyperAction`）；
+  - R11-D：`NativeUi/SelectCharPanel.cs:289–291`（`SelectedEmpty`）、`NativeUi/CreateCharPanel.cs:622–644`（`EnterStatScene`）；
+  - R11-E：`ObjectRendering.cs:798` → `HeadBubble.cs:279`、`PrivateShop.cs:196`（`HeadBubbleShops.Sync`）；
+  - R11-F：`RingWindows.cs:224` → `PlayerAudioSettings.cs:55`（`SetBarLevel`）；
+  - #922：`ObjectRendering.cs:13`、`:20`、`:27`、`:81`（`ClothDraws`）。
+- **新增的複核**（第八輪記「已有」、但本輪合併的 Q8 任務或 FU15 帶出新依據的列）：4:AgitAuctionUI（#968）、1:99（#970②）、4.2 `BoardListWindow`（#970③）、4:WidgetSlot（FU15§2.4）、4:PledgeUI（#967）、4:`BuffIcons` 類的 470（#970①，一致）。
+- **其餘「已有」列**（第八輪前的 213 列加第八輪補上的 14 列）沒有逐列重看；本輪合併的任務報告沒有回退。
+- **PakViewer**：本輪沒有新的「缺資源」宣稱，沒有新查。用到的字串（3118、588／589、4381）已由 #958、#959、#968 用 PakViewer／字串表查過。
+- 沒有開 IDA，沒有建置或執行程式，也沒有啟動遊戲、伺服器或 DB。
+
+#### 15.14.2 狀態變更表
+
+「原狀態」是套用 15.13.2 之後的狀態。
+
+| 節 | 列 | 原狀態 | 新狀態 | 補上的任務 | 剩下的差異／依據（真機代號） |
+|---|---|---|---|---|---|
+| 3 | C_INVITE_PARTY(82) | 部分 | 已有 | #957、#958 | `TargetPickCursor.Index`（`DuelUi.cs:44`）看「回呼不為空」換游標 8；隊長點隊員送 C255（#958②）。組隊回呼的類型號是推測（M35） |
+| 3 | C_ADD_BUDDY(138) | 部分 | 已有 | #959 | `buddy`／`refreshbuddy` → C4、`delbuddy` → 589 → C202＋C4（`Buddies.cs:252`）。舊式封鎖框 584 是 FU9 推測，不擋（M37） |
+| 4 | BehaviourUI | 部分 | 已有 | #958 | ①–④ 都已做（`UiClientBridge.cs:287–340`、`ActionWindowPanel.cs:133`）；`Action_InviteChatParty`→C230 2、`Action_Exclude`→C171 是推測；拖到巨集格是選做（M33） |
+| 4 | PersonalShopUI | 部分 | 已有 | #956、#961 | 頭上對話框照 FU16 B1–B19（`HeadBubble.cs`）、`byte_136E99F` 存檔；關鍵字過濾 `sub_4FED10` 當「沒設過濾」（引擎沒有這個功能，結果相同）；`m`（+608）當 0 是 FU16 自己標的推測；option12 HyperAct 屬 Q9-4（#966）（M11） |
+| 4 | SelectUI | 部分 | 已有 | #960 | 可選空格（`SelectCharPanel.cs:289`）；1450／1816 選空格時走不到（M4） |
+| 4 | CreateUI | 部分 | 已有 | #960 | 職業鈕 515 直接進能力頁（`CreateCharPanel.cs:622–644`）；`sub_EE5F50(…,0)` 會不會停淡入是推測（M4） |
+| 5 | `sub_87C890` | 已有 | 部分 | #922（已合併） | 第八輪的「已有」是預期。#922 做完 altdir／stride／cloth／他人動作 71，但還有 2 個有依據的子項沒做，見 15.14.5 |
+| 4 | AgitAuctionUI | 已有 | 部分 | #968 | ±1、按住、夾值已做；FU15§2.10 已驗證的「4381 印聊天欄」「Ok 送出後關窗」產品端沒做，見 15.14.5 |
+| 1 | 99 | 已有 | 部分 | #970 | 結果改印聊天欄已做；印的是引擎自己的句子，不是 FU15§2.7 的字串編號，見 15.14.5 |
+| 4.2 | `BoardListWindow` | 已有 | 部分 | #970 | 等待期間忽略 Write／點選已做；FU15§2.11 的「滑鼠全部吃掉」「刪文後等待（4）」沒做完，見 15.14.5 |
+
+合計「部分→已有」**6 列**，「已有→部分」**4 列**。4:OptionUI 維持「部分」（R11-F 補了分開音量，但存檔還沒做）。4:WidgetSlot 不改狀態（預期「已有」，K7）。
+
+#### 15.14.3 統計（第九輪，含預期）
+
+執行：`py -3 -I docs/reference/rea-scripts/gap_count_r9.py docs/reference/gap-matrix.md`（加 `--list` 印出所有非「已有」列與 K7 列）。
+
+| 節 | 已有 | 部分 | 缺 | 其中需先查證 | 其中伺服器不支援／不建議 | 其中可直接補 |
+|---|---:|---:|---:|---:|---:|---:|
+| 1. 收包：第一組 dispatch | 102 | 2 | 10 | 0 | 9 | 1 |
+| 2. 收包：第二組 | 8 | 1 | 4 | 0 | 4 | 0 |
+| 3. 送包：`sub_951F80` 名稱表 | 45 | 2 | 5 | 0 | 5 | 0 |
+| 4. UI 視窗 | 39 | 13 | 21 | 0 | 20 | 1 |
+| 5. 物件、技能、道具、地圖事件與繪製的處理函式 | 36 | 1 | 1 | 0 | 1 | 0 |
+| **合計** | **230** | **19** | **41** | 0 | 39 | 2 |
+
+含預期是 230／19／41。和第八輪（228／21／41）比：「部分→已有」6 列、「已有→部分」4 列，「缺」沒有變。不算預期（4:WidgetSlot 照實際算「部分」）時：
+
+| 節 | 已有 | 部分 | 缺 | 其中需先查證 | 其中伺服器不支援／不建議 | 其中可直接補 |
+|---|---:|---:|---:|---:|---:|---:|
+| 1. 收包：第一組 dispatch | 102 | 2 | 10 | 0 | 9 | 1 |
+| 2. 收包：第二組 | 8 | 1 | 4 | 0 | 4 | 0 |
+| 3. 送包：`sub_951F80` 名稱表 | 45 | 2 | 5 | 0 | 5 | 0 |
+| 4. UI 視窗 | 38 | 14 | 21 | 0 | 20 | 1 |
+| 5. 物件、技能、道具、地圖事件與繪製的處理函式 | 36 | 1 | 1 | 0 | 1 | 0 |
+| **合計** | **229** | **20** | **41** | 0 | 39 | 2 |
+
+#### 15.14.4 分類（每列一類；取代 15.13.4）
+
+| 類 | 列（節:列，以「；」分隔） | 原因 |
+|---|---|---|
+| K1 伺服器不支援／不建議 | 1:108；1:132；2:42、67、83、215；3:C_ATTACK(43)；3:C_TELEPORT(226)；4:LoadingWindowUI；4:NpcDialogUI；4:CommunityUI；4:`PetInventoryWindow`；4:`TelTablesWindow`；4:`AgitWindow`；4:BookmarkMemoryWindowUI；4:PopUpUI；4:GameRankingUI；4:MapUI；4:StatInfoUI | 同 15.13.4（含 FU15 的 4:StatInfoUI）。「缺」裡已標「伺服器不支援／不建議」的 39 列預設歸 K1，不逐列列出 |
+| K5 仍有 code 差異 | 1:99；4:`BoardListWindow`；4:AgitAuctionUI；4:OptionUI；5:`sub_87C890` | 5 列，都能離線寫程式，逐列見 15.14.5；分到 15.14.6 的 R12-A–E |
+| K7 進行中 | 4:WidgetSlot（#969） | 預期「已有」；實際「部分」，等 #966 的 Q9-3 與 #969 |
+
+K2 仍為 0。
+
+各類列數（`gap_count_r9.py` 輸出）：
+
+| 類 | §1 | §2 | §3 | §4 | §5 | 部分 | 缺 | 已有（預期） | 合計 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| K1 | 11 | 5 | 7 | 31 | 1 | 14 | 41 | 0 | 55 |
+| K5 | 1 | 0 | 0 | 3 | 1 | 5 | 0 | 0 | 5 |
+| K7 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 1 |
+
+**290 列的去向**：
+
+| 去向 | 列數 | 和第八輪比 |
+|---|---:|---|
+| 已有 | 229 | +1（R11 補上 6 列；4 列改回「部分」：3 列是 Q8／FU15 帶出的依據，1 列是第八輪預期的 `sub_87C890` 沒有完全落地；4:WidgetSlot 移到 K7） |
+| K7 進行中（預期已有） | 1 | +1（4:WidgetSlot，#969） |
+| K1 伺服器不支援 | 55 | 0 |
+| K2 需先查證 | 0 | 0 |
+| K5 仍有 code 差異 | 5 | −2（7 列中 6 列改已有、4:OptionUI 留下；新增 4 列：1:99、4:`BoardListWindow`、4:AgitAuctionUI、5:`sub_87C890`） |
+| **合計** | **290** | |
+
+#### 15.14.5 K5 與 K7 的逐列說明
+
+| 列 | 類 | 還缺什麼（有查證依據、程式沒做） | 對應檔案 | 能否再分組 |
+|---|---|---|---|---|
+| 5:`sub_87C890` | K5 | altdir／stride／cloth 與他人的動作 71 都已接（#922）。剩：① **自己的動作 71（釣魚）**：自己的 S158 71 在 `WorldSession` 找不到物件、只累加 `UnknownObjectUpdates`（#922 報告第 87 行），所以自己釣魚不換姿勢、不畫釣魚線；FU14§3.2 已驗證 TW16「自己＋動作 71」與 3.81「沒有自己例外」都會畫。② **半透明的層旗標例外**：FU14§3.2／§3.6 已驗證「+40 有 0x100 而且層旗標沒有 8／0x80 才加半透明」，但 `Invisibility.cs:17` 對所有 `"actor"` 圖塊一律加 `|1`（#922 報告第 88 行）。5940 永久改 1120 由 FU14§1.3 記成取捨，不擋 | 新檔（自己的動作狀態，`[WorldReceive(…, Observe=true)]` 觀察器）、`ObjectRendering.cs`（只限自己的分支）、`Invisibility.cs` | 能，R12-A |
+| 4:AgitAuctionUI | K5 | ±1、按住連續、Ok 夾值已做（`NativeUi/AgitAuctionPanel.cs:903–919`）。剩：① 產品宿主 `RingWindows.cs:249` 的 `AgitAuctionHost` 沒實作 `IAgitAuctionChatHost`，4381 只寫 log、不印聊天欄（#968 報告第 23 行）；② FU15§2.10 已驗證 Ok 送出後關窗，引擎等 S136 消失才關（#968 報告第 39 行）。按住的速度是推測，不擋 | `RingWindows.cs`（只限 `AgitAuctionHost`）、`NativeUi/AgitAuctionPanel.cs`（只限 `Submit`）、`RingAgitFollowupTests.cs`（「Enter＝Ok」那一條） | 能，R12-B |
+| 4:OptionUI | K5 | 三條音量分開已做（#962）。剩：**類別音量存檔**：原版讀 `lineage.cfg`（`sub_814800`／FO `0x413C00`）、寫回（`sub_814020`）四個類別音量（`sound.md` 第 205 行、§4.1），引擎沒有讀寫，重開客戶端三類都回到 1（#962 報告第 39 行）。捲軸刻度線性、Effect／Env 的對應是推定，不擋 | `PlayerAudioSettings.cs`、新檔（引擎自己的設定檔；**不得寫正式客戶端的 `lineage.cfg`**，CLAUDE.md 規則 7） | 能，R12-C；**或裁定為引擎取捨**（15.14.7 第 1 點） |
+| 1:99 | K5 | 結果印聊天欄已做（#970②，`MailPanel.cs:38`、`MailUi.cs:58–60`）。剩：FU15§2.7 已驗證印的是字串 1239、1261＋400、1240（寄信）、1243／1244（刪除）、1241／1242（保管）、428（0x50），palette[24]／[14]；引擎印 `Mail.cs:115–129` 自己寫的句子（例如「收到 N 封信；伺服器清單可能包含所有信匣。」），收到清單、本文時也會印，原版不印 | `Mail.cs`（只限 notice）、`NativeUi/MailPanel.cs`（`MailNoticeRelay`）、`MailUi.cs` | 能，R12-D；字串表有沒有這些編號要在任務內用 PakViewer 核對 |
+| 4:`BoardListWindow` | K5 | 等待期間忽略 Write、點選、read／write 已做（`BoardPanels.cs:87`、`BoardUi.cs:186`、`:193`）。剩：① FU15§2.11 已驗證等待期間清單窗滑鼠「全部吃掉」，但 `NativeUi/BoardPanel.cs:215` 的右鍵雙擊關窗照樣有效（#970 報告第 27 行）；② `sub_7CD490`（op 222／6）設的等待值 4 在引擎沒有對應（刪文後是 `submitted`） | `NativeUi/BoardPanel.cs`（只限 `BoardListContent.Mouse`）、`Board.cs`（只限刪文後的等待狀態）、`NativeUi/BoardPanels.cs` | 能，R12-E |
+| 4:WidgetSlot | K7（#969） | FU15§2.4 已驗證：`ModeChange`（514）與 Alt+R 在模式 0／1 之間切換，元件 2／4 互換顯示，存進設定。引擎 `NativeUi/MacroPanel.cs` 按了只記 log。元件 2／4 是哪個窗待 Q9-3（#966） | `NativeUi/MacroPanel.cs`、`NativeUi/ExMacroPanel.cs`（#969 的範圍） | 已開 #969（等 #966） |
+
+#### 15.14.6 第九批 code 任務分組（R12-A–E，5 組）
+
+**原則**（同 15.6、15.13.6）
+- 同一個既有檔案只分給一組；不得不共用時標明先後。
+- 新封包、新面板、新測試一律用自動發現。
+- 不改 `WorldSession.cs`、`UiPanelRegistry.cs`、`Program.cs`、`DemoChecks.csproj`；PR 不改 `rebuild-lock.json`。
+- 新面板要實作 `IUiClosablePanel`，`--classic-ui` 時保留 WinForms 入口。
+- 驗收照 #503 暫行政策：CI 編譯與既有測試綠，每組另加自己的離線測試（新檔）。
+
+| 組 | 目標（列） | 可改的檔案 | 依賴 |
+|---|---|---|---|
+| R12-A 自己的動作 71 與層半透明 | ① 自己的 S158 71 記成「自己的動作狀態」（自動發現的觀察器，不改 `WorldSession.cs`），`ComposeObjects` 自己的分支用 `FishingFrame` 畫釣魚姿勢與 cloth 6262；② 隱身半透明只套在層旗標沒有 8／0x80 的附加層（FU14§3.6）（5:`sub_87C890`） | 新檔 `OwnActionState.cs`、`ObjectRendering.cs`（只限自己的分支）、`Invisibility.cs`、新檔 `OwnFishingLayerTests.cs` | 無；外觀等真機（M31） |
+| R12-B 出價窗收尾 | `AgitAuctionHost` 實作 `IAgitAuctionChatHost`（4381 印聊天欄，顏色任務內查 `sub_545920`）；Ok 送出後關窗（FU15§2.10）（4:AgitAuctionUI） | `RingWindows.cs`（只限 `AgitAuctionHost`）、`NativeUi/AgitAuctionPanel.cs`（只限 `Submit`）、`RingAgitFollowupTests.cs`（只限 Enter＝Ok）、新檔 `BidCloseTests.cs` | 無 |
+| R12-C 類別音量存檔 | 四類音量讀寫引擎自己的設定檔（鍵名同 `lineage.cfg`：`SoundVolume=`、`EnvSoundVolume=`、`VoiceVolume=`、`MusicVolume=`），啟動時讀、捲軸改了寫；不碰正式客戶端（4:OptionUI） | `PlayerAudioSettings.cs`、新檔 `AudioVolumeFile.cs`、新檔 `AudioVolumeFileTests.cs` | 先裁定（15.14.7 第 1 點）；`RingWindows.cs` 不用改 |
+| R12-D 信件結果字串 | `MailView.Notice` 改記 FU15§2.7 的字串編號（1239、1240、1261＋400、1241–1244、428），收到清單、本文時不印；聊天欄照 palette[24]／[14]（1:99） | `Mail.cs`（只限 notice）、`NativeUi/MailPanel.cs`（只限 `MailNoticeRelay`）、`MailUi.cs`、新檔 `MailNoticeStringTests.cs` | 無；字串表用 PakViewer 核對 |
+| R12-E 公告板等待收尾 | 等待期間清單窗滑鼠全部吃掉（含右鍵雙擊）；刪文（op 222）後進等待、收到清單回應才解除（4.2 `BoardListWindow`） | `NativeUi/BoardPanel.cs`（只限 `BoardListContent.Mouse`）、`Board.cs`（只限刪文後的狀態）、`NativeUi/BoardPanels.cs`（只限 `IsWaiting`）、新檔 `BoardWaitFollowupTests.cs` | 無 |
+
+R12-A–E 的檔案互不重疊，可以同時派；R12-C 等裁定。#969（Q8-B②）照舊等 #966。
+
+#### 15.14.7 M7 判定
+
+**判定：M7 現在還不能結案。**
+
+結案條件（同 15.13.7）：K5 已清空，或只剩真機才能判定的列，而且 K2 為 0。
+
+對照現況：
+- **K1 55 列**：每列都有理由，不擋。
+- **K2 0 列**：符合。
+- **阻擋的列**（全部都能離線完成，沒有一列是「只能真機」）：
+
+  | 阻擋原因 | 列數 | 列 | 怎麼解 |
+  |---|---:|---|---|
+  | K5，能離線寫程式 | 5 | 1:99；4:`BoardListWindow`；4:AgitAuctionUI；4:OptionUI；5:`sub_87C890` | R12-A–E（15.14.6），還沒開成任務 |
+  | K7 進行中 | 1 | 4:WidgetSlot | #966（Q9-3）→ #969 合併 |
+  | 查證進行中、可能帶出新的 K5 | 0（目前「已有」） | 4:BookmarkWindowUI、1:144、4:PledgeUI、4:PersonalShopUI 的 option12 | #966 查完；查出「有依據、沒做」的子項就轉 K5 |
+
+**結案條件**：
+1. R12-A–E 合併，或其中子項經使用者裁定為「引擎取捨、不做」；
+2. #966 查完、#969 合併；
+3. #966 沒有帶出新的 K5，或帶出的已合併／裁定。
+
+做完以後，非「已有」只剩 K1 55 列（235 列「已有」），符合結案標準。真機 smoke（`docs/testing/smoke-m7.md`）不在 M7 的結案條件裡，建議和 M7 結案一起排。
+
+**M7 結案摘要草稿**（條件都達成時給 PLAN／TASKS 用；數字以那時重跑 `gap_count_r9.py` 為準）：
+> **完成了什麼**：gap-matrix 290 列中 235 列「已有」、55 列 K1（伺服器 3.81 不支援或不建議做），K2、K5 為 0。九輪盤點（T202、T244、T277、T291、T305、T339、T379、T412、T427）與 R6–R12、Q8 的 code 任務都已合併；查證 FU1–FU17 已回填。
+> **剩下只有真機的項目**：`docs/testing/smoke-m7.md` 的 58 項（🔴 47、🟢 11，§14 是第九輪補的步驟），全部交 P24Lab 測試角色執行；「已有」只代表靜態核對。
+> **已知取捨**：5940 缺 spr 時不永久改成 1120（FU14§1.3）；StatInfoUI 22 列數值留白（protobuf，FU15§1）；選目標多模式並存的先後是引擎規則（#957）；聊天列提示沒有聊天窗時退回窗內編輯（#967）；舊式 `ExcludeWindow` 不另做（15.12.5）；`--classic-ui` 是引擎備援、不算原版功能（#953）；以及 15.14.7 第 1 點若裁定為取捨的項目。
+
+**需要裁定**
+1. 嚴格度：4:OptionUI 的類別音量存檔（R12-C）、4:`BoardListWindow` 的右鍵雙擊與刪文等待（R12-E）都很小。要照本節排進 R12，還是裁定為「引擎取捨」直接改「已有」。如果都裁定為取捨，阻擋列少 2 列，R12-C、R12-E 不必開。
+2. 1:99 的信件字串（R12-D）牽涉 `Mail.cs` 現有的句子（WinForms `MailDialog` 也在用）。照原版改成字串編號時，classic 的窗內文字要不要一起改（建議一起改，classic 也是 3.81 的字串）。
+
+#### 15.14.8 真機項目的變動（對 `smoke-m7.md`）
+
+本輪沒有新的 M 代號，也沒有新增 SM 項目。R10-R、R11、Q8 合併帶出的步驟與預期改動已補進 `docs/testing/smoke-m7.md` §14：
+- 預期改了：SM57（三條音量各自獨立）、SM58（#922 已合併，照常測）、SM30／SM52（他人釣魚線、NPC 衣物層應畫；自己的釣魚線 R12-A 前不畫）、SM34（`buddy`／`delbuddy`）、SM35（`/invite` 換瞄準游標、隊長踢人）、SM07／SM08（選空格、職業鈕雙擊）、SM23（商店頭上對話框）、SM32（動作窗 ①–④）、SM29（出價 ±1；4381 R12-B 前不印聊天欄）。
+- 補步驟：SM24（備註 3325、委任 4051 在聊天輸入列問）、SM27（等待期間的點擊）、SM13（470 圖示）、SM16（Mail 結果印聊天欄）、SM44（Y/N 開著時按 Esc）。
+- `--classic-ui` 小段（SM54、SM55）：等 #953 的盤點補入口清單，本輪不改。
+- 🔴／🟢 變動：沒有。本輪解掉的都是程式差異，各項的「要判定」仍是外觀、時序、聲音或伺服器回應。
+
+#### 15.14.9 限制
+
+- 只讀報告與原始碼，沒有建置或執行。「產品沒有呼叫」「沒做」是用 Grep 判斷的；經由反射、委派或事件間接呼叫的地方可能漏掉。15.14.1 列的呼叫點我讀過，其餘 `檔案:行` 取自任務報告。
+- 第八輪前已是「已有」的列，只複核了 15.14.1「新增的複核」那 6 列，其餘沒有逐列重看。
+- 4 列「已有→部分」是依 FU15 與 Q8 任務報告自己列的「未做」判定；若使用者裁定為取捨（15.14.7），下一輪直接改回「已有」。
+- 4:WidgetSlot 的「已有」是預期；#969 的實作若和 FU15§2.4、Q9-3 不同，下一輪要重判。
+- 「已有」只表示靜態看程式沒有已知差異，全部都沒有真機驗收。
+- 本節的 `檔案:行` 以 main `80801578` 為準。
