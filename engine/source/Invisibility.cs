@@ -25,10 +25,17 @@ public sealed partial class WorldSession {
         // The 0x40 branch (sub_F03F20) needs S36 type 3 in 1..3, byte_1540830 == 0 and an icon-87 item named "$431"
         // (FU5§4: 沙哈的戒指). 3.81 never sends S36 type 3 and has no such item, so 0x40 peers are never drawn.
         if(!self&&!InvisiblePeerVisible(draw.ObjectId))return new OpacityValue(2,0,0);
+        // R12-A（T428／#985，FU14§3.2／§3.6：TW16 sub_A463C0、3.81 sub_4E7000 逐層放）：附加層（cloth）只有在層旗標
+        // （cloth 自己的 104.attr）沒有 8／0x80 時才加半透明旗標 1；例如 6262 釣魚線 104.attr(8) 隱身時照常畫。
+        // 本體與影子不受影響。他人「不畫」（上一行）仍整組不畫。
+        if(IsAttachedLayer(draw)&&(Renderer.InitialFlags(draw)&(8|128))!=0)return original;
         var value=original??new OpacityValue(Renderer.InitialFlags(draw),0,0);
         // Self uses flag 0x100: the 50% blend (VA 0x976FC0, (dst+src)/2), same as Renderer.Blend.
         return value.Transition?value with{Alpha=Math.Min(value.Alpha,16)}:value with{Flags=value.Flags|1};
     }
+
+    /// <summary>cloth 附加層的圖塊（ListSprLayers.ClothDraws：序號在本體 1000000＋4096 與影子 1100000 之間，圖層 "actor"）。</summary>
+    internal static bool IsAttachedLayer(Draw draw)=>draw.Layer=="actor"&&draw.Serial>=ListSprLayers.ClothSerialBase&&draw.Serial<1100000;
 
     /// <summary>sub_956D30 on dword_13DC4E4 (已驗證，FU4§4): the peer is in the own party (S_PARTY rows by object id).
     /// Clan and alliance members are not exceptions. Evaluated at draw time, while TW16 picks the flag when S171 arrives.</summary>

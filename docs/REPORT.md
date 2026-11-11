@@ -402,3 +402,4 @@
 - 2026-11-11 — #980 T427：gap-matrix 第九輪與 M7 結案判定（resource，claude-local，PR #984 已合併）→ [報告](reports/issue-980.md)
 - 2026-11-11 — #953 T413：`--classic-ui` 備援盤點（resource，claude-local，PR 已合併）→ [報告](reports/issue-953.md)
 - 2026-11-11 — #986 T429：R12-B 出價窗收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-986.md)
+- 2026-11-11 — #985 T428：R12-A 自己的動作 71 與層半透明（code，claude-local，PR 已合併）→ [報告](reports/issue-985.md)
