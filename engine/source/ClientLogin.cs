@@ -56,6 +56,10 @@ public sealed partial class ClientForm {
         login.NewsConfirmationRequired=demoPort==null||scenario=="real-interactive";
         login.Changed+=()=>{if(IsDisposed)return;QueueLoginNews();SyncWorld();lastWebState="";PublishWebState();if(evidence!=null)Json.Save(Path.Combine(evidence,"login-state.json"),login.Snapshot());};
         FormClosed+=(_,_)=>login.Dispose();
+        // T433（#991，G2）：classic 的登入列在開發工具「登入／選角」分頁；正常入口、非自動化時在不在世界中的畫面自動打開它。
+        // Shown 之後才啟用（InitNativeUi 在建構子最後才決定 NativeUiActive）。
+        classicLoginEntryEnabled=normalProduct&&demoPort==null;
+        Shown+=(_,_)=>{classicLoginEntryArmed=true;SyncClassicLoginEntry();};
         // T280（R3-D）：登入畫面音樂（系統槽 0，8F2E40／8F2F00）；進入世界中（None）停音樂。選角畫面由 CharacterManagementUi 負責，InWorld 由 Observe(WorldSession)。
         timer.Tick+=(_,_)=>{if(ClientSoundScene.Scene(login.State) is MusicScene.Login or MusicScene.None)ClientSoundScene.ObserveFront(login.State,masterGain,masterMute,Environment.TickCount64);};
         Shown+=async(_,_)=>{if(demoPort!=null){loginPort.Value=int.Parse(demoPort);if(scenario?.StartsWith("real-")==true){loginProfile.SelectedIndex=2;loginAccount.Text=Environment.GetEnvironmentVariable("P24_TEST_ACCOUNT")??"";loginPassword.Text=Environment.GetEnvironmentVariable("P24_TEST_PASSWORD")??"";}else{loginAccount.Text="engine11";loginPassword.Text="testpass";}if(scenario=="real-world-pending"){World.Teleport(32589,32930);HandleDown(Keys.Home);pendingOfflineStepTest=World.Walking;events.Add(new{kind="pending-offline-step-before-login",pendingOfflineStepTest,model=World.Snapshot()});}
@@ -83,7 +87,17 @@ public sealed partial class ClientForm {
     /// <summary>公告框（訊息框或原生 Notice_Window）按確定：同一 session 才確認，LoginConnection 隨後送 C16。</summary>
     void ConfirmLoginNews(int revision,int session){if(!IsDisposed&&login.SessionGeneration==session)login.ConfirmNews(revision);}
     internal void BeforeLoginStart(){networkMode=false;network.Disconnect("login selected");ClearInput("login");}
-    void SyncLoginControls(){if(loginControl==null)return;SyncCharacterManagement();loginConnect.Enabled=loginControl.CanLogin;loginProfile.Enabled=loginPort.Enabled=loginAccount.Enabled=loginPassword.Enabled=loginControl.CanLogin;loginCancel.Enabled=loginControl.CanCancel;charactersBox.Enabled=loginControl.CanEnter;enterWorld.Enabled=loginControl.CanEnter&&charactersBox.SelectedItem!=null;loginLabel.Text=normalProduct?(login.State is LoginState.ManagingCharacters or LoginState.SwitchingCharacter?"處理角色操作":ProductEntry.StateName(login.State))+" · "+(login.World.BonusStatsNotice.Length>0?login.World.BonusStatsNotice:login.CharacterNotice.Length>0?login.CharacterNotice:loginControl.Notice):$"{login.State} • {login.Detail}\n{loginControl.Notice}";if(characterUiNotice.Length>0)loginLabel.Text=characterUiNotice;else if(login.State==LoginState.Faulted)loginLabel.Text=login.Detail;}
+    bool classicLoginEntryEnabled,classicLoginEntryArmed,classicLoginScreenShown;
+    void SyncClassicLoginEntry(){
+        if(!classicLoginEntryArmed||IsDisposed)return;
+        bool loginScreen=login.State!=LoginState.InWorld;
+        bool reveal=ShouldRevealClassicLogin(classicLoginEntryEnabled,NativeUiActive,loginScreen,classicLoginScreenShown);
+        classicLoginScreenShown=loginScreen;
+        if(!reveal||playerLoginStrip==null)return;
+        events.Add(new{kind="classic-login-entry",state=login.State.ToString()});
+        BeginInvoke(()=>{if(!IsDisposed&&login.State!=LoginState.InWorld&&!NativeUiActive)ShowDevTools(playerLoginStrip);});
+    }
+    void SyncLoginControls(){if(loginControl==null)return;SyncClassicLoginEntry();SyncCharacterManagement();loginConnect.Enabled=loginControl.CanLogin;loginProfile.Enabled=loginPort.Enabled=loginAccount.Enabled=loginPassword.Enabled=loginControl.CanLogin;loginCancel.Enabled=loginControl.CanCancel;charactersBox.Enabled=loginControl.CanEnter;enterWorld.Enabled=loginControl.CanEnter&&charactersBox.SelectedItem!=null;loginLabel.Text=normalProduct?(login.State is LoginState.ManagingCharacters or LoginState.SwitchingCharacter?"處理角色操作":ProductEntry.StateName(login.State))+" · "+(login.World.BonusStatsNotice.Length>0?login.World.BonusStatsNotice:login.CharacterNotice.Length>0?login.CharacterNotice:loginControl.Notice):$"{login.State} • {login.Detail}\n{loginControl.Notice}";if(characterUiNotice.Length>0)loginLabel.Text=characterUiNotice;else if(login.State==LoginState.Faulted)loginLabel.Text=login.Detail;}
     LoginAction BeginLogin(string profile,int port,string account,string password,int generation,int revision){loginPassword.Clear();if(normalProduct&&(profile!=ProductEntry.Profile||port!=ProductEntry.Port))return new(false,"正常入口僅使用本機遊戲伺服器。");return loginControl.Start(profile,port,account,password,generation,revision);}
     Task<LoginAction> EnterLoginCharacter(string name,int generation,int revision){ClearInput("select-character");return loginControl.Enter(name,generation,revision);}
     LoginAction CancelLogin(int generation,bool offline){loginPassword.Clear();ClearInput("cancel-login");return loginControl.Cancel(generation,offline);}
