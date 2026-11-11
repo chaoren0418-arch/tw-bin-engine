@@ -198,8 +198,25 @@ public sealed partial class ClientForm {
     /// R3-A (#678): while the native UI owns the warehouse (window registered and not faulted), the S176 / deposit list opens
     /// WAREHOUSE_WINDOW and the WinForms NPC list (NpcUi.cs) stays out of the way. Native UI off → the WinForms list as before.
     /// </summary>
-    internal bool NativeWarehouseActive(WorldSession w)=>NativeUiActive&&w.InteractionKind is "withdraw" or "deposit"
-        &&nativeUiRoot?.Find(WarehouseWindowPanel.WindowId) is {} p&&!nativeUiRoot.Faulted.Contains(p);
+    internal bool NativeWarehouseActive(WorldSession w)=>NativeWarehouseActive(NativeUiActive,w.InteractionKind,w.InteractionRevision,nativeUiRoot);
+    /// <summary>
+    /// T436 (#994, classic-ui-audit G17): besides "registered and not faulted", the window must not have been closed for this
+    /// list without a cancel (UiRoot closed it: 4-window stack eviction, map refusal, close-all). Then the interaction is still
+    /// open but nothing shows it, so the WinForms list comes back (same idea as TradeUi AttachTransactionWindow → !Dismissed).
+    /// A list the panel has not picked up yet (next UiRoot.Update opens it) still counts as native.
+    /// </summary>
+    internal static bool NativeWarehouseActive(bool nativeActive,string? kind,int interactionRevision,UiRoot? root)=>
+        kind is "withdraw" or "deposit"&&NativePanelUsable(nativeActive,root,WarehouseWindowPanel.WindowId)
+        &&root!.Find(WarehouseWindowPanel.WindowId) is WarehouseWindowPanel p&&!WarehouseDismissed(p.View?.Revision,p.IsOpen,interactionRevision);
+    /// <summary>G17: the panel already showed this interaction revision and is closed now.</summary>
+    internal static bool WarehouseDismissed(int? shownRevision,bool open,int interactionRevision)=>shownRevision==interactionRevision&&!open;
+
+    /// <summary>
+    /// T436 (#994, classic-ui-audit G16): one rule for "the native window takes over from its WinForms fallback": native UI
+    /// active, the panel registered and not faulted (same as QuitFallbackUi NativeQuitWindowActive). Otherwise the fallback shows.
+    /// </summary>
+    internal static bool NativePanelUsable(bool nativeActive,UiRoot? root,string id)=>nativeActive&&root?.Find(id) is {} p&&!root.Faulted.Contains(p);
+    internal bool NativePanelActive(string id)=>NativePanelUsable(NativeUiActive,nativeUiRoot,id);
 
     /// <summary>Dev-tools page by tab title ("背包", "魔法", "NPC", …); unknown or null → the window as it is.</summary>
     void ShowDevToolsPage(string? title){
