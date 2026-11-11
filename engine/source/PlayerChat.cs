@@ -293,6 +293,20 @@ public sealed partial class ClientForm {
         }
         return handled;
     }
+    /// <summary>
+    /// R10-J（T394／#909）：`/qbookmark 名稱` 的 C165 放行時呼叫，在擁有這個 session 的視窗的原生書籤窗設 qbookmark 旗標
+    /// （sub_502720 的 this+486）。排進 UI 執行緒（面板狀態只在 UI 執行緒改）。離線測試、--classic-ui 或書籤窗停用時什麼都不做，回 false。
+    /// </summary>
+    internal static bool OfferQuickBookmark(WorldSession world,int session,uint actor){
+        bool handled=false;
+        foreach(var owner in Application.OpenForms.OfType<ClientForm>().ToArray()){
+            if(!ReferenceEquals(owner.login.World,world)||!owner.IsHandleCreated||owner.IsDisposed)continue;
+            void Mark(){if(!owner.IsDisposed)owner.NativeBookmarkWindow()?.RequestQuickOnNextBookmark(session,actor);}
+            if(owner.InvokeRequired)owner.BeginInvoke((Action)Mark);else Mark();
+            handled=true;
+        }
+        return handled;
+    }
     bool OpenChatWindow(ChatWindowRequest request){
         if(request==ChatWindowRequest.Bookmark)return ToggleNativeBookmarkWindow();
         // 原版 sub_F480C0：不在擺攤時「切換」PersonalShopUI 窗。
@@ -528,8 +542,9 @@ public sealed partial class LoginConnection {
     }
     /// <summary>
     /// FU9§1.1 第 2 點：`bookmark 名稱`／`記憶 名稱`（sub_F43C30 → sub_4FE1D0）送新增書籤（3.81 C165），名稱 &gt; 30 byte 印 204；
-    /// 不帶名稱＝開一般模式的書籤窗。`qbookmark 名稱`（sub_F48450 → sub_502720）同樣送 C165；原版另把新書籤加進快速移動清單，
-    /// 那份清單在 BookmarkPanel（不在本任務範圍），這裡只送新增（報告列為後續）。
+    /// 不帶名稱＝開一般模式的書籤窗。`qbookmark 名稱`（sub_F48450 → sub_502720）同樣送 C165；原版另設 this+486＝1，
+    /// 收到新書籤時也加進快速移動清單。R10-J（T394／#909）：C165 放行時經 ClientForm.OfferQuickBookmark 在原生書籤窗設這個旗標
+    /// （BookmarkWindowPanel.RequestQuickOnNextBookmark）；--classic-ui 或書籤窗停用時沒有快速移動清單，只送新增。
     /// 限制地圖（214）的本機檢查沒做：部分地圖只限制特定區域，區域表待查；3.81 伺服器同樣回 214。
     /// </summary>
     ChatCommandPlan BookmarkChatCommand(ChatFollowupCommand c){
@@ -544,7 +559,12 @@ public sealed partial class LoginConnection {
         if(LoginPackets.TextEncoding.GetByteCount(name)>ChatFollowupCommands.MarkNameBytes)return ChatCommandPlan.Refuse(ChatFollowupCommands.MarkTooLongText);
         var store=World.Bookmarks;
         if(!store.CanAdd(name))return ChatCommandPlan.Refuse("書籤已滿或已有同名書籤；未送出。");
-        return new ChatCommandPlan("已要求記憶目前位置「"+name+"」；等待伺服器書籤回覆。"+(c.Kind==ChatFollowupKind.QBookmark?"（快速移動清單尚未自動加入）":""),
+        if(c.Kind==ChatFollowupKind.QBookmark){
+            int session=generation;uint actor=World.Actor?.ObjectId??0;var world=World;
+            return new ChatCommandPlan("已要求記憶目前位置「"+name+"」；收到伺服器書籤後加進快速移動清單。",
+                [BookmarkPackets.Add(name)],()=>{store.Sent(null);ClientForm.OfferQuickBookmark(world,session,actor);},()=>store.CanAdd(name));
+        }
+        return new ChatCommandPlan("已要求記憶目前位置「"+name+"」；等待伺服器書籤回覆。",
             [BookmarkPackets.Add(name)],()=>store.Sent(null),()=>store.CanAdd(name));
     }
     async Task<bool> SendChatFollowup(ChatFollowupCommand c,int session,int world,uint actor){

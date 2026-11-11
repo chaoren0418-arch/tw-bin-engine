@@ -103,11 +103,20 @@ public sealed partial class WorldSession {
         }
         return false;
     }
-    /// <summary>選定書籤 → 技能目標（HD：書籤地圖、書籤 id）；請求過期、書籤不存在或已送出刪除時 null。會把選取技能設回請求的技能。</summary>
+    /// <summary>
+    /// 選定書籤 → 技能目標（HD：書籤地圖、書籤 id）；請求過期、書籤不存在或已送出刪除時 null。會把選取技能設回請求的技能。
+    /// R10-J（T394／#909）：bookmarkId 0＝隨機傳送鈕（原版名稱 487、座標 0、id 0 的假書籤）→ HD(地圖 0, 書籤 0)。
+    /// 已驗證（3.81 原始碼）：C_UseSkill.java 對 5／69 的 H 讀了就丟；TELEPORT.java／MASS_TELEPORT.java 書籤查不到時 randomLocation(200)
+    /// （目前地圖不可傳送時回 276，由伺服器判斷）。
+    /// </summary>
     internal SkillCastTarget? TeleportDestinationTarget(long revision,uint bookmarkId){
-        if(TeleportDestination is not {} q||q.Revision!=revision||bookmarkId==0||Bookmarks.TryGet(bookmarkId) is not {} b)return null;
+        if(TeleportDestination is not {} q||q.Revision!=revision)return null;
+        ushort map;
+        if(bookmarkId==NativeUi.BookmarkWindowPanel.RandomTeleportId)map=0;
+        else if(Bookmarks.TryGet(bookmarkId) is {} b)map=b.MapId;
+        else return null;
         if(SelectedMagicId!=q.Skill&&!SelectMagic(q.Skill))return null;
-        return new(SkillTargetKind.Bookmark,MapId:b.MapId,BookmarkId:b.Id);
+        return new(SkillTargetKind.Bookmark,MapId:map,BookmarkId:bookmarkId);
     }
     /// <summary>取消（ESC／取消鈕）或送出後關閉；revision 不符時不動。</summary>
     public bool CloseTeleportDestination(long revision){lock(abilityLock){if(teleportDestination?.Revision!=revision)return false;teleportDestination=null;return true;}}

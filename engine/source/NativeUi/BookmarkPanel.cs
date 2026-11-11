@@ -30,12 +30,21 @@ namespace P06.NativeUi;
 //   - 選目的地模式：雙擊記憶清單或快速移動清單的列＝選它傳送（同確認鈕）。一般模式雙擊記憶清單＝改名（K1，3.81 不支援，不做）。
 //   - 隨機傳送 RandomTeleport_Button 只在選目的地模式顯示（sub_BDC800），施放時用名稱 487、座標 0、id 0 的假書籤（3.81 TELEPORT.java
 //     書籤查不到時 randomLocation(200)）。送 id 0 要宿主接受：IBookmarkWindowHost.AcceptsRandomTeleport＝false 的宿主不畫這顆鈕（規則 5）。
+// R10-J（T394／#909，gap-matrix 15.12.6）書籤窗收尾：
+//   - 隨機傳送：宿主 RingWindows.cs 宣告 AcceptsRandomTeleport；AbilityStatus.TeleportDestinationTarget 對 id 0 送 HD(地圖 0, 書籤 0)。
+//     已驗證（3.81 原始碼）：C_UseSkill.java 對技能 5／69 `readH()` 讀了地圖就丟掉，只留 `readD()` 的書籤 id；
+//     TELEPORT.java／MASS_TELEPORT.java 以 CharBookTable.getBookMark(pc, id) 查不到時走 randomLocation(200)（地圖可傳送時；否則 276）。
+//   - qbookmark（sub_502720 設 this+486＝1，FU9§1.1 第 5 項）：下一次收到單筆書籤（S92）時，把新出現的書籤加進快速移動清單。
+//     旗標由聊天指令經 ClientForm.OfferQuickBookmark（PlayerChat.cs）設定。已滿時顯示 2828（推測：同 Insert）；
+//     換連線或換角色時旗標清掉（推測）；伺服器拒絕（214）不回 S92 時旗標保留到下一筆新書籤（推測：原版沒有逾時）。
+//   - 從記憶清單拖到快速移動清單（FU9§1.1 第 5 項列的第二種加入方式）：在記憶清單的列按下左鍵、在快速移動清單範圍放開＝加入
+//     （規則同 Insert：不重複、最多 5 筆、已送刪除的不加）。放開的位置不影響順序，一律加在最後（推測）；兩種模式都可以拖（推測）。
 // 推測（標明）：
 //   - 框先畫、底 4312 再畫；列文字白色、左邊留 3 px、垂直置中；選取列畫 PushSurf 在文字之下；送刪除後待確認的列文字灰色。
 //   - 取消鈕／關閉鈕／ESC 在選目的地模式都是「取消，不送」。選目的地模式在請求結束（送出成功或被清掉）時關窗。
 //   - 拉桿位置＝ScrollStart + (ScrollHeight − 拉桿高)·捲動/最大捲動。2828 提示畫在調色盤那一列（原版畫法沒追）。
-// 不做（待查證）：13 色調色盤 ColorPalette、AddIcon（改名類，3.81 不支援）、CloningMemoryPlace_List、從記憶清單拖到快速移動清單、
-//   區域表。這些元件不畫（規則 5：不畫不能用的鈕）。
+// 不做（待查證）：13 色調色盤 ColorPalette、AddIcon（改名類，3.81 不支援）、CloningMemoryPlace_List（拖曳時跟著游標的那一列不畫）、
+//   區域表（Q8）。這些元件不畫（規則 5：不畫不能用的鈕）。
 
 /// <summary>原生書籤窗的宿主（BookmarkUi.cs／RingWindows.cs 的 ClientForm 轉接）。面板只讀狀態、轉交動作，不碰 LoginConnection。</summary>
 public interface IBookmarkWindowHost {
@@ -104,6 +113,8 @@ public sealed class BookmarkWindowPanel:IUiMovablePanel,IUiClosablePanel,IUiText
     bool sortByName;ushort? zoneFilter;bool zoneOpen;int zoneScroll;
     uint[]? confirmDelete;string? message;
     readonly List<uint> quick=[];(int Session,uint Actor)? quickOwner;uint? quickSelected;bool quickFocus;
+    // R10-J：qbookmark 的 this+486 旗標（哪個連線、哪個角色要的）；拖曳中的記憶清單書籤 id。
+    (int Session,uint Actor)? quickPending;uint? dragRow;
 
     public IBookmarkWindowHost? Host{get;private set;}
     public void Attach(IBookmarkWindowHost host)=>Host=host;
@@ -150,6 +161,10 @@ public sealed class BookmarkWindowPanel:IUiMovablePanel,IUiClosablePanel,IUiText
     internal uint? QuickSelected=>quickSelected;
     internal bool QuickFocus=>quickFocus;
     internal bool HasQuickList=>quickRowCount>0&&quickRowHeight>0&&quickRect.Width>0;
+    /// <summary>R10-J：qbookmark 旗標（this+486）設著，等下一筆新書籤。</summary>
+    internal bool QuickPending=>quickPending!=null;
+    /// <summary>R10-J：記憶清單上按下、還沒放開的書籤 id（拖到快速移動清單用）。</summary>
+    internal uint? DragRow=>dragRow;
     internal bool RandomVisible=>DestinationMode&&Host is {AcceptsRandomTeleport:true}&&random is {Rect:{Width:>0,Height:>0}};
     bool CanEdit=>destination==null&&Editor is {Sending:false}&&view is {CanEdit:true};
     // Rectangle.IsEmpty 要 X／Y 也是 0 才成立；缺圖的鈕有位置、沒有大小，所以看寬高。
@@ -282,7 +297,7 @@ public sealed class BookmarkWindowPanel:IUiMovablePanel,IUiClosablePanel,IUiText
         if(!usable)UiResourceLog.Write($"panel {PanelId} 停用：缺少版面所需的 surf（{string.Join("；",missing)}）");
         open=false;destination=null;selected=null;marked.Clear();scroll=0;pressed=null;
         sortByName=false;zoneFilter=null;zoneOpen=false;zoneScroll=0;ResetEdit();this.rows=view?.Items??[];
-        quickSelected=null;quickFocus=false;
+        quickSelected=null;quickFocus=false;dragRow=null;
     }
     void ResetEdit(){confirmDelete=null;message=null;}
 
@@ -298,10 +313,18 @@ public sealed class BookmarkWindowPanel:IUiMovablePanel,IUiClosablePanel,IUiText
         var v=host.Bookmarks;var q=host.Destination;
         // 原版 sub_931D60：單筆書籤收包後開窗。整份清單、第一次看到這個角色、或換角色時不開。
         bool sameActor=seen is {} s&&s.Session==v.Session&&s.Actor==v.ActorId;
-        if(sameActor&&seen!.Value.Revision!=v.Revision&&v.Notice==SingleBookmarkNotice&&v.ActorId!=0)OpenNormal();
-        if(!sameActor){selected=null;marked.Clear();scroll=0;zoneFilter=null;zoneOpen=false;zoneScroll=0;ResetEdit();}
+        bool single=sameActor&&seen!.Value.Revision!=v.Revision&&v.Notice==SingleBookmarkNotice&&v.ActorId!=0;
+        if(single)OpenNormal();
+        if(!sameActor){selected=null;marked.Clear();scroll=0;zoneFilter=null;zoneOpen=false;zoneScroll=0;dragRow=null;ResetEdit();}
         // 快速移動清單只在本次登入有效（3.81 沒有保存）：換連線或換角色就清空。離開世界又回到同一個連線、同一個角色不清。
         if(quickOwner is not {} o||o.Session!=v.Session||o.Actor!=v.ActorId){quick.Clear();quickSelected=null;quickFocus=false;quickOwner=(v.Session,v.ActorId);}
+        // R10-J：qbookmark 旗標。別的連線或角色要的 → 丟掉；同一角色收到單筆書籤（S92）→ 新出現的書籤加進快速移動清單，旗標清掉。
+        if(quickPending is {} qp&&(qp.Session!=v.Session||qp.Actor!=v.ActorId))quickPending=null;
+        if(quickPending!=null&&single){
+            var before=(view?.Items??[]).Select(b=>b.Id).ToHashSet();
+            var added=v.Items.Where(b=>!b.DeletePending&&!before.Contains(b.Id)).Select(b=>b.Id).ToArray();
+            if(added.Length>0){quickPending=null;view=v;foreach(var id in added)AddQuickId(id);}
+        }
         seen=(v.Session,v.ActorId,v.Revision);view=v;
         if(zoneFilter is ushort z&&!v.Items.Any(b=>b.MapId==z))zoneFilter=null;   // 該地圖已沒有書籤 → 回到全部
         quick.RemoveAll(id=>!v.Items.Any(b=>b.Id==id));
@@ -356,11 +379,21 @@ public sealed class BookmarkWindowPanel:IUiMovablePanel,IUiClosablePanel,IUiText
 
     // ---- 快速移動清單（Insert 鍵，本次登入有效） ----
     /// <summary>Insert 鍵（4141 → sub_BDDE20）：記憶清單選取那筆加進快速移動清單；已滿顯示 2828。</summary>
-    internal bool AddQuick(){
-        if(!HasQuickList||SelectedRow is not {DeletePending:false} row)return false;
-        if(quick.Contains(row.Id))return false;
+    internal bool AddQuick()=>SelectedRow is {} row&&AddQuickId(row.Id);
+    /// <summary>把書籤 id 加進快速移動清單（Insert、拖曳、qbookmark 共用）：要有清單、書籤存在且沒送刪除、不重複；已滿顯示 2828。</summary>
+    bool AddQuickId(uint id){
+        if(!HasQuickList||view?.Items.FirstOrDefault(b=>b.Id==id) is not {DeletePending:false})return false;
+        if(quick.Contains(id))return false;
         if(quick.Count>=QuickCapacity){message=Text(StringQuickFull);return false;}
-        quick.Add(row.Id);message=null;return true;
+        quick.Add(id);message=null;return true;
+    }
+    /// <summary>
+    /// R10-J：聊天指令 qbookmark（sub_502720 設 this+486＝1）。session／actor＝送出時的連線（BookmarkView.Session）與角色；
+    /// 下一次同一角色收到新書籤時加進快速移動清單。版面沒有快速移動清單時不設（回 false）。
+    /// </summary>
+    public bool RequestQuickOnNextBookmark(int session,uint actor){
+        if(!usable||!HasQuickList||actor==0)return false;
+        quickPending=(session,actor);return true;
     }
     bool RemoveQuick(){
         if(quickSelected is not uint id||!quick.Remove(id))return false;
@@ -382,6 +415,8 @@ public sealed class BookmarkWindowPanel:IUiMovablePanel,IUiClosablePanel,IUiText
     internal Rectangle RowRect(int r)=>Abs(new(listRect.X,listRect.Y+rowHeight*r,listRect.Width,rowHeight));
     /// <summary>快速移動清單第 r 列（0..4）的範圍；清單不可用時是空的。</summary>
     internal Rectangle QuickRowRect(int r)=>HasQuickList?Abs(new(quickRect.X,quickRect.Y+quickRowHeight*r,quickRect.Width,quickRowHeight)):Rectangle.Empty;
+    /// <summary>快速移動清單整塊（QuickMove_List 的 Width×Height）；拖曳的放開範圍。清單不可用時是空的。</summary>
+    internal Rectangle QuickListRect=>HasQuickList?Abs(quickRect):Rectangle.Empty;
     internal Rectangle RandomRect=>RandomVisible?Abs(random!.Rect):Rectangle.Empty;
     internal Point? ThumbAt{get{
         if(thumb is not (Point at,int id)||surf(id) is not {Height:>0} s)return null;
@@ -490,12 +525,13 @@ public sealed class BookmarkWindowPanel:IUiMovablePanel,IUiClosablePanel,IUiText
         // 原版 sub_BDE250 只處理左鍵（512–515），沒有右鍵刪除。
         if(e.Button!=MouseButtons.Left)return inside;
         if(e.Kind==UiMouseKind.Down){
-            pressed=HitKey(e.Location);
+            pressed=HitKey(e.Location);dragRow=null;
             if(zoneOpen&&pressed is not ("zone" or "zone-list")&&pressed?.StartsWith("zone:",StringComparison.Ordinal)!=true){zoneOpen=false;}   // 點下拉以外＝收起
             if(pressed is {} k&&k.StartsWith("row:",StringComparison.Ordinal)){
                 int index=int.Parse(k[4..],System.Globalization.CultureInfo.InvariantCulture);pressed=null;
                 uint? before=selected;bool wasFocus=!quickFocus;
                 Select(index,e.Modifiers);
+                if(confirmDelete==null&&index<Rows.Count)dragRow=Rows[index].Id;   // R10-J：可能是拖曳的起點
                 if(e.Clicks>=2&&wasFocus&&before==selected)DoubleClick(commands);
             }else if(pressed is {} qk&&qk.StartsWith("quick:",StringComparison.Ordinal)){
                 int index=int.Parse(qk[6..],System.Globalization.CultureInfo.InvariantCulture);pressed=null;
@@ -506,6 +542,8 @@ public sealed class BookmarkWindowPanel:IUiMovablePanel,IUiClosablePanel,IUiText
             return inside;
         }
         if(e.Kind==UiMouseKind.Up){
+            // R10-J：記憶清單按下、在快速移動清單放開＝加進快速移動清單（同 Insert 的規則）。
+            if(dragRow is uint drag){dragRow=null;if(QuickListRect.Contains(e.Location)&&confirmDelete==null){pressed=null;AddQuickId(drag);return true;}}
             string? key=HitKey(e.Location),was=pressed;pressed=null;
             if(key!=null&&key==was)Activate(key,commands);
             return true;

@@ -171,6 +171,8 @@ public sealed partial class ClientForm {
             async Task Run(){try{await form.login.SendTeleportDestination(shown.Revision,bookmarkId);}finally{sending=false;}}
         }
         public void CancelTeleport(TeleportDestinationRequest shown)=>form.login.CloseTeleportDestination(shown.Revision);
+        /// <summary>R10-J（#909）：SendTeleportDestination 接受書籤 id 0（AbilityStatus.TeleportDestinationTarget 送 HD(0,0)，3.81 TELEPORT 隨機傳送）。</summary>
+        public bool AcceptsRandomTeleport=>true;
     }
     bool elfTeleportOptionLoaded;
     /// <summary>
