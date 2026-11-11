@@ -271,7 +271,7 @@ public static class NameLayout {
         foreach(var t in targets){
             if(t.Name.Length==0||blind&&!t.Self)continue;
             var (clan,clanId)=w.ClanIdentity(t.ObjectId);bool hasClan=clanId!=0;ushort color=w.NameColor555(t.ObjectId,now);
-            var marks=w.NameMarksFor(t.ObjectId);ushort outline=LevelDiffOutline(MonsterLevelOption,marks.Kind,marks.LevelDiff)??NameColors.Outline;
+            var marks=w.NameMarksFor(t.ObjectId,now);ushort outline=LevelDiffOutline(MonsterLevelOption,marks.Kind,marks.LevelDiff)??NameColors.Outline;
             bool war196=w.ClanWarFlag(t.ObjectId)!=0;
             if(hovered==t.ObjectId){
                 string title=w.DisplayTitle(t.ObjectId);bool partyOther=!t.Self&&w.IsPartyMemberId(t.ObjectId);
@@ -430,9 +430,10 @@ public sealed partial class WorldSession {
     internal int GfxOf(uint id)=>Actor?.ObjectId==id?Actor.Gfx:objects.TryGetValue(id,out var o)?o.Gfx:-1;
     // 3.81 封包能提供的部分：+248 主人名＝S87 owner 欄；+252 行＝個人商店標題（AN§2.1 推測）；等級差＝S87 等級 − 自己等級。
     // +181 與物件種類在 3.81 S87 沒有對應欄位（需先查證），一律留空，對應規則不啟用。
-    internal NameMarks NameMarksFor(uint id){
+    // R10-Q（#916）：商店訊息照 0xFF 切兩行、每 5000 ms 輪流（PersonalShopTitle，TW16 sub_A4EF80／sub_7CFFC0）；now＝TickCount64。
+    internal NameMarks NameMarksFor(uint id,long? now=null){
         if(Actor?.ObjectId==id||!objects.TryGetValue(id,out var o))return new();
-        return new(Master:o.Owner.Length>0,Line252:o.ShopActive?o.ShopText:"",LevelDiff:Status is {} s?o.Level-s.Level:null);
+        return new(Master:o.Owner.Length>0,Line252:ShopTitleLine(o,now),LevelDiff:Status is {} s?o.Level-s.Level:null);
     }
 }
 // "Show all names" option (0x138BE7F). There is no prior client settings file, so it is kept beside the
