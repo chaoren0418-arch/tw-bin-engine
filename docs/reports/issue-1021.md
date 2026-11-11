@@ -45,7 +45,8 @@
 - `dotnet build engine/source/OfflineClient.csproj -c Release`（本機，輸出到 `scratch/t1021/build`）：0 個錯誤。3 個警告（`HtmlActionTests.cs:108`、`MagicUi.cs:20`）是原本就有的。
 - `py -3 -I engine/tools/check-no-game-assets.py`：`pass`（4627 個追蹤檔，0 個錯誤）。
 - 新的離線測試 `engine/source/LocalOptionPageTests.cs`（`[WorldModuleTest("local-option-page")]`，自動發現）。內容：動作表與 `Prepare`；link／img link 本機換頁、不送封包、舊版本失效；getall／accepttrade／bubbleon 執行後重畫、值會更新；randomParty／dochat／cPartyReject／alliancelist 停用；dowhisper／dotradechat 送 C26 type 2／6；showhpmp 有視窗才可用、showfloathpmp 只重畫；`AttachHpMp` 接上 `HyperTextOptionVars.HpMp`；addbuddy 在本機頁開 588 名稱框；查詢結果頁、伺服器頁、空頁、關頁的模式切換；伺服器頁上的 getall 照舊送 C125。測試只用自己寫的合成模板，不讀客戶端素材。
-- 依本機執行限制，**本機沒有執行任何測試**。單元測試與本組測試交給 PR 的 GitHub Actions CI。
+- 依本機執行限制，**本機沒有執行任何測試**。單元測試與本組測試交給 PR #1022 的 GitHub Actions CI。
+- CI 結果：第一次跑時 `local-option-page` 有 2 項失敗（82 項檢查）：`Prepare` 用注入的「一律可用」判定時，會把不在本組的動作（dochat）也啟用。已改成「不是本組的動作一律停用」（commit `308b70fa`）。重跑後 `dotnet`、`map-continuity`（含全部 `[WorldModuleTest]`）、`npc-offline` 都通過。
 
 ## 未驗證／推測
 - **待驗證（真機，smoke-m7 SM16 附加項）**：鈕 6／Ctrl+V 開 option1 → 點環境／社群／指令能換頁，左下圖示回 option1；option11 的 HP/MP 值；option12 的泡泡話框、個人商店名稱、密語、買賣；option13 的交易、撿取全部，點了會切換並重畫這頁。
