@@ -23,8 +23,10 @@ namespace P06.NativeUi;
 //     （推測：不經 846）。窗內不能新增書籤（新增入口是聊天指令 bookmark／qbookmark，R9-C）。
 //   - 排序 Sorting（sub_BE0E00，this+624）：0＝伺服器順序、1＝名稱 strcmp，比較前先去掉色碼／圖示碼 \f? \a? \d?（sub_BE0C50 → sub_BDF3A0）；
 //     關窗時歸 0。引擎以 CP950 位元組比較（同 strcmp），同名再依書籤 id。
-//   - 區域下拉第 0 項＝字串 878「全部」（sub_F36F20）。其餘項目原版來自 72 byte 地圖表的區域群組（表來源 sub_F35D90 待驗證），
-//     引擎暫時維持書籤裡出現過的地圖編號（推測，見 FU9§1.1 第 4 項）。
+//   - 區域下拉第 0 項＝字串 878「全部」（sub_F36F20）。其餘項目原版是全域區域表 dword_16568A8（zone3.xml）的 bookmark 群組（FU17§1）。
+//     T440（#1011，FU17 Q9-A）：3.81 沒有 zone3.xml（不是 3.81 行為），照 TW16 改讀參考客戶端的 zone3(-c).xml＋zone3desc-c.tbl
+//     （ZoneBookmarkGroups.cs）：下拉列 bookmark id 由小到大的群組名稱，篩選＝群組任一區域的地圖相同且（沒有矩形或座標在矩形內）。
+//     讀不到參考客戶端（或還在背景讀取）時維持書籤裡出現過的地圖編號（FU9§1.1 第 4 項）。群組表讀完那一刻篩選歸回「全部」。
 //   - 確認鈕：原版存檔（op 55）但不關窗；3.81 沒有東西可存，所以一般模式按確認什麼都不做、窗不關。2847／3106 只在 dirty 時出現，
 //     引擎沒有改名／改順序，永遠不 dirty，不顯示。
 //   - 選目的地模式：雙擊記憶清單或快速移動清單的列＝選它傳送（同確認鈕）。一般模式雙擊記憶清單＝改名（K1，3.81 不支援，不做）。
@@ -44,7 +46,7 @@ namespace P06.NativeUi;
 //   - 取消鈕／關閉鈕／ESC 在選目的地模式都是「取消，不送」。選目的地模式在請求結束（送出成功或被清掉）時關窗。
 //   - 拉桿位置＝ScrollStart + (ScrollHeight − 拉桿高)·捲動/最大捲動。2828 提示畫在調色盤那一列（原版畫法沒追）。
 // 不做（待查證）：13 色調色盤 ColorPalette、AddIcon（改名類，3.81 不支援）、CloningMemoryPlace_List（拖曳時跟著游標的那一列不畫）、
-//   區域表（Q8）。這些元件不畫（規則 5：不畫不能用的鈕）。
+//   這些元件不畫（規則 5：不畫不能用的鈕）。
 
 /// <summary>原生書籤窗的宿主（BookmarkUi.cs／RingWindows.cs 的 ClientForm 轉接）。面板只讀狀態、轉交動作，不碰 LoginConnection。</summary>
 public interface IBookmarkWindowHost {
@@ -76,7 +78,7 @@ public interface IBookmarkEditHost {
 }
 
 public sealed class BookmarkWindowPanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
-    [UiPanel(178)] internal static UiPanelRegistration Registration=>new(BookmarkWindowPanel.PanelId,BookmarkWindowPanel.LayoutName,_=>new BookmarkWindowPanel());   // R4-J (#713): CBookmarkWindowRenewal (BookmarkUI.xml)
+    [UiPanel(178)] internal static UiPanelRegistration Registration=>new(BookmarkWindowPanel.PanelId,BookmarkWindowPanel.LayoutName,r=>new BookmarkWindowPanel{ZoneGroups=ZoneBookmarkGroupSource.For(r.Resources) is {} z?()=>z.Current:null});   // R4-J (#713): CBookmarkWindowRenewal (BookmarkUI.xml); T440 (#1011) zone groups from the reference client
     public const string PanelId="Bookmark_Window",LayoutName="BookmarkUI";
     /// <summary>Bookmarks.ReceiveOne（S92＝3.81 的單筆書籤，對應 TW16 op 2）設定的提示文字；用來分辨單筆收包與整份清單（不改 Bookmarks.cs）。</summary>
     public const string SingleBookmarkNotice="已收到伺服器書籤資料。";
@@ -111,6 +113,8 @@ public sealed class BookmarkWindowPanel:IUiMovablePanel,IUiClosablePanel,IUiText
     P06.BookmarkView? view;
     P06.Bookmark[] rows=[];
     bool sortByName;ushort? zoneFilter;bool zoneOpen;int zoneScroll;
+    // T440：區域群組表（null＝用地圖編號）。第一次拿到後固定不換。
+    ZoneBookmarkGroups? zoneGroups;
     uint[]? confirmDelete;string? message;
     readonly List<uint> quick=[];(int Session,uint Actor)? quickOwner;uint? quickSelected;bool quickFocus;
     // R10-J：qbookmark 的 this+486 旗標（哪個連線、哪個角色要的）；拖曳中的記憶清單書籤 id。
@@ -145,9 +149,19 @@ public sealed class BookmarkWindowPanel:IUiMovablePanel,IUiClosablePanel,IUiText
     internal bool SortByName=>sortByName;
     internal ushort? ZoneFilter=>zoneFilter;
     internal bool ZoneListOpen=>Visible&&zoneOpen;
-    /// <summary>下拉的項目：null＝878「全部」，其餘是書籤出現過的地圖編號（由小到大；區域表待驗證）。</summary>
-    internal IReadOnlyList<ushort?> ZoneItems=>[null,..(view?.Items??[]).Select(b=>b.MapId).Distinct().Order().Select(m=>(ushort?)m)];
-    internal string ZoneText=>ZoneItemText(zoneFilter);
+    /// <summary>
+    /// 下拉的項目：null＝878「全部」。有區域群組表時其餘是 bookmark id（由小到大，sub_F36F20）；
+    /// 沒有時是書籤出現過的地圖編號（由小到大）。
+    /// </summary>
+    internal IReadOnlyList<ushort?> ZoneItems=>zoneGroups is {} g?[null,..g.Groups.Select(x=>(ushort?)x.Id)]:[null,..(view?.Items??[]).Select(b=>b.MapId).Distinct().Order().Select(m=>(ushort?)m)];
+    internal string ZoneText=>ZoneLabel(zoneFilter);
+    /// <summary>T440：區域群組表的來源（宿主設定；null 或回 null＝用地圖編號）。Update 時取一次，拿到就固定。</summary>
+    public Func<ZoneBookmarkGroups?>? ZoneGroups{get;set;}
+    /// <summary>目前用的區域群組表；null＝地圖編號模式。</summary>
+    internal ZoneBookmarkGroups? ZoneGroupTable=>zoneGroups;
+    /// <summary>下拉項目的文字：群組模式＝群組名稱，否則地圖編號。</summary>
+    internal string ZoneLabel(ushort? item)=>item is ushort id&&zoneGroups?.Find(id) is {} g?g.Name:ZoneItemText(item);
+    bool ZoneMatches(P06.Bookmark b,ushort z)=>zoneGroups is {} g?g.Find(z)?.Matches(b)==true:b.MapId==z;
     /// <summary>846 確認中的第一筆書籤 id（多選時見 ConfirmingDeleteIds）。</summary>
     internal uint? ConfirmingDelete=>confirmDelete is {Length:>0} d?d[0]:null;
     /// <summary>846 確認中的全部書籤 id（已排成送出順序：畫面順序由大到小）。</summary>
@@ -326,7 +340,10 @@ public sealed class BookmarkWindowPanel:IUiMovablePanel,IUiClosablePanel,IUiText
             if(added.Length>0){quickPending=null;view=v;foreach(var id in added)AddQuickId(id);}
         }
         seen=(v.Session,v.ActorId,v.Revision);view=v;
-        if(zoneFilter is ushort z&&!v.Items.Any(b=>b.MapId==z))zoneFilter=null;   // 該地圖已沒有書籤 → 回到全部
+        // T440：群組表第一次讀到 → 換成群組模式，篩選歸回全部（地圖編號和 bookmark id 不能混用）。
+        if(zoneGroups==null&&ZoneGroups?.Invoke() is {} groups){zoneGroups=groups;zoneFilter=null;zoneScroll=0;}
+        // 地圖編號模式：該地圖已沒有書籤 → 回到全部。群組模式的項目是固定表，沒有符合的書籤時清單是空的（推測同原版）。
+        if(zoneGroups==null&&zoneFilter is ushort z&&!v.Items.Any(b=>b.MapId==z))zoneFilter=null;
         quick.RemoveAll(id=>!v.Items.Any(b=>b.Id==id));
         if(quickSelected is uint qs&&!quick.Contains(qs))quickSelected=null;
         Refresh();
@@ -338,7 +355,7 @@ public sealed class BookmarkWindowPanel:IUiMovablePanel,IUiClosablePanel,IUiText
     /// <summary>重算畫面清單（篩選、排序），並修正選取與捲動。</summary>
     void Refresh(){
         IEnumerable<P06.Bookmark> list=view?.Items??[];
-        if(zoneFilter is ushort z)list=list.Where(b=>b.MapId==z);
+        if(zoneFilter is ushort z)list=list.Where(b=>ZoneMatches(b,z));
         if(sortByName)list=list.Order(Comparer<P06.Bookmark>.Create((a,b)=>{int c=CompareNames(a.Name,b.Name);return c!=0?c:a.Id.CompareTo(b.Id);}));
         rows=list.ToArray();
         if(selected is uint id&&!rows.Any(r=>r.Id==id))selected=null;
@@ -501,7 +518,7 @@ public sealed class BookmarkWindowPanel:IUiMovablePanel,IUiClosablePanel,IUiText
             for(int r=0;r<zonePageSize&&zoneScroll+r<items.Count;r++){
                 var rect=ZoneRowRect(r);var item=items[zoneScroll+r];
                 if(item==zoneFilter&&zoneRowSurf is int zs)canvas.DrawSurface(surf(zs),rect.X,rect.Y);
-                string text=ZoneItemText(item);
+                string text=ZoneLabel(item);
                 var size=UiText.Measure(canvas.Graphics,text);
                 canvas.DrawText(text,rect.X+3,rect.Y+(rect.Height-size.Height)/2,Color.White);
             }
