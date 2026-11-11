@@ -6,7 +6,54 @@ namespace P06;
 public sealed record MailHeader(uint Id, byte ReadStatus, byte Year, byte Month, byte Day, string Sender, string Subject);
 public sealed record MailReply(byte Type, MailHeader[] Headers, uint Id = 0, string Body = "", byte Result = 0);
 public sealed record MailStamp(int Session, int Epoch, uint Actor);
-public sealed record MailView(MailStamp Stamp, int Revision, MailHeader[] Headers, uint? ReadingId, string Body, string Notice);
+/// <summary>
+/// One mailbox snapshot. Notice = the text of the last mail result line the original prints (Line, string-c.tbl ids, FU15§2.7);
+/// "" until the first result. NoticeSerial counts result lines, so the same text twice (two deletions) is still two lines.
+/// Status = the engine's own messages (send acknowledgements, validation, unparsable replies); the original has no such lines,
+/// so they never go to the chat window and are shown only in the --classic-ui dialog.
+/// Recent = the texts of the last result lines, oldest first, ending with Notice (at most WorldSession.MailRecentLines), so a
+/// reader that skipped serials (two replies in one frame) can still print each line once.
+/// </summary>
+public sealed record MailView(MailStamp Stamp, int Revision, MailHeader[] Headers, uint? ReadingId, string Body, string Notice,
+    MailNoticeLine? Line = null, int NoticeSerial = 0, string Status = "", string[]? Recent = null);
+
+/// <summary>
+/// T431 (#988, FU15§2.7 已驗證; IDA sub_941000 / FO 0x540400): the result line the op 99 handler prints in the chat window.
+/// Id is a string-c.tbl record (sub_4EAFF0); Prefix != 0 = the "%s %s" form (sub_4D4880 at VA 0x941A3C–0x941A6A pushes 1261
+/// first, then 400, so 400 is the first %s): "血盟 信箱已滿，無法再收信件。". Colours: sub_7DC800 / sub_7DC850 with palette[24],
+/// palette[14] (ClientForm.MailChatColor / MailChatSecondColor).
+/// </summary>
+public sealed record MailNoticeLine(int Id, int Prefix = 0) {
+    public const int Sent = 1239, RecipientFull = 1240, Stored = 1241, StoreFailed = 1242, Deleted = 1243, DeleteFailed = 1244;
+    public const int ClanFull = 1261, Clan = 400, NewMail = 428;
+    // Texts of the local Text.pak string-c.tbl (3484 records, SHA-256 4ebbc1a7…43e9, read with PakViewer for #988); used only
+    // when the table cannot be read at run time (e.g. CI without the client), same rule as ServerMessageText's fallback.
+    static readonly Dictionary<int, string> Fallback = new() {
+        [Sent] = "已將信件送出了。", [RecipientFull] = "對方的信箱已經滿了，所以無法再寄信到對方信箱。",
+        [Stored] = "信件已被儲存。", [StoreFailed] = "無法再儲存信件。", [Deleted] = "信件已被刪除了。", [DeleteFailed] = "無法刪除信件。",
+        [ClanFull] = "信箱已滿，無法再收信件。", [Clan] = "血盟", [NewMail] = "您收到鴿子信差給你的信件。" };
+
+    /// <summary>
+    /// sub_941000 by subtype (high nibble; low nibble = box): 0x00 list / 0x10 body → nothing; 0x20 → 1239 when the byte after
+    /// the type is 1, else 1261＋400 for box 1 (clan), else 1240; 0x30 → 1243 / 1244; 0x40 → 1241 / 1242 (result byte 1 / other);
+    /// 0x50 → 428. The 3.81 server sends 0x20/0x21 only when the mailbox is full and with no result byte (docs/protocol/mail.md;
+    /// the byte read there is padding 0), so 1239 does not occur with it; MailPackets.Parse has no 0x50 (the server never sends it).
+    /// </summary>
+    public static MailNoticeLine? For(byte type, byte result) => (type & 0xF0) switch {
+        0x20 when result == 1 => new(Sent),
+        0x20 => (type & 0x0F) == 1 ? new(ClanFull, Clan) : new(RecipientFull),
+        0x30 => new(result == 1 ? Deleted : DeleteFailed),
+        0x40 => new(result == 1 ? Stored : StoreFailed),
+        0x50 => new(NewMail),
+        _ => null
+    };
+    /// <summary>One string-c.tbl record as displayed (colour controls removed); the verified text when there is no table.</summary>
+    public static string String(int id) {
+        if (ServerMessageText.Table is { } table) return id >= 0 && id < table.Count ? ServerMessageText.DisplayText(table[id]) : "";
+        return Fallback.GetValueOrDefault(id, "");
+    }
+    public string Text => Prefix == 0 ? String(Id) : $"{String(Prefix)} {String(Id)}";
+}
 
 // C87/S186 contract and source identities: docs/protocol/mail.md.
 public static class MailPackets {
@@ -89,44 +136,56 @@ public sealed partial class WorldSession {
     MailStamp? mailStamp;
     MailHeader[] mailHeaders = [];
     uint? mailReadingId;
-    string mailBody = "", mailNotice = "尚未要求信件清單。";
-    int mailRevision;
+    string mailBody = "", mailStatus = MailStatusInitial;
+    // T431 (#988): the last result line as string ids (FU15§2.7) and how many result lines there were.
+    MailNoticeLine? mailLine;
+    readonly Queue<MailNoticeLine> mailRecent = new();
+    int mailRevision, mailNoticeSerial;
+    const string MailStatusInitial = "尚未要求信件清單。";
+    /// <summary>How many result lines MailView.Recent keeps.</summary>
+    public const int MailRecentLines = 8;
     MailStamp CurrentMailStamp => new(PickupSessionGeneration?.Invoke() ?? 0, WorldEpoch, Status?.ObjectId ?? 0);
     void CheckMailIdentity() {
         var current = CurrentMailStamp;
         if (mailStamp == current) return;
         mailStamp = current; mailHeaders = []; mailReadingId = null; mailBody = "";
-        mailNotice = "尚未要求信件清單。"; mailRevision++;
+        mailLine = null; mailRecent.Clear(); mailStatus = MailStatusInitial; mailRevision++;
     }
     public MailView MailSnapshot() {
         CheckMailIdentity();
-        return new(mailStamp!, mailRevision, mailHeaders.ToArray(), mailReadingId, mailBody, mailNotice);
+        return new(mailStamp!, mailRevision, mailHeaders.ToArray(), mailReadingId, mailBody, mailLine?.Text ?? "", mailLine, mailNoticeSerial, mailStatus,
+            mailRecent.Select(x => x.Text).ToArray());
     }
-    internal void MailNotice(string notice) { CheckMailIdentity(); mailNotice = notice; mailRevision++; }
+    /// <summary>Engine-only message (MailView.Status): never a chat line.</summary>
+    internal void MailStatus(string status) { CheckMailIdentity(); mailStatus = status; mailRevision++; }
     internal void ReceiveMail(byte[] plain) {
         // Parse completely before modifying the current mailbox.
         MailReply reply;
         try { reply = MailPackets.Parse(plain); }
-        catch (ProtocolException) { MailNotice("收到無法解析的信件回包，保留原清單；請重新整理。"); return; }
+        catch (ProtocolException) { MailStatus("收到無法解析的信件回包，保留原清單；請重新整理。"); return; }
         CheckMailIdentity();
         if (reply.Type <= 2) {
+            // sub_941000 case 0: rows only, no chat line.
             mailHeaders = reply.Headers;
             if (!mailHeaders.Any(x => x.Id == mailReadingId)) { mailReadingId = null; mailBody = ""; }
-            mailNotice = $"收到 {mailHeaders.Length} 封信；伺服器清單可能包含所有信匣。";
+            mailStatus = "";
         } else if (reply.Type is >= 0x10 and <= 0x12) {
+            // case 0x10: the body only, no chat line.
             if (!mailHeaders.Any(x => x.Id == reply.Id)) return;
             mailReadingId = reply.Id; mailBody = reply.Body;
             mailHeaders = mailHeaders.Select(x => x.Id == reply.Id ? x with { ReadStatus = 1 } : x).ToArray();
-            mailNotice = "已收到信件本文。";
-        } else if (reply.Type is 0x20 or 0x21) mailNotice = "伺服器回報無法寄出信件（一般信可能是收件匣已滿）。";
-        else if (reply.Result == 1) {
-            if (!mailHeaders.Any(x => x.Id == reply.Id)) return;
-            if (reply.Type != 0x40) {
+            mailStatus = "";
+        } else {
+            // Cases 0x20 / 0x30 / 0x40: the line is printed whether or not the id is in the list (sub_9B14C0 / sub_9B3120 only
+            // touch the window); the list changes only for a successful deletion of a known mail. Storing keeps the row (the
+            // server list has no box field, docs/protocol/mail.md).
+            if (reply.Result == 1 && reply.Type is >= 0x30 and <= 0x32 && mailHeaders.Any(x => x.Id == reply.Id)) {
                 mailHeaders = mailHeaders.Where(x => x.Id != reply.Id).ToArray();
                 if (mailReadingId == reply.Id) { mailReadingId = null; mailBody = ""; }
             }
-            mailNotice = reply.Type == 0x40 ? "伺服器已確認存入保管箱。" : "伺服器已確認刪除信件。";
-        } else mailNotice = "伺服器未確認信件操作成功。";
+            mailLine = MailNoticeLine.For(reply.Type, reply.Result)!; mailNoticeSerial++; mailStatus = "";
+            mailRecent.Enqueue(mailLine); while (mailRecent.Count > MailRecentLines) mailRecent.Dequeue();
+        }
         mailRevision++;
     }
 }
@@ -146,10 +205,10 @@ public sealed partial class LoginConnection {
                 "write" or "clan" => MailPackets.Write(command == "clan", receiver, subject, body),
                 _ => throw new ArgumentException("未知的信件操作。")
             };
-        } catch (ArgumentException ex) { World.MailNotice(ex.Message); return false; }
+        } catch (ArgumentException ex) { World.MailStatus(ex.Message); return false; }
         var sender = sendMovementGate; mailSending = stamp;
         try {
-            return await sender(packet, () => Current() && HasId(), () => World.MailNotice(command switch {
+            return await sender(packet, () => Current() && HasId(), () => World.MailStatus(command switch {
                 "write" or "clan" => "已送出寄信請求；伺服器沒有成功 ACK，請向收件人核對，勿重複寄送。",
                 "list" => "已要求清單；空信箱可能不回包，未收到回應不代表沒有信。",
                 _ => "已送出信件操作；等待伺服器回包。"
