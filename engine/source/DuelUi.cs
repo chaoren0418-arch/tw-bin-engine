@@ -21,7 +21,7 @@ public sealed partial class ClientForm {
         else {var tabs=new TabControl{Dock=DockStyle.Right,Width=300};tabs.TabPages.AddRange([page,proposal]);Controls.Add(tabs);}
         page.Enter+=(_,_)=>LeaveGameFocus("duel");
         duelInvite.Click+=async(_,_)=>{if(displayedDuel is {} view)await RunDuel("invite",view);};
-        timer.Tick+=(_,_)=>{SyncDuel();SyncMarriageEntry();};SyncDuel();SyncMarriageEntry();
+        timer.Tick+=(_,_)=>{SyncDuel();SyncMarriageEntry();SyncSpellCursor();};SyncDuel();SyncMarriageEntry();
     }
     async Task<bool> RunDuel(string command,DuelView view){
         ClearInput("duel-command");
@@ -39,9 +39,22 @@ public sealed partial class ClientForm {
     // it changes the attack cursor and direct-attack admission, not the name. Same for pink names and enemy clans.
     bool attackCursorShown;
     internal static Cursor AttackCursor=>Cursors.Cross;
+    // T406（#923，FU13§2 D1）：選目標模式中滑鼠在世界上移動時，sub_F02BA0 → sub_F044C0 換瞄準游標（8；技能依射程 8／19／20），
+    // 優先於攻擊游標；選完或取消時 sub_F68E60 → sub_8EECE0(3) 還原手形。圖由 GameCursorSource 從原版 BIN 唯讀讀出。
+    int? spellCursorShown;uint? cursorHovered;
     void UpdateAttackCursor(uint? hovered){
+        cursorHovered=hovered;
+        if(login.World.SpellTargetPicking){int index=SpellCursorIndex(hovered);if(index!=spellCursorShown){spellCursorShown=index;Cursor=GameCursorSource.Get(index);}return;}
+        bool restore=spellCursorShown!=null;spellCursorShown=null;
         bool attack=hovered is uint id&&login.World.CanAttackDirectly(id);
-        if(attack==attackCursorShown)return;attackCursorShown=attack;Cursor=attack?AttackCursor:Cursors.Default;
+        if(attack==attackCursorShown&&!restore)return;attackCursorShown=attack;Cursor=attack?AttackCursor:GameCursorSource.Get(GameCursors.Hand);
     }
+    int SpellCursorIndex(uint? hovered){
+        bool? inRange=null;
+        if(login.World.SpellTargetPick is {} pick&&login.World.Actor is {} a&&hovered is uint id&&login.World.Objects.FirstOrDefault(o=>o.ObjectId==id) is {} o)inRange=CombatRules.TileDistance(a.X,a.Y,o.X,o.Y)<=pick.Range;
+        return SpellCursorRules.Index(true,spellCallback:true,rangeKnown:true,targetInRange:inRange);
+    }
+    /// <summary>選完或取消後（滑鼠沒動）也要還原：原版在 sub_F68E60 直接換回 3，這裡由表單計時器檢查。</summary>
+    void SyncSpellCursor(){if(spellCursorShown!=null&&!login.World.SpellTargetPicking)UpdateAttackCursor(cursorHovered);}
     internal bool DirectAttackTarget(uint id)=>login.World.CanAttackDirectly(id);
 }

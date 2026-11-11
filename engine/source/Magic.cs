@@ -9,7 +9,8 @@ public static class SpellTargeting {
     public const int Range=15;
     /// <summary>
     /// sub_F691C0 的第 3 個參數：字串 179，進入模式時印到聊天欄（已驗證，FU9§8.1：sub_F690D0(179) → sub_7DC800 以 palette[24]
-    /// 印 string-c.tbl 第 179 行「\f1請選擇對象。」）。不是游標編號；進入模式後游標是否改變待真機（M35），引擎不換游標。
+    /// 印 string-c.tbl 第 179 行「\f1請選擇對象。」）。不是游標編號。游標已驗證（FU13§2）：進入模式本身不換，下一次滑鼠在世界上移動時
+    /// sub_F044C0 換成瞄準游標 8（技能依射程 8／19／20），選完或取消 sub_F68E60 換回 3；引擎見 SpellCursorRules／GameCursorSource（T406）。
     /// 名稱沿用 Cursor（既有測試與 SpellTargetPick 欄位）；值與 ChatFollowupCommands.SelectTarget 相同。
     /// </summary>
     public const int Cursor=ChatFollowupCommands.SelectTarget;
@@ -51,7 +52,7 @@ public sealed partial class WorldSession {
     public bool SelectMagic(int? id){if(id!=null&&!learnedMagic.Contains(id.Value))return false;SelectedMagicId=id;MagicSelectionRevision++;MagicRevision++;return true;}
     // R7-A（T340／#803）SV#3（skills-visual.md §1.3，sub_E2AB60）：沒有可用目標時進入選目標模式（sub_F691C0(…, 15, 179)）。
     // 只做狀態與協定：點中物件後送 C_USE_SPELL（C6）。T378（#862，FU9§8）：179 是字串，進入模式時把它印到聊天欄（色 24）；
-    // 引擎不換游標（M35 待真機）、不畫畫面。原版 sub_A11280(179) 為真時不印——那個條件沒查，這裡一律印（推測）。
+    // 游標已驗證（FU13§2）：世界滑鼠移動時換瞄準游標、結束還原 3（DuelUi.cs UpdateAttackCursor，T406）；不畫其他畫面。原版 sub_A11280(179) 為真時不印——那個條件沒查，這裡一律印（推測）。
     public SpellTargetPick? SpellTargetPick {get;private set;}
     internal void BeginSpellTargetPick(int skill){
         SpellTargetPick=new(skill,SpellTargeting.Range,SpellTargeting.Cursor,WorldEpoch,TargetRevision);MagicRevision++;
