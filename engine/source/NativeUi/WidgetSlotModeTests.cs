@@ -120,7 +120,7 @@ static class WidgetSlotModeTests {
         t.Check(WidgetSlotMode.Toggle(g,store,"test")==1&&g.Current==Ex,"party RT (mode 0) → mode 1");
         g.Cycle();t.Equal(PartyRt,g.Current,"Alt+F3 cycle order is unchanged (minimap → extended → party RT)");
 
-        store.Fail=true;
+        g.Show(Ex);store.Fail=true;
         t.Check(WidgetSlotMode.Toggle(g,store,"test")==0&&g.Current==MiniMap&&store.Value==1,"write fails → still switched, old saved value kept");
         store.Fail=false;
 
