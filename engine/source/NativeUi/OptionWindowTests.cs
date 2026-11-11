@@ -149,8 +149,9 @@ static class OptionWindowTests {
     static void NotWired(WorldModuleTestContext t){
         var (_,_,p)=Setup();var host=new Host();p.Attach(host);p.Open();
         Click(p,At(10));Click(p,At(100));
-        t.Check(p.Unhandled.Contains("ShowDropItemNameBtn")&&p.Unhandled.Contains("TransparentDeadMonsterBtn")&&host.Sets.Count==0,"drop names / transparent corpses: no engine setting → Unhandled, host untouched",string.Join(",",p.Unhandled));
-        t.Check(OptionPanel.NotWired.ContainsKey("ShowDropItemNameBtn")&&OptionPanel.NotWired.ContainsKey("TransparentDeadMonsterBtn"),"reasons listed");
+        // R10-I (#908) wired these two through IOptionWindowHost (OptionFollowupTests); a host that does not hold them still leaves them Unhandled.
+        t.Check(p.Unhandled.Contains("ShowDropItemNameBtn")&&p.Unhandled.Contains("TransparentDeadMonsterBtn")&&host.Sets.Count==0,"drop names / transparent corpses: host without them → Unhandled, host untouched",string.Join(",",p.Unhandled));
+        t.Check(OptionPanel.DisplayEvents.Contains("ShowDropItemNameBtn")&&OptionPanel.DisplayEvents.Contains("TransparentDeadMonsterBtn")&&!OptionPanel.NotWired.ContainsKey("ShowDropItemNameBtn"),"R10-I: now host display options");
         p.ShowPage("Game");Click(p,At(40));
         t.Check(p.Unhandled.Contains("EnableTradeBtn"),"TW16-only option stays unwired");
         t.Equal(Argb(OffC),Pixel(p,At(40)),"unwired check button drawn normal");

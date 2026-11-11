@@ -43,9 +43,18 @@ namespace P06.NativeUi;
 //   ShowNpcNameBtn (byte_138BE7F, "全部顯示名稱"), CheckMute (master mute), EnableElfTelControlBtn (byte_13A931C →
 //     WorldSession.ElfBookmarkTeleportOption) → IOptionWindowHost (ClientForm, RingWindows.cs).
 // A wired check button is drawn with its PushPng while the setting is on (推測: the original's checked look was not traced).
-// Not wired, no engine setting to change: ShowDropItemNameBtn (ground names are always drawn), TransparentDeadMonsterBtn (no
-// transparent corpse drawing), the four volume scroll bars (one master gain only), and the TW16-only options. They keep the
-// Unhandled diagnostics.
+//
+// R10-I (T393/#908, gap-matrix 15.12.6): the rest of the options that match an engine feature.
+//   ShowDropItemNameBtn (byte_138BE7E) → ground item names (ObjectRendering.cs; off = only the selected item's name, 推測);
+//   TransparentDeadMonsterBtn (byte_138BFAA) → dead monsters drawn half transparent (ObjectRendering.cs, alpha 16/31 推測);
+//   EnableElfTelControlBtn is now kept in the option file and cleared below Lv 50 (0xEC99EB/0xEED7B9, RingWindows.cs).
+//   These three are saved in OptionSettingsFile (engine user-data "option-ui.txt"; the original's settings file
+//   sub_59DD30/sub_59E920 is not reproduced, its format was not traced).
+//   Volume bars: the horizontal ScrollBar's Move_Button is a slider thumb. Music/Effect/Env bars all show and set the one
+//   engine master gain (PlayerAudioSettings; the engine has no separate music/effect/environment gains). VoiceVolume (3.81
+//   has no voice chat) and WindowAlpha stay unwired. Thumb travel = ScrollWidth − thumb width, value 0–1 in 0.01 steps
+//   (推測: LScrollBar's range for these bars was not traced). A press sets the value at the pointer, dragging follows it.
+// Still not wired: the TW16-only options (Unhandled diagnostics).
 
 /// <summary>"BasePng=\"10814;1\"" → Attr BasePng, Id 10814, Flag 1 (Flag 0 when absent; meaning of the flag 待驗證).</summary>
 public sealed record OptionImageRef(string Attr,int Id,int Flag) {
@@ -53,18 +62,22 @@ public sealed record OptionImageRef(string Attr,int Id,int Flag) {
     public override string ToString()=>$"{(IsSurf?"surf":"png")} {Id}";
 }
 
-public enum OptionPieceKind { Image, Board, Label, Button }
+public enum OptionPieceKind { Image, Board, Label, Button, Slider }
 
 /// <summary>
 /// One element of the window or of a page, in XML order. Offset is relative to the window origin. Surface null = missing
 /// image (not drawn). Buttons hit-test on DeclaredSize when the XML gives Width/Height, otherwise on the image size.
+/// R10-I (#908): a Slider is a horizontal ScrollBar (Offset/DeclaredSize = the bar); Image/Surface = its Move_Button thumb,
+/// Thumb = the thumb's own X/Y, ScrollStart/ScrollWidth = the XML attributes (travel span). MouseEvent = the bar's Name.
 /// </summary>
 public sealed record OptionPiece(OptionPieceKind Kind,string Path,string Element,string? Name,Point Offset,Size DeclaredSize,
     OptionImageRef? Image,UiSurface? Surface,OptionImageRef? PushImage,UiSurface? PushSurface,string? MouseEvent,
-    string? TextKind,string? TextValue,Color Color,int Alpha=255) {
+    string? TextKind,string? TextValue,Color Color,int Alpha=255,Point Thumb=default,int ScrollStart=0,int ScrollWidth=0) {
     public Size ImageSize=>Surface==null?Size.Empty:new(Surface.Width,Surface.Height);
     public Rectangle HitLocal=>new(Offset,DeclaredSize.Width>0&&DeclaredSize.Height>0?DeclaredSize:ImageSize);
-    public bool Clickable=>Kind==OptionPieceKind.Button&&HitLocal.Width>0&&HitLocal.Height>0;
+    public bool Clickable=>(Kind is OptionPieceKind.Button or OptionPieceKind.Slider)&&HitLocal.Width>0&&HitLocal.Height>0;
+    /// <summary>Slider: pixels the thumb can move (span − thumb width, never negative).</summary>
+    public int Travel=>Math.Max(0,(ScrollWidth>0?ScrollWidth:DeclaredSize.Width)-ImageSize.Width);
 }
 
 /// <summary>A top-level Control of the window (Home, Application, UI, Game, Etc, Shortcut).</summary>
@@ -77,6 +90,53 @@ public sealed record OptionPage(string Name,string? EnableEvent,IReadOnlyList<Op
 public interface IOptionWindowHost {
     bool? Value(string mouseEvent);
     bool Set(string mouseEvent,bool value);
+    /// <summary>R10-I (#908): value 0–1 of a slider (ScrollBar Name); null = the host does not hold it.</summary>
+    double? Level(string bar)=>null;
+    /// <summary>R10-I (#908): sets a slider value; false = not applied (e.g. audio closed).</summary>
+    bool SetLevel(string bar,double value)=>false;
+}
+
+/// <summary>
+/// R10-I (#908): options the original keeps in its settings file (sub_59DD30 load / sub_59E920 save), kept by the engine
+/// in its own user-data file "option-ui.txt", one "key=0|1" line each. FilePath null (offline checks) = nothing is read or
+/// written. Unreadable / unwritable files are ignored (defaults are used, the change stays in memory).
+/// </summary>
+public static class OptionSettingsFile {
+    public const string FileName="option-ui.txt";
+    public const string DropItemNamesKey="show-drop-item-names",TransparentDeadMonstersKey="transparent-dead-monsters",ElfTeleportKey="elf-teleport-control";
+    public static string? FilePath{get;set;}
+    static readonly object gate=new();
+    /// <summary>"a=1\nb=0" → {a:true,b:false}. Lines that are not key=0/1 are ignored (a later line wins).</summary>
+    public static Dictionary<string,bool> Parse(string text){
+        var map=new Dictionary<string,bool>(StringComparer.Ordinal);
+        foreach(var raw in text.Split('\n')){
+            var line=raw.Trim();int eq=line.IndexOf('=');
+            if(eq<=0)continue;
+            string key=line[..eq].Trim(),value=line[(eq+1)..].Trim();
+            if(value is "0" or "1")map[key]=value=="1";
+        }
+        return map;
+    }
+    /// <summary>Sorted "key=0|1" lines (stable file content).</summary>
+    public static string Format(IReadOnlyDictionary<string,bool> values)=>
+        string.Concat(values.OrderBy(p=>p.Key,StringComparer.Ordinal).Select(p=>$"{p.Key}={(p.Value?1:0)}\n"));
+    static Dictionary<string,bool> ReadAll(string path){
+        try{return File.Exists(path)?Parse(File.ReadAllText(path)):new(StringComparer.Ordinal);}
+        catch(Exception ex) when(ex is IOException or UnauthorizedAccessException){return new(StringComparer.Ordinal);}
+    }
+    public static bool? Read(string key){
+        if(FilePath is not {} p)return null;
+        lock(gate)return ReadAll(p).TryGetValue(key,out var v)?v:null;
+    }
+    /// <summary>Writes one key, keeping the others. false = no file configured or the write failed.</summary>
+    public static bool Write(string key,bool value){
+        if(FilePath is not {} p)return false;
+        lock(gate){
+            var all=ReadAll(p);all[key]=value;
+            try{Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.IO.Path.GetFullPath(p))!);File.WriteAllText(p,Format(all));return true;}
+            catch(Exception ex) when(ex is IOException or UnauthorizedAccessException){return false;}
+        }
+    }
 }
 
 public sealed class OptionPanel(UiResources? resources=null,Func<HpMpPanel?>? hpMp=null):IUiMovablePanel,IUiClosablePanel {
@@ -90,11 +150,18 @@ public sealed class OptionPanel(UiResources? resources=null,Func<HpMpPanel?>? hp
     public static readonly IReadOnlyList<string> HpMpEvents=[ShowCharacterHpMpEvent,HpMpBarThickEvent,HpMpBarRecoveryEvent,HpMpBarPercentEvent];
     /// <summary>Options IOptionWindowHost changes (ClientForm: name display, audio, WorldSession elf option).</summary>
     public static readonly IReadOnlyList<string> HostEvents=[ShowNpcNameEvent,MuteEvent,ElfTeleportEvent];
-    /// <summary>Check buttons FU9§14.4 lists as matching engine features but which have no engine setting to change (reason).</summary>
+    /// <summary>R10-I (#908): display options IOptionWindowHost changes (ObjectRendering.cs switches).</summary>
+    public const string ShowDropItemNameEvent="ShowDropItemNameBtn",TransparentDeadMonsterEvent="TransparentDeadMonsterBtn";
+    public static readonly IReadOnlyList<string> DisplayEvents=[ShowDropItemNameEvent,TransparentDeadMonsterEvent];
+    /// <summary>R10-I (#908): volume ScrollBar names (kor25 OptionUI.xml, Application page).</summary>
+    public const string MusicVolumeBar="MusicVolumeScrollBar",EffectVolumeBar="EffectVolumeScrollBar",EnvVolumeBar="EnvVolumeScrollBar",VoiceVolumeBar="VoiceVolumeScrollBar";
+    /// <summary>Bars that show and set the engine master gain (one gain for all engine sound).</summary>
+    public static readonly IReadOnlyList<string> MasterVolumeBars=[MusicVolumeBar,EffectVolumeBar,EnvVolumeBar];
+    /// <summary>Option controls FU9§14.4 lists as matching engine features but which have no engine setting to change (reason).</summary>
     public static readonly IReadOnlyDictionary<string,string> NotWired=new Dictionary<string,string>(StringComparer.Ordinal){
-        ["ShowDropItemNameBtn"]="地面物品名稱一律畫出（ObjectRendering.cs），引擎沒有開關",
-        ["TransparentDeadMonsterBtn"]="引擎沒有透明屍體繪製",
+        [VoiceVolumeBar]="3.81 沒有語音聊天，引擎沒有語音音量",
     };
+    public const string SliderThumb="Move_Button";
 
     /// <summary>The HP/MP window of the root when it is usable (registered, not faulted); else null.</summary>
     public static HpMpPanel? HpMpWindow(UiRoot root)=>root.Find(HpMpPanel.PanelId) is HpMpPanel h&&!root.Faulted.Contains(h)?h:null;
@@ -121,6 +188,19 @@ public sealed class OptionPanel(UiResources? resources=null,Func<HpMpPanel?>? hp
             return true;
         }
         return Host is {} host&&host.Value(mouseEvent) is bool v&&host.Set(mouseEvent,!v);
+    }
+    /// <summary>R10-I (#908): slider value 0–1 (ScrollBar Name); null = not wired (no host / host does not hold it).</summary>
+    public double? Level(string bar)=>Host?.Level(bar) is double v&&double.IsFinite(v)?Math.Clamp(v,0,1):null;
+    /// <summary>Thumb left edge, window-relative, for a slider at value v (missing value = the XML position).</summary>
+    public static int ThumbX(OptionPiece p,double? v)=>p.Offset.X+(v is double x?p.ScrollStart+PlayerAudioSettings.SliderPosition(x,p.Travel):p.Thumb.X);
+    /// <summary>Value for a pointer at logical x: thumb centred on the pointer, clamped to the travel.</summary>
+    public double ValueAt(OptionPiece p,int x)=>PlayerAudioSettings.SliderGain(x-(Origin.X+p.Offset.X+p.ScrollStart)-p.ImageSize.Width/2,p.Travel);
+    bool Slide(OptionPiece p,int x){
+        if(p.MouseEvent is not {} bar||Host is not {} host||Level(bar) is not double now)return false;
+        double v=ValueAt(p,x);
+        if(v==now)return true;
+        if(!host.SetLevel(bar,v))UiResourceLog.Write($"option-ui {bar} 這次未套用（設定暫不可改）");
+        return true;
     }
     public const string LayoutName="OptionUI",WindowNode="Window",WindowName="Option",HomePage="Home",TabSuffix="Btn",CloseEvent="CloseBtn";
     /// <summary>Layout handed to UiRoot.Build (always in the local Tile.pak); the real layout is LayoutName, read in Load.</summary>
@@ -152,7 +232,7 @@ public sealed class OptionPanel(UiResources? resources=null,Func<HpMpPanel?>? hp
     public Func<string,string,string?>? TextResolver{get;set;}
     /// <summary>MouseEvent names clicked that the engine does not handle (diagnostics, each once).</summary>
     public IReadOnlyCollection<string> Unhandled=>unhandled;
-    bool open;OptionPiece? pressed;bool pressedInside;readonly HashSet<string> unhandled=new(StringComparer.Ordinal);
+    bool open;OptionPiece? pressed;bool pressedInside,sliding;readonly HashSet<string> unhandled=new(StringComparer.Ordinal);
 
     public void Load(UiLayout host,SurfCatalog surfs){
         Clear();
@@ -167,7 +247,7 @@ public sealed class OptionPanel(UiResources? resources=null,Func<HpMpPanel?>? hp
     }
 
     void Clear(){
-        open=false;pressed=null;pressedInside=false;LayoutFile=null;Origin=Point.Empty;Size=Size.Empty;MoveableHeight=0;BaseImage=FrameImage=null;
+        open=false;pressed=null;pressedInside=false;sliding=false;LayoutFile=null;Origin=Point.Empty;Size=Size.Empty;MoveableHeight=0;BaseImage=FrameImage=null;
         WindowPieces=[];Pages=[];ActivePage=null;Missing=[];Skipped=[];Unavailable="not loaded";
     }
 
@@ -261,6 +341,15 @@ public sealed class OptionPanel(UiResources? resources=null,Func<HpMpPanel?>? hp
                 }
                 return;
             }
+            // R10-I (#908): horizontal ScrollBar with a Move_Button = slider (volume bars, WindowAlpha). The background image is
+            // drawn as before; the thumb becomes the Slider piece (drawn at the current value, after the background).
+            case "ScrollBar" when c.Attr("Horizontal")=="1"&&c.Children.FirstOrDefault(k=>k.Name=="Button"&&k.Attr("Name")==SliderThumb) is {} thumb:{
+                foreach(var k in c.Children)if(k.Path!=thumb.Path)Element(k,at,into,skipped,resolve);
+                var normal=FirstImage(thumb,"BasePng","BaseSurf");var push=FirstImage(thumb,"PushPng","PushSurf");
+                into.Add(Piece(OptionPieceKind.Slider,c,at,normal,resolve(normal,thumb.Path),push,push==null?null:resolve(push,thumb.Path+"/@"+push.Attr))
+                    with{MouseEvent=c.Attr("Name")??c.Path,Thumb=new(thumb.TryInt("X")??0,thumb.TryInt("Y")??0),ScrollStart=c.TryInt("ScrollStart")??0,ScrollWidth=c.TryInt("ScrollWidth")??0});
+                return;
+            }
             case "Control" or "ScrollBar" or "ComboBox":Walk(c,at,into,skipped,resolve);return;
             // Collapsed combo list, runtime-filled shortcut rows, tooltips: not built (see the file header).
             default:skipped.Add(c.Path);return;
@@ -272,11 +361,11 @@ public sealed class OptionPanel(UiResources? resources=null,Func<HpMpPanel?>? hp
     /// <summary>Opens on the Home page. false when the layout is unavailable.</summary>
     public bool Open(){
         if(!Available)return false;
-        open=true;pressed=null;pressedInside=false;
+        open=true;pressed=null;pressedInside=false;sliding=false;
         ActivePage=Pages.FirstOrDefault(p=>p.Name==HomePage)??Pages[0];
         return true;
     }
-    public void Close(){open=false;pressed=null;pressedInside=false;}
+    public void Close(){open=false;pressed=null;pressedInside=false;sliding=false;}
     /// <summary>Open again = close (same as UiRoot.Toggle for a window in the stack).</summary>
     public bool Toggle(){if(open){Close();return true;}return Open();}
 
@@ -323,6 +412,13 @@ public sealed class OptionPanel(UiResources? resources=null,Func<HpMpPanel?>? hp
                 canvas.DrawSurface((held||tabOn||on)&&p.PushSurface!=null?p.PushSurface:p.Surface,x,y);
                 break;
             }
+            case OptionPieceKind.Slider:{
+                // R10-I (#908): thumb at the current value (unwired bar: at its XML position, as before).
+                bool held=p==pressed&&pressedInside;
+                var thumb=held&&p.PushSurface!=null?p.PushSurface:p.Surface;
+                canvas.DrawSurface(thumb,Origin.X+ThumbX(p,p.MouseEvent is {} bar?Level(bar):null),y+p.Thumb.Y);
+                break;
+            }
         }
     }
 
@@ -336,12 +432,16 @@ public sealed class OptionPanel(UiResources? resources=null,Func<HpMpPanel?>? hp
         switch(e.Kind){
             case UiMouseKind.Down:
                 pressed=ButtonAt(e.Location);pressedInside=pressed!=null;
+                // R10-I (#908): a press on a wired slider sets the value at once; dragging follows (see Move).
+                if(pressed?.Kind==OptionPieceKind.Slider)sliding=Slide(pressed,e.Location.X);
                 return inside;
             case UiMouseKind.Move:
+                if(pressed!=null&&sliding){Slide(pressed,e.Location.X);return true;}
                 if(pressed!=null)pressedInside=At(pressed).Contains(e.Location);
                 return inside||pressed!=null;
             case UiMouseKind.Up:{
-                var was=pressed;pressed=null;pressedInside=false;
+                var was=pressed;bool slid=sliding;pressed=null;pressedInside=false;sliding=false;
+                if(slid){Slide(was!,e.Location.X);return true;}
                 if(was!=null&&At(was).Contains(e.Location))Fire(was);
                 return inside||was!=null;
             }

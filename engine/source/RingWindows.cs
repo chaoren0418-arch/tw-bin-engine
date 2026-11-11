@@ -44,6 +44,14 @@ public static class ElfBookmarkTeleportRules {
 public sealed partial class WorldSession {
     /// <summary>byte_13A931C（本機選項，預設關閉）；只有妖精 Lv ≥ 50 時有作用。</summary>
     public bool ElfBookmarkTeleportOption {get;set;}
+    /// <summary>
+    /// R10-I（T393／#908）：0xEC99EB／0xEED7B9 在自己的等級 &lt; 50 時把 byte_13A931C 清成 0（不看職業）。
+    /// 還沒收到自己的狀態時不動。回 true＝這次清掉（呼叫端要存檔）。
+    /// </summary>
+    public bool ClearElfTeleportOptionBelowLevel(){
+        if(!ElfBookmarkTeleportOption||Status is not {} s||s.Level>=ElfBookmarkTeleportRules.MinLevel)return false;
+        ElfBookmarkTeleportOption=false;return true;
+    }
     /// <summary>傳送控制戒指路徑（AbilityStatus.cs）沒開窗時，再看妖精分支；回 true＝已開窗，不送 C6。</summary>
     internal bool TryOpenElfTeleportWindow(int? characterClass){
         if(SelectedMagicId is not int id||!learnedMagic.Contains(id)||!RingWindowRules.TeleportSkill(id))return false;
@@ -131,6 +139,7 @@ public sealed partial class ClientForm {
         if(NativeUiRoot?.Find(AgitMapPanel.PanelId) is AgitMapPanel agit&&agit.Host==null)agit.Attach(new AgitMapHost(this));
         AttachAgitAuctionHost();
         if(NativeUiRoot?.Find(OptionPanel.PanelId) is OptionPanel option&&option.Host==null)option.Attach(new OptionWindowHost(this));
+        SyncElfTeleportOption();
         var native=NativeBookmarkWindow();
         if(native!=null&&native.Host==null)native.Attach(new BookmarkWindowHost(this));
         if(bookmarkPanel is not {} panel||panel.IsDisposed)return;
@@ -163,16 +172,33 @@ public sealed partial class ClientForm {
         }
         public void CancelTeleport(TeleportDestinationRequest shown)=>form.login.CloseTeleportDestination(shown.Revision);
     }
+    bool elfTeleportOptionLoaded;
+    /// <summary>
+    /// R10-I（T393／#908）：EnableElfTelControl 的存檔與等級規則。第一次呼叫時從 option-ui.txt 載入（原版 sub_59DD30 讀設定檔），
+    /// 之後每次（書籤計時器）檢查等級 &lt; 50 就清成 0 並存檔（0xEC99EB／0xEED7B9）。原生 UI 關閉（--classic-ui）時同樣載入與檢查。
+    /// </summary>
+    void SyncElfTeleportOption(){
+        if(!elfTeleportOptionLoaded){
+            elfTeleportOptionLoaded=true;_=nameDisplayConfigured;
+            if(OptionSettingsFile.Read(OptionSettingsFile.ElfTeleportKey) is bool saved)login.World.ElfBookmarkTeleportOption=saved;
+        }
+        if(login.World.ClearElfTeleportOptionBelowLevel())OptionSettingsFile.Write(OptionSettingsFile.ElfTeleportKey,false);
+    }
     /// <summary>
     /// R9-Q（T377／#861，FU9§14.4）：原生選項窗勾選框 → ClientForm 既有設定，點一下就生效。
     /// ShowNpcNameBtn＝「全部顯示名稱」（0x138BE7F，與 WinForms 勾選框同一個值與同一個檔）；CheckMute＝主音量靜音（SetAudioSettings，
-    /// 聲音關閉時不套用）；EnableElfTelControlBtn＝byte_13A931C → WorldSession.ElfBookmarkTeleportOption（只在記憶體，原版存設定檔，未做）。
+    /// 聲音關閉時不套用）；EnableElfTelControlBtn＝byte_13A931C → WorldSession.ElfBookmarkTeleportOption。
+    /// R10-I（#908）：EnableElfTelControl 存進 option-ui.txt，等級 &lt; 50 時勾不起來（立刻清回 0，回 false）；
+    /// ShowDropItemNameBtn／TransparentDeadMonsterBtn → ObjectRendering.cs 的兩個顯示開關（也存 option-ui.txt）；
+    /// Music／Effect／Env 音量捲軸 → 主音量（SetAudioSettings，聲音關閉時不套用）。
     /// </summary>
     internal sealed class OptionWindowHost(ClientForm form):IOptionWindowHost {
         public bool? Value(string mouseEvent)=>mouseEvent switch{
             OptionPanel.ShowNpcNameEvent=>form.showAllNames,
             OptionPanel.MuteEvent=>form.audioSettings.Muted,
             OptionPanel.ElfTeleportEvent=>form.login.World.ElfBookmarkTeleportOption,
+            OptionPanel.ShowDropItemNameEvent=>form.ShowDropItemNames,
+            OptionPanel.TransparentDeadMonsterEvent=>form.TransparentDeadMonsters,
             _=>null};
         public bool Set(string mouseEvent,bool value){
             switch(mouseEvent){
@@ -180,10 +206,20 @@ public sealed partial class ClientForm {
                     form.showAllNames=value;NameDisplayOptions.SaveShowAll(value);form.Invalidate();return true;
                 case OptionPanel.MuteEvent:
                     form.SetAudioSettings(form.audioSettings.Gain,value);return form.audioSettings.Muted==value;
-                case OptionPanel.ElfTeleportEvent:
-                    form.login.World.ElfBookmarkTeleportOption=value;return true;
+                case OptionPanel.ElfTeleportEvent:{
+                    var w=form.login.World;w.ElfBookmarkTeleportOption=value;w.ClearElfTeleportOptionBelowLevel();
+                    OptionSettingsFile.Write(OptionSettingsFile.ElfTeleportKey,w.ElfBookmarkTeleportOption);
+                    return w.ElfBookmarkTeleportOption==value;
+                }
+                case OptionPanel.ShowDropItemNameEvent:form.ShowDropItemNames=value;return true;
+                case OptionPanel.TransparentDeadMonsterEvent:form.TransparentDeadMonsters=value;return true;
                 default:return false;
             }
+        }
+        public double? Level(string bar)=>OptionPanel.MasterVolumeBars.Contains(bar)?form.audioSettings.Gain:null;
+        public bool SetLevel(string bar,double value){
+            if(!OptionPanel.MasterVolumeBars.Contains(bar))return false;
+            form.SetAudioSettings(value,form.audioSettings.Muted);return form.audioSettings.Gain==value;
         }
     }
     sealed class AgitMapHost(ClientForm form):IAgitMapHost {
