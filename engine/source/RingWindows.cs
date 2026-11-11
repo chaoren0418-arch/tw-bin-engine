@@ -192,7 +192,7 @@ public sealed partial class ClientForm {
     /// 聲音關閉時不套用）；EnableElfTelControlBtn＝byte_13A931C → WorldSession.ElfBookmarkTeleportOption。
     /// R10-I（#908）：EnableElfTelControl 存進 option-ui.txt，等級 &lt; 50 時勾不起來（立刻清回 0，回 false）；
     /// ShowDropItemNameBtn／TransparentDeadMonsterBtn → ObjectRendering.cs 的兩個顯示開關（也存 option-ui.txt）；
-    /// Music／Effect／Env 音量捲軸 → 主音量（SetAudioSettings，聲音關閉時不套用）。
+    /// Music／Effect／Env 音量捲軸 → 各自的類別音量（R11-F，#962；PlayerAudioSettings.BarCategory）。
     /// </summary>
     internal sealed class OptionWindowHost(ClientForm form):IOptionWindowHost {
         public bool? Value(string mouseEvent)=>mouseEvent switch{
@@ -218,11 +218,10 @@ public sealed partial class ClientForm {
                 default:return false;
             }
         }
-        public double? Level(string bar)=>OptionPanel.MasterVolumeBars.Contains(bar)?form.audioSettings.Gain:null;
-        public bool SetLevel(string bar,double value){
-            if(!OptionPanel.MasterVolumeBars.Contains(bar))return false;
-            form.SetAudioSettings(value,form.audioSettings.Muted);return form.audioSettings.Gain==value;
-        }
+        // R11-F（T420／#962）：Music／Effect／Env 三條捲軸各自對到 MusicVolume／SoundVolume／EnvSoundVolume 類別音量
+        // （產品唯一一份，ClientSoundScene.Volumes＝form.SoundVolumes），不再共用主音量；主音量與 CheckMute 照舊（SetAudioSettings）。
+        public double? Level(string bar)=>PlayerAudioSettings.BarLevel(form.SoundVolumes,bar);
+        public bool SetLevel(string bar,double value)=>PlayerAudioSettings.SetBarLevel(form.SoundVolumes,bar,value);
     }
     sealed class AgitMapHost(ClientForm form):IAgitMapHost {
         bool sending;
