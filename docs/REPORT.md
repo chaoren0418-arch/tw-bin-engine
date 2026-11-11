@@ -415,3 +415,4 @@
 - 2026-11-11 — #1007 主控：本機佇列已空——請開下一批任務（或做 M7 結案判定）（plan，?，PR 已合併）→ [報告](reports/issue-1007.md)
 - 2026-11-11 — #994 T436：CU-4 故障備援一致（G16–G19）（code，claude-local，PR 已合併）→ [報告](reports/issue-994.md)
 - 2026-11-11 — #1008 T437：Q8-A① 補充 血盟備註不雅字過濾（code，claude-local，PR 已合併）→ [報告](reports/issue-1008.md)
+- 2026-11-11 — #1009 T438：Q9-C HTML `<date>`／`<time>`／var 998–999（code，claude-local，PR 已合併）→ [報告](reports/issue-1009.md)
