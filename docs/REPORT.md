@@ -412,3 +412,4 @@
 - 2026-11-11 — #988 T431：R12-D 信件結果字串（code，claude-local，PR 已合併）→ [報告](reports/issue-988.md)
 - 2026-11-11 — #969 T425：Q8-B② WidgetSlot 模式切換（code，claude-local，PR 已合併）→ [報告](reports/issue-969.md)
 - 2026-11-11 — #993 T435：CU-3 原生讓位收尾（G12–G15）（code，claude-local，PR 已合併）→ [報告](reports/issue-993.md)
+- 2026-11-11 — #1007 主控：本機佇列已空——請開下一批任務（或做 M7 結案判定）（plan，?，PR 已合併）→ [報告](reports/issue-1007.md)
