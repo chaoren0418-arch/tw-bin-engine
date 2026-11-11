@@ -11,6 +11,8 @@ New-Item -ItemType Directory -Force $taskTemp,(Split-Path $outputPath) | Out-Nul
 $env:TEMP=$taskTemp
 $env:TMP=$taskTemp
 $env:DOTNET_CLI_HOME=Join-Path $repoRoot 'scratch/issue-193/dotnet'
+$env:DOTNET_ADD_GLOBAL_TOOLS_TO_PATH='false'
+$env:DOTNET_NOLOGO='1'
 $env:NUGET_PACKAGES=Join-Path $repoRoot 'engine/.nuget'
 $env:NUGET_SCRATCH=Join-Path $taskTemp 'nuget'
 $env:DOTNET_CLI_TELEMETRY_OPTOUT='1'

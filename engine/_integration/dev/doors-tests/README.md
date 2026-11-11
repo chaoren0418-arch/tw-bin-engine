@@ -9,7 +9,7 @@ dotnet restore engine/_integration/dev/demo-tests/DemoChecks.csproj --configfile
 dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -p:UseSharedCompilation=false -- . scratch/issue-322/doors.json doors
 ```
 
-`scratch/issue-322` 需先建立；隔離環境的 TEMP／TMP／DOTNET_CLI_HOME／NUGET_PACKAGES 應設於 worktree 內。CI 的既有 Windows job 已接上 `doors` 群組。
+`scratch/issue-322` 需先建立；隔離環境的 TEMP／TMP／DOTNET_CLI_HOME／NUGET_PACKAGES 應設於 worktree 內，並同時設 `DOTNET_ADD_GLOBAL_TOOLS_TO_PATH=false`（#999，避免寫進使用者 PATH）。CI 的既有 Windows job 已接上 `doors` 群組。
 
 涵蓋 C41 HHD 明確 byte vector、S87 門的各 action／gfx、S158 開關／毀壞與非門分派、S209 兩方向與寬度、所有截斷長度及非零 padding、同圖重設、斷線、物件移除及 ID 重用、排隊發送前失效、不得預測開關、鍵盤移動與關門競態。
 
