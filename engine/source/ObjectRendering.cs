@@ -72,12 +72,27 @@ public sealed partial class Renderer {
         var area=Rectangle.Intersect(Rectangle.FromLTRB(l,t,r,bott),Bounds);
         // Stable ID tie-break makes exact overlaps deterministic, independent of arrival order.
         var commands=ActiveScene.Where(c=>c.Px<area.Right&&c.Px+24>area.Left&&c.Py<area.Bottom&&c.Py+24>area.Top).Concat(draws).OrderBy(c=>c,DrawComparer.Instance).ThenBy(c=>c.ObjectId).ToList();
-        var composed=ComposeTitlesAndEmotes(own,session,catalog,ComposeFadedPatch(session,area,commands,opacity,now),vs,now);visuals=vs.ToArray();missing=unavailable.ToArray();
+        var composed=ComposeTitlesAndEmotes(own,session,catalog,ComposeDeadTransparency(session,area,commands,opacity,now),vs,now);visuals=vs.ToArray();missing=unavailable.ToArray();
         // Screen rectangle R (sub_A3ED50) per actor, from the final actor tiles; key 0 is the own character.
         ActorBounds=composed.Commands.Where(d=>d.Layer=="actor").GroupBy(d=>d.ObjectId).ToDictionary(g=>g.Key,g=>Rectangle.FromLTRB(g.Min(d=>d.Px),g.Min(d=>d.Py),g.Max(d=>d.Px+24),g.Max(d=>d.Py+24)));
         return composed;
     }
     public IReadOnlyDictionary<uint,Rectangle> ActorBounds {get;private set;}=new Dictionary<uint,Rectangle>();
+    // R10-I（T393／#908，FU9§14.4）：選項 TransparentDeadMonsterBtn（byte_138BFAA）。開啟時死亡的怪物（他人、非門、S87 名稱是
+    // 「$」開頭的 nameid＝伺服器的 NPC 封包，推測用來分出怪物與玩家）的身體與影子以 DeadMonsterAlpha/31 畫入：同一組 commands
+    // 少畫這些屍體再組一次，兩張以 FadeMix 混合（與淡入淡出同一個作法，SubEffects.cs）。alpha 值與原版判斷物件種類的方法都沒追（推測）。
+    public bool TransparentDeadMonsters {get;set;}
+    public const int DeadMonsterAlpha=16;
+    public static bool TransparentCorpse(WorldObject o,uint? own)=>o.Dead&&o.ObjectId!=own&&o.Gfx!=2346&&o.Name.StartsWith('$');
+    Patch ComposeDeadTransparency(WorldSession session,Rectangle area,List<Draw> commands,SceneOpacity? opacity,long now){
+        var patch=ComposeFadedPatch(session,area,commands,opacity,now);
+        if(!TransparentDeadMonsters)return patch;
+        uint? own=session.Actor?.ObjectId;
+        var dead=session.Objects.Where(o=>TransparentCorpse(o,own)).Select(o=>o.ObjectId).ToHashSet();
+        bool Corpse(Draw d)=>d.Layer is "actor" or "shadow"&&dead.Contains(d.ObjectId);
+        if(dead.Count==0||!commands.Any(Corpse))return patch;
+        return FadeMix(patch,ComposeFadedPatch(session,area,commands.Where(d=>!Corpse(d)).ToList(),opacity,now),DeadMonsterAlpha);
+    }
     /// <summary>T290：門播放實例的時間戳（播放開始＝now − elapsed）；沒有播放中的動作（elapsed＝MaxValue）時是 0。</summary>
     internal static long DoorPlaybackStamp(double elapsed,long now)=>elapsed<double.MaxValue/2?now-(long)elapsed:0;
 }
@@ -434,7 +449,7 @@ public static class NameDisplayOptions {
 public sealed partial class ClientForm {
     ObjectAssets? objectAssets;Patch? objectPatch;ObjectVisual[] objectVisuals=[];WorldObject[] missingObjects=[];
     void RefreshObjects(){
-        objectAssets??=new(World.Assets.Root);
+        EnsureDisplayOptions();objectAssets??=new(World.Assets.Root);
         objectPatch=renderer.ComposeObjects(World,login.World,objectAssets,out objectVisuals,out missingObjects);
         Camera.SetBounds(renderer.Bounds);
         patch?.Dispose();patch=Renderer.BitmapOf(objectPatch.Bounds.Width,objectPatch.Bounds.Height,objectPatch.Colors,objectPatch.Mask);patchRect=objectPatch.Bounds;RecordOpacityFrame();
@@ -446,7 +461,31 @@ public sealed partial class ClientForm {
         events.Add(new{kind="object-pick",scene=p,targetId=id,strategy="topmost visible opaque pixel after original tile/actor depth composition"});
     }
     static readonly bool nameDisplayConfigured=ConfigureNameDisplay();
-    static bool ConfigureNameDisplay(){ClanEmblemCache.DiskPath??=ClanEmblemCache.DefaultDiskPath;NameDisplayOptions.FilePath??=NameDisplayOptions.DefaultFilePath;return true;}
+    static bool ConfigureNameDisplay(){
+        ClanEmblemCache.DiskPath??=ClanEmblemCache.DefaultDiskPath;NameDisplayOptions.FilePath??=NameDisplayOptions.DefaultFilePath;
+        // R10-I（#908）：選項窗的存檔（地面物品名稱、透明屍體、妖精記憶傳送）與 name-display.txt 放同一個使用者資料夾。
+        P06.NativeUi.OptionSettingsFile.FilePath??=Path.Combine(Path.GetDirectoryName(NameDisplayOptions.DefaultFilePath)!,P06.NativeUi.OptionSettingsFile.FileName);
+        return true;
+    }
+    // R10-I（T393／#908，FU9§14.4）：選項窗的兩個顯示開關，存 option-ui.txt。
+    //   ShowDropItemNameBtn（byte_138BE7E，預設開＝引擎原本的行為）：關閉時地面物品只畫被選取那一個的名稱（推測，原版關閉時怎麼顯示沒追）。
+    //   TransparentDeadMonsterBtn（byte_138BFAA，預設關）：開啟時死亡的怪物以半透明畫（Renderer.TransparentDeadMonsters）。
+    bool displayOptionsLoaded,dropItemNamesShown=true;
+    void EnsureDisplayOptions(){
+        if(displayOptionsLoaded)return;displayOptionsLoaded=true;_=nameDisplayConfigured;
+        dropItemNamesShown=P06.NativeUi.OptionSettingsFile.Read(P06.NativeUi.OptionSettingsFile.DropItemNamesKey)??true;
+        renderer.TransparentDeadMonsters=P06.NativeUi.OptionSettingsFile.Read(P06.NativeUi.OptionSettingsFile.TransparentDeadMonstersKey)??false;
+    }
+    [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+    internal bool ShowDropItemNames{
+        get{EnsureDisplayOptions();return dropItemNamesShown;}
+        set{EnsureDisplayOptions();dropItemNamesShown=value;P06.NativeUi.OptionSettingsFile.Write(P06.NativeUi.OptionSettingsFile.DropItemNamesKey,value);Invalidate();}
+    }
+    [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+    internal bool TransparentDeadMonsters{
+        get{EnsureDisplayOptions();return renderer.TransparentDeadMonsters;}
+        set{EnsureDisplayOptions();renderer.TransparentDeadMonsters=value;P06.NativeUi.OptionSettingsFile.Write(P06.NativeUi.OptionSettingsFile.TransparentDeadMonstersKey,value);Invalidate();}
+    }
     bool nameHoverHooked,showAllNames;Point? nameMouse;uint? paintedHover;
     void HookNameDisplay(){
         if(nameHoverHooked)return;nameHoverHooked=true;_=nameDisplayConfigured;showAllNames=NameDisplayOptions.LoadShowAll();
@@ -557,9 +596,12 @@ public sealed partial class ClientForm {
         }finally{g.Restore(state);}
         if(CrownLoadError is {} error){CrownLoadError=null;events.Add(new{kind="crown-unavailable",error});}
     }
+    /// <summary>R10-I（#908）：地面物品名稱要不要畫（選項開＝全部；關＝只畫選取中的，推測）。</summary>
+    internal static bool GroundNameShown(bool option,bool selected)=>option||selected;
     void PaintObjectSelection(Graphics g){
         if(login.World.TargetId is uint id&&objectVisuals.FirstOrDefault(v=>v.ObjectId==id) is {} v){var p=Camera.ToView(v.Foot);using var pen=new Pen(Color.Gold,2);g.DrawEllipse(pen,p.X-19*Camera.Zoom,p.Y-7*Camera.Zoom,38*Camera.Zoom,14*Camera.Zoom);}
-        foreach(var groundVisual in objectVisuals.Where(v=>v.Action=="ground")){var pt=Camera.ToView(groundVisual.Foot);bool selected=login.World.SelectedGroundId==groundVisual.ObjectId;g.DrawString(groundVisual.Name,Font,selected?Brushes.Gold:Brushes.White,pt.X-20,pt.Y+17);if(selected){using var pen=new Pen(Color.Gold,2);g.DrawEllipse(pen,pt.X-16,pt.Y+3,32,12);}}
+        bool dropNames=ShowDropItemNames;
+        foreach(var groundVisual in objectVisuals.Where(v=>v.Action=="ground")){var pt=Camera.ToView(groundVisual.Foot);bool selected=login.World.SelectedGroundId==groundVisual.ObjectId;if(GroundNameShown(dropNames,selected))g.DrawString(groundVisual.Name,Font,selected?Brushes.Gold:Brushes.White,pt.X-20,pt.Y+17);if(selected){using var pen=new Pen(Color.Gold,2);g.DrawEllipse(pen,pt.X-16,pt.Y+3,32,12);}}
         PaintObjectPresence(g,Camera.ToView,new RectangleF(Camera.ViewOffset,Camera.View));
         PaintCrowns(g);
         PaintNames(g);
