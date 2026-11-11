@@ -29,7 +29,7 @@
 
 ## 未驗證什麼（待驗證）
 - 真機：用 `.\啟動新版客戶端.cmd --evidence <scratch 內目錄>` 啟動後，畫面是一般產品（原生 UI、聊天輸入列、書籤），而且證據目錄裡有 `native-ui.log`、`window-events.json`。另外要看用專案外目錄時，跳出的提示框文字對不對。這些要交給 smoke（dot／Codex，P24Lab）。
-- 符號連結那一項在 Windows 上沒有建立權限時會跳過；ubuntu CI 能建立，會實際測到。
+- 符號連結那一項在沒有建立權限時會跳過。CI 的 `native-ui-canvas` 步驟在 Windows runner 上跑（PR #951：`PASS 547 DEMO checks`），log 看不出這一項有沒有實際跑到，所以列為待確認。
 - 根目錄 `啟動引擎.cmd` 指向 r33 封存 launcher，封存不能改，所以它**不**接受 `--evidence`。smoke 請用 `engine\啟動新版客戶端.cmd`。
 
 ## 產出路徑
