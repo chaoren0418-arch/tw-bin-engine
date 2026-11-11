@@ -405,3 +405,4 @@
 - 2026-11-11 — #985 T428：R12-A 自己的動作 71 與層半透明（code，claude-local，PR 已合併）→ [報告](reports/issue-985.md)
 - 2026-11-11 — #987 T430：R12-C 類別音量存檔（code，claude-local，PR 已合併）→ [報告](reports/issue-987.md)
 - 2026-11-11 — #989 T432：R12-E 公告板等待收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-989.md)
+- 2026-11-11 — #991 T433：CU-1 classic 入口可見（G1、G2、G6、G7、G8）（code，claude-local，PR 已合併）→ [報告](reports/issue-991.md)
