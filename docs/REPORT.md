@@ -398,3 +398,4 @@
 - 2026-11-11 — #963 T421：R11-G 小清理（不對應列）（code，claude-local，PR 已合併）→ [報告](reports/issue-963.md)
 - 2026-11-11 — #961 T419：R11-E 頭上對話框（code，claude-local，PR 已合併）→ [報告](reports/issue-961.md)
 - 2026-11-11 — #958 T416：R11-B 動作窗收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-958.md)
+- 2026-11-11 — #982 T-plan：M7 補列 T384–T427，同步 M7 狀態（plan，claude-chat，PR 已合併）→ [報告](reports/issue-982.md)
