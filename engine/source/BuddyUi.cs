@@ -15,10 +15,12 @@ public sealed class BuddyPanel:UserControl {
     readonly Button toggle=new(){Text="封鎖／解除",AutoSize=true};
     readonly Button mailToggle=new(){Text="信件封鎖／解除",AutoSize=true};
     readonly Button[] nativeButtons;
+    readonly Func<string,bool>? confirmDelete;
     BuddyView? displayed;bool updating;
     /// <param name="toggleNative">Opens/closes the native FriendUI／ExcludeUI／MailExcludeUI window; false = native UI not active.</param>
-    public BuddyPanel(LoginConnection connection,Func<FriendListKind,bool>? toggleNative=null){
-        this.connection=connection;this.toggleNative=toggleNative;Dock=DockStyle.Fill;AccessibleName="好友與封鎖名單";
+    /// <param name="confirmDelete">T434（#992，G11）：「刪除好友」送出前問 1813；回 false＝不送。null＝不問（舊行為）。</param>
+    public BuddyPanel(LoginConnection connection,Func<FriendListKind,bool>? toggleNative=null,Func<string,bool>? confirmDelete=null){
+        this.connection=connection;this.toggleNative=toggleNative;this.confirmDelete=confirmDelete;Dock=DockStyle.Fill;AccessibleName="好友與封鎖名單";
         var layout=new TableLayoutPanel{Dock=DockStyle.Fill,ColumnCount=3,RowCount=6,Padding=new(6)};
         for(int i=0;i<3;i++)layout.ColumnStyles.Add(new(SizeType.Percent,100f/3));
         foreach(var style in new[]{new RowStyle(SizeType.Absolute,26),new RowStyle(SizeType.Percent,100),new RowStyle(SizeType.Absolute,26),new RowStyle(SizeType.Absolute,30),new RowStyle(SizeType.Absolute,104),new RowStyle(SizeType.Absolute,90)})layout.RowStyles.Add(style);
@@ -71,6 +73,7 @@ public sealed class BuddyPanel:UserControl {
     }
     async Task Submit(BuddyAction action){
         if(displayed is not {} view)return;
+        if(action==BuddyAction.Delete&&!ClassicConfirm.Allows(confirmDelete,FriendPanels.DeleteConfirmText))return;
         query.Enabled=add.Enabled=remove.Enabled=toggle.Enabled=false;
         try{await connection.SendBuddy(action,action==BuddyAction.Query?"":name.Text,view);}
         catch(ArgumentException ex){notice.Text=ex.Message;UpdateButtons();return;}
@@ -110,6 +113,25 @@ public sealed class LoginFriendWindowHost(LoginConnection connection):IFriendWin
     }
 }
 
+/// <summary>
+/// T434（#992，classic-ui-audit G11）：classic（WinForms）路徑上的 Y/N 確認——好友刪除 1813、收竿 1516。原生 UI 用聊天輸入列提示
+/// （FriendDeletePromptPanel／FishingQuitPromptPanel）；classic 沒有原生畫布，所以用 WinForms MessageBox（是＝送出，否＝不送）。
+/// 文字照字串表（FriendPanels.DeleteConfirmText／FishingQuitText.Confirm），與原生同一份。離線測試以 Prompt 換掉對話框。
+/// </summary>
+public static class ClassicConfirm {
+    public const string Title="確認";
+    /// <summary>測試用：不為 null 時取代 MessageBox（回 true＝是）。</summary>
+    public static Func<string,bool>? Prompt {get;set;}
+    /// <summary>問一次；Prompt 有設定就用它，否則開 MessageBox（owner 為 null 時不指定擁有者）。</summary>
+    public static bool Ask(IWin32Window? owner,string text){
+        if(Prompt is {} p)return p(text);
+        return (owner==null?MessageBox.Show(text,Title,MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2)
+            :MessageBox.Show(owner,text,Title,MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2))==DialogResult.Yes;
+    }
+    /// <summary>confirm 為 null＝不問（放行）；否則照它的回答。</summary>
+    public static bool Allows(Func<string,bool>? confirm,string text)=>confirm==null||confirm(text);
+}
+
 public sealed partial class ClientForm {
     protected override void OnLoad(EventArgs e){base.OnLoad(e);InitBuddyUi();}
     void InitBuddyUi(){
@@ -117,7 +139,8 @@ public sealed partial class ClientForm {
         FriendPanels.Host=new LoginFriendWindowHost(login);   // R10-C（#902）：Delete → 1813 → C202／C171
         if(normalPanels==null)return;
         var page=new TabPage("好友／封鎖"){BackColor=Color.FromArgb(23,38,41)};
-        page.Controls.Add(new BuddyPanel(login,ToggleNativeFriendWindow));normalPanels.TabPages.Add(page);
+        // T434（#992，G11）：classic 的「刪除好友」照原生 FriendUI 先問 1813；原生 UI 開著時這顆過渡鈕照舊不問（原生窗自己會問）。
+        page.Controls.Add(new BuddyPanel(login,ToggleNativeFriendWindow,text=>NativeUiActive||ClassicConfirm.Ask(this,text)));normalPanels.TabPages.Add(page);
     }
     /// <summary>
     /// Transitional opener. 已驗證：TW16 無開窗鍵（FU13§3.1）——原版沒有任何鍵或選單單獨打開 FriendUI；名單入口是 `/buddy`／HyperAct `buddy`，

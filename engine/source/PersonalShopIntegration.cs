@@ -63,6 +63,10 @@ public interface IPersonalShopHost {
     void EndTextInput(){}
     /// <summary>R10-M（#912）：自己正在擺攤（S119 動作 70）。不知道＝false（照沒開店的流程）。</summary>
     bool ShopActive=>false;
+    /// <summary>T434（#992，G3）：classic 開店設定開啟時把 WinForms 設定清單叫出來（產品＝服務分頁「個人商店」）。預設不做事。</summary>
+    void ShowClassicSetup(){}
+    /// <summary>T434（#992，G3）：沒有原生面板時可以改用 WinForms 開店設定（產品＝true）。預設 false＝舊行為（沒有面板就拒絕）。</summary>
+    bool ClassicSetup=>false;
 }
 
 /// <summary>R9-J（#854）：字串表（string-c.tbl）的提示；讀不到表時用本機 Text.pak 原文（PakViewer 讀出，見報告）。</summary>
@@ -113,8 +117,14 @@ public sealed class PersonalShopController(IPersonalShopHost host):IPersonalShop
     int generation=int.MinValue;
 
     void Say(string m){Notice=m;Revision++;}
+    /// <summary>
+    /// T434（#992，classic-ui-audit G3）：沒有原生 PersonalShopPanel（--classic-ui、面板載入失敗）時的開店設定狀態——設定改在
+    /// WinForms 清單（ClientForm 個人商店分頁）編輯同一份 Setup，送出同樣走 SendOpen（C38 type 0）。原生面板接上時一律 false。
+    /// </summary>
+    public bool ClassicOpen{get;private set;}
     public void Attach(PersonalShopPanel panel){
         if(ReferenceEquals(Panel,panel))return;
+        ClassicOpen=false;
         if(Panel!=null){
             Panel.Confirmed-=OnConfirmed;Panel.SlotClicked-=OnSlotClicked;Panel.SlotRemoved-=OnSlotRemoved;
             if(ReferenceEquals(Panel.Prompt,this))Panel.Prompt=null;
@@ -127,8 +137,9 @@ public sealed class PersonalShopController(IPersonalShopHost host):IPersonalShop
     /// <summary>每次計時器呼叫：連線世代改變 → 清掉設定、關窗（舊角色的物件編號不能帶到新角色）。設定窗關了或離開世界 → 提示取消。</summary>
     public void Update(){
         if(Prompt!=null&&(Panel?.Visible!=true||!host.InWorld||host.Generation!=generation))CancelPrompt("");
+        if(ClassicOpen&&(Panel!=null||!host.InWorld)){ClassicOpen=false;Revision++;}
         if(host.Generation==generation)return;
-        generation=host.Generation;Setup.Clear();OpenSent=false;Sending=false;Panel?.Close();Say("");
+        generation=host.Generation;Setup.Clear();OpenSent=false;Sending=false;ClassicOpen=false;Panel?.Close();Say("");
     }
 
     // ---- R9-J：背包選取＋點清單 → 898 單價 → 933 數量 ------------------------------------------------------------
@@ -200,9 +211,54 @@ public sealed class PersonalShopController(IPersonalShopHost host):IPersonalShop
 
     public bool Open(){
         Update();
-        if(Panel==null){Say("原生 UI 未啟動或開店設定窗載入失敗。");return false;}
+        if(Panel==null){
+            if(host.ClassicSetup)return ToggleClassic();
+            Say("原生 UI 未啟動或開店設定窗載入失敗。");return false;
+        }
         if(!host.InWorld){Say("進入世界後才能設定個人商店。");return false;}
         Panel.Open(Setup);Say("請先在背包選取物品，再點設定窗的出售或收購空格，依提示輸入單價（與數量）；雙擊格子移除。");return true;
+    }
+
+    // ---- T434（#992，G3）：classic 開店設定（WinForms 清單） ---------------------------------------------------------------
+    /// <summary>沒有原生面板時的開／關（`/shop` 與「開店設定窗」鈕都走 Open → 這裡；原版 sub_F480C0 是切換）。開啟時叫出 WinForms 清單。</summary>
+    public bool ToggleClassic(){
+        Update();
+        if(Panel!=null||!host.ClassicSetup)return false;
+        if(ClassicOpen){ClassicOpen=false;Say("已關閉開店設定。");return true;}
+        if(!host.InWorld){Say("進入世界後才能設定個人商店。");return false;}
+        ClassicOpen=true;host.ShowClassicSetup();
+        Say("開店設定（WinForms）：在清單選一格，背包選取物品，輸入單價與數量後按「放入選取格」；最後按「送出開店」。");return true;
+    }
+    /// <summary>classic 清單選格（出售 0–7、收購 0–7）。</summary>
+    public bool SelectClassic(bool sell,int slot){
+        Update();
+        if(!ClassicOpen||!Setup.Select(sell,slot))return false;
+        var e=(sell?Setup.Sell:Setup.Buy)[slot];
+        Say(e is {} held?$"{(sell?"出售":"收購")}第 {slot+1} 格：{held.Name} × {held.Count:N0}，單價 {held.Price:N0}。":$"已選取{(sell?"出售":"收購")}第 {slot+1} 格（空）。");return true;
+    }
+    /// <summary>classic 的 OK：已開店（S119 動作 70）→ 只關設定、不重送（同 R10-M 原生 OK）；否則 Setup.BuildOpen 組 C38 type 0 走 SendOpen，送出成功才關設定。</summary>
+    public async Task<bool> SubmitClassic(){
+        Update();
+        if(!ClassicOpen){Say("開店設定沒有開。");return false;}
+        if(host.ShopActive){ClassicOpen=false;Say("已經在開店中：OK 只關閉設定，沒有重送開店。");return false;}
+        if(Setup.BuildOpen() is not byte[] packet){Say(Setup.Notice);return false;}
+        bool sent=await SendOpen(packet);
+        if(sent)ClassicOpen=false;
+        return sent;
+    }
+    /// <summary>classic 的 Cancel：已開店 → 關設定並送 C38 type 1（同 R10-M 原生 Cancel）；沒開店 → 只關設定。</summary>
+    public async Task<bool> CancelClassic(){
+        Update();
+        if(!ClassicOpen)return false;
+        ClassicOpen=false;
+        if(host.ShopActive)return await CloseShop();
+        Say("已關閉開店設定。");return true;
+    }
+    /// <summary>classic 清單第 index 列的文字（0–7 出售、8–15 收購）。</summary>
+    public static string ClassicRow(PersonalShopSetup setup,int index){
+        bool sell=index<PersonalShopPackets.MaxEntries;int slot=index%PersonalShopPackets.MaxEntries;
+        var e=(sell?setup.Sell:setup.Buy)[slot];
+        return $"{(sell?"出售":"收購")} {slot+1}："+(e==null?"（空）":$"{e.Name} × {e.Count:N0}，單價 {e.Price:N0}");
     }
 
     /// <summary>把背包目前選取的物品以指定單價、數量放進設定窗目前選取的格子。</summary>
@@ -391,7 +447,7 @@ public sealed partial class LoginConnection {
 }
 
 public sealed partial class ClientForm {
-    PersonalShopController? personalShop;
+    PersonalShopController? personalShop;PersonalShopHost? personalShopHost;
     readonly FlowLayoutPanel personalShopActions=new(){Dock=DockStyle.Top,Height=150,AutoSize=false};
     readonly Button personalShopOpen=new(){Text="開店設定窗",Width=110,Height=28};
     readonly NumericUpDown personalShopPrice=new(){Width=110,Minimum=1,Maximum=int.MaxValue,Value=1};
@@ -419,14 +475,51 @@ public sealed partial class ClientForm {
         public void BeginTextInput()=>form.LeaveGameFocus("personal-shop-prompt");
         public void EndTextInput()=>form.ReturnGameFocus();
         public bool ShopActive=>form.login.PersonalShopActive;
+        public void ShowClassicSetup()=>form.ShowPersonalShopPage();
+        /// <summary>原生 UI 開著而且 PersonalShop_Window 可用 → 不用 classic（原生行為不變）；否則（--classic-ui、面板故障）可以。</summary>
+        public bool ClassicSetup=>!(form.NativeUiActive&&form.NativeUiRoot is {} root&&root.Find(PersonalShopPanel.WindowId) is PersonalShopPanel p&&!root.Faulted.Contains(p));
+    }
+    // ---- T434（#992，classic-ui-audit G3）：classic 開店設定清單 -------------------------------------------------------------
+    readonly ListBox personalShopSlots=new(){Width=360,Height=16*16+4,IntegralHeight=false,AccessibleName="開店設定清單（出售 1–8、收購 1–8）",Visible=false};
+    readonly Button personalShopSubmit=new(){Text="送出開店（OK）",Width=120,Height=28,Visible=false};
+    readonly Button personalShopCancel=new(){Text="取消（Cancel）",Width=110,Height=28,Visible=false};
+    int personalShopSlotsShown=-1;bool personalShopSlotsSyncing;
+    /// <summary>切到服務分頁「個人商店」並叫出分頁所在的視窗（同 ShowBookmarkTab 的做法）。</summary>
+    void ShowPersonalShopPage(){
+        if(normalPanels==null||privateShopPanel.Parent is not TabPage page)return;
+        normalPanels.SelectedTab=page;
+        if(PlayerHudActive)ShowPlayerService(page.Text);else ShowDevTools(normalPanels);
+    }
+    void SyncClassicPersonalShop(bool classic){
+        if(personalShop==null)return;
+        personalShopSlots.Visible=personalShopSubmit.Visible=personalShopCancel.Visible=classic;
+        personalShopActions.Height=classic?150+personalShopSlots.Height+40:150;
+        if(!classic)return;
+        bool can=login.State==LoginState.InWorld&&!personalShop.Sending;
+        personalShopSubmit.Enabled=personalShopCancel.Enabled=can;
+        int shown=HashCode.Combine(personalShop.Setup.Revision,personalShop.Setup.Selected);
+        if(shown==personalShopSlotsShown)return;personalShopSlotsShown=shown;
+        personalShopSlotsSyncing=true;
+        try{
+            personalShopSlots.BeginUpdate();personalShopSlots.Items.Clear();
+            for(int i=0;i<2*PersonalShopPackets.MaxEntries;i++)personalShopSlots.Items.Add(PersonalShopController.ClassicRow(personalShop.Setup,i));
+            personalShopSlots.SelectedIndex=personalShop.Setup.Selected is (bool s,int k)?(s?k:PersonalShopPackets.MaxEntries+k):-1;
+            personalShopSlots.EndUpdate();
+        }finally{personalShopSlotsSyncing=false;}
     }
 
     /// <summary>由 InitPrivateShop 呼叫：在舊「個人商店」頁加入開店設定的過渡控制項，並定時把原生面板接上控制器。</summary>
     void InitPersonalShop(){
-        personalShop=new PersonalShopController(new PersonalShopHost(this));
+        personalShop=new PersonalShopController(personalShopHost=new PersonalShopHost(this));
         personalShopActions.Controls.AddRange([new Label{Text="開店設定（原生 PersonalShopUI）：",AutoSize=true,ForeColor=Color.White},personalShopOpen,personalShopStop,
             new Label{Text="單價",AutoSize=true,ForeColor=Color.White},personalShopPrice,new Label{Text="數量",AutoSize=true,ForeColor=Color.White},personalShopCount,personalShopPlace,personalShopClear,
-            personalShopMessage1,personalShopMessage2,personalShopMessages,personalShopNotice]);
+            personalShopMessage1,personalShopMessage2,personalShopMessages,personalShopSlots,personalShopSubmit,personalShopCancel,personalShopNotice]);
+        personalShopSlots.SelectedIndexChanged+=(_,_)=>{
+            if(personalShopSlotsSyncing||personalShopSlots.SelectedIndex is not (>=0 and var i))return;
+            personalShop.SelectClassic(i<PersonalShopPackets.MaxEntries,i%PersonalShopPackets.MaxEntries);SyncPersonalShop();
+        };
+        personalShopSubmit.Click+=async(_,_)=>{await personalShop.SubmitClassic();SyncPersonalShop();};
+        personalShopCancel.Click+=async(_,_)=>{await personalShop.CancelClassic();SyncPersonalShop();};
         personalShopOpen.Click+=(_,_)=>{personalShop.Open();Invalidate();SyncPersonalShop();};
         personalShopPlace.Click+=(_,_)=>{personalShop.Place((uint)personalShopPrice.Value,(uint)personalShopCount.Value);Invalidate();SyncPersonalShop();};
         personalShopClear.Click+=(_,_)=>{personalShop.ClearSlot();Invalidate();SyncPersonalShop();};
@@ -439,12 +532,16 @@ public sealed partial class ClientForm {
         if(NativeUiActive&&NativeUiRoot?.Find(PersonalShopPanel.WindowId) is PersonalShopPanel panel&&!NativeUiRoot.Faulted.Contains(panel))personalShop.Attach(panel);
         personalShop.Update();
         bool inWorld=login.State==LoginState.InWorld,attached=personalShop.Panel!=null;
-        personalShopOpen.Enabled=inWorld&&attached;
-        personalShopPlace.Enabled=personalShopClear.Enabled=personalShopMessages.Enabled=inWorld&&attached;
+        // T434（#992，G3）：沒有原生面板時「開店設定窗」改開 WinForms 清單（classic）；原生面板接著時照舊。
+        bool classicAllowed=!attached&&personalShopHost?.ClassicSetup==true,classic=classicAllowed&&personalShop.ClassicOpen;
+        personalShopOpen.Enabled=inWorld&&(attached||classicAllowed);
+        personalShopPlace.Enabled=personalShopClear.Enabled=personalShopMessages.Enabled=inWorld&&(attached||classic);
         personalShopStop.Enabled=inWorld&&!personalShop.Sending;
-        int shown=HashCode.Combine(personalShop.Revision,personalShop.Setup.Revision,attached);
+        SyncClassicPersonalShop(classic);
+        int shown=HashCode.Combine(personalShop.Revision,personalShop.Setup.Revision,attached,classic);
         if(shown==personalShopShown)return;personalShopShown=shown;
         string sel=personalShop.Setup.Selected is (bool s,int i)?$"選取格：{(s?"出售":"收購")}第 {i+1} 格。":"尚未選格。";
-        personalShopNotice.Text=(attached?"":"原生 UI 未啟動（--native-ui）時無法開啟開店設定窗。\n")+sel+(personalShop.OpenSent?" 已送出開店。":"")+"\n"+personalShop.Notice;
+        string mode=attached?"":classicAllowed?(classic?"開店設定（WinForms 清單，原生 UI 未啟動）。\n":"原生 UI 未啟動：按「開店設定窗」或輸入 /shop 開啟 WinForms 開店設定清單。\n"):"原生 UI 未啟動（--native-ui）時無法開啟開店設定窗。\n";
+        personalShopNotice.Text=mode+sel+(personalShop.OpenSent?" 已送出開店。":"")+"\n"+personalShop.Notice;
     }
 }
