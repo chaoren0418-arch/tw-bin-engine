@@ -124,6 +124,7 @@ static class CharScreenFollowup3Tests {
         p.Mouse(SelectCharPanelTests.M(UiMouseKind.Down,SlotAt(3)),Cmd);
         t.Check(Near(SlotPixel(p,3),CreatePushC),"pressed: push 928");
         p.Mouse(SelectCharPanelTests.M(UiMouseKind.Up,SlotAt(3)),Cmd);
+        p.Mouse(SelectCharPanelTests.M(UiMouseKind.Move,new(390,290)),Cmd);   // pointer off the slots (hover only follows Move)
         t.Check(p.SelectedEmpty==3&&Near(SlotPixel(p,2),CreateC),"release selects row 3; row 2 back to 926");
         // A missing derived surf is not drawn (no fallback to the XML BaseSurf).
         var s=SelectSurfs();s.Remove(927);
