@@ -79,7 +79,7 @@ public sealed partial class WorldSession {
     internal void CheckBoard(){
         if(boardKind=="closed")return;
         if(!BoardContext){CloseBoard("目標、位置或世界已改變，請重新開啟公告板。");return;}
-        if(boardKind is "list-wait" or "read-wait"&&InteractionClock()-boardWait>=InteractionTimeoutMs){
+        if(boardKind is "list-wait" or "read-wait" or "delete-wait"&&InteractionClock()-boardWait>=InteractionTimeoutMs){
             boardKind="timeout";boardRevision++;boardNotice="等待公告板回覆逾時。可手動刷新；不會自動重送。";
         }
     }
@@ -93,13 +93,13 @@ public sealed partial class WorldSession {
     }
     internal BoardView BoardSnapshot(int generation,bool canAct){
         CheckBoard();return new(generation,WorldEpoch,TargetRevision,boardRevision,boardOpenRevision,boardId,boardKind,boardNotice,
-            boardRows.ToArray(),boardArticle,boardFee,canAct&&BoardContext&&boardKind is not ("closed" or "list-wait" or "read-wait"),
+            boardRows.ToArray(),boardArticle,boardFee,canAct&&BoardContext&&boardKind is not ("closed" or "list-wait" or "read-wait" or "delete-wait"),
             boardHistory.Count>0,boardRows.Length==8&&boardRows[^1].Id!=boardCursor);
     }
     internal bool CurrentBoard(BoardView v){CheckBoard();return BoardContext&&v.Epoch==WorldEpoch&&v.TargetRevision==TargetRevision&&v.Revision==boardRevision&&v.ObjectId==boardId;}
     internal bool SameBoardWindow(BoardView v){CheckBoard();return BoardContext&&v.Epoch==WorldEpoch&&v.TargetRevision==TargetRevision&&v.OpenRevision==boardOpenRevision&&v.ObjectId==boardId;}
     internal byte[]? BoardRequest(string command,uint topic,string title,string content){
-        if(!BoardContext||boardKind is "closed" or "list-wait" or "read-wait")return null;
+        if(!BoardContext||boardKind is "closed" or "list-wait" or "read-wait" or "delete-wait")return null;
         return command switch {
             "refresh"=>BoardPackets.List(boardId),
             "next" when boardKind is "list" or "article"&&boardRows.Length==8&&boardRows[^1].Id!=boardCursor=>BoardPackets.Back(boardId,boardRows[^1].Id),
@@ -110,10 +110,26 @@ public sealed partial class WorldSession {
             _=>null
         };
     }
+    /// <summary>
+    /// R12-E（T432／#989）刪文後的等待。原版 sub_7CD490（VA 0x7CD490，FO 0x3CC890，Capstone 靜態反組譯，已驗證）：
+    /// [+0x40]≠0 或沒有選取列 → 不做事；送 op 222（0xDE：board [+0xc]、topic），在本機移除該列；剩下的列不足一頁而且
+    /// 伺服器還有下一段（[+0x1c]≠0）時設 [+0x40]＝4 並送 op 6（board、cursor [+0x1c]）補抓清單，收到清單（sub_7CD600）才清 0。
+    /// 引擎不在本機移除文章（docs/protocol/board.md：刪文沒有 ACK），所以刪文後一律進 "delete-wait"，再補送一次目前這頁的
+    /// 清單請求（游標 0 → C10，否則 C23 同一個游標；BoardDeleteReload），收到這頁清單才解除；歷史頁不清掉。
+    /// "一律補抓"是引擎對應（原版只有不足一頁且有下一段才抓），標推定。逾時同 list-wait，可手動刷新。
+    /// </summary>
+    internal byte[]? BoardDeleteReload(){
+        CheckBoard();if(!BoardContext||boardKind!="delete-wait")return null;
+        return pendingBoardCursor==0?BoardPackets.List(boardId):BoardPackets.Back(boardId,pendingBoardCursor);
+    }
     internal void BoardSent(string command,uint topic){
         boardRevision++;boardWait=InteractionClock();boardTopic=topic;
-        if(command is "write" or "delete"){
+        if(command=="write"){
             boardKind="submitted";boardNotice="請求已送出，尚未確認結果。請手動刷新核對文章與金幣；不會自動重送。";return;
+        }
+        if(command=="delete"){
+            boardPageCommand="reload";pendingBoardCursor=boardCursor;boardArticle=null;boardKind="delete-wait";
+            boardNotice="刪文請求已送出，正在重新讀取清單；尚未確認結果，以清單為準，不會自動重送。";return;
         }
         if(command=="read"){boardKind="read-wait";boardNotice="正在讀取文章。";return;}
         boardPageCommand=command;pendingBoardCursor=command=="next"?boardRows[^1].Id:command=="previous"?boardHistory[^1]:0;
@@ -121,11 +137,11 @@ public sealed partial class WorldSession {
     }
     void ReceiveBoardList(LoginReader r){
         var page=BoardPackets.ParseList(r);CheckBoard();
-        if(!BoardContext||boardKind!="list-wait"||page.ObjectId!=boardId)return;
+        if(!BoardContext||boardKind is not ("list-wait" or "delete-wait")||page.ObjectId!=boardId)return;
         if(pendingBoardCursor!=0&&page.Rows.Any(row=>row.Id>pendingBoardCursor))return;
         if(boardPageCommand=="next")boardHistory.Add(boardCursor);
         else if(boardPageCommand=="previous")boardHistory.RemoveAt(boardHistory.Count-1);
-        else boardHistory.Clear();
+        else if(boardPageCommand!="reload")boardHistory.Clear();   // R12-E：刪文後重抓同一頁，歷史不變
         boardCursor=pendingBoardCursor;boardRows=page.Rows;boardFee=page.Fee;boardKind="list";boardRevision++;
         boardNotice=boardRows.Length==0?"目前沒有文章。":"選擇文章閱讀；發文費用以伺服器為準。";
     }
@@ -151,7 +167,14 @@ public sealed partial class LoginConnection {
         catch(ArgumentException){return false;}
         if(packet==null)return false;
         var sender=sendMovementGate;interactionSending=true;
-        try{return await sender(packet,()=>CaptureWorld(Valid),()=>{World.BoardSent(command,topic);Set(State,World.BoardSnapshot(generation,false).Notice);})&&v.Generation==generation;}
+        try{
+            bool sent=await sender(packet,()=>CaptureWorld(Valid),()=>{World.BoardSent(command,topic);Set(State,World.BoardSnapshot(generation,false).Notice);})&&v.Generation==generation;
+            // R12-E：刪文後補送清單請求（sub_7CD490 的 op 6），送不出去就停在 delete-wait，逾時後可手動刷新。
+            if(sent&&command=="delete"&&CaptureWorld(()=>World.BoardDeleteReload()) is {} reload)
+                await sender(reload,()=>CaptureWorld(()=>v.Generation==generation&&State==LoginState.InWorld&&!World.ActionLocked
+                    &&!World.TradeBlocksActions&&!MovementBusy&&World.BoardDeleteReload()!=null),()=>{});
+            return sent;
+        }
         catch(Exception){if(v.Generation==generation){Cancel();Set(LoginState.Faulted,"公告板傳送失敗，已斷線；不會重送。");}return false;}
         finally{if(v.Generation==generation)interactionSending=false;}
     }

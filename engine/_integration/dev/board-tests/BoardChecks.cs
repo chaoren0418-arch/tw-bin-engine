@@ -78,10 +78,12 @@ partial class Checks {
             Check(await c.SendBoard("read",c.BoardSnapshot(),20)&&sent[^1].SequenceEqual(BoardPackets.Read(456,20)),"board read C114");
             Feed(c,BoardRead(19));Check(c.BoardSnapshot().Kind=="read-wait","board wrong read topic ignored");
             Feed(c,BoardRead());var read=c.BoardSnapshot();Check(read.Kind=="article"&&read.Article?.Content.Contains("<script>")==true,"board article received literally");
-            Check(await c.SendBoard("delete",read,20)&&sent[^1].SequenceEqual(BoardPackets.Delete(456,20)),"board own article delete C153");
-            Check(c.BoardSnapshot().Kind=="submitted"&&c.BoardSnapshot().Notice.Contains("尚未確認"),"board delete is not claimed successful");
+            // R12-E（#989）：刪文 C153 後補送目前這頁的清單請求（首頁 → C10），進 delete-wait，收到清單才解除（sub_7CD490）。
+            Check(await c.SendBoard("delete",read,20)&&sent[^2].SequenceEqual(BoardPackets.Delete(456,20))&&sent[^1].SequenceEqual(BoardPackets.List(456)),"board own article delete C153 then page reload");
+            Check(c.BoardSnapshot().Kind=="delete-wait"&&c.BoardSnapshot().Notice.Contains("尚未確認"),"board delete is not claimed successful");
             Check(!await c.SendBoard("delete",read,20)&&!await c.SendBoard("write",c.BoardSnapshot(),title:"標題",content:"內容"),"board mutation repeat blocked");
-            Feed(c,BoardRead());Feed(c,BoardList(456,20));Check(c.BoardSnapshot().Kind=="submitted","unsolicited mutation replies cannot unlock submission");
+            Feed(c,BoardRead());Check(c.BoardSnapshot().Kind=="delete-wait","an article reply cannot end the delete wait");
+            Feed(c,BoardList(456,20));Check(c.BoardSnapshot().Kind=="list","the list reply ends the delete wait");
             Check(await c.SendBoard("refresh",c.BoardSnapshot()),"board manual refresh after delete");Feed(c,BoardList(456,20));
             Check(await c.SendBoard("read",c.BoardSnapshot(),20),"board read another author");Feed(c,BoardRead(author:"其他玩家"));
             Check(!await c.SendBoard("delete",c.BoardSnapshot(),20),"board nonauthor delete blocked");
