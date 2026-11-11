@@ -14,13 +14,17 @@ internal static class Program {
         try {
             bool check=args.Length>0&&args[0]=="--check-only";
             string root=Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,".."));
+            // T411 (#948): --evidence <dir> is forwarded to the product (which checks the directory is inside the project folder).
+            // The product's working directory is the product root, so a relative path is made absolute against the caller's directory first.
+            string? evidence=args.Length==2&&args[0]=="--evidence"&&!string.IsNullOrWhiteSpace(args[1])&&!args[1].StartsWith("--",StringComparison.Ordinal)?Path.GetFullPath(args[1]):null;
             if(args.Length==3&&check&&args[1]=="--root")root=Path.GetFullPath(args[2]);
-            else if(args.Length!=0&&!(args.Length==1&&check))throw new InvalidDataException("只接受 --check-only，或 --check-only --root <完整產品目錄>；其他參數不會啟動產品。");
+            else if(args.Length!=0&&!(args.Length==1&&check)&&evidence==null)throw new InvalidDataException("只接受 --check-only、--check-only --root <完整產品目錄>，或 --evidence <證據目錄>；其他參數不會啟動產品。");
             var receipt=Verify(root);
             if(check){Console.WriteLine(JsonSerializer.Serialize(receipt,new JsonSerializerOptions{WriteIndented=true}));return 0;}
             // This is the only product-launch branch; the read-only check returns above.
             var start=new ProcessStartInfo(Path.Combine(root,Entry)){WorkingDirectory=root,UseShellExecute=false};
             start.ArgumentList.Add("--normal-product");
+            if(evidence!=null){start.ArgumentList.Add("--evidence");start.ArgumentList.Add(evidence);}
             using var child=Process.Start(start)??throw new InvalidOperationException("無法啟動已驗證的客戶端。");
             Console.WriteLine("已啟動 dev 客戶端；請在正常登入畫面手動登入。");return 0;
         }catch(Exception ex){Console.Error.WriteLine("啟動檢查失敗："+ex.Message);return 1;}
