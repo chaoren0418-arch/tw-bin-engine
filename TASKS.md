@@ -1,6 +1,6 @@
 # TASKS — tw-bin-engine
 
-更新：2026-11-11（#76 範圍凍結；#99、#110 調整 M3；#128 依使用者節流指示改寫驗證方式與 M2；#162 M2 結案、新增 M4；#177 M4 結案、新增 M5；#186 新增 M6 內容擴充；#238 M6 補列 T113–T134；#385 補列 T135–T146；#418 補列 T147–T153；#427 第四層證據：原版表現查證先於開發；#485 補列 T167–T201；#503 新增 M7 重建補缺；#535 M7 補列 T203–T227；#569 M7 補列 T228–T243；#657 M7 補列 T244–T274；#727 M7 補列 T275–T304；#894 M7 補列 T305–T383；#982 M7 補列 T384–T427）。格式：`### ID | 狀態 | 負責 | 範圍`。狀態只用 todo／doing／review／done／blocked。
+更新：2026-11-11（#76 範圍凍結；#99、#110 調整 M3；#128 依使用者節流指示改寫驗證方式與 M2；#162 M2 結案、新增 M4；#177 M4 結案、新增 M5；#186 新增 M6 內容擴充；#238 M6 補列 T113–T134；#385 補列 T135–T146；#418 補列 T147–T153；#427 第四層證據：原版表現查證先於開發；#485 補列 T167–T201；#503 新增 M7 重建補缺；#535 M7 補列 T203–T227；#569 M7 補列 T228–T243；#657 M7 補列 T244–T274；#727 M7 補列 T275–T304；#894 M7 補列 T305–T383；#982 M7 補列 T384–T427；#1023 M7 補列 T428–T443 並結案）。格式：`### ID | 狀態 | 負責 | 範圍`。狀態只用 todo／doing／review／done／blocked。
 
 **計算規則（凍結）**：
 - 調度台的進度條**只算 `## M*` 區段**；`## Backlog` 只顯示數量，不算進度。
@@ -255,7 +255,7 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 
 ---
 
-## M7 重建補缺（使用者 2026-11-08 17:53，#503）— 主線 223 項，封頂（#535：U9 兌現 +25，原估最多 +40；#569：依 T225–T227 查證補 +16；#657：第二輪與查證補 +29；#727：第三、四輪與查證補 +29；#894：第五至第七輪、參考客戶端 P 組、R6–R10 與查證補 +79；#982：第八、九輪、FU10–FU17 查證、R10–R11 與 Q8 code、smoke 腳本 +44）
+## M7 重建補缺（使用者 2026-11-08 17:53，#503）— 主線 239 項，封頂（#535：U9 兌現 +25，原估最多 +40；#569：依 T225–T227 查證補 +16；#657：第二輪與查證補 +29；#727：第三、四輪與查證補 +29；#894：第五至第七輪、參考客戶端 P 組、R6–R10 與查證補 +79；#982：第八、九輪、FU10–FU17 查證、R10–R11 與 Q8 code、smoke 腳本 +44；#1023：R12、CU、Q8／Q9 後續、R13-A、第十輪與結案覆核 +16）
 
 **驗收：使用者打開會看到什麼**：`docs/reference/gap-matrix.md` 列出原版每個功能在引擎中的狀態（已有／部分／缺）；依它開出的 code 任務全部合併後，「缺」與「部分」只剩標明「需先查證」或「伺服器不支援」的列，且每列都附原因。
 
@@ -472,7 +472,7 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 ### T410 | done | claude-local | 真機 smoke 腳本整合（#475、T112、M1–M40）（#944）
 ### T411 | done | claude-local | 一般產品入口接受 `--evidence <dir>`（#948）
 ### T412 | done | claude-local | gap-matrix 第八輪與 M7 結案判定（#952）
-### T413 | todo | claude-local | `--classic-ui` 備援盤點（#953）
+### T413 | done | claude-local | `--classic-ui` 備援盤點（#953）
 ### T414 | done | claude-local | 查證原版——Q9-1 頭上對話框版面（#956）
 ### T415 | done | claude-local | R11-A 選目標模式共用游標（#957）
 ### T416 | done | claude-local | R11-B 動作窗收尾（#958）
@@ -481,12 +481,28 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 ### T419 | done | claude-local | R11-E 頭上對話框（#961）
 ### T420 | done | claude-local | R11-F 分開音量（#962）
 ### T421 | done | claude-local | R11-G 小清理（不對應列）（#963）
-### T422 | todo | claude-local | 查證原版——Q9-2 到 Q9-5（書籤紀錄、WidgetSlot 元件、HTML 標記、備註 *）（#966）
+### T422 | done | claude-local | 查證原版——Q9-2 到 Q9-5（書籤紀錄、WidgetSlot 元件、HTML 標記、備註 *）（#966）
 ### T423 | done | claude-local | Q8-A 聊天列提示（血盟備註、委任）（#967）
 ### T424 | done | claude-local | Q8-B① 盟屋拍賣出價步進（#968）
-### T425 | blocked | claude-local | Q8-B② WidgetSlot 模式切換（#969）
+### T425 | done | claude-local | Q8-B② WidgetSlot 模式切換（#969）
 ### T426 | done | claude-local | Q8-C 小項（470 圖示、信件提示、公告板等待、ESC 順序）（#970）
-### T427 | doing | claude-local | gap-matrix 第九輪與 M7 結案判定（#980）
+### T427 | done | claude-local | gap-matrix 第九輪與 M7 結案判定（#980）
+### T428 | done | claude-local | R12-A 自己的動作 71 與層半透明（#985）
+### T429 | done | claude-local | R12-B 出價窗收尾（#986）
+### T430 | done | claude-local | R12-C 類別音量存檔（#987）
+### T431 | done | claude-local | R12-D 信件結果字串（#988）
+### T432 | done | claude-local | R12-E 公告板等待收尾（#989）
+### T433 | done | claude-local | CU-1 classic 入口可見（G1、G2、G6、G7、G8）（#991）
+### T434 | done | claude-local | CU-2 classic 功能補洞（G3、G4、G5、G9、G10、G11）（#992）
+### T435 | done | claude-local | CU-3 原生讓位收尾（G12–G15）（#993）
+### T436 | done | claude-local | CU-4 故障備援一致（G16–G19）（#994）
+### T437 | done | claude-local | Q8-A① 補充 血盟備註不雅字過濾（#1008）
+### T438 | done | claude-local | Q9-C HTML `<date>`／`<time>`／var 998–999（#1009）
+### T439 | done | claude-local | Q9-D HTML `<var>` 選項值（3.81 範圍）（#1010）
+### T440 | done | claude-local | Q9-A 書籤區域群組（參考客戶端 zone3）（#1011）
+### T441 | done | claude-local | gap-matrix 第十輪與 M7 結案判定（#1012）
+### T442 | done | claude-local | R13-A 本機選項頁可操作（#1021）
+### T443 | doing | claude-local | M7 結案覆核——R13-A 合併後重算 gap-matrix（15.16）（#1024）
 
 ---
 
