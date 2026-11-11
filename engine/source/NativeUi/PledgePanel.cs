@@ -305,7 +305,7 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
     /// <summary>
     /// T423（#967，FU15§2.3，已驗證）：ModifyMemo（sub_B2D740 → sub_B341F0）在**聊天輸入列**用字串 3325 問（sub_AC98E0，回呼 sub_B34270）；
     /// Enter 且文字不空：strlen &gt; 60（0x3C）→ 3328 印在聊天欄、不送；否則送 C78 16。62 是緩衝區大小，輸入上限是 60 byte。
-    /// sub_51F850(文字, "*") 的替換（推測：處理 `*`）沒追，照原文送（待驗證）。沒有聊天窗時保留 R7-K 的窗內編輯（後備，62 byte）。
+    /// T437（#1008，FU17§4）：長度檢查通過後，sub_51F850(文字, "*") 做不雅字過濾（ObsceneFilter），送出過濾後的文字。沒有聊天窗時保留 R7-K 的窗內編輯（後備，62 byte，同樣過濾）。
     /// </summary>
     public const int MemoPromptMessage=3325,MemoTooLongMessage=3328,MemoInputLimit=60;
     /// <summary>本機 string-c.tbl 的 3325／3328；表讀不到時用同樣的字（參考客戶端 kor25／ly／t89 的字面略有不同）。</summary>
@@ -815,7 +815,7 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
         string text=memoDraft.ToString();
         if(MemoError(text) is {} error){status=error;return false;}
         if(Source is not {} s){status="沒有接上遊戲連線，備註未送出。";return false;}
-        if(!s.SendMemo(text)){status="目前不能送出備註（沒有血盟、正在送其他請求或角色狀態不允許）。";return false;}
+        if(!s.SendMemo(ObsceneFilter.Apply(text))){status="目前不能送出備註（沒有血盟、正在送其他請求或角色狀態不允許）。";return false;}
         CancelMemoEdit();status="已送出成員備註；結果以伺服器回送為準。";return true;
     }
     public void CancelMemoEdit(){memoEditing=false;memoDraft.Clear();}
@@ -841,7 +841,7 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
             return false;
         }
         if(Source is not {} s){status="沒有接上遊戲連線，備註未送出。";return false;}
-        if(!s.SendMemo(typed)){status="目前不能送出備註（沒有血盟、正在送其他請求或角色狀態不允許）。";return false;}
+        if(!s.SendMemo(ObsceneFilter.Apply(typed))){status="目前不能送出備註（沒有血盟、正在送其他請求或角色狀態不允許）。";return false;}
         status="已送出成員備註；結果以伺服器回送為準。";return true;
     }
     /// <summary>SaveNotice：送 C78 15；送出後結束編輯，畫面等伺服器回送 168 才更新（不先改本機公告）。</summary>
