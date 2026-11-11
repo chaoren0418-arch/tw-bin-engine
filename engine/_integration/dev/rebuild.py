@@ -184,7 +184,10 @@ def build_env(output: Path):
         q = output / v
         q.mkdir(parents=True, exist_ok=True)
         env[k] = str(q)
-    env.update(DOTNET_SKIP_FIRST_TIME_EXPERIENCE='1', DOTNET_CLI_TELEMETRY_OPTOUT='1',
+    # #999: a fresh DOTNET_CLI_HOME makes dotnet's first run append <home>\.dotnet\tools to the
+    # user PATH (HKCU\Environment); one entry per worktree overflowed PATH on 2026-11-11.
+    env.update(DOTNET_ADD_GLOBAL_TOOLS_TO_PATH='false', DOTNET_NOLOGO='1',
+               DOTNET_SKIP_FIRST_TIME_EXPERIENCE='1', DOTNET_CLI_TELEMETRY_OPTOUT='1',
                DOTNET_GENERATE_ASPNET_CERTIFICATE='false', DOTNET_CLI_USE_MSBUILD_SERVER='0', MSBUILDDISABLENODEREUSE='1')
     # NUGET_PACKAGES: honour the user's (D:\dev-cache\nuget\packages) if set, else engine/.nuget
     env.setdefault('NUGET_PACKAGES', str(ROOT / '.nuget'))

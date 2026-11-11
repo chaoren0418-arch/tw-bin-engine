@@ -30,7 +30,7 @@ def main():
     env = dict(os.environ)
     for key, part in {'TEMP':'tmp','TMP':'tmp','DOTNET_CLI_HOME':'dotnet','NUGET_PACKAGES':'packages','NUGET_HTTP_CACHE_PATH':'http-cache','NUGET_SCRATCH':'nuget-scratch'}.items():
         p=output/part;p.mkdir(exist_ok=True);env[key]=str(p)
-    env.update(DOTNET_CLI_TELEMETRY_OPTOUT='1', DOTNET_SKIP_FIRST_TIME_EXPERIENCE='1', DOTNET_GENERATE_ASPNET_CERTIFICATE='false', DOTNET_CLI_USE_MSBUILD_SERVER='0', MSBUILDDISABLENODEREUSE='1')
+    env.update(DOTNET_ADD_GLOBAL_TOOLS_TO_PATH='false', DOTNET_NOLOGO='1', DOTNET_CLI_TELEMETRY_OPTOUT='1', DOTNET_SKIP_FIRST_TIME_EXPERIENCE='1', DOTNET_GENERATE_ASPNET_CERTIFICATE='false', DOTNET_CLI_USE_MSBUILD_SERVER='0', MSBUILDDISABLENODEREUSE='1')
     def run(name, argv, expected=0):
         result = subprocess.run(list(map(str,argv)), cwd=ROOT/'engine', env=env, capture_output=True)
         (output/(name+'.stdout')).write_bytes(result.stdout)
