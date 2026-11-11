@@ -255,6 +255,62 @@ public static class LocationSharePresentation {
     public static Point MarkerPoint(PointF projected,Rectangle viewport)=>new(
         (int)Math.Clamp(projected.X,viewport.Left+12,Math.Max(viewport.Left+12,viewport.Right-12)),
         (int)Math.Clamp(projected.Y,viewport.Top+12,Math.Max(viewport.Top+12,viewport.Bottom-12)));
+    /// <summary>
+    /// T435（#993，classic-ui-audit G12）：⊕ 標記與提示列要畫在哪裡、寫什麼（WinForms Label 與原生 LocationMarkerPanel 共用同一份計算）。
+    /// viewport＝PlayerSceneBounds：原生時是 800×600 邏輯座標的 UiRoot.WorldRect（相機也照它設定），classic 時是視窗像素。
+    /// 不同地圖：只有提示列、沒有標記。null＝沒有選取。
+    /// </summary>
+    public static LocationMarkerView? Marker(SharedLocation? target,ushort? currentMap,Rectangle viewport,Func<SharedLocation,PointF> project){
+        if(target is not {} t)return null;
+        var notice=new Rectangle(viewport.Left+8,viewport.Top+8,Math.Max(1,viewport.Width-16),24);
+        string text=LocationShareProtocol.Format(t);
+        if(currentMap!=t.Map)return new(null,"分享座標（不同地圖）："+text,notice);
+        var p=project(t);
+        return new(MarkerPoint(p,viewport),(viewport.Contains(Point.Round(p))?"分享座標：":"分享座標（視野外，邊緣指示）：")+text,notice);
+    }
+}
+
+/// <summary>T435（G12）：⊕ 的中心點（null＝不同地圖，不畫）、提示文字與提示列範圍；座標系同 PlayerSceneBounds。</summary>
+public sealed record LocationMarkerView(Point? Marker,string Notice,Rectangle NoticeBounds);
+
+/// <summary>
+/// T435（#993，classic-ui-audit G12）：原生 UI 開著時的 ⊕ 標記與提示列。原本是 WinForms Label（LocationShareUi 的 marker／notice），
+/// 用邏輯座標貼在視窗像素上：疊在原生畫布上，視窗不是 800×600 時也對不準。現在原生時 Label 一律隱藏，改由本面板畫在畫布上
+/// （跟著畫布一起縮放）。--classic-ui 或本面板故障時照舊用 Label。
+/// 引擎自己的指示（原版沒有聊天座標連結，見 LocationShareUi），不冒充原版：只畫字（青字＋黑色 1 px 陰影，同 LocationListPanel），
+/// 不畫底圖或色塊。World 層：不做命中測試，點擊照樣到世界（同 HpMpHeadBar／CENTER_MESSAGE）。
+/// Close（堆疊關窗）＝取消目前的選取（Closed 回呼），不送封包。
+/// </summary>
+public sealed class LocationMarkerPanel:P06.NativeUi.IUiClosablePanel {
+    public const string PanelId="CU3_LocationShareMarker";
+    [P06.NativeUi.UiPanel(171)] internal static P06.NativeUi.UiPanelRegistration Registration=>new(PanelId,"uistatus86",_=>new LocationMarkerPanel());   // T435 (#993, G12): ⊕ marker on the native canvas (engine indicator, no XML)
+    public const string Glyph="⊕";
+    public static readonly Color Ink=Color.Cyan,Shadow=Color.Black;
+    LocationMarkerView? view;
+    /// <summary>由 LocationShareUi 接上；null＝不畫。</summary>
+    public Func<LocationMarkerView?>? Source{get;set;}
+    /// <summary>Close 時呼叫（LocationShareUi 清掉選取）。</summary>
+    public Action? Closed{get;set;}
+    public LocationMarkerView? View=>view;
+    public string Id=>PanelId;
+    public P06.NativeUi.UiLayer Layer=>P06.NativeUi.UiLayer.World;
+    public bool Visible=>view!=null;
+    public Rectangle Bounds=>view==null?Rectangle.Empty:P06.NativeUi.UiRoot.WorldRect;
+    public void Load(P06.NativeUi.UiLayout layout,P06.NativeUi.SurfCatalog surfs){}
+    public void Update(P06.NativeUi.IUiGameState state)=>view=state.InWorld?Source?.Invoke():null;
+    public void Paint(P06.NativeUi.UiCanvas canvas){
+        if(view is not {} v)return;
+        var g=canvas.Graphics;
+        if(v.Notice.Length>0){
+            var saved=g.Save();
+            try{g.IntersectClip(v.NoticeBounds);var size=P06.NativeUi.UiText.Measure(g,v.Notice);canvas.DrawText(v.Notice,v.NoticeBounds.X,v.NoticeBounds.Y+Math.Max(0,(v.NoticeBounds.Height-size.Height)/2),Ink,Shadow);}
+            finally{g.Restore(saved);}
+        }
+        if(v.Marker is {} m){var size=P06.NativeUi.UiText.Measure(g,Glyph);canvas.DrawText(Glyph,m.X-size.Width/2,m.Y-size.Height/2,Ink,Shadow);}
+    }
+    public bool Mouse(P06.NativeUi.UiMouseEvent e,P06.NativeUi.IUiCommands commands)=>false;
+    public bool Key(P06.NativeUi.UiKeyEvent e,P06.NativeUi.IUiCommands commands)=>false;
+    public void Close(){if(view==null)return;view=null;Closed?.Invoke();}
 }
 
 // The form lifecycle extension below attaches through public controls; no changes to PlayerHudChat.cs.
@@ -265,12 +321,14 @@ public sealed class LocationShareUi:IDisposable {
     readonly Label marker=new(){Text="⊕",TextAlign=ContentAlignment.MiddleCenter,Size=new(24,24),ForeColor=Color.Cyan,BackColor=Color.FromArgb(20,40,45),Enabled=false,Visible=false,AccessibleName="分享座標標記"};
     readonly Label notice=new(){AutoEllipsis=true,ForeColor=Color.Cyan,BackColor=Color.FromArgb(20,40,45),Enabled=false,Visible=false,AccessibleName="分享座標位置提示"};
     readonly System.Windows.Forms.Timer refresh=new(){Interval=100};
-    readonly Func<P06.NativeUi.UiRoot?> nativeRoot;readonly ListHost listHost;
+    readonly Func<P06.NativeUi.UiRoot?> nativeRoot;readonly Func<bool> nativeActive;readonly ListHost listHost;
     PlayerChatView? displayed;LocationChatLink[] links=[];LocationChatLink? selected;long? listSelected;
     string styledText="";bool disposed;
-    public LocationShareUi(Control owner,RichTextBox history,LoginConnection connection,Func<Rectangle> viewport,Func<SharedLocation,PointF> project,Func<bool> active,Func<P06.NativeUi.UiRoot?>? nativeRoot=null){
+    /// <summary>T435（G12）：最近一次 Refresh 算出的標記（原生面板讀這份）；null＝沒有選取。</summary>
+    LocationMarkerView? markerView;
+    public LocationShareUi(Control owner,RichTextBox history,LoginConnection connection,Func<Rectangle> viewport,Func<SharedLocation,PointF> project,Func<bool> active,Func<P06.NativeUi.UiRoot?>? nativeRoot=null,Func<bool>? nativeActive=null){
         this.owner=owner;this.history=history;this.connection=connection;this.viewport=viewport;this.project=project;this.active=active;
-        this.nativeRoot=nativeRoot??(()=>null);listHost=new(this);
+        this.nativeRoot=nativeRoot??(()=>null);this.nativeActive=nativeActive??(()=>false);listHost=new(this);
         owner.Controls.AddRange([marker,notice]);
         history.MouseUp+=ClickLocation;history.MouseMove+=HoverLocation;history.TextChanged+=HistoryChanged;
         owner.Disposed+=OwnerDisposed;refresh.Tick+=RefreshTick;refresh.Start();Refresh();
@@ -318,6 +376,19 @@ public sealed class LocationShareUi:IDisposable {
     void AttachList(){
         if(nativeRoot()?.Find(P06.NativeUi.LocationListPanel.PanelId) is P06.NativeUi.LocationListPanel panel&&panel.Host==null)panel.Attach(listHost);
     }
+    /// <summary>
+    /// T435（G12）：原生 UI 開著、而且 ⊕ 面板沒故障時，標記由面板畫（接上來源），WinForms Label 讓位；否則 null（Label 照舊）。
+    /// </summary>
+    LocationMarkerPanel? NativeMarker(){
+        if(!nativeActive()||nativeRoot() is not {} root||root.Find(LocationMarkerPanel.PanelId) is not LocationMarkerPanel panel||root.Faulted.Contains(panel))return null;
+        if(panel.Source==null){panel.Source=()=>disposed?null:markerView;panel.Closed=ClearSelection;}
+        return panel;
+    }
+    /// <summary>原生面板的堆疊關窗：取消選取（同選到別的地方），不送封包。</summary>
+    void ClearSelection(){selected=null;listSelected=null;markerView=null;}
+    /// <summary>T435（G12）：Label 是否顯示（原生面板接手時一律不顯示）。拆出來給離線測試。</summary>
+    public static (bool Marker,bool Notice) LabelsVisible(LocationMarkerView? view,bool nativeOwns)=>
+        nativeOwns||view==null?(false,false):(view.Marker!=null,true);
 
     public void Refresh(){
         if(disposed||owner.IsDisposed||history.IsDisposed)return;
@@ -340,16 +411,17 @@ public sealed class LocationShareUi:IDisposable {
             var record=list.Generation==view.Generation?list.Records.FirstOrDefault(r=>r.Sequence==sequence):null;
             if(record==null)listSelected=null;else chosen=record.Location;
         }
-        if(chosen is not {} target){marker.Visible=notice.Visible=false;return;}
-        var bounds=viewport();notice.SetBounds(bounds.Left+8,bounds.Top+8,Math.Max(1,bounds.Width-16),24);
-        string text=LocationShareProtocol.Format(target);
-        if(connection.World.MapId!=target.Map){marker.Visible=false;notice.Text="分享座標（不同地圖）："+text;}
-        else{
-            var p=project(target);var point=LocationSharePresentation.MarkerPoint(p,bounds);
-            marker.Location=new(point.X-12,point.Y-12);marker.Visible=true;marker.BringToFront();
-            notice.Text=(bounds.Contains(Point.Round(p))?"分享座標：":"分享座標（視野外，邊緣指示）：")+text;
+        markerView=LocationSharePresentation.Marker(chosen,connection.World.MapId,viewport(),project);
+        // T435（#993，G12）：原生 UI 時 ⊕ 與提示列由 LocationMarkerPanel 畫在畫布上；Label 一律隱藏（不疊在畫布上、不用錯的座標系）。
+        bool native=NativeMarker()!=null;
+        var (showMarker,showNotice)=LabelsVisible(markerView,native);
+        if(markerView is {} v&&!native){
+            notice.Bounds=v.NoticeBounds;notice.Text=v.Notice;
+            if(v.Marker is {} point){marker.Location=new(point.X-12,point.Y-12);}
         }
-        notice.Visible=true;notice.BringToFront();
+        marker.Visible=showMarker;notice.Visible=showNotice;
+        if(showMarker)marker.BringToFront();
+        if(showNotice)notice.BringToFront();
     }
     public void Dispose(){
         if(disposed)return;disposed=true;refresh.Stop();refresh.Dispose();
@@ -366,7 +438,7 @@ public sealed partial class ClientForm {
         var chat=playerHud.Controls.OfType<PlayerHudChatPanel>().Single();
         var history=chat.Controls.OfType<RichTextBox>().Single();
         locationShareUi=new(this,history,login,()=>PlayerSceneBounds,
-            location=>Camera.ToView(Coordinates.Screen(location.X,location.Y)),()=>login.World.Renderable,()=>NativeUiRoot);
+            location=>Camera.ToView(Coordinates.Screen(location.X,location.Y)),()=>login.World.Renderable,()=>NativeUiRoot,()=>NativeUiActive);
         _=LocationRegionLoader.LoadAsync(login);
     }
 }
