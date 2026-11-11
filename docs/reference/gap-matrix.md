@@ -2923,3 +2923,101 @@ K2、K7 為 0。
 - 第九輪前已是「已有」的列，只複核了 15.15.2 列出的 4 列，其餘沒有逐列重看。
 - 「已有」只表示靜態看程式沒有已知差異，全部都沒有真機驗收。
 - 本節的 `檔案:行` 以 main `f59d6d69` 為準。
+### 15.16 第十一輪：M7 結案覆核（T443／#1024，2026-11-11）
+
+依 main `41b0fe2c`（含 R13-A #1021，PR #1022 合併 `cc3c5a16`）。本輪只做 15.15.7 的結案條件：R13-A 合併後核對 15.15.5 的 ①②③，重算數字。15.15 之後合併、和 gap-matrix 有關的任務只有 R13-A（#1021）；#1012 本身是第十輪盤點。本輪沒有還在跑、會影響列的任務，所以**沒有 K7、沒有「預期」**。
+
+計數用 `rea-scripts/gap_count_r11.py`：依序套 15.3、15.12、15.13、15.14、15.15、15.16 的狀態變更表，分類只讀本節。`--round 10` 讀到 15.16 之前就停、分類讀 15.15，重現第十輪的 234／15／41（K1 55、K5 1）；`--round 9` 照舊重現 230／19／41。`gap_count_r10.py` 也改成讀到 15.16 之前就停，結果和 15.15.3 相同。
+
+#### 15.16.1 方法與逐項核對
+
+只讀 #1021 的報告（`docs/reports/issue-1021.md`）與合併後的產品碼（不含 `*Tests.cs`）；下列 `檔案:行` 都是本輪讀過的，以 main `41b0fe2c` 為準。
+
+| 項 | 15.15.5 的要求 | 合併後的程式 | 結果 |
+|---|---|---|---|
+| ① 本機頁換頁 | 選單開的 help／option1／option2(p) 的 `<a link>`、`<img link>` 在本機換到同名頁，不送封包 | `NativeUi/UiClientBridge.cs:254`（`ToggleMenuLocalPage` 改呼叫 `ShowLocalOptionPage`）、`:252`（同頁再按一次關，多查 `QueryLocal`）；`LocalOptionPage.cs:86–90`（`ShowLocalOptionPage`：物件 id 0、無參數、`QueryActionable=true`、`QueryLocal=true`、版本 +1）；`NpcInteraction.cs:106`（`OpenQueryLink`：`QueryLocal` 時換本機頁，不走 `ShowServerPage`）；`:109`（`queryObject==0` → `QueryActionPacket` 組不出 C125）。原本擋住的 `NpcInteraction.cs:86`（「查詢結果頁的選項尚未支援」）只留在 `ShowQueryPage`（玩家查詢結果），選單已不經過它。點擊路徑：原生 HYPER_TEXT_WINDOW 與 NPC 分頁都經 `NpcUi.cs:84`（`RunQueryOption`）→ `login.QueryOption` | **做到** |
+| ② 本機動作 | `accepttrade`、`getall`、`bubbleon`、`showMargetMsg` 在本機執行並重畫這頁；其他動作停用、不送 C125 | `NpcInteraction.cs:158`（`QueryLocal` 時只走 `LocalOptionAction`，不往下送 C125）；`LocalOptionPage.cs:28–31`（動作表）、`:47–59`（`Prepare`：不在表內的動作一律停用，`308b70fa` 修正）、`:105–128`（`LocalOptionAction`：`:112` accepttrade→`ToggleAcceptTrade`、`:113` getall→`TogglePickupAll`（`Ground.cs:57`）、`:114` bubbleon→`HeadBubbleOptions.BubbleFrames`、`:115` showMargetMsg→`ShopMessages`（`HeadBubble.cs:226–228`）、`:126` 做完 `RedrawLocalOptionPage`）。另加 #1021 用 IDA 查到的 `showhpmp`、`showfloathpmp`、`dowhisper`、`dotradechat`（`:116–119`） | **做到**（比要求多 4 個動作） |
+| ③ HP/MP 一行 | `ApplyNativeUiStart` 成功時設 `HyperTextOptionVars.HpMp=()=>OptionPanel.HpMpWindow(root)?.Settings` | `NativeUi/UiClientBridge.cs:44`（成功分支呼叫 `LocalOptionPage.AttachHpMp(()=>OptionPanel.HpMpWindow(root))`）→ `LocalOptionPage.cs:67–70`（`HyperTextOptionVars.HpMp=()=>panel()?.Settings`）；讀值在 `NativeUi/HyperTextLayout.cs:311`、`:338`（1023） | **做到**（包成一個函式，效果相同） |
+
+- 模式切換：`NpcInteraction.cs:87`（玩家查詢結果）、`:89`（關頁）、`:102`（伺服器頁）都清 `QueryLocal`；`:98` 伺服器空頁不關本機頁（#1021 標推測，不擋）。
+- 測試：`LocalOptionPageTests.cs`（`[WorldModuleTest("local-option-page")]`）。PR #1022 的 CI 在 `308b70fa` 修正後通過（#1021 報告）；本輪沒有重跑。
+- **不擋的**（和 15.15.5 相同或 #1021 標的推測／取捨）：`dochat`（1004，`unk_1656948` 沒追完）、`randomParty`、`cPartyReject`、option11 其他顯示選項、option14 視窗模式、血盟／組隊／同盟頁的動作維持停用（原版處理沒查到或引擎沒有對應設定）；引擎重畫「目前這頁」而原版重開固定頁（option11／12／13，選單到得了的頁結果相同）；`dotradechat` 一律送 184,6（原版在 `unk_165699C` 成立時不送，沿用 R6-E）；WinForms 備援的標題仍寫「伺服器頁」。
+- 沒有建置、沒有執行程式，沒有開 IDA、PakViewer（本輪沒有「缺資源」的宣稱），沒有啟動遊戲、伺服器或 DB。
+
+#### 15.16.2 狀態變更表
+
+「原狀態」是套用 15.15.2 之後的狀態。
+
+| 節 | 列 | 原狀態 | 新狀態 | 補上的任務 | 剩下的差異／依據（真機代號） |
+|---|---|---|---|---|---|
+| 1 | 144 | 部分 | 已有 | #1021 | 15.15.5 的 ①②③ 都做到（15.16.1）。停用的動作、重畫目前這頁、伺服器空頁不關本機頁是推測／取捨（SM16 附加，`smoke-m7.md` §15.3） |
+
+合計「部分→已有」**1 列**。4:PersonalShopUI 在 15.15.2 記的「option12 的 `bubbleon`／`showMargetMsg` 不能點」也一併解除（本來就記在 1:144，PersonalShopUI 維持「已有」）。
+
+#### 15.16.3 統計（第十一輪）
+
+執行：`py -3 -I docs/reference/rea-scripts/gap_count_r11.py docs/reference/gap-matrix.md`（加 `--list` 印出所有非「已有」列）。本輪沒有 K7，「不算預期」那張表和下表相同。
+
+| 節 | 已有 | 部分 | 缺 | 其中需先查證 | 其中伺服器不支援／不建議 | 其中可直接補 |
+|---|---:|---:|---:|---:|---:|---:|
+| 1. 收包：第一組 dispatch | 103 | 1 | 10 | 0 | 9 | 1 |
+| 2. 收包：第二組 | 8 | 1 | 4 | 0 | 4 | 0 |
+| 3. 送包：`sub_951F80` 名稱表 | 45 | 2 | 5 | 0 | 5 | 0 |
+| 4. UI 視窗 | 42 | 10 | 21 | 0 | 20 | 1 |
+| 5. 物件、技能、道具、地圖事件與繪製的處理函式 | 37 | 0 | 1 | 0 | 1 | 0 |
+| **合計** | **235** | **14** | **41** | 0 | 39 | 2 |
+
+和第十輪比（234／15／41）：「部分→已有」1 列，「缺」沒有變。
+
+#### 15.16.4 分類（每列一類；取代 15.15.4）
+
+| 類 | 列（節:列，以「；」分隔） | 原因 |
+|---|---|---|
+| K1 伺服器不支援／不建議 | 1:108；1:132；2:42、67、83、215；3:C_ATTACK(43)；3:C_TELEPORT(226)；4:LoadingWindowUI；4:NpcDialogUI；4:CommunityUI；4:`PetInventoryWindow`；4:`TelTablesWindow`；4:`AgitWindow`；4:BookmarkMemoryWindowUI；4:PopUpUI；4:GameRankingUI；4:MapUI；4:StatInfoUI | 同 15.15.4。「缺」裡已標「伺服器不支援／不建議」的 39 列預設歸 K1，不逐列列出 |
+
+K2、K5、K7 為 0。
+
+各類列數（`gap_count_r11.py` 輸出）：
+
+| 類 | §1 | §2 | §3 | §4 | §5 | 部分 | 缺 | 已有（預期） | 合計 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| K1 | 11 | 5 | 7 | 31 | 1 | 14 | 41 | 0 | 55 |
+
+**290 列的去向**：
+
+| 去向 | 列數 | 和第十輪比 |
+|---|---:|---|
+| 已有 | 235 | +1（1:144，R13-A #1021） |
+| K7 進行中 | 0 | 0 |
+| K1 伺服器不支援 | 55 | 0 |
+| K2 需先查證 | 0 | 0 |
+| K5 仍有 code 差異 | 0 | −1（1:144 改「已有」） |
+| **合計** | **290** | |
+
+#### 15.16.5 M7 判定
+
+**判定：M7 可以結案。**
+
+結案條件（15.15.7）：R13-A 合併後重跑計數，K5 清空、K2 為 0。對照現況：
+- **R13-A**：#1021 已合併（PR #1022），①②③ 逐項做到（15.16.1），1:144 改「已有」。
+- **K5 0 列**、**K2 0 列**、**K7 0 列**：符合。
+- **K1 55 列**：每列都有理由（伺服器 3.81 不支援或不建議做），不擋。
+- **阻擋的列**：無。
+
+真機 smoke 不在 M7 的結案條件裡（15.15.7），建議和 M7 結案一起排給 P24Lab 測試角色。
+
+**M7 結案摘要（最終版；以 15.15.7 的定稿為底，數字是 `gap_count_r11.py` 實算）**：
+> **完成了什麼**：gap-matrix 290 列中 235 列「已有」、55 列 K1（伺服器 3.81 不支援或不建議做），K2、K5、K7 為 0。十一輪盤點（T202、T244、T277、T291、T305、T339、T379、T412、T427、T441、T443）與 R6–R13、Q8、Q9 的 code 任務都已合併；查證 FU1–FU17 已回填。`--classic-ui` 備援的 19 個缺口（G1–G19）已由 CU-1–4 接上。
+> **剩下只有真機的項目**：`docs/testing/smoke-m7.md` 的 59 項（🔴 48、🟢 11；§15 是第十、十一輪的對齊，含 R13-A 的 SM16 附加），全部交 P24Lab 測試角色執行；「已有」只代表靜態核對，全部都沒有真機驗收。
+> **已知取捨**：5940 缺 spr 時不永久改成 1120（FU14§1.3）；StatInfoUI 22 列數值留白（protobuf，FU15§1）；選目標多模式並存的先後是引擎規則（#957）；聊天列提示沒有聊天窗時退回窗內編輯（#967）；舊式 `ExcludeWindow` 不另做（15.12.5）；類別音量、WidgetSlot 模式、選項值都存在引擎自己的設定檔，不重現原版 `lineage.cfg`／選項位元的格式（#987、#969，CLAUDE.md 規則 7）；公告板刪文後一律重抓這一頁（#989）；書籤區域群組讀參考客戶端 zone3，不是 3.81 行為（#1011）；本機選項頁上原版處理方式沒查到的動作（`dochat`、`randomParty`、`cPartyReject`、option14 視窗模式等）維持停用、不送封包，動作做完重畫目前這頁（#1021）；`--classic-ui` 是引擎備援、不算原版功能，它的 WinForms 替代入口（MessageBox、聊天欄中央訊息、清單分頁）都是引擎自訂（#953、#992）。
+
+#### 15.16.6 真機項目的變動（對 `smoke-m7.md`）
+
+`docs/testing/smoke-m7.md` §15.3 的「R13-A 合併後才測」改成**可測**：SM16 附加項照一般步驟測，不再填「未測」；連結點不動或動作不切換**算不通過**。補上 #1021 多做的 showhpmp、密語、買賣頻道。🔴／🟢、項數（59）不變。
+
+#### 15.16.7 限制
+
+- 只讀報告與原始碼，沒有建置或執行；CI 結果引用 #1021 報告，本輪沒有重跑。「經由 `RunQueryOption` 到達」是用 Grep 判斷，反射或事件間接呼叫的地方可能漏掉。
+- 1:144 以外的列沒有重看；第十輪之後沒有其他會影響列的合併。
+- 「已有」只表示靜態看程式沒有已知差異，全部都沒有真機驗收。
+- 本節的 `檔案:行` 以 main `41b0fe2c` 為準。
