@@ -56,6 +56,7 @@ for sec in re.split(r"\n## ", text):
         r8, sep3, r9 = rest.partition("\n### 15.14")
         if not (sep and sep2 and sep3):
             sys.exit("15.12, 15.13 or 15.14 not found")
+        r9 = r9.partition("\n### 15.15")[0]  # T441: round 10 is counted by gap_count_r10.py
         deltas[15], deltas[16], deltas[17], deltas[18] = head, r7, r8, r9
     elif n in ROUNDS:
         deltas[n] = sec
