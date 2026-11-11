@@ -197,6 +197,8 @@ public interface IPledgeWindowSource {
     bool ChangeWar(ClanWarCommand command,string name)=>false;
     /// <summary>R7-K：C78 C(16) S(備註)——ModifyMemo 確定後，改自己的成員備註。預設＝沒有接上（不送）。</summary>
     bool SendMemo(string text)=>false;
+    /// <summary>T423（#967）：聊天輸入列備註超過 60 byte 時，3328 印在聊天欄（sub_B34270 → sub_7DC850）。預設＝不印。</summary>
+    void MemoNotice(string text){}
 }
 
 /// <summary>
@@ -214,7 +216,7 @@ public interface IPledgeWindowSource {
 /// 原版 ModifyMemo 的編輯框位置與按鍵沒查（推測：畫在自己那列的 Memo_Label）。排序不做。
 /// </summary>
 public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
-    [UiPanel(175)] internal static UiPanelRegistration Registration=>new(PanelId,LayoutName,_=>new PledgePanel());   // R3-A (#678): opened by S250/171
+    [UiPanel(175)] internal static UiPanelRegistration Registration=>new(PanelId,LayoutName,root=>new PledgePanel(root.Find));   // R3-A (#678): opened by S250/171
     public const string PanelId="PledgeUI",LayoutName="PledgeUI";
     public const string PlainWindowName="Nonoticeuserinfo_Window",NoticeWindowName="Noticeuserinfo_Window";
     // ---- 推測（查證後只改這裡）----
@@ -300,6 +302,21 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
     /// 超過就回不來；原版輸入框上限沒查（推定）。
     /// </summary>
     public const int MemoByteLimit=PledgeProtocol.NotesLength;
+    /// <summary>
+    /// T423（#967，FU15§2.3，已驗證）：ModifyMemo（sub_B2D740 → sub_B341F0）在**聊天輸入列**用字串 3325 問（sub_AC98E0，回呼 sub_B34270）；
+    /// Enter 且文字不空：strlen &gt; 60（0x3C）→ 3328 印在聊天欄、不送；否則送 C78 16。62 是緩衝區大小，輸入上限是 60 byte。
+    /// sub_51F850(文字, "*") 的替換（推測：處理 `*`）沒追，照原文送（待驗證）。沒有聊天窗時保留 R7-K 的窗內編輯（後備，62 byte）。
+    /// </summary>
+    public const int MemoPromptMessage=3325,MemoTooLongMessage=3328,MemoInputLimit=60;
+    /// <summary>本機 string-c.tbl 的 3325／3328；表讀不到時用同樣的字（參考客戶端 kor25／ly／t89 的字面略有不同）。</summary>
+    public static string MemoPromptText=>MemoTableText(MemoPromptMessage,"請輸入目錄內容。(最多60個字/Ese=取消)");
+    public static string MemoTooLongText=>MemoTableText(MemoTooLongMessage,"目錄內容太長。(最多60個字)");
+    static string MemoTableText(int id,string fallback)=>ServerMessageText.Table is {} t&&id<t.Count&&ServerMessageText.DisplayText(t[id]).Trim() is {Length:>0} s?s:fallback;
+    /// <summary>聊天輸入列備註（sub_B34270）：C78 16 的字元規則，加上輸入上限 60 byte（超過＝3328）。可以送回 null。</summary>
+    public static string? MemoPromptError(string text){
+        try{ClanMatchingProtocol.Notes(text);}catch(ArgumentException ex){return ex.Message.Replace("成員備註","備註");}
+        return LoginPackets.TextEncoding.GetByteCount(text)>MemoInputLimit?MemoTooLongText:null;
+    }
 
     WindowLayout? plain,notice;
     IReadOnlyList<Placed> rankButtons=[];
@@ -320,6 +337,9 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
     readonly System.Text.StringBuilder sideDraft=new();
     // R7-K：ModifyMemo 編輯中的草稿；characterName＝自己的角色名（IUiGameState.CharacterName），用來找自己那一列。
     bool memoEditing;string? characterName;
+    // T423（#967）：找聊天窗（CENTER_WINDOW），ModifyMemo 在聊天輸入列問 3325；null＝沒有（保留 R7-K 窗內編輯）。
+    readonly Func<string,IUiPanel?>? find;
+    public PledgePanel(Func<string,IUiPanel?>? find=null){this.find=find;}
     readonly System.Text.StringBuilder memoDraft=new();
 
     /// <summary>R4-E：對外動作（產品端每個 timer tick 由 ClanUi.cs 接上；離線檢查自己給）。null＝不能送，只顯示。</summary>
@@ -675,7 +695,7 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
             var o=origin;showNotice=!showNotice;editing=false;draft.Clear();CancelMemoEdit();origin=UiInput.ClampInside(o,Bounds.Size);scroll=Math.Clamp(scroll,0,MaxScroll);return true;
         }
         if(Hit(NoticeEditRect,at)){if(editing)SaveNotice();else BeginNoticeEdit();return true;}
-        if(Hit(ModifyMemoRect,at)){if(memoEditing)SaveMemo();else BeginMemoEdit();return true;}   // R7-K MouseEvent="ModifyMemo"
+        if(Hit(ModifyMemoRect,at)){if(memoEditing)SaveMemo();else if(!AskMemo())BeginMemoEdit();return true;}   // R7-K MouseEvent="ModifyMemo"; T423: chat-line 3325 first
         if(Hit(ScrollUpRect,at)){ScrollBy(-1);return true;}
         if(Hit(ScrollDownRect,at)){ScrollBy(1);return true;}
         if(Current is {} w&&rankButtons.Count>0)
@@ -799,6 +819,31 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
         CancelMemoEdit();status="已送出成員備註；結果以伺服器回送為準。";return true;
     }
     public void CancelMemoEdit(){memoEditing=false;memoDraft.Clear();}
+    /// <summary>
+    /// T423（#967）：ModifyMemo → 聊天輸入列提示 3325（sub_B341F0）。有聊天窗、接上連線、知道自己的角色名才問；回傳 false＝沒問
+    /// （呼叫端改用 R7-K 窗內編輯）。提示在離開世界或換角色後消失。輸入列一開始是空的（推測：原版沒帶入舊備註）。
+    /// </summary>
+    public bool AskMemo(){
+        if(!Visible||ModifyMemoRect.IsEmpty||Source==null||string.IsNullOrEmpty(characterName)||ChatLineAsk.Chat(find) is not {} chat)return false;
+        string me=characterName;
+        editing=false;draft.Clear();popupMember=null;CancelSideInput();CancelMemoEdit();
+        ChatLineAsk.Ask(chat,("pledge-memo",me),MemoPromptText,AnswerMemo,()=>inWorld&&characterName==me);
+        status=MemoPromptText;return true;
+    }
+    /// <summary>
+    /// T423：聊天輸入列的回答（sub_B34270，Enter）。空白＝不送；超過 60 byte＝3328 印在聊天欄、不送；其他送 C78 16，畫面等 169。回傳是否送出。
+    /// </summary>
+    public bool AnswerMemo(string typed){
+        if(typed.Length==0){status="";return false;}
+        if(MemoPromptError(typed) is {} error){
+            status=error;
+            if(error==MemoTooLongText)Source?.MemoNotice(error);
+            return false;
+        }
+        if(Source is not {} s){status="沒有接上遊戲連線，備註未送出。";return false;}
+        if(!s.SendMemo(typed)){status="目前不能送出備註（沒有血盟、正在送其他請求或角色狀態不允許）。";return false;}
+        status="已送出成員備註；結果以伺服器回送為準。";return true;
+    }
     /// <summary>SaveNotice：送 C78 15；送出後結束編輯，畫面等伺服器回送 168 才更新（不先改本機公告）。</summary>
     public bool SaveNotice(){
         if(!editing)return false;
