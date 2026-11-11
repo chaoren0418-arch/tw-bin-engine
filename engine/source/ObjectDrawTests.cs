@@ -150,7 +150,10 @@ static class ObjectDrawTests {
         t.Check(w.Objects.Single(o=>o.ObjectId==Shop) is {ShopActive:true,ShopText:"賣藥水"},"S158 70 stores shop title");
         var marks=w.NameMarksFor(Pet);
         t.Check(marks is {Master:true,Line252:"",Mark181:0,Kind:null,LevelDiff:-18},"pet marks from S87 (owner, level − own level)",marks);
-        t.Check(w.NameMarksFor(Shop) is {Line252:"賣藥水",Master:false},"shop title is the +252 line (推測)");
+        // R11-E（#961）：商店訊息不是 +252（#916），改畫頭上對話框；+252 是另一個欄位，3.81 沒有已知來源。
+        t.Check(w.NameMarksFor(Shop) is {Line252:"",Master:false},"shop title is not the +252 line");
+        w.SetField252(Shop,"賣藥水");
+        t.Check(w.NameMarksFor(Shop) is {Line252:"賣藥水"},"+252 field feeds Line252");
         t.Check(w.NameMarksFor(Me)==new NameMarks(),"self has no marks");
         var targets=new[]{new NameTarget(Pet,"夥伴",new(100,200,48,64),false),new NameTarget(Shop,"商人",new(200,200,48,64),false),new NameTarget(Other,"路人",new(300,200,48,64),false)};
         var hover=NameLayout.Plan(w,targets,Pet,false);

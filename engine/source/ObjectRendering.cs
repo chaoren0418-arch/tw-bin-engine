@@ -613,12 +613,13 @@ public sealed partial class WorldSession {
     internal bool IsPartyLeaderId(uint id)=>id!=0&&partyLeader.Length>0&&partyMembers.TryGetValue(partyLeader,out var m)&&m.ObjectId==id;
     internal bool InvisibleFlagOf(uint id)=>objects.TryGetValue(id,out var o)&&(o.Flags&2)!=0;
     internal int GfxOf(uint id)=>Actor?.ObjectId==id?Actor.Gfx:objects.TryGetValue(id,out var o)?o.Gfx:-1;
-    // 3.81 封包能提供的部分：+248 主人名＝S87 owner 欄；+252 行＝個人商店標題（AN§2.1 推測）；等級差＝S87 等級 − 自己等級。
+    // 3.81 封包能提供的部分：+248 主人名＝S87 owner 欄；等級差＝S87 等級 − 自己等級。
     // +181 與物件種類在 3.81 S87 沒有對應欄位（需先查證），一律留空，對應規則不啟用。
-    // R10-Q（#916）：商店訊息照 0xFF 切兩行、每 5000 ms 輪流（PersonalShopTitle，TW16 sub_A4EF80／sub_7CFFC0）；now＝TickCount64。
+    // R11-E（#961）：+252 改回真正的 +252 欄位（WorldSession.Field252Of，HeadBubble.cs）。商店訊息不是 +252（#916），
+    // 改畫成頭上對話框（HeadBubbleShops，sub_7CE710）；now 參數保留給呼叫端相容。
     internal NameMarks NameMarksFor(uint id,long? now=null){
         if(Actor?.ObjectId==id||!objects.TryGetValue(id,out var o))return new();
-        return new(Master:o.Owner.Length>0,Line252:ShopTitleLine(o,now),LevelDiff:Status is {} s?o.Level-s.Level:null);
+        return new(Master:o.Owner.Length>0,Line252:Field252Of(id),LevelDiff:Status is {} s?o.Level-s.Level:null);
     }
 }
 // "Show all names" option (0x138BE7F). There is no prior client settings file, so it is kept beside the
@@ -680,8 +681,11 @@ public sealed partial class ClientForm {
         BeginInvoke(()=>{
             var box=new CheckBox{Text="全部顯示名稱",AutoSize=true,Checked=showAllNames,AccessibleName="全部顯示名稱"};
             box.CheckedChanged+=(_,_)=>{showAllNames=box.Checked;NameDisplayOptions.SaveShowAll(showAllNames);Invalidate();};
-            if(normalPanels!=null){var page=new TabPage("名稱顯示");page.Controls.Add(box);normalPanels.TabPages.Add(page);}
-            else{box.Dock=DockStyle.Right;bar.Controls.Add(box);box.BringToFront();}
+            // R11-E（#961）：option12 #1027「個人商店名稱」（byte_136E99F，預設開、存檔）；option12 頁面引擎沒有，先放這裡。
+            var shopBox=new CheckBox{Text="個人商店名稱",AutoSize=true,Checked=HeadBubbleOptions.ShopMessages,AccessibleName="個人商店名稱"};
+            shopBox.CheckedChanged+=(_,_)=>{HeadBubbleOptions.ShopMessages=shopBox.Checked;Invalidate();};
+            if(normalPanels!=null){var page=new TabPage("名稱顯示");var flow=new FlowLayoutPanel{Dock=DockStyle.Fill,AutoSize=true};flow.Controls.Add(box);flow.Controls.Add(shopBox);page.Controls.Add(flow);normalPanels.TabPages.Add(page);}
+            else{box.Dock=DockStyle.Right;bar.Controls.Add(box);box.BringToFront();shopBox.Dock=DockStyle.Right;bar.Controls.Add(shopBox);shopBox.BringToFront();}
         });
     }
     // Pointer pixel owner (own pixels carry no id, so the own rectangle stands in); ground items have their own label.
@@ -791,6 +795,7 @@ public sealed partial class ClientForm {
         PaintObjectPresence(g,Camera.ToView,new RectangleF(Camera.ViewOffset,Camera.View));
         PaintCrowns(g);
         PaintNames(g);
+        PaintHeadBubbles(g,showAllNames);   // R11-E（#961）：商店訊息的頭上對話框（HeadBubble.cs）
         PaintDisplayNotices(g);
     }
     object ObjectUiSnapshot()=>new{ownCombatVisual=renderer.OwnCombatVisual,magic=renderer.MagicVisuals,subEffects=renderer.SubEffectVisuals,subEffectMissingGfx=renderer.SubEffects.Missing,subEffectDropped=renderer.SubEffects.Dropped,fades=renderer.FadeAlphas(Environment.TickCount64),projectile=renderer.CurrentProjectileVisual,projectiles=renderer.ProjectileVisuals,visuals=objectVisuals,presence=PresenceSnapshot(),missing=missingObjects.Select(o=>new{o.ObjectId,o.Gfx,o.Action,o.Speed,o.Brave,o.ReceivedAction,o.Name,o.X,o.Y,o.ShopActive}),target=login.World.Target,targetName=login.World.Target is {} t?objectAssets?.DisplayName(t):null,world=login.World.Snapshot()};
