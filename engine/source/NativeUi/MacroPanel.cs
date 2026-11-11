@@ -10,9 +10,12 @@ namespace P06.NativeUi;
 /// ButtonLock (BaseSurf 3293 / PushSurf 3294) and draws ButtonMode (BasePng 3350 / PushPng 3351 via OptionPngSource).
 /// That TW16 reads WidgetSlot.xml is 推測 (the file name is not in the BIN XML table); the look is confirmed on the real
 /// client (M30). Without the file (synthetic tests, no reference client) the uistatus86 look is kept unchanged.</para>
+/// <para>T425 (#969, FU15§2.4 / FU17§2.2): ButtonMode (MouseEvent ModeChange, on release = 514) and Alt+R switch the WidgetSlot
+/// mode 0 (MINI_MAP_WINDOW) ↔ 1 (EX_MACRO_WINDOW) in BAR_485 (<see cref="WidgetSlotMode"/>); the mode is saved and restored
+/// when entering the world. Only with WidgetSlot.xml (3.81 has no WidgetSlot; without it Alt+R is left to the game).</para>
 /// </summary>
-public sealed class MacroPanel(UiResources? resources=null):IUiPanel {
-    [UiPanel(80)] internal static UiPanelRegistration Registration=>new(MacroPanel.WindowId,"uistatus86",root=>new MacroPanel(root.Resources));   // ui-macro-bar #466 (RIGHT_WINDOW last of the bar: MACRO_LOCK overlaps BAR_485)
+public sealed class MacroPanel(UiResources? resources=null,UiSlotGroup? bar485=null):IUiPanel {
+    [UiPanel(80)] internal static UiPanelRegistration Registration=>new(MacroPanel.WindowId,"uistatus86",root=>new MacroPanel(root.Resources,root.SlotGroup(UiSlotGroup.Bar485)));   // ui-macro-bar #466 (RIGHT_WINDOW last of the bar: MACRO_LOCK overlaps BAR_485)
     public const string WindowId="RIGHT_WINDOW";
     /// <summary>Slot pitch in both directions and columns per row (V5 (a), verified).</summary>
     public const int Pitch=34,Columns=4;
@@ -54,6 +57,8 @@ public sealed class MacroPanel(UiResources? resources=null):IUiPanel {
     /// <summary>Surf / png ids of the current lock button: (3191,3192) uistatus86, (3293,3294) WidgetSlot.</summary>
     public (int Locked,int Unlocked) LockImages{get;private set;}
     public bool ModePressed=>modePressed;
+    /// <summary>Where the WidgetSlot mode is saved (default: option-ui.txt); offline checks put an in-memory store here.</summary>
+    internal IWidgetSlotModeStore ModeStore{get;set;}=WidgetSlotMode.SettingsFile;
 
     public void Load(UiLayout layout,SurfCatalog surfs){
         var (xml,png,error)=WidgetSlotLayout.Open(resources,WidgetSlotLayout.MainFile);
@@ -99,7 +104,14 @@ public sealed class MacroPanel(UiResources? resources=null):IUiPanel {
         if(widget.Missing.Count>0)UiResourceLog.Write($"widget-slot {widgetXml.FileName} 缺圖不畫：{string.Join("、",widget.Missing)}");
     }
 
-    public void Update(IUiGameState state){inWorld=state.InWorld;macro=MacroBook.StateOf(state);}
+    /// <summary>
+    /// Entering the world restores the saved WidgetSlot mode (sub_59DD30 → sub_705770(mode)); only with WidgetSlot.xml, so the
+    /// uistatus86 / 3.81 BAR_485 start (minimap) is unchanged.
+    /// </summary>
+    public void Update(IUiGameState state){
+        bool was=inWorld;inWorld=state.InWorld;macro=MacroBook.StateOf(state);
+        if(!was&&inWorld&&widget!=null)WidgetSlotMode.Restore(bar485,ModeStore);
+    }
 
     /// <summary>Top-left of slot k's icon: (iconX + 34·(k%4), iconY + 34·(k/4)).</summary>
     public Point SlotIcon(int k)=>new(iconAt.X+Pitch*(k%Columns),iconAt.Y+Pitch*(k/Columns));
@@ -123,10 +135,15 @@ public sealed class MacroPanel(UiResources? resources=null):IUiPanel {
     }
 
     public bool Mouse(UiMouseEvent e,IUiCommands commands){
-        if(e.Kind==UiMouseKind.Up&&modePressed){modePressed=false;return true;}
+        // ModeChange fires on release over the button (514 = WM_LBUTTONUP, FU15§2.4); a release elsewhere only ends the press.
+        if(e.Kind==UiMouseKind.Up&&modePressed){
+            modePressed=false;
+            if(widget?.Mode is {} m&&m.Hit(e.Location))WidgetSlotMode.Toggle(bar485,ModeStore,WidgetSlotLayout.MainFile);
+            return true;
+        }
         if(macro==null||e.Kind!=UiMouseKind.Down||e.Button!=MouseButtons.Left)return false;
         var book=macro.Macros;
-        if(widget?.Mode is {} mode&&mode.Hit(e.Location)){modePressed=true;WidgetSlotLayout.ModeChangeNotWired(WidgetSlotLayout.MainFile);return true;}
+        if(widget?.Mode is {} mode&&mode.Hit(e.Location)){modePressed=true;WidgetSlotMode.Pressed(bar485,WidgetSlotLayout.MainFile);return true;}
         if(!lockRect.IsEmpty&&lockRect.Contains(e.Location)){book.ToggleLock();return true;}
         foreach(var t in tabs)if(!t.Rect.IsEmpty&&t.Rect.Contains(e.Location)){book.SetPage(t.Page);return true;}
         int k=SlotAt(e.Location);if(k<0)return false;
@@ -141,7 +158,14 @@ public sealed class MacroPanel(UiResources? resources=null):IUiPanel {
     /// are window/slot modes) and only with game keyboard focus. Auto-repeat and key-up are swallowed so nothing else sees them.
     /// </summary>
     public bool Key(UiKeyEvent e,IUiCommands commands){
-        if(macro==null||!inWorld||e.Modifiers!=Keys.None)return false;
+        if(macro==null||!inWorld)return false;
+        // Alt+R = the same switch as ModeChange (WM_CHAR 0x8072, sub_8C14F0 case at 0x8C19A3; the edit-box paths sub_8C2290 /
+        // sub_8C5380 have it too, so InputAllowed is not required). Only with WidgetSlot.xml; key-up / repeat are swallowed.
+        if(e.KeyData==(Keys.Alt|Keys.R)&&widget!=null&&bar485!=null){
+            if(e.Down&&!e.Repeat)WidgetSlotMode.Toggle(bar485,ModeStore,"Alt+R");
+            return true;
+        }
+        if(e.Modifiers!=Keys.None)return false;
         int page=MacroBook.KeyPage(e.KeyCode),slot=MacroBook.KeySlot(e.KeyCode);
         if(page<0&&slot<0)return false;
         if(!e.Down)return true;
@@ -200,7 +224,7 @@ public sealed class WidgetSlotWindow {
     public Rectangle CornerRect{get;}
     /// <summary>Button "ButtonLock" (BaseSurf / PushSurf).</summary>
     public WidgetSlotButton? Lock{get;}
-    /// <summary>Button "ButtonMode" (BasePng / PushPng, MouseEvent ModeChange — behaviour not wired, M30).</summary>
+    /// <summary>Button "ButtonMode" (BasePng / PushPng, MouseEvent ModeChange → <see cref="WidgetSlotMode.Toggle"/>).</summary>
     public WidgetSlotButton? Mode{get;}
     /// <summary>"surf 3292 (…/Image[0])" for images named in the XML but not found (not drawn).</summary>
     public IReadOnlyList<string> Missing{get;}
@@ -252,9 +276,8 @@ public sealed class WidgetSlotWindow {
 /// <summary>Reading WidgetSlot.xml / WidgetSubSlot.xml (R7-O) for the macro panels.</summary>
 public static class WidgetSlotLayout {
     public const string MainFile="WidgetSlot",SubFile="WidgetSubSlot",MainWindow="Slotwindow",SubWindow="SubSlotWindow";
-    /// <summary>ButtonMode's MouseEvent; the slot-mode switch it triggers is not traced (真機再決定, M30).</summary>
+    /// <summary>ButtonMode's MouseEvent: the WidgetSlot mode switch (<see cref="WidgetSlotMode"/>, T425 #969).</summary>
     public const string ModeChangeEvent="ModeChange";
-    static readonly HashSet<string> reported=new(StringComparer.Ordinal);
 
     /// <summary>
     /// Main Tile.pak ("-c" then plain), then the reference client (UiXmlSource order). Absent → (null, no png, null);
@@ -275,8 +298,71 @@ public static class WidgetSlotLayout {
         }
     }
 
-    internal static void ModeChangeNotWired(string file){
-        lock(reported)if(!reported.Add(file))return;
-        UiResourceLog.Write($"widget-slot {file} {ModeChangeEvent} 尚未接上（行為待真機確認 M30）");
+}
+
+/// <summary>Where the WidgetSlot mode survives a restart. Load null = nothing saved (the original default is 0, sub_705910).</summary>
+public interface IWidgetSlotModeStore {
+    int? Load();
+    /// <summary>false = not written (no settings file configured or the write failed; the switch still happens).</summary>
+    bool Save(int mode);
+}
+
+/// <summary>
+/// T425 (#969): the TW16 WidgetSlot mode (FU15§2.4, FU17§2.1–2.2, 已驗證). sub_705770 always shows widgets 0/1/3/5
+/// (MainCharInfo, MainChat, WidgetSlot, MainButton) and shows exactly one of widget 2 = MiniMapUI (mode 0) or widget 4 =
+/// WidgetSubSlot (mode 1); sub_7059E0 (ModeChange 514 of both slot widgets, Alt+R) flips the mode. In the engine the two are
+/// the BAR_485 members <see cref="MiniMapPanel"/> and <see cref="ExMacroPanel"/>, so a mode is "which of the two is current".
+/// <list type="bullet">
+/// <item>Any other current member (party RT, which TW16 does not have in this group) counts as mode 0 (推測, FU17§2.3), so the
+/// next switch goes to mode 1. Alt+F3 cycling (V5 (e), PartyPanel) is unchanged.</item>
+/// <item>A missing member (not registered) → no switch, one log line.</item>
+/// <item>Saved like the original's option bit 0 (sub_997660 / sub_59E920), but in the engine's own option-ui.txt as
+/// "widget-slot-mode=0|1" (the original settings file format is not reproduced, same as R10-I).</item>
+/// </list>
+/// </summary>
+public static class WidgetSlotMode {
+    public const string SettingKey="widget-slot-mode";
+    public const int MiniMap=0,SubSlot=1;
+    sealed class FileStore:IWidgetSlotModeStore {
+        public int? Load()=>OptionSettingsFile.Read(SettingKey) is bool b?(b?SubSlot:MiniMap):null;
+        public bool Save(int mode)=>OptionSettingsFile.Write(SettingKey,mode==SubSlot);
+    }
+    /// <summary>The product store: <see cref="OptionSettingsFile"/> key <see cref="SettingKey"/> (true = mode 1).</summary>
+    public static readonly IWidgetSlotModeStore SettingsFile=new FileStore();
+
+    /// <summary>BAR_485 member shown in a mode: 0 → MINI_MAP_WINDOW, 1 → EX_MACRO_WINDOW.</summary>
+    public static string MemberOf(int mode)=>mode==SubSlot?ExMacroPanel.WindowId:MiniMapPanel.PanelId;
+    /// <summary>1 when EX_MACRO_WINDOW is current, otherwise 0 (minimap, party RT, nothing).</summary>
+    public static int Of(UiSlotGroup group)=>group.Current==ExMacroPanel.WindowId?SubSlot:MiniMap;
+    /// <summary>Shows the member of the mode (sub_705770). false = mode not 0/1 or its member is not in the group.</summary>
+    public static bool Apply(UiSlotGroup group,int mode){
+        if(mode is not (MiniMap or SubSlot))return false;
+        string id=MemberOf(mode);
+        if(!group.Members.Contains(id))return false;
+        group.Show(id);return true;
+    }
+    /// <summary>
+    /// sub_7059E0: mode → 1 − mode, shown at once and saved. Returns the new mode, or null when nothing switched (no group, the
+    /// other member missing). source = "WidgetSlot" / "WidgetSubSlot" / "Alt+R" for the log line.
+    /// </summary>
+    public static int? Toggle(UiSlotGroup? group,IWidgetSlotModeStore store,string source){
+        if(group==null){NoGroup(source);return null;}
+        int next=1-Of(group);
+        if(!Apply(group,next)){
+            UiResourceLog.Write($"widget-slot {source} {WidgetSlotLayout.ModeChangeEvent}：{group.Name} 沒有 {MemberOf(next)}，不切換");
+            return null;
+        }
+        bool saved=store.Save(next);
+        UiResourceLog.Write($"widget-slot {source} {WidgetSlotLayout.ModeChangeEvent} → 模式 {next}（{MemberOf(next)}；{(saved?"已存設定":"設定未寫入")}）");
+        return next;
+    }
+    /// <summary>Press on ButtonMode: the switch itself happens on release; without a group (offline checks) say so at once.</summary>
+    internal static void Pressed(UiSlotGroup? group,string source){if(group==null)NoGroup(source);}
+    static void NoGroup(string source)=>
+        UiResourceLog.Write($"widget-slot {source} {WidgetSlotLayout.ModeChangeEvent}：面板沒有 {UiSlotGroup.Bar485} 群組，不切換（離線測試；真機外觀待確認 M30）");
+    /// <summary>Entering the world: the saved mode, if any, is shown (sub_59DD30). false = nothing saved / not applicable.</summary>
+    public static bool Restore(UiSlotGroup? group,IWidgetSlotModeStore store){
+        if(group==null||store.Load() is not int mode)return false;
+        return Apply(group,mode);
     }
 }
