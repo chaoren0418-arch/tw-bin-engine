@@ -18,7 +18,7 @@
 ## 怎麼驗證
 - 已驗證：`dotnet build engine/source/OfflineClient.csproj -c Release` 成功（0 錯誤；3 個警告都在既有檔 `HtmlActionTests.cs`、`MagicUi.cs`，非本次）。
 - 已驗證：`engine/tools/check-no-game-assets.py` → `status: pass`（4502 檔、0 錯誤）。
-- 待 CI：既有單元測試與本組 `target-pick-cursor`（依 2026-11-09 規定本機不執行編譯出的程式，測試交給 GitHub Actions）。
+- 已驗證（CI，PR #971 第一個 commit，run 42948053882）：`dotnet`、`map-continuity`、`npc-offline` 三個 job 都綠；`map-continuity` 的 `--module-tests` 裡 `target-pick-cursor`（`P06.TargetPickCursorTests.Run`）pass、37 個檢查、0 失敗，既有 `party-invite-pick`、`spell-cursor` 等照舊通過。本機沒執行測試（依 2026-11-09 規定）。
 
 ## 未驗證／推測
 - 組隊邀請回呼在原版的類型號沒查；推測不是 4（不看射程，固定 8）。
