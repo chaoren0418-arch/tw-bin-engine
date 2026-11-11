@@ -28,6 +28,26 @@ public static class AgitSelectPackets {
 }
 
 /// <summary>
+/// T434（#992，classic-ui-audit G10）：classic「盟屋拍賣」分頁的列文字與「新請求才叫出分頁」的判斷（拆出來給離線測試）。
+/// 列格式（推測，原生清單的欄位同樣是推測）：名稱、面積、截止月/日、價格。
+/// </summary>
+public sealed class ClassicAgitTracker {
+    long? list,map;
+    /// <summary>S156 或 S187 有新的 Revision（不是 null、跟上次不同）→ true（要把分頁叫出來）。同一筆請求不再叫。</summary>
+    public bool Observe(long? listRevision,long? mapRevision){
+        bool fresh=listRevision is long l&&l!=list||mapRevision is long m&&m!=map;
+        if(listRevision!=null)list=listRevision;
+        if(mapRevision!=null)map=mapRevision;
+        return fresh;
+    }
+    public static string Row(AgitHouseEntry h,Func<string,string>? names=null)=>
+        $"{(names==null?h.Name:names(h.Name))}　面積 {h.Area}　截止 {h.Month}/{h.Day}　{h.Price.ToString("N0",CultureInfo.InvariantCulture)} 金幣";
+    public static string MapText(AgitHouseMap m)=>m.InOriginalRange
+        ?$"區域 {m.Region}、編號 {m.Number}（物件 {m.ObjectId}）"
+        :$"盟屋編號 {m.HouseNumber} 不在原版範圍（區域 < 9、編號 1–70），不送查詢。";
+}
+
+/// <summary>
 /// R5-D（T309／#736，FU3§3.1 的第二個條件）：sub_E08A20 在 0xE08AF2–0xE08B20 檢查
 /// 「職業碼 byte_1542AA1 == 2、等級 ≥ 50（0xE08B0E cmp 0x32）且 byte_13A931C」，成立時和戴傳送控制戒指一樣開書籤窗。
 /// FU3 依 SS2§7 推定職業 2 是王族；FU6§2 已查證 byte_1542AA1＝選角清單的職業，0＝王族、2＝妖精，所以這是**妖精**分支。
@@ -140,6 +160,7 @@ public sealed partial class ClientForm {
         AttachAgitAuctionHost();
         if(NativeUiRoot?.Find(OptionPanel.PanelId) is OptionPanel option&&option.Host==null)option.Attach(new OptionWindowHost(this));
         SyncElfTeleportOption();
+        SyncClassicAgit();
         var native=NativeBookmarkWindow();
         if(native!=null&&native.Host==null)native.Attach(new BookmarkWindowHost(this));
         if(bookmarkPanel is not {} panel||panel.IsDisposed)return;
@@ -242,6 +263,65 @@ public sealed partial class ClientForm {
         if(root.Find(AgitAuctionInfoPanel.PanelId) is AgitAuctionInfoPanel info&&info.Host==null)info.Attach(agitAuctionHost);
         if(root.Find(AgitBidPanel.PanelId) is AgitBidPanel bid&&bid.Host==null)bid.Attach(agitAuctionHost);
     }
+    // ---- T434（#992，classic-ui-audit G10）：盟屋拍賣清單 S156 與盟屋地圖 S187 的 WinForms 入口（classic 才用） ----------------
+    // 原生 AgitAuctionPanel／AgitMapPanel 沒有或不能用時（--classic-ui、參考客戶端沒有 AgitAuctionUI.xml、面板故障），在服務分頁
+    // 「盟屋拍賣」列出 S156 的盟屋，選一筆送 C125 select（既有 SendAgitAuctionSelect，與原生清單同一條路）；S187 只有一間盟屋，
+    // 給一顆「查詢這間盟屋」鈕（既有 SendAgitSelect＝674 鈕）。回包 S39 agsel 照舊由 NPC 對話面板顯示；出價 agapply 照舊走
+    // NPC 面板的數字框（AmountPrompt.cs）。新的 S156／S187 到了就把分頁叫出來（原版是自動開窗）。原生面板可用時這頁不出現。
+    TabPage? classicAgitPage;
+    readonly ListBox classicAgitHouses=new(){Width=420,Height=180,AccessibleName="盟屋拍賣清單"};
+    readonly Button classicAgitSelect=new(){Text="查詢選取的盟屋",AutoSize=true};
+    readonly Label classicAgitMap=new(){AutoSize=true,ForeColor=Color.White,MaximumSize=new(420,0)};
+    readonly Button classicAgitMapSelect=new(){Text="查詢這間盟屋",AutoSize=true};
+    readonly Label classicAgitNotice=new(){AutoSize=true,ForeColor=Color.White,MaximumSize=new(420,0)};
+    readonly ClassicAgitTracker classicAgitTracker=new();
+    AgitAuctionOpenRequest? classicAgitList;AgitMapOpenRequest? classicAgitHouse;bool classicAgitSending;
+    bool NativeAgitAuctionUsable()=>NativeUiActive&&NativeUiRoot is {} root&&root.Find(AgitAuctionPanel.PanelId) is AgitAuctionPanel p&&p.Available&&!root.Faulted.Contains(p);
+    bool NativeAgitMapUsable()=>NativeUiActive&&NativeUiRoot is {} root&&root.Find(AgitMapPanel.PanelId) is AgitMapPanel p&&!root.Faulted.Contains(p);
+    void SyncClassicAgit(){
+        if(normalPanels==null)return;
+        if(classicAgitPage==null){
+            classicAgitPage=new TabPage("盟屋拍賣"){BackColor=Color.FromArgb(23,38,41),AutoScroll=true};
+            var flow=new FlowLayoutPanel{Dock=DockStyle.Fill,FlowDirection=FlowDirection.TopDown,WrapContents=false,AutoScroll=true,Padding=new(8)};
+            flow.Controls.AddRange([new Label{Text="盟屋拍賣清單（S156）",AutoSize=true,ForeColor=Color.Khaki},classicAgitHouses,classicAgitSelect,
+                new Label{Text="盟屋地圖（S187）",AutoSize=true,ForeColor=Color.Khaki},classicAgitMap,classicAgitMapSelect,classicAgitNotice]);
+            classicAgitPage.Controls.Add(flow);classicAgitPage.Enter+=(_,_)=>LeaveGameFocus("classic-agit");
+            classicAgitSelect.Click+=(_,_)=>{if(classicAgitList is {} shown&&classicAgitHouses.SelectedIndex is int i&&i>=0&&i<shown.List.Houses.Count)ClassicAgitSend("agit-auction-select",()=>login.SendAgitAuctionSelect(shown,shown.List.Houses[i].HouseId));};
+            classicAgitMapSelect.Click+=(_,_)=>{if(classicAgitHouse is {} shown)ClassicAgitSend("agit-select",()=>login.SendAgitSelect(shown));};
+            classicAgitHouses.SelectedIndexChanged+=(_,_)=>SyncClassicAgitButtons();
+        }
+        bool inWorld=login.State==LoginState.InWorld;
+        var list=inWorld&&!NativeAgitAuctionUsable()?AgitAuctionWindow.Current:null;
+        var house=inWorld&&!NativeAgitMapUsable()?AgitMapWindow.Current:null;
+        bool shown=normalPanels.TabPages.Contains(classicAgitPage);
+        if(list==null&&house==null){if(shown)normalPanels.TabPages.Remove(classicAgitPage);classicAgitList=null;classicAgitHouse=null;return;}
+        if(!shown)normalPanels.TabPages.Add(classicAgitPage);
+        if(!ReferenceEquals(list,classicAgitList)){
+            classicAgitList=list;classicAgitHouses.Items.Clear();
+            if(list!=null)classicAgitHouses.Items.AddRange(list.List.Houses.Select(h=>(object)ClassicAgitTracker.Row(h,ResolveNpcText)).ToArray());
+        }
+        if(!ReferenceEquals(house,classicAgitHouse)){classicAgitHouse=house;classicAgitMap.Text=house==null?"（沒有）":ClassicAgitTracker.MapText(house.Map);}
+        SyncClassicAgitButtons();
+        if(classicAgitTracker.Observe(list?.Revision,house?.Revision)){
+            normalPanels.SelectedTab=classicAgitPage;
+            if(PlayerHudActive)ShowPlayerService(classicAgitPage.Text);else ShowDevTools(normalPanels);
+        }
+    }
+    void SyncClassicAgitButtons(){
+        bool can=!classicAgitSending&&!World.Walking&&login.State==LoginState.InWorld;
+        classicAgitSelect.Enabled=can&&classicAgitList!=null&&classicAgitHouses.SelectedIndex>=0;
+        classicAgitMapSelect.Enabled=can&&classicAgitHouse is {Map.InOriginalRange:true,Map.ObjectId:not 0};
+    }
+    void ClassicAgitSend(string tag,Func<Task<bool>> send){
+        if(classicAgitSending||World.Walking)return;
+        classicAgitSending=true;ClearInput(tag);SyncClassicAgitButtons();_=Run();
+        async Task Run(){
+            bool sent=false;
+            try{sent=await send();}
+            finally{classicAgitSending=false;classicAgitNotice.Text=sent?"已送出查詢；盟屋資訊會出現在 NPC 對話面板。":"目前不能送出（清單已更新、互動中或動作鎖定）。";SyncClassicAgitButtons();}
+        }
+    }
+
     /// <summary>原生出價窗正在顯示這一筆 agapply（AmountPrompt.cs 用來藏 WinForms 數字列，避免兩個輸入框）。</summary>
     internal bool NativeAgitBidShowing(AmountOffer offer)=>
         NativeUiActive&&NativeUiRoot is {} root&&root.Find(AgitBidPanel.PanelId) is AgitBidPanel p&&!root.Faulted.Contains(p)&&p.Shown?.Revision==offer.Revision;

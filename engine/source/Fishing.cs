@@ -2,6 +2,12 @@ namespace P06;
 
 public sealed record FishingView(int Generation,int Epoch,uint Actor,int Revision,bool Active,bool CancelPending,string Notice);
 
+/// <summary>T434（#992，G11）：1516 回答「是」之後還能不能收竿——同一次連線、同一個世界、同一個角色，而且仍在釣魚、還沒送收竿。</summary>
+public static class FishingQuitRules {
+    public static bool StillCurrent(FishingView asked,FishingView now)=>
+        now is {Active:true,CancelPending:false}&&now.Generation==asked.Generation&&now.Epoch==asked.Epoch&&now.Actor==asked.Actor;
+}
+
 public static class FishingPackets {
     // d287 C_FishClick does not read any fields; it only cancels fishing.
     public static byte[] Cancel()=>LoginPackets.Pad([62]);
@@ -123,7 +129,7 @@ public sealed class FishingHud:Button {
     public FishingHud(){
         Width=96;Height=30;Margin=new(3,2,3,2);FlatStyle=FlatStyle.Flat;
         BackColor=PlayerHudPainter.Panel;ForeColor=Color.White;
-        Click+=async(_,_)=>{if(owner is {} form&&view is {} shown){Enabled=false;await form.CancelFishingHud(shown);}};
+        Click+=async(_,_)=>{if(owner is {} form&&view is {} shown){Enabled=false;if(!await form.ConfirmCancelFishingHud(shown))Enabled=form.ReadFishingHud() is {Active:true,CancelPending:false};}};
     }
     public static void Update(FlowLayoutPanel menu,Label notice,ClientForm? form){
         var control=menu.Controls.OfType<FishingHud>().FirstOrDefault();
@@ -141,6 +147,16 @@ public sealed class FishingHud:Button {
 public sealed partial class ClientForm {
     internal FishingView ReadFishingHud()=>login.ReadFishing();
     internal async Task CancelFishingHud(FishingView view){ClearInput("fishing-cancel");await login.CancelFishing(view);}
+    /// <summary>
+    /// T434（#992，classic-ui-audit G11）：classic HUD 的收竿鈕照原生 QuitFishing（sub_E659A0）先問 1516，「是」才送 C62；
+    /// 回答期間釣魚已結束或已送收竿（view 不再是目前的）就不送。原生 UI 開著時不問（原生窗自己問）。
+    /// </summary>
+    internal async Task<bool> ConfirmCancelFishingHud(FishingView view){
+        if(!NativeUiActive&&!ClassicConfirm.Ask(this,P06.NativeUi.FishingQuitText.Confirm))return false;
+        var now=ReadFishingHud();
+        if(!FishingQuitRules.StillCurrent(view,now))return false;
+        await CancelFishingHud(now);return true;
+    }
     /// <summary>T329 (#767): the native window's QuitFishing → the same C62 path as the HUD button. UI thread only.</summary>
     internal static bool QuitFishingFromNativeUi(){
         foreach(var form in Application.OpenForms.OfType<ClientForm>()){

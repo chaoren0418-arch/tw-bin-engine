@@ -52,7 +52,7 @@ def main():
  output.mkdir(parents=True);env=os.environ.copy()
  for k,v in {'TEMP':'tmp','TMP':'tmp','APPDATA':'appdata/roaming','LOCALAPPDATA':'appdata/local','DOTNET_CLI_HOME':'.dotnet','NUGET_PACKAGES':'.nuget','NUGET_HTTP_CACHE_PATH':'.http-cache','NUGET_PLUGINS_CACHE_PATH':'.plugin-cache','NUGET_SCRATCH':'tmp/nuget'}.items():
   q=output/v;q.mkdir(parents=True,exist_ok=True);env[k]=str(q)
- env.update(DOTNET_SKIP_FIRST_TIME_EXPERIENCE='1',DOTNET_CLI_TELEMETRY_OPTOUT='1',DOTNET_GENERATE_ASPNET_CERTIFICATE='false',DOTNET_CLI_USE_MSBUILD_SERVER='0',MSBUILDDISABLENODEREUSE='1')
+ env.update(DOTNET_ADD_GLOBAL_TOOLS_TO_PATH='false',DOTNET_NOLOGO='1',DOTNET_SKIP_FIRST_TIME_EXPERIENCE='1',DOTNET_CLI_TELEMETRY_OPTOUT='1',DOTNET_GENERATE_ASPNET_CERTIFICATE='false',DOTNET_CLI_USE_MSBUILD_SERVER='0',MSBUILDDISABLENODEREUSE='1')
  commands=[]
  def run(name,argv,runenv=env):
   p=subprocess.run(argv,cwd=ROOT,env=runenv,capture_output=True,creationflags=subprocess.CREATE_NO_WINDOW,timeout=600)

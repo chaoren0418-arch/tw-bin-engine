@@ -38,7 +38,21 @@ public sealed partial class ClientForm {
         slider.ValueChanged+=(_,_)=>SetAudioSettings(slider.Value/100d,masterMute);
         mute.CheckedChanged+=(_,_)=>SetAudioSettings(masterGain,mute.Checked);
         foreach(Control control in new Control[]{slider,mute})control.Enter+=(_,_)=>LeaveGameFocus("sound-controls");
-        panel.Controls.AddRange([label,slider,mute,audioNotice]);page.Controls.Add(panel);normalPanels.TabPages.Add(page);
+        panel.Controls.AddRange([label,slider,mute,audioNotice]);
+        // T434（#992，classic-ui-audit G5）：OptionUI 的三條類別音量（音樂／效果音／環境音）也給 WinForms 入口；經同一個
+        // OptionWindowHost（RingWindows.cs）→ PlayerAudioSettings.SetBarLevel，與原生選項窗同一份值、同一個存檔（sound-volume.cfg）。
+        var host=classicOptionHost??=new OptionWindowHost(this);
+        foreach(var (bar,name) in ClassicVolumeEntries.Items){
+            var text=new Label{AutoSize=true};
+            var track=new TrackBar{Minimum=0,Maximum=100,TickFrequency=10,Width=280,AccessibleName=name,Tag=bar};
+            void ShowLevel(){int v=ClassicVolumeEntries.Percent(host.Level(bar));if(track.Value!=v)track.Value=v;text.Text=$"{name} {v}%";}
+            ShowLevel();
+            track.ValueChanged+=(_,_)=>{if(ClassicVolumeEntries.Percent(host.Level(bar))!=track.Value)host.SetLevel(bar,track.Value/100d);text.Text=$"{name} {track.Value}%";};
+            track.Enter+=(_,_)=>LeaveGameFocus("sound-controls");
+            panel.Controls.AddRange([text,track]);
+            page.Enter+=(_,_)=>ShowLevel();
+        }
+        page.Controls.Add(panel);normalPanels.TabPages.Add(page);
         SyncAudioViews();
     }
     void Apply6016Controls()=>login.World.Effects6016?.SetControls(masterGain,masterMute,login.World.Renderable&&!TerminalAudioState&&!webClosing);
@@ -61,4 +75,14 @@ public sealed partial class ClientForm {
         if(!host.Closed)retiredAudioHosts.Add(host);
         return host.ShutdownAsync(TimeSpan.FromMilliseconds(750));
     }
+}
+
+/// <summary>T434（#992，classic-ui-audit G5）：WinForms 類別音量捲軸 → OptionUI 捲軸名（PlayerAudioSettings.BarCategory 的三條）。Voice 不接（3.81 沒有語音）。</summary>
+public static class ClassicVolumeEntries {
+    public static readonly (string Bar,string Name)[] Items=[
+        (P06.NativeUi.OptionPanel.MusicVolumeBar,"音樂音量"),
+        (P06.NativeUi.OptionPanel.EffectVolumeBar,"效果音音量"),
+        (P06.NativeUi.OptionPanel.EnvVolumeBar,"環境音音量")];
+    /// <summary>類別音量 0–1 → 0–100（四捨五入；null 或非有限值＝0）。</summary>
+    public static int Percent(double? level)=>level is double v&&double.IsFinite(v)?(int)Math.Round(Math.Clamp(v,0,1)*100,MidpointRounding.AwayFromZero):0;
 }

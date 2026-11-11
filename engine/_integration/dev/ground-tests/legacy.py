@@ -22,7 +22,7 @@ text = text.replace('static async Task Main(string[] args){', 'static async Task
 dll = repo / 'engine/build/client-product-dev/P11.ClientEngine.dll'
 (scratch / 'Checks.csproj').write_text('<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0-windows</TargetFramework><UseWindowsForms>true</UseWindowsForms><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup><ItemGroup><Reference Include="P11.ClientEngine"><HintPath>'+escape(str(dll))+'</HintPath></Reference></ItemGroup></Project>', encoding='utf-8')
 env = dict(os.environ)
-env.update(DOTNET_CLI_HOME=str(repo/'scratch/issue-51/build/.dotnet'),NUGET_PACKAGES=str(repo/'engine/.nuget'),TEMP=str(repo/'scratch/issue-51/build/tmp'),TMP=str(repo/'scratch/issue-51/build/tmp'))
+env.update(DOTNET_CLI_HOME=str(repo/'scratch/issue-51/build/.dotnet'),DOTNET_ADD_GLOBAL_TOOLS_TO_PATH='false',DOTNET_NOLOGO='1',NUGET_PACKAGES=str(repo/'engine/.nuget'),TEMP=str(repo/'scratch/issue-51/build/tmp'),TMP=str(repo/'scratch/issue-51/build/tmp'))
 output = repo / 'engine/build/issue-51-legacy'
 subprocess.run(['dotnet','build',str(scratch/'Checks.csproj'),'-c','Release','-o',str(output),'--nologo','-p:NuGetAudit=false','-p:UseSharedCompilation=false'],check=True,env=env)
 for mode in ['candidate','extra']:

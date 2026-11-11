@@ -14,6 +14,19 @@ public sealed record NpcWebCommand(string Command,int Revision,int Epoch,int Tar
         return new(cmd switch{"npcTalk"=>"talk","npcClose"=>"close","npcOption"=>"option","npcQueryOption"=>"query-option","npcSelectTarget"=>"target","npcAmount"=>"amount","npcCastle"=>"castle","npcCastleCancel"=>"castle-cancel",_=>"shop"},revision,epoch,target,option,rows.ToArray(),cmd=="npcSelectTarget"?o.GetProperty("targetId").GetUInt32():0,prompt,value);
     }
 }
+/// <summary>T434（#992，classic-ui-audit G4）：classic 以物品學魔法清單的判斷（拆出來給離線測試）。</summary>
+public static class ClassicSpellExchange {
+    /// <summary>要在 WinForms 顯示的 op 175 清單：有清單、有列、而且原生 TRADE_WINDOW 沒在畫它；否則 null。</summary>
+    public static TradeListView? Shown(TradeListView? exchange,bool nativeOwns)=>
+        exchange is {Items.Length:>0}&&SpellTradeProtocol.IsExchangeRevision(exchange.Revision)&&!nativeOwns?exchange:null;
+    /// <summary>原生窗的學魔法來源目前給的是 op 175 清單（奇數版本、模式 7）。原生窗接著時一律由它負責（使用者關掉也不改回 WinForms，原生行為不變）。</summary>
+    public static bool NativeOwns(TradeListView? shown)=>
+        shown!=null&&SpellTradeProtocol.IsExchangeRevision(shown.Revision)&&shown.Mode==TradeWindowPanel.ModeSpell;
+    /// <summary>勾選的 skillIndex（列 Id）；照清單順序、不重複。</summary>
+    public static int[] Choices(IEnumerable<(uint Id,bool Checked)> rows)=>rows.Where(r=>r.Checked&&r.Id<int.MaxValue).Select(r=>(int)r.Id).Distinct().ToArray();
+    /// <summary>畫面上的清單（TradeListView.Revision）仍是快照裡的那一份。</summary>
+    public static bool Current(SpellExchangeView v,int shownRevision)=>v.OfferRevision!=0&&SpellTradeProtocol.ExchangeRevision(v.OfferRevision)==shownRevision;
+}
 public sealed partial class ClientForm {
     readonly Button npcTalk=new(){Text="與選取目標對話",Location=new(530,150),Size=new(180,34)};
     readonly Panel npcPanel=new(){Location=new(266,190),Size=new(450,380),BackColor=Color.FromArgb(23,38,41),Visible=false};
@@ -68,11 +81,58 @@ public sealed partial class ClientForm {
         bool nativeOwnsAll=nativePages&&(!npcOpen||nativeWarehouse||w.InteractionPage!=null);
         npcPanel.Visible=(npcOpen&&!nativeWarehouse||query)&&login.State==LoginState.InWorld&&!nativeOwnsAll;npcClose.Text=npcOpen?"關閉對話／取消未送出選擇":w.QueryActionable?"關閉伺服器頁":"關閉查詢結果";npcNotice.Text=ResolveNpcText(npcOpen||!query?w.InteractionNotice:"");npcSubmit.Visible=w.IsInteractionSelection&&!nativeWarehouse;npcSubmit.Text=w.InteractionTitle+"：提交一次";npcSubmit.Enabled=(w.IsServiceSelection?w.CanSubmitService:w.CanSubmitShop)&&!World.Walking;
         SyncCastlePrompt();SyncSpellExchangeWindow();
-        int queryKey=query?w.QueryRevision:-1;if(npcUiRevision==w.InteractionRevision&&npcUiQueryRevision==queryKey&&npcUiNativePages==nativePages)return;npcUiRevision=w.InteractionRevision;npcUiQueryRevision=queryKey;npcUiNativePages=nativePages;foreach(Control c in npcContent.Controls.Cast<Control>().ToArray())c.Dispose();npcContent.Controls.Clear();shopInputs.Clear();var stamp=CurrentNpcCommand("option");npcShopStamp=CurrentNpcCommand("shop");
+        // T434（#992，classic-ui-audit G4）：op 175（以物品學魔法）沒有原生 TRADE_WINDOW 畫的時候，清單放進 WinForms NPC 面板。
+        var exchange=login.State==LoginState.InWorld?ClassicSpellExchange.Shown(w.SpellExchangeTradeWindow(),SpellExchangeOwnedByNativeWindow()):null;
+        if(exchange!=null)npcPanel.Visible=true;
+        long exchangeKey=exchange==null?-1:(uint)HashCode.Combine(exchange.Revision,exchange.Items.Length);
+        int queryKey=query?w.QueryRevision:-1;if(npcUiRevision==w.InteractionRevision&&npcUiQueryRevision==queryKey&&npcUiNativePages==nativePages&&npcUiExchangeKey==exchangeKey){SyncClassicSpellExchangeNotice(w);return;}npcUiRevision=w.InteractionRevision;npcUiQueryRevision=queryKey;npcUiNativePages=nativePages;npcUiExchangeKey=exchangeKey;foreach(Control c in npcContent.Controls.Cast<Control>().ToArray())c.Dispose();npcContent.Controls.Clear();shopInputs.Clear();exchangeBoxes.Clear();exchangeNotice=null;var stamp=CurrentNpcCommand("option");npcShopStamp=CurrentNpcCommand("shop");
+        if(exchange!=null)AddClassicSpellExchange(w,exchange);
         if(query&&!nativePages)AddQueryResult(w,npcOpen);
         if(!nativePages&&w.InteractionPage is {} page){npcContent.Controls.Add(new Label{Text=ResolveNpcText(page.Text),AutoSize=true,MaximumSize=new(400,0),ForeColor=Color.White,Margin=new(6)});foreach(var option in page.Options){var command=stamp with{Option=option.Id};var b=new Button{Text=ResolveNpcText(option.Label),Width=400,AutoSize=true,Enabled=option.Enabled};b.Click+=async(_,_)=>await RunInteraction(command);npcContent.Controls.Add(b);}}
         if(!nativePages&&w.HtmlNameInput is {} namePrompt)AddHtmlNamePrompt(namePrompt);
         if(!nativeWarehouse)foreach(var row in w.ShopRows){var host=new FlowLayoutPanel{Width=410,Height=66};host.Controls.Add(new Label{Text=$"{ResolveNpcText(row.Name)}\n{w.InteractionPriceLabel} {row.Price:N0} 金幣"+(w.InteractionKind is "sell" or "deposit" or "withdraw"?$" · 最多 {row.Available}":""),ForeColor=Color.White,Width=280,Height=60});var quantity=new NumericUpDown{Width=110,Minimum=0,Maximum=Math.Min(row.Available,int.MaxValue),Value=0,Enabled=row.Available>0};host.Controls.Add(quantity);shopInputs.Add((row.Id,quantity));npcContent.Controls.Add(host);}
+    }
+    // ---- T434（#992，classic-ui-audit G4）：op 175 以物品學魔法的 WinForms 清單 ----
+    // R3-F（#679）把暫行窗拿掉後，--classic-ui 只剩提示文字。這裡把 SpellExchangeTradeWindow 的列（已學的不列，同原版 sub_475C90）
+    // 做成勾選清單；送出走既有 LearnSpellExchange（C191），關閉走 CloseSpellExchange（不送封包）。原生 TRADE_WINDOW 畫著這份清單時不出現。
+    long npcUiExchangeKey=-1;bool exchangeSending;
+    readonly List<(uint Id,CheckBox Box)> exchangeBoxes=[];Label? exchangeNotice;
+    /// <summary>原生 TRADE_WINDOW 接上學魔法來源、沒有故障，而且正在畫 op 175 這份清單（沒被關掉）。</summary>
+    bool SpellExchangeOwnedByNativeWindow(){
+        var panel=NativeUiActive?nativeUiRoot?.Find(TradeWindowPanel.PanelId) as TradeWindowPanel:null;
+        if(panel==null||nativeUiRoot==null||nativeUiRoot.Faulted.Contains(panel)||spellTradeSource==null)return false;
+        if(panel.Source is not TradeWindowSources s||!s.Sources.Contains(spellTradeSource))return false;
+        return ClassicSpellExchange.NativeOwns(spellTradeSource.Current);
+    }
+    void AddClassicSpellExchange(WorldSession w,TradeListView list){
+        npcContent.Controls.Add(new Label{Text="以物品學魔法（勾選後送出一次）",AutoSize=true,ForeColor=Color.Khaki,Margin=new(6,6,6,0)});
+        foreach(var item in list.Items){
+            var box=new CheckBox{Text=ResolveNpcText(item.Name),AutoSize=true,ForeColor=Color.White,Enabled=item.Enabled,Margin=new(10,2,6,2)};
+            box.CheckedChanged+=(_,_)=>SyncClassicSpellExchangeNotice(login.World);
+            exchangeBoxes.Add((item.Id,box));npcContent.Controls.Add(box);
+        }
+        var learn=new Button{Text="以物品學習（送出一次）",Width=400,Height=30,Tag="exchange-learn"};
+        var close=new Button{Text="關閉以物品學魔法",Width=400,Height=28};
+        int revision=list.Revision;
+        learn.Click+=async(_,_)=>{
+            if(exchangeSending||World.Walking)return;
+            var v=login.SpellExchangeSnapshot();
+            var chosen=ClassicSpellExchange.Choices(exchangeBoxes.Select(x=>(x.Id,x.Box.Checked)));
+            if(!ClassicSpellExchange.Current(v,revision)||chosen.Length==0)return;
+            exchangeSending=true;ClearInput("spell-exchange");SyncInteraction();
+            try{await login.LearnSpellExchange(v,chosen);}finally{exchangeSending=false;SyncInteraction();}
+        };
+        close.Click+=(_,_)=>{login.CloseSpellExchange(login.SpellExchangeSnapshot());SyncInteraction();};
+        exchangeNotice=new Label{AutoSize=true,MaximumSize=new(400,0),ForeColor=Color.White,Margin=new(6)};
+        npcContent.Controls.AddRange([learn,close,exchangeNotice]);
+        SyncClassicSpellExchangeNotice(w);
+    }
+    void SyncClassicSpellExchangeNotice(WorldSession w){
+        if(exchangeNotice==null)return;
+        exchangeNotice.Text=ResolveNpcText(w.SpellExchangeNotice);
+        bool any=exchangeBoxes.Any(x=>x.Box.Checked);
+        foreach(var (_,box) in exchangeBoxes)box.Enabled=!exchangeSending;
+        foreach(Control c in npcContent.Controls)if(c is Button {Tag:"exchange-learn"} b)b.Enabled=any&&!exchangeSending&&!World.Walking&&login.SpellExchangeSnapshot().CanSend;
     }
     // R7-D (#806): WinForms fallback (native UI off) for the HTML clan-name box; the page revision changes on open/close, so this rebuilds.
     void AddHtmlNamePrompt(HtmlNamePrompt prompt){

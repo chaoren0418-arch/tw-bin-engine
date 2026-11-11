@@ -1,0 +1,13 @@
+dwords 138E0C4 2
+dec F2FEB0
+dec F2F5B0
+dec F2FD80
+dec F2FCE0
+dec F2FAB0
+dec F2FAF0
+rangegrep F2F000 F30400 .
+dec 94DA90
+dec B0D8D0
+dec 871160
+dec 8738D0
+dec 873990
