@@ -246,8 +246,18 @@ public sealed partial class ClientForm {
     internal bool NativeAgitBidShowing(AmountOffer offer)=>
         NativeUiActive&&NativeUiRoot is {} root&&root.Find(AgitBidPanel.PanelId) is AgitBidPanel p&&!root.Faulted.Contains(p)&&p.Shown?.Revision==offer.Revision;
 
-    sealed class AgitAuctionHost(ClientForm form):IAgitAuctionHost {
+    sealed class AgitAuctionHost(ClientForm form):IAgitAuctionHost,IAgitAuctionChatHost {
+        /// <summary>
+        /// T429（#986）：sub_545920（FO 0x144D20）印 4381 用 sub_7DC850(字串, palette[24], palette[14], -1, -1, 0)
+        /// （VA 0x5459A3–0x5459D7：4*0x18、4*0xE 取 0x1369D70 色表），第一色 palette[24]，與信件結果（MailChatColor）同一格。
+        /// </summary>
+        internal const int BidChatColor=24;
         bool sending;
+        /// <summary>T429（#986）：出價窗 Ok 低於最小值時的 4381 印到聊天欄（與看板／信件同一個入口 AddBoardChatNotice）。</summary>
+        public void ChatNotice(string text){
+            if(form.login.State!=LoginState.InWorld)return;
+            form.login.CaptureWorld(()=>{form.login.World.AddBoardChatNotice(text,BidChatColor);return true;});
+        }
         void Send(string tag,Func<Task<bool>> send){
             if(sending||form.World.Walking)return;
             sending=true;form.ClearInput(tag);_ = Run();

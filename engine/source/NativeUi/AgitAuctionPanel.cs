@@ -898,7 +898,10 @@ namespace P06.NativeUi {
 
         /// <summary>
         /// Ok / Enter (sub_545920): below Lower (an empty edit counts as 0) → edit = Lower and 4381 to the chat bar; above Max →
-        /// edit = Max; neither sends. Otherwise host.Bid when the host can send now. true = sent.
+        /// edit = Max; neither sends. Otherwise host.Bid when the host can send now, then the window closes (T429 #986,
+        /// FU15§2.10: sub_545920 calls sub_9FBC00("cddcs", 188, …) and then [this+0x154]→vtable+0x8C(0,1,1) — closed right
+        /// after the send, not when the S136 goes away). The closed offer is not reopened (Close records its revision);
+        /// the next S136 agapply opens it again. true = sent.
         /// </summary>
         public bool Submit(){
             if(!open||shown is not {Answerable:true} o)return false;
@@ -906,7 +909,7 @@ namespace P06.NativeUi {
             if(v<o.Lower){Input=o.Lower.ToString(CultureInfo.InvariantCulture);BelowMinimum();return false;}
             if(v>o.Max){Input=o.Max.ToString(CultureInfo.InvariantCulture);return false;}
             if(!CanSubmit||Host is not {} host)return false;
-            host.Bid(o,v);return true;
+            host.Bid(o,v);Close();return true;
         }
 
         void BelowMinimum(){
