@@ -1,0 +1,83 @@
+﻿998	if ( dword_153CE60 && (unsigned __int8)sub_A41E80(dword_153CE60) )		歡迎『	send_s_0-c.html
+999	v146 = sub_A23760(dword_154334C);		目前的參考時間為	ShipEvI7-c.html,ShipEvM2-c.html,duran1-c.html,isvall5-c.html,oblivion3-c.html,roxxan2-c.html
+1000		musicon	音樂	gameo-c.html
+1001		soundon	音效	gameo-c.html
+1002	if ( byte_135C1E4 )	getall	撿取全部	gameo-c.html,option13-c.html,option13a-c.html,option13y-c.html,optiong-c.html
+1003	if ( byte_13AAF28 )	bubbleon	泡泡話框	LToptiong-c.html,gameo-c.html,option12-c.html,option12a-c.html,option12y-c.html,optiong-c.html
+1004	if ( (unsigned __int8)sub_F400A0(&unk_1656948) )	dochat	聊天頻道	gameo-c.html,option12-c.html,option12a-c.html,option12y-c.html,optiong-c.html
+1005	if ( byte_135C1E6 )	dowhisper	全體密語	LToptiong-c.html,gameo-c.html,option12-c.html,option12a-c.html,option12y-c.html,optiong-c.html
+1006	if ( byte_135C1E7 )			
+1007		chatstate	聊天視窗狀態	LToptiong-c.html,gameo-c.html,option12-c.html,option12a-c.html,option12y-c.html,optiong-c.html
+1008	if ( CodePage == 949 )	keyboard	鍵盤版面	LToptiong-c.html,LToptiong2-c.html,option11-c.html,option11a-c.html,option11y-c.html
+1009	if ( byte_135C1E5 )	obscene	語言過濾	gameo-c.html
+1010	if ( byte_13A930B )	violence	暴力過濾	gameo-c.html
+1011	if ( byte_135C1E9 )			
+1012	if ( byte_136A5FB )			
+1013	if ( byte_135C1EA )			
+1014	if ( byte_137946C )	tooltip	遊戲提示	option11a-c.html,option11y-c.html
+1015	if ( byte_13A931C )	telcon	瞬間移動定位(妖精50級以上)	option13-c.html,option13a-c.html,option13y-c.html,optiong-c.html
+1016	if ( byte_13A931D )	infracon	夜視功能(妖精)	option13-c.html,option13a-c.html,option13y-c.html,optiong-c.html
+1018	if ( byte_13CE518 )			
+1019	if ( byte_136E99D )	accepttrade	交易	option13-c.html,option13a-c.html,option13y-c.html,optiong-c.html
+1020	if ( (unsigned __int8)sub_F400A0(&unk_1656980) )	dotradechat	買賣頻道	option12-c.html,option12a-c.html,option12y-c.html,optiong-c.html
+1021	if ( dword_153CE60 && *(_BYTE *)(dword_153CE60 + 535) )		血盟階級：	pledge-c.html,pledgeM-c.html
+1022	if ( byte_135C1E8 )	domail	郵件接受	optiong-c.html
+1023	if ( byte_138BE7C )	showhpmp	顯示HP/MP條	LToptiong-c.html,option11-c.html,option11a-c.html,option11y-c.html,optiong-c.html
+1024	if ( byte_138BE7D )	showfloathpmp	移動式體力/魔力列	LToptiong-c.html,optiong-c.html
+1025	v120 = dword_13CEFDC;	alpha	視窗透明度設定	LToptiong-c.html,LToptiong2-c.html,option11-c.html,option11a-c.html,option11y-c.html,optiong-c.html
+1026	if ( byte_136E99E )	shortcutscroll	熱鍵視窗卷軸	LToptiong-c.html,LToptiong2-c.html,option11-c.html,option11a-c.html,option11y-c.html,optiong-c.html
+1027	if ( byte_136E99F )	showMargetMsg	個人商店名稱	option12-c.html,option12a-c.html,option12y-c.html,optiong-c.html
+1028	if ( byte_13CE519 )	randomParty	組隊自動分配	option13-c.html,option13a-c.html,option13y-c.html
+1029	if ( byte_13CE51A )	cPartyReject	拒絕聊天組隊	LToptiong-c.html,option12-c.html,option12a-c.html,option12y-c.html,optiong-c.html
+1030	if ( byte_13CE51B )	combatMusic	戰鬥音樂	option11-c.html,option11a-c.html,option11y-c.html,optiong-c.html
+1031	if ( dword_136EB94 == 1 )			
+1032	v162 = dword_154333C;	HPMPBarThicknessSet	HP/MP條大小	option11-c.html,option11a-c.html,option11y-c.html
+1033	v25 = sub_8DC000(dword_13CF590);	mapLocationReceive	地圖位置傳送接收	option11-c.html
+1034	v26 = sub_6C6C40();		陣營:	BsBonus-c.html
+1035	v28 = sub_6C6C40();		階段 :	BsBonus-c.html
+1036	v30 = sub_6C6C40();		數值 :	BsBonus-c.html
+1037	v249 = byte_13A931E;	mouseCursorChange	滑鼠游標大小	option11-c.html
+1038	if ( byte_135C1EB )			
+2001	v297 = byte_1543358;		近距離命中率:	BsBonus-c.html
+2002	v297 = byte_1543359;		近距離攻擊力:	BsBonus-c.html
+2003	v297 = byte_154335A;		額外防禦:	BsBonus-c.html
+2004	v297 = byte_154335B;		負重能力:	BsBonus-c.html
+2005	v297 = byte_154335C;		體力回復量:	BsBonus-c.html
+2006	v297 = byte_154335D;		魔力回復量:	BsBonus-c.html
+2007	v297 = word_154335E;		額外魔法防禦:	BsBonus-c.html
+2008	v297 = byte_1543360;		額外迴避率:	BsBonus-c.html
+2009	v297 = byte_1543361;		遠距離命中率:	BsBonus-c.html
+2010	v297 = byte_1543362;		遠距離攻擊力:	BsBonus-c.html
+2011	v297 = byte_1543363;		升級體力成長量:	BsBonus-c.html
+2012	v297 = byte_1543364;		升級魔力成長量:	BsBonus-c.html
+2013	v297 = byte_1543365;		魔法命中率:	BsBonus-c.html
+2014	v297 = byte_1543366;		魔法攻擊力:	BsBonus-c.html
+2015	v297 = byte_1543367;		魔法暴擊率:	BsBonus-c.html
+2016	v297 = byte_1543368;		魔力消耗減免:	BsBonus-c.html
+2026		dropItemView	掉落道具(ALT)	option11-c.html,option11a-c.html,option11y-c.html
+2027		npcNameView	顯示NPC名字	option11-c.html,option11a-c.html,option11y-c.html
+2028		uitype	主要 UI (ALT+F3)	option11-c.html,option11a-c.html,option11y-c.html
+2037	if ( byte_138BFAA )	deadTrans	怪物屍體半透明化	option11-c.html
+2038	if ( byte_13CEFD1 )	pvpSet	顯示PvP模式狀態	option11-c.html
+2039	if ( *(_BYTE *)(dword_1543330 + 96) )	ShowHPMPRecovery	顯示體力/魔力恢復狀態	option11-c.html
+2040	v32 = sub_521B20(v49);	showDisableEffectIcon	通知魔法效果結束	option11-c.html
+2041	if ( byte_1379424 )	showDungeonTimeLimit	通知副本剩餘時間	option11-c.html
+2043	if ( byte_13CEFD2 )	topmostWin	將視窗置於上方	option11-c.html
+2044	if ( *(_BYTE *)(sub_4F9B90() + 800) )	broadcasttopledge	血盟通知	option12-c.html
+2045		mypledgefocus	識別盟徽	optionplp-c.html
+2047	for ( i92 = byte_13CD560; *i92; sub_8739C0(&i92, &v314, v294, v298, v316) )			
+2048	if ( *(_BYTE *)(sub_4F9B90() + 820) )			
+2051	v85 = *(_DWORD *)(sub_4F9B90() + 832) & 1;			
+2052	if ( *(_BYTE *)(sub_4F9B90() + 799) )			
+2053	for ( i99 = v321; *i99; sub_8739C0(&i99, &v314, v294, v298, v316) )			
+2054	for ( i100 = "-"; *i100; sub_8739C0(&i100, &v314, v294, v298, v316) )			
+2055	for ( i101 = "-"; *i101; sub_8739C0(&i101, &v314, v294, v298, v316) )			
+2056	for ( i102 = "-"; *i102; sub_8739C0(&i102, &v314, v294, v298, v316) )			
+2057	if ( sub_5865F0(&unk_13DC538) )			
+2058	if ( (unsigned int)sub_5865F0(&unk_13DC538) > 1 )			
+2059	if ( (unsigned int)sub_5865F0(&unk_13DC538) > 2 )			
+2060	if ( (unsigned __int8)sub_586240(dword_13DC530) )			
+2061	v257 = sub_586260(dword_13DC530);			
+2062	if ( *(_BYTE *)(sub_4F9B90() + 821) )			
+2063				
+2064				
