@@ -205,6 +205,8 @@ public sealed class BoardListContent(BoardContentSet set):IUiClosablePanel {
     public bool Mouse(UiMouseEvent e,IUiCommands commands){
         bool inside=Bounds.Contains(e.Location);
         if(!Visible||!inside)return false;
+        // R12-E（T432／#989，FU15§2.11 已驗證）：[this+0x40]≠0 期間 sub_7CD080 全部吃掉、不動作（含右鍵雙擊關窗）。
+        if(set.Buttons.Waiting)return true;
         if(e.Kind==UiMouseKind.Down&&e.Button==MouseButtons.Left){
             int i=RowAt(e.Location);
             if(i>=0){

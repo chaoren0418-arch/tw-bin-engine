@@ -83,8 +83,9 @@ public sealed class BoardPanelSet {
     /// article (sub_7CD9F0) arrives. Engine counterpart: the board kinds "list-wait" / "read-wait" (Board.cs BoardSent →
     /// ReceiveBoardList / ReceiveBoardRead). While waiting the list mouse (sub_7CD080) does nothing and 662 Write
     /// (sub_7CDE00) does not open the write window.
+    /// R12-E (T432 / #989): sub_7CD490 sets 4 after op 222 and waits for the list (sub_7CD600) → engine "delete-wait".
     /// </summary>
-    public static bool IsWaiting(BoardView? v)=>v is {Kind:"list-wait" or "read-wait"};
+    public static bool IsWaiting(BoardView? v)=>v is {Kind:"list-wait" or "read-wait" or "delete-wait"};
     public bool Waiting=>IsWaiting(Host.Board);
     public void LoadSurfaces(SurfCatalog surfs){foreach(var p in Panels)p.Load(null!,surfs);}
     internal void LoadSurfaces(Func<int,UiSurface?> surf){List.Load(surf);Read.Load(surf);}
