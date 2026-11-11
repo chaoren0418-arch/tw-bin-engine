@@ -1,0 +1,25 @@
+dec 7A72D0
+dec 9D1D38
+dec EE7308
+dec EDFAB4
+grepcallers 7A7590 \+ 143\]|\+ 33\]|572|0x23C|0x84|132\)|sprintf|strcpy|itoa
+rangegrep EB6000 EBC000 sprintf|strcpy|itoa|strncpy|_snprintf
+dec 586160
+dec 9DCC70
+dec 7037D0
+dec 8163E0
+dec B557C0
+rangegrep AC3000 ACB000 == 27|13ABC63
+dec A05E70
+dec A05EA0
+dec A066C0
+dec A052F0
+xref A052F0
+dec 7CE000
+dec F35D10
+dec F359C0
+dec F36F20
+findstr ModifyMemo
+findstr ModeChange
+findstr agsel
+findstr agapply
