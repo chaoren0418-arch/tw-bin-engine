@@ -114,7 +114,9 @@ public sealed partial class WorldSession {
     // A locally played emote is itself a busy action until its sprite frames finish (renderer ends it).
     internal bool OwnEmotePlaying(){PruneEmotes(ActionClock());return Actor is {} a&&emotes.ContainsKey(a.ObjectId);}
 
-    // R5-D: byte_153CE6A (TitleAndEmotePackets.HoldMs). Movement input is held off while it is set (Resurrection.cs MoveLocked).
+    // R5-D: byte_153CE6A (TitleAndEmotePackets.HoldMs). While it is set only held-input continuation pauses (EmoteInputPaused
+    // below, 0xDF5401–0xDF5416). Since R10-G (T391/#906) it is not part of Resurrection.cs MoveLocked (S241 only), so attack,
+    // magic, doors and portals are not blocked.
     long emoteHoldUntil;int emoteHoldEpoch=-1;
     public bool EmoteHeld=>emoteHoldEpoch==WorldEpoch&&ActionClock()<emoteHoldUntil;
     /// <summary>
