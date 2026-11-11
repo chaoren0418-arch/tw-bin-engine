@@ -389,3 +389,5 @@
 - 2026-11-11 — #917 T402：查證原版——Q8（StatInfo 數值與第七輪子項）（resource，claude-local，PR 已合併）→ [報告](reports/issue-917.md)
 - 2026-11-11 — #956 T414：查證原版——Q9-1 頭上對話框版面（resource，claude-local，PR 已合併）→ [報告](reports/issue-956.md)
 - 2026-11-11 — #957 T415：R11-A 選目標模式共用游標（code，claude-local，PR 已合併）→ [報告](reports/issue-957.md)
+- 2026-11-11 — #959 T417：R11-C 好友 HyperAct（code，claude-local，PR 已合併）→ [報告](reports/issue-959.md)
+- 2026-11-11 — #962 T420：R11-F 分開音量（code，claude-local，PR 已合併）→ [報告](reports/issue-962.md)
