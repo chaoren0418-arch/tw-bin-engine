@@ -21,6 +21,13 @@ public sealed partial class Renderer {
                 OwnCombatVisual=new(actor.ObjectId,actor.Gfx,appearance.Sprite,actor.Name,actor.X,actor.Y,name,frame.Key,Coordinates.Screen(actor.X,actor.Y),Rectangle.Empty,false,self.Timing?.AnimationMs??(int)appearance.Duration(name));
                 ObserveOwnerFrames(session,"self",0,appearance,name,actor.Direction,self.Timing,$"{name}:{self.At}",elapsed,actor.X,actor.Y,false,now);
             }
+            // R12-A（T428／#985，FU14§3.2、§3.6）：自己的 S158 71（OwnActionState.cs 的觀察器記下）照 list.spr 動作 71 播釣魚姿勢，
+            // cloth（gfx 0 的 6262 釣魚線）用同一個子檔號。戰鬥影格優先；讀不到動作 71 或子檔時照舊畫姿勢。
+            else if(OwnFishingFrame(session,own.Walking,now) is {} fish){
+                draws.RemoveAll(d=>(d.Layer is "actor" or "shadow")&&d.ObjectId==0);
+                draws.AddRange(OwnFishingDraws(actor,fish));draws.AddRange(ShadowDraws(appearance,fish,actor.X,actor.Y));
+                OwnCombatVisual=new(actor.ObjectId,actor.Gfx,appearance.Sprite,actor.Name,actor.X,actor.Y,ListSprLayers.FishingName,fish.Key,Coordinates.Screen(actor.X,actor.Y),Rectangle.Empty,false,0);
+            }
             if(session.PickupFrame(now) is {} pickupFrame){
                 draws.RemoveAll(d=>(d.Layer is "actor" or "shadow")&&d.ObjectId==0);
                 draws.AddRange(pickupFrame.Blocks.Select(b=>new Draw(2*(actor.X-Coordinates.MinX)+b.A,actor.Y-Coordinates.MinY+b.B,b.Z,1000000+b.Order,"actor",b.Order,-1,-1,b.Tile)));
