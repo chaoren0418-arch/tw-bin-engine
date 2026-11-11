@@ -45,7 +45,10 @@ using System.Text.RegularExpressions;
 //     → S_ApplyAuction = S136 agapply; that the original button sends "apply" is 推測).
 //   - Bid_Window (AgitBidPanel below): opened by S136 agapply (WIN2§5.3, verified: id agapply goes to CAgitAuctionUI). The
 //     price edit takes digits (WM_CHAR), Ok/Enter replies C11 through the existing AmountPrompt sender, Cancel/Close/Esc close.
-//     Minus/Plus: the step was not traced → logged once, no change (待查).
+//     T424 (#968, FU15§2.10, verified statically): Minus/Plus step 1 (sub_5457C0 / sub_545AC0: Minus ≤ min → min else −1,
+//     Plus ≥ max → max else +1, then sub_5471F0 clamps to [min, max]); held down they repeat (the repeat delay / interval are
+//     in the update function, not traced → RepeatDelayMs / RepeatIntervalMs are 推測). Ok (sub_545920): below the minimum →
+//     the edit is set to the minimum and string 4381 goes to the chat bar; above the maximum → set to the maximum; neither sends.
 // Still not wired: the column sort buttons, the thumb drag, Back_Control (MapClick_AgitWin) — logged once as "尚未接上".
 
 namespace P06 {
@@ -553,6 +556,15 @@ namespace P06.NativeUi {
         void Bid(AmountOffer shown,long value);
     }
 
+    /// <summary>
+    /// T424 (#968): optional chat-bar output for the Bid_Window (Ok below the minimum prints string 4381, FU15§2.10). A host
+    /// that does not implement it (the product AgitAuctionHost in RingWindows.cs, outside this task's files) → the panel logs
+    /// once and keeps the text in AgitBidPanel.Notice; nothing is invented.
+    /// </summary>
+    public interface IAgitAuctionChatHost {
+        void ChatNotice(string text);
+    }
+
     public enum AgitSubPieceKind { Label, MultiLabel, Button, Edit }
 
     /// <summary>R7-C (#805): one element of Bid_Window / AuctionInfo_Window. Local is relative to the window origin.</summary>
@@ -797,6 +809,8 @@ namespace P06.NativeUi {
     /// R7-C (#805): Bid_Window of AgitAuctionUI.xml, opened by S136 agapply (host.BidOffer, AmountPrompt.cs). CurPrice_Label =
     /// the offer's lower bound (= 3.81 S_ApplyAuction minimum, 推測 for the label meaning); Price_Edit starts at the suggested
     /// value, takes digits up to LimitText; Ok/Enter → host.Bid when Lower ≤ value ≤ Max; Cancel/Close/Esc close (nothing sent).
+    /// T424 (#968): Minus/Plus step 1 inside [Lower, Max] and repeat while held (Step, Update); Ok below Lower → edit = Lower and
+    /// string 4381 (TextResolver, reference client) to the chat bar; Ok above Max → edit = Max; neither sends.
     /// The window stays at the XML X/Y (0,0) and is dragged by its Moveable strip (推測: the original may centre it).
     /// </summary>
     public sealed class AgitBidPanel(UiResources? resources=null):AgitSubPanel(resources),IUiMovablePanel,IUiTextInput {
@@ -805,6 +819,13 @@ namespace P06.NativeUi {
         public const string PriceLabel="CurPrice_Label",PriceEdit="Price_Edit",OkEvent="Ok_BidWin",CancelEvent="Cancel_BidWin",ExitEvent="Exit_BidWin",
             MinusEvent="Minus_BidWin",PlusEvent="Plus_BidWin",EditEvent="PriceEdit_BidWin";
         public const int DefaultLimit=10;
+        /// <summary>FU15§2.10 sub_545920: string 4381 (kor25 string-c.tbl: 輸入金額需要比目前競標價高) on Ok below the minimum.</summary>
+        public const string BelowMinimumString="4381";
+        /// <summary>Hold-to-repeat timing of Minus/Plus. 推測: the original keeps the direction (+428) and GetTickCount on 513
+        /// and repeats in its update function, whose timing was not traced.</summary>
+        public const long RepeatDelayMs=500,RepeatIntervalMs=50;
+        /// <summary>At most this many repeat steps per Update (a long stall does not jump the value).</summary>
+        public const int MaxRepeatPerUpdate=10;
         public override string Id=>PanelId;
         public override string WindowName=>XmlWindow;
 
@@ -814,18 +835,50 @@ namespace P06.NativeUi {
         public int Limit=>Window?.Find(PriceEdit) is {LimitText:>0} e?e.LimitText:DefaultLimit;
         public long? Value=>long.TryParse(Input,NumberStyles.None,CultureInfo.InvariantCulture,out long v)?v:null;
         public bool CanSubmit=>shown is {Answerable:true} o&&Host is {CanBid:true}&&Value is long v&&v>=o.Lower&&v<=o.Max;
+        /// <summary>Last chat-bar text of this window (4381); kept even when the host has no chat output.</summary>
+        public string? Notice{get;private set;}
+        /// <summary>Minus/Plus currently held (+1 / −1), 0 when none (the original's +428 direction).</summary>
+        public int HeldDirection=>open&&pressedInside&&pressed?.MouseEvent is {} ev?ev==PlusEvent?1:ev==MinusEvent?-1:0:0;
+        long? holdStart,nextRepeat;
 
         protected override string? Validate(AgitSubWindow w)=>w.Find(PriceEdit) is {Kind:AgitSubPieceKind.Edit}?null:$"{XmlWindow} 沒有 Edit {PriceEdit}";
 
         public override void Update(IUiGameState state){
             var offer=state.InWorld?Host?.BidOffer:null;
-            if(offer is not {Html:ApplyHtml}){if(open){open=false;pressed=hover=null;pressedInside=false;}shown=null;return;}
-            if(!Available||offer.Revision==dismissed||offer.Revision==shown?.Revision)return;
-            shown=offer;open=true;pressed=hover=null;pressedInside=false;
+            if(offer is not {Html:ApplyHtml}){if(open){open=false;pressed=hover=null;pressedInside=false;}shown=null;holdStart=nextRepeat=null;return;}
+            if(!Available||offer.Revision==dismissed||offer.Revision==shown?.Revision){Repeat(state.Now);return;}
+            shown=offer;open=true;pressed=hover=null;pressedInside=false;holdStart=nextRepeat=null;Notice=null;
             Input=offer.Answerable?offer.Suggested.ToString(CultureInfo.InvariantCulture):"";
         }
 
-        public override void Close(){if(open&&shown!=null)dismissed=shown.Revision;open=false;pressed=hover=null;pressedInside=false;}
+        /// <summary>
+        /// Hold-to-repeat (推測 timing): the first Update after the press starts the clock; after RepeatDelayMs one step every
+        /// RepeatIntervalMs while the pointer stays on the button. The release itself still steps once (Fire, 514).
+        /// </summary>
+        void Repeat(long now){
+            int dir=HeldDirection;
+            if(dir==0){holdStart=nextRepeat=null;return;}
+            if(holdStart==null){holdStart=now;nextRepeat=now+RepeatDelayMs;return;}
+            for(int i=0;i<MaxRepeatPerUpdate&&now>=nextRepeat;i++){Step(dir);nextRepeat+=RepeatIntervalMs;}
+            if(now>=nextRepeat)nextRepeat=now+RepeatIntervalMs;
+        }
+
+        /// <summary>
+        /// One Minus (−1) / Plus (+1) step (FU15§2.10): Minus at or below Lower → Lower, Plus at or above Max → Max, otherwise ±1;
+        /// then clamped to [Lower, Max]. An empty edit counts as 0 (推測: the original reads the edit as a number). false when
+        /// the offer cannot be answered.
+        /// </summary>
+        public bool Step(int direction){
+            if(!open||shown is not {Answerable:true} o||direction==0)return false;
+            long v=Value??0,next;
+            if(direction<0)next=v<=o.Lower?o.Lower:v-1;
+            else next=v>=o.Max?o.Max:v+1;
+            Input=Math.Clamp(next,(long)o.Lower,(long)o.Max).ToString(CultureInfo.InvariantCulture);
+            return true;
+        }
+
+        public override void Close(){if(open&&shown!=null)dismissed=shown.Revision;open=false;pressed=hover=null;pressedInside=false;holdStart=nextRepeat=null;}
+        protected override void OnDown(Point location){holdStart=nextRepeat=null;}
 
         public override void Paint(UiCanvas canvas){
             if(!open||Window is not {} w)return;
@@ -843,16 +896,34 @@ namespace P06.NativeUi {
             }
         }
 
+        /// <summary>
+        /// Ok / Enter (sub_545920): below Lower (an empty edit counts as 0) → edit = Lower and 4381 to the chat bar; above Max →
+        /// edit = Max; neither sends. Otherwise host.Bid when the host can send now. true = sent.
+        /// </summary>
         public bool Submit(){
-            if(!CanSubmit||shown is not {} o||Host is not {} host||Value is not long v)return false;
+            if(!open||shown is not {Answerable:true} o)return false;
+            long v=Value??0;
+            if(v<o.Lower){Input=o.Lower.ToString(CultureInfo.InvariantCulture);BelowMinimum();return false;}
+            if(v>o.Max){Input=o.Max.ToString(CultureInfo.InvariantCulture);return false;}
+            if(!CanSubmit||Host is not {} host)return false;
             host.Bid(o,v);return true;
+        }
+
+        void BelowMinimum(){
+            if(TextResolver?.Invoke(RefClientTextSource.StringKind,BelowMinimumString) is not {Length:>0} text){
+                NotWired("4381-text","參考客戶端字串 4381 取不到，聊天欄不印");return;
+            }
+            Notice=text;
+            if(Host is IAgitAuctionChatHost chat)chat.ChatNotice(text);
+            else NotWired("4381-chat","宿主沒有聊天欄輸出，4381 只留在 Notice");
         }
 
         protected override void Fire(AgitSubPiece p,IUiCommands commands){
             switch(p.MouseEvent){
                 case OkEvent:Submit();return;
                 case CancelEvent or ExitEvent:Close();commands.ReturnGameFocus();return;
-                case MinusEvent or PlusEvent:NotWired(p.MouseEvent,"加減的步進值沒查");return;
+                case MinusEvent:Step(-1);return;
+                case PlusEvent:Step(1);return;
                 default:NotWired(p.MouseEvent??p.Name??p.Path,"");return;
             }
         }

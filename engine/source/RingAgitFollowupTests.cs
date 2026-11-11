@@ -276,15 +276,15 @@ static class RingAgitFollowupTests {
         while(p.Input.Length>0)p.Key(K(Keys.Back),cmd);
         p.Char('5');
         Click(p,p.Window.At(p.Window.Find("Ok_Button")!),cmd);
-        t.Check(host.Bids.Count==0&&p.Visible,"below the lower bound: Ok sends nothing");
-        p.Key(K(Keys.Back),cmd);foreach(char ch in "150000")p.Char(ch);
+        t.Check(host.Bids.Count==0&&p.Visible&&p.Input=="100000","below the lower bound: Ok sends nothing, edit set to the minimum (T424)");
+        while(p.Input.Length>0)p.Key(K(Keys.Back),cmd);foreach(char ch in "150000")p.Char(ch);
         host.CanBid=false;Click(p,p.Window.At(p.Window.Find("Ok_Button")!),cmd);
         t.Check(host.Bids.Count==0,"host cannot send: nothing");
         host.CanBid=true;Click(p,p.Window.At(p.Window.Find("Ok_Button")!),cmd);
         t.Check(host.Bids.Count==1&&host.Bids[0]==(offer,150000L),"Ok → host.Bid(offer, 150000)",host.Bids);
         t.Check(p.Key(K(Keys.Enter),cmd)&&host.Bids.Count==2,"Enter = Ok");
         Click(p,p.Window.At(p.Window.Find("Plus_Button")!),cmd);
-        t.Check(p.Unhandled.Contains("Plus_BidWin")&&p.Input=="150000","Plus: step not traced, logged, value unchanged");
+        t.Check(!p.Unhandled.Contains("Plus_BidWin")&&p.Input=="150001","Plus: +1 (T424, FU15§2.10)");
         Click(p,p.Window.At(p.Window.Find("Cancel_Button")!),cmd);
         t.Check(!p.Visible&&host.Bids.Count==2&&cmd.Calls.Contains("game-focus"),"Cancel closes, nothing sent");
         p.Update(InWorld);t.Check(!p.Visible,"cancelled offer not reopened");
