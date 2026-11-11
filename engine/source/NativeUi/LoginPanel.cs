@@ -19,7 +19,8 @@ using System.Globalization;
 //   Login_Window (X/Y 0,0; no size, no BaseSurf): every Image with a Surf, the Buttons (Base/Highlight/Push surf), and the two
 //   InputBoxes (ID_Input, Password_Input: X/Y/Width/Height, LimitText, Password="1" drawn as '*'). The window has no declared
 //   size, so Bounds = the union of the built pieces (the world outside stays reachable, e.g. the offline preview).
-//   Back_Image has no Surf (the background is drawn at run time by code outside the XML) → skipped, nothing is invented.
+//   Back_Image has no Surf: it is not a built piece (listed in Skipped as a run-time picture) but the T408 (#925) background
+//   animation below (BackImage).
 //   Login_Button (Login_LoginWin) and Enter in the password box log in; Enter in the ID box moves to the password box (推測);
 //   Tab switches boxes; Esc leaves the boxes (keys go to the game again). The ID box takes focus when the screen shows (推測).
 //   Message_Window (Modal): opened when the native login is refused (LoginControl message) or the session ends in
@@ -40,8 +41,19 @@ using System.Globalization;
 //   Exit_Button (Exit_LoginWin): IUiLoginCommands.ExitClient (UiClientBridge → ClientForm.Close, the normal close path).
 //   Without the command (offline checks) it is logged once as before.
 // Still not built (待做): Credit_Window (TextScroller), ChangePass_Button / OTP_Button / Credit_Button — clicks are logged once
-// as "login-ui … 尚未接上". Back_Image (no Surf) is still not drawn (Q7-14). The character select screen (SelectUI.xml) is a
-// separate task; after the character list arrives the login screen hides and the existing select UI takes over.
+// as "login-ui … 尚未接上". The character select screen (SelectUI.xml) is a separate task; after the character list arrives the
+// login screen hides and the existing select UI takes over.
+// T408 (#925, R10-U; FU13 §5 D11–D12): Back_Image of Login_Window is the Png animation 1825–1842, only in the reference client
+// (kor25 / ly Sprite*.pak, 800×600; none of the 24 local idx has them — FU13§5.2 lists idx and SHA-256). Original (已驗證,
+// FU13§5.1): entering scene 4 (sub_EEAC50) sets the png mode to 0 and resets the last-change time and frame; the scene update
+// (sub_EE8D40) moves to the next frame whenever more than 200 ms passed and sets png 1825 + frame (frame 18 → 0), so the order
+// is 1826, 1827 … 1842, 1825, 1826 … Here: the time the login window shows is recorded (BackStart) and the frame drawn is
+// BackPngAt(elapsed) = 1825 + ((elapsed ÷ 200 ms + 1) mod 18). Differences (推測, 真機再確認): the original draws nothing for the
+// first ≤ 200 ms (no png id yet) and switches after > 200 ms measured from the previous switch; here 1826 shows at once and
+// frames switch on exact 200 ms boundaries. The pngs are read at run time through OptionPngSource (local Sprite*.pak first,
+// then the reference client, read-only, SHA-256 logged as "option-png"); nothing is copied into the repository. They are
+// drawn at the Back_Image X/Y below every other piece of Login_Window; Bounds then covers the picture. A png that cannot be
+// found is not drawn (nothing in its place) and is listed once in Missing.
 
 namespace P06.NativeUi {
     /// <summary>"BaseSurf=\"6995;1\"" → Attr BaseSurf, Id 6995, Flag 1 (Flag 0 when absent; meaning 待驗證).</summary>
@@ -110,6 +122,44 @@ namespace P06.NativeUi {
         /// <summary>Elements deliberately not built (other windows, run-time background, TextScroller …), by path.</summary>
         public IReadOnlyList<string> Skipped{get;private set;}=[];
         public IReadOnlyCollection<string> Unhandled=>unhandled;
+
+        // ---- T408 (#925): Back_Image png animation (see the file header) ----
+        public const string BackImageName="Back_Image";
+        public const int BackPngFirst=1825,BackFrames=18,BackFrameMs=200;
+        /// <summary>Back_Image of Login_Window (Image without Surf, window-relative X/Y); null when the layout has none.</summary>
+        public LoginPiece? BackImage{get;private set;}
+        /// <summary>Png lookup (product: OptionPngSource, local then the reference client); null → the background is not drawn.</summary>
+        internal Func<int,UiSurface?>? PngLookup{get;set;}
+        /// <summary>Millisecond clock (sub_A228B0 in the original); the offline checks drive it.</summary>
+        internal Func<long> Clock{get;set;}=()=>Environment.TickCount64;
+        /// <summary>Clock value when the login window last became visible.</summary>
+        public long BackStart{get;private set;}
+        readonly Dictionary<int,UiSurface?> backPngs=[];
+
+        /// <summary>Png of the frame shown elapsedMs after the window showed: 1826, 1827 … 1842, 1825, then again (200 ms each).</summary>
+        public static int BackPngAt(long elapsedMs)=>BackPngFirst+(int)((Math.Max(0,elapsedMs)/BackFrameMs+1)%BackFrames);
+        /// <summary>Png id of the background frame now; null while hidden or without Back_Image.</summary>
+        public int? BackPng=>shown&&Login!=null&&BackImage!=null?BackPngAt(Clock()-BackStart):null;
+        /// <summary>The background picture now (null: hidden, no lookup or png missing — nothing is drawn).</summary>
+        public UiSurface? BackSurface=>BackPng is int id?BackFrame(id):null;
+
+        UiSurface? BackFrame(int id){
+            if(PngLookup==null)return null;
+            if(backPngs.TryGetValue(id,out var hit))return hit;
+            UiSurface? s;
+            try{s=PngLookup(id);}
+            catch(Exception ex) when(ex is IOException or UiResourceException){s=null;UiResourceLog.Write($"login-ui {BackImageName} png {id} 無法使用：{ex.Message}");}
+            backPngs[id]=s;
+            if(s==null){
+                Missing=[..Missing,$"png {id} ({BackImage!.Path}/@Png，FU13§5 只在參考客戶端)"];
+                UiResourceLog.Write($"login-ui {BackImageName} 缺 png {id}，這一格不畫");
+            }
+            return s;
+        }
+
+        /// <summary>Screen rectangle of the background picture now (empty when nothing is drawn).</summary>
+        Rectangle BackRect=>BackSurface is {} s&&Login!=null&&BackImage!=null
+            ?new(Login.Origin.X+BackImage.Offset.X,Login.Origin.Y+BackImage.Offset.Y,s.Width,s.Height):Rectangle.Empty;
         /// <summary>Caps Lock state for typed letters (injected by the offline checks).</summary>
         public Func<bool> CapsLock{get;set;}=()=>Control.IsKeyLocked(Keys.CapsLock);
 
@@ -118,7 +168,11 @@ namespace P06.NativeUi {
         /// <summary>Message_Window or Notice_Window shows: all input goes to it.</summary>
         bool Modal=>Message!=null&&MessageWindow!=null||NoticeShown;
         bool NoticeShown=>Notice!=null&&NoticeWindow!=null;
-        Rectangle LoginBounds{get{var e=Login!.Extent;e.Offset(Login.Origin);return Rectangle.Intersect(e,UiRoot.Canvas);}}
+        Rectangle LoginBounds{get{
+            var e=Login!.Extent;e.Offset(Login.Origin);
+            var back=BackRect;if(!back.IsEmpty)e=e.IsEmpty?back:Rectangle.Union(e,back);   // T408: the background widens the screen
+            return Rectangle.Intersect(e,UiRoot.Canvas);
+        }}
 
         public string Account{get;private set;}="";
         public string Password{get;private set;}="";
@@ -153,12 +207,14 @@ namespace P06.NativeUi {
             try{Load(layout,surfs.Get);}
             catch(IOException ex){Clear();Unavailable=ex.Message;UiResourceLog.Write($"login-ui {layout.FileName} 版面不符，原生登入畫面停用：{ex.Message}");return;}
             if(Missing.Count>0)UiResourceLog.Write($"login-ui 缺圖不畫：{string.Join("、",Missing)}");
+            if(BackImage!=null)PngLookup=new OptionPngSource(resources.Sprites,resources.Xml.Reference).Get;   // T408: Back_Image pngs, read when drawn
             if(MessageWindow==null)UiResourceLog.Write($"login-ui {MessageWindowName} 不能用（沒有或底圖缺），登入失敗只記在既有登入入口");
             if(NoticeWindow==null)UiResourceLog.Write($"login-ui {NoticeWindowName} 不能用（沒有、底圖缺或沒有 {MessageLabel}），S48 公告沿用既有訊息框");
         }
 
         void Clear(){
             shown=false;closedIn=null;pressed=hover=null;pressedInside=false;LayoutFile=null;Login=MessageWindow=NoticeWindow=null;Missing=[];Skipped=[];
+            BackImage=null;BackStart=0;backPngs.Clear();
             Account=Password="";Focus=null;Message=null;Attempted=false;Unavailable="not loaded";DropNotice();
         }
 
@@ -194,7 +250,10 @@ namespace P06.NativeUi {
                 if(n.BaseImage?.BaseSurface is {} b&&n.Pieces.Any(p=>p.Kind==LoginPieceKind.Label&&p.Name==MessageLabel))news=n with{Size=new(b.Width,b.Height)};
                 else skipped.Add($"{notice.Path}（{NoticeWindowName}，底圖缺或沒有 {MessageLabel}，S48 沿用既有訊息框）");
             }
+            // T408: Login_Window's Back_Image without Surf = the png animation (drawn below every piece; not part of Extent).
+            var back=login.Children.FirstOrDefault(c=>c.Name=="Image"&&c.Attr("Name")==BackImageName&&ImageAttr(c,"Surf")==null);
             LayoutFile=layout.FileName;Login=built;MessageWindow=msg;NoticeWindow=news;Missing=missing;Skipped=skipped;
+            BackImage=back==null?null:new(LoginPieceKind.Image,back.Path,BackImageName,new(back.TryInt("X")??0,back.TryInt("Y")??0),Size.Empty,null,null,null,null,null);
             Unavailable=built.Extent.IsEmpty?$"{layout.FileName}: {LoginWindowName} 沒有任何可畫或可點的元素":null;
         }
 
@@ -268,7 +327,7 @@ namespace P06.NativeUi {
                 else if(now==LoginState.Cancelled)Attempted=false;
             }
             if(closedIn==now){Hide();return;}
-            if(!shown){shown=true;Focus=IdInput;pressed=hover=null;pressedInside=false;}
+            if(!shown){shown=true;Focus=IdInput;pressed=hover=null;pressedInside=false;BackStart=Clock();}   // T408: animation restarts (sub_EEAC50)
         }
 
         void Hide(){shown=false;pressed=hover=null;pressedInside=false;Message=null;Focus=null;DropNotice();}
@@ -339,6 +398,7 @@ namespace P06.NativeUi {
         public void Paint(UiCanvas canvas){
             if(!shown||Login==null)return;
             bool message=Message!=null&&MessageWindow!=null;
+            if(BackSurface is {} back)canvas.DrawSurface(back,Login.Origin.X+BackImage!.Offset.X,Login.Origin.Y+BackImage.Offset.Y);   // T408: Back_Image png, bottom of Login_Window
             PaintWindow(canvas,Login,!Modal);
             if(NoticeShown&&NoticeWindow is {} n){
                 canvas.DrawSurface(n.BaseImage?.BaseSurface,n.Origin.X,n.Origin.Y);

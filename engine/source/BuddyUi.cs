@@ -119,7 +119,10 @@ public sealed partial class ClientForm {
         var page=new TabPage("好友／封鎖"){BackColor=Color.FromArgb(23,38,41)};
         page.Controls.Add(new BuddyPanel(login,ToggleNativeFriendWindow));normalPanels.TabPages.Add(page);
     }
-    /// <summary>Transitional opener (the original key/command that opens these windows is 待驗證). false = native UI not active.</summary>
+    /// <summary>
+    /// Transitional opener. 已驗證：TW16 無開窗鍵（FU13§3.1）——原版沒有任何鍵或選單單獨打開 FriendUI；名單入口是 `/buddy`／HyperAct `buddy`，
+    /// 回覆 S39 buddy 開 buddy-c.html 頁（Buddies.cs BuddyPage，R10-V #926）。這個 WinForms 鈕只是看原生三窗的過渡入口。false = native UI not active.
+    /// </summary>
     internal bool ToggleNativeFriendWindow(FriendListKind kind){
         if(!NativeUiActive||NativeUiRoot?.Find(FriendWindowSpec.For(kind).Id) is not FriendPanel panel)return false;
         panel.Toggle();if(panel.Visible)NativeUiRoot.BringToFront(panel);

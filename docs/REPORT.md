@@ -374,3 +374,5 @@
 - 2026-11-11 — #914 T399：R10-O 召喚與盟屋拍賣小項（code，claude-local，PR 已合併）→ [報告](reports/issue-914.md)
 - 2026-11-11 — #919 T404：真機前置——`--evidence` 時把 `[native-ui]` log 寫進 evidence 目錄（code，claude-local，PR 已合併）→ [報告](reports/issue-919.md)
 - 2026-11-11 — #923 T406：R10-S 選目標瞄準游標（FU13 D1–D2）（code，claude-local，PR 已合併）→ [報告](reports/issue-923.md)
+- 2026-11-11 — #925 T408：R10-U 登入畫面 Back_Image 動畫（FU13 D11–D12）（code，claude-local，PR 已合併）→ [報告](reports/issue-925.md)
+- 2026-11-11 — #926 T409：R10-V 好友窗入口與 S39 buddy 頁（FU13 D3–D5）（code，claude-local，PR 已合併）→ [報告](reports/issue-926.md)
