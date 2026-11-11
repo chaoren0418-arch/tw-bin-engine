@@ -80,7 +80,7 @@ public sealed class PlayerPointerController {
     public Task<bool>? LastSpellPick {get;private set;}
     bool TryPickSpellTarget(uint id){
         if(!login.World.SpellTargetPicking)return false;
-        Cancel("選施法目標");
+        Cancel("選施法目標");login.DropObjectPick();
         if(Refusal(id,false) is {} refused){Notice=refused;LastSpellPick=Task.FromResult(false);return true;}
         LastSpellPick=PickAsync(id);return true;
     }
@@ -97,7 +97,7 @@ public sealed class PlayerPointerController {
     public const string PartyInviteSentNotice="組隊邀請已送出；結果以原服回覆為準。",PartyInviteRefusedNotice="未送出組隊邀請：對象不是 30 格內可邀請的玩家，或目前不能操作。",PartyInviteCancelNotice="已取消選擇邀請對象。";
     bool TryPickPartyInvite(uint id){
         if(!login.World.PartyInvitePicking)return false;
-        Cancel("選邀請對象");
+        Cancel("選邀請對象");login.DropObjectPick();
         LastPartyInvitePick=PartyPickAsync(id);return true;
     }
     async Task<bool> PartyPickAsync(uint id){
@@ -105,9 +105,27 @@ public sealed class PlayerPointerController {
         Notice=sent?PartyInviteSentNotice:PartyInviteRefusedNotice;
         return sent;
     }
+    // R11-A（T415／#957，gap-matrix 15.13.6）：通用的選對象回呼（LoginConnection.BeginObjectPick）。點物件＝取走回呼並交給它
+    // （回呼自己決定送不送、送什麼），不改選取目標、不攻擊；點地面＝取消、不走路。施法、組隊邀請兩種既有模式優先。
+    public bool ObjectPicking=>login.ObjectPicking;
+    public Task<bool>? LastObjectPick {get;private set;}
+    public const string ObjectPickCancelNotice="已取消選擇對象。";
+    public static string ObjectPickSentNotice(string name)=>name+"：已送出；結果以原服回覆為準。";
+    public static string ObjectPickRefusedNotice(string name)=>name+"：未送出（對象不符，或目前不能操作）。";
+    bool TryPickObject(uint id){
+        if(login.TakeObjectPick() is not {} pick)return false;
+        Cancel("選對象");
+        LastObjectPick=ObjectPickAsync(pick,id);return true;
+    }
+    async Task<bool> ObjectPickAsync(ObjectPickRequest pick,uint id){
+        bool sent=await pick.Pick(id);
+        Notice=sent?ObjectPickSentNotice(pick.Name):ObjectPickRefusedNotice(pick.Name);
+        return sent;
+    }
     public bool MoveTo(Point goal){
         if(login.World.SpellTargetPicking){Cancel("取消選目標");login.World.CancelSpellTargetPick("點了地面");Notice=login.World.MagicNotice;return false;}
         if(login.World.PartyInvitePicking){Cancel("取消選邀請對象");login.World.CancelPartyInvitePick();Notice=PartyInviteCancelNotice;return false;}
+        if(login.ObjectPicking){Cancel("取消選對象");login.CancelObjectPick();Notice=ObjectPickCancelNotice;return false;}
         Cancel("新目的地");if(!focused()||!login.MovementAvailable){Notice="目前無法行走。";return false;}
         var w=login.World;if(!(w.MapCache?.Contains(goal.X,goal.Y)??Coordinates.Inside(goal.X,goal.Y))){Notice="目的地不在已載入地圖內。";return false;}
         // Snapshot occupancy once for bounded A*, then use live RawStep again for every sent edge.
@@ -134,6 +152,7 @@ public sealed class PlayerPointerController {
     public bool Select(uint id){
         if(TryPickSpellTarget(id))return login.World.TargetId==id;
         if(TryPickPartyInvite(id))return false;
+        if(TryPickObject(id))return false;
         Cancel("選取目標");if(!focused()||!login.World.Renderable||!TargetVisible(id))return false;login.World.SelectTarget(id);Notice=$"已選取 {login.World.Target?.Name} #{id}；G 攻擊，選技能後 M 施放。";
         if(login.World.TargetId==id&&WorldObjectDrag.PlayerCandidate(login.World,id))WorldObjectDrag.Begin(id);
         return login.World.TargetId==id;
@@ -176,6 +195,7 @@ public sealed class PlayerPointerController {
         if(!talk&&TryPickSpellTarget(id))return await LastSpellPick!;
         // 選邀請對象時，攻擊路徑（雙擊／Ctrl／直接攻擊）點人也是選對象、不攻擊；回 false 讓 UI 不記成「attack」，結果看 LastPartyInvitePick。
         if(!talk&&TryPickPartyInvite(id)){await LastPartyInvitePick!;return false;}
+        if(!talk&&TryPickObject(id)){await LastObjectPick!;return false;}
         Cancel(talk?"單次交談":"單次攻擊");
         if(Refusal(id,talk) is {} refused){Notice=refused;return false;}
         bool door=login.World.IsDoor(id);
@@ -193,7 +213,39 @@ public sealed class PlayerPointerController {
     }
 }
 
+/// <summary>R11-A（T415／#957）：一筆選對象回呼（原版 sub_F68FE0 登記的回呼槽，FU13 M35「回呼不為空」就是選目標模式）。</summary>
+/// <param name="Name">顯示在滑鼠提示的動作名（例如「加入好友」）。</param>
+/// <param name="Pick">點中物件時呼叫；回 true＝已送出。物件是否合格（玩家、距離、活著）由回呼自己判斷。</param>
+/// <param name="Cancelled">點地面、換成別的選目標模式或明確取消時呼叫（可為 null）。</param>
+public sealed record ObjectPickRequest(string Name,int Session,int Epoch,Func<uint,Task<bool>> Pick,Action? Cancelled);
+
 public sealed partial class LoginConnection {
+    // R11-A（T415／#957）：通用的選對象入口，給 R11-B 的對象型動作（加入好友、拒絕、聊天組隊…）用。只在 UI 執行緒使用。
+    // 規則：同一時間只有一個回呼（原版一個槽）——開新的會取消施法選目標與組隊選對象；施法／組隊選目標被點中時丟掉這筆（不呼叫 Cancelled）。
+    // 換連線（SessionGeneration）或換世界（WorldEpoch）後失效。點中物件時先結束模式再呼叫回呼（同 sub_954FC0 的先結束再送，推測）。
+    ObjectPickRequest? objectPick;
+    public bool ObjectPicking=>objectPick is {} p&&p.Session==SessionGeneration&&p.Epoch==World.WorldEpoch;
+    public string? ObjectPickName=>ObjectPicking?objectPick!.Name:null;
+    /// <summary>任一種選目標模式（施法、組隊邀請、通用選對象）＝原版回呼不為空；瞄準游標看這個。</summary>
+    public bool TargetPicking=>World.SpellTargetPicking||World.PartyInvitePicking||ObjectPicking;
+    public void BeginObjectPick(string name,Func<uint,Task<bool>> pick,Action? cancelled=null){
+        ArgumentNullException.ThrowIfNull(pick);
+        CancelObjectPick();
+        World.CancelSpellTargetPick("改選對象");World.CancelPartyInvitePick();
+        objectPick=new(name,SessionGeneration,World.WorldEpoch,pick,cancelled);
+    }
+    /// <summary>取消並通知回呼；沒有時回 false。過期的（換連線／換世界）只清掉、不通知。</summary>
+    public bool CancelObjectPick(){
+        if(objectPick is not {} p)return false;
+        bool live=ObjectPicking;objectPick=null;
+        if(live)p.Cancelled?.Invoke();
+        return live;
+    }
+    internal void DropObjectPick()=>objectPick=null;
+    /// <summary>取走目前有效的回呼（結束模式）；沒有或已過期回 null。</summary>
+    internal ObjectPickRequest? TakeObjectPick(){
+        var p=ObjectPicking?objectPick:null;objectPick=null;return p;
+    }
     // Existing public methods and defaults remain unchanged. Pointer supplies an extra final admission fence.
     public async Task<bool> PointerMove(int heading,Func<bool> current)=>(await SendMovement(heading,true,false,current)).Sent;
     public Task<bool> PointerAttack(Func<bool> current)=>AttackCore(current);
