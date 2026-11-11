@@ -29,6 +29,8 @@ public sealed class NpcTemplates {
                     // Q9-C (T438/#1009, followups-17 §3.4): #998 = player name, #999 = game time "%2d:%2d" (client variables, not arguments).
                     if(i==NativeUi.HyperTextClock.PlayerNameVar)Append(player);
                     else if(i==NativeUi.HyperTextClock.ClockVar)Append(NativeUi.HyperTextClock.VarTime(NativeUi.HyperTextClock.Value));
+                    // Q9-D (T439/#1010, followups-17 §3.4): 1002-1029 option values the engine has (567/568, 573/574); others stay "missing".
+                    else if(i>=1000&&NativeUi.HyperTextOptionVars.Value(i) is {} option)Append(option);
                     else if(i<args.Length)Append(args[i]);
                     // Original BIN 0x8676F0: missing index 0 uses the current dialog object's name.
                     // An explicitly supplied empty argument remains empty; no fallback for other indices.
