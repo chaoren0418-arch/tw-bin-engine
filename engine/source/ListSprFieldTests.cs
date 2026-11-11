@@ -59,9 +59,10 @@ static class ListSprFieldTests {
     }
     static void Layers(WorldModuleTestContext t){
         var cloth=ListSprFields.Parse(Rows[0]);
-        t.Check(!ListSprLayers.ClothVerified,"cloth 待真機確認，預設關閉");
-        t.Check(ListSprLayers.ClothLayers(cloth).Length==0,"未確認前不多畫附加層");
-        t.Check(ListSprLayers.ClothLayers(cloth,verified:true).SequenceEqual(new[]{6262}),"確認後回 6262");
+        // R10-R（#922，FU14§3.5）：3.81 也讀、也畫 cloth，預設打開。
+        t.Check(ListSprLayers.ClothVerified,"cloth 依 FU14§3.5 打開");
+        t.Check(ListSprLayers.ClothLayers(cloth,verified:false).Length==0,"關閉時不多畫附加層");
+        t.Check(ListSprLayers.ClothLayers(cloth).SequenceEqual(new[]{6262}),"打開後回 6262");
         t.Check(ListSprLayers.ClothLayers(null,verified:true).Length==0,"沒有欄位不畫");
         var alt=ListSprFields.Parse(Rows[1395]);
         t.Check(ListSprLayers.AltDirGfx(1395,6,alt)==1410,"朝向 6 換 altdir");
