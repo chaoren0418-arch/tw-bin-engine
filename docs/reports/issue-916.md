@@ -50,12 +50,12 @@
 
 - `dotnet build engine/source/OfflineClient.csproj -c Release --no-restore`：**0 錯誤**（3 個警告不在本次檔案）。本機 restore 會出 NETSDK1130（同 #675），改用 `scratch/t916/NuGet.Config` 唯讀指向主專案 `engine/vendor`、`NUGET_PACKAGES` 指到 `scratch/t916/packages`；為此刪掉 `engine/source/obj/` 下 5 個 NuGet 輸出單檔（非遞迴，未入 git）。
 - `engine/tools/check-no-game-assets.py`：`pass`（4487 檔，0 錯誤）。
-- 單元測試與本組離線測試：依本機規定**不在本機執行**，交給 PR 的 GitHub Actions CI。
+- 單元測試與本組離線測試：依本機規定**不在本機執行**，交給 PR #949 的 GitHub Actions CI：`dotnet`、`map-continuity`、`npc-offline` 全部 pass；`--module-tests` 中 `private-shop-title` pass（32 項檢查），所有群組 `failed` 都是 0。
+- 因此 S158 動作 70 帶 0xFF 經過 `WorldObjects.cs` 的 `r.S()`（CP950、例外 fallback）**不會丟例外**（已驗證，CI）。
 - 資源：本任務只處理文字，沒有宣稱缺任何資源，沒有用到 PakViewer；沒有複製遊戲資源。
 
 ## 未驗證／推測
 
-- **待 CI**：既有單元測試與 `private-shop-title` 是否全綠。特別是 `Packets` 那段會讓 S158 70 帶 0xFF 經過 `WorldObjects.cs` 的 `r.S()`（CP950、`DecoderFallback.ExceptionFallback`）。若 .NET 的 cp950 不接受單獨的 0xFF（推測會對到 U+F8F8、不會丟例外），CI 會在這裡失敗，那是 `WorldObjects.cs` 既有的解碼問題，要另開任務修（本任務不可改該檔）。
 - **推測**：`+97` 初值為 0（所以第一輪顯示第一行）；TW16 換訊息時不重設 `+97`、已排程時不重排，引擎改用「從 `ShopAt` 起算」的週期，可能和原版差一個相位。
 - **推測**：被 40 byte 強制換行切開的半個雙位元組字，引擎以替代字元顯示；原版直接畫那個 byte，畫面要真機看。
 - **未做**：`sub_7CE710` 對話框式外觀（框、位置、5 秒淡出）；`byte_136E99F` 選項；`sub_7CFFC0` 開頭的條件（`a1` 是自己或遊戲狀態 340／350／360／370／800、虛擬函式 +28／+35）沒有逐一對應。
@@ -71,4 +71,4 @@
 
 1. **建議開 code 任務：商店訊息改畫成頭上對話框**。先反編譯 TW16 `sub_7CE080`（建框物件）、`sub_7CF080`（斷行）、`sub_7D01E0`（寬度，`v25` 16／20 字）、`sub_7D07C0`（畫）與 `sub_7CE710` 的位置計算（`+223`／`+224`、全名模式時 −32、否則 −12），再把 `NameMarksFor` 的 `Line252` 改回真正的 +252 欄位（同時要改 `ObjectDrawTests.cs`:150–164 的斷言）。`PersonalShopTitle.Shown`／`WorldSession.ShopTitleLine` 可以直接沿用。
 2. 一般聊天的頭上對話框也走 `sub_7CE710`（呼叫者 `sub_94AF00`、`sub_94B4F0` 等），可以一起做。
-3. 若 CI 在 `private-shop-title` 的 `Packets` 失敗，先看是不是 `WorldObjects.cs` 的 `r.S()` 對 0xFF 丟 `DecoderFallbackException`。
+3. 真機（Codex／dot，P24Lab 測試角色）：角色 A 開店填兩行訊息，角色 B 開全名模式看商店訊息是不是每 5 秒換一行。
