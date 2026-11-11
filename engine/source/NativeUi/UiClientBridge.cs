@@ -279,12 +279,26 @@ public sealed partial class ClientForm {
     }
 
     internal sealed class NativeUiCommands(ClientForm form):IUiChatCommands,IUiPartyCommands,IUiWarehouseCommands,IUiMenuCommands,IUiMenuWindowCommands,IUiLoginCommands,IUiActionCommands {
-        // R10-E（T389／#904）：動作窗雙擊（ActionWindowPanel.Execute）。路線見 ActionRoutes；這裡只接需要 ClientForm／LoginConnection 的四種，
-        // 其他（聊天列前綴、HP／MP 回復顯示、書籤窗）回 false 交給面板。在世界中但暫時做不到（聊天列冷卻、輸入列正等答覆）→ 印原因、回 true。
+        // R10-E（T389／#904）：動作窗雙擊（ActionWindowPanel.Execute）。路線見 ActionRoutes；這裡只接需要 ClientForm／LoginConnection 的路線，
+        // 其他（HP／MP 回復顯示、書籤窗；不在世界中時的聊天列前綴退路）回 false 交給面板。在世界中但暫時做不到（聊天列冷卻、輸入列正等答覆）
+        // → 印原因、回 true。
+        // R11-B（T416／#958）：① 地面名稱／透明屍體 → OptionWindowHost（與選項窗同一個值、同一個存檔，不送封包，離線也能切）；
+        // ② 隊長（PartyView.CanKick）的組隊邀請 → 選對象：點中隊員送 C255 踢人（sub_ADA6B0），點中別人送 C230 type 0（R10-D）；
+        // ③ 邀請聊天／加好友／封鎖 → 選對象（R11-A LoginConnection.BeginObjectPick），點中玩家後當作在聊天列輸入「前綴＋名稱」送出。
         public bool RunAction(ActionEntry action){
-            if(!form.OnlineMode||form.login.State!=LoginState.InWorld)return false;
             var route=ActionRoutes.Of(action.Name);
+            if(route is {Kind:ActionRouteKind.Toggle,Argument:{} option}&&ActionRoutes.DisplayToggles.Contains(option)){
+                var host=new OptionWindowHost(form);
+                if(host.Value(option) is not bool on||!host.Set(option,!on))return false;
+                form.events.Add(new{kind="native-ui-action",action=action.Name,route="display-toggle",option,on=!on});
+                return true;
+            }
+            if(!form.OnlineMode||form.login.State!=LoginState.InWorld)return false;
+            if(action.Name==ActionTargets.InvitePartyAction&&form.login.PartySnapshot().CanKick)
+                return BeginPick(action,id=>{form.events.Add(new{kind="native-ui-action",action=action.Name,route="party-pick",id});return ActionTargets.InviteOrKick(form.login,id);});
             switch(route.Kind){
+            case ActionRouteKind.ChatLine when route.Argument is {} prefix:
+                return BeginPick(action,id=>{form.events.Add(new{kind="native-ui-action",action=action.Name,route="object-pick-send",id});return ActionTargets.SendToTarget(form.login,prefix,id);});
             case ActionRouteKind.Emote:{
                 // 與開發工具「稱號／表情」同一個 SendEmote；動作槽路徑（menu=false）。結果（送出／間隔未到）由 SendEmote 自己處理。
                 form.ClearInput("native-ui-action-emote");
@@ -318,6 +332,15 @@ public sealed partial class ClientForm {
                 return true;
             default:return false;
             }
+        }
+        /// <summary>進入選對象模式（瞄準游標由 DuelUi 依 LoginConnection.TargetPicking 換）。輸入列正等答覆時不進。</summary>
+        bool BeginPick(ActionEntry action,Func<uint,Task<bool>> pick){
+            if(ChatLinePrompts.Of(form.login)!=null){form.SetSingleActionNotice("聊天輸入列正在等待答覆，動作未執行。");return true;}
+            form.ClearInput("native-ui-action-pick");
+            form.login.BeginObjectPick(ActionTargets.PickName(action.Name),pick);
+            form.SetSingleActionNotice(ActionTargets.PickNotice(action.Name));
+            form.events.Add(new{kind="native-ui-action",action=action.Name,route="object-pick"});
+            return true;
         }
         // T352 (#815, R7-M): LoginUI Exit_Button → the normal window close (FormClosing / FormClosed: audio shutdown, login.Dispose).
         // BeginInvoke: the click is still being dispatched by UiInput when the form starts closing.

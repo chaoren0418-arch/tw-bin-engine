@@ -23,14 +23,17 @@ namespace P06.NativeUi;
 // - 捲動以列為單位（6 格一列），最大值＝列數 − 4；XML 的 MaxValue＝8、ScrollStart／ScrollHeight 只留資料。拇指在 Move_Button.Y 到
 //   Down_Button.Y − 拇指高之間依比例移動；拖拇指、點軌道不做。滾輪在視窗內上下捲一列。
 // - Esc：不由本窗攔（ActionUI 的 KeyboardEvent 內容沒查）；全域 ESC（R7-H，UiRoot.CloseAll）照樣會關它。
-// 只做資料（標「真機再確認」）：格子 Drag="1"（把動作拖到巨集列，選做，未做）；toggle 類動作的開關狀態（不畫勾選）。
+// 只做資料（標「真機再確認」）：格子 Drag="1"（把動作拖到巨集列，選做，未做）；toggle 類動作的開關狀態（不畫勾選：勾選圖沒有依據）。
 // R10-E（T389／#904）：常駐開窗鈕 ActionUI_Button (774,470) 5156／5157 改由 ActionOpenButtonPanel 畫在 Bar 層、收點擊
-//   （OpenButtonPressed 514／515 → 開關本窗，FU8§4.3）；提示 3118 不畫（tooltip 未做）；位置與是否常駐仍待真機（M33）。
+//   （OpenButtonPressed 514／515 → 開關本窗，FU8§4.3）；位置與是否常駐仍待真機（M33）。
+// R11-B（T416／#958）：常駐鈕滑鼠停留時畫 XML Tooltip 的字串（本機 string-c.tbl 第 3118 筆「行動視窗」，PakViewer 查過）；
+//   框的尺寸與字色沿用 SummonPanel 的提示（sub_B0DAF0／sub_C00BF0），位置（鈕正下方置中、夾進畫面）與黑底是推測。
 //
 // 執行（原版 sub_ADC200 依名稱找處理函式，FU8§4.3）。路線表在 ActionRoutes（25 個動作各一列）。引擎依序：
-// 1. 指令物件實作 IUiActionCommands 且 RunAction 回 true（R10-E：產品 NativeUiCommands 接表情、拾取、聊天指令、全部拾取）；
-// 2. 面板自己能做的：Action_OpenBookmarkWin → 原生書籤窗（UiRoot.Toggle，同選單鈕）；指定名稱的動作（邀請聊天／加好友／封鎖）
-//    → 把指令前綴放進原生聊天輸入列（過渡：原版 control="target" 是點選對象或開輸入框）；HP／MP 回復顯示 → HpMpPanel 設定；
+// 1. 指令物件實作 IUiActionCommands 且 RunAction 回 true（R10-E：產品 NativeUiCommands 接表情、拾取、聊天指令、全部拾取；
+//    R11-B：對象型動作進 R11-A 的選對象模式、選定玩家後直接送；隊長的組隊邀請可踢人；地面名稱／透明屍體開關）；
+// 2. 面板自己能做的：Action_OpenBookmarkWin → 原生書籤窗（UiRoot.Toggle，同選單鈕）；對象型動作（邀請聊天／加好友／封鎖）沒有橋接時
+//    → 把指令前綴放進原生聊天輸入列（退路）；HP／MP 回復顯示 → HpMpPanel 設定；地面名稱／透明屍體 → OptionPanel 的宿主；
 // 3. Action_SocialAction1–4 → 開發工具「稱號／表情」分頁（沒有橋接時的退路，TitleAndEmote.cs）；
 // 4. 其他 → 不送任何封包，記一次 log（Unhandled；原因在 ActionRoutes 的 Note）。
 // 開關：Ctrl+D（FU4§1.1 TW16 的 BehaviourUI 鍵；3.81 是否同鍵待驗證）由 MenuButtonsPanel 經 UiRoot.Toggle 開關本窗。
@@ -101,6 +104,9 @@ public sealed record ActionRoute(ActionRouteKind Kind,string? Argument=null,int 
 /// </summary>
 public static class ActionRoutes {
     public const string LootAllToggle="loot-all",HpMpRecoveryToggle="hpmp-recovery";
+    /// <summary>R11-B：地面名稱、透明屍體兩個開關＝選項窗的 MouseEvent 名（IOptionWindowHost.Value／Set 的鍵）。</summary>
+    public const string DropItemNamesToggle=OptionPanel.ShowDropItemNameEvent,CorpseTransparentToggle=OptionPanel.TransparentDeadMonsterEvent;
+    public static readonly IReadOnlySet<string> DisplayToggles=new HashSet<string>(StringComparer.Ordinal){DropItemNamesToggle,CorpseTransparentToggle};
     /// <summary>本機 Actions.xml 的 25 個動作名稱（XML 順序；名稱是識別字，不是遊戲資源）。</summary>
     public static readonly IReadOnlyList<string> Known=[
         "Action_ShoutOfSurvival","Action_Loot","Action_SocialAction1","Action_SocialAction2","Action_SocialAction3","Action_SocialAction4",
@@ -119,12 +125,20 @@ public static class ActionRoutes {
         // sub_ADB030 → sub_F43510（同 /trade，FU9§12）；sub_ADA960 → sub_4FFCD0("shop",1)（同 /shop，FU9§9.4）。
         "Action_Trade"=>new(ActionRouteKind.ChatCommand,"/trade"),
         "Action_OpenShop"=>new(ActionRouteKind.ChatCommand,"/shop"),
-        // sub_ADA6B0：選對象邀請。R10-D（#903）的入口＝不帶名稱的 /invite → World.BeginPartyInvitePick，之後點玩家送 C230。
-        "Action_InviteParty"=>new(ActionRouteKind.ChatCommand,"/invite",Note:"踢人分支（隊長點已在隊上的人）未做"),
-        // control="target" domain="global"：原版點選對象或開輸入框（sub_9FBC00）；引擎改放指令前綴到聊天列（過渡，推測可接受）。
-        "Action_InviteChatParty"=>new(ActionRouteKind.ChatLine,"/chatinvite ",Note:"原版 sub_9FBC00(120,3) 輸入框，未做"),
-        "Action_AddFriend"=>new(ActionRouteKind.ChatLine,"/addbuddy ",Note:"原版 sub_ADA220 → sub_B18300，點選對象未做"),
-        "Action_Exclude"=>new(ActionRouteKind.ChatLine,"/exclude ",Note:"點選對象未做"),
+        // sub_ADA6B0（FU9§9.1 第 341 行）：隊長而對象已在隊上＝踢人，否則邀請。R11-B（#958）：產品 NativeUiCommands 在「是隊長、
+        // 有隊伍」（PartyView.CanKick）時改用 R11-A 的選對象入口，點中隊員送 C255（同 /banish），點中別人照 R10-D 送 C230 type 0；
+        // 不是隊長時照舊走不帶名稱的 /invite → World.BeginPartyInvitePick。
+        "Action_InviteParty"=>new(ActionRouteKind.ChatCommand,"/invite",Note:"隊長點已在隊上的人＝踢人（NativeUiCommands，R11-B）"),
+        // control="target"：原版選定對象後直接送（下面三個；sub_9FBC00 是送封包函式，第 2 個參數是 opcode，FU8§0 第 16 行）。
+        // R11-B（#958）：產品 NativeUiCommands 用 R11-A 的選對象入口（LoginConnection.BeginObjectPick），點中玩家 → 當作在聊天列
+        //   輸入「Argument＋名稱」送出（既有斜線指令，送 3.81 的封包）；沒有橋接（離線、不在世界中）時面板退回把前綴放進聊天列。
+        // sub_ADA670 → sub_9FBC00(off_119F834,120,3,名稱)＝TW16 op 120（C_CHAT_PARTY_CONTROL）type 3＋名稱；3.81 C199 只有 type 0–2，
+        //   所以改送 3.81 的聊天隊伍邀請 /chatinvite（C230 type 2，Party.cs）。兩者對應是推測。
+        "Action_InviteChatParty"=>new(ActionRouteKind.ChatLine,"/chatinvite ",Note:"選定對象後送 /chatinvite 名稱（TW16 op 120 type 3 → 3.81 C230 type 2，推測）"),
+        // sub_ADA220 → sub_B18300：送 cs 138（加好友＋名稱）＋c 56（查名單）（FU13 第 70 行）＝ /addbuddy 名稱（C207＋C4，Buddies.cs）。
+        "Action_AddFriend"=>new(ActionRouteKind.ChatLine,"/addbuddy ",Note:"選定對象後送 /addbuddy 名稱（sub_ADA220 → sub_B18300，FU13 第 70 行）"),
+        // 處理函式沒單獨追；會讀名稱的封鎖是 CommandAddExclude → sub_F40FC0(名稱)（FU13§3.2）。3.81 只有 C171 這條路 → /exclude 名稱。
+        "Action_Exclude"=>new(ActionRouteKind.ChatLine,"/exclude ",Note:"選定對象後送 /exclude 名稱（C171；處理函式未單獨追，推測）"),
         "Action_OpenBookmarkWin"=>new(ActionRouteKind.Window,BookmarkWindowPanel.PanelId),
         // byte_135C1E4：WorldSession.TogglePickupAll（Ground.cs）。
         "Action_LootAll"=>new(ActionRouteKind.Toggle,LootAllToggle),
@@ -133,9 +147,12 @@ public static class ActionRoutes {
         "Action_ShoutOfSurvival"=>new(ActionRouteKind.None,Note:"處理函式與封包沒查（FU8§4.3 未列）"),
         "Action_OpenMacroWin"=>new(ActionRouteKind.None,Note:"原版開的巨集編輯窗引擎沒有"),
         "Action_OpenPetManagementWin"=>new(ActionRouteKind.None,Note:"target／map 類，寵物窗由伺服器狀態開啟，沒有手動入口"),
-        "Action_Report"=>new(ActionRouteKind.None,Note:"sub_ADABC0 → sub_9FBC00(55,42) 檢舉輸入框與封包引擎沒有"),
-        "Action_ViewDropItemName"=>new(ActionRouteKind.None,Note:"byte_138BE7E：引擎沒有地面名稱開關（R10-I）"),
-        "Action_CorpseTransparent"=>new(ActionRouteKind.None,Note:"byte_138BFAA：引擎沒有透明屍體繪製（R10-I）"),
+        // sub_ADABC0 → sub_9FBC00(off_119F96C,55,42,名稱)：直接送 TW16 op 55 type 42＋名稱（不是輸入框）；3.81 沒有對應的檢舉封包。
+        "Action_Report"=>new(ActionRouteKind.None,Note:"sub_ADABC0 送 TW16 op 55 type 42＋名稱；3.81 沒有對應的檢舉封包"),
+        // sub_ADB040／sub_ADA540 只切 byte_138BE7E／byte_138BFAA（FU8§4.3）＝選項窗 ShowDropItemNameBtn／TransparentDeadMonsterBtn 的
+        // 同一個值（R10-I，ObjectRendering.cs，存 option-ui.txt）。R11-B：Argument＝OptionPanel 的 MouseEvent 名，經 IOptionWindowHost 切換。
+        "Action_ViewDropItemName"=>new(ActionRouteKind.Toggle,DropItemNamesToggle,Note:"byte_138BE7E＝選項窗 ShowDropItemNameBtn（R10-I）"),
+        "Action_CorpseTransparent"=>new(ActionRouteKind.Toggle,CorpseTransparentToggle,Note:"byte_138BFAA＝選項窗 TransparentDeadMonsterBtn（R10-I）"),
         "Action_ShowDisableStatusIcon"=>new(ActionRouteKind.None,Note:"對應的旗標沒查"),
         "Action_DungeonTimeLimit"=>new(ActionRouteKind.None,Note:"byte_1379424 的用途沒查"),
         "Action_BrodcastToPledge"=>new(ActionRouteKind.None,Note:"對應的旗標沒查"),
@@ -143,6 +160,56 @@ public static class ActionRoutes {
         "Action_NumberingMarker"=>new(ActionRouteKind.None,Note:"target／view 類，處理函式沒查"),
         _=>new(ActionRouteKind.None,Note:"不在本機 Actions.xml 的 25 個動作內"),
     };
+}
+
+/// <summary>
+/// R11-B（T416／#958）：對象型動作（control="target"）選定對象後要送什麼。產品 NativeUiCommands 用；純函式，離線測試直接驗。
+/// 對象規則（推測，原版的對象檢查沒逐一追）：玩家旗標（Flags &amp; 4，同 sub_954FC0 的組隊檢查）、外觀已到、不是自己、名稱是合法角色名；
+/// 距離不限（三個動作的 domain 是 global）。
+/// </summary>
+public static class ActionTargets {
+    public const string InvitePartyAction="Action_InviteParty";
+    /// <summary>選對象模式的動作名（PlayerPointer 的結果訊息與滑鼠提示用）；名稱取自既有聊天指令的說明（PlayerChat.cs）。</summary>
+    public static string PickName(string action)=>action switch{
+        "Action_InviteChatParty"=>"邀請聊天","Action_AddFriend"=>"新增好友","Action_Exclude"=>"斷絕",InvitePartyAction=>"組隊邀請",_=>action};
+    /// <summary>進入選對象模式時的提示。</summary>
+    public static string PickNotice(string action)=>ChatFollowupCommands.SelectTargetText+"（"+PickName(action)+"：點選玩家；點地面取消）";
+    /// <summary>可當對象的玩家名稱；不合格（不是玩家、自己、外觀未到、名稱不合法）→ null。</summary>
+    public static string? PlayerName(WorldObject? o,uint self)=>
+        o is {AppearancePending:false}&&o.ObjectId!=0&&o.ObjectId!=self&&(o.Flags&4)!=0&&PartyPackets.ValidName(o.Name)?o.Name:null;
+    /// <summary>送出的聊天列文字（"/addbuddy " ＋ 名稱）。</summary>
+    public static string Command(string prefix,string name)=>prefix.TrimEnd()+" "+name;
+    /// <summary>
+    /// sub_ADA6B0 的踢人分支：自己是隊長（shown.CanKick）而點中的人已在隊上 → 要踢的名稱；否則 null（照常邀請）。
+    /// 隊員以物件 id 比對（名單只有名稱的列 id＝0，改以名稱比對）；點到自己不算。
+    /// </summary>
+    public static string? PartyKick(PartyView shown,WorldObject? o){
+        if(!shown.CanKick||o==null||o.ObjectId==0||o.ObjectId==shown.Owner||o.Name==shown.Leader)return null;
+        return shown.Members.FirstOrDefault(m=>m.ObjectId!=0?m.ObjectId==o.ObjectId:m.Name==o.Name&&o.Name.Length>0)?.Name;
+    }
+    static WorldObject? Find(WorldSession w,uint id)=>w.Objects.FirstOrDefault(o=>o.ObjectId==id);
+    /// <summary>
+    /// ③ 選對象回呼：點中的是合格玩家才當作在聊天列輸入「前綴＋名稱」送出（SendPlayerChat：同 ChatCommand 路線的閘門與斜線指令，
+    /// 送 3.81 的封包）；點中自己／非玩家、輸入列正等答覆、聊天列冷卻 → 不送、回 false。只在 UI 執行緒用。
+    /// </summary>
+    public static async Task<bool> SendToTarget(LoginConnection login,string prefix,uint id){
+        var w=login.World;
+        if(id==w.Status?.ObjectId||PlayerName(Find(w,id),w.Actor?.ObjectId??0) is not {} name)return false;
+        if(ChatLinePrompts.Of(login)!=null)return false;
+        var current=login.PlayerChatSnapshot();
+        if(!current.CanSend)return false;
+        return await login.SendPlayerChat(Command(prefix,name),current.Generation,current.WorldEpoch,current.Actor);
+    }
+    /// <summary>
+    /// ② 隊長的組隊邀請回呼（sub_ADA6B0）：點中已在隊上的人＝踢人（C255，SendParty "kick"）；否則照 R10-D 的組隊選對象
+    /// （PickPartyInviteTarget：30 格內的玩家才送 C230 type 0）。回傳是否送出。
+    /// </summary>
+    public static async Task<bool> InviteOrKick(LoginConnection login,uint id){
+        var shown=login.PartySnapshot();
+        if(PartyKick(shown,Find(login.World,id)) is {} member)return await login.SendParty("kick",shown,member);
+        login.World.BeginPartyInvitePick();
+        return await login.PickPartyInviteTarget(id);
+    }
 }
 
 public sealed class ActionWindowPanel(UiResources? resources=null,UiRoot? root=null,ItemIconSource? icons=null):IUiMovablePanel,IUiClosablePanel {
@@ -427,9 +494,14 @@ public sealed class ActionWindowPanel(UiResources? resources=null,UiRoot? root=n
             hp.Apply(hp.Settings with{ShowRecovery=!hp.Settings.ShowRecovery});
             return ActionRunResult.Toggled;
         }
+        // R11-B：地面名稱／透明屍體 → 選項窗宿主（產品＝ClientForm.OptionWindowHost，同一個值、同一個存檔）。宿主沒接上 → Unhandled。
+        if(route is {Kind:ActionRouteKind.Toggle,Argument:{} option}&&ActionRoutes.DisplayToggles.Contains(option)&&ToggleOption(option))return ActionRunResult.Toggled;
         if(SocialActions.Contains(action.Name)){commands.ShowDevTools(EmoteDevToolsPage);return ActionRunResult.DevTools;}
         return ActionRunResult.Unhandled;
     }
+
+    /// <summary>R11-B：經 OptionPanel 的宿主把顯示開關反過來；沒有選項窗、宿主沒接上、宿主不持有或不套用 → false。</summary>
+    bool ToggleOption(string option)=>root?.Find(OptionPanel.PanelId) is OptionPanel {Host:{} host}&&host.Value(option) is bool on&&host.Set(option,!on);
 
     /// <summary>
     /// R10-E：把指令前綴（"/addbuddy " 等）放進原生聊天輸入列（取代草稿，同 FriendPanel.Whisper），不送封包；之後打名稱、Enter 走既有
@@ -451,20 +523,48 @@ public sealed class ActionWindowPanel(UiResources? resources=null,UiRoot? root=n
 /// R10-E（T389／#904）：ActionUI-c.xml 的常駐開窗鈕 ActionUI_Button（根元素下、MostTop="1"，FU8§4.2）。
 /// 已驗證（XML）：(774,470)、BaseSurf 5156、HighlightSurf 5157、Tooltip String 3118、MouseEvent OpenButtonPressed；
 ///   FU8§4.3：OpenButtonPressed 收 514（放開）與 515（雙擊）→ 開關動作窗（vtable+76）。
-/// 推測（真機再確認，M33）：在世界中常駐顯示；畫在 Bar 層（不進視窗堆疊，全域 ESC 不關它）；滑鼠停留畫 HighlightSurf；
-///   提示 3118 不畫（tooltip 沒做）。圖與座標由 ActionWindowPanel 讀（同一份 XML）；動作窗不可用或缺底圖 → 不畫、不收點擊。
+/// 推測（真機再確認，M33）：在世界中常駐顯示；畫在 Bar 層（不進視窗堆疊，全域 ESC 不關它）；滑鼠停留畫 HighlightSurf。
+/// R11-B（#958，#952 裁定 ④ 照原版做）：滑鼠停留時畫 Tooltip String（3118）的字串表文字（ServerMessageText.Table＝本機 string-c.tbl；
+///   表讀不到時只有 3118 用 PakViewer 查到的原文「行動視窗」，其他編號不畫）。框寬高、字色、字的起點照 SummonPanel（sub_B0DAF0、
+///   sub_C00BF0）；位置（鈕正下方置中、夾進畫面）、黑底不透明是推測（ActionUI-c.xml 的 Tooltip 沒有 X／Y／BackColor）。
+/// 圖與座標由 ActionWindowPanel 讀（同一份 XML）；動作窗不可用或缺底圖 → 不畫、不收點擊。
 /// IUiClosablePanel.Close 只清掉按住／停留狀態（鈕本身常駐，不會被關掉）。
 /// </summary>
 public sealed class ActionOpenButtonPanel(UiRoot? root=null):IUiClosablePanel {
     [UiPanel(192)] internal static UiPanelRegistration Registration=>new(PanelId,ActionWindowPanel.HostLayout,r=>new ActionOpenButtonPanel(r));   // R10-E (#904): ActionUI_Button, data from ActionWindowPanel
     public const string PanelId="ActionUI_Button";
+    /// <summary>本機 string-c.tbl（Text.idx，PakViewer 解出）第 3118 筆；kor25 相同，t89 是「行動視窗 Ctrl+D」。</summary>
+    public const int TooltipStringId=3118;
+    public const string TooltipFallback="行動視窗";
     public string Id=>PanelId;
     public UiLayer Layer=>UiLayer.Bar;
     bool inWorld,hover,pressed;
     ActionWindowPanel? Window=>ActionWindowPanel.Window(root);
-    public Rectangle Bounds=>Window is {OpenButton:{} spec,OpenButtonBase:{} s}?new(spec.Location,new Size(s.Width,s.Height)):Rectangle.Empty;
-    public bool Visible=>inWorld&&!Bounds.IsEmpty;
+    /// <summary>鈕本身（收點擊的範圍）。</summary>
+    public Rectangle ButtonRect=>Window is {OpenButton:{} spec,OpenButtonBase:{} s}?new(spec.Location,new Size(s.Width,s.Height)):Rectangle.Empty;
+    /// <summary>繪製範圍：鈕＋顯示中的提示框。</summary>
+    public Rectangle Bounds{get{var b=ButtonRect;return Tooltip is {} tip&&!b.IsEmpty?Rectangle.Union(b,tip.Box):b;}}
+    public bool Visible=>inWorld&&!ButtonRect.IsEmpty;
     public bool Hover=>hover;
+
+    /// <summary>字串表第 id 筆（去掉色碼）；表不存在或該筆空白時只有 3118 用查到的原文，其他 → null（不畫）。</summary>
+    public static string? StringText(int id){
+        if(ServerMessageText.Table is {} t&&id>=0&&id<t.Count&&ServerMessageText.DisplayText(t[id]).Trim() is {Length:>0} s)return s;
+        return id==TooltipStringId?TooltipFallback:null;
+    }
+    /// <summary>XML Tooltip 的文字（沒有 Tooltip 或查不到 → null）。</summary>
+    public string? TooltipText=>Window?.OpenButton?.TooltipString is int id?StringText(id):null;
+    /// <summary>滑鼠停留在鈕上時的提示框（邏輯座標）；沒有停留或沒有文字 → null。</summary>
+    public SummonTooltip? Tooltip{get{
+        if(!hover||!inWorld||TooltipText is not {} text)return null;
+        var b=ButtonRect;if(b.IsEmpty)return null;
+        var lines=SummonPanel.TooltipLines(text);var s=SummonPanel.TooltipSize(lines);var canvas=UiRoot.Canvas;
+        int x=Math.Clamp(b.X+(b.Width-s.Width)/2,canvas.Left,Math.Max(canvas.Left,canvas.Right-s.Width));
+        int y=Math.Clamp(b.Bottom,canvas.Top,Math.Max(canvas.Top,canvas.Bottom-s.Height));
+        // 鈕在畫面下緣、下方放不下時改放在鈕的上方（推測）。
+        if(y<b.Bottom)y=Math.Max(canvas.Top,b.Top-s.Height);
+        return new(new(new(x,y),s),lines);
+    }}
 
     public void Load(UiLayout layout,SurfCatalog surfs){}
     public void Update(IUiGameState state){inWorld=state.InWorld;if(!inWorld)Close();}
@@ -474,6 +574,11 @@ public sealed class ActionOpenButtonPanel(UiRoot? root=null):IUiClosablePanel {
         if(!Visible||Window is not {} w)return;
         var at=w.OpenButton!.Location;
         canvas.DrawSurface(hover?w.OpenButtonHighlight??w.OpenButtonBase:w.OpenButtonBase,at.X,at.Y);
+        if(Tooltip is {} tip){
+            canvas.Graphics.FillRectangle(Brushes.Black,tip.Box);
+            for(int i=0;i<tip.Lines.Count;i++)
+                canvas.DrawText(tip.Lines[i],tip.Box.X+SummonPanel.TooltipTextX,tip.Box.Y+SummonPanel.TooltipTextY+i*SummonPanel.TooltipLineHeight,SummonPanel.TooltipTextColor);
+        }
     }
 
     /// <summary>開關動作窗（同 Ctrl+D：經 UiRoot.Toggle 進視窗堆疊）。</summary>
@@ -484,7 +589,7 @@ public sealed class ActionOpenButtonPanel(UiRoot? root=null):IUiClosablePanel {
 
     public bool Mouse(UiMouseEvent e,IUiCommands commands){
         if(!Visible){hover=false;pressed=false;return false;}
-        bool inside=Bounds.Contains(e.Location);
+        bool inside=ButtonRect.Contains(e.Location);   // 提示框不收點擊（滑鼠移到框上＝離開鈕，框就收起）
         switch(e.Kind){
             case UiMouseKind.Move:hover=inside;return inside||pressed;
             case UiMouseKind.Down:

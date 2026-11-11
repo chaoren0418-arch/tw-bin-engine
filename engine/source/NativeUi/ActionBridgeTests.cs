@@ -70,7 +70,7 @@ static class ActionBridgeTests {
         var kinds=known.GroupBy(n=>ActionRoutes.Of(n).Kind).ToDictionary(g=>g.Key,g=>g.Count());
         int K(ActionRouteKind k)=>kinds.TryGetValue(k,out int n)?n:0;
         t.Check(K(ActionRouteKind.Emote)==4&&K(ActionRouteKind.Loot)==1&&K(ActionRouteKind.ChatCommand)==3&&K(ActionRouteKind.ChatLine)==3
-            &&K(ActionRouteKind.Toggle)==2&&K(ActionRouteKind.Window)==1&&K(ActionRouteKind.None)==11,"route counts 4/1/3/3/2/1/11",kinds);
+            &&K(ActionRouteKind.Toggle)==4&&K(ActionRouteKind.Window)==1&&K(ActionRouteKind.None)==9,"route counts 4/1/3/3/4/1/9 (R11-B: drop names, corpse transparent → toggle)",kinds);
         t.Check(known.Where(n=>ActionRoutes.Of(n).Kind==ActionRouteKind.None).All(n=>ActionRoutes.Of(n).Note is {Length:>0}),"every unwired action says why");
         for(int i=1;i<=4;i++)t.Check(ActionRoutes.Of("Action_SocialAction"+i) is {Kind:ActionRouteKind.Emote,Item:var item}&&item==i,"social action "+i+" → emote item "+i);
         t.Check(ActionWindowPanel.SocialActions.All(n=>ActionRoutes.Of(n).Kind==ActionRouteKind.Emote),"social actions are the emote routes");
@@ -99,7 +99,8 @@ static class ActionBridgeTests {
             var r=ActionRoutes.Of(name);var result=p.Execute(A(p,name),b);
             var expected=r.Kind switch{
                 ActionRouteKind.Emote or ActionRouteKind.Loot or ActionRouteKind.ChatCommand=>ActionRunResult.Bridge,
-                ActionRouteKind.Toggle=>r.Argument==ActionRoutes.LootAllToggle?ActionRunResult.Bridge:ActionRunResult.Toggled,
+                // R11-B：地面名稱／透明屍體要 OptionPanel 的宿主，這個 root 沒有 → Unhandled（Unhandled 總數仍是 12）。
+                ActionRouteKind.Toggle=>r.Argument==ActionRoutes.LootAllToggle?ActionRunResult.Bridge:ActionRoutes.DisplayToggles.Contains(r.Argument!)?ActionRunResult.Unhandled:ActionRunResult.Toggled,
                 ActionRouteKind.ChatLine=>ActionRunResult.ChatLine,
                 _=>ActionRunResult.Unhandled};   // bookmark: no bookmark window in this root
             t.Equal(expected,result,name+" → "+expected);
