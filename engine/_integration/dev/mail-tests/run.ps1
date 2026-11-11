@@ -7,6 +7,8 @@ New-Item -ItemType Directory -Force "$output/tmp", "$output/cli" | Out-Null
 $env:TEMP = "$output/tmp"
 $env:TMP = $env:TEMP
 $env:DOTNET_CLI_HOME = "$output/cli"
+$env:DOTNET_ADD_GLOBAL_TOOLS_TO_PATH = 'false'
+$env:DOTNET_NOLOGO = '1'
 $env:NUGET_PACKAGES = "$root/engine/.nuget"
 $env:NUGET_SCRATCH = "$output/tmp/nuget"
 $env:DOTNET_SKIP_FIRST_TIME_EXPERIENCE = '1'

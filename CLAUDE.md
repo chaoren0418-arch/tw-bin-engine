@@ -26,6 +26,7 @@
 - **PR 不改 `engine/_integration/dev/rebuild-lock.json`**（T271／#646）：PR 的 CI 與閘門用不改 lock 的建置模式；lock 由調度器在合併進 main 後重產。同步時遇到 lock 衝突，一律取 main 的版本。
 - **新模組用自動發現**（T270／#645）：測試群組用 `[CheckGroup]`、原生 UI 面板用 `[UiPanel]`、封包處理用 `[WorldReceive]` 等 attribute 註冊；**不要改** `Program.cs`、`DemoChecks.csproj` 與各註冊表。細節見 `docs/design/m6-contract.md`「自動發現」。
 - CI：`.github/workflows/build.yml` 在 **ubuntu-latest** 以 `-p:EnableWindowsTargeting=true`、`-r win-x64`、`-p:SelfContained=false` 交叉建置 Windows 目標（#67／PR #72），使用 `.github/nuget.ci.config`（nuget.org）；本機 `engine/NuGet.Config` 仍是離線 `vendor`。CI 編譯成功不算原生驗收。
+- **設定 `DOTNET_CLI_HOME` 的地方必須同時設 `DOTNET_ADD_GLOBAL_TOOLS_TO_PATH=false`**（建議一併設 `DOTNET_NOLOGO=1`）（#999）：dotnet 在新的 CLI home 第一次執行時，會把 `<home>\.dotnet\tools` 寫進使用者 PATH（HKCU\Environment）；每個 worktree 加一項，2026-11-11 使用者 Path 超過 32,767 字元，桌面無法啟動。已封存的歷史腳本（r30–r33 `rebuild.py`、各版 `product-build.ps1`、`_integration/common.py`、`delta/`、`r29/history-r28/`）有 SHA 封存不改，要跑請先在呼叫端 shell 設好這個變數（它們會繼承環境）。
 - 位元可重現：相同來源與 SDK 在兩個目錄建出的 product、audio、launcher DLL SHA-256 相同（#91）。
 - 素材：`engine/assets` 是指向 `releases/r29/assets`（#155） 的唯讀 junction；遊戲資源一律引用 `D:\lineage開發\0-客戶端`，**不得複製 pak/map/sprite 進本專案**。
 - 資料庫（MySQL）由使用者管理；AI 不查詢、不更改、不啟停 DB 或服務。

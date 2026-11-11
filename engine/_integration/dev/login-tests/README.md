@@ -7,6 +7,8 @@
 ```powershell
 $taskRoot = (Get-Location).Path
 $env:DOTNET_CLI_HOME = Join-Path $taskRoot 'scratch/issue-199/dotnet'
+$env:DOTNET_ADD_GLOBAL_TOOLS_TO_PATH = 'false'   # #999：避免把 CLI home 的 tools 寫進使用者 PATH
+$env:DOTNET_NOLOGO = '1'
 $env:TEMP = Join-Path $taskRoot 'scratch/issue-199/tmp'
 $env:TMP = $env:TEMP
 $env:NUGET_SCRATCH = Join-Path $env:TEMP 'nuget'

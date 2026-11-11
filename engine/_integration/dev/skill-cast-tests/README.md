@@ -6,6 +6,8 @@
 
 ```powershell
 $env:DOTNET_CLI_HOME = "$PWD/scratch/dotnet"
+$env:DOTNET_ADD_GLOBAL_TOOLS_TO_PATH = 'false'   # #999：避免把 CLI home 的 tools 寫進使用者 PATH
+$env:DOTNET_NOLOGO = '1'
 $env:NUGET_PACKAGES = "$PWD/scratch/nuget"
 $env:TEMP = "$PWD/scratch"
 $env:TMP = $env:TEMP
