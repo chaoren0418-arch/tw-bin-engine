@@ -18,6 +18,10 @@ public sealed record WorldObject(ushort X,ushort Y,uint ObjectId,ushort Gfx,byte
     public bool ShopActive {get;init;}
     public string ShopText {get;init;}="";
     public long ShopAt {get;init;}
+    // R10-R（T405／#922，FU14§2.2）：111 stride 的走路計數（+532）。StrideCounter＝前進後的值，StrideStep＝目前這一步用的值。
+    // 由 ListSprStride.cs 的 S_MOVE 觀察器前進；新的 S87 重建物件時歸 0（初值 0 是推測）。
+    public int StrideCounter {get;init;}
+    public int StrideStep {get;init;}
 }
 public sealed partial class WorldSession {
     readonly System.Collections.Concurrent.ConcurrentDictionary<uint,WorldObject> objects=new();

@@ -1,25 +1,30 @@
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 namespace P06;
 public sealed record ObjectVisual(uint ObjectId,int Gfx,int Sprite,string Name,int X,int Y,string Action,string Frame,PointF Foot,Rectangle Bounds,bool Walking,int StepMs);
 public sealed partial class Renderer {
     public ObjectVisual? OwnCombatVisual {get;private set;}
     public Patch ComposeObjects(World own,WorldSession session,ObjectAssets catalog,out ObjectVisual[] visuals,out WorldObject[] missing,long? testTime=null,bool historicalUntriggeredReplay=false){
         long now=testTime??Environment.TickCount64;session.AdvanceScene();BindCache(historicalUntriggeredReplay?null:session.MapCache);var opacity=historicalUntriggeredReplay?null:session.Opacity;SceneBackground(opacity);PrepareShipBackdrop(session,now);
-        ObjectAppearance? ownAppearance=session.Actor is {} ownActor?catalog.Get(ownActor.Gfx,ownActor.Weapon)??throw new NotSupportedException("Own appearance profile unavailable"):null;
-        own.SetOnlineAppearance(ownAppearance);var draws=Actor(own);OwnCombatVisual=session.Actor is {} shown&&ownAppearance!=null?new(shown.ObjectId,shown.Gfx,ownAppearance.Sprite,shown.Name,own.X,own.Y,own.Walking?"walk":"breath",own.Frame.Key,own.DisplayPosition,Rectangle.Empty,own.Walking,own.Walking?own.NetworkStepMs:session.MovementAnimationMs??ownAppearance.StepMs):null;
+        // R10-R（FU14§2.4）：自己走路時外型改用 stride 動作（與 ClientLogin MovePlanned 同一個計數，否則每幀會被蓋回姿勢）。
+        ObjectAppearance? ownAppearance=session.Actor is {} ownActor?OwnStrideAppearance(catalog,session,ownActor,own.Walking)??throw new NotSupportedException("Own appearance profile unavailable"):null;
+        own.SetOnlineAppearance(ownAppearance);var draws=Actor(own);
+        // R10-R（FU14§3.6）：自己的 cloth 附加層，照 3.81 不做職業外型例外。
+        if(session.Actor is {} clothed&&ownAppearance!=null)draws.AddRange(ClothDraws(clothed.Gfx,own.Frame,own.X,own.Y));OwnCombatVisual=session.Actor is {} shown&&ownAppearance!=null?new(shown.ObjectId,shown.Gfx,ownAppearance.Sprite,shown.Name,own.X,own.Y,own.Walking?"walk":"breath",own.Frame.Key,own.DisplayPosition,Rectangle.Empty,own.Walking,own.Walking?own.NetworkStepMs:session.MovementAnimationMs??ownAppearance.StepMs):null;
         ComposeMapEffects(session,draws,now);ComposeProjectile(session,draws,now);ComposeMagic(session,draws,now);ComposeSpecialShapeEffects(session,draws,now);
         BindPickupPresentation(own,session,catalog);
         if(session.Actor is {} actor&&ownAppearance is {} appearance){
             var self=ActiveOwnCombat(session,appearance,now);
             if(self!=null){
                 string name=OwnCombatName(self.Action);double elapsed=now-self.At;
-                var frame=self.Timing?.Frame(appearance,actor.Direction,elapsed)??appearance.At(name,actor.Direction,elapsed);draws.RemoveAll(d=>(d.Layer is "actor" or "shadow")&&d.ObjectId==0);draws.AddRange(frame.Blocks.Select(b=>new Draw(2*(actor.X-Coordinates.MinX)+b.A,actor.Y-Coordinates.MinY+b.B,b.Z,1000000+b.Order,"actor",b.Order,-1,-1,b.Tile)));draws.AddRange(ShadowDraws(appearance,frame,actor.X,actor.Y));
+                var frame=self.Timing?.Frame(appearance,actor.Direction,elapsed)??appearance.At(name,actor.Direction,elapsed);draws.RemoveAll(d=>(d.Layer is "actor" or "shadow")&&d.ObjectId==0);draws.AddRange(frame.Blocks.Select(b=>new Draw(2*(actor.X-Coordinates.MinX)+b.A,actor.Y-Coordinates.MinY+b.B,b.Z,1000000+b.Order,"actor",b.Order,-1,-1,b.Tile)));draws.AddRange(ClothDraws(actor.Gfx,frame,actor.X,actor.Y));draws.AddRange(ShadowDraws(appearance,frame,actor.X,actor.Y));
                 OwnCombatVisual=new(actor.ObjectId,actor.Gfx,appearance.Sprite,actor.Name,actor.X,actor.Y,name,frame.Key,Coordinates.Screen(actor.X,actor.Y),Rectangle.Empty,false,self.Timing?.AnimationMs??(int)appearance.Duration(name));
                 ObserveOwnerFrames(session,"self",0,appearance,name,actor.Direction,self.Timing,$"{name}:{self.At}",elapsed,actor.X,actor.Y,false,now);
             }
             if(session.PickupFrame(now) is {} pickupFrame){
                 draws.RemoveAll(d=>(d.Layer is "actor" or "shadow")&&d.ObjectId==0);
                 draws.AddRange(pickupFrame.Blocks.Select(b=>new Draw(2*(actor.X-Coordinates.MinX)+b.A,actor.Y-Coordinates.MinY+b.B,b.Z,1000000+b.Order,"actor",b.Order,-1,-1,b.Tile)));
+                draws.AddRange(ClothDraws(actor.Gfx,pickupFrame,actor.X,actor.Y));
                 draws.AddRange(ShadowDraws(appearance,pickupFrame,actor.X,actor.Y));
                 OwnCombatVisual=new(actor.ObjectId,actor.Gfx,appearance.Sprite,actor.Name,actor.X,actor.Y,"pickup",pickupFrame.Key,Coordinates.Screen(actor.X,actor.Y),Rectangle.Empty,false,0);
             }
@@ -30,29 +35,41 @@ public sealed partial class Renderer {
             bool door=o.Gfx==2346||session.IsDoor(o.ObjectId),shop=!door&&o.ShopActive&&!o.Dead;
             // R2-I（AN§3.4）：一般物件缺 (gfx, 姿勢) 時退回姿勢 0，整個 gfx 都沒有圖時改畫 gfx 1120（只對他人；自己不在 Objects 內）。
             // 門與個人商店維持原本的嚴格判斷：沒有查證過的圖就不畫。
-            var resolved=door||shop?null:ObjectDrawFallback.Appearance(o.Gfx,o.Action,catalog.Get);
+            // R10-R（FU14§1.3）：112 altdir 只用在沒有動作表的靜態外型；每幀依朝向重算（朝向 6 換替代 gfx，轉走就換回），不改 o.Gfx。
+            string? listRow=door||shop?null:ListSpr.Row(o.Gfx);var listFields=door||shop?null:ListSpr.Fields(o.Gfx);
+            bool staticShape=!door&&!shop&&ListSprLayers.StaticShape(listRow,o.Action);
+            int shapeGfx=staticShape?ListSprLayers.AltDirGfx(o.Gfx,o.Direction,listFields):o.Gfx;
+            var resolved=door||shop?null:ObjectDrawFallback.Appearance(shapeGfx,o.Action,catalog.Get);
             var a=door?catalog.GetDoor(o.Gfx):shop?catalog.GetShop(o.Gfx):resolved?.Appearance;int drawGfx=resolved?.Gfx??o.Gfx;
-            // 引擎沒有對應原圖的 S158 動作（例如 71 釣魚），原版在缺圖時改播姿勢動作（AN§3.4 第 1 點）；商店仍照舊不畫。
+            // 引擎沒有對應原圖的 S158 動作，原版在缺圖時改播姿勢動作（AN§3.4 第 1 點）；商店仍照舊不畫。
+            // R10-R：71 釣魚改從原客戶端 list.spr 的動作 71 播（下面 FishingFrame）；讀不到時才照這裡退回姿勢動作。
             bool otherAction=o.ReceivedAction is not (null or 0 or 1 or 2 or 3 or 8 or 18 or 19 or 70);
             if(a==null||o.AppearancePending||(!shop&&(!NormalSpeed.Supported(o.Speed,o.Brave)||o.MotionAt!=0&&!NormalSpeed.Supported(o.MotionSpeed,o.MotionBrave)))||(door?(o.DoorAction is not (28 or 29)||o.Dead||o.Combat!=null):shop&&otherAction)||!(session.MapCache?.Contains(o.X,o.Y)??Coordinates.Inside(o.X,o.Y))){unavailable.Add(o);continue;}
             int stepMs=shop?a.StepMs:NormalSpeed.AnimationMs(a.StepMs,o.MotionAt!=0?o.MotionSpeed:o.Speed,o.MotionAt!=0?o.MotionBrave:o.Brave);double elapsed=now-o.MotionAt;bool moving=!door&&!shop&&o.MotionAt!=0&&elapsed<stepMs;
+            // R10-R（FU14§2.4）：有 111 stride 時，這一步的走路改用 {0,4,11,20,24,40}[計數]（計數在收到移動時前進一次，不在每幀前進）；
+            // 該動作沒有圖時照原版退回原本的姿勢（AN§3.4）。換成 1120 的不套用。
+            if(moving&&resolved is {Substituted:false}&&ListSprLayers.StridePose(listFields,o.StrideStep,o.Action) is int stridePose&&catalog.Get(drawGfx,stridePose) is {} strided)a=strided;
             // 換成 1120 時原版播動作 0（走路，即姿勢動作）。
             string action=door?(o.DoorAction==28?"open":"close"):shop?"shop":moving||resolved?.Substituted==true||otherAction?"walk":"breath";double animationElapsed=door?session.DoorPlaybackElapsed(o.ObjectId,now)??double.MaxValue:shop?now-o.ShopAt:moving?elapsed*a.StepMs/stepMs:now-o.UpdatedAt;
             // 門的動作實例＝這次開／關播放的開始時間（每次 S_DOOR 開關重新觸發一次 `]`）。
             long stamp=door?DoorPlaybackStamp(animationElapsed,now):shop?o.ShopAt:moving?o.MotionAt:o.UpdatedAt;
-            Func<ObjectAppearance?> bare=()=>catalog.Get(drawGfx,0);
+            Func<ObjectAppearance?> bare=()=>catalog.Get(drawGfx,0);bool combatShown=false;
             if(!door&&!shop&&WithProjectileHit(o.ObjectId,o.Combat,now,o.Dead) is {} combat){
                 string requested=combat.Action switch{1=>"attack",2=>"damage",8=>"die",18=>"spellDir",19=>"spellNoDir",_=>"unsupported"};
                 // 他人缺動作圖時逐動作退回：動作 → 同姿勢的姿勢動作 → 姿勢 0（AN§3.4 第 1 點），不再整個不畫。
                 if(ObjectDrawFallback.Action(a,bare,requested,o.Direction,(ap,n,d)=>ap.Supports(n,d)) is not {} pick){unavailable.Add(o);continue;}
                 bool exact=pick.Action==requested&&ReferenceEquals(pick.Appearance,a);var exactTiming=exact?combat.Timing:null;double age=now-combat.At;
-                if((exactTiming==null||exactTiming.Matches(o.Gfx,o.Action))&&(o.Dead||age<(exactTiming?.AnimationMs??pick.Appearance.Duration(pick.Action)))){a=pick.Appearance;moving=false;action=pick.Action;animationElapsed=age;stepMs=exactTiming?.AnimationMs??(int)a.Duration(action);stamp=combat.At;}
+                if((exactTiming==null||exactTiming.Matches(o.Gfx,o.Action))&&(o.Dead||age<(exactTiming?.AnimationMs??pick.Appearance.Duration(pick.Action)))){a=pick.Appearance;moving=false;action=pick.Action;animationElapsed=age;stepMs=exactTiming?.AnimationMs??(int)a.Duration(action);stamp=combat.At;combatShown=true;}
             }
+            // R10-R（FU14§3.6 注意）：動作 71 照原版播 list.spr 的釣魚動作（gfx 0 `#0 312=3225`：本體 3225-<304＋朝向>.spr，
+            // 本機 Sprite03–08／00／01 都有；釣魚線 6262 也只在這 8 個子檔有圖）。
+            var fish=!door&&!shop&&!combatShown&&!moving&&o.ReceivedAction==ListSprLayers.FishingAction?FishingFrame(drawGfx,o.Direction,animationElapsed):null;
+            if(fish!=null)action=ListSprLayers.FishingName;
             // Noncombat NPCs and scenery only have the actions present in their original metadata（門與商店不退回）。
-            if(door||shop){if(!a.Supports(action,o.Direction)){unavailable.Add(o);continue;}}
+            else if(door||shop){if(!a.Supports(action,o.Direction)){unavailable.Add(o);continue;}}
             else if(ObjectDrawFallback.Action(a,bare,action,o.Direction,(ap,n,d)=>ap.Supports(n,d)) is {} chosen){a=chosen.Appearance;action=chosen.Action;}
             else{unavailable.Add(o);continue;}
-            var displayedCombat=WithProjectileHit(o.ObjectId,o.Combat,now,o.Dead);var cadence=displayedCombat?.Timing is {} timing&&action==ActionCadence.Name(timing.Action)?timing:null;var frame=cadence!=null?cadence.Frame(a,o.Direction,animationElapsed):a.At(action,o.Direction,animationElapsed);
+            var displayedCombat=WithProjectileHit(o.ObjectId,o.Combat,now,o.Dead);var cadence=displayedCombat?.Timing is {} timing&&action==ActionCadence.Name(timing.Action)?timing:null;var frame=fish??(cadence!=null?cadence.Frame(a,o.Direction,animationElapsed):a.At(action,o.Direction,animationElapsed));
             int x=moving?o.SourceX:o.X,y=moving?o.SourceY:o.Y;
             // `]`／`{`／`}` (effects-2.md §2): children take this frame's position and direction; an invisible
             // other object's state flag is copied, so its children are not drawn either.
@@ -60,6 +77,8 @@ public sealed partial class Renderer {
             // 所以門不再排除。門沒有播放中的動作時 DoorPlaybackElapsed 是 null（elapsed＝MaxValue），ObserveOwnerFrames 直接略過。
             ObserveOwnerFrames(session,$"o{o.ObjectId}",o.ObjectId,a,action,o.Direction,cadence,$"{action}:{stamp}",animationElapsed,x,y,o.ObjectId!=session.Actor?.ObjectId&&(o.Flags&2)!=0,now);
             draws.AddRange(ShadowDraws(a,frame,x,y,o.ObjectId));
+            // R10-R（FU14§3.1）：cloth 附加層與本體同一個 sid:frame；任何一層缺子檔，這一格整組不畫。靜態外型分支沒有附加層。
+            if(!staticShape)draws.AddRange(ClothDraws(drawGfx,frame,x,y,o.ObjectId));
             // An authenticated original zero-tile frame is transparent, not a missing asset.
             if(frame.Blocks.Length==0){vs.Add(new(o.ObjectId,o.Gfx,a.Sprite,catalog.DisplayName(o),x,y,action,frame.Key,Coordinates.Screen(x,y),Rectangle.Empty,false,stepMs));continue;}
             var blocks=frame.Blocks.Select(b=>new Draw(2*(x-Coordinates.MinX)+b.A,y-Coordinates.MinY+b.B,b.Z,1000000+b.Order,"actor",b.Order,-1,-1,b.Tile,o.ObjectId)).ToList();
@@ -129,21 +148,187 @@ public static class ObjectDrawFallback {
         return bare() is {} b&&!ReferenceEquals(b,appearance)&&supports(b,"walk",direction)?(b,"walk"):null;
     }
 }
-// R8-E（T360／#824，FU8§5）：list.spr 105／111／112 的物件端規則（純函式，資料層）。
-// 目前**沒有接進 ComposeObjects**：
-// - 105 cloth：TW16 的 sub_A3EF40 會建附加子精靈，但 3.81（LiTo.bin）讀不讀這欄要真機確認（gfx 0 有沒有 6262 這一層），
-//   確認前 ClothVerified＝false，ClothLayers 一律回空（不多畫一層）。
-// - 112 altdir：sub_A3EF40 在物件朝向（+8）＝6 時改用替代 gfx；本機只有 1395／5940 兩個 gfx，接線要先確認是建立時還是每次轉向都換。
-// - 111 stride：站立時 +532 計數 0…n 輪流，姿勢取 byte_1379D40[+532 (+2)]，表內容未取出，這裡只算計數。
+// R8-E（T360／#824，FU8§5）資料層；R10-R（T405／#922，FU14 §1.3、§2.4、§3.6）接進 ComposeObjects。
+// - 105 cloth：3.81 也讀、也畫（FU14§3.5：sub_43DE10 case 'i' 寫 dword_647E48；sub_4E5C00 → sub_4E6EA0 依本體子檔號載入；
+//   sub_4E0200／sub_4E7A40 → sub_4E7000 放進場景不設條件），所以 ClothVerified＝true。每層載入 `<cloth>-<本體 sid>.spr`、取本體同一個
+//   影格；任何一層缺子檔 → 這一格整組不畫（下一格重算）。不看裝備、動作、朝向，也沒有「自己＋職業外型」的例外（3.81 沒有）。
+// - 112 altdir：只在「(gfx, 動作) 查不到動作表而且動作 ≤ 0」的靜態外型分支（TW16 sub_A3EF40 0xA3F178、3.81 sub_4E5C00）；
+//   朝向 6 載入替代 gfx，每次選圖重算，轉離 6 就換回。
+// - 111 stride：每走一步（＝每收到一次移動／每送一步）播 byte_1379D40[+532]，再 ++(+532)，> n 歸 0（FU14§2.2）。
+//   +199＝2 的偏移本機用不到（82／86 個 stride gfx 都沒有欄位 108），不做。計數初值 0 是推測（物件記憶體清零）。
 public static class ListSprLayers {
-    public const bool ClothVerified=false;
+    public const bool ClothVerified=true;
     public const int AltDirDirection=6;
-    /// <summary>要額外畫的附加層 gfx（依 list.spr 順序）；cloth 未經真機確認前固定回空。</summary>
+    /// <summary>FU14§2.1：byte_1379D40（TW16 .data FO 0xF78540）＝3.81 byte_636938 的 6 個動作號。</summary>
+    public static readonly int[] StrideActions=[0,4,11,20,24,40];
+    /// <summary>目前動作是 8 時原版播 +194（姿勢），不換 stride 動作。</summary>
+    public const int StrideHoldAction=8;
+    /// <summary>S158 動作 71（3.81 ActionCodes.ACTION_Fishing）與引擎內的動作名稱。</summary>
+    public const int FishingAction=71;public const string FishingName="fishing";
+    /// <summary>要額外畫的附加層 gfx（依 list.spr 順序）。</summary>
     public static int[] ClothLayers(ListSprFields? fields,bool verified=ClothVerified)=>verified&&fields is {Cloth.Length:>0} f?f.Cloth:[];
-    /// <summary>朝向 6 且有 112 altdir 時回替代 gfx，否則原 gfx。</summary>
+    /// <summary>朝向 6 且有 112 altdir 時回替代 gfx，否則原 gfx（呼叫端先用 <see cref="StaticShape"/> 判斷是不是靜態外型）。</summary>
     public static int AltDirGfx(int gfx,int direction,ListSprFields? fields)=>direction==AltDirDirection&&fields?.AltDir is int alt?alt:gfx;
-    /// <summary>站立輪換計數的下一個值：0…n 循環；沒有 stride（0）時恆為 0。</summary>
+    /// <summary>靜態外型時才換 altdir；有動作表的外型一律原 gfx。</summary>
+    public static int AltDirGfx(int gfx,int direction,int action,string? row,ListSprFields? fields)=>StaticShape(row,action)?AltDirGfx(gfx,direction,fields):gfx;
+    /// <summary>list.spr 這一列有沒有動作 action（`N.名稱(`，前面不是數字、點、冒號、`[`）。動作名稱可以有空白
+    /// （本機 list.spr `4.walk onehandsword(`），但不跨冒號、tab、換行，所以影格參照 `24.0:4` 不會被當成動作。</summary>
+    public static bool HasAction(string row,int action)=>Regex.IsMatch(row,ActionPattern(action));
+    internal static string ActionPattern(int action)=>$@"(?<![\d.:\[]){action}\.[^(:\r\n\t]*\(";
+    /// <summary>sub_A3EF40 的靜態外型分支：動作 ≤ 0、不是 119／120，而且這個 gfx 自己那一列查不到該動作（不跟 alias）。
+    /// 讀不到 list.spr（row＝null）時不算靜態，照舊。</summary>
+    public static bool StaticShape(string? row,int action)=>row!=null&&action<=0&&!HasAction(row,action);
+    /// <summary>每走一步的計數下一個值：0…n 循環；沒有 stride（0）時恆為 0。</summary>
     public static int StrideNext(int counter,ListSprFields? fields)=>fields is {Stride:>0} f?(Math.Max(0,counter)+1)%(f.Stride+1):0;
+    /// <summary>走一步：Step＝這一步要用的計數（前進前的值），Next＝前進後的計數。沒有 stride 時原版不動計數，回 null。</summary>
+    public static (int Step,int Next)? StrideAdvance(int counter,ListSprFields? fields)=>fields is {Stride:>0}?(Math.Max(0,counter),StrideNext(counter,fields)):null;
+    /// <summary>這一步的 stride 動作號（＝引擎的姿勢號，取外型用）；沒有 stride 或目前動作＝8 時 null（照原姿勢）。</summary>
+    public static int? StridePose(ListSprFields? fields,int step,int currentAction)=>fields is {Stride:>0}&&currentAction!=StrideHoldAction?StrideActions[Math.Clamp(step,0,StrideActions.Length-1)]:null;
+    /// <summary>本體影格 key「sid:frame」。</summary>
+    public static (int Sid,int Frame)? FrameKey(string key){int colon=key.IndexOf(':');return colon>0&&int.TryParse(key.AsSpan(0,colon),out int sid)&&int.TryParse(key.AsSpan(colon+1),out int frame)&&sid>=0&&frame>=0?(sid,frame):null;}
+    /// <summary>每層取 `<cloth>-<sid>.spr` 的第 frame 格。沒有層＝空陣列；任何一層缺子檔（或該格不存在）＝null，整組不畫。</summary>
+    public static Frame[]? ClothFrames(int[] cloth,string bodyKey,Func<int,int,Frame[]?> sprite){
+        if(cloth.Length==0)return [];
+        if(FrameKey(bodyKey) is not {} k)return null;
+        var layers=new Frame[cloth.Length];
+        for(int i=0;i<cloth.Length;i++){if(sprite(cloth[i],k.Sid) is not {} frames||k.Frame>=frames.Length)return null;layers[i]=frames[k.Frame];}
+        return layers;
+    }
+    /// <summary>序號放在本體 1000000＋ 與影子 1100000＋ 之間，維持「本體 → 各層（list.spr 順序）→ 影子」（FU14§3.2）；
+    /// 圖層名稱用 "actor"，隱身、淡入淡出、屍體半透明、點選都跟本體一起。</summary>
+    public const int ClothSerialBase=1000000+4096,ClothSerialStride=4096;
+    public static IEnumerable<Draw> ClothDraws(Frame[] layers,int x,int y,uint objectId=0)=>
+        layers.SelectMany((f,i)=>f.Blocks.Select(b=>new Draw(2*(x-Coordinates.MinX)+b.A,y-Coordinates.MinY+b.B,b.Z,ClothSerialBase+i*ClothSerialStride+b.Order,"actor",b.Order,-1,-1,b.Tile,objectId)));
+    /// <summary>全空的子檔（每格 0 個圖塊、0 個 block，例如本機 6262-0.spr 65 B＝4 格）：EffectSpriteCatalog.Decode 要求 block ≥ 1 會拒絕，
+    /// 但檔案存在，原版照畫（看不到），不算缺檔。格式同 Decode；不是這種檔就回 null。</summary>
+    public static Frame[]? EmptySprite(byte[] payload,int sid){
+        try{
+            using var r=new BinaryReader(new MemoryStream(payload));int first=r.ReadByte();
+            if(first==255){int count=r.ReadByte();if(count==0)count=256;r.BaseStream.Position+=2L*count;first=r.ReadByte();}
+            if(first is <=0 or >127)return null;
+            var frames=new Frame[first];
+            for(int i=0;i<first;i++){int[] bounds=[r.ReadInt16(),r.ReadInt16(),r.ReadInt16(),r.ReadInt16()];r.ReadUInt16();r.ReadUInt16();if(r.ReadInt16()!=0)return null;frames[i]=new($"{sid}:{i}",bounds,[]);}
+            if(r.ReadUInt32()!=0||r.ReadUInt32()!=0||r.BaseStream.Position!=payload.Length)return null;
+            return frames;
+        }catch(EndOfStreamException){return null;}
+    }
+    /// <summary>104 attr 對到圖塊混色（與 EffectSprite.Parse 相同：8→screen 18、0x80→multiply 34、0x100→half 6、其餘 2）。</summary>
+    public static int TileType(string? row){var attr=row==null?Match.Empty:Regex.Match(row,@"(?<![\d.])104\.[^(]*\((\d+)\)");int flags=attr.Success&&int.TryParse(attr.Groups[1].Value,out int v)?v:0;return (flags&8)!=0?18:(flags&128)!=0?34:(flags&256)!=0?6:2;}
+}
+/// <summary>R10-R：list.spr 某一列的一個動作（例如 71 釣魚）。Sprite＝標頭的 `=K` 別名，沒有就是 gfx 本身。</summary>
+public sealed record ListSprAction(int Gfx,int Sprite,bool Directional,EffectStep[] Steps){
+    public int Duration=>Steps.Sum(s=>s.Milliseconds);
+    public static ListSprAction? Parse(int gfx,string? row,int action){
+        if(row==null)return null;
+        var header=Regex.Match(row,@"^#\d+\s+\d+(?:=(\d+))?");
+        var m=Regex.Match(row,ListSprLayers.ActionPattern(action)+@"(\d+)\s+(\d+),([^)]*)\)");
+        if(!header.Success||!m.Success)return null;
+        var tokens=Regex.Matches(m.Groups[3].Value,@"(\d+)\.(\d+):(\d+)([^\s]*)");
+        if(!int.TryParse(m.Groups[2].Value,out int count)||tokens.Count!=count||count is <1 or >4096)return null;
+        var fpsMatch=Regex.Match(row,@"(?<![\d.])110\.[^(]*\((\d+)\)");int fps=fpsMatch.Success&&int.TryParse(fpsMatch.Groups[1].Value,out int f)?f:24;
+        if(fps is <1 or >1000)return null;
+        var steps=tokens.Select(t=>new EffectStep(int.Parse(t.Groups[1].Value),int.Parse(t.Groups[2].Value),1000*int.Parse(t.Groups[3].Value)/fps,t.Groups[4].Value.Contains('!'),t.Groups[4].Value)).ToArray();
+        if(steps.Sum(s=>s.Milliseconds)<=0)return null;
+        return new(gfx,header.Groups[1].Success?int.Parse(header.Groups[1].Value):gfx,m.Groups[1].Value!="0",steps);
+    }
+    /// <summary>從第 0 格起播、播完重頭（釣魚動作持續到下一個動作或移動；循環是推測）。sid＝SubId＋朝向（有方向時）。</summary>
+    public (int Sid,int Frame) At(int direction,double elapsed){
+        double left=Math.Max(0,elapsed)%Duration;
+        foreach(var s in Steps){if(left<s.Milliseconds)return(s.SubId+(Directional?direction&7:0),s.Frame);left-=s.Milliseconds;}
+        var last=Steps[^1];return(last.SubId+(Directional?direction&7:0),last.Frame);
+    }
+}
+/// <summary>R10-R：list.spr 列與 `&lt;gfx&gt;-&lt;sid&gt;.spr` 子檔的唯讀來源。離線測試換成合成資料。</summary>
+public interface IListSprSource {
+    string? Row(int gfx);
+    /// <summary>子檔不存在或讀不了時 null。</summary>
+    Frame[]? Sprite(int gfx,int sid);
+    ListSprFields? Fields(int gfx){var row=Row(gfx);if(row==null)return null;try{return ListSprFields.Parse(row);}catch(InvalidDataException){return null;}}
+}
+/// <summary>執行期從原客戶端唯讀讀取（list.spz 解密方式同 EffectSpriteCatalog.LoadMetadata；Sprite／Sprite00–15 的 plain28 索引，
+/// 先找到的為準）。不複製任何資源。讀不到時 Error 有值、所有查詢回 null（不畫附加層、不換外型），不丟例外。執行緒安全。</summary>
+public sealed class ListSprRuntime(string clientRoot):IListSprSource {
+    static readonly Lazy<ListSprRuntime> shared=new(()=>new(GroundSpriteReader.ClientRoot));
+    public static ListSprRuntime Shared=>shared.Value;
+    readonly object gate=new();
+    Dictionary<int,string>? rows;Dictionary<string,(string Pak,uint Offset,uint Size)>? index;
+    readonly Dictionary<int,ListSprFields?> fields=[];readonly Dictionary<(int,int),Frame[]?> sprites=[];
+    public string? Error {get;private set;}
+    static bool Expected(Exception e)=>e is IOException or InvalidDataException or UnauthorizedAccessException or System.Security.Cryptography.CryptographicException or ArgumentException or OverflowException or NotSupportedException;
+    Dictionary<int,string> Rows(){
+        if(rows!=null)return rows;rows=[];
+        try{
+            var text=TextArchive.Open(clientRoot);byte[] raw;
+            if(text.Single("list.spz") is {} packed){
+                raw=text.Read(packed);if(!raw.AsSpan().StartsWith("S1223"u8))throw new InvalidDataException("未知 list.spz 格式");
+                using var aes=System.Security.Cryptography.Aes.Create();aes.Key=Convert.FromHexString("DC8401212A40200ADD25B9A70DB9C94E");
+                byte[] iv=Convert.FromHexString("3E0978AAC4D53063300C5F9A807F2246");int length=(raw.Length-5)/16*16;
+                var decoded=(byte[])raw.Clone();aes.DecryptCbc(raw.AsSpan(5,length),iv,System.Security.Cryptography.PaddingMode.None).CopyTo(decoded,5);
+                for(int i=5+length;i<raw.Length;i++)decoded[i]=(byte)(raw[i]^(length>0?raw[i-16]:iv[i-5]));raw=decoded;
+            }else raw=text.Read(text.Single("list.spr")??throw new InvalidDataException("缺少動畫表"));
+            string source=System.Text.Encoding.ASCII.GetString(raw).Replace("\r","");var entries=Regex.Matches(source,@"(?m)^#(\d+)\s");
+            for(int i=0;i<entries.Count;i++){var m=entries[i];rows.TryAdd(int.Parse(m.Groups[1].Value),source[m.Index..(i+1<entries.Count?entries[i+1].Index:source.Length)]);}
+        }catch(Exception e) when(Expected(e)){Error="list.spr："+e.Message;rows.Clear();}
+        return rows;
+    }
+    Dictionary<string,(string Pak,uint Offset,uint Size)> Index(){
+        if(index!=null)return index;index=new(StringComparer.OrdinalIgnoreCase);
+        try{
+            foreach(string stem in new[]{"Sprite"}.Concat(Enumerable.Range(0,16).Select(i=>$"Sprite{i:00}"))){
+                string idx=Path.Combine(clientRoot,stem+".idx"),pak=Path.Combine(clientRoot,stem+".pak");
+                if(!File.Exists(idx)||!File.Exists(pak))continue;
+                var data=File.ReadAllBytes(idx);long size=new FileInfo(pak).Length;
+                if(data.Length<4)continue;uint count=BitConverter.ToUInt32(data,0);if(data.Length!=4L+28L*count)continue;
+                for(int i=0;i<count;i++){
+                    int at=4+28*i;uint offset=BitConverter.ToUInt32(data,at),length=BitConverter.ToUInt32(data,at+24);
+                    string name=System.Text.Encoding.ASCII.GetString(data,at+4,20).TrimEnd('\0');
+                    if(name.Length>0&&(long)offset+length<=size)index.TryAdd(name,(pak,offset,length));
+                }
+            }
+        }catch(Exception e) when(Expected(e)){Error="Sprite 索引："+e.Message;}
+        return index;
+    }
+    public string? Row(int gfx){lock(gate)return Rows().GetValueOrDefault(gfx);}
+    public ListSprFields? Fields(int gfx){
+        lock(gate){
+            if(fields.TryGetValue(gfx,out var cached))return cached;
+            ListSprFields? f=null;if(Rows().TryGetValue(gfx,out var row))try{f=ListSprFields.Parse(row);}catch(InvalidDataException){}
+            fields[gfx]=f;return f;
+        }
+    }
+    public Frame[]? Sprite(int gfx,int sid){
+        lock(gate){
+            if(sprites.TryGetValue((gfx,sid),out var cached))return cached;
+            Frame[]? frames=null;
+            if(Index().TryGetValue($"{gfx}-{sid}.spr",out var e)&&e.Size is >0 and <=8*1024*1024)
+                try{
+                    var payload=new byte[e.Size];using(var s=new FileStream(e.Pak,FileMode.Open,FileAccess.Read,FileShare.Read)){s.Position=e.Offset;s.ReadExactly(payload);}
+                    try{frames=EffectSpriteCatalog.Decode(payload,sid,ListSprLayers.TileType(Rows().GetValueOrDefault(gfx)));}
+                    catch(InvalidDataException){frames=ListSprLayers.EmptySprite(payload,sid);}
+                }catch(Exception ex) when(Expected(ex)||ex is EndOfStreamException){frames=null;}
+            if(sprites.Count>=512)sprites.Clear();sprites[(gfx,sid)]=frames;return frames;
+        }
+    }
+}
+public sealed partial class Renderer {
+    IListSprSource? listSpr;
+    /// <summary>R10-R：list.spr／Sprite*.pak 的來源（預設唯讀讀原客戶端；離線測試可換）。</summary>
+    internal IListSprSource ListSpr {get=>listSpr??=ListSprRuntime.Shared;set=>listSpr=value;}
+    /// <summary>gfx 的 cloth 附加層（照本體的 sid:frame）；沒有層或缺子檔時空。</summary>
+    internal IEnumerable<Draw> ClothDraws(int gfx,Frame body,int x,int y,uint objectId=0){
+        var cloth=ListSprLayers.ClothLayers(ListSpr.Fields(gfx));if(cloth.Length==0)return [];
+        return ListSprLayers.ClothFrames(cloth,body.Key,ListSpr.Sprite) is {} layers?ListSprLayers.ClothDraws(layers,x,y,objectId):[];
+    }
+    /// <summary>list.spr 動作 71 的當格（本體 `&lt;sprite&gt;-&lt;sid&gt;.spr`）；動作或子檔讀不到時 null（呼叫端照 AN§3.4 退回姿勢動作）。</summary>
+    internal Frame? FishingFrame(int gfx,int direction,double elapsed){
+        if(ListSprAction.Parse(gfx,ListSpr.Row(gfx),ListSprLayers.FishingAction) is not {} act)return null;
+        var (sid,frame)=act.At(direction,elapsed);
+        return ListSpr.Sprite(act.Sprite,sid) is {} frames&&frame<frames.Length?frames[frame]:null;
+    }
+    /// <summary>自己的外型：走路中而且有 stride 時用這一步的 stride 動作（缺圖退回原姿勢），否則 (gfx, Weapon)。
+    /// ComposeObjects、ClientLogin 的 SyncWorld 與 MovePlanned 都用這一個，避免互相覆蓋（World.SetOnlineAppearance 換外型會 Stop）。</summary>
+    internal static ObjectAppearance? OwnStrideAppearance(ObjectAssets catalog,WorldSession session,OwnActor actor,bool walking)=>
+        walking&&session.OwnStridePose(actor.Gfx,actor.Weapon) is int pose&&catalog.Get(actor.Gfx,pose) is {} strided?strided:catalog.Get(actor.Gfx,actor.Weapon);
 }
 // R2-I 城主王冠（sprites-and-strings.md §1，followups-3.md §2）：crown.raw＝Sprite.pak 內 12 格 16×12 RGB555，0 透明，沒有檔頭。
 // 執行期從原客戶端唯讀讀取並核對 pin，不複製進專案。

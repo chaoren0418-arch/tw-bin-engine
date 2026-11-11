@@ -15,7 +15,7 @@ public sealed partial class ClientForm {
         if(OnlineMode&&!login.World.Renderable){World.Stop();renderer.ReleaseMap();objectPatch=null;patch?.Dispose();patch=null;previous="";}
         if(OnlineMode&&login.World.LoadedMapBounds is {} bounds){World.StreamingBounds=bounds;World.AllowStreaming=true;}
         if(!OnlineMode)World.ResetOfflinePreview();
-        if(login.World.Renderable&&login.World.Actor is {} appearanceActor){var selectedAppearance=(objectAssets??=new(World.Assets.Root)).Get(appearanceActor.Gfx,appearanceActor.Weapon);if(!ReferenceEquals(World.OnlineAppearance,selectedAppearance)){ClearInput("appearance-change");World.SetOnlineAppearance(selectedAppearance);}}
+        if(login.World.Renderable&&login.World.Actor is {} appearanceActor){var selectedAppearance=Renderer.OwnStrideAppearance(objectAssets??=new(World.Assets.Root),login.World,appearanceActor,World.Walking);if(!ReferenceEquals(World.OnlineAppearance,selectedAppearance)){ClearInput("appearance-change");World.SetOnlineAppearance(selectedAppearance);}}
         SyncRecovery();SyncInventory();SyncGround();SyncRewards();SyncMagic();SyncInteraction();SyncPrivateShop();SyncTrade();SyncBonusStats();SyncNormalPanels();
         if(OnlineMode&&login.State!=LoginState.InWorld){ClearInput("online-transition");if(World.Walking)World.Stop();}
         if(login.State==LoginState.InWorld&&!login.MovementAvailable)ClearInput("unsupported-movement-state");
@@ -50,7 +50,8 @@ public sealed partial class ClientForm {
         foreach(Control control in row.Controls)control.Enter+=(_,_)=>LeaveGameFocus("login-controls");
         enterWorld.Click+=async(_,_)=>{if(charactersBox.SelectedItem is string name)await EnterLoginCharacter(name,login.SessionGeneration,login.Revision);};
         loginConnect.Click+=(_,_)=>StartLogin();cancel.Click+=(_,_)=>CancelLogin(login.SessionGeneration,false);offline.Click+=(_,_)=>CancelLogin(login.SessionGeneration,true);
-        login.MovePlanned+=(from,to)=>{if(login.World.Renderable){World.SetOnlineAppearance((objectAssets??=new(World.Assets.Root)).Get(from.Gfx,from.Weapon));World.NetworkStep(from.X,from.Y,to.Direction,NormalSpeed.AnimationMs(login.World.AppearanceProfile!.StepMs,from.Speed,from.Brave));}};
+        // R10-R（FU14§2.4）：每送一步前進一次 stride 計數（3.81 sub_4E2150），這一步的外型改用 stride 動作（Renderer.OwnStrideAppearance）。
+        login.MovePlanned+=(from,to)=>{if(login.World.Renderable){login.World.AdvanceOwnStride(from.Gfx);World.SetOnlineAppearance(Renderer.OwnStrideAppearance(objectAssets??=new(World.Assets.Root),login.World,from,true));World.NetworkStep(from.X,from.Y,to.Direction,NormalSpeed.AnimationMs(login.World.AppearanceProfile!.StepMs,from.Speed,from.Brave));}};
         // T260（#621，R2-Q）：正常操作時 S48 公告以模態訊息框顯示，按確定才回 C16；自動化情境（demoPort，非 real-interactive）維持自動確認。
         login.NewsConfirmationRequired=demoPort==null||scenario=="real-interactive";
         login.Changed+=()=>{if(IsDisposed)return;QueueLoginNews();SyncWorld();lastWebState="";PublishWebState();if(evidence!=null)Json.Save(Path.Combine(evidence,"login-state.json"),login.Snapshot());};
