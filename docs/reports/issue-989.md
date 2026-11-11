@@ -34,6 +34,7 @@
 - 本機：`dotnet build engine/source/OfflineClient.csproj`。本機這台的 WebView2 套件還原有問題（NU1701 → NETSDK1130），跟本次修改無關：用 scratch 裡的 targets 拿掉 `.winmd` 參考後，剩下的錯誤只出在 `WebPanel.cs`、`WebLocalResource.cs`（WebView2 型別），本次改動的檔案沒有編譯錯誤。完整建置以 CI 為準。
 - `python -B -X utf8 engine/tools/check-no-game-assets.py`：pass（4580 檔，0 錯誤）。
 - 依本機規定沒有執行任何測試程式；`--module-tests`（含新的兩組）與 DemoChecks `map-continuity`（含 BoardChecks）交給 CI。
+- CI（PR #998，run 42969576168）：`dotnet`、`map-continuity`、`npc-offline` 全部 pass；`board-delete-wait`、`board-wait-mouse` 各 29 項檢查，都通過，沒有失敗。
 
 ## 未驗證
 
