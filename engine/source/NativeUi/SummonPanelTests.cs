@@ -144,7 +144,7 @@ static class SummonPanelTests {
         p.Mouse(M(UiMouseKind.Move,Center(p.PartRect("monster:0")).X,Center(p.PartRect("monster:0")).Y),cmd);
         using(var canvas=new UiCanvas()){canvas.Clear(Color.Black);canvas.Restrict(p.Bounds);p.Paint(canvas);
             t.Equal(Color.FromArgb(unchecked((int)White)).ToArgb(),canvas.Bitmap.GetPixel(60,80).ToArgb(),"hovered slot shows OverSurf");
-            t.Equal(Color.FromArgb(unchecked((int)Green)).ToArgb(),canvas.Bitmap.GetPixel(46,78).ToArgb(),"monster surf stays above OverSurf");}
+            t.Equal(Color.FromArgb(unchecked((int)White)).ToArgb(),canvas.Bitmap.GetPixel(46,78).ToArgb(),"OverSurf drawn above the monster surf (R10-T FU13§4.2: monster = BaseSurf)");}
 
         // 7. 缺視窗底圖：面板停用（不畫替代圖），其他面板不受影響。
         var noBase=Surfaces();noBase.Remove(1);

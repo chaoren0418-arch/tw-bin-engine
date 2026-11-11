@@ -94,14 +94,15 @@ static class SummonWindowTests {
         using var canvas=new UiCanvas();
         Move(p,C(p,"monster:1"),cmd);t.Equal("monster:1",p.Hover,"hover tracks the disabled slot too");
         var bmp=Paint(p,canvas);var r1=p.PartRect("monster:1");var r0=p.PartRect("monster:0");
-        t.Equal(Argb(Yellow),bmp.GetPixel(r1.X+12,r1.Y+16).ToArgb(),"disabled slot under the mouse: DisableOverSurf (13)");
+        // R10-T（#924，FU13§4）：DisableOverSurf="13" 是色塊強度，不是 surf 13（黃）；停用格常駐 13/32 黑色色塊。
+        t.Check(SummonDisableOverlayTests.Near(bmp.GetPixel(r1.X+12,r1.Y+16),SummonDisableOverlayTests.Darkened(Color.FromArgb(Argb(Red)))),"disabled slot under the mouse: 13/32 overlay, not surf 13",bmp.GetPixel(r1.X+12,r1.Y+16));
         t.Equal(Argb(Red),bmp.GetPixel(r0.X+12,r0.Y+16).ToArgb(),"other slot: no over surf");
         t.Equal(Argb(Magenta),bmp.GetPixel(r1.X+2,r1.Y+15).ToArgb(),"badge = LevelLabel_Image surf + type (31+2)");
         t.Equal(Argb(Cyan),bmp.GetPixel(r0.X+2,r0.Y+15).ToArgb(),"badge for type 0 = XML surf (31)");
-        t.Equal(Argb(Navy),bmp.GetPixel(r1.X+1,r1.Y+1).ToArgb(),"monster surf drawn in its slot");
+        t.Check(SummonDisableOverlayTests.Near(bmp.GetPixel(r1.X+1,r1.Y+1),SummonDisableOverlayTests.Darkened(Color.FromArgb(Argb(Navy)))),"monster surf drawn in its slot (under the overlay)",bmp.GetPixel(r1.X+1,r1.Y+1));
         Move(p,C(p,"monster:0"),cmd);bmp=Paint(p,canvas);
         t.Equal(Argb(White),bmp.GetPixel(r0.X+12,r0.Y+16).ToArgb(),"usable slot under the mouse: OverSurf");
-        t.Equal(Argb(Red),bmp.GetPixel(r1.X+12,r1.Y+16).ToArgb(),"hover moved away: disabled slot back to its base");
+        t.Check(SummonDisableOverlayTests.Near(bmp.GetPixel(r1.X+12,r1.Y+16),SummonDisableOverlayTests.Darkened(Color.FromArgb(Argb(Red)))),"hover moved away: disabled slot keeps its overlay (FU13§4.2)",bmp.GetPixel(r1.X+12,r1.Y+16));
     }
 
     // 2. 怪物格：按下＋放開（沒拖曳）＝立即召喚並關窗；不呼叫宿主 Close（送出是非同步的）。
