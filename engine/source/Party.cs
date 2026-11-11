@@ -26,8 +26,9 @@ public static class ChatLineAsk {
     /// <summary>目前由這個入口放上的提示（null＝沒有）。</summary>
     public static ChatLinePrompt? Pending(ChatPanel chat)=>slots.TryGetValue(chat,out var s)&&s.Current is {} p&&s.Live?.Invoke()!=false?p:null;
     static ChatLinePrompt? Get(ChatPanel chat,Slot s){
+        var prev=s.Prev;   // Done clears Prev; the original source still answers this call.
         if(s.Current is {} p){if(s.Live?.Invoke()!=false)return p;Done(chat,s,p);}
-        return s.Prev?.Invoke();
+        return prev?.Invoke();
     }
     static bool Done(ChatPanel chat,Slot s,ChatLinePrompt? p){
         if(p==null||!ReferenceEquals(s.Current,p))return false;
