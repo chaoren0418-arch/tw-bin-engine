@@ -16,7 +16,7 @@ public static class CookBookFallbackView {
     public const string EmptyText="讀不到原客戶端的食譜表（recipe.tbl）；仍可從背包的料理書輸入食譜編號製作。";
     public static string Caption(CookBookState book,int count)=>$"{Title}（等級 {book.Level}，{count} 道）";
     public static string[] Cells(CookBookRecipe r)=>[r.Index.ToString(System.Globalization.CultureInfo.InvariantCulture),r.Name,r.Materials];
-    /// <summary>原生 UI 關閉、在遊戲中、料理窗開著、且使用者沒有關掉這一次的窗時才顯示。</summary>
+    /// <summary>沒有可用的原生料理窗（原生 UI 關閉、面板沒註冊或已故障；T436 G16）、在遊戲中、料理窗開著、且使用者沒有關掉這一次的窗時才顯示。</summary>
     public static bool Wanted(bool nativeUi,bool inWorld,CookBookState book,long dismissedRevision)=>
         !nativeUi&&inWorld&&book.Open&&book.Revision!=dismissedRevision;
 }
@@ -24,10 +24,13 @@ public static class CookBookFallbackView {
 public sealed partial class ClientForm {
     CookBookFallbackWindow? cookBookFallback;
 
+    /// <summary>T436（#994，G16）：原生 COOK_BOOK_WINDOW 可用＝原生 UI 開啟、面板已註冊且沒有故障（比照 QuitFallbackUi）；否則用暫行清單。</summary>
+    bool NativeCookBookActive=>NativePanelActive(CookBookPanel.PanelId);
+
     void SyncCookBookFallback(){
         var book=login.World.CookBook;
         var window=cookBookFallback is {IsDisposed:false} w?w:null;
-        if(!CookBookFallbackView.Wanted(NativeUiActive,login.State==LoginState.InWorld,book,window?.DismissedRevision??-1)){
+        if(!CookBookFallbackView.Wanted(NativeCookBookActive,login.State==LoginState.InWorld,book,window?.DismissedRevision??-1)){
             if(window is {Visible:true})window.Hide();
             return;
         }

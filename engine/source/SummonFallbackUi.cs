@@ -41,6 +41,8 @@ public static class SummonFallback {
     /// 原生 UI 關閉時沒有 SummonUI，不切分頁使用者看不到清單。寵物分頁上的「開啟召喚怪物選擇」鈕也是 local，切換對它沒有影響。
     /// </summary>
     public static bool ShouldReveal(SummonView view,bool nativeUi,long lastRevealed)=>!nativeUi&&view.Open&&(view.Source is "server" or "local")&&view.Revision!=lastRevealed;
+    /// <summary>T436（G16）：原生 UI 開著（HUD 隱藏）但召喚窗故障時，寵物分頁從開發工具打開；classic 照舊走 HUD 玩家服務窗。</summary>
+    public static bool RevealInDevTools(bool nativeUiActive)=>nativeUiActive;
 }
 
 public sealed partial class ClientForm {
@@ -62,14 +64,23 @@ public sealed partial class ClientForm {
         });
     }
 
-    /// <summary>每個 timer tick：原生 UI 關閉且有新的召喚請求（原服 summonlist 或召喚控制戒指的本機請求）時，先讀清單並切到寵物分頁。</summary>
+    /// <summary>
+    /// T436（#994，classic-ui-audit G16）：原生 SummonUI 可用＝原生 UI 開啟、面板已註冊且沒有故障（UiClientBridge.NativePanelUsable，
+    /// 比照 QuitFallbackUi）。不可用時（--classic-ui，或原生 UI 開著但 SummonMonster_Window 故障）由寵物分頁的暫行清單接手。
+    /// </summary>
+    internal bool NativeSummonActive=>NativePanelActive(SummonPanel.PanelId);
+
+    /// <summary>每個 timer tick：原生召喚窗不可用且有新的召喚請求（原服 summonlist 或召喚控制戒指的本機請求）時，先讀清單並切到寵物分頁。</summary>
     void SyncSummonFallback(){
-        if(NativeUiActive||login.State!=LoginState.InWorld)return;
+        bool native=NativeSummonActive;
+        if(native||login.State!=LoginState.InWorld)return;
         var v=login.SummonSnapshot();
         if(v.Open)EnsureSummonFallbackCatalog();
-        if(!SummonFallback.ShouldReveal(v,NativeUiActive,summonFallbackRevealed))return;
+        if(!SummonFallback.ShouldReveal(v,native,summonFallbackRevealed))return;
         summonFallbackRevealed=v.Revision;
-        ShowPlayerService("寵物");
+        // classic：HUD 的玩家服務窗（照舊）。原生 UI 開著（HUD 隱藏）但面板故障：開發工具「服務」的寵物分頁。
+        if(SummonFallback.RevealInDevTools(NativeUiActive))ShowDevToolsPage("寵物");
+        else ShowPlayerService("寵物");
     }
 
     void AddSummonFallback(SummonView summon,Action<string> label,Action<string,bool,Action> button){
