@@ -411,3 +411,4 @@
 - 2026-11-11 — #992 T434：CU-2 classic 功能補洞（G3、G4、G5、G9、G10、G11）（code，claude-local，PR 已合併）→ [報告](reports/issue-992.md)
 - 2026-11-11 — #988 T431：R12-D 信件結果字串（code，claude-local，PR 已合併）→ [報告](reports/issue-988.md)
 - 2026-11-11 — #969 T425：Q8-B② WidgetSlot 模式切換（code，claude-local，PR 已合併）→ [報告](reports/issue-969.md)
+- 2026-11-11 — #993 T435：CU-3 原生讓位收尾（G12–G15）（code，claude-local，PR 已合併）→ [報告](reports/issue-993.md)
