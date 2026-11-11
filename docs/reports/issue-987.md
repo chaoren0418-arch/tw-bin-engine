@@ -16,6 +16,7 @@
 - **不讀也不寫正式客戶端的 `lineage.cfg`**（CLAUDE.md 規則 7）。我唯讀看過 `D:\lineage開發\0-客戶端\lineage.cfg`：315 bytes，開頭是 `lineage configuration file` 的二進位檔，不是 `鍵=值` 文字檔。所以引擎的檔案只沿用鍵名，**不是**原版的格式。
 
 ## 怎麼驗證
+- 已驗證（CI，PR #997，run 42968048078）：dotnet、map-continuity、npc-offline 三個 job 全部 pass；`--module-tests` 裡 `audio-volume-file` 為 pass（29 checks，0 failures），整組 `failed: 0`（既有的 split-volume 等測試也是綠的）。
 - 已驗證：`engine/tools/check-no-game-assets.py` 的結果是 `status: pass`，errors 0。
 - 已驗證：只改了任務列出的三個檔案（`git diff --stat origin/main...HEAD`）；沒改 `rebuild-lock.json`、`RingWindows.cs`、`Program.cs`、註冊表。
 - **本機沒編譯成功**：`dotnet build source/OfflineClient.csproj` 和 `rebuild.py --build --configfile .github/nuget.ci.config` 都卡在 `NETSDK1130: Microsoft.Web.WebView2.Core.winmd 無法參照`。這是本機 SDK／套件環境的問題，在編譯任何 C# 之前就失敗了，跟本次改動無關。所以編譯與測試以 PR 的 CI 結果為準。
