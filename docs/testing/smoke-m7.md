@@ -33,24 +33,25 @@ python -B -X utf8 engine/_integration/dev/rebuild.py --build --write-receipt --o
 ```
 `--check-only` 要回 `"status": "checked-only"`、`"revision": "dev"`。記下產品 DLL SHA-256，填進 §12 的表頭。
 
-### 0.3 三種跑法（重要，見 §11 K-1、K-2）
-main 現在的程式，**「一般產品入口」和 `--evidence` 不能同時用**：
-- launcher 只接受 `--check-only`，其他參數都會拒絕（`engine/_integration/dev/launcher-source/Program.cs:18`）。
-- 產品看到 `--normal-product` 時，除了它本身不能有別的參數（`ProductEntry.cs:7`，`--native-ui`／`--classic-ui` 會先被拿掉，`Program.cs:9`），帶 `--evidence` 會直接報「正常入口不接受診斷或自動登入參數」。
-- 不帶 `--normal-product`、只帶 `--evidence` 的話，進的是**診斷入口**：原生 UI 預設關（`ProductEntry.cs:12`），聊天輸入列不能開（`PlayerChatKeyboardFlow.cs:12–13`），書籤、位置分享這些只在一般產品才接的功能也不會接（`BookmarkUi.cs:108`、`LocationShare.cs:365`、`PlayerHudIntegration.cs:20`）。
+### 0.3 跑法：一輪收齊證據（K-1、K-2 已修，#948）
+T411（#948）之後，一般產品入口可以帶 `--evidence <dir>`：
+- launcher 接受 `--check-only`，以及 `--evidence <證據目錄>`；後者會把相對路徑先換成完整路徑（以執行指令時的目錄為準），再轉給產品，產品照樣帶 `--normal-product`（`engine/_integration/dev/launcher-source/Program.cs:17–27`）。
+- 產品看到 `--normal-product` 時，除了它本身只多接受**一組** `--evidence <dir>`（`ProductEntry.Normal`）；其他診斷或自動登入參數照舊拒絕，訊息不變（「正常入口不接受診斷或自動登入參數。」）。`--native-ui`／`--classic-ui` 照舊先被拿掉（`Program.cs:9`）。
+- 帶 `--evidence` 的一般產品行為不變：原生 UI 預設開、聊天輸入列、書籤、位置分享都照常；只是多寫 `native-ui.log`、`window-events.json`、`login-state.json` 等證據和快照。
+- 證據目錄**必須在專案資料夾內**（CLAUDE.md 第 1 條）；不在專案內、在 `releases\` 下、或經過 junction／符號連結（例如 `engine\assets`）時，產品會跳「證據目錄…：請改用專案資料夾內的目錄，例如 …\scratch\smoke-m7\<日期>」並拒絕啟動。
 
-所以分成三輪跑，每一項在表上標了要在哪一輪做：
+所以只跑一輪（C 小段只給 §10 用）：
 
 | 輪 | 指令（在 `engine\` 目錄執行） | 用途 | native-ui.log |
 |---|---|---|---|
-| **A 主輪** | `.\啟動新版客戶端.cmd`（不帶參數；launcher 會帶 `--normal-product`） | 全部遊戲操作。原生 UI 預設開 | **沒有**（K-1）。截圖用 Ctrl+P（存 `engine\runtime\Capture`）或外部截圖 |
-| **B 證據輪** | `.\build\client-product-dev\P11.ClientEngine.exe --evidence <證據目錄> --native-ui` | 只做 §1–§3（啟動、登入、選角、建角）和 §4 用按鈕開窗的部分，收 `native-ui.log` 和 `window-events.json`。登入畫面要自己選 profile `p24-real-jar-d287-client2`、port 42061 | 有 |
-| **C classic 小段** | `.\build\client-product-dev\P11.ClientEngine.exe --normal-product --classic-ui` | §10 的舊介面對照 | 沒有 |
+| **A 主輪** | `.\啟動新版客戶端.cmd --evidence <證據目錄>`（launcher 帶 `--normal-product --evidence <完整路徑>`） | 全部遊戲操作，原生 UI 預設開；同時收 `native-ui.log`、`window-events.json`、快照。截圖用 Ctrl+P（存 `engine\runtime\Capture`）或外部截圖 | 有 |
+| **C classic 小段** | `.\build\client-product-dev\P11.ClientEngine.exe --normal-product --classic-ui --evidence <證據目錄>-C` | §10 的舊介面對照 | 有（可不帶 `--evidence`） |
 
-- `<證據目錄>` 用 `D:\lineage開發\TW1608262200研究\scratch\smoke-m7\<日期>-B`（`scratch/` 不進 git）。
-- B、C 輪直接執行 exe，不經 launcher 的 manifest 核對，所以一定要先跑 0.2 的 `--check-only`。
-- 如果跑之前已經有「一般產品入口接受 `--evidence`」的修正合併（建議另開小任務，見報告），A 輪就改成帶 `--evidence`，B 輪可以省略。
-- 跑完 B 輪，把整份 `native-ui.log` 和 `window-events.json` 留在證據目錄；用關鍵字搜尋即可，不用 DebugView。
+- `<證據目錄>` 用 `D:\lineage開發\TW1608262200研究\scratch\smoke-m7\<日期>-A`（`scratch/` 不進 git）。
+- 各項表格裡原本標「B」或「A＋B」的，一律在 A 輪做；「log（B 輪）」改成看 A 輪的 `native-ui.log`。SM02 不必再另開一次啟動。
+- C 輪直接執行 exe，不經 launcher 的 manifest 核對，所以一定要先跑 0.2 的 `--check-only`。
+- 根目錄的 `啟動引擎.cmd` 仍是 r33 封存 launcher，不接受 `--evidence`；smoke 一律用 `engine\啟動新版客戶端.cmd`（dev）。
+- 跑完 A 輪，把整份 `native-ui.log` 和 `window-events.json`（關窗時才寫）留在證據目錄；用關鍵字搜尋即可，不用 DebugView。
 - `engine\runtime\` 不在 `.gitignore` 裡，裡面的 `native-ui.json`、`Capture\` 不要 commit。
 
 ### 0.4 截圖命名
@@ -539,9 +540,9 @@ main 現在的程式，**「一般產品入口」和 `--evidence` 不能同時�
 
 ## 11. 已知差異（main `b6ebd74b` 對 gap-matrix 15.12.7）
 
-**K-1、K-2：跑法限制（會影響本腳本）**
-- **K-1**：launcher 只收 `--check-only`（`launcher-source/Program.cs:18`），所以「`啟動引擎.cmd` 加 `--evidence`」不能用。
-- **K-2**：`--normal-product` 不接受其他參數（`ProductEntry.cs:7`），`--evidence` 只能用在診斷入口；診斷入口原生 UI 預設關、聊天輸入列不開（`PlayerChatKeyboardFlow.cs:12–13`）。所以 #919 的 native-ui.log 目前只能在 B 輪拿到。**建議跑 smoke 前先開一張小 code 任務**：讓一般產品入口接受 `--evidence <dir>`（`ProductEntry.cs`，必要時加 launcher 轉送），A 輪就能直接收 log。
+**K-1、K-2：跑法限制——已修（#948）**
+- **K-1（已修，#948）**：原本 launcher 只收 `--check-only`。現在 dev launcher（`engine\啟動新版客戶端.cmd`）也收 `--evidence <dir>`，換成完整路徑後轉給產品（`launcher-source/Program.cs:17–27`）。根目錄 `啟動引擎.cmd` 指向 r33 封存 launcher，不變。
+- **K-2（已修，#948）**：原本 `--normal-product` 不接受其他參數，`--evidence` 只能用在診斷入口。現在 `--normal-product` 只多接受一組 `--evidence <dir>`，目錄要在專案資料夾內（`ProductEntry.Normal`／`CheckEvidenceDirectory`）；其他參數照舊拒絕。A 輪就能直接收 #919 的 native-ui.log，B 輪取消（§0.3）。
 
 **行為已經改了（15.12.7 的說明過時，本腳本已照新行為寫）**
 | 代號 | 15.12.7 寫的 | main 現況 |
