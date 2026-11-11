@@ -2776,3 +2776,150 @@ R12-A–E 的檔案互不重疊，可以同時派；R12-C 等裁定。#969（Q8-
 - 4:WidgetSlot 的「已有」是預期；#969 的實作若和 FU15§2.4、Q9-3 不同，下一輪要重判。
 - 「已有」只表示靜態看程式沒有已知差異，全部都沒有真機驗收。
 - 本節的 `檔案:行` 以 main `80801578` 為準。
+
+### 15.15 第十輪盤點與 M7 結案判定（T441／#1012，2026-11-11）
+
+依 main `f59d6d69`。第九輪（15.14）之後合併、和 gap-matrix 有關的任務：
+- R12-A #985、R12-B #986、R12-C #987、R12-D #988、R12-E #989；
+- Q8-B② #969；查證 FU17（#966，Q9-2–5）與它帶出的 Q8-A①補充 #1008、Q9-C #1009、Q9-D #1010、Q9-A #1011；
+- `--classic-ui` 盤點 #953（`classic-ui-audit.md`）與 CU-1 #991、CU-2 #992、CU-3 #993、CU-4 #994。
+
+不對應任何列的：#982（TASKS 補列）、#999（PATH 防護）、#1007（佇列）。本輪開始時沒有還在跑、會影響列的任務，所以**本節沒有 K7、沒有「預期」**，含預期與不算預期的數字相同。
+
+計數用 `rea-scripts/gap_count_r10.py`：依序套 15.3、15.12、15.13、15.14、15.15 的狀態變更表，分類只讀本節。`--round 9` 讀到 15.15 之前就停、分類讀 15.14，重現第九輪的數字（含預期 230／19／41、不算預期 229／20／41，K1 55、K5 5、K7 1）。`gap_count_r9.py` 也改成讀到 15.15 之前就停，結果相同。
+
+#### 15.15.1 方法
+
+- **判定規則**同 15.14.1：有查證依據、程式沒做的子項，不論多小都歸 K5；推定項、只能真機看的差異、任務報告標「選做」或「引擎取捨」的不擋。
+- **逐列核對**（讀任務報告的「未做／未驗證」，再到產品碼找呼叫點，不含 `*Tests.cs`；下列 `檔案:行` 都是本輪讀過的）：
+  - R12-A（5:`sub_87C890`）：`OwnActionState.cs:23`（`[WorldReceive(158, Observe=true)]`）、`:58`（`OwnFishingFrame`）→ `ObjectRendering.cs:26`；`Invisibility.cs:31`、`:38`（`IsAttachedLayer`，層旗標 8／0x80 不加半透明）。
+  - R12-B（4:AgitAuctionUI）：`RingWindows.cs:329–339`（`AgitAuctionHost : IAgitAuctionChatHost`，4381 → `AddBoardChatNotice`，palette[24]）、`NativeUi/AgitAuctionPanel.cs:912`（`host.Bid(o,v);Close();`）。
+  - R12-C（4:OptionUI）：`PlayerAudioSettings.cs:19`（只在正常入口接 `AudioVolumeFile.DefaultPath`）、`:78`（捲軸改值時 `Save`）；檔案是引擎自己的 `runtime/user/sound-volume.cfg`，不碰正式客戶端的 `lineage.cfg`。
+  - R12-D（1:99）：`Mail.cs:26–40`（`MailNoticeLine`：1239／1240／400＋1261／1241–1244／428）、`:186`（`MailNoticeLine.For`）、`NativeUi/MailPanel.cs:69`（`Lines()` 一筆回包印一行）。
+  - R12-E（4.2 `BoardListWindow`）：`NativeUi/BoardPanel.cs:209`（等待中滑鼠全部吃掉，含右鍵雙擊）、`Board.cs:82–140`（`delete-wait`）、`:118–121`（`BoardDeleteReload`）、`NativeUi/BoardPanels.cs:86–88`（`IsWaiting`）。
+  - Q8-B②（4:WidgetSlot）：`NativeUi/MacroPanel.cs:14`（`WidgetSlotMode`）、`:141`、`:165`、`:227`（主欄鈕、Alt+R）、`NativeUi/ExMacroPanel.cs:96`（副欄鈕）。模式 0＝小地圖、1＝擴充快捷欄，和 FU17§2.2 一致。
+  - Q9-5／#1008（4:PledgeUI）：`NativeUi/PledgePanel.cs:818`、`:844`、`ClanUi.cs:85`（`ObsceneFilter.Apply`）。
+  - Q9-2／#1011（4:BookmarkWindowUI）：`NativeUi/BookmarkPanel.cs:81`（`ZoneGroups`，讀參考客戶端 `zone3(-c).xml`）。
+  - Q9-4／#1009、#1010（1:144）：`NativeUi/HyperTextLayout.cs:198`、`:205`、`:239`（`HyperTextClock`）、`:304`（`HyperTextOptionVars`）、`:311`（`HpMp` 來源）、`NpcTemplates.cs:33`、`:42`；另讀 `NpcInteraction.cs:83–104`（本機頁的選項）與 `NativeUi/UiClientBridge.cs:243–252`（`ToggleMenuLocalPage`），結果見 15.15.5。
+- **classic-ui-audit 與 CU-1–4**：`--classic-ui` 是引擎備援，不對應任何列（同 15.14 的處理）。G1–G19 已由 #991–#994 全部接上，只影響 `smoke-m7.md` 的 C 輪（15.15.8）。
+- **其餘「已有」列**沒有逐列重看；本輪合併的任務報告沒有回退。
+- **PakViewer**：本輪沒有新的「缺資源」宣稱。為了判斷本機選項頁可不可達，唯讀查了本機 `0-客戶端\Text.idx`（`pak search Text.idx option`：76 筆），解出 `option1-c.html`、`option11-c.html`、`option12-c.html`、`option13-c.html`、`optiong-c.html` 到 `scratch/t1012/pak/`（不進 git）。`option1-c` 有 `<a link="option11|12|13">`、`help`；`option11-c` 有 `showhpmp`＋`#1023`；`option12-c` 有 `bubbleon`＋`#1003`、`showMargetMsg`＋`#1027`。
+- 沒有開 IDA，沒有建置或執行程式，也沒有啟動遊戲、伺服器或 DB。
+
+#### 15.15.2 狀態變更表
+
+「原狀態」是套用 15.14.2 之後的狀態。
+
+| 節 | 列 | 原狀態 | 新狀態 | 補上的任務 | 剩下的差異／依據（真機代號） |
+|---|---|---|---|---|---|
+| 5 | `sub_87C890` | 部分 | 已有 | #985 | 自己的動作 71 換釣魚姿勢＋cloth 6262；附加層層旗標 8／0x80 不加半透明。釣魚的結束條件是引擎推測；本體自己的 104.attr 旗標照舊加 `|1`（FU14 只寫逐層）；5940 不永久改 1120 是 FU14§1.3 的取捨（M31） |
+| 4 | AgitAuctionUI | 部分 | 已有 | #986 | 4381 印聊天欄（palette[24]，`sub_545920` VA `0x5459A3–0x5459D6` 反組譯）；Ok 送出後關窗（VA `0x545A83–0x545AA9`）。按住的速度、關窗後焦點是推測（M20） |
+| 4 | OptionUI | 部分 | 已有 | #987 | 四類音量存檔，沿用 `lineage.cfg` 的鍵名，但格式是引擎自己的（原版 `lineage.cfg` 是二進位檔，不重現，記為取捨）；0–100 的刻度是推定（M26） |
+| 1 | 99 | 部分 | 已有 | #988 | 聊天欄印原版字串 1239–1244／400＋1261／428，清單、本文不印；0x50 只有對應（3.81 伺服器不送）（SM16） |
+| 4.2 | `BoardListWindow` | 部分 | 已有 | #989 | 等待中滑鼠全部吃掉；刪文進 `delete-wait`。「刪文後一律重抓這一頁」是引擎取捨（原版只在不足一頁而且還有下一段時才重抓，引擎不在本機刪列，`board.md`）（M17） |
+| 1 | 144 | 已有 | 部分 | #1009、#1010（已合併） | `<date>`／`<time>`／var 998–999、1002–1029 的輸出都已做。但 FU17§3.4 依據的本機選項頁在引擎**點不進去、點了也不動作**，option11 的 1023／1024 在產品也拿不到值，見 15.15.5 |
+
+合計「部分→已有」**5 列**，「已有→部分」**1 列**。
+
+不改狀態、但本輪複核過的列：
+- 4:WidgetSlot：第九輪的「已有」是預期（K7），#969 合併後是**實際「已有」**。隊伍 RT 當成模式 0、原版選項位元的格式不重現，都是報告自己標的推測／取捨（M30）。
+- 4:PledgeUI：備註送出前照 FU17§4.1 過濾（#1008）。大小寫、qsort 順序是推測；3.81 是否同樣過濾待驗證（快照有 `obscene` 字串），不擋。
+- 4:BookmarkWindowUI：Q9-2 的結論是「3.81 不支援區域群組」；#1011 依主控裁定改讀參考客戶端 zone3（**不是 3.81 行為**，同 #533 的做法）。沒有參考客戶端時照舊用地圖編號。`sub_BDC920` 的組合方式是推測。
+- 4:PersonalShopUI：15.14 記的「option12 `#1003`／`#1027` HyperAct 屬 Q9-4」。#1010 已讓 `<var #1003>`／`#1027` 輸出對的值，開關本身由 WinForms「名稱顯示」頁與存檔提供（R11-E）。**option12 頁上的 `bubbleon`／`showMargetMsg` 動作不能點**，和 1:144 是同一個原因（本機頁的選項停用），統一記在 1:144，PersonalShopUI 維持「已有」，避免一個差異算兩列。
+
+#### 15.15.3 統計（第十輪）
+
+執行：`py -3 -I docs/reference/rea-scripts/gap_count_r10.py docs/reference/gap-matrix.md`（加 `--list` 印出所有非「已有」列）。本輪沒有 K7，「不算預期」那張表和下表相同。
+
+| 節 | 已有 | 部分 | 缺 | 其中需先查證 | 其中伺服器不支援／不建議 | 其中可直接補 |
+|---|---:|---:|---:|---:|---:|---:|
+| 1. 收包：第一組 dispatch | 102 | 2 | 10 | 0 | 9 | 1 |
+| 2. 收包：第二組 | 8 | 1 | 4 | 0 | 4 | 0 |
+| 3. 送包：`sub_951F80` 名稱表 | 45 | 2 | 5 | 0 | 5 | 0 |
+| 4. UI 視窗 | 42 | 10 | 21 | 0 | 20 | 1 |
+| 5. 物件、技能、道具、地圖事件與繪製的處理函式 | 37 | 0 | 1 | 0 | 1 | 0 |
+| **合計** | **234** | **15** | **41** | 0 | 39 | 2 |
+
+和第九輪比（含預期 230／19／41）：「部分→已有」5 列、「已有→部分」1 列，「缺」沒有變。和第九輪的「不算預期」（229／20／41）比，另加上 4:WidgetSlot 從預期變成實際。
+
+#### 15.15.4 分類（每列一類；取代 15.14.4）
+
+| 類 | 列（節:列，以「；」分隔） | 原因 |
+|---|---|---|
+| K1 伺服器不支援／不建議 | 1:108；1:132；2:42、67、83、215；3:C_ATTACK(43)；3:C_TELEPORT(226)；4:LoadingWindowUI；4:NpcDialogUI；4:CommunityUI；4:`PetInventoryWindow`；4:`TelTablesWindow`；4:`AgitWindow`；4:BookmarkMemoryWindowUI；4:PopUpUI；4:GameRankingUI；4:MapUI；4:StatInfoUI | 同 15.14.4。「缺」裡已標「伺服器不支援／不建議」的 39 列預設歸 K1，不逐列列出 |
+| K5 仍有 code 差異 | 1:144 | 1 列，能離線寫程式，見 15.15.5；分到 15.15.6 的 R13-A |
+
+K2、K7 為 0。
+
+各類列數（`gap_count_r10.py` 輸出）：
+
+| 類 | §1 | §2 | §3 | §4 | §5 | 部分 | 缺 | 已有（預期） | 合計 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| K1 | 11 | 5 | 7 | 31 | 1 | 14 | 41 | 0 | 55 |
+| K5 | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 1 |
+
+**290 列的去向**：
+
+| 去向 | 列數 | 和第九輪比 |
+|---|---:|---|
+| 已有 | 234 | +5（對第九輪的實際 229；R12-A–E 補上 5 列，4:WidgetSlot 從 K7 變實際「已有」，1:144 改回「部分」） |
+| K7 進行中 | 0 | −1（#969 已合併） |
+| K1 伺服器不支援 | 55 | 0 |
+| K2 需先查證 | 0 | 0 |
+| K5 仍有 code 差異 | 1 | −4（5 列都改「已有」；新增 1:144） |
+| **合計** | **290** | |
+
+#### 15.15.5 K5 的逐列說明
+
+| 列 | 類 | 還缺什麼（有查證依據、程式沒做） | 對應檔案 | 能否再分組 |
+|---|---|---|---|---|
+| 1:144 | K5 | `<date>`／`<time>`／var 998–999（#1009）、var 1002–1029（#1010）都已輸出。剩：① **選單本機頁的連結停用**：鈕 6／Ctrl+V 開 `option1`（`UiClientBridge.cs:252` → `ShowQueryPage`），但 `NpcInteraction.cs:86` 把查詢頁的所有選項設成 `Enabled=false`（「查詢結果頁的選項尚未支援。」），`:103` 也要求 `QueryActionable`，所以 `option1` 的 `<a link="option11／12／13">`、`help` 都點不進去；FU17§3.4 的 option11–13 對照表在產品看不到。#705 報告第 42、58 行早就記了「要等原生 HYPER_TEXT_WINDOW 再讓 link 換頁」，R4-I 之後沒有接上。② **本機頁上的客戶端動作不執行**：有查證依據的 `accepttrade`（FU7§1.1，`sub_581790`，切換後重開 `option13`）、`getall`（`world-objects.md` 第 81 行，`sub_582E30`，重開 `option13`）、`bubbleon`（FU16，`sub_581B90`）、`showMargetMsg`（FU16，`sub_584BE0`）在本機頁都不能點；引擎的 `accepttrade` 只在伺服器頁有效（`NpcInteraction.cs:157`）。③ **1023／1024 沒有值**：`HyperTextOptionVars.HpMp`（`HyperTextLayout.cs:311`）只有測試會設，產品顯示「缺少參數」（#1010 報告第 48、62 行）。不擋的：1004 `dochat`（`unk_1656948` 沒追到，待驗證）；1025、1028 等引擎沒有對應設定的項目（原版功能，引擎沒有這些選項，FU17§7 沒列入）；`<subHtml>` 頁被當成 dynamic（FU17§3.3 判為不改） | `NpcInteraction.cs`（只限 `ShowQueryPage`／`OpenQueryLink` 的本機頁模式）、`NativeUi/UiClientBridge.cs`（只限 `ToggleMenuLocalPage` 與 `HyperTextOptionVars.HpMp` 一行）、新檔 | 能，R13-A |
+
+#### 15.15.6 第十批 code 任務分組（R13-A，1 組）
+
+原則同 15.14.6（自動發現、不改 `WorldSession.cs`／`UiPanelRegistry.cs`／`Program.cs`／`DemoChecks.csproj`；PR 不改 `rebuild-lock.json`；CI 編譯與既有測試綠，另加自己的離線測試）。
+
+| 組 | 目標（列） | 可改的檔案 | 依賴 |
+|---|---|---|---|
+| R13-A 本機選項頁可操作 | ① 選單開的本機頁（help、option1、option2／option2p）改成「本機頁模式」：`<a link>`、`<img link>` 在本機換到同名的本機頁（option1↔option11／12／13／14），不送封包；② 本機頁上有查證依據的客戶端動作在本機執行，執行後重畫目前這頁：`accepttrade`（沿用 `ToggleAcceptTrade`）、`getall`、`bubbleon`、`showMargetMsg`；其他動作照原樣顯示但停用，不送 C125（原版怎麼處理沒查到，推測）；③ `ApplyNativeUiStart` 成功時設 `HyperTextOptionVars.HpMp=()=>OptionPanel.HpMpWindow(root)?.Settings`（1:144） | `NpcInteraction.cs`（只限本機頁模式）、`NativeUi/UiClientBridge.cs`（只限 `ToggleMenuLocalPage` 與 `HpMp` 一行）、新檔 `LocalOptionPage.cs`、新檔 `LocalOptionPageTests.cs` | 無。`dowhisper`／`dotradechat` 等的處理函式要在任務內先用 IDA 查（FU7§1.4 只對了變數）；查不到的維持停用 |
+
+#### 15.15.7 M7 判定
+
+**判定：M7 現在還不能結案。**
+
+結案條件（同 15.14.7）：K5 已清空，或只剩真機才能判定的列，而且 K2 為 0。
+
+對照現況：
+- **K1 55 列**：每列都有理由，不擋。
+- **K2 0 列**、**K7 0 列**：符合。
+- **15.14.7 的三個條件**：① R12-A–E 都已合併（#985–#989）；② #966 查完、#969 已合併；③ #966 帶出的 Q8-A①補充、Q9-A、Q9-C、Q9-D 都已合併（#1008–#1011）。三個都達成。
+- **阻擋的列**（能離線完成，不是「只能真機」）：
+
+  | 阻擋原因 | 列數 | 列 | 怎麼解 |
+  |---|---:|---|---|
+  | K5，能離線寫程式 | 1 | 1:144 | R13-A（15.15.6），還沒開成任務 |
+
+**結案條件（本輪起）**：R13-A 合併，或使用者裁定 15.15.5 的 ①② 為「引擎取捨、不做」（③ 是一行，建議照做）。做完以後非「已有」只剩 K1 55 列（235 列「已有」），符合結案標準。真機 smoke 不在 M7 的結案條件裡，建議和 M7 結案一起排。
+
+**M7 結案摘要定稿**（R13-A 合併後直接給 PLAN／TASKS 用；數字以那時重跑 `gap_count_r10.py` 為準，預期 235／55）：
+> **完成了什麼**：gap-matrix 290 列中 235 列「已有」、55 列 K1（伺服器 3.81 不支援或不建議做），K2、K5 為 0。十輪盤點（T202、T244、T277、T291、T305、T339、T379、T412、T427、T441）與 R6–R13、Q8、Q9 的 code 任務都已合併；查證 FU1–FU17 已回填。`--classic-ui` 備援的 19 個缺口（G1–G19）已由 CU-1–4 接上。
+> **剩下只有真機的項目**：`docs/testing/smoke-m7.md` 的 59 項（🔴 48、🟢 11；§15 是第十輪的對齊），全部交 P24Lab 測試角色執行；「已有」只代表靜態核對，全部都沒有真機驗收。
+> **已知取捨**：5940 缺 spr 時不永久改成 1120（FU14§1.3）；StatInfoUI 22 列數值留白（protobuf，FU15§1）；選目標多模式並存的先後是引擎規則（#957）；聊天列提示沒有聊天窗時退回窗內編輯（#967）；舊式 `ExcludeWindow` 不另做（15.12.5）；類別音量、WidgetSlot 模式、選項值都存在引擎自己的設定檔，不重現原版 `lineage.cfg`／選項位元的格式（#987、#969，CLAUDE.md 規則 7）；公告板刪文後一律重抓這一頁（#989）；書籤區域群組讀參考客戶端 zone3，不是 3.81 行為（#1011）；`--classic-ui` 是引擎備援、不算原版功能，它的 WinForms 替代入口（MessageBox、聊天欄中央訊息、清單分頁）都是引擎自訂（#953、#992）。
+
+**需要裁定**
+1. R13-A 的範圍：照本節做 ①②③，還是只做 ③、把 ①② 裁定為取捨。若只做 ③，1:144 改「已有」的條件是使用者裁定，下一輪直接改；option11–13 的開關在原生 UI 下就只剩選項窗（OptionUI）與 WinForms 的入口。
+
+#### 15.15.8 真機項目的變動（對 `smoke-m7.md`）
+
+寫在 `docs/testing/smoke-m7.md` §15：
+- **編號更正**：第八輪補的「SM57 選項窗」和 #953 補的「SM57 classic 備援入口逐一點開」撞號，實際一直是 59 項。classic 那項改成 **SM59**，合計改成 **59 項（🔴 48、🟢 11）**。
+- **預期改了**：14.3 列的 5 個「已知差異」（SM29、SM30、SM57、SM16、SM27）R12 已合併，改成正向檢查；SM15（#969）改成實際切換；SM24（不雅字）、SM33（`<date>`）、SM38（區域群組）補步驟；SM54、SM59 照 CU-1–4 改預期。
+- 🔴／🟢 沒有變動；本輪沒有新的 SM 項目（R13-A 的真機步驟先寫在 §15.3 的 SM16 附加，合併後才測）。
+
+#### 15.15.9 限制
+
+- 只讀報告與原始碼，沒有建置或執行。「沒做」「產品沒有呼叫」是用 Grep 判斷的；經由反射、委派或事件間接呼叫的地方可能漏掉。15.15.1 列的呼叫點我讀過。
+- 1:144 的 ①②：原版本機頁上「沒有客戶端處理函式的動作」會不會送封包、送什麼，沒有查（R13-A 內推測為不送）。
+- 第九輪前已是「已有」的列，只複核了 15.15.2 列出的 4 列，其餘沒有逐列重看。
+- 「已有」只表示靜態看程式沒有已知差異，全部都沒有真機驗收。
+- 本節的 `檔案:行` 以 main `f59d6d69` 為準。
