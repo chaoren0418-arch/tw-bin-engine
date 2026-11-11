@@ -61,7 +61,8 @@
   - 釣魚：動作 71 解析、子檔＝304＋朝向、別名、讀不到時回 null；
   - 讀不到原客戶端時不丟例外。
 - `ListSprFieldTests.cs`（R8-E 的既有測試）有兩行寫死「`ClothVerified` 是 false」，已改成符合本任務的值（見下面「範圍說明」）。
-- **CI**：見 PR。
+- **CI**（PR #955，run 42944443224／42944443238）：`dotnet`、`map-continuity`、`npc-offline` 全部 pass。`--module-tests` 整份 `failed: 0`；`listspr-wiring` 62 項、`listspr-fields` 30 項，都是 0 失敗。
+  - 第一次 push 時 `listspr-wiring` 失敗：測試呼叫完整的 `Snapshot()`，它會讀 `engine/assets`，CI 沒有這個目錄。第二個 commit 改成只讀擴充快照，只改了測試。
 
 ### 資源查證（PakViewer CLI，唯讀，輸出在 `scratch/t922/pak-index/`）
 - 範圍：`pak_index.ps1 -WithAlt` 列出的本機 24 個 idx（`Sprite`、`Sprite00`–`15`、`Text`、`Tile`、`LiTo\LTicon`／`LTsprite`／`LTsurf`／`LTtext`／`LTtile`；`launcher\TW13081901.pak` 沒有 idx），加上參考客戶端 kor25／ly／t89 的 `Sprite*`、`Text`、`Tile`。
