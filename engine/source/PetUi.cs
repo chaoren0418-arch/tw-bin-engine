@@ -106,7 +106,7 @@ public sealed partial class ClientForm {
         var companions=login.World.PetCompanions;
         if(!companions.Any(o=>o.ObjectId==selectedPet))selectedPet=companions.FirstOrDefault()?.ObjectId??0;
         var view=login.PetSnapshot(selectedPet);var collars=login.World.PetCollars;
-        var target=login.PetTargetSnapshot();var summon=login.SummonSnapshot();bool native=NativeUiActive;
+        var target=login.PetTargetSnapshot();var summon=login.SummonSnapshot();bool native=NativeSummonActive;   // T436（G16）：面板故障時也列暫行清單
         var equipment=login.PetEquipmentSnapshot(selectedPet);
         bool active=login.State==LoginState.InWorld;
         string signature=System.Text.Json.JsonSerializer.Serialize(new{active,view,equipment,companions=companions.Select(o=>new{o.ObjectId,o.Name,o.HpPercent}),collars,walking=World.Walking,target,summon,native,fallback=SummonFallbackSignature});

@@ -58,7 +58,36 @@ public sealed partial class ClientForm {
         timer.Tick+=(_,_)=>{if(ClientSoundScene.Scene(login.State)==MusicScene.CharacterSelect)ClientSoundScene.ObserveFront(login.State,masterGain,masterMute,Environment.TickCount64);};
         // T327 (#765): the native UI may become active after the list arrived, so the native screens are attached on the tick too.
         timer.Tick+=(_,_)=>AttachNativeCharacterScreens();
+        // T436 (#994, classic-ui-audit G18): native UI active but LoginUI / SelectUI unusable → reveal the dev-tools login page.
+        timer.Tick+=(_,_)=>SyncNativeLoginFallback();
     }
+    /// <summary>
+    /// T436 (G18): the native screen this login state needs. Before the character list → LoginUI; list / character management /
+    /// switching → SelectUI; entering or in the world → none (false = nothing missing).
+    /// </summary>
+    internal static bool NativeLoginScreenMissing(LoginState state,bool loginUsable,bool selectUsable)=>state switch{
+        LoginState.InWorld or LoginState.EnteringWorld=>false,
+        LoginState.AwaitList or LoginState.ReadingCharacters or LoginState.CharacterList or LoginState.ManagingCharacters or LoginState.SwitchingCharacter=>!selectUsable,
+        _=>!loginUsable,
+    };
+    /// <summary>
+    /// T436 (G18): open the dev-tools 「登入／選角」 page once when the native UI is active and the needed screen is missing
+    /// (edge: missing now, not missing on the last tick). --classic-ui is G2 (ClientLogin SyncClassicLoginEntry), not here.
+    /// </summary>
+    internal static bool ShouldRevealNativeLoginFallback(bool enabled,bool nativeActive,bool missing,bool wasMissing)=>
+        enabled&&nativeActive&&missing&&!wasMissing;
+    bool nativeLoginFallbackMissing;
+    void SyncNativeLoginFallback(){
+        if(!classicLoginEntryArmed||IsDisposed)return;
+        bool missing=NativeUiActive&&NativeLoginScreenMissing(login.State,NativeLoginScreenUsable(),NativeSelectScreenUsable());
+        bool reveal=ShouldRevealNativeLoginFallback(classicLoginEntryEnabled,NativeUiActive,missing,nativeLoginFallbackMissing);
+        nativeLoginFallbackMissing=missing;
+        if(!reveal||playerLoginStrip==null)return;
+        events.Add(new{kind="native-login-fallback",state=login.State.ToString()});
+        BeginInvoke(()=>{if(!IsDisposed&&NativeUiActive&&login.State!=LoginState.InWorld)ShowDevTools(playerLoginStrip);});
+    }
+    bool NativeLoginScreenUsable()=>NativeUiRoot is {} root&&root.Find(P06.NativeUi.LoginPanel.PanelId) is P06.NativeUi.LoginPanel p&&p.Available&&!root.Faulted.Contains(p);
+    bool NativeSelectScreenUsable()=>NativeUiRoot is {} root&&root.Find(P06.NativeUi.SelectCharPanel.PanelId) is P06.NativeUi.SelectCharPanel p&&p.Available&&!root.Faulted.Contains(p);
     async Task OpenCharacterCreationDialog(){
         ClearInput("character-create");int session=login.SessionGeneration,revision=login.Revision;
         using var dialog=new CharacterCreationDialog(login.Characters.Count,login.Slots);
