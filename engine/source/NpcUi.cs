@@ -14,6 +14,41 @@ public sealed record NpcWebCommand(string Command,int Revision,int Epoch,int Tar
         return new(cmd switch{"npcTalk"=>"talk","npcClose"=>"close","npcOption"=>"option","npcQueryOption"=>"query-option","npcSelectTarget"=>"target","npcAmount"=>"amount","npcCastle"=>"castle","npcCastleCancel"=>"castle-cancel",_=>"shop"},revision,epoch,target,option,rows.ToArray(),cmd=="npcSelectTarget"?o.GetProperty("targetId").GetUInt32():0,prompt,value);
     }
 }
+/// <summary>T435（#993，classic-ui-audit G14）：WinForms NPC 面板這一輪是否整個讓位給原生窗（拆出來給離線測試）。</summary>
+public static class NpcPanelYield {
+    /// <summary>
+    /// 原本（R4-I）：HYPER_TEXT_WINDOW 接手頁面，而且 NPC 這邊沒有東西、是原生倉庫、或只有頁面。
+    /// G14：商店買賣清單在原生 TRADE_WINDOW 時也讓位（ShopTradeWindow 不是 null＝原生窗接上、沒故障、有列）。查詢頁要靠 WinForms 顯示時
+    /// （原生 HYPER_TEXT_WINDOW 不可用）不讓位。空清單（原服沒列出物品）不讓位：提示文字照舊只在 NPC 面板。
+    /// </summary>
+    public static bool OwnsAll(bool nativePages,bool npcOpen,bool nativeWarehouse,bool hasPage,bool nativeShop,bool query)=>
+        nativePages&&(!npcOpen||nativeWarehouse||hasPage)||nativeShop&&(nativePages||!query);
+}
+/// <summary>
+/// T435（#993，classic-ui-audit G15）：哪一個 NPC 頁是 S39 agsel。同一個 S39 會同時變成 NPC 頁（NpcInteraction.cs）和
+/// AuctionInfo_Window 的請求（AgitAuctionInfoWindow，觀察者）；看到新的請求時，若目前 NPC 對話就是這個看板、而且有頁，那一頁的
+/// 版本就是 agsel 頁。之後頁面一換（版本變了）就不是。
+/// </summary>
+public sealed class AgselPageTracker {
+    long seen=-1;int page=-1;
+    /// <remarks>
+    /// 觀察者比 NPC 對話的處理先跑（WorldExtensions：Observe 先收到），兩者都在 LoginConnection 的 worldCaptureGate 裡；
+    /// 呼叫端要在 CaptureWorld 裡讀這幾個值，才不會讀到「有請求、頁還沒換」的中間狀態。
+    /// </remarks>
+    public void Observe(AgitAuctionInfoRequest? request,uint? interactionNpc,bool hasPage,int interactionRevision){
+        if(request==null){seen=-1;page=-1;return;}
+        if(request.Revision==seen)return;
+        seen=request.Revision;
+        page=interactionNpc==request.BoardId&&hasPage?interactionRevision:-1;
+    }
+    public bool IsAgselPage(int interactionRevision)=>page>=0&&page==interactionRevision;
+    /// <summary>
+    /// HYPER_TEXT_WINDOW 不放這一頁：是 agsel 頁，而且原生 AuctionInfo_Window 可用、Agitmap_Window 正顯示同一個看板（會由它顯示）。
+    /// 推測（真機再確認）：原版把 agsel 交給 CAgitAuctionUI 的路徑沒有追到（AgitAuctionPanel.cs 檔頭）；比照 agapply（HyperTextOmitsNumber），
+    /// 使用者關掉 AuctionInfo_Window 後也不改回 HyperText。
+    /// </summary>
+    public static bool HyperTextOmits(bool agselPage,bool nativeInfoShows)=>agselPage&&nativeInfoShows;
+}
 /// <summary>T434（#992，classic-ui-audit G4）：classic 以物品學魔法清單的判斷（拆出來給離線測試）。</summary>
 public static class ClassicSpellExchange {
     /// <summary>要在 WinForms 顯示的 op 175 清單：有清單、有列、而且原生 TRADE_WINDOW 沒在畫它；否則 null。</summary>
@@ -78,7 +113,9 @@ public sealed partial class ClientForm {
         // R4-I (#712): with the native UI the pages (NPC dialog, query/server page, S136 and castle number boxes) go to HYPER_TEXT_WINDOW;
         // the WinForms panel keeps only what is not a page (shop/service lists, waiting notices). Native UI off → unchanged.
         bool nativePages=SyncNativeHyperText(w,npcOpen,query,nativeWarehouse);npcOpen=NpcContextOpen(w);query=w.QueryVisible;
-        bool nativeOwnsAll=nativePages&&(!npcOpen||nativeWarehouse||w.InteractionPage!=null);
+        // T435（#993，classic-ui-audit G14）：商店買賣 0／1 的清單由原生 TRADE_WINDOW 畫著時，WinForms NPC 面板整個讓位（原本只剩空清單＋停用的提交鈕）。
+        bool nativeShop=login.State==LoginState.InWorld&&w.ShopTradeWindow()!=null;
+        bool nativeOwnsAll=NpcPanelYield.OwnsAll(nativePages,npcOpen,nativeWarehouse,w.InteractionPage!=null,nativeShop,query);
         npcPanel.Visible=(npcOpen&&!nativeWarehouse||query)&&login.State==LoginState.InWorld&&!nativeOwnsAll;npcClose.Text=npcOpen?"關閉對話／取消未送出選擇":w.QueryActionable?"關閉伺服器頁":"關閉查詢結果";npcNotice.Text=ResolveNpcText(npcOpen||!query?w.InteractionNotice:"");npcSubmit.Visible=w.IsInteractionSelection&&!nativeWarehouse;npcSubmit.Text=w.InteractionTitle+"：提交一次";npcSubmit.Enabled=(w.IsServiceSelection?w.CanSubmitService:w.CanSubmitShop)&&!World.Walking;
         SyncCastlePrompt();SyncSpellExchangeWindow();
         // T434（#992，classic-ui-audit G4）：op 175（以物品學魔法）沒有原生 TRADE_WINDOW 畫的時候，清單放進 WinForms NPC 面板。
@@ -159,6 +196,12 @@ public sealed partial class ClientForm {
         if(NativeHyperText() is not {} panel){hyperTextRouter.Reset();return false;}
         if(panel.Host==null)panel.Attach(hyperTextHost??=new NativeHyperTextHost(this));
         bool inWorld=login.State==LoginState.InWorld;
+        // T435（#993，G15）：agsel 頁由原生 AuctionInfo_Window 顯示時不再同時進 HYPER_TEXT_WINDOW。這一頁在本機關掉（不送封包，
+        // 同下面「另一頁被取代」的做法），對話不會卡在看不到的頁上；之後的 S136 agapply 照舊開 Bid_Window。
+        var agsel=login.CaptureWorld(()=>{var r=AgitAuctionInfoWindow.Current;agselPages.Observe(r,w.InteractionNpc,w.InteractionPage!=null,w.InteractionRevision);return r;});
+        if(inWorld&&w.InteractionPage!=null&&AgselPageTracker.HyperTextOmits(agselPages.IsAgselPage(w.InteractionRevision),NativeAgitInfoShows(agsel))){
+            login.CaptureWorld(()=>{w.CloseInteraction("拍賣資訊顯示在盟屋拍賣資訊窗。");return 0;});npcOpen=NpcContextOpen(w);
+        }
         bool npcPage=inWorld&&npcOpen&&!nativeWarehouse&&w.InteractionPage!=null,queryPage=inWorld&&query;
         var front=hyperTextRouter.Pick(npcPage,w.InteractionRevision,queryPage,w.QueryRevision);
         if(front==HyperTextSource.Query&&npcPage){w.CloseInteraction();npcPage=false;}
@@ -182,6 +225,11 @@ public sealed partial class ClientForm {
     /// original has no second box either). Native UI off, or Bid_Window faulted / unusable (missing AgitAuctionUI.xml) → page box as before.
     /// </summary>
     internal static bool HyperTextOmitsNumber(string html,bool nativeBidAvailable)=>nativeBidAvailable&&html==AgitBidPanel.ApplyHtml;
+    readonly AgselPageTracker agselPages=new();
+    /// <summary>T435（G15）：原生 AuctionInfo_Window 會顯示這個 agsel：兩個窗都沒故障、AuctionInfo 可用、Agitmap_Window 開著同一個看板。</summary>
+    bool NativeAgitInfoShows(AgitAuctionInfoRequest? request)=>request!=null&&NativeUiActive&&NativeUiRoot is {} root
+        &&root.Find(AgitAuctionInfoPanel.PanelId) is AgitAuctionInfoPanel info&&!root.Faulted.Contains(info)&&info.Available
+        &&root.Find(AgitAuctionPanel.PanelId) is AgitAuctionPanel auction&&!root.Faulted.Contains(auction)&&auction.Visible&&auction.Shown?.List.BoardId==request.BoardId;
     bool NativeAgitBidAvailable()=>NativeUiActive&&NativeUiRoot is {} root&&root.Find(AgitBidPanel.PanelId) is AgitBidPanel p&&!root.Faulted.Contains(p)&&p.Available;
     // R7-D (#806): the in-page clan-name box opened by the HTML actions surrender / cease / pledgefocusadd (NpcInteraction.cs).
     HyperTextNameBox? HtmlNameBox(WorldSession w,bool query)=>w.HtmlNameInput is {} p&&p.Query==query?new(p.Revision,p.Prompt,login.HtmlNameCanSend&&!World.Walking):null;
