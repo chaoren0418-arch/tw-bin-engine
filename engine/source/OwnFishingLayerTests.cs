@@ -126,7 +126,8 @@ static class OwnFishingLayerTests {
             t.Check(body.Count==4&&body.All(d=>d.Layer=="actor"&&d.ObjectId==0),"本體 4 塊，ObjectId 0（自己）",body.Count);
             t.Check(line.Count==2&&line.All(d=>d.ObjectId==0&&d.Layer=="actor"),"cloth 6262 同一個 sid:frame 畫出 2 塊（釣魚線）",line.Count);
             int x0=2*(actor.X-Coordinates.MinX),y0=actor.Y-Coordinates.MinY;
-            t.Check(draws.All(d=>d.X==x0&&d.Y==y0),"位置照自己的格座標",draws.Select(d=>(d.X,d.Y)).Distinct());
+            // 合成圖塊的 A＝序號 i、B＝0：本體 X＝x0＋0..3，釣魚線 X＝x0＋0..1。
+            t.Check(body.Select(d=>d.X-x0).SequenceEqual(new[]{0,1,2,3})&&line.Select(d=>d.X-x0).SequenceEqual(new[]{0,1})&&draws.All(d=>d.Y==y0),"位置照自己的格座標",draws.Select(d=>new{dx=d.X-x0,dy=d.Y-y0}));
             // 缺 6262 子檔 → 只畫本體（整組附加層不畫，FU14§3.1）。
             var only=Bare(new NoCloth()).OwnFishingDraws(actor,fish);
             t.Check(only.Count==4&&!only.Any(Invisibility),"缺 6262 子檔時附加層整組不畫");
