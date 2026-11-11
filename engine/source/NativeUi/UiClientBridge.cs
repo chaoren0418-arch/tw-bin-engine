@@ -116,16 +116,28 @@ public sealed partial class ClientForm {
     }
     void ResetNativeUiInput()=>nativeUiInput?.Reset();
 
-    // T352 (#815, R7-M): S48 news in the native Notice_Window (LoginPanel.ShowNotice). The (revision, session) handed over is
+    // T352 (#815, R7-M): S48 news in the native Notice_Window (LoginPanel.ShowNotice; R10-E: fallback only, see LoginNewsRoute). The (revision, session) handed over is
     // kept so that, should the panel fault or drop the notice while LoginConnection still waits for that confirmation, the news
     // falls back to the existing message box instead of leaving the login waiting.
     (int Revision,int Session)? nativeLoginNotice;
     /// <summary>The login panel when registered and not faulted; visible = also painted and given input now (UiRoot.Usable).</summary>
     LoginPanel? NativeLoginPanel(bool visible)=>NativeUiActive&&nativeUiRoot?.Find(LoginPanel.PanelId) is LoginPanel p&&!nativeUiRoot.Faulted.Contains(p)&&(!visible||nativeUiRoot.Usable(p))?p:null;
+    // R10-E (T389／#904, gap-matrix 15.12.5 4:LoginUI, ruling #880 point 2): TW16 shows S48 in the generic modal message box
+    // (sub_8E1E30, PBW§5.3 verified), so that is the default again; the engine's modal box is the WinForms MessageBox
+    // (ShowLoginNewsBox), which always exists. kor25's Notice_Window is only a fallback for when no modal box is available.
+    internal enum LoginNewsDisplay { MessageBox, NoticeWindow }
+    /// <summary>Product: the modal message box is always available (WinForms), so S48 never goes to Notice_Window.</summary>
+    internal const bool LoginNewsModalBoxAvailable=true;
+    internal static LoginNewsDisplay LoginNewsRoute(bool modalBoxAvailable,bool noticeWindowUsable)=>
+        !modalBoxAvailable&&noticeWindowUsable?LoginNewsDisplay.NoticeWindow:LoginNewsDisplay.MessageBox;
     /// <summary>true = the native Notice_Window shows the news (its Ok confirms); false = the caller shows the message box.</summary>
     bool ShowNativeLoginNotice(string text,int revision,int session){
         // Not required to be visible yet: ShowNotice re-opens a closed login screen, it shows on the next UiRoot.Update.
-        if(NativeLoginPanel(false) is not {} panel)return false;
+        var panel=NativeLoginPanel(false);
+        if(LoginNewsRoute(LoginNewsModalBoxAvailable,panel!=null)!=LoginNewsDisplay.NoticeWindow||panel==null){
+            if(panel!=null)events.Add(new{kind="native-ui-login-news",revision,session,display="message-box"});
+            return false;
+        }
         if(!panel.ShowNotice(text,()=>{nativeLoginNotice=null;ConfirmLoginNews(revision,session);}))return false;
         nativeLoginNotice=(revision,session);
         LeaveGameFocus("login-news");ClearInput("login-news");Invalidate();
@@ -264,7 +276,47 @@ public sealed partial class ClientForm {
         public void Dismiss(){bool dying=death.Current!=null;form.menuPlayStats=false;if(dying)death.Dismiss();}
     }
 
-    sealed class NativeUiCommands(ClientForm form):IUiChatCommands,IUiPartyCommands,IUiWarehouseCommands,IUiMenuCommands,IUiMenuWindowCommands,IUiLoginCommands {
+    internal sealed class NativeUiCommands(ClientForm form):IUiChatCommands,IUiPartyCommands,IUiWarehouseCommands,IUiMenuCommands,IUiMenuWindowCommands,IUiLoginCommands,IUiActionCommands {
+        // R10-E（T389／#904）：動作窗雙擊（ActionWindowPanel.Execute）。路線見 ActionRoutes；這裡只接需要 ClientForm／LoginConnection 的四種，
+        // 其他（聊天列前綴、HP／MP 回復顯示、書籤窗）回 false 交給面板。在世界中但暫時做不到（聊天列冷卻、輸入列正等答覆）→ 印原因、回 true。
+        public bool RunAction(ActionEntry action){
+            if(!form.OnlineMode||form.login.State!=LoginState.InWorld)return false;
+            var route=ActionRoutes.Of(action.Name);
+            switch(route.Kind){
+            case ActionRouteKind.Emote:{
+                // 與開發工具「稱號／表情」同一個 SendEmote；動作槽路徑（menu=false）。結果（送出／間隔未到）由 SendEmote 自己處理。
+                form.ClearInput("native-ui-action-emote");
+                _=form.login.SendEmote(form.login.CaptureTitleEmote(),route.Item,menu:false);
+                form.events.Add(new{kind="native-ui-action",action=action.Name,route="emote",item=route.Item});
+                return true;
+            }
+            case ActionRouteKind.Loot:
+                // 同 F4（LootKeyFromInput）：取消點選模式、異常狀態擋下、走路中不送；轉向／整疊／節流在 Ground.cs。
+                if(form.playerPointer?.Active==true)form.StopPlayerPointer("動作窗");
+                if(form.login.World.AfflictionInputLocked){form.RejectKeyboardMovement("異常狀態中，請等待原服解除後再操作。");return true;}
+                form.ClearInput("native-ui-action-loot");
+                if(!form.World.Walking)_=form.LootFromInput();
+                form.events.Add(new{kind="native-ui-action",action=action.Name,route="loot"});
+                return true;
+            case ActionRouteKind.ChatCommand when route.Argument is {} text:{
+                // 當作在聊天列輸入斜線指令（/trade、/shop、/invite）：同一條 SendPlayerChat → ChatFollowupCommands。輸入列正等答覆時
+                // （刪除確認、私商 1028）SendPlayerChat 會把這一列當答覆，所以先擋下。
+                var current=form.login.PlayerChatSnapshot();
+                if(ChatLinePrompts.Of(form.login)!=null){form.SetSingleActionNotice("聊天輸入列正在等待答覆，動作未執行。");return true;}
+                if(!current.CanSend){form.SetSingleActionNotice("聊天列暫時不能送出，動作未執行。");return true;}
+                form.ClearInput("native-ui-action-command");
+                _=form.login.SendPlayerChat(text,current.Generation,current.WorldEpoch,current.Actor);
+                form.events.Add(new{kind="native-ui-action",action=action.Name,route="chat-command",text});
+                return true;
+            }
+            case ActionRouteKind.Toggle when route.Argument==ActionRoutes.LootAllToggle:
+                form.login.World.TogglePickupAll();
+                form.SetSingleActionNotice(form.login.World.GroundNotice);
+                form.events.Add(new{kind="native-ui-action",action=action.Name,route="loot-all",on=form.login.World.PickupAll});
+                return true;
+            default:return false;
+            }
+        }
         // T352 (#815, R7-M): LoginUI Exit_Button → the normal window close (FormClosing / FormClosed: audio shutdown, login.Dispose).
         // BeginInvoke: the click is still being dispatched by UiInput when the form starts closing.
         public void ExitClient(){
