@@ -373,3 +373,4 @@
 - 2026-11-11 — #915 T400：R10-P 倉庫列內數量（code，claude-local，PR 已合併）→ [報告](reports/issue-915.md)
 - 2026-11-11 — #914 T399：R10-O 召喚與盟屋拍賣小項（code，claude-local，PR 已合併）→ [報告](reports/issue-914.md)
 - 2026-11-11 — #919 T404：真機前置——`--evidence` 時把 `[native-ui]` log 寫進 evidence 目錄（code，claude-local，PR 已合併）→ [報告](reports/issue-919.md)
+- 2026-11-11 — #923 T406：R10-S 選目標瞄準游標（FU13 D1–D2）（code，claude-local，PR 已合併）→ [報告](reports/issue-923.md)
