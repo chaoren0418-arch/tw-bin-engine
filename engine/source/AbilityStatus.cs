@@ -84,7 +84,8 @@ public sealed partial class WorldSession {
     //     R7-C（#805）：開窗前**不查**限制地圖、不顯示 276（#736：0xE08B22 起的開窗路徑不查，276 只在直接送 C6 的 0xE08BA9）。
     //     選定後仍以 3.81 的 HD（地圖、書籤 id）送 C6（RingWindows.cs），不照抄 TW16 的 hhh；限制地圖由伺服器 TELEPORT 判斷。
     //   type 5（sub_DF8A50）：技能 51＋戴召喚控制戒指 → 開既有的本機召喚窗（OpenLocalSummon，窗已開就不重開）。
-    // 妖精 Lv ≥ 50＋byte_13A931C 的分支在 RingWindows.cs（R5-D／#736）；選項的 UI 等 Q7。
+    // 妖精 Lv ≥ 50＋byte_13A931C 的分支在 RingWindows.cs（R5-D／#736）；選項窗的 EnableElfTelControlBtn 已接上
+    // （NativeUi/OptionPanel.cs，R10-I／#908：存進 option-ui.txt，等級 < 50 時清成 0）。
     // 沒做（待驗證）：技能索引 130 的排除（5／69 的索引是 4／68，不會碰到）。
     TeleportDestinationRequest? teleportDestination;long teleportDestinationRevision;
     /// <summary>目前的「選傳送目的地」請求；沒開為 null。</summary>

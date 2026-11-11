@@ -21,7 +21,7 @@ public static class PlayerChatProtocol {
     public const int MaxCharacters=52;
     // Local input budget: quote + receiver (52) + separator + body (52), or /say + body.
     public const int MaxInputCharacters=106;
-    public const string InputHelp="一般：直接輸入；!喊話 &全體 @血盟 #隊伍 $交易；\"對象 訊息：密語；/say 原文：一般；/loc 角色：發送座標；/whisper、/tradechat on 或 off：頻道開關；/accepttrade：交易詢問開關；/who（/誰）、/rank（/階級）、/checkpk：查詢；/chatparty、/chatoutparty、/chatbanish 名稱：聊天隊伍；/focus [血盟]：關注；/war、/surrender、/cease 血盟：盟戰；/propose、/divorce：求婚、離婚；/invite、/banish 名稱、/outparty、/chatinvite 名稱：組隊；/buddy、/addbuddy、/delbuddy 名稱：好友；/exclude、/include 名稱：封鎖；/trade：交易；/shop：個人商店；/bookmark [名稱]：記憶座標";
+    public const string InputHelp="一般：直接輸入；!喊話 &全體 @血盟 #隊伍 $交易；\"對象 訊息：密語；/say 原文：一般；/loc 角色：發送座標；/whisper、/tradechat on 或 off：頻道開關；/accepttrade：交易詢問開關；/who（/誰）、/rank（/階級）、/checkpk：查詢；/chatparty、/chatoutparty、/chatbanish 名稱：聊天隊伍；/focus [血盟]：關注；/war、/surrender、/cease 血盟：盟戰；/propose、/divorce：求婚、離婚；/invite、/banish 名稱、/outparty、/chatinvite 名稱：組隊；/buddy、/addbuddy、/delbuddy 名稱：好友；/exclude、/include 名稱：封鎖；/trade：交易；/duel（/決鬥）：決鬥；/shop：個人商店；/bookmark [名稱]：記憶座標";
     public static PlayerChatInput ParseInput(string input){
         if(string.IsNullOrWhiteSpace(input))throw new ArgumentException("請輸入 1–52 字的單行訊息。");
         if(input.StartsWith("/say ",StringComparison.Ordinal))return new(PlayerChatChannel.Normal,input[5..]);

@@ -33,7 +33,11 @@ namespace P06.NativeUi;
 //   characters come through IUiTextInput.Char (WM_CHAR); Back/Tab/Enter/Esc/arrows are taken in Key while an edit has focus.
 //   Esc (KeyboardEvent) = the window's close event.
 // - Delete/Store act on the checked rows (list) or on the mail being read; there is no confirmation prompt. ExcludeMail
-//   (MailExcludeUI) and the scroll thumb drag are not wired (待做). Server notices (MailView.Notice) are not drawn.
+//   (MailExcludeUI) is not wired (待做). Server notices (MailView.Notice) are not drawn.
+// - T403 (#918): the scroll thumb (ScrollBar Move_Button) can be dragged. It is hit where it is drawn (ThumbOffset); while the
+//   left button is held the position follows the pointer along the track (ScrollHeight − thumb height), rounded to the
+//   nearest row/line, keeping the grab point under the pointer (推測: the original drag rule was not traced). A thumb press
+//   never fires a click; with nothing to scroll the thumb does not move.
 
 /// <summary>Bridge to the existing mail flow (ClientForm, MailUi.cs). The panel never touches LoginConnection.</summary>
 public interface IMailPanelHost {
@@ -119,6 +123,9 @@ public sealed class MailPanel(UiResources? resources=null):IUiMovablePanel,IUiCl
     public Task? Pending=>pending;
 
     bool open;MailPiece? pressed;bool pressedInside;MailStamp? stamp;Task? pending;
+    MailPiece? dragThumb;int dragGrab;
+    /// <summary>T403 (#918): true while the scroll thumb is being dragged.</summary>
+    public bool DraggingThumb=>dragThumb!=null;
     readonly HashSet<uint> checkedIds=[];readonly StringBuilder to=new(),subject=new(),body=new();
     readonly HashSet<string> unhandled=new(StringComparer.Ordinal);
     int bodyLines,bodyVisible;
@@ -138,7 +145,7 @@ public sealed class MailPanel(UiResources? resources=null):IUiMovablePanel,IUiCl
     }
 
     void Clear(){
-        open=false;pressed=null;pressedInside=false;LayoutFile=null;Origin=Point.Empty;Windows=[];Active=null;Missing=[];Skipped=[];
+        open=false;pressed=null;pressedInside=false;dragThumb=null;LayoutFile=null;Origin=Point.Empty;Windows=[];Active=null;Missing=[];Skipped=[];
         Unavailable="not loaded";ResetState();
     }
     void ResetState(){
@@ -318,12 +325,12 @@ public sealed class MailPanel(UiResources? resources=null):IUiMovablePanel,IUiCl
         Request("list");
         return true;
     }
-    public void Close(){open=false;pressed=null;pressedInside=false;Focus=null;ComboExpanded=false;}
+    public void Close(){open=false;pressed=null;pressedInside=false;dragThumb=null;Focus=null;ComboExpanded=false;}
     public bool Toggle(){if(open){Close();return true;}return Open();}
     MailWindow? Find(string name)=>Windows.FirstOrDefault(w=>w.Name==name);
     public bool ShowWindow(string name){
         if(!open||Find(name) is not {} w)return false;
-        Active=w;pressed=null;pressedInside=false;ComboExpanded=false;BodyScroll=0;
+        Active=w;pressed=null;pressedInside=false;dragThumb=null;ComboExpanded=false;BodyScroll=0;
         Focus=name==WriteWindow?Focus:null;
         return true;
     }
@@ -374,7 +381,7 @@ public sealed class MailPanel(UiResources? resources=null):IUiMovablePanel,IUiCl
     public MailPiece? HitAt(Point location){
         if(!open)return null;
         var live=Live.Where(Clickable).ToArray();
-        return live.Where(p=>p.Group=="combo").LastOrDefault(p=>At(p).Contains(location))??live.LastOrDefault(p=>At(p).Contains(location));
+        return live.Where(p=>p.Group=="combo").LastOrDefault(p=>HitRect(p).Contains(location))??live.LastOrDefault(p=>HitRect(p).Contains(location));
     }
 
     // ---- painting
@@ -423,6 +430,18 @@ public sealed class MailPanel(UiResources? resources=null):IUiMovablePanel,IUiCl
         int range=ScrollRange;if(range<=0||Active==null)return 0;
         int track=Math.Max(0,Active.ScrollHeight-thumb.ImageSize.Height);
         return (int)Math.Round(track*(double)Math.Clamp(ScrollPos,0,range)/range);
+    }
+    static bool IsThumb(MailPiece p)=>p.Group=="scroll"&&p.Name=="Move_Button";
+    /// <summary>Where a piece takes clicks: the thumb moves with the scroll position (as painted); everything else is At.</summary>
+    Rectangle HitRect(MailPiece p){var r=At(p);if(IsThumb(p))r.Offset(0,ThumbOffset(p));return r;}
+    /// <summary>T403: the thumb's top follows the pointer (minus the grab point) along the track; the scroll position is the
+    /// nearest row/line for that top.</summary>
+    void DragThumbTo(MailPiece thumb,int pointerY){
+        int range=ScrollRange;if(range<=0||Active==null)return;
+        int track=Math.Max(0,Active.ScrollHeight-thumb.ImageSize.Height);if(track<=0)return;
+        int top=Math.Clamp(pointerY-dragGrab-(Origin.Y+thumb.Offset.Y),0,track);
+        int pos=(int)Math.Round(top*(double)range/track);
+        if(Active.Name==ListWindow)ListScroll=Math.Clamp(pos,0,range);else BodyScroll=Math.Clamp(pos,0,range);
     }
 
     static void DrawText(UiCanvas canvas,string text,Rectangle box,MailPiece p,bool tail){
@@ -488,13 +507,16 @@ public sealed class MailPanel(UiResources? resources=null):IUiMovablePanel,IUiCl
                 if(hit is {Kind:MailPieceKind.Edit}){Focus=hit.Name;pressed=null;pressedInside=false;return true;}
                 if(hit==null&&ComboExpanded)ComboExpanded=false;
                 if(hit==null)Focus=null;
+                if(hit!=null&&IsThumb(hit)){dragThumb=hit;dragGrab=e.Location.Y-HitRect(hit).Y;pressed=null;pressedInside=false;return true;}
                 pressed=hit;pressedInside=hit!=null;
                 return inside;
             }
             case UiMouseKind.Move:
+                if(dragThumb!=null){DragThumbTo(dragThumb,e.Location.Y);return true;}
                 if(pressed!=null)pressedInside=At(pressed).Contains(e.Location);
                 return inside||pressed!=null;
             case UiMouseKind.Up:{
+                if(dragThumb is {} thumb){DragThumbTo(thumb,e.Location.Y);dragThumb=null;return true;}
                 var was=pressed;pressed=null;pressedInside=false;
                 if(was!=null&&At(was).Contains(e.Location)&&Shown(was))Fire(was);
                 return inside||was!=null;
