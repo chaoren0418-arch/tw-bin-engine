@@ -40,7 +40,7 @@ static class ObsceneFilterTests {
         // 筆數 6，但只有 5 行：空行、全 * 的詞跳過；第 6 筆讀成空字串。
         var f=ObsceneFilter.Parse(Cp950.GetBytes("6\r\n壞蛋\r\n\r\nfoo\r\n**\r\n笨 \r\n"));
         t.Equal(6,f.Count,"header count");
-        t.Check(f.Words.SequenceEqual(["壞蛋","笨 ","foo"]),"空行／全 * 跳過、尾端空白保留、長的優先",string.Join("|",f.Words));
+        t.Check(f.Words.SequenceEqual(["壞蛋","foo","笨 "]),"空行／全 * 跳過、尾端空白保留、長的優先（foo 與「笨 」同為 3 byte，照表的順序）",string.Join("|",f.Words));
         // 筆數比行數少：多的行不讀。
         t.Check(ObsceneFilter.Parse(Cp950.GetBytes("1\r\nab\r\ncd\r\n")).Words.SequenceEqual(["ab"]),"lines past the count ignored");
         t.Throws<InvalidDataException>(()=>ObsceneFilter.Parse(Cp950.GetBytes("x\r\nab\r\n")),"first line must be a count");
