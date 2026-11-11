@@ -41,6 +41,7 @@ public sealed partial class ClientForm {
             nativeUiRoot=root;nativeUiInput=new UiInput(root,NativeMacroCommands(new NativeUiCommands(this)));nativeUiCanvas??=new UiCanvas();
             nativeUiState=UiStartState.Active;nativeUiError=null;
             AttachNativeMenuPlayStats(root);
+            LocalOptionPage.AttachHpMp(()=>OptionPanel.HpMpWindow(root));   // R13-A（#1021）：HyperTextOptionVars.HpMp＝() => OptionPanel.HpMpWindow(root)?.Settings；同一來源給 showhpmp
             ClearInput("native-ui-active");
             events.Add(new{kind="native-ui",state="active",panels=root.Panels.Select(p=>p.Id).ToArray()});
         }else{
@@ -231,8 +232,9 @@ public sealed partial class ClientForm {
 
     // R4-A (#705): menu 5／6 and Ctrl+H／V／C. The Text.pak page (dialogs/templates.json, same key as the original HTML name) is
     // shown as a self query page: HYPER_TEXT_WINDOW when the native UI has it (R4-I; R5-A #733: no dev tools then), otherwise
-    // the NPC panel (dev-tools 「NPC」 tab); links and
-    // actions stay disabled there (ShowQueryPage, 待驗證). Same page shown again → closed (the original toggles, FU4§1.1).
+    // the NPC panel (dev-tools 「NPC」 tab). R13-A (#1021): local page mode (WorldSession.ShowLocalOptionPage, LocalOptionPage.cs):
+    // links switch to the named local page, verified HyperActs run locally, the rest stay disabled; no packet is sent.
+    // Same page shown again → closed (the original toggles, FU4§1.1).
     // The page replaces a query page already shown (one HYPER_TEXT_WINDOW); an open NPC dialog / shop is not touched.
     string? menuLocalPage;
     /// <summary>
@@ -247,9 +249,9 @@ public sealed partial class ClientForm {
         int? cls=login.Characters.FirstOrDefault(c=>c.Name==w.Actor?.Name)?.Class;
         string key=MenuButtonsPanel.PageKey(page,cls);
         ClearInput("native-ui-menu-page");
-        if(w.QueryVisible&&menuLocalPage==key&&w.QueryHtml==key){w.CloseQueryPage();menuLocalPage=null;}
+        if(w.QueryVisible&&w.QueryLocal&&menuLocalPage==key&&w.QueryHtml==key){w.CloseQueryPage();menuLocalPage=null;}
         else{
-            w.ShowQueryPage(w.Actor?.ObjectId??0,key,[],[]);menuLocalPage=key;
+            w.ShowLocalOptionPage(key);menuLocalPage=key;
             // R5-A (#733): with the native HYPER_TEXT_WINDOW the page shows there (SyncNativeHyperText); dev tools only without it.
             if(MenuLocalPageDevTools(NativeHyperText()!=null) is {} tab)ShowDevToolsPage(tab);
         }
