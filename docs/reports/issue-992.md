@@ -30,6 +30,7 @@
 - 本機：`dotnet restore`／`dotnet build source/OfflineClient.csproj -c Release -p:EnableWindowsTargeting=true -r win-x64 -p:SelfContained=false`（CI 同樣的參數，nuget.ci.config）。結果 0 個錯誤；3 個警告都在既有檔案（`MagicUi.cs`、`HtmlActionTests.cs`），本次改的檔案沒有新警告。
 - `python -B -X utf8 engine/tools/check-no-game-assets.py`：pass（4585 檔，0 錯誤）。
 - 依本機規定沒有執行任何測試程式；`--module-tests`（含新的 6 組）與 DemoChecks 交給 CI（結果見 PR）。
+- CI（PR #1001，run 43027152430／43027152581）：`dotnet`、`map-continuity`、`npc-offline` 全部 pass。新的 6 組也都通過，沒有失敗：`classic-personal-shop` 20 項、`classic-spell-exchange` 11 項、`classic-options` 10 項、`classic-center-message` 3 項、`classic-agit` 10 項、`classic-confirm` 10 項。
 
 ## 未驗證（待驗證，交給 Codex／dot 真機）
 
