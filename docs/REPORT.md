@@ -407,3 +407,4 @@
 - 2026-11-11 — #989 T432：R12-E 公告板等待收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-989.md)
 - 2026-11-11 — #991 T433：CU-1 classic 入口可見（G1、G2、G6、G7、G8）（code，claude-local，PR 已合併）→ [報告](reports/issue-991.md)
 - 2026-11-11 — #999 rebuild.py：dotnet 首次執行會把每個 worktree 的 .dotnet\tools 加進使用者 PATH（2026-11-11 電腦桌面無法啟動的根因）（code，claude-local，PR 已合併）→ [報告](reports/issue-999.md)
+- 2026-11-11 — #966 T422：查證原版——Q9-2 到 Q9-5（書籤紀錄、WidgetSlot 元件、HTML 標記、備註 *）（resource，claude-local，PR 已合併）→ [報告](reports/issue-966.md)
