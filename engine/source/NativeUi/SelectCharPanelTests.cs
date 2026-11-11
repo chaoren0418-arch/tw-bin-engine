@@ -253,12 +253,13 @@ static class SelectCharPanelTests {
         t.Check(!p.Enabled(p.Main!.Pieces.First(x=>x.MouseEvent==SelectCharPanel.EnterEvent))&&p.Enabled(p.Main.Pieces.First(x=>x.MouseEvent==SelectCharPanel.BackEvent)),"busy: only Back stays enabled");
         host.View=host.View with{State=LoginState.CharacterList,CanCreate=false};p.Sync();
         t.Check(p.Mouse(M(UiMouseKind.Down,new(390,5)),c)&&p.Key(K(Keys.F1),c),"modal: mouse and keys stay here");
-        // Create: the native create screen when usable, otherwise the WinForms dialog.
+        // Create: the native create screen when usable, otherwise the WinForms dialog. R11-D (#960): a double click opens it
+        // (sub_EEC3B0 515); the single click only selects the empty slot (covered in CharScreenFollowup3Tests).
         var full=new Host(ViewOf(4,Char("甲")));var q=Select();q.Attach(full);
-        Click(q,new(152,62),c);Click(q,new(15,75),c);
+        Click(q,new(152,62),c);Click(q,new(15,75),c);Click(q,new(15,75),c,2);
         t.Equal(1,full.Fallbacks,"no usable create screen → WinForms creation dialog");
         var create=CreateCharPanelTests.Create();var r=Select(create:create);r.Attach(full);
-        Click(r,new(15,75),c);
+        Click(r,new(15,75),c);Click(r,new(15,75),c,2);
         t.Check(create.Visible&&!r.Visible,"Create_Button opens the native create screen and the select screen hides");
         create.Close();
         t.Check(r.Visible,"create closed → select screen again");
