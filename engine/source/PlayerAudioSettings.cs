@@ -12,6 +12,25 @@ public sealed record AudioSettingsCommand(int Id,double Gain,bool Muted) {
 }
 public sealed record PlayerAudioState(double gain,bool muted,bool applied,string status,bool editable,int revision,int configurationRevision);
 public sealed class PlayerAudioSettings {
+    /// <summary>
+    /// R12-C（T430／#987）：ClientForm 建構時（欄位 audioSettings）就是「啟動時」。只有正常產品入口（P11.ClientEngine 本身、
+    /// ProductEntry.Normal 的參數）才讀引擎的類別音量檔並開啟寫回；--module-tests、診斷入口、引用產品 DLL 的檢查程式都不讀不寫。
+    /// </summary>
+    public PlayerAudioSettings():this(ProductLaunch()?new AudioVolumeFile(AudioVolumeFile.DefaultPath):null){}
+    /// <summary>volumeFile 不為 null：讀進產品唯一一份類別音量（ClientSoundScene.Volumes），之後捲軸改了就寫回這個檔（見 SetBarLevel）。</summary>
+    public PlayerAudioSettings(AudioVolumeFile? volumeFile){
+        if(volumeFile==null)return;
+        volumeFile.Load(ClientSoundScene.Volumes);VolumeFile=volumeFile;
+    }
+    /// <summary>目前接上的類別音量檔；null＝不存檔（測試與診斷入口）。</summary>
+    internal static AudioVolumeFile? VolumeFile {get;set;}
+    internal static bool ProductLaunch(){
+        try{
+            if(System.Reflection.Assembly.GetEntryAssembly()!=typeof(PlayerAudioSettings).Assembly)return false;
+            var args=Environment.GetCommandLineArgs().Skip(1).Where(a=>a is not (NativeUi.UiOptions.Argument or NativeUi.UiOptions.ClassicArgument)).ToArray();
+            return ProductEntry.Normal(args);
+        }catch(Exception){return false;}
+    }
     public double Gain {get;private set;}=.5;public bool Muted {get;private set;}
     public int Revision {get;private set;}public bool Rendering {get;private set;}
     public bool Change(double gain,bool muted,bool editable){
@@ -51,10 +70,13 @@ public sealed class PlayerAudioSettings {
     /// 捲軸設定對應類別音量（只改這一類，其他兩類不動）。不是這三條或值不在 0..1 → false、不改。
     /// 類別音量是設定值（原版存 lineage.cfg），與聲音裝置是否開著無關，所以聲音關閉時也照樣記下；已在播的聲音在下一次更新
     /// （BackgroundMusic.Update、MapEnvSound.Update、MapAmbientSound 的 SetScale、戰鬥音效 ApplyLevels）就換成新音量。
+    /// R12-C（T430／#987）：改的是產品那一份（ClientSoundScene.Volumes）且已接上類別音量檔 → 寫回（內容沒變不寫）。
     /// </summary>
     public static bool SetBarLevel(SoundVolumes volumes,string bar,double value){
         if(BarCategory(bar) is not {} c||!double.IsFinite(value)||value<0||value>1)return false;
-        volumes[c]=value;return volumes[c]==value;
+        volumes[c]=value;
+        if(ReferenceEquals(volumes,ClientSoundScene.Volumes))VolumeFile?.Save(volumes);
+        return volumes[c]==value;
     }
     public static string Notice(PlayerAudioState state)=>state.applied?(state.muted?"已套用靜音":"音量已套用"):state.status switch{"pending"=>"正在套用聲音設定…","failed"=>"聲音設定未套用","closed"=>"聲音設定暫不可用",_=>"聲音尚未就緒"};
 }
