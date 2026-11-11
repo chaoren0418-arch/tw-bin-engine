@@ -19,10 +19,11 @@ namespace P06;
 //     sub_AC98E0(dword_13CE3F4, 字, 1, 回呼 sub_4FE4A0, 1, 0)＝聊天輸入列提示（FU7§1.5：同刪除確認，不是彈出框）。
 //     回呼 sub_4FE4A0：答覆是 Y（sub_A58380）→ sub_DE8E90（物件 0x1541D0C）組 op 0x59 並送出；否則不送。
 //   引擎：897 用既有的聊天列入口 WorldSession.AddBoardChatNotice（色 24）；1028 放進聊天輸入列提示（playerChatNotice，
-//   同 ItemTransfer 的刪除確認），並記下待確認的一包（PrivateShopConfirmCurrent）。答 Y 的入口是 AnswerPrivateShopConfirm，
-//   但聊天輸入列的答覆分派在 PlayerChat.SendPlayerChat（本任務不可改），**還沒接上**：目前只顯示提示、不送（待下一張任務）。
+//   同 ItemTransfer 的刪除確認），並記下待確認的一包（PrivateShopConfirmCurrent）。答 Y 的入口是 AnswerPrivateShopConfirm；
+//   R10-F（T390／#905）起，聊天輸入列的答覆由 PlayerChat.SendPlayerChat 分派到這裡（刪除確認之後），Y 送出原來那一包。
+//   原生 ChatPanel 也畫這個提示（TradeUi.cs 的 ChatLinePrompts.Of：1028 的 Key 是 "shop1028"，Esc＝AnswerPrivateShopConfirm("")，不送）。
 // 推測／未做（標明）：
-//   - 原生 ChatPanel 不畫 playerChatNotice；原生模式下 1028 另外寫到狀態列（引擎做法）。
+//   - 1028 另外也寫到狀態列（Set(State,text)，引擎做法；原生聊天列接上後可考慮拿掉，#905 報告）。
 //   - 3.81 S140 不帶貨幣種類；原版 TradeBox +164 預設 7（金幣），所以「持有」與 ADENA 圖照金幣畫。
 public static class PrivateShopTrade {
     public const long MaxBuyTotal=99999;
@@ -129,7 +130,8 @@ public sealed partial class LoginConnection {
     }}
     /// <summary>
     /// 1028 的答覆（sub_4FE4A0）：Y 開頭（YesNoProtocol.Accepts，同 sub_A58380）→ 用原來那一包再走一次 SendPrivateShopBatch（所有驗證照舊，只跳過 1028）；
-    /// 其他答覆不送。沒有待確認時回 NotSent。輸入列的分派（PlayerChat.SendPlayerChat）還沒接到這裡。
+    /// 其他答覆不送。沒有待確認時回 NotSent。呼叫者：輸入列的分派 PlayerChat.SendPlayerChat（R10-F #905），
+    /// 以及原生聊天列提示的 Esc（TradeUi.cs，傳空字串＝不送）。
     /// </summary>
     public async Task<PrivateShopResult> AnswerPrivateShopConfirm(string typed){
         if(PrivateShopConfirmCurrent is not {} p)return PrivateShopResult.NotSent;
