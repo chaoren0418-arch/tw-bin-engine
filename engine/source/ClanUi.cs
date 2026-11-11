@@ -74,13 +74,14 @@ public sealed partial class ClientForm {
             buttons.ForEach(b=>b.Enabled=false);await login.SendClanContent(login.ClanMatchingSnapshot(),ClanMatchingProtocol.ContentAnnounce,text);Refresh();
         };
         // R7-K (#813): own member notes (C78 16) for --classic-ui; the server answers with S250/169.
-        layout.Controls.Add(new Label{Text=$"自己的成員備註（最多 {PledgePanel.MemoByteLimit} byte；伺服器回送後顯示在原生血盟窗）",AutoSize=true});
+        // T423 (#967, FU15§2.3): the original input limit is 60 bytes (sub_B34270 strlen > 0x3C → 3328); 62 is only the buffer.
+        layout.Controls.Add(new Label{Text=$"自己的成員備註（最多 {PledgePanel.MemoInputLimit} byte；伺服器回送後顯示在原生血盟窗）",AutoSize=true});
         var memoRow=new FlowLayoutPanel{Width=475,Height=32};layout.Controls.Add(memoRow);
-        var memoBox=new TextBox{Width=360,MaxLength=PledgePanel.MemoByteLimit};var memoButton=new Button{Text="送出備註",AutoSize=true};
+        var memoBox=new TextBox{Width=360,MaxLength=PledgePanel.MemoInputLimit};var memoButton=new Button{Text="送出備註",AutoSize=true};
         memoRow.Controls.AddRange([memoBox,memoButton]);buttons.Add(memoButton);
         memoButton.Click+=async(_,_)=>{
             string text=memoBox.Text;
-            if(PledgePanel.MemoError(text) is {} error){MessageBox.Show(window,error,"血盟",MessageBoxButtons.OK,MessageBoxIcon.Warning);return;}
+            if(PledgePanel.MemoPromptError(text) is {} error){MessageBox.Show(window,error,"血盟",MessageBoxButtons.OK,MessageBoxIcon.Warning);return;}
             buttons.ForEach(b=>b.Enabled=false);await login.SendClanContent(login.ClanMatchingSnapshot(),ClanMatchingProtocol.ContentNotes,text);Refresh();
         };
         layout.Controls.Add(attention);
@@ -149,6 +150,8 @@ public sealed class WorldPledgeSource(LoginConnection login,Func<bool> upload):I
         var v=login.ClanMatchingSnapshot();if(!v.CanSend||!v.InClan)return false;
         return Dispatched(login.SendClanContent(v,ClanMatchingProtocol.ContentNotes,text));
     }
+    /// <summary>T423 (#967): over the 60-byte input limit, 3328 goes to the chat log (sub_B34270 → sub_7DC850).</summary>
+    public void MemoNotice(string text)=>login.CaptureWorld(()=>{login.World.ChatLineAskNotice(text);return true;});
     public bool SetRank(string member,byte rank){
         var v=login.ClanSnapshot();if(!v.CanSend||v.Name.Length==0)return false;
         _=login.SendClanRank(v,member,rank);return true;

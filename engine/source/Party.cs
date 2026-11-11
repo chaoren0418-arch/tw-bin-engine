@@ -1,4 +1,43 @@
+using System.Runtime.CompilerServices;
+using P06.NativeUi;
 namespace P06;
+
+/// <summary>
+/// T423（#967，FU15§2.2、§2.3）：原生面板的「聊天輸入列提示」確認入口（原版 sub_AC98E0：提示字串放進輸入列，答一次回呼一次）。
+/// 接在 R10-F 的 <see cref="ChatPanel.LinePrompts"/> 上：問的時候把自己的提示放在前面（輸入列只有一個提示，新的取代舊的），
+/// 答完或 Esc 取消後把原來的來源（TradeUi.cs 的交易 140／刪除／1028）還回去。提示是本機答覆（Answer 不是 null），
+/// 答覆直接交給發問的面板，不經聊天送出。Live 回 false 時（離開世界、對象不在了）提示自己消失，不送。
+/// </summary>
+public static class ChatLineAsk {
+    sealed class Slot { public Func<ChatLinePrompt?>? Prev,Hook; public ChatLinePrompt? Current; public Func<bool>? Live; }
+    static readonly ConditionalWeakTable<ChatPanel,Slot> slots=new();
+    /// <summary>可用的原生聊天窗（CENTER_WINDOW）；沒有就是 null（呼叫端保留原本的入口）。</summary>
+    public static ChatPanel? Chat(Func<string,IUiPanel?>? find)=>find?.Invoke(ChatPanel.WindowName) as ChatPanel;
+    /// <summary>在聊天輸入列問 text；回答（Enter）交給 answer，Esc 不送。回傳 true＝提示已放上輸入列。</summary>
+    public static bool Ask(ChatPanel chat,object key,string text,Func<string,bool> answer,Func<bool>? live=null){
+        var s=slots.GetValue(chat,_=>new Slot());
+        s.Hook??=()=>Get(chat,s);
+        if(!ReferenceEquals(chat.LinePrompts,s.Hook)){s.Prev=chat.LinePrompts;chat.LinePrompts=s.Hook;}
+        ChatLinePrompt? p=null;
+        p=new ChatLinePrompt(key,text,typed=>Done(chat,s,p)&&answer(typed),()=>Done(chat,s,p));
+        s.Current=p;s.Live=live;
+        return true;
+    }
+    /// <summary>目前由這個入口放上的提示（null＝沒有）。</summary>
+    public static ChatLinePrompt? Pending(ChatPanel chat)=>slots.TryGetValue(chat,out var s)&&s.Current is {} p&&s.Live?.Invoke()!=false?p:null;
+    static ChatLinePrompt? Get(ChatPanel chat,Slot s){
+        var prev=s.Prev;   // Done clears Prev; the original source still answers this call.
+        if(s.Current is {} p){if(s.Live?.Invoke()!=false)return p;Done(chat,s,p);}
+        return prev?.Invoke();
+    }
+    static bool Done(ChatPanel chat,Slot s,ChatLinePrompt? p){
+        if(p==null||!ReferenceEquals(s.Current,p))return false;
+        s.Current=null;s.Live=null;
+        if(ReferenceEquals(chat.LinePrompts,s.Hook))chat.LinePrompts=s.Prev;
+        s.Prev=null;
+        return true;
+    }
+}
 
 public sealed record PartyMember(uint ObjectId,string Name,byte? HpPercent,uint? MapId=null,ushort X=0,ushort Y=0);
 // R2-J (#624): no local expiry. The original keeps the question in the input line until a newer S219 replaces it or it is answered.
@@ -19,6 +58,17 @@ public static class PartyPackets {
         if(!shown.CanKick)return 0;
         var m=shown.Members.FirstOrDefault(x=>x.Name==name);
         return m==null||m.ObjectId==0||m.ObjectId==shown.Owner?0:m.ObjectId;
+    }
+    /// <summary>
+    /// T423（#967，FU15§2.2）：委任前 sub_954C90 用字串 4051 格式化隊員名稱，在聊天輸入列問；回答 Y 才送 C230 3。
+    /// 本機 string-c.tbl（3,484 筆）沒有 4051；參考客戶端 kor25／pmc／c760／ly 都是「要委任%s 為組隊隊長嗎?」，表裡沒有時用這句。
+    /// </summary>
+    public const int DelegateConfirmMessage=4051;
+    public const string DelegateConfirmFallback="要委任%s 為組隊隊長嗎?";
+    public static string DelegateConfirmText(string name){
+        string template=ServerMessageText.Table is {} t&&DelegateConfirmMessage<t.Count&&ServerMessageText.DisplayText(t[DelegateConfirmMessage]).Trim() is {Length:>0} s?s:DelegateConfirmFallback;
+        int at=template.IndexOf("%s",StringComparison.Ordinal);
+        return at<0?template:string.Concat(template.AsSpan(0,at),name,template.AsSpan(at+2));
     }
     public static byte[] Answer(uint challenge,bool accept)=>LoginPackets.Pad([121,0,0,..BitConverter.GetBytes(challenge),0xB9,3,(byte)(accept?1:0)]);
     /// <summary>R9-C（#847，FU9§9.1）：C230 C(2) S(名稱)＝聊天隊伍邀請（3.81 C_CreateParty type 2；原版 `/chatinvite 名稱` 送 TW16 op 42 type 2 `ccs`）。</summary>
@@ -149,6 +199,13 @@ public sealed partial class WorldSession {
         if(Actor is not {} a||id==0||id==a.ObjectId||id==Status?.ObjectId)return null;
         var o=Objects.FirstOrDefault(x=>x.ObjectId==id);
         return o is {Dead:false,AppearancePending:false}&&(o.Flags&4)!=0&&Math.Max(Math.Abs(o.X-a.X),Math.Abs(o.Y-a.Y))<=PartyInviteTargeting.Range?o:null;
+    }
+    /// <summary>T423（#967）：聊天輸入列提示的本機結果訊息印在聊天欄（例如備註超長的 3328；sub_7DC850，字色未接，推測）。</summary>
+    internal void ChatLineAskNotice(string text){
+        if(text.Length==0)return;
+        playerChatLines.Enqueue(new(++playerChatSequence,0,PlayerChatProtocol.Display(text)));
+        while(playerChatLines.Count>100)playerChatLines.Dequeue();
+        playerChatRevision++;
     }
     internal bool PartyCurrent(PartyView v){CheckParty();return v.Owner!=0&&v.Owner==partyOwner&&v.Epoch==WorldEpoch&&v.Revision==partyRevision;}
     internal void PartySent(string command){if(command is "accept" or "reject"){partyInvitation=null;YesNoHandled(953);}partyNotice="已送出"+(command switch{"invite"=>"組隊邀請","accept"=>"接受邀請","reject"=>"拒絕邀請","leave"=>"離隊請求","kick"=>"踢除請求","delegate"=>"委任隊長請求",_=>"名單查詢"})+"；隊員與 HP 以原服回覆為準。";partyRevision++;}

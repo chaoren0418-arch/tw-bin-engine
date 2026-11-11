@@ -8,7 +8,7 @@ namespace P06.NativeUi;
 /// Must paint after LEFT_WINDOW (same bar layer: registration order decides, see UiPanelRegistry).
 /// </summary>
 public sealed class PartyPanel:IUiPanel {
-    [UiPanel(90)] internal static UiPanelRegistration Registration=>new(PartyPanel.WindowId,"uiextra86",root=>new PartyPanel(root.SlotGroup(UiSlotGroup.Bar485)));   // ui-party #471 (keep AFTER LEFT_WINDOW: the party base covers it)
+    [UiPanel(90)] internal static UiPanelRegistration Registration=>new(PartyPanel.WindowId,"uiextra86",root=>new PartyPanel(root.SlotGroup(UiSlotGroup.Bar485),root.Find));   // ui-party #471 (keep AFTER LEFT_WINDOW: the party base covers it)
     public const string WindowId="PARTY_INTERFACE";
     public enum Page { Character=0, Party=1, Pet=2 }
     /// <summary>
@@ -28,8 +28,30 @@ public sealed class PartyPanel:IUiPanel {
     readonly PartyLayout.Interaction act=new();
     PartyView? party;bool inWorld;
 
-    /// <summary>bar485: the BAR_485 slot group cycled by Alt+F3 (V5 (e)); null = no cycling from this panel.</summary>
-    public PartyPanel(UiSlotGroup? bar485=null){this.bar485=bar485;}
+    readonly Func<string,IUiPanel?>? find;
+    /// <summary>bar485: the BAR_485 slot group cycled by Alt+F3 (V5 (e)); null = no cycling from this panel.
+    /// find: T423 (#967) — the chat window for the delegate question (4051); null = no question, the old direct send stays.</summary>
+    public PartyPanel(UiSlotGroup? bar485=null,Func<string,IUiPanel?>? find=null){this.bar485=bar485;this.find=find;act.AskDelegate=AskDelegate;}
+
+    /// <summary>
+    /// T423（#967，FU15§2.2，已驗證）：委任鈕 → sub_954C90 用 4051（帶隊員名稱）在聊天輸入列問（sub_AC98E0）；
+    /// sub_954D90：Enter 且回答 Y → C230 3（sub_955D90），然後 sub_956F60(-1) 清掉選取；其他回答或 Esc 不送，提示收起。
+    /// 回答時用最新的隊伍快照再檢查一次（隊長、對象仍有物件 ID）。沒有聊天窗時回 false，Interaction 照舊直接送（後備）。
+    /// </summary>
+    bool AskDelegate(string who,PartyView shown,IUiCommands commands){
+        if(ChatLineAsk.Chat(find) is not {} chat)return false;
+        return ChatLineAsk.Ask(chat,("party-delegate",who,shown.Owner),PartyPackets.DelegateConfirmText(who),typed=>AnswerDelegate(who,typed,commands),
+            ()=>inWorld&&party is {} v&&PartyPackets.DelegateTarget(v,who)!=0);
+    }
+    /// <summary>委任提示的回答：Y 才送；送出後清掉選取。回傳是否送出。</summary>
+    public bool AnswerDelegate(string who,string typed,IUiCommands commands){
+        if(!YesNoProtocol.Accepts(typed)||party is not {Available:true} v||PartyPackets.DelegateTarget(v,who)==0||PartyStates.CommandsOf(commands) is not {} cmd)return false;
+        cmd.PartyAction("delegate",v,who);act.Select(null);return true;
+    }
+    /// <summary>T423：選一個隊員（等同點隊員格）。</summary>
+    public void SelectMember(string? name)=>act.Select(name);
+    /// <summary>T423：按委任鈕（等同在委任鈕上按下再放開）。</summary>
+    public bool FireDelegate(IUiCommands commands)=>party!=null&&act.Fire(PartyLayout.Delegate,party,commands);
     public string Id=>WindowId;
     public UiLayer Layer=>UiLayer.Bar;
     public Page Current{get;private set;}=Page.Character;
@@ -184,6 +206,8 @@ public static class PartyLayout {
         public void Release()=>Pressed=null;
         public void Sync(PartyView? party){if(Selected!=null&&(party==null||!party.Members.Any(m=>m.Name==Selected)))Selected=null;}
         public void Select(string? name)=>Selected=name;
+        /// <summary>T423 (#967): asks 4051 on the chat input line before delegating; true = asked (the answer sends). null／false = send directly (fallback).</summary>
+        public Func<string,PartyView,IUiCommands,bool>? AskDelegate{get;set;}
 
         public bool Mouse(UiMouseEvent e,PartyView party,Button[] buttons,Func<int,Rectangle> cell,IUiCommands commands){
             var hit=buttons.FirstOrDefault(b=>!b.Rect.IsEmpty&&b.Rect.Contains(e.Location));
@@ -203,14 +227,14 @@ public static class PartyLayout {
         /// <summary>
         /// Leave → existing "leave"; ban → existing "kick" with the selected member (only for the leader, same rule as SendParty);
         /// delegate → "delegate" with the selected member (R7-J #812: C230 type=3 leader transfer, docs/protocol/party.md:21); only for
-        /// the leader and a member whose object id is known (PartyPackets.DelegateTarget). No confirmation prompt (推測: BIN not traced).
+        /// the leader and a member whose object id is known (PartyPackets.DelegateTarget). T423 (#967): with AskDelegate set (PartyPanel) the 4051 question goes first.
         /// </summary>
         public bool Fire(int tag,PartyView party,IUiCommands commands){
             if(PartyStates.CommandsOf(commands) is not {} cmd||!party.Available)return false;
             switch(tag){
                 case Leave when party.Members.Length>0:cmd.PartyAction("leave",party,"");return true;
                 case Ban when party.CanKick&&Selected is {} name&&party.Members.Any(m=>m.Name==name):cmd.PartyAction("kick",party,name);return true;
-                case Delegate when Selected is {} who&&PartyPackets.DelegateTarget(party,who)!=0:cmd.PartyAction("delegate",party,who);return true;
+                case Delegate when Selected is {} who&&PartyPackets.DelegateTarget(party,who)!=0:if(AskDelegate?.Invoke(who,party,commands)==true)return true;cmd.PartyAction("delegate",party,who);return true;
                 default:return false;
             }
         }
