@@ -382,3 +382,5 @@
 - 2026-11-11 — #909 T394：R10-J 書籤窗收尾（code，claude-local，PR 已合併）→ [報告](reports/issue-909.md)
 - 2026-11-11 — #944 T410：真機 smoke 腳本整合（#475、T112、M1–M40）（resource，claude-local，PR 已合併）→ [報告](reports/issue-944.md)
 - 2026-11-11 — #916 T401：R10-Q 個人商店頭上訊息兩行輪流（code，claude-local，PR 已合併）→ [報告](reports/issue-916.md)
+- 2026-11-11 — #918 T403：R10 小清理（刪除取消、227 開框、InputHelp、過時註解）（code，claude-local，PR 已合併）→ [報告](reports/issue-918.md)
+- 2026-11-11 — #948 T411：一般產品入口接受 `--evidence <dir>`（code，claude-local，PR 已合併）→ [報告](reports/issue-948.md)
