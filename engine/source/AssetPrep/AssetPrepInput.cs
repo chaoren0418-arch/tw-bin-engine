@@ -95,24 +95,60 @@ public sealed class AssetPrepInput:IDisposable {
     /// reuse an old File Offset on another Text.pak; look the name up and verify the content).
     /// </summary>
     public (byte[] Decoded,AssetSource Source) ReadText(string name,string decodedSha256){
-        foreach(string ext in new[]{".idx",".pak"})
-            if(!File.Exists(Path.Combine(ClientRoot,TextContainer+ext)))throw new AssetPrepException(AssetPrepFailure.MissingContainer,$"TW_CLIENT_ROOT 缺少容器檔 {TextContainer}{ext}（{ClientRoot}）",TextContainer);
+        var archive=OpenText();
         return Guard(TextContainer,()=>{
-            text??=TextArchive.Open(ClientRoot,TextContainer);
-            var entry=text.Single(name)??throw new AssetPrepException(AssetPrepFailure.MissingEntry,$"容器 {TextContainer} 沒有 {name}",TextContainer);
-            byte[] decoded=text.Read(entry);string sha=AssetPrepPaths.Sha256(decoded);
+            var entry=archive.Single(name)??throw new AssetPrepException(AssetPrepFailure.MissingEntry,$"容器 {TextContainer} 沒有 {name}",TextContainer);
+            byte[] decoded=archive.Read(entry);string sha=AssetPrepPaths.Sha256(decoded);
             if(!sha.Equals(decodedSha256,StringComparison.OrdinalIgnoreCase))
                 throw new AssetPrepException(AssetPrepFailure.ContainerMismatch,$"容器 {TextContainer} 的 {name} 與支援版本不符（解碼後 SHA-256 {sha}）",TextContainer);
             return (decoded,new AssetSource(TextContainer,entry.Name,entry.Offset,(int)entry.Size,sha));
         });
     }
 
+    /// <summary>Text.idx / Text.pak of the client, opened once per run. The structure is checked by TextArchive; there is no whole-file pin.</summary>
+    TextArchive OpenText(){
+        foreach(string ext in new[]{".idx",".pak"})
+            if(!File.Exists(Path.Combine(ClientRoot,TextContainer+ext)))throw new AssetPrepException(AssetPrepFailure.MissingContainer,$"TW_CLIENT_ROOT 缺少容器檔 {TextContainer}{ext}（{ClientRoot}）",TextContainer);
+        return Guard(TextContainer,()=>text??=TextArchive.Open(ClientRoot,TextContainer));
+    }
+
+    // T453 (#1038): Text entries by index order, for recipes that take many entries by name pattern (the dialog templates).
+    // Text.idx legitimately repeats names, so an entry is identified by its index row, never by name alone.
+    /// <summary>Every Text index row, in index order.</summary>
+    public IReadOnlyList<TextArchive.Entry> TextEntries()=>OpenText().Entries;
+
+    /// <summary>One Text entry (a row of <see cref="TextEntries"/>), decoded in memory. Not compared with any pin: the SHA-256 of the decoded bytes goes into the source record.</summary>
+    public (byte[] Decoded,AssetSource Source) ReadTextEntry(TextArchive.Entry entry){
+        var archive=OpenText();
+        if(entry==null||entry.Record<0||entry.Record>=archive.Entries.Count||archive.Entries[entry.Record]!=entry)
+            throw new AssetPrepException(AssetPrepFailure.InvalidRequest,$"容器 {TextContainer}：{entry?.Name} 不是這個索引的 entry",TextContainer);
+        return Guard(TextContainer,()=>{
+            byte[] decoded=archive.Read(entry);
+            return (decoded,new AssetSource(TextContainer,entry.Name,entry.Offset,(int)entry.Size,AssetPrepPaths.Sha256(decoded)));
+        });
+    }
+
+    Dictionary<(string Name,uint Offset,uint Size),TextArchive.Entry>? textRows;
+    /// <summary>A Text source still holds when the index has a row with the same name, offset and size whose decoded bytes have the recorded SHA-256.</summary>
+    bool VerifyText(AssetSource source){
+        if(string.IsNullOrEmpty(source.Entry)||source.Offset is <0 or >uint.MaxValue||source.Size<0)return false;
+        var archive=OpenText();
+        if(textRows==null){
+            var rows=new Dictionary<(string,uint,uint),TextArchive.Entry>();
+            foreach(var row in archive.Entries)rows.TryAdd((row.Name,row.Offset,row.Size),row);   // equal rows hold the same bytes
+            textRows=rows;
+        }
+        return textRows.TryGetValue((source.Entry,(uint)source.Offset,(uint)source.Size),out var entry)&&ReadTextEntry(entry).Source.Sha256==source.Sha256;
+    }
+
     /// <summary>
-    /// Re-reads a Sprite source recorded by an earlier, interrupted run: same container, entry, offset, size and bytes.
-    /// False = the record no longer holds (the item is produced again). A container that fails its pin still throws.
+    /// Re-reads a source recorded by an earlier, interrupted run: same container, entry, offset, size and bytes
+    /// (Sprite: stored bytes; Text: decoded bytes, as recorded by ReadText / ReadTextEntry).
+    /// False = the record no longer holds (the item is produced again). A container that fails its pin or structure still throws.
     /// </summary>
     public bool Verify(AssetSource source){
         int archive=Array.FindIndex(sprites,s=>s.Pin.Name==source.Container);
+        if(archive<0&&source.Container==TextContainer)return VerifyText(source);
         if(archive<0||string.IsNullOrEmpty(source.Entry))return false;
         var a=sprites[archive];
         var entry=Guard(a.Pin.Name,()=>a.Find(source.Entry));
