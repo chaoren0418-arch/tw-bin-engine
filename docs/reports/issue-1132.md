@@ -39,7 +39,19 @@
 
 ## CI 結果
 
-待推送本分支並建立 PR 後，確認 build／dotnet、map-continuity、npc-offline 均為 SUCCESS；全綠後才關閉被取代的 PR #1128。
+[PR #1134](https://github.com/chaoren0418-arch/tw-bin-engine/pull/1134) 的封裝提交 `30941f466d497c98efa82765b9326eb31aa26566` 已確認三項 CI 全部 SUCCESS：
+
+| 檢查 | 結果 | 證據 |
+|---|---|---|
+| build／dotnet | SUCCESS | [run 43508999968／job 132174015511](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/43508999968/job/132174015511) |
+| build／map-continuity | SUCCESS | [run 43508999968／job 132174015830](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/43508999968/job/132174015830) |
+| npc-offline | SUCCESS | [run 43509002651／job 132174023546](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/43509002651/job/132174023546) |
+
+`dotnet` 的 `Reject tracked game assets` 已通過。以上結果屬於封裝提交；本段 CI 結果回填後的新 head 仍須由 PR 最新 checks 確認，不能將上一個 head 的結果冒充最新結果。
+
+三項全綠後，已以 UTF-8 檔搭配 `gh pr comment --body-file` 在 [PR #1128 留言註明取代](https://github.com/chaoren0418-arch/tw-bin-engine/pull/1128#issuecomment-6865215808)，並於 2026-11-13 21:21:33 UTC 關閉；API 讀回 `state=CLOSED`、`mergedAt=null`。`git ls-remote` 確認 `task/1119` 分支仍指向原 commit，未刪分支。
+
+本機可檢查的封裝閘門均通過；正式合併前審查與報告進 main 尚由 Claude／調度器及既有合併流程完成，不宣稱已合併。
 
 ## 未驗證什麼
 
