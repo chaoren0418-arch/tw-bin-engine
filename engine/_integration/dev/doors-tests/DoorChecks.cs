@@ -187,7 +187,6 @@ partial class Checks {
         Save("scene/tile-pixels.json",Array.Empty<object>());Save("scene/draw-commands.json",Array.Empty<object>());
         Save("character/blocks.json",new{schema="p06-spr-blocks-v1",frames=Enumerable.Range(0,96).Select(i=>Pixel("a"+i)).ToArray()});
         Save("character/animation.json",new{schema="p04-character-v1",mapping=Enumerable.Range(0,8).SelectMany(d=>new[]{("breath",8,d*12),("walk",4,d*12+8)}.Select(m=>new{action=m.Item1,direction=d,sequence=Enumerable.Range(m.Item3,m.Item2).Select(i=>new{key="a"+i}).ToArray()})).ToArray()});
-        Save("motion.json",new{frame_ms=166,spawn=new[]{32600,32940},directions=Enumerable.Range(0,8).Select(d=>{int dx=MovementRules.Dx[d],dy=MovementRules.Dy[d];return new{direction=d,world_delta=new[]{dx,dy},screen_delta=new[]{24*(dx+dy),12*(dy-dx)}};}).ToArray()});
         Save("objects/manifest.json",new{gfx=Array.Empty<int>()});Save("objects/names.json",Array.Empty<string>());
         Save("shops/manifest.json",new{schema="p24-original-shop-appearance-v1",profiles=Array.Empty<object>()},true);
         Save("encountered-monsters.json",new{schema="p24-original-encountered-monsters-v1",profiles=Array.Empty<object>()},true);
@@ -202,7 +201,7 @@ partial class Checks {
         return root;
     }
     static void DoorRenderChecks(string root,int frames){
-        var assets=new Assets(DoorRenderFixture(root,frames));using var renderer=new Renderer(assets);var catalog=new ObjectAssets(assets.Root);var own=new World(assets);
+        var assets=new Assets(DoorRenderFixture(root,frames));using var renderer=new Renderer(assets);var catalog=new ObjectAssets(assets.Root);var own=new World(assets);own.Teleport(32600,32940); // T459：起點是產品常數（MotionRules），夾具不再寫 motion.json，這裡維持原本在門旁的位置。
         string last=$"-{frames-1}",label=frames+"-frame ";
         LoginConnection Session(byte action=29,ushort gfx=2346){var c=new LoginConnection();Set(c,"State",LoginState.InWorld);Feed(c,DoorPack(action,gfx:gfx));return c;}
         ObjectVisual? Shown(LoginConnection c,long time)=>Compose(c,time).Item1;
