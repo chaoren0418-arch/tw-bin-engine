@@ -66,3 +66,7 @@
 2. `f1150-modal-invoke` 只修建立／刪除角色兩顆按鈕；`CharResetUi`、`MailUi`、`ClanUi` 也有同步 modal，但本輪驗收沒用到，只寫進建議。
 3. 重測要用 main 重建（引擎有改），並照 #1150 的隔離 DB 副本做法；只有一個空位，送出後要用 GUI 刪除本輪自建角色。
 4. #1150 的 PNG、完整 log 與冷備份還在 `scratch/wt/task-1150/scratch/issue-1150/`，調度器清理前如有需要請先保存。
+
+## 第 2 次嘗試說明（2026-11-14）
+
+第 1 次的分流內容已經完整推送（commit 585eb547），但 RESULT 的「結論」行寫成「失敗歸成 3 個根因」。調度器 `_declared_failure` 只看結論行，看到「失敗」就判定這張分流任務失敗。這輪重新核對計畫 JSON：4 張任務的 stage、runner、runner_lock、real_machine、milestone_smoke、depends_on 都符合要求；open Issue 中也沒有 depends_on 含 #1150 的。分流內容沒有改，只補了這一節，並把結論改寫成完成。
