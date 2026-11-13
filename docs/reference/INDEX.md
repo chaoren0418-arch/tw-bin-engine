@@ -16,6 +16,7 @@
 
 | 主題 | 文件 | 查證任務 | 涵蓋功能 | 狀態 |
 |---|---|---|---|---|
+| 素材配方（M8 來源閉合：Text 容器與文字類、terrain 與 bounds、規則表、動作時序與 gfx 清冊、motion 與混色表、SPR 類與 pickup、地圖／TIL／scene／特效；Python 原型對 r29 基線全量比對） | [`asset-recipes/`](asset-recipes/)：[`text.md`](asset-recipes/text.md)、[`terrain.md`](asset-recipes/terrain.md)、[`rule-tables.md`](asset-recipes/rule-tables.md)、[`action-timing.md`](asset-recipes/action-timing.md)、[`motion-blend.md`](asset-recipes/motion-blend.md)、[`sprites.md`](asset-recipes/sprites.md)、[`maps.md`](asset-recipes/maps.md) | T444–T450（#1029–#1035） | M8 T453–T470；契約 [`../design/asset-recipe.md`](../design/asset-recipe.md)（T452／#1037） | ✅ 已合併（C# 準備器的實跑比對待 T470） |
 | 逆向資源盤點；B03／B04／B07（list.spr parser、frame 結構、音效選擇、分類讀取者、dispatch tables） | [`rea-inventory.md`](rea-inventory.md) | #417 | B03、B04、B07、T165、T166 | ✅ 已合併 |
 | 封包格式（伺服器端） | [`server-protocol.md`](server-protocol.md)、[`server-rules.md`](server-rules.md) | #132 | 全部 | ✅ 已合併 |
 | 伺服器原始碼與 d287 JAR 對照 | [`source-vs-jar.md`](source-vs-jar.md) | T123（#226） | 全部 | ✅ 已合併 |

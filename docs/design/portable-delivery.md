@@ -2,9 +2,33 @@
 
 Issue #97，2026-11-06。來源基準為 `0fab537415a84943322e9f542d8d16f6abe34914`。本文件完成唯讀盤點與方案設計，實作與原生驗收待後續任務。
 
+## 2026-11-13 修訂（T452／#1037）
+
+本文件是 2026-11-06 的盤點與方案設計，以下幾處已經過時。實作契約以 [`asset-recipe.md`](asset-recipe.md) 為準；兩份文件不一致時看那一份。本節以下的原文保留作為當時的紀錄，過時處在原位加了〔修訂〕註記。
+
+- **`engine/assets` junction 現在指向 `releases/r29/assets`**（#155、#181），不是 r28。r28 的素材在 #153 受損、#157 還原；比對用的基線是 r29（同樣是 13,957 檔、19 類）。
+- **22 張 web PNG 已經移出 git**（T035／#109）：`engine/web/icons/`、`engine/web/ground/` 在 `.gitignore`，`engine/web/` 只剩 8 個文字頁面檔。F9 面板的圖示改由執行期即時解碼（T469／#1054），ground 圖由 `GroundSpriteReader` 即時產生（#190）。所以「22 張 PNG 交由本機準備功能生成」不再需要，準備器不產生 web 圖片。
+- **全 repo 的追蹤檔與 embedded resources 已經分類**（#102），拒收檢查在 CI（`engine/tools/check-no-game-assets.py`）。已知例外從 9 列降到 7 列（T466／#1051）。
+- **六項前置的結論**（T444–T450，2026-11-13）：
+
+| 前置 | 原本的疑問 | 結論 | 出處 |
+|---|---|---|---|
+| 1 | terrain 與 bounds 能否只靠客戶端 | bounds 與通行位元全部可以；8 張地圖 13,567 格的區域位元不行（產品不讀） | `asset-recipe.md` L3、`terrain.md` |
+| 2 | skills、`serverActionMs`、職業 gfx | 技能名稱有客戶端來源、等級是算式；`serverActionMs` = 40 ms × `list.spz` 的 tick 總和，基線全部相符；產品不需要職業 gfx 表 | `rule-tables.md`、`action-timing.md` |
+| 3 | motion 與混色表 | 三張表是整數算式，逐 byte 相同；motion 每欄都有來源。不需要 BIN、IDB、Unicorn | `motion-blend.md` |
+| 4 | Text 版本差異 | 已查清：關鍵三個 entry 沒變，舊 offset 不能用，176 個模板只差圖片編號 | `text.md` |
+| 5 | 22 張 web PNG | 已移出（見上） | #109、#1054 |
+| 6 | `Map1.bin`–`Map5.bin` | 就是標準 DES 的五張表，產品的 `TextArchive` 已經涵蓋，不需要這五個檔 | `text.md` 第 6 節 |
+
+- **新出現的 blocked 項**不在原本的六項前置裡：EXP 門檻表與 `ground-catalog.json` 的模板列（`asset-recipe.md` L1、L2）。
+- **「本機生成與啟動」的調整**：staging 與收據的實作見 T451（#1036）；輸入驗證不再用整包 SHA（`asset-recipe.md` 1.1）；地圖原檔、TIL、LAC、Sound 採 provider 直讀；`audio-manifest.json` 改成程式內的 pin；gfx 採「遇到再準備」，首次只預熱。
+- **工作量**：原估 20–36 小時、首批三張。實際拆成 M8 的 32 張（T444–T475，#1027），本次再加 3 張（T476–T478）。「首批三張」表格裡的 `portable-source-closure`、`portable-preparer-core` 當時沒有執行（#101、#103 以 not planned 關閉），由 T444–T451 取代。
+
 ## 結論與必要前置
 
 建議採 **C 混合方案**，將可重用的解碼算法整理成引擎內的 C# 本機素材準備功能。SPR、TBT、文字與需要預處理的資料在使用者電腦產生，地圖容器與聲音可由 provider 唯讀存取使用者指定的 `TW_CLIENT_ROOT`。發布包只納入程式、web 原始頁面與說明。使用者端的所有派生資料都在解壓目錄下產生。
+
+〔修訂 2026-11-13：下面六項前置都已有結論，見上一節的表。〕
 
 **U6 仍有來源缺口，現階段不能承諾只給原客戶端就能重建完整 r28 素材。** 前置查核找到下列實際依賴。
 
@@ -19,7 +43,7 @@ Issue #97，2026-11-06。來源基準為 `0fab537415a84943322e9f542d8d16f6abe349
 
 ## 盤點方法與範圍
 
-- 本機素材入口為主工作樹 `engine/assets`，junction 實際指向 `releases/r28/assets`。本輪透過唯讀入口列檔、讀 manifest 與計算選定檔案 SHA，沒有建立資源副本或執行歷史腳本。
+- 本機素材入口為主工作樹 `engine/assets`，junction 實際指向 `releases/r28/assets`〔修訂 2026-11-13：現在指向 `releases/r29/assets`，#155〕。本輪透過唯讀入口列檔、讀 manifest 與計算選定檔案 SHA，沒有建立資源副本或執行歷史腳本。
 - `integrity.json` schema 為 `p06-assets-integrity-v1`，SHA-256 為 `07dd19f4407ec3f2bf61da9c00cca827cbbe206866863a87a77f17fce7a18b98`。
 - 索引有 **13,957 筆、19 類、2,222,723,085 bytes**，無重複路徑。19 類實體檔數逐類與索引相同。另有索引本身 1 檔、1,729,333 bytes，合計 13,958 檔。本文未對全部素材重新做逐檔 SHA 核驗。
 - 查閱 `docs/inventory/p01-p24.md`、`docs/ARCHITECTURE.md`、P04／P05／P06／P22／P24 的素材工具、P24 development 交接、`主管/` 的地圖清冊與外觀版本決策，以及 `work/engine-next-integration-r1/HANDOFF-r29.md` 的 13,957 檔延續證據。只檢查與素材相關的程式與紀錄。
@@ -54,9 +78,9 @@ Issue #97，2026-11-06。來源基準為 `0fab537415a84943322e9f542d8d16f6abe349
 
 ### 素材外的發布污染面
 
-`P24/inventory_assets.py`、`ground_assets.py` 與後續 icons 腳本會同時寫 assets 和 web，因此排除 `engine/assets` 尚不足以完成發布白名單。`engine/web` 的 8 個文字頁面檔可納入 zip，22 PNG 交由本機準備功能生成。`OfflineClient.csproj` 與 `P24.Audio.csproj` 另嵌入 pickup、ground、combat-sfx JSON，須逐欄確認只有自主規則、來源定位與雜湊，禁止把原始圖像、文字表、時序表或素材 bytes 轉成 JSON／Base64 後藏進 assembly。
+`P24/inventory_assets.py`、`ground_assets.py` 與後續 icons 腳本會同時寫 assets 和 web，因此排除 `engine/assets` 尚不足以完成發布白名單。`engine/web` 的 8 個文字頁面檔可納入 zip，22 PNG 交由本機準備功能生成〔修訂 2026-11-13：22 張 PNG 已由 T035 移出 git，圖片改由執行期即時解碼（T469），準備器不產生 web 圖片〕。`OfflineClient.csproj` 與 `P24.Audio.csproj` 另嵌入 pickup、ground、combat-sfx JSON，須逐欄確認只有自主規則、來源定位與雜湊，禁止把原始圖像、文字表、時序表或素材 bytes 轉成 JSON／Base64 後藏進 assembly。
 
-repo 零遊戲資源的驗收須明確覆蓋交付 commit 的所有追蹤檔。本次已確認 22 張 web PNG 的問題，其他追蹤檔仍待完整分類。既有 Git 歷史與研究證據頁的保留範圍須交 Claude／使用者確認，任何歷史重寫都需另外授權，本設計不把刪除目前檔案等同於清除歷史。
+repo 零遊戲資源的驗收須明確覆蓋交付 commit 的所有追蹤檔。本次已確認 22 張 web PNG 的問題，其他追蹤檔仍待完整分類〔修訂 2026-11-13：已由 #102 完成分類，CI 有拒收檢查〕。既有 Git 歷史與研究證據頁的保留範圍須交 Claude／使用者確認，任何歷史重寫都需另外授權，本設計不把刪除目前檔案等同於清除歷史。
 
 ## 方案比較
 
@@ -89,7 +113,7 @@ C 應使用新的素材 schema／recipe 版本。對未改格式的 raw slices �
 - 建議新增引擎 `--prepare-assets` 模式，由 launcher 在正常驗證前呼叫。此模式只處理檔案，結束後由 launcher 再驗證並啟動正常 UI。完成版本才可提示 ready。
 - `engine/assets` 為使用者本機生成的普通目錄。寫入先進 `engine/runtime/assets-staging/<recipe-id>`，記錄輸入 SHA、工具版本、完成項目與輸出 SHA。全驗通過後在同磁碟交換成 active 目錄。若目標或祖先是 junction／symlink，拒絕寫入。
 - 只允許同時一個 writer。失敗、取消、磁碟不足或中斷時保留可辨識的不完整狀態，再次執行先驗來源及已完成項目。已發布的 active 目錄須等新目錄完整通過後才替換。原客戶端一律唯讀。
-- Web 虛擬站台保留 index.html 等程式頁，icons／ground 指向本機產生的資源目錄，並限制 URI 路徑。發行 manifest 只認證程式與 recipe，生成收據另記內容。現有 launcher 強制要求 assets/integrity 與全檔存在，必須修改此接線後才能使用新流程。
+- Web 虛擬站台保留 index.html 等程式頁，icons／ground 指向本機產生的資源目錄，並限制 URI 路徑〔修訂 2026-11-13：icons／ground 改由執行期即時解碼，不落地成檔，T469〕。發行 manifest 只認證程式與 recipe，生成收據另記內容。現有 launcher 強制要求 assets/integrity 與全檔存在，必須修改此接線後才能使用新流程。
 - C 的聲音 provider 可參考 combat SFX 的原檔 pin 驗證。6016 目前有固定 audio-manifest SHA，需同時調整其版本契約並做 6016 回歸。Sound 缺失維持明確失敗／原既有 fallback 規則。
 - 啟動所得登入畫面須使用正常產品入口。準備過程不得自動登入、啟動服務或連 DB。後續完整遊戲回歸持續使用實際素材，不能僅靠延後載入隱藏缺件。
 
@@ -110,7 +134,7 @@ C 應使用新的素材 schema／recipe 版本。對未改格式的 raw slices �
 
 zip 不列入 assets、icons／ground 圖片、Sound、map、Sprite、Tile、Text、研究快照、PDB／source、vendor、SDK、Python、pip、SQL、JAR、BIN、IDB、測試 capture 或本機 runtime。所有原始與派生遊戲資料均由使用者電腦的準備步驟提供。recipe 的位置可為程式內非內容性 metadata 或程式 manifest 附表，最終打包須檢查內容。
 
-`engine/runtime`、`engine/assets` 與 web 生成圖片在初次運行後才出現，排除於 Git 及發布 staging。zip 存在與缺失測試須同時檢查檔名、magic、hash 與嵌入資源，改副檔名不構成合格。
+`engine/runtime`、`engine/assets` 與 web 生成圖片〔修訂 2026-11-13：web 圖片不再產生成檔〕在初次運行後才出現，排除於 Git 及發布 staging。zip 存在與缺失測試須同時檢查檔名、magic、hash 與嵌入資源，改副檔名不構成合格。
 
 ## README 步驟草稿
 
