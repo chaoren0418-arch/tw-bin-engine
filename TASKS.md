@@ -129,6 +129,7 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 - **已知例外（#110 裁定，共 9 個）**：暫時留在 main，列入 B15。CI 以**精確路徑加 SHA** 鎖定，不能增加，也不能改內容。
   - 7 個需要生成器才能移出的衍生資料檔：2 個 pickup 像素 JSON、`OriginalExpTable.cs`、`ground-catalog.json`、2 個 metadata vectors、combat-sfx `expected-events.json`。
   - 2 個帶 `pixels` 陣列的歷史審查證據（#102 的 U14）：`work/P31-pickup-composite-review-r1/cases.json`、`work/engine-pickup-presentation-candidate-review-r1/execution-rows.json`。屬於歷史證據，不刪除。
+  - 〔後註，不改上方凍結文字：這 9 個已知例外已由 M8（T463–T466、T471／#1056）處理，現在只剩 `engine/source/OriginalExpTable.cs` 一列（已知限制 L1＝A，使用者裁定，#1072）。`check-no-game-assets.py` 把 B15 例外清單鎖死在這一列，新增任何例外即失敗；EmbeddedResource 只剩 1 個 logical name（`P24.Audio.CombatSfxPins.json`）。〕
   - T034 報告中其餘 unknown（主要是 `work/`、`docs/` 的歷史工作紀錄）不列入 M3 的移除範圍，但仍受 CI 拒收規則檢查：CI 一旦發現圖像或音訊本文，就交主控裁定，不能自動放行。git 歷史不改寫。`docs/demo/` 的真機截圖是使用者已授權公開的驗收證據（#71），不算遊戲資源檔；只含 ID、SHA、大小等非內容性 metadata 的 JSON 也不算，但要列入分類表。
 - 原本的「可攜 zip、使用者本機產生素材」移到 Backlog B15（見 #97 設計）。
 

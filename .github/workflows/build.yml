@@ -228,6 +228,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Game-asset gate self-test (T471, closed B15 exception list)
+        run: python -B -X utf8 engine/tools/check-no-game-assets.py --self-test
       - name: Reject tracked game assets
         run: python -B -X utf8 engine/tools/check-no-game-assets.py
       - name: Restore
