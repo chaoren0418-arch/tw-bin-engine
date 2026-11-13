@@ -51,7 +51,7 @@
 - **來源表**：用 PakViewer CLI（`pak extract`，唯讀）從 `D:\lineage開發\0-客戶端\Text.idx` 解出兩個表到 `scratch/issue-1047/`（不進 git），SHA-256 和 T446 記錄的一樣。用 Python 確認：`spelldesc-c.tbl` 是 CRLF、183 行、第一行 220；有 5 行不符合「名稱 (數字/數字)」的嚴格格式（上面提到的 4 行沒有空白與索引 107）；`SpellExDesc-c.tbl` 有 177 行有「對象：」，其中剛好是「施法者」的 52 行（和 T446 的數字相同）。
 - **本機編譯**：`python -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile <主專案>/engine/NuGet.Config --output scratch/issue-1047/build` → `PASS dev`（lock 為 temporary，未寫回）。`dotnet build` `DemoChecks.csproj`、`SkillCastChecks.csproj`、`NpcChecks.csproj`（Release）→ 都是 0 個錯誤。設定了 `DOTNET_ADD_GLOBAL_TOOLS_TO_PATH=false`、`DOTNET_NOLOGO=1`。**本機沒有執行任何編譯出的程式。**
 - **`engine/tools/check-no-game-assets.py`**：pass（4682 個追蹤檔，0 錯誤）。
-- **CI**：見 PR 的 checks（push 後由調度器看結果）。
+- **CI**（PR #1078，commit 第一版）：`dotnet`、`map-continuity`、`npc-offline` 全部 pass。`Combat admission contracts` 步驟（`combat-admission` 群組，含新的 `ClientSpells`）`PASS 1785 DEMO checks`；`--module-tests` 也在同一個 job 通過。
 
 `ClientSpellChecks` 的內容（全部是測試自編的合成表，名稱是「測試甲」之類）：
 
