@@ -8,12 +8,13 @@ public static class WebLocalResource
         core.AddWebResourceRequestedFilter("*",Microsoft.Web.WebView2.Core.CoreWebView2WebResourceContext.All);
         core.WebResourceRequested+=handler;
     }
-    public static (int Status, byte[]? Body, string Headers) Read(string stageRoot, string request)
+    /// <param name="icons">T469 (#1054): PNG for an icon id that assets/inventory does not have (null = files only).</param>
+    public static (int Status, byte[]? Body, string Headers) Read(string stageRoot, string request, Func<ushort, byte[]?>? icons = null)
     {
         const string prefix = "https://p08.example/";
         if (request.StartsWith(prefix + "icons/", StringComparison.Ordinal))
         {
-            var icon = WebIconResource.Read(Path.Combine(stageRoot, "assets"), request);
+            var icon = WebIconResource.Read(Path.Combine(stageRoot, "assets"), request, icons);
             return (icon.Status, icon.Body, Headers("image/png"));
         }
         string name = request.StartsWith(prefix, StringComparison.Ordinal) ? request[prefix.Length..] : "";

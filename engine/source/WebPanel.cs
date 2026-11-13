@@ -65,7 +65,7 @@ public sealed partial class ClientForm {
     void Download(object? s,CoreWebView2DownloadStartingEventArgs e){e.Cancel=true;WebLog("download-blocked");}
     void ProcessFailed(object? s,CoreWebView2ProcessFailedEventArgs e){webReady=false;webNotice.Text="網頁程序停止；可關閉後重開面板。";webNotice.BringToFront();LeaveGameFocus("process-failed");WebLog("process-failed",new{kind=e.ProcessFailedKind.ToString()});}
     void ResourceRequested(object? s,CoreWebView2WebResourceRequestedEventArgs e){
-        var local=WebLocalResource.Read(stageRoot,e.Request.Uri);
+        var local=WebLocalResource.Read(stageRoot,e.Request.Uri,icon=>WebIconGenerator.Png(NativeUi.ItemIconSource.FromRoot(nativeUiRoot),icon));   // T469 (#1054)
         if(local.Status!=403){
             e.Response=webEnvironment!.CreateWebResourceResponse(local.Body is {} bytes?new MemoryStream(bytes,false):null,local.Status,local.Status==200?"OK":"Not Found",local.Headers);
             return;
