@@ -1,0 +1,470 @@
+{
+  "issue": 1107,
+  "backup": {
+    "utc": "2026-11-13T16:58:30.335750+00:00",
+    "backup": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\backups\\issue-1107-before",
+    "files": 1722,
+    "bytes": 279489484,
+    "manifestSha256": "916a407ad33ec6f387c42331763f9f9c138d5d98537bc92b940caecc0f940ffc",
+    "jarSha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+    "verified": true,
+    "sourceReparsePoints": 0,
+    "sourceHardlinks": 0
+  },
+  "lease": {
+    "utc": "2026-11-13T16:58:06.999847+00:00",
+    "leases": [
+      {
+        "name": "p24lab",
+        "holder": "chaoren0418-arch/tw-bin-engine#1107",
+        "since": 1794589001.2614653,
+        "exp": 1794594401.2614653
+      }
+    ]
+  },
+  "identity": {
+    "port": "43324",
+    "datadir": "D:\\BinEngine\\environments\\p24\\db-data\\",
+    "version": "8.0.40"
+  },
+  "holderAudit": {
+    "candidateIds": [
+      10306
+    ],
+    "bySchema": {
+      "p24_accounts": {
+        "tables": 69,
+        "columns": 657
+      },
+      "p24_cross": {
+        "tables": 69,
+        "columns": 657
+      },
+      "p24_lito": {
+        "tables": 19,
+        "columns": 128
+      },
+      "p24_transit": {
+        "tables": 34,
+        "columns": 379
+      },
+      "p24_world": {
+        "tables": 32,
+        "columns": 327
+      }
+    },
+    "matches": [
+      {
+        "db": "p24_accounts",
+        "table": "character_items_time",
+        "column": "itemr_obj_id",
+        "hits": [
+          {
+            "matched_value": "10306",
+            "n": "1"
+          }
+        ]
+      }
+    ],
+    "essentialChecks": [
+      {
+        "db": "p24_accounts",
+        "table": "character_elf_warehouse",
+        "column": "id",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "character_items",
+        "column": "id",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "character_items_card",
+        "column": "item_objid",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "character_items_dark",
+        "column": "item_objid",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "character_items_doll",
+        "column": "item_obj_id",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "character_pets",
+        "column": "item_obj_id",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "character_pets",
+        "column": "objid",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "character_warehouse",
+        "column": "id",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "character_warehouse_for_cha",
+        "column": "item_objid",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "clan_warehouse",
+        "column": "id",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "clan_warehouse_history",
+        "column": "id",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "log_商店收購",
+        "column": "id",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "log_商店收購",
+        "column": "itemobjid",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "log_商店購買",
+        "column": "id",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "log_商店購買",
+        "column": "itemobjid",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "紀錄_拍賣",
+        "column": "id",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "紀錄_拍賣娃娃",
+        "column": "auction_item_id",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "紀錄_拍賣打洞",
+        "column": "auction_item_id",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "紀錄_拍賣拖售",
+        "column": "id",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "紀錄_拍賣拖售",
+        "column": "item_obj_id",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "紀錄_拍賣拖售",
+        "column": "auction_item_id",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "紀錄_拍賣暗黑",
+        "column": "auction_item_id",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "紀錄_拍賣領取",
+        "column": "id",
+        "hits": []
+      },
+      {
+        "db": "p24_accounts",
+        "table": "紀錄_拍賣領取",
+        "column": "auction_item_id",
+        "hits": []
+      }
+    ]
+  },
+  "before": [
+    {
+      "itemr_obj_id": "10306",
+      "usertime": "2026-11-07 05:49:36"
+    }
+  ],
+  "after": [],
+  "deleteResult": "holder_hits\n0\ndeleted_rows\n1\n",
+  "listeners": [
+    {
+      "LocalAddress": "::",
+      "LocalPort": 42061,
+      "OwningProcess": 18832
+    },
+    {
+      "LocalAddress": "127.0.0.1",
+      "LocalPort": 43324,
+      "OwningProcess": 16232
+    }
+  ],
+  "server": {
+    "jarSha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf",
+    "started": {
+      "pid": 18832,
+      "exe": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+      "started": "2026-11-14T01:01:55.8375283+08:00"
+    },
+    "readyLines": [
+      "01:02:11 [main] INFO  com.lineage.server.GameServer - 遊戲伺服器啟動完成!!",
+      "啟動指令視窗監聽器!!遊戲伺服器啟動完成!!",
+      "服務器啟動耗用時間: 13729ms"
+    ],
+    "refusalPresent": false,
+    "duplicateLoginLines": [
+      "01:02:37 [PacketBlocking-7] INFO  com.lineage.server.clientpackets.C_AuthLogin - 同服重複登入(記憶體): account=p24svc01 IP=127.0.0.1"
+    ]
+  },
+  "login": {
+    "target": "127.0.0.1:42061",
+    "startedUtc": "2026-11-13T17:02:37.552215+00:00",
+    "scope": "character selection only; no C137/world entry",
+    "R04": {
+      "account": "p24svc01",
+      "result": 0,
+      "slots": 4,
+      "characters": [
+        "服務驗證",
+        "服務交易"
+      ],
+      "trace": [
+        {
+          "opcode": 233,
+          "length": 16
+        },
+        {
+          "opcode": 178,
+          "length": 8
+        },
+        {
+          "opcode": 93,
+          "length": 40
+        },
+        {
+          "opcode": 93,
+          "length": 40
+        }
+      ]
+    },
+    "secondStartedUtc": "2026-11-13T17:02:37.683289+00:00",
+    "secondLogin": {
+      "account": "p24svc01",
+      "result": 22,
+      "characters": [],
+      "trace": [
+        {
+          "opcode": 233,
+          "length": 16
+        },
+        {
+          "opcode": 227,
+          "length": 8
+        },
+        {
+          "opcode": 227,
+          "length": 8
+        }
+      ]
+    },
+    "firstAfterSecond": {
+      "status": "closed"
+    },
+    "secondAfterLogin": {
+      "status": "not_authenticated",
+      "serverResult": 22
+    },
+    "finishedUtc": "2026-11-13T17:02:39.718277+00:00"
+  },
+  "packets": [
+    {
+      "utc": "2026-11-13T17:02:37.632819+00:00",
+      "session": "A",
+      "event": "connected",
+      "local": [
+        "127.0.0.1",
+        60206
+      ],
+      "remote": [
+        "127.0.0.1",
+        42061
+      ]
+    },
+    {
+      "utc": "2026-11-13T17:02:37.632819+00:00",
+      "session": "A",
+      "direction": "client",
+      "opcode": 119,
+      "length": 23,
+      "credentialsRedacted": true
+    },
+    {
+      "utc": "2026-11-13T17:02:37.677278+00:00",
+      "session": "A",
+      "direction": "server",
+      "opcode": 233,
+      "length": 16,
+      "plainHex": "e9000000000000000000000000000000"
+    },
+    {
+      "utc": "2026-11-13T17:02:37.680270+00:00",
+      "session": "A",
+      "direction": "server",
+      "opcode": 178,
+      "length": 8,
+      "plainHex": "b202040000000000"
+    },
+    {
+      "utc": "2026-11-13T17:02:37.680270+00:00",
+      "session": "A",
+      "direction": "server",
+      "opcode": 93,
+      "length": 40,
+      "plainHex": "5daa41b0c8c5e7c3d2000000001a00e500000075000000fc3b160d100c0a0b00a22835013d000000"
+    },
+    {
+      "utc": "2026-11-13T17:02:37.682275+00:00",
+      "session": "A",
+      "direction": "server",
+      "opcode": 93,
+      "length": 40,
+      "plainHex": "5daa41b0c8a5e6a9f6000000000000ae020000750000000a3b160d100c0a0b00f22835013d000000"
+    },
+    {
+      "utc": "2026-11-13T17:02:37.686252+00:00",
+      "session": "B",
+      "event": "connected",
+      "local": [
+        "127.0.0.1",
+        60207
+      ],
+      "remote": [
+        "127.0.0.1",
+        42061
+      ]
+    },
+    {
+      "utc": "2026-11-13T17:02:37.686252+00:00",
+      "session": "B",
+      "direction": "client",
+      "opcode": 119,
+      "length": 23,
+      "credentialsRedacted": true
+    },
+    {
+      "utc": "2026-11-13T17:02:37.689245+00:00",
+      "session": "B",
+      "direction": "server",
+      "opcode": 233,
+      "length": 16,
+      "plainHex": "e9160000000000000000000000000000"
+    },
+    {
+      "utc": "2026-11-13T17:02:38.703039+00:00",
+      "session": "B",
+      "direction": "server",
+      "opcode": 227,
+      "length": 8,
+      "plainHex": "e3f4010000000000"
+    },
+    {
+      "utc": "2026-11-13T17:02:39.718277+00:00",
+      "session": "B",
+      "direction": "server",
+      "opcode": 227,
+      "length": 8,
+      "plainHex": "e3f4010000000000"
+    },
+    {
+      "utc": "2026-11-13T17:02:39.718277+00:00",
+      "session": "B",
+      "event": "closed",
+      "reason": "EOFError"
+    },
+    {
+      "utc": "2026-11-13T17:02:39.718277+00:00",
+      "session": "A",
+      "direction": "server",
+      "opcode": 227,
+      "length": 8,
+      "plainHex": "e3f4010000000000"
+    },
+    {
+      "utc": "2026-11-13T17:02:39.718277+00:00",
+      "session": "A",
+      "event": "closed",
+      "reason": "EOFError"
+    },
+    {
+      "utc": "2026-11-13T17:02:39.718277+00:00",
+      "session": "A",
+      "event": "probe_closed_socket"
+    },
+    {
+      "utc": "2026-11-13T17:02:39.718277+00:00",
+      "session": "B",
+      "event": "probe_closed_socket"
+    }
+  ],
+  "finalAudit": {
+    "utc": "2026-11-13T17:03:29.463739+00:00",
+    "protectedFiles": 14,
+    "protectedChanged": [],
+    "directDmlTableChecksumChanges": [
+      {
+        "table": "p24_accounts.character_items_time",
+        "before": "3901388329",
+        "after": "0"
+      }
+    ],
+    "timedRowsAfterServer": [],
+    "nonzeroGM": [],
+    "onlineCharacters": []
+  },
+  "shutdown": {
+    "listeners": [],
+    "ownedPids": [
+      18832,
+      18776,
+      16232
+    ],
+    "gameShutdown": "Stop-Process after both protocol sessions closed",
+    "mysqlShutdown": "mysqladmin shutdown after PID/listener verification",
+    "utc": "2026-11-13T17:03:53.9135807Z",
+    "remaining": []
+  }
+}
