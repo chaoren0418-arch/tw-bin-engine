@@ -427,3 +427,4 @@
 - 2026-11-13 — #1030 b15-src-terrain: T445 來源閉合：terrain／bounds 能否只從客戶端 S32／SEG 推導（resource，claude-local，PR #1062 已合併）→ [報告](reports/issue-1030.md)
 - 2026-11-13 — #1032 b15-src-action-timing: T447 來源閉合：動作時序（serverActionMs／spr_action）與 gfx 選取清冊（resource，claude-local，PR #1063 已合併）→ [報告](reports/issue-1032.md)
 - 2026-11-13 — #1034 b15-src-sprite-recipes: T449 來源閉合：SPR 類素材的 recipe（character、objects、players、shops、shadows、doors、ground、pickup）（resource，claude-local，PR #1064 已合併）→ [報告](reports/issue-1034.md)
+- 2026-11-13 — #1035 b15-src-map-tiles: T450 來源閉合：地圖、TIL、scene、cache、地圖特效的 recipe（resource，claude-local，PR #1065 已合併）→ [報告](reports/issue-1035.md)
