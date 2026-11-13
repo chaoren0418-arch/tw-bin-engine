@@ -133,7 +133,8 @@ public static class ClassicConfirm {
 }
 
 public sealed partial class ClientForm {
-    protected override void OnLoad(EventArgs e){base.OnLoad(e);InitBuddyUi();}
+    // T478 (#1074)：遊戲視窗載入時就接上按需準備（自己的外觀在 S87／S76 之後第一次判斷時就能進入 SelfAppearancePending）。
+    protected override void OnLoad(EventArgs e){base.OnLoad(e);RuntimeAppearances.Active??=RuntimeAppearances.Product;InitBuddyUi();}
     void InitBuddyUi(){
         FriendPanels.Source=new LoginFriendListSource(login);
         FriendPanels.Host=new LoginFriendWindowHost(login);   // R10-C（#902）：Delete → 1813 → C202／C171

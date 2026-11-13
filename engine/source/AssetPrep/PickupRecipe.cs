@@ -157,6 +157,24 @@ public sealed class PickupRecipe:IAssetRecipe {
         context.Set("frames",SprManifest.Text(groups.Values.Sum(g=>g.Sequences.Sum(s=>s.Keys.Count-1))));
     }
 
+    public const string RuntimeGroupPath="pickup/runtime-group.json";
+    /// <summary>
+    /// T478 (#1074): one pickup group for a body the runtime holds (an on-demand player stance, outside the prepared pickup data).
+    /// The same rule as preparation: action 15 of list.spz, eight directions, ticks 1, 1, 4, 4, no repeated embedded frame,
+    /// and every step-0 frame present in the body (<paramref name="bodyKeys"/>). Writes one extension group object
+    /// ({gfx, sprite, sequences, frames}) to <see cref="RuntimeGroupPath"/> of the (memory) context; a gfx without a usable
+    /// action 15 is refused (Unavailable) — the product then shows no pickup animation, as for any stance without one.
+    /// </summary>
+    public static void RuntimeGroup(AssetRecipeItemContext context,int gfx,int sprite,IReadOnlySet<string> bodyKeys){
+        var (group,reason)=BuildGroup(context,context.ReadSpriteList(),gfx,sprite);
+        if(group==null)throw new AssetPrepException(AssetPrepFailure.Unavailable,reason!,AssetPrepInput.TextContainer);
+        if(group.Sequences.FirstOrDefault(s=>!bodyKeys.Contains(s.Keys[0])) is {} missing)
+            throw new AssetPrepException(AssetPrepFailure.Unavailable,$"body of gfx {gfx} has no frame {missing.Keys[0]} (step 0, direction {missing.Direction})",AssetPrepInput.TextContainer);
+        context.Write(RuntimeGroupPath,SprJson.Write(w=>{
+            w.WriteStartObject();w.WriteNumber("gfx",gfx);w.WriteNumber("sprite",group.Sprite);WriteGroupBody(w,group);w.WriteEndObject();
+        }));
+    }
+
     static void WriteFrameOrder(Utf8JsonWriter w){w.WriteStartArray("frameOrder");foreach(int i in FrameOrder)w.WriteNumberValue(i);w.WriteEndArray();}
 
     /// <summary>"sequences" (eight directions × four steps) then "frames" (direction 0–7, steps 1–3 of each).</summary>

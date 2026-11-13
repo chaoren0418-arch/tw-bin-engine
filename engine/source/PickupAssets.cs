@@ -15,7 +15,7 @@ public sealed class PickupAssets {
     public const string BaseSchema="pickup-own-base15-gfx0-weapon0-v1",ExtensionSchema="pickup-own-base15-profile-extension-v1";
     public const string BaseProfilePath="objects/0.json";
     static readonly Regex sha256=new(@"\A[0-9a-f]{64}\z",RegexOptions.CultureInvariant);
-    sealed record Body(int Sprite,Dictionary<string,Frame> Frames,string[][] Keys);
+    internal sealed record Body(int Sprite,Dictionary<string,Frame> Frames,string[][] Keys);
     sealed record Profile(int Sprite,string Path,string Sha,int Group);
     readonly Dictionary<int,Body> bodies=[];
     readonly Dictionary<(int,int),Profile> profiles=[];
@@ -86,6 +86,28 @@ public sealed class PickupAssets {
         }catch(Exception ex) when(ex is UnauthorizedAccessException or KeyNotFoundException or InvalidOperationException or FormatException){
             throw new InvalidDataException("Pickup assets: "+ex.Message,ex);
         }
+    }
+    /// <summary>T478 (#1074): one group built at runtime for a stance outside the prepared pickup data (PickupRecipe.RuntimeGroup).</summary>
+    public sealed class Group {
+        internal readonly Body Data;public readonly int Gfx;
+        internal Group(int gfx,Body data){Gfx=gfx;Data=data;}
+        public int Sprite=>Data.Sprite;
+        public int FrameCount=>Data.Frames.Count;
+        /// <summary>The four keys of a direction (step 0 from the body, steps 1–3 embedded).</summary>
+        public IReadOnlyList<string> Keys(int direction)=>Data.Keys[direction];
+    }
+    /// <summary>T478: reads a runtime group with the same checks as an extension group (24 frames, 8 × 4 steps, ticks 1, 1, 4, 4).</summary>
+    public static Group ReadGroup(byte[] json){
+        using var doc=JsonDocument.Parse(json);var j=doc.RootElement;int gfx=j.I("gfx");
+        var body=ReadBody(j);if(gfx<0||body.Sprite<0)throw new InvalidDataException("Pickup group identity");
+        return new(gfx,body);
+    }
+    /// <summary>T478: the four frames of a runtime group for an appearance of the same gfx and sprite (null otherwise).</summary>
+    public static Frame[]? Compose(Group group,ObjectAppearance appearance,int direction){
+        if(direction is <0 or >7||appearance.Gfx!=group.Gfx||appearance.Sprite!=group.Sprite)return null;
+        var keys=group.Data.Keys[direction];
+        if(!appearance.Frames.TryGetValue(keys[0],out var baseFrame))return null;
+        return [baseFrame,group.Data.Frames[keys[1]],group.Data.Frames[keys[2]],group.Data.Frames[keys[3]]];
     }
     public Frame[]? For(ObjectAppearance appearance,int direction,int weapon)=>Compose(appearance,direction,weapon,()=>PlayerProfiles.Get(appearance.Gfx,weapon));
     /// <summary>The same composition with the player profile given explicitly (For uses the process-wide PlayerProfiles); the offline tests use this.</summary>

@@ -167,7 +167,18 @@ public sealed class PacketEffectAssets(string root)
                 string? action=MagicSpells.AttachedEffect(appearance);
                 if(appearance.Gfx==gfx&&action!=null)result=new(appearance,action);
             }
-            else result=new((maps??=new(Path.Combine(root,"maps"))).Get(gfx));
+            else
+            {
+                try{result=new((maps??=new(Path.Combine(root,"maps"))).Get(gfx));}
+                // T478 (#1074): neither a prepared magic file nor a (usable) map effect → objects/magic-<gfx> on demand (memory only).
+                // Pending: not drawn and not cached, asked again next frame; unavailable: null as before.
+                catch(Exception ex) when(ex is NotSupportedException or InvalidDataException or IOException&&RuntimeAppearances.Active is {} onDemand)
+                {
+                    var built=onDemand.Magic(gfx);
+                    if(built==null&&onDemand.Pending(RuntimeAppearances.MagicKey(gfx)))return null;
+                    if(built!=null&&built.Gfx==gfx&&MagicSpells.AttachedEffect(built) is {} action)result=new(built,action);
+                }
+            }
         }
         catch(Exception ex) when(ex is IOException or UnauthorizedAccessException or InvalidDataException or NotSupportedException or InvalidOperationException or JsonException or KeyNotFoundException)
         {System.Diagnostics.Trace.WriteLine($"Packet gfx {gfx} unavailable: {ex.Message}");}
