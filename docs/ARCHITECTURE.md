@@ -18,7 +18,8 @@ flowchart LR
     W -->|JSON 命令| C
     C -->|JSON 狀態| W
     C -->|播放與退役| A["音訊：engine/audio"]
-    L -->|存在與大小核驗| R["唯讀素材：engine/assets<br/>既有 r28 素材 junction"]
+    L -->|存在與大小核驗| R["唯讀素材：engine/assets<br/>開發機：r29 素材 junction<br/>可攜：本機準備的普通目錄"]
+    L -.->|可攜首次啟動：--prepare-assets| C
     C -->|索引、像素、地圖| R
     A -->|場景音訊| R
     C -->|地面 SPR 的 idx/pak| X["使用者原客戶端資源<br/>TW_CLIENT_ROOT"]
@@ -28,8 +29,10 @@ flowchart LR
 
 - `engine/launcher` 是 launcher 輸出位置；可審閱的來源在 [Program.cs](../engine/_integration/dev/launcher-source/Program.cs)。
 - 主程式組件名稱、WinForms／WebView2 參考與音訊專案依賴見 [OfflineClient.csproj](../engine/source/OfflineClient.csproj)。
-- `engine/assets` 與原客戶端目錄是**兩層資源**：既有 junction 指向 r28 衍生素材，並非直接指向原客戶端。
-  資源約定見 [BUILD](BUILD.md)；圖中的素材目錄不在 Git 內，本頁不宣稱乾淨 clone 自帶素材。
+- `engine/assets` 與原客戶端目錄是**兩層資源**。`engine/assets` 不在 Git 內，乾淨 clone 不會自帶素材。它有兩種來源：
+  - **開發機**：junction 指向 r29 衍生素材（#155），不是直接指向原客戶端。資源約定見 [BUILD](BUILD.md)。
+  - **可攜模式**：由使用者本機產生的普通目錄。zip 根目錄的 `啟動引擎.cmd` 設定唯一一處 `TW_CLIENT_ROOT`。launcher 發現資源還沒準備好時，以 `--prepare-assets` 呼叫產品，從原客戶端產生 `engine/assets`（v2 `integrity.json`＋`prep-receipt.json`），驗過後才啟動正常 UI。準備器拒絕寫入 junction，所以開發機的 junction 不受影響。
+  - 契約見 [asset-recipe.md](design/asset-recipe.md)，使用者步驟見 [可攜版 README](../engine/tools/portable/README.md)。
 - 正常 UI 包含 WinForms 登入與 HUD；WebView2 是可開關的面板，非全部遊戲畫面的繪圖器（[WebPanel.cs](../engine/source/WebPanel.cs)、[Program.cs](../engine/source/Program.cs)）。
 
 ## 模組表
@@ -154,7 +157,10 @@ flowchart LR
 
 以下素材檔名是**執行期路徑契約**，不是 Git 追蹤檔；每步連結的是可核查的讀取程式。
 
-1. 依 [BUILD](BUILD.md) 準備既有 `engine/assets` junction，保留使用者原客戶端目錄；
+1. 開發機依 [BUILD](BUILD.md) 準備既有 `engine/assets` junction。可攜模式則由 launcher 在第一次啟動時呼叫
+   [AssetPrepareCommand.cs](../engine/source/AssetPrep/AssetPrepareCommand.cs)（`--prepare-assets`），從 `TW_CLIENT_ROOT`
+   在本機產生普通目錄 `engine/assets`；兩種模式由 [AssetPreparationState.cs](../engine/source/AssetPrep/AssetPreparationState.cs) 分辨。
+   兩種模式都保留使用者原客戶端目錄（只讀）。
    [Program.cs](../engine/source/Program.cs) 從產品位置推導 `../../assets`，正常入口不接受額外診斷參數。
 
 2. [Assets.cs](../engine/source/Assets.cs) 讀取 `integrity.json`，核對非串流地圖素材的 SHA-256；
