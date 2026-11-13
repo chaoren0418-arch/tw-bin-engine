@@ -69,7 +69,7 @@
 
 - 本機編譯：`dotnet build engine/source/OfflineClient.csproj -c Release`（0 錯誤）、`dotnet build engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release`（0 錯誤）。**沒有在本機執行任何編譯出來的程式**。
 - `python -B -X utf8 engine/tools/check-no-game-assets.py`：pass（4,682 個追蹤檔，0 錯誤）。
-- 測試結果看 PR #1077 的 CI（`map-continuity` job 跑 `--module-tests` 與 DemoChecks `map-continuity` 群組）。
+- PR #1077 的 CI（run 43427996669）：`dotnet`、`map-continuity`、`npc-offline` 全部 pass。`map-continuity` 的 `--module-tests` 0 失敗（含 asset-prep 的 MapScan 檢查）；DemoChecks `map-continuity` 群組產物 `map-checks.json` 為 `status: pass`、33,460 項，其中本張的 `MP …` 檢查 160 項（含「map 0／cache mode：與封裝樹相同場景」），既有的 portals、minimap、ship、cache 相關群組同一個 run 一起通過。
 - **D3 回報（唯讀 Python，照 C# 同一套規則對真客戶端算）**：`scratch/issue-1041/d3_compare.py`（不入 git），只讀 `D:\lineage開發\0-客戶端\map`、`Tile` 沒讀，比對基線 `engine/assets/maps/manifest.json`：
 
 | 項目 | 結果 |
