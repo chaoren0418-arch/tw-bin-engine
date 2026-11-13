@@ -473,3 +473,4 @@
 - 2026-11-14 — #1143 分流：tw-bin-engine#1138 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1147 已合併）→ [報告](reports/issue-1143.md)
 - 2026-11-14 — #1152 分流：tw-bin-engine#1145 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1153 已合併）→ [報告](reports/issue-1152.md)
 - 2026-11-14 — #1148 f1138-foreground: f1138-foreground: UIA 工具的前景取得改為 AttachThreadInput 多步驟並附診斷，GDI 截圖改 PrintWindow 優先（#1138 S02／S02-GDI）（code，claude-local，PR 已合併）→ [報告](reports/issue-1148.md)
+- 2026-11-14 — #1149 f1138-retest: f1138-retest: 記事本前置重測 #1138 的 S02、S02-GDI、P01（附帶回歸 S02-CLOSE）（test，codex-local，PR #1157 已合併）→ [報告](reports/issue-1149.md)
