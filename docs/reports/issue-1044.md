@@ -36,6 +36,7 @@
   - `dotnet build engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release`：0 錯誤。
 - 執行測試交給 GitHub Actions：Windows job 的 `native-ui-resources` 步驟會跑 `MotionBlendChecks`，`doors` 步驟跑改過的門夾具；Linux job 交叉建置與 `rebuild.py --build`（不改 lock）。
 - 沒有改 `engine/_integration/dev/rebuild-lock.json`。
+- PR #1084 第一次 CI（run 43437984475）：`dotnet`、`map-continuity`、`npc-offline` 全部通過。`native-ui-resources` 步驟由 main 的 1,242 項增為 1,292 項 PASS（新增的 `MotionBlendChecks`），`doors` 步驟（改過的門夾具）通過。
 
 ## 未驗證什麼
 
