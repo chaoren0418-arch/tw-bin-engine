@@ -457,3 +457,4 @@
 - 2026-11-14 — #1074 b15-ondemand-appearance-b: T478 執行期按需準備：玩家姿勢、陰影、商店、門、魔法與飛行物（code，claude-local，PR #1103 已合併）→ [報告](reports/issue-1074.md)
 - 2026-11-14 — #1104 分流：tw-bin-engine#1098 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1106 已合併）→ [報告](reports/issue-1104.md)
 - 2026-11-14 — #1052 b15-prep-orchestrator: T467 準備器總流程：全類別排程、integrity 與收據、進度與重試（code，codex-local，PR 已合併）→ [報告](reports/issue-1052.md)
+- 2026-11-14 — #1107 f1098-timed-orphan: P24Lab 開服阻塞：限時紀錄 itemObjId=10306 孤兒資料處置＋42061 開服到選角（#1098 R03／R04／R06）（resource，codex-local，PR 已合併）→ [報告](reports/issue-1107.md)
