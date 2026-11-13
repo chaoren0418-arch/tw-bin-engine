@@ -22,6 +22,30 @@ jobs:
           dotnet restore source/OfflineClient.csproj --configfile ../.github/nuget.ci.config
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           dotnet build source/OfflineClient.csproj -c Release --no-restore -o build/client-product-dev
+      - name: Launcher preparation states T468 (synthetic files, no game or network)
+        shell: pwsh
+        run: |
+          dotnet restore engine/_integration/dev/launcher-tests/LauncherChecks.csproj --configfile .github/nuget.ci.config
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          dotnet run --project engine/_integration/dev/launcher-tests/LauncherChecks.csproj -c Release --no-restore -- .
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          # Exercise the actual WinExe dispatch/redirected stdout, with no client and with mixed-mode args.
+          $env:TW_CLIENT_ROOT = ''
+          foreach ($arguments in @(@('--prepare-assets'), @('--prepare-assets', '--normal-product'))) {
+            $start = [System.Diagnostics.ProcessStartInfo]::new((Join-Path $PWD 'engine/build/client-product-dev/P11.ClientEngine.exe'))
+            $start.UseShellExecute = $false; $start.CreateNoWindow = $true
+            $start.RedirectStandardOutput = $true; $start.RedirectStandardError = $true
+            $start.StandardOutputEncoding = [System.Text.Encoding]::UTF8
+            foreach ($argument in $arguments) { $start.ArgumentList.Add($argument) }
+            $child = [System.Diagnostics.Process]::Start($start)
+            $stdout = $child.StandardOutput.ReadToEndAsync(); $stderr = $child.StandardError.ReadToEndAsync()
+            if (!$child.WaitForExit(30000)) { $child.Kill(); throw 'Preparation dispatch timed out' }
+            $text = $stdout.GetAwaiter().GetResult(); $errorText = $stderr.GetAwaiter().GetResult()
+            Write-Output $text; Write-Output $errorText
+            $result = $text | ConvertFrom-Json
+            if ($child.ExitCode -ne 2 -or $result.status -ne 'prepare-failed' -or $result.uiStarted -or $result.networkStarted) { throw 'File-only preparation dispatch failed' }
+            $child.Dispose()
+          }
       - name: World module extension tests (all [WorldModuleTest] methods, no game or network)
         shell: pwsh
         run: |
@@ -215,6 +239,15 @@ jobs:
         with:
           name: map-continuity-checks
           path: scratch/issue-140/map-checks.json
+          if-no-files-found: ignore
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: launcher-preparation-checks
+          path: |
+            scratch/issue-1053/launcher-*/results.json
+            scratch/issue-1053/command-*/command-output.jsonl
+            scratch/issue-1053/command-*/command-cases.json
           if-no-files-found: ignore
   dotnet:
     runs-on: ubuntu-latest
