@@ -388,7 +388,7 @@ public sealed class AssetPrepRunner {
             using var writer=AssetPrepLock.Acquire(layout.Lock(id),id);
             return RunLocked(request,recipe,layout,clientRoot,requested,CheckTargets,stageOnly);
         }
-        catch(IOException ex){throw new AssetPrepException(AssetPrepFailure.Io,$"recipe {id} 準備失敗（未發布）：{ex.Message}",inner:ex);}
+        catch(IOException ex){throw new AssetPrepException((ex.HResult&0xffff) is 112 or 39?AssetPrepFailure.DiskSpace:AssetPrepFailure.Io,$"recipe {id} 準備失敗（未發布）：{ex.Message}",inner:ex);}
         catch(UnauthorizedAccessException ex){throw new AssetPrepException(AssetPrepFailure.Io,$"recipe {id} 準備失敗（未發布）：{ex.Message}",inner:ex);}
     }
 

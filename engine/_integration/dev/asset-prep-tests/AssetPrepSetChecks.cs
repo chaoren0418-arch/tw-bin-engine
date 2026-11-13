@@ -8,6 +8,7 @@ using System.Text.Json;
 // Registered in an existing CI group; no Program.cs, csproj or registry edits. Only CI executes this code.
 partial class Checks {
     sealed record SetFixture(string Client,AssetPrepPins Pins,AssetPrepSetPins SetPins,IAssetRecipe[] Recipes);
+    sealed class SetDiskFull:IOException {public SetDiskFull():base("injected disk full"){HResult=unchecked((int)0x80070070);}}
 
     static SetFixture SetClient(string root){
         Directory.CreateDirectory(root);
@@ -127,6 +128,9 @@ partial class Checks {
         ApRefused(()=>runner.Run(Request(a) with{AvailableSpace=_=>space,Progress=p=>{if(p.Completed==p.Total)space=0;}}),AssetPrepFailure.DiskSpace,"SET full disk before assembly");
         Check(ApTreeHash(Active(a))==before,"SET disk shortage preserves active");
         Check(runner.Run(Request(a)).Produced==0,"SET disk retry reuses every completed item");
+        var diskFull=new AssetPrepOrchestrator(fixture.Recipes.Select(r=>r.Id=="pickup"?new SetFault(r,(_,_)=>throw new SetDiskFull(),version:1):(IAssetRecipe)r));
+        ApRefused(()=>diskFull.Run(Request(a)),AssetPrepFailure.DiskSpace,"SET disk full during recipe write is classified correctly");
+        Check(ApTreeHash(Active(a))==before,"SET physical write failure preserves active");runner.Run(Request(a));
 
         using(var cancel=new CancellationTokenSource()){
             bool cancelled=false;
@@ -150,6 +154,9 @@ partial class Checks {
         Directory.Move(Active(a),layout.SetPrevious);
         ApRefused(()=>runner.Run(Request(a) with{AvailableSpace=_=>0}),AssetPrepFailure.DiskSpace,"SET interrupted swap recovery then failure");
         Check(ApTreeHash(Active(a))==before&&!Directory.Exists(layout.SetPrevious),"SET crash between renames recovers previous active");
+        Directory.Move(Active(a),layout.SetPrevious);Directory.CreateDirectory(Active(a));File.WriteAllText(Path.Combine(Active(a),"integrity.json"),"broken");
+        ApRefused(()=>runner.Run(Request(a) with{AvailableSpace=_=>0}),AssetPrepFailure.DiskSpace,"SET damaged post-rename candidate recovery");
+        Check(ApTreeHash(Active(a))==before&&Directory.Exists(Path.Combine(layout.StagingRoot,"set.rejected")),"SET unverified new active is isolated and previous active restored");
         // Interrupted second rename: verified active wins and the backup is removed by the next run.
         Directory.Move(Active(b),new AssetPrepLayout(b).SetPrevious);
         Directory.Move(Active(resume),Active(b));
@@ -178,6 +185,11 @@ partial class Checks {
         if(!ApJunction(Active(junctionEngine),Active(a)))throw new Exception("SET could not create test junction");
         try{ApRefused(()=>runner.Run(Request(junctionEngine)),AssetPrepFailure.UnsafePath,"SET active junction");Check(ApTreeHash(Active(a))==before,"SET junction target untouched");}
         finally{Directory.Delete(Active(junctionEngine),false);}
+        // A new directory is not covered by old per-file source hashes. The recorded root listing must invalidate it.
+        string newMap=Path.Combine(other.Client,"map","4");Directory.CreateDirectory(newMap);
+        File.WriteAllBytes(Path.Combine(newMap,"7fff8000.s32"),File.ReadAllBytes(Path.Combine(other.Client,"map","0","7ffd8002.s32")));
+        var expanded=runner.Run(Request(b) with{ClientRoot=other.Client});
+        Check(expanded.Produced>0&&expanded.Reused>0&&File.Exists(Path.Combine(Active(b),"maps","terrain","4.bin"))&&expanded.Receipt.KnownLimits.Single(l=>l.Id=="L3").Items.SequenceEqual(["0","4"]),"SET added map directory invalidates prior enumeration and prepares new terrain");
         Check(ApTreeHash(fixture.Client)==clientHash,"SET client is read-only throughout");
     }
 }
