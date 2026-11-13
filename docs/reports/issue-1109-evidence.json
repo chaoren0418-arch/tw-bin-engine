@@ -1,0 +1,62 @@
+{
+  "observedAtUtc": "2026-11-13T19:53:53.032407+00:00",
+  "worktree": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1109",
+  "lab": "D:\\lineage開發\\TW1608262200研究\\environments\\p24",
+  "head": "50679105c5e9643fccc490e1728412730867b8aa",
+  "originMain": "50679105c5e9643fccc490e1728412730867b8aa",
+  "branch": "task/1109",
+  "initialLeaseObservation": {
+    "observedAtUtc": "2026-11-13T19:49:33.7220227Z",
+    "name": "p24lab",
+    "holder": "chaoren0418-arch/tw-bin-engine#1109",
+    "since": 1794599345.6645422,
+    "exp": 1794604745.6645422,
+    "source": "First successful GET http://localhost:8787/api/state in this task"
+  },
+  "initialListeners": [],
+  "initialListenerObservationUtc": "2026-11-13T19:49:33.7220227Z",
+  "tcpProbes": [
+    {
+      "port": 42061,
+      "connected": false,
+      "error": "timed out",
+      "errno": null,
+      "winerror": null,
+      "host": "127.0.0.1",
+      "credentialsSent": false
+    },
+    {
+      "port": 43324,
+      "connected": false,
+      "error": "timed out",
+      "errno": null,
+      "winerror": null,
+      "host": "127.0.0.1",
+      "credentialsSent": false
+    }
+  ],
+  "mysqlPathSettings": [
+    "datadir=D:/BinEngine/environments/p24/db-data",
+    "tmpdir=D:/BinEngine/environments/p24/db-temp",
+    "secure-file-priv=D:/BinEngine/environments/p24/db-files",
+    "log-error=D:/BinEngine/environments/p24/db-logs/mysql.err",
+    "pid-file=D:/BinEngine/environments/p24/db-logs/mysql.pid",
+    "port=43324",
+    "bind-address=127.0.0.1"
+  ],
+  "launchedRuntimePids": [],
+  "databaseQueriesExecuted": false,
+  "databaseWritesExecuted": false,
+  "gmChanged": false,
+  "build": {
+    "exitCode": 0,
+    "errors": 0,
+    "warnings": 4,
+    "smokeEquivalent": false
+  },
+  "productDllSha256": "1642ea357d5300fcdac8f5b40e6595ba3504c17aa10b830d8fd6816041726e93",
+  "logHashes": {
+    "restore.log": "84544e8e2762532c203b614ab32ffacfca40cc640d705a9244ef402c6c3b9cf6",
+    "build.log": "2a13d286ee6ce0bbf3a56babd1f39cfb82eff60f17ac080e43311c411a2c53d9"
+  }
+}
