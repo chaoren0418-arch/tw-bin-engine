@@ -1,0 +1,1003 @@
+{
+  "issue": 1124,
+  "scope": "P24Lab主環境啟停、SELECT核對、登入到選角；無DML、GM變更、建角、進世界或GUI/smoke",
+  "sourceCommit": "bdefe6535e53f8efa13b83ae9cdf4a2c8f58e838",
+  "evidenceDirectory": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\backups\\issue-1124-evidence",
+  "preflight": {
+    "utc": "2026-11-13T21:00:45.423314+00:00",
+    "ports": [
+      {
+        "port": 42061,
+        "listening": false
+      },
+      {
+        "port": 43324,
+        "listening": false
+      }
+    ],
+    "junctionTarget": "D:\\lineage開發\\TW1608262200研究",
+    "leases": [
+      {
+        "name": "p24lab",
+        "holder": "chaoren0418-arch/tw-bin-engine#1124",
+        "since": 1794603119.4959383,
+        "exp": 1794608519.4959383
+      }
+    ]
+  },
+  "backup": {
+    "utc": "2026-11-13T21:00:59.914626+00:00",
+    "backup": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\backups\\issue-1124-before",
+    "files": 1722,
+    "bytes": 279503440,
+    "manifestSha256": "d8565746e17d061f7df429e1747be7b3180bafd5d54453885679bb7ea2e1e999",
+    "verified": true
+  },
+  "identity": [
+    {
+      "port": "43324",
+      "datadir": "D:\\BinEngine\\environments\\p24\\db-data\\",
+      "version": "8.0.40"
+    }
+  ],
+  "readback": {
+    "utc": "2026-11-13T21:02:52.064214+00:00",
+    "checks": [
+      {
+        "id": "R08",
+        "pass": true,
+        "expected": {
+          "172": 1,
+          "40743": 200
+        },
+        "actual": {
+          "172": 1,
+          "40743": 200
+        }
+      },
+      {
+        "id": "R09",
+        "pass": true,
+        "expected": {
+          "40056": 19
+        },
+        "actual": {
+          "40056": 19
+        }
+      },
+      {
+        "id": "R10",
+        "pass": true,
+        "expected": {
+          "20288": 1,
+          "40100": 20
+        },
+        "actual": {
+          "20288": 1,
+          "40100": 20
+        }
+      },
+      {
+        "id": "R11",
+        "pass": true,
+        "expected": {
+          "41255": 1
+        },
+        "actual": {
+          "41255": 1
+        }
+      },
+      {
+        "id": "R14",
+        "pass": true,
+        "expected": {
+          "40308": 100000
+        },
+        "actual": {
+          "40308": 100000
+        }
+      },
+      {
+        "id": "R15",
+        "pass": true,
+        "expected": "全部角色 AccessLevel=0",
+        "actual": {
+          "total": 17,
+          "nonzero": []
+        }
+      },
+      {
+        "id": "R07",
+        "pass": true,
+        "expected": {
+          "10305": [
+            "資源王族",
+            0,
+            0
+          ],
+          "10314": [
+            "資源騎士",
+            1,
+            61
+          ],
+          "10325": [
+            "資源妖精",
+            2,
+            138
+          ],
+          "10334": [
+            "資源法師",
+            3,
+            734
+          ],
+          "10344": [
+            "資源暗妖",
+            4,
+            2786
+          ],
+          "10356": [
+            "資源龍騎",
+            5,
+            6658
+          ],
+          "10365": [
+            "資源幻術",
+            6,
+            6671
+          ]
+        },
+        "actual": {
+          "10305": [
+            "資源王族",
+            0,
+            0
+          ],
+          "10314": [
+            "資源騎士",
+            1,
+            61
+          ],
+          "10325": [
+            "資源妖精",
+            2,
+            138
+          ],
+          "10334": [
+            "資源法師",
+            3,
+            734
+          ],
+          "10344": [
+            "資源暗妖",
+            4,
+            2786
+          ],
+          "10356": [
+            "資源龍騎",
+            5,
+            6658
+          ],
+          "10365": [
+            "資源幻術",
+            6,
+            6671
+          ]
+        }
+      },
+      {
+        "id": "R12",
+        "pass": true,
+        "expected": "資源法師 LV52、技能51、40314項圈與寵物關聯",
+        "actual": {
+          "level": "52",
+          "skill51": true,
+          "pet": [
+            {
+              "item_obj_id": "1900251101",
+              "objid": "1900251199",
+              "npcid": "45034",
+              "name": "資源牧羊",
+              "lvl": "5"
+            }
+          ],
+          "collar": [
+            {
+              "id": "1900251101",
+              "item_id": "40314",
+              "char_id": "10334",
+              "item_name": "項圈",
+              "count": "1"
+            }
+          ]
+        }
+      },
+      {
+        "id": "R13",
+        "pass": true,
+        "expected": "血盟10171、兩成員rank4/8、盟倉治癒藥水x1",
+        "actual": {
+          "clan": [
+            {
+              "clan_id": "10171",
+              "clan_name": "資源血盟",
+              "leader_id": "1900249001",
+              "leader_name": "服務驗證"
+            }
+          ],
+          "members": [
+            {
+              "account_name": "p241db6e",
+              "objid": "1900240001",
+              "char_name": "透明王子",
+              "level": "60",
+              "Type": "0",
+              "Class": "0",
+              "AccessLevel": "0",
+              "OnlineStatus": "0",
+              "ClanID": "10171",
+              "ClanRank": "8"
+            },
+            {
+              "account_name": "p24svc01",
+              "objid": "1900249001",
+              "char_name": "服務驗證",
+              "level": "59",
+              "Type": "0",
+              "Class": "0",
+              "AccessLevel": "0",
+              "OnlineStatus": "0",
+              "ClanID": "10171",
+              "ClanRank": "4"
+            }
+          ],
+          "warehouse": [
+            {
+              "id": "10276",
+              "clan_name": "資源血盟",
+              "item_id": "40010",
+              "item_name": "治癒藥水",
+              "count": "1"
+            }
+          ]
+        }
+      }
+    ],
+    "allMatch": true
+  },
+  "R03": {
+    "pass": true,
+    "listeners": [
+      {
+        "LocalAddress": "::",
+        "LocalPort": 42061,
+        "OwningProcess": 5760
+      },
+      {
+        "LocalAddress": "127.0.0.1",
+        "LocalPort": 43324,
+        "OwningProcess": 17944
+      }
+    ],
+    "startupLine": "05:03:03 遊戲伺服器啟動完成",
+    "refusalFound": false
+  },
+  "R04": {
+    "startedUtc": "2026-11-13T21:03:03.858608+00:00",
+    "target": "127.0.0.1:42061",
+    "scope": "single session character selection only; no world entry",
+    "local": [
+      "127.0.0.1",
+      63112
+    ],
+    "login": {
+      "account": "p24svc01",
+      "result": 0,
+      "slots": 4,
+      "characters": [
+        "資源法師",
+        "服務驗證",
+        "服務交易"
+      ],
+      "trace": [
+        {
+          "opcode": 233,
+          "length": 16
+        },
+        {
+          "opcode": 178,
+          "length": 8
+        },
+        {
+          "opcode": 93,
+          "length": 40
+        },
+        {
+          "opcode": 93,
+          "length": 48
+        },
+        {
+          "opcode": 93,
+          "length": 40
+        }
+      ]
+    },
+    "pass": true,
+    "finishedUtc": "2026-11-13T21:03:03.917044+00:00"
+  },
+  "packets": [
+    {
+      "utc": "2026-11-13T21:03:03.895504+00:00",
+      "direction": "client",
+      "opcode": 119,
+      "length": 23,
+      "credentialsRedacted": true
+    },
+    {
+      "utc": "2026-11-13T21:03:03.911740+00:00",
+      "direction": "server",
+      "opcode": 233,
+      "length": 16,
+      "plainHex": "e9000000000000000000000000000000"
+    },
+    {
+      "utc": "2026-11-13T21:03:03.914734+00:00",
+      "direction": "server",
+      "opcode": 178,
+      "length": 8,
+      "plainHex": "b203040000000000"
+    },
+    {
+      "utc": "2026-11-13T21:03:03.914734+00:00",
+      "direction": "server",
+      "opcode": 93,
+      "length": 40,
+      "plainHex": "5db8eab7bdaa6bae7600000300f6ff0e01000014010000043408070c0c081c00fa2835012f000000"
+    },
+    {
+      "utc": "2026-11-13T21:03:03.917044+00:00",
+      "direction": "server",
+      "opcode": 93,
+      "length": 48,
+      "plainHex": "5daa41b0c8c5e7c3d200b8eab7bda6e5b7f90000001a00ec00000075000000fc3b160d100c0a0b00a22835013d000000"
+    },
+    {
+      "utc": "2026-11-13T21:03:03.917044+00:00",
+      "direction": "server",
+      "opcode": 93,
+      "length": 40,
+      "plainHex": "5daa41b0c8a5e6a9f6000000000000ae020000750000000a3b160d100c0a0b00f22835013d000000"
+    }
+  ],
+  "protected": {
+    "equal": true,
+    "files": 24,
+    "sha256": [
+      {
+        "path": "mysql.ini",
+        "sha256": "06fbb2aca32e2495e667cce215b6c96f10669823b28e3eb101dc6c2941b4ab66"
+      },
+      {
+        "path": "server\\config\\altsettings.properties",
+        "sha256": "5cc73b4443f5bcbd2ea28a2ba0dbecf158320eed794a9333ec991814823fbb4a"
+      },
+      {
+        "path": "server\\config\\badnames.txt",
+        "sha256": "6b1babe92ab137dfc102c1d662bf1242678b41250032efe0ecb50b109c5d118d"
+      },
+      {
+        "path": "server\\config\\badtext.txt",
+        "sha256": "2a78e194518d03f4462649ea61185df8974c16df54e29a53f8e51efde2d1b435"
+      },
+      {
+        "path": "server\\config\\charsettings.properties",
+        "sha256": "1e324a0a35b30dbf6be4bb07487c5ac8aba92d609d9f2c45da11130bcfec6a99"
+      },
+      {
+        "path": "server\\config\\ipcheck.properties",
+        "sha256": "1628d2069ef1a8ddac7763a8ce81a39f66f7c8bcf07a92921fd98da805ea63ce"
+      },
+      {
+        "path": "server\\config\\log4j2.xml",
+        "sha256": "033a347c92957db2a26e0de36be3107bd029a529ae3165139687eab79b1287f3"
+      },
+      {
+        "path": "server\\config\\other.properties",
+        "sha256": "0b8140627253eec8e03b771c51b508ae651acc374ee19145bc0ef006206ce3e5"
+      },
+      {
+        "path": "server\\config\\pack.properties",
+        "sha256": "318f88958c333b76cefed7f30cb197babadaf04ad8dfea139283f55a66eacaf9"
+      },
+      {
+        "path": "server\\config\\rates.properties",
+        "sha256": "de9a1daad8db84d3f26d8261e91cbe2d63a638d1014fe0c2665a0a2b6b6993b0"
+      },
+      {
+        "path": "server\\config\\record.properties",
+        "sha256": "5cd5668f5fe9ccf625a71572d22016e3658dcb6519b6824afd2c1f147cc3972b"
+      },
+      {
+        "path": "server\\config\\server.properties",
+        "sha256": "03bf88cdb89c7475c2d1fdc113e1e57649ef7009dbd570cc126f892b1e12e5cd"
+      },
+      {
+        "path": "server\\config\\sql.properties",
+        "sha256": "80660ee9fdd531457a85f471f8c7f4c5a2ac7024a67d964df1a5a0f40732464f"
+      },
+      {
+        "path": "server\\config\\其他控制端\\0-廣播控制表.properties",
+        "sha256": "2e6d5da198f295d54ce93c57a4400566e95f7fb5835557bbd01ffab8f5a7b5cb"
+      },
+      {
+        "path": "server\\config\\其他控制端\\1-假人控制表.properties",
+        "sha256": "29491e7980cafa93f5a7736d7ca95e0e894388489207b91c33966f75f7fe7112"
+      },
+      {
+        "path": "server\\config\\其他控制端\\2-掛機相關設置表.properties",
+        "sha256": "873eaf61600b31947743e6446fb5bf6fbba9a93a37a7547c6ce9bd829acfc965"
+      },
+      {
+        "path": "server\\config\\其他控制端\\3-高寵相關設置表.properties",
+        "sha256": "a3f117eddf69eb609d5cc5d6d24e9e49e2792c85f400a4e2f2e4e3b4a0e0e090"
+      },
+      {
+        "path": "server\\config\\其他控制端\\4-職業_技能設定表.properties",
+        "sha256": "877b506211b46b0f616dd660fec1b683f1f5c15fed3aa6502702598044913e95"
+      },
+      {
+        "path": "server\\config\\其他控制端\\5-職業傷害設定表.properties",
+        "sha256": "0eaf0b81d65222a8d9f779e7884d5c16aad8e7b36977a2787b54e9fd96b14e8c"
+      },
+      {
+        "path": "server\\config\\其他控制端\\6-道具特殊設置表.properties",
+        "sha256": "b48d35aca8d6c5b622ad5f953336a1f5095cffbbd9ba8506ee6385e6a3b72eba"
+      },
+      {
+        "path": "server\\config\\其他控制端\\7-移民控制設定表.properties",
+        "sha256": "5146c6c28a634843d2d183ba33ea00496aeb5ae03d3d13f8f91cb5bce71ed52d"
+      },
+      {
+        "path": "server\\config\\其他控制端\\8-多服合併設置表.properties",
+        "sha256": "392aa04672b8f54a5efdbd54476e875e8527a6964c838c4c46774bb8842eea68"
+      },
+      {
+        "path": "server\\config\\其他控制端\\9-武防強化設置表.properties",
+        "sha256": "2b7945f0c5b87cc3155ee6f2ddfa478f28f79d57e53ec58ae28ff0970f26d025"
+      },
+      {
+        "path": "server\\Server_Game.jar",
+        "sha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf"
+      }
+    ]
+  },
+  "shutdown": {
+    "mysqladminExit": 0,
+    "java": {
+      "exited": true,
+      "pid": 5760,
+      "method": "owned Process.Kill; no graceful shutdown claim"
+    },
+    "mysql": {
+      "exited": true,
+      "pid": 3060,
+      "method": "mysqladmin shutdown"
+    },
+    "listeners": null,
+    "utc": "2026-11-13T21:03:05.3252302Z"
+  },
+  "mtime": {
+    "startedUtc": "2026-11-13T20:50:00+00:00",
+    "finishedUtc": "2026-11-13T21:05:51.049272+00:00",
+    "filesScanned": 1434866,
+    "counts": {
+      "授權範圍外觀測；未推定由本張造成": 4805,
+      "本張worktree": 4770,
+      "授權JAR日誌與暫存": 2,
+      "授權MySQL運行目錄": 44,
+      "授權本張備份與證據": 29
+    },
+    "errors": [
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P35-release-generator-rg2-review-r1\\\\synthetic-wi9s08by'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r2\\\\synthetic-independent-q1wqqc0p'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r2\\\\synthetic-independent-gifbyfat'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r1\\\\synthetic-new-tools-_uw75d3y'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r1\\\\synthetic-new-tools-w7ao7rf2'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r1\\\\synthetic-new-tools-d4j_sxsa'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r1\\\\synthetic-contract-fmak1edg'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-pickup-integration-review-r1\\\\synthetic-zhurl291'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-pickup-integration-review-r1\\\\synthetic-tj11g_rj'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-pickup-integration-review-r1\\\\synthetic-hecff5h6'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-authority-rebind-review-r1\\\\synthetic-independent-fgjl3e7f'"
+    ],
+    "method": "保守涵蓋本張開始的時間窗；收尾後列出窗內 mtime，不依目錄時間略過子目錄",
+    "limitation": "mtime 時窗無法辨認刪除或保留原時間的新增；本張備份另有完整 manifest，未執行刪除。",
+    "outsideObservedCount": 4805,
+    "outsideGroups": {
+      "scratch/wt/task-1129": 4776,
+      ".git/config": 1,
+      ".git/FETCH_HEAD": 1,
+      ".git/worktrees/task-1129": 7,
+      ".git/worktrees/task-1124": 7,
+      ".git/refs/remotes": 1,
+      ".git/refs/heads": 2,
+      ".git/objects/e0": 1,
+      ".git/objects/c4": 1,
+      ".git/objects/b5": 1,
+      ".git/objects/7b": 1,
+      ".git/objects/62": 1,
+      ".git/objects/5b": 1,
+      ".git/objects/55": 1,
+      ".git/logs/refs": 3
+    },
+    "runtimeChanges": [
+      {
+        "path": "environments\\p24\\server\\loginfo\\server.log",
+        "before": null,
+        "after": [
+          1794603783921035200,
+          34759
+        ],
+        "scope": "授權JAR日誌與暫存"
+      },
+      {
+        "path": "environments\\p24\\server\\back\\2026-11-14-05-02-52.zip",
+        "before": null,
+        "after": [
+          1794603772799062000,
+          959
+        ],
+        "scope": "授權JAR日誌與暫存"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#ib_16384_0.dblwr",
+        "before": null,
+        "after": [
+          1794603785256917500,
+          196608
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\ibdata1",
+        "before": null,
+        "after": [
+          1794603785108511400,
+          12582912
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\ib_buffer_pool",
+        "before": null,
+        "after": [
+          1794603784811452600,
+          6400
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\mysql.ibd",
+        "before": null,
+        "after": [
+          1794603776704967600,
+          33554432
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\undo_001",
+        "before": null,
+        "after": [
+          1794603784940816700,
+          16777216
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\undo_002",
+        "before": null,
+        "after": [
+          1794603784967710100,
+          16777216
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\p24_accounts\\accounts.MYD",
+        "before": null,
+        "after": [
+          1794603783920037200,
+          800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\p24_accounts\\accounts.MYI",
+        "before": null,
+        "after": [
+          1794603784810433200,
+          3072
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\p24_accounts\\character_maps_time.MYD",
+        "before": null,
+        "after": [
+          1794603782670861500,
+          0
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\p24_accounts\\character_maps_time.MYI",
+        "before": null,
+        "after": [
+          1794603782670861500,
+          1024
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\p24_accounts\\character_offline.MYD",
+        "before": null,
+        "after": [
+          1794603783189697900,
+          0
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\p24_accounts\\character_offline.MYI",
+        "before": null,
+        "after": [
+          1794603783189697900,
+          1024
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo17",
+        "before": null,
+        "after": [
+          1794603785000260500,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo18_tmp",
+        "before": null,
+        "after": [
+          1794603767124870500,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo19_tmp",
+        "before": null,
+        "after": [
+          1794603767222467400,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo20_tmp",
+        "before": null,
+        "after": [
+          1794603767316180200,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo21_tmp",
+        "before": null,
+        "after": [
+          1794603767394758600,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo22_tmp",
+        "before": null,
+        "after": [
+          1794603767472545600,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo23_tmp",
+        "before": null,
+        "after": [
+          1794603767548571300,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo24_tmp",
+        "before": null,
+        "after": [
+          1794603767638600900,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo25_tmp",
+        "before": null,
+        "after": [
+          1794603767719556100,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo26_tmp",
+        "before": null,
+        "after": [
+          1794603767780491800,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo27_tmp",
+        "before": null,
+        "after": [
+          1794603767861309200,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo28_tmp",
+        "before": null,
+        "after": [
+          1794603767944531600,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo29_tmp",
+        "before": null,
+        "after": [
+          1794603768062604500,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo30_tmp",
+        "before": null,
+        "after": [
+          1794603768145308000,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo31_tmp",
+        "before": null,
+        "after": [
+          1794603768217815100,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo32_tmp",
+        "before": null,
+        "after": [
+          1794603768279978700,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo33_tmp",
+        "before": null,
+        "after": [
+          1794603768421857800,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo34_tmp",
+        "before": null,
+        "after": [
+          1794603768570281000,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo35_tmp",
+        "before": null,
+        "after": [
+          1794603768646363900,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo36_tmp",
+        "before": null,
+        "after": [
+          1794603768747427800,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo37_tmp",
+        "before": null,
+        "after": [
+          1794603768846731400,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo38_tmp",
+        "before": null,
+        "after": [
+          1794603768946695600,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo39_tmp",
+        "before": null,
+        "after": [
+          1794603769054939700,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo40_tmp",
+        "before": null,
+        "after": [
+          1794603769222007600,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo41_tmp",
+        "before": null,
+        "after": [
+          1794603769321939900,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo42_tmp",
+        "before": null,
+        "after": [
+          1794603769412780700,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo43_tmp",
+        "before": null,
+        "after": [
+          1794603769496250800,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo44_tmp",
+        "before": null,
+        "after": [
+          1794603769588229500,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo45_tmp",
+        "before": null,
+        "after": [
+          1794603769658921200,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo46_tmp",
+        "before": null,
+        "after": [
+          1794603769736752300,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo47_tmp",
+        "before": null,
+        "after": [
+          1794603769830236900,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      },
+      {
+        "path": "environments\\p24\\db-data\\#innodb_redo\\#ib_redo48_tmp",
+        "before": null,
+        "after": [
+          1794603769892786200,
+          3276800
+        ],
+        "scope": "授權MySQL運行目錄"
+      }
+    ],
+    "fullListFile": "mtime-changes.json",
+    "fullListSha256": "7dfe3743dc32302049786479a15be24d6ba3bca313c142819b2ac7f2fb44dfbf",
+    "C02": "⚠️ 全專案排他性稽核無法完全證明：11個歷史目錄拒讀及並行worktree／Git變動；可觀察的本次P24Lab運行寫入均在授權範圍。"
+  },
+  "notes": [
+    "04:52初查lease持有人為#1119；05:00:45正式啟動前preflight已為#1124，exp=2026-11-13T22:21:59.495938Z，與派工到期時間吻合且有效。未修改鎖狀態。",
+    "首次 MySQL 父 PID 與監聽子 PID 不同；核對父子關係後採證。mysql.exe 無法解析中文 defaults 路徑，改用既有 ASCII junction。兩項為本張腳本處理，未改設定或引擎。",
+    "服務啟動及登入可能更新運行資料；無直接 DML，未宣稱資料庫逐 byte 不變。",
+    "未執行資料還原，無直接 DML 可提供逆向 SQL；若需整體回復使用本張完整冷備份，由持有實驗環境資源鎖者另行處理。"
+  ],
+  "finalProcessAudit": {
+    "ownedPids": [
+      10516,
+      5432,
+      3060,
+      17944,
+      5760
+    ],
+    "listeners": [],
+    "utc": "2026-11-13T21:06:11.5909450Z",
+    "remaining": []
+  },
+  "logArchive": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\back\\2026-11-14-05-02-52.zip",
+    "sha256": "9298e1684599fa29c82db87f0f21b1c5a2bd02f28c2cd524ae100dffc407e079",
+    "entries": [
+      {
+        "name": "/",
+        "bytes": 0
+      },
+      {
+        "name": "movement/",
+        "bytes": 0
+      },
+      {
+        "name": "movement/movement.log",
+        "bytes": 0
+      },
+      {
+        "name": "server.log",
+        "bytes": 0
+      },
+      {
+        "name": "teleport/",
+        "bytes": 0
+      },
+      {
+        "name": "teleport/teleport.log",
+        "bytes": 1430
+      }
+    ],
+    "classification": "原JAR自行封存的log檔；屬授權日誌寫入"
+  },
+  "conclusion": "部分通過（✅ 16／❌ 0／⚠️ 1）",
+  "evidenceManifestSha256": "b90aa76b117204b9f59b576e69403b2f95822ed53aef788e4e2e4a87d854377c"
+}
