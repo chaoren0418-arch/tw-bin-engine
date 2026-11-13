@@ -431,3 +431,4 @@
 - 2026-11-13 — #1036 b15-prep-core: T451 準備器核心：輸入驗證、staging、收據、原子發布，加 TBT 圖示垂直切片（code，claude-local，PR #1066 已合併）→ [報告](reports/issue-1036.md)
 - 2026-11-13 — #1029 b15-src-text: T444 來源閉合：Text 容器版本差異與文字類素材（names、templates、list.spr／spz）（resource，claude-local，PR #1067 已合併）→ [報告](reports/issue-1029.md)
 - 2026-11-13 — #1051 b15-exc-work-evidence: T466 移除已知例外：兩個帶 pixels 陣列的 work/ 歷史證據（code，claude-local，PR #1068 已合併）→ [報告](reports/issue-1051.md)
+- 2026-11-13 — #1054 b15-web-local-images: T469 web 圖片：F9 面板的 icons／ground 一律由本機即時產生（code，claude-local，PR #1069 已合併）→ [報告](reports/issue-1054.md)
