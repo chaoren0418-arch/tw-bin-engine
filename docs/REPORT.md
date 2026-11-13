@@ -469,3 +469,4 @@
 - 2026-11-14 — #1133 分流：tw-bin-engine#1124 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1135 已合併）→ [報告](reports/issue-1133.md)
 - 2026-11-14 — #1132 f1119-evidence-pack: #1119 R07 證據重新封裝：PNG／build log 移出 git，CI 轉綠後合併報告（不重跑實機）（resource，codex-local，PR 已合併）→ [報告](reports/issue-1132.md)
 - 2026-11-14 — #1136 分流：tw-bin-engine#1126 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1137 已合併）→ [報告](reports/issue-1136.md)
+- 2026-11-14 — #1141 分流：tw-bin-engine#1125 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1144 已合併）→ [報告](reports/issue-1141.md)
