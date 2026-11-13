@@ -1,0 +1,81 @@
+{
+  "issue": 1118,
+  "conclusion": "部分通過",
+  "counts": {
+    "pass": 2,
+    "fail": 1,
+    "skipped": 8
+  },
+  "acceptance": {
+    "a": false,
+    "b": false
+  },
+  "handoff": "needs:local",
+  "session": {
+    "utc": "2026-11-13T19:58:02.408490+00:00",
+    "pid": 19240,
+    "session": " SESSIONNAME       USERNAME                 ID  STATE   TYPE        DEVICE \n services                                    0  Disc                        \n>console           CHAOREN                   6  Active                      \n",
+    "input_desktop": "Default",
+    "desktop_error": 0,
+    "leases": [
+      {
+        "name": "p24lab",
+        "holder": "chaoren0418-arch/tw-bin-engine#1118",
+        "since": 1794599834.7041962,
+        "exp": 1794605234.7041962
+      }
+    ]
+  },
+  "notepad": {
+    "window_id": 264538,
+    "pid": 14492,
+    "is_minimized": false,
+    "is_visible": true,
+    "foreground_window": 264538,
+    "dpi": 192,
+    "bounds": {
+      "left": 891,
+      "top": 56,
+      "right": 1797,
+      "bottom": 856
+    },
+    "capture_error": "Error: FrameArrived timed out: timed out waiting on channel"
+  },
+  "captureAttempts": [
+    {
+      "attempt": 1,
+      "method": "sky.get_window_state",
+      "windowId": 264538,
+      "error": "Error: FrameArrived timed out: timed out waiting on channel"
+    },
+    {
+      "attempt": 2,
+      "recovery": "js_reset; initialize @oai/sky; list_windows; get_window; activate_window; get_window_state",
+      "windowId": 264538,
+      "error": "Error: FrameArrived timed out: timed out waiting on channel"
+    }
+  ],
+  "cleanup": {
+    "time": "2026-11-14T03:59:06.4573319+08:00",
+    "notepadPid": 14492,
+    "notepadStillRunning": false,
+    "startedClient": false,
+    "startedJava": false,
+    "startedMySQL": false,
+    "listeners": []
+  },
+  "sourceScripts": [
+    {
+      "path": "scratch\\issue-1118\\check_session.py",
+      "sha256": "f15270c675c97ca90b5d5872be5c43b5098187210d264a76447965991239130c"
+    },
+    {
+      "path": "scratch\\issue-1118\\window_metadata.py",
+      "sha256": "6f75adc1d9714f866ed76cc089c69e52fbc864a443b68097cf258f57ecc7c819"
+    },
+    {
+      "path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1108\\scratch\\issue-1108\\start_client.py",
+      "sha256": "f75369cb829acc72b4fd368063c336213e578c42202603cc97723467a194c9be"
+    }
+  ]
+}
