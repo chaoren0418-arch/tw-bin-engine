@@ -67,6 +67,7 @@
   6. 測試前後：合成客戶端、測試準備的引擎目錄、接線用的樹、本 repo 的 `engine/assets`（存在時）逐檔 SHA 不變。
 - 既有的 players、shadows、shops、doors、magic、pickup 測試（`asset-prep-spr`、`asset-prep-spr-b`、`asset-prep-pickup`、`asset-prep-ondemand`、`native-ui-resources` 等）由同一次 CI 跑。
 - **CI 結果（PR #1103，程式 commit 的 run 43460547927／43460547867）**：`dotnet`、`map-continuity`、`npc-offline` 三個 job 全部 pass。`native-ui-resources` 步驟顯示 `PASS 1546 DEMO checks`；T477 合併後同一步驟是 1488，多出的 58 項正好是本張 `RuntimeAppearanceChecks` 的項數（47 個 Check、不可用迴圈 10 次多算 9 次、2 個 `ApRefused`），所以新測試確實在 CI 跑過並全部通過。既有的 players、shadows、shops、doors、magic、pickup、按需物件（T477）相關群組在同一步驟與其他步驟都通過（沒有 FAIL）。
+- **同步 main 之後（merge commit `e150930b`，run 43461571560／43461571582）**：`dotnet`、`map-continuity`、`npc-offline` 三個 job 再次全部 pass，`native-ui-resources` 仍是 `PASS 1546 DEMO checks`。同步前本機重新編譯 `OfflineClient` 與 `DemoChecks` 都是 0 個錯誤，`check-no-game-assets.py` pass；`rebuild-lock.json` 與 main 相同。
 
 ## 未驗證／待驗證（交給 Codex／真機）
 
