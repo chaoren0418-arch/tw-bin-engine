@@ -112,7 +112,7 @@ public sealed class AssetRecipeItemContext {
     readonly AssetPrepInput input;
     readonly AssetPriorOutputs prior;
     readonly Func<string,AssetReceiptItem?> completed;
-    readonly string directory;
+    readonly string? directory;
     readonly HashSet<string> taken;
     readonly List<AssetSource> sources=[];
     readonly List<AssetReceiptOutput> outputs=[];
@@ -121,8 +121,28 @@ public sealed class AssetRecipeItemContext {
     public CancellationToken Cancel{get;}
     /// <summary>Every item of this run in canonical order (what Normalize returned). A run publishes only when all of them are done.</summary>
     public IReadOnlyList<string> Requested{get;}
-    internal AssetRecipeItemContext(string item,AssetPrepInput input,AssetPriorOutputs prior,Func<string,AssetReceiptItem?> completed,string directory,HashSet<string> taken,IReadOnlyList<string> requested,CancellationToken cancel){
+    /// <summary>T477: decoded-SPR cache shared across items; only the runtime on-demand context has one (preparation decodes per item, as before).</summary>
+    public SprDecodeCache? DecodeCache{get;private init;}
+    /// <summary>T477: true for the read-only context of the runtime on-demand path (every Write is refused).</summary>
+    public bool ReadOnly=>directory==null;
+    internal AssetRecipeItemContext(string item,AssetPrepInput input,AssetPriorOutputs prior,Func<string,AssetReceiptItem?> completed,string? directory,HashSet<string> taken,IReadOnlyList<string> requested,CancellationToken cancel){
         Item=item;this.input=input;this.prior=prior;this.completed=completed;this.directory=directory;this.taken=taken;Requested=requested;Cancel=cancel;
+    }
+    /// <summary>
+    /// T477 (#1073): a context for the runtime on-demand path. It reads the client's containers exactly like a preparation
+    /// item (same anchor, same container rule, every entry recorded in <see cref="Sources"/>) but has no staging directory:
+    /// any Write throws, so nothing can reach engine/assets (asset-recipe.md 1.3 point 1: preparation is its only writer).
+    /// No prior recipe outputs are readable.
+    /// </summary>
+    public static AssetRecipeItemContext ForRuntime(string item,AssetPrepInput input,SprDecodeCache? cache,CancellationToken cancel)=>
+        new(item,input,new AssetPriorOutputs(input.ClientRoot,Array.Empty<string>()),_=>null,null,[],[item],cancel){DecodeCache=cache};
+    /// <summary>T477: the entries read so far for this item (container, name, offset, size, SHA-256).</summary>
+    public IReadOnlyList<AssetSource> Sources=>sources;
+    /// <summary>T477: the recorded source of a Sprite entry this item read from container <paramref name="archive"/>.</summary>
+    internal AssetSource SpriteSource(int archive,string name){
+        string container=input.SpriteName(archive);
+        return sources.LastOrDefault(s=>s.Container==container&&s.Entry.Equals(name,StringComparison.OrdinalIgnoreCase))
+            ??throw new InvalidOperationException($"{container} 的 {name} 沒有被這個項目讀過");
     }
 
     /// <summary>T455: an item of this run that is already finished (produced now or reused), with its outputs and metadata;
@@ -194,6 +214,7 @@ public sealed class AssetRecipeItemContext {
     }
 
     string Claim(string relativePath){
+        if(directory==null)throw new AssetPrepException(AssetPrepFailure.InvalidRequest,$"執行期按需解碼不寫檔：\"{relativePath}\" 被拒絕（engine/assets 只由準備模式寫入）");
         string relative=AssetPrepPaths.SafeRelative(relativePath);
         if(relative.StartsWith(AssetReceipt.FileName,StringComparison.OrdinalIgnoreCase))throw new AssetPrepException(AssetPrepFailure.UnsafePath,$"輸出路徑 \"{relativePath}\" 被拒絕：保留給收據");
         string full=AssetPrepPaths.Combine(directory,relative);
@@ -205,12 +226,12 @@ public sealed class AssetRecipeItemContext {
     /// <summary>Writes one output file. The path is relative to the recipe directory (see AssetPrepPaths.SafeRelative); a path can be written once per run.</summary>
     public void Write(string relativePath,ReadOnlySpan<byte> data){
         string relative=Claim(relativePath);
-        AssetPrepRunner.WriteFile(AssetPrepPaths.Combine(directory,relative),data);
+        AssetPrepRunner.WriteFile(AssetPrepPaths.Combine(directory!,relative),data);
         outputs.Add(new(relative,data.Length,AssetPrepPaths.Sha256(data)));
     }
     /// <summary>T456: streams a large output straight to disk (no whole-file buffer); size and SHA-256 are taken from the written file.</summary>
     public void Write(string relativePath,Action<Stream> write){
-        string relative=Claim(relativePath),full=AssetPrepPaths.Combine(directory,relative);
+        string relative=Claim(relativePath),full=AssetPrepPaths.Combine(directory!,relative);
         using(var file=new FileStream(full,FileMode.Create,FileAccess.Write,FileShare.None)){write(file);file.Flush(true);}
         outputs.Add(new(relative,new FileInfo(full).Length,AssetPrepPaths.Sha256File(full)));
     }

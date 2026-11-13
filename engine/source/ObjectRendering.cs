@@ -47,6 +47,8 @@ public sealed partial class Renderer {
             bool staticShape=!door&&!shop&&ListSprLayers.StaticShape(listRow,o.Action);
             int shapeGfx=staticShape?ListSprLayers.AltDirGfx(o.Gfx,o.Direction,listFields):o.Gfx;
             var resolved=door||shop?null:ObjectDrawFallback.Appearance(shapeGfx,o.Action,catalog.Get);
+            // T477：清單外的 gfx 正在背景按需解碼時，照 AppearancePending 處理（不畫、也不換成 1120）；解完下一次重算就畫，不可用時才走 1120 缺圖退回。
+            if(!door&&!shop&&catalog.Pending(shapeGfx)){unavailable.Add(o);continue;}
             var a=door?catalog.GetDoor(o.Gfx):shop?catalog.GetShop(o.Gfx):resolved?.Appearance;int drawGfx=resolved?.Gfx??o.Gfx;
             // 引擎沒有對應原圖的 S158 動作，原版在缺圖時改播姿勢動作（AN§3.4 第 1 點）；商店仍照舊不畫。
             // R10-R：71 釣魚改從原客戶端 list.spr 的動作 71 播（下面 FishingFrame）；讀不到時才照這裡退回姿勢動作。
@@ -643,7 +645,8 @@ public static class NameDisplayOptions {
 public sealed partial class ClientForm {
     ObjectAssets? objectAssets;Patch? objectPatch;ObjectVisual[] objectVisuals=[];WorldObject[] missingObjects=[];
     void RefreshObjects(){
-        EnsureDisplayOptions();objectAssets??=new(World.Assets.Root);
+        // T477：遊戲畫面的外觀表接上按需解碼（TW_CLIENT_ROOT，只放記憶體）。
+        EnsureDisplayOptions();objectAssets??=new(World.Assets.Root,ObjectAppearanceOnDemand.Product);
         objectPatch=renderer.ComposeObjects(World,login.World,objectAssets,out objectVisuals,out missingObjects);
         Camera.SetBounds(renderer.Bounds);
         patch?.Dispose();patch=Renderer.BitmapOf(objectPatch.Bounds.Width,objectPatch.Bounds.Height,objectPatch.Colors,objectPatch.Mask);patchRect=objectPatch.Bounds;RecordOpacityFrame();

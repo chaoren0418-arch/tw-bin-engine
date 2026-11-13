@@ -280,12 +280,55 @@ public static class SprSource {
     /// same-named file in Sprite00–15 must be byte-identical: two different contents make the file unavailable
     /// (refused, never one picked). Null when no container has the name. Every entry read is recorded as a source.
     /// </summary>
-    public static byte[]? TryRead(AssetRecipeItemContext context,string name)=>
+    public static byte[]? TryRead(AssetRecipeItemContext context,string name)=>TryChoose(context,name)?.Data;
+    /// <summary>T477: like <see cref="TryRead"/>, with the container index the bytes were taken from.</summary>
+    public static (int Archive,byte[] Data)? TryChoose(AssetRecipeItemContext context,string name)=>
         // T479: the rule itself is shared with the runtime readers (P06.NativeUi.SpriteContainerRule).
         P06.NativeUi.SpriteContainerRule.Choose(context.SpriteCount,archive=>context.TryReadSprite(archive,name),
-            (first,other)=>new AssetPrepException(AssetPrepFailure.Unavailable,$"{name} 不在主包 Sprite，替代包 {context.SpriteName(first)} 與 {context.SpriteName(other)} 的內容不同；不選用任何一份",context.SpriteName(other)))?.Data;
+            (first,other)=>new AssetPrepException(AssetPrepFailure.Unavailable,$"{name} 不在主包 Sprite，替代包 {context.SpriteName(first)} 與 {context.SpriteName(other)} 的內容不同；不選用任何一份",context.SpriteName(other)));
     public static byte[] Read(AssetRecipeItemContext context,string name)=>
-        TryRead(context,name)??throw new AssetPrepException(AssetPrepFailure.MissingEntry,$"{name} 不在 TW_CLIENT_ROOT 的任何 Sprite 容器");
+        TryRead(context,name)??throw Missing(name);
+    static AssetPrepException Missing(string name)=>new(AssetPrepFailure.MissingEntry,$"{name} 不在 TW_CLIENT_ROOT 的任何 Sprite 容器");
+
+    /// <summary>
+    /// T477: the chosen file decoded. With a <see cref="SprDecodeCache"/> on the context (runtime on-demand only) a file already
+    /// decoded from the same container entry is reused; the key is the entry's location, never the gfx (asset-recipe.md 5).
+    /// The bytes are still read so the main-first / alternates-identical rule is applied the same way every time.
+    /// </summary>
+    public static SprFile Decode(AssetRecipeItemContext context,string name){
+        var chosen=TryChoose(context,name)??throw Missing(name);
+        if(context.DecodeCache is not {} cache)return SprFile.Decode(chosen.Data,name);
+        var source=context.SpriteSource(chosen.Archive,name);
+        return cache.Get(new(source.Container,source.Offset,source.Size,cache.RecipeId,cache.RecipeVersion,cache.ListSpzSha256),()=>SprFile.Decode(chosen.Data,name));
+    }
+}
+
+/// <summary>
+/// T477 (#1073): decoded-SPR cache of the runtime on-demand path. Key = (container, idx offset, idx size, recipe id and version,
+/// SHA-256 of the decoded list.spz) — several gfx share one sprite, so the gfx number is never the key. Memory only; nothing
+/// here touches a disk. Thread-safe; a file is decoded at most once per key even when two items ask at the same time.
+/// </summary>
+public sealed record SprDecodeKey(string Container,long Offset,int Size,string RecipeId,int RecipeVersion,string ListSpzSha256);
+public sealed class SprDecodeCache(string recipeId,int recipeVersion,string listSpzSha256) {
+    readonly System.Collections.Concurrent.ConcurrentDictionary<SprDecodeKey,Lazy<SprFile>> files=new();
+    int hits,decodes;
+    public string RecipeId=>recipeId;
+    public int RecipeVersion=>recipeVersion;
+    public string ListSpzSha256=>listSpzSha256;
+    public int Count=>files.Count;
+    /// <summary>Lookups answered from the cache.</summary>
+    public int Hits=>Volatile.Read(ref hits);
+    /// <summary>Files actually decoded (one per key).</summary>
+    public int Decodes=>Volatile.Read(ref decodes);
+    public IReadOnlyCollection<SprDecodeKey> Keys=>files.Keys.ToArray();
+    public SprFile Get(SprDecodeKey key,Func<SprFile> decode){
+        bool created=false;
+        var lazy=files.GetOrAdd(key,_=>{created=true;return new Lazy<SprFile>(()=>{Interlocked.Increment(ref decodes);return decode();},LazyThreadSafetyMode.ExecutionAndPublication);});
+        if(!created)Interlocked.Increment(ref hits);
+        try{return lazy.Value;}
+        // A refused file is not kept: the item that asked records its own refusal (the caller remembers per gfx).
+        catch{files.TryRemove(new KeyValuePair<SprDecodeKey,Lazy<SprFile>>(key,lazy));throw;}
+    }
 }
 
 /// <summary>The files of one sprite number (<c>&lt;sprite&gt;-&lt;sid&gt;.spr</c>), read and decoded once per item.</summary>
@@ -297,7 +340,7 @@ public sealed class SprBody(AssetRecipeItemContext context,int sprite) {
         if(files.TryGetValue(sid,out var file))return file;
         context.Cancel.ThrowIfCancellationRequested();
         string name=FileName(sprite,sid);
-        file=SprFile.Decode(SprSource.Read(context,name),name);
+        file=SprSource.Decode(context,name);
         files[sid]=file;return file;
     }
     /// <summary>The file numbers read so far, ascending.</summary>
