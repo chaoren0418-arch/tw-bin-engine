@@ -246,6 +246,14 @@ public sealed class AssetPrepInput:IDisposable {
     public IReadOnlyList<AssetContainerRecord> Containers()=>
         sprites.Append(tile).OfType<PrepArchive>().Select(a=>new AssetContainerRecord(a.Name,a.IndexSize,a.IndexSha256,a.PakSize)).ToList();
 
+    /// <summary>The set always reads Text; include its index identity even before the first entry is consumed.</summary>
+    public IReadOnlyList<AssetContainerRecord> SetContainers(){
+        _=Text();
+        string index=Path.Combine(ClientRoot,"Text.idx"),pak=Path.Combine(ClientRoot,"Text.pak");
+        return Containers().Append(new AssetContainerRecord(TextContainer,new FileInfo(index).Length,AssetPrepPaths.Sha256File(index),new FileInfo(pak).Length))
+            .OrderBy(c=>c.Name,StringComparer.Ordinal).ToList();
+    }
+
     // ---- T456 (#1041): Tile container and the loose map/ files. ----
     public const string MapContainer="map";
 
@@ -267,6 +275,10 @@ public sealed class AssetPrepInput:IDisposable {
 
     /// <summary>Directory names directly below TW_CLIENT_ROOT/map (ordinal order).</summary>
     public IReadOnlyList<string> MapDirectories()=>Guard(MapContainer,()=>Directory.EnumerateDirectories(MapRoot).Select(d=>Path.GetFileName(d)!).Order(StringComparer.Ordinal).ToList());
+    public AssetSource MapRootListing(){
+        var names=MapDirectories();
+        return new(MapContainer,"map/",0,names.Count,AssetPrepPaths.Sha256(Encoding.UTF8.GetBytes(string.Concat(names.Select(n=>n+"\n")))));
+    }
     /// <summary>File names (original case) in TW_CLIENT_ROOT/map/&lt;directory&gt; (ordinal order). Junctions are refused.</summary>
     public IReadOnlyList<string> MapFiles(string directory){
         if(!AssetPrepPaths.IsItemToken(directory))throw new AssetPrepException(AssetPrepFailure.UnsafePath,$"map 目錄名稱 \"{directory}\" 不合法");
@@ -301,6 +313,7 @@ public sealed class AssetPrepInput:IDisposable {
                 return entry!=null&&entry.Offset==source.Offset&&entry.Size==source.Size&&AssetPrepPaths.Sha256(tile.Read(entry))==source.Sha256;
             }
             if(source.Container==MapContainer&&mapFiles){
+                if(source.Entry=="map/")return MapRootListing()==source;
                 var parts=source.Entry.Split('/');
                 if(parts.Length!=3||parts[0]!=MapContainer||!AssetPrepPaths.IsItemToken(parts[1]))return false;
                 if(parts[2].Length==0)return MapListing(parts[1]) is var l&&l.Size==source.Size&&l.Sha256==source.Sha256;

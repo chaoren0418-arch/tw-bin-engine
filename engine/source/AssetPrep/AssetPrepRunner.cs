@@ -82,6 +82,11 @@ public sealed class AssetPriorOutputs {
 
     /// <summary>The relative paths a required recipe published, ordinal order.</summary>
     public IReadOnlyList<string> Outputs(string recipeId)=>Load(recipeId).Outputs.Keys.Order(StringComparer.Ordinal).ToList();
+    // Enumeration is an input too: a new body profile must invalidate a shadow that read the earlier file set.
+    internal AssetSource Listing(string recipeId){
+        var rows=Load(recipeId).Outputs.Values.OrderBy(o=>o.RelativePath,StringComparer.Ordinal).ToArray();
+        return new(ContainerPrefix+recipeId,"@outputs",0,rows.Length,AssetPrepPaths.Sha256(JsonSerializer.SerializeToUtf8Bytes(rows)));
+    }
 
     /// <summary>A published file of a required recipe, checked against that recipe's receipt.</summary>
     public (byte[] Data,AssetSource Source) Read(string recipeId,string relativePath){
@@ -102,7 +107,7 @@ public sealed class AssetPriorOutputs {
     internal bool Verify(AssetSource source){
         string id=source.Container[ContainerPrefix.Length..];
         if(!allowed.Contains(id))return false;
-        try{return Read(id,source.Entry).Source==source;}
+        try{return source.Entry=="@outputs"?Listing(id)==source:Read(id,source.Entry).Source==source;}
         catch(AssetPrepException ex) when(ex.Failure==AssetPrepFailure.Prerequisite||ex.Failure==AssetPrepFailure.UnsafePath){return false;}
     }
 }
@@ -161,7 +166,10 @@ public sealed class AssetRecipeItemContext {
     /// null when it is not done yet. Manifest items, ordered last by Normalize, are built from these records.</summary>
     public AssetReceiptItem? Completed(string item)=>completed(item);
     /// <summary>T455: the relative paths a required recipe (<see cref="IAssetRecipe.Requires"/>) published.</summary>
-    public IReadOnlyList<string> PriorOutputs(string recipeId)=>prior.Outputs(recipeId);
+    public IReadOnlyList<string> PriorOutputs(string recipeId){
+        var listing=prior.Listing(recipeId);if(!sources.Contains(listing))sources.Add(listing);
+        return prior.Outputs(recipeId);
+    }
     /// <summary>T455: one published file of a required recipe, verified against its receipt and recorded as a source.</summary>
     public byte[] ReadPrior(string recipeId,string relativePath){
         var hit=prior.Read(recipeId,relativePath);
@@ -213,7 +221,10 @@ public sealed class AssetRecipeItemContext {
         if(input.TryReadTile(name) is not {} hit)return null;
         sources.Add(hit.Source);return hit.Data;
     }
-    public IReadOnlyList<string> MapDirectories()=>input.MapDirectories();
+    public IReadOnlyList<string> MapDirectories(){
+        var listing=input.MapRootListing();if(!sources.Contains(listing))sources.Add(listing);
+        return input.MapDirectories();
+    }
     /// <summary>File names of TW_CLIENT_ROOT/map/&lt;directory&gt;; the listing itself is recorded as a source (added or removed files invalidate a resume).</summary>
     public IReadOnlyList<string> MapFiles(string directory){
         var listing=input.MapListing(directory);
@@ -286,9 +297,15 @@ public sealed record AssetPrepRequest(string? ClientRoot,string EngineRoot,strin
     public CancellationToken Cancel{get;init;}
     /// <summary>Called after an item is produced and recorded in the staged receipt. An exception from it stops the run like any failure.</summary>
     public Action<string>? ItemCompleted{get;init;}
+    /// <summary>Reports verified reused items as well as newly completed ones. Called after the checkpoint is durable.</summary>
+    public Action<string,bool>? ItemProgress{get;init;}
+    /// <summary>Called before producing an item (the set runner uses it to check cancellation and free space).</summary>
+    public Action? BeforeItem{get;init;}
 }
 
 public enum AssetPrepOutcome {
+    /// <summary>Verified recipe kept in staging for the set publisher; active was not touched.</summary>
+    Staged,
     /// <summary>A newly verified directory replaced (or created) the active one.</summary>
     Published,
     /// <summary>The active directory already holds exactly this request and still verifies; nothing was written to it.</summary>
@@ -301,7 +318,7 @@ public sealed record AssetPrepResult(AssetPrepOutcome Outcome,string ActiveDirec
 
 public sealed class AssetPrepRunner {
     /// <summary>Recorded in every receipt; staged work of another tool version is discarded.</summary>
-    public const string ToolVersion="tw-asset-prep/2";   // 2 (T454): receipt inputs are idx size / idx SHA-256 / pak size, no whole-pak hash
+    public const string ToolVersion="tw-asset-prep/3";   // 3 (T467): set publication; map/prior-output listings and aggregate resume dependencies
     readonly Dictionary<string,IAssetRecipe> recipes=new(StringComparer.Ordinal);
 
     public AssetPrepRunner(IEnumerable<IAssetRecipe> recipes){
@@ -363,7 +380,10 @@ public sealed class AssetPrepRunner {
         return normalized.ToList();
     }
 
-    public AssetPrepResult Run(AssetPrepRequest request){
+    public AssetPrepResult Run(AssetPrepRequest request)=>Run(request,false);
+    // The set writer already holds the global lock. Dependencies are read only from this run's staged recipes.
+    internal AssetPrepResult Stage(AssetPrepRequest request)=>Run(request,true);
+    AssetPrepResult Run(AssetPrepRequest request,bool stageOnly){
         string id=AssetPrepPaths.RequireRecipeId(request.RecipeId);
         if(!recipes.TryGetValue(id,out var recipe))throw new AssetPrepException(AssetPrepFailure.InvalidRequest,$"沒有 recipe \"{id}\"");
         var layout=new AssetPrepLayout(request.EngineRoot);
@@ -383,32 +403,35 @@ public sealed class AssetPrepRunner {
         try{
             Directory.CreateDirectory(layout.StagingRoot);
             CheckTargets();
+            using var setWriter=stageOnly?null:AssetPrepLock.Acquire(layout.SetLock,"asset-set");
+            if(!stageOnly&&File.Exists(Path.Combine(layout.ActiveRoot,AssetSetReceipt.FileName)))
+                throw new AssetPrepException(AssetPrepFailure.InvalidRequest,"完整 assets 樹只能由總流程更新；單一 recipe 程式庫模式請使用獨立目錄");
             using var writer=AssetPrepLock.Acquire(layout.Lock(id),id);
-            return RunLocked(request,recipe,layout,clientRoot,requested,CheckTargets);
+            return RunLocked(request,recipe,layout,clientRoot,requested,CheckTargets,stageOnly);
         }
-        catch(IOException ex){throw new AssetPrepException(AssetPrepFailure.Io,$"recipe {id} 準備失敗（未發布）：{ex.Message}",inner:ex);}
+        catch(IOException ex){throw new AssetPrepException((ex.HResult&0xffff) is 112 or 39?AssetPrepFailure.DiskSpace:AssetPrepFailure.Io,$"recipe {id} 準備失敗（未發布）：{ex.Message}",inner:ex);}
         catch(UnauthorizedAccessException ex){throw new AssetPrepException(AssetPrepFailure.Io,$"recipe {id} 準備失敗（未發布）：{ex.Message}",inner:ex);}
     }
 
-    AssetPrepResult RunLocked(AssetPrepRequest request,IAssetRecipe recipe,AssetPrepLayout layout,string clientRoot,IReadOnlyList<string> requested,Action checkTargets){
+    AssetPrepResult RunLocked(AssetPrepRequest request,IAssetRecipe recipe,AssetPrepLayout layout,string clientRoot,IReadOnlyList<string> requested,Action checkTargets,bool stageOnly){
         string id=recipe.Id,staging=layout.Staging(id),active=layout.Active(id),previous=layout.Previous(id);
 
         // A publish that stopped between its two renames: put the old active directory back (or drop it when the new one is in place).
-        if(Directory.Exists(previous)){
+        if(!stageOnly&&Directory.Exists(previous)){
             if(Directory.Exists(active))AssetPrepPaths.DeleteTree(previous);
             else{Directory.CreateDirectory(layout.ActiveRoot);checkTargets();Retry(()=>Directory.Move(previous,active));}
         }
 
         using var input=AssetPrepInput.Open(clientRoot,request.Pins,(recipe as IAssetRecipeSources)?.Sources??AssetPrepSources.Sprites);
-        var identity=input.Containers();
+        var identity=stageOnly?input.SetContainers():input.Containers();
         // Order (asset-recipe.md 6): every recipe this one reads must already be published, before anything is produced.
         var requires=(recipe.Requires??[]).Select(AssetPrepPaths.RequireRecipeId).Distinct(StringComparer.Ordinal).ToList();
         if(requires.Contains(id))throw new AssetPrepException(AssetPrepFailure.InvalidRequest,$"recipe {id} 不能依賴自己");
-        var prior=new AssetPriorOutputs(layout.ActiveRoot,requires);
+        var prior=new AssetPriorOutputs(stageOnly?layout.StagingRoot:layout.ActiveRoot,requires);
         prior.RequireAll();
         bool Verify(AssetSource source)=>AssetPriorOutputs.IsPrior(source)?prior.Verify(source):input.Verify(source);
 
-        if(Directory.Exists(active)&&AssetReceipt.TryLoad(Path.Combine(active,AssetReceipt.FileName)) is {} current
+        if(!stageOnly&&Directory.Exists(active)&&AssetReceipt.TryLoad(Path.Combine(active,AssetReceipt.FileName)) is {} current
             &&current.Status==FinalStatus(recipe)&&SameIdentity(current,recipe,identity)
             &&current.Requested.SequenceEqual(requested,StringComparer.Ordinal)&&current.Completed.Select(c=>c.Item).SequenceEqual(requested,StringComparer.Ordinal)
             &&TreeError(active,current)==null&&current.Completed.All(c=>c.Sources.All(Verify))){
@@ -430,6 +453,13 @@ public sealed class AssetPrepRunner {
                 done[item.Item]=new(item.Item,item.Sources.ToList(),item.Outputs.ToList(),new SortedDictionary<string,string>(item.Metadata.ToDictionary(m=>m.Key,m=>m.Value),StringComparer.Ordinal));
                 foreach(var output in item.Outputs)taken.Add(output.RelativePath);
             }
+            // Manifests consume Completed() metadata, which is not an external source record. If any item is invalid,
+            // rebuild these aggregate items too; otherwise a resumed manifest could keep the old item's hash/count.
+            if(done.Count!=requested.Count)
+                foreach(string item in done.Keys.Where(recipe.DependsOnRequest).ToArray()){
+                    foreach(var output in done[item].Outputs)taken.Remove(output.RelativePath);
+                    done.Remove(item);
+                }
         }
         Directory.CreateDirectory(staging);
         checkTargets();
@@ -441,19 +471,21 @@ public sealed class AssetPrepRunner {
         }
         AssetPrepPaths.PruneEmptyDirectories(staging);
 
-        AssetReceipt Snapshot(string status)=>new(AssetReceipt.SchemaId,ToolVersion,recipe.Id,recipe.Version,status,input.Containers(),requested,
+        AssetReceipt Snapshot(string status)=>new(AssetReceipt.SchemaId,ToolVersion,recipe.Id,recipe.Version,status,identity,requested,
             requested.Where(done.ContainsKey).Select(i=>done[i]).ToList());
         WriteReceipt(staging,Snapshot(AssetReceipt.InProgress));
         var produced=new List<string>();var reused=new List<string>();
         foreach(string item in requested){
             request.Cancel.ThrowIfCancellationRequested();
-            if(done.ContainsKey(item)){reused.Add(item);continue;}
+            if(done.ContainsKey(item)){reused.Add(item);request.ItemProgress?.Invoke(item,true);continue;}
+            request.BeforeItem?.Invoke();
             var context=new AssetRecipeItemContext(item,input,prior,i=>done.GetValueOrDefault(i),staging,taken,requested,request.Cancel);
             recipe.Produce(item,context);
             done[item]=context.Build();
             WriteReceipt(staging,Snapshot(AssetReceipt.InProgress));
             produced.Add(item);
             request.ItemCompleted?.Invoke(item);
+            request.ItemProgress?.Invoke(item,false);
         }
 
         // Everything is verified from disk before the active directory is touched.
@@ -463,6 +495,8 @@ public sealed class AssetPrepRunner {
             throw new AssetPrepException(AssetPrepFailure.Verification,$"recipe {id}：staging 的收據讀回後與寫入內容不同，未發布");
         if(TreeError(staging,final) is string error)throw new AssetPrepException(AssetPrepFailure.Verification,$"recipe {id}：{error}，未發布");
         request.Cancel.ThrowIfCancellationRequested();
+
+        if(stageOnly)return new(AssetPrepOutcome.Staged,staging,final,produced,reused);
 
         Directory.CreateDirectory(layout.ActiveRoot);
         checkTargets();

@@ -69,7 +69,8 @@ public sealed class Assets {
         return new Pixel(v[0],v[1],(ushort)v[2]);}).ToArray();
     public static void VerifyIntegrity(string root) {
         var m=Json.Read(Path.Combine(root,"integrity.json"));
-        if(m.S("schema")!="p06-assets-integrity-v1")throw new InvalidDataException("Unsupported asset integrity schema");
+        if(m.S("schema")==AssetPrep.AssetSetIntegrity.SchemaId)AssetPrep.AssetSetIntegrity.VerifyReceipt(root,m);
+        else if(m.S("schema")!="p06-assets-integrity-v1")throw new InvalidDataException("Unsupported asset integrity schema");
         foreach(var f in m.GetProperty("files").EnumerateArray()) {
             var p=Path.GetFullPath(Path.Combine(root,f.S("path")));
             if(!p.StartsWith(Path.GetFullPath(root)+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Asset path escapes root");
