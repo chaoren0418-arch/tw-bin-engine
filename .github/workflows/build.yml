@@ -130,6 +130,12 @@ jobs:
           New-Item -ItemType Directory -Force scratch/issue-263 | Out-Null
           dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-263/polymorph-checks.json polymorph-cadence
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Action timing from list.spr ticks, R1/R2 read points T461 (synthetic metadata, no game or network)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force scratch/issue-1046 | Out-Null
+          dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-1046/action-timing.json action-timing
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Buddy and exclude contracts (no game or network)
         shell: pwsh
         run: |

@@ -45,9 +45,9 @@ partial class Checks {
         using var c=Seed();var root=Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../.."));
         var scratch=Path.Combine(root,"scratch","issue-129");Directory.CreateDirectory(scratch);
         // Test-only authored metadata, not copied NPC resources.
-        var catalog=Path.Combine(scratch,"skills.json");File.WriteAllText(catalog,"[{\"Id\":4,\"Name\":\"測試技能\",\"Level\":1}]");
+        var catalog=SpellTable("220\r\n3 測試技能 (3/0)\r\n");// T462：合成的 spelldesc-c.tbl（不是客戶端資料）
         var templates=Path.Combine(scratch,"npc.json");File.WriteAllText(templates,"{\"test\":\"<a action='buyspell'>學習</a>\"}");
-        c.World.SkillCatalog=new(catalog);c.World.DialogTemplates=new(templates);var sent=new List<byte[]>();
+        using var spells=ClientSpellTable.Use(catalog);c.World.SkillCatalog=new(catalog);c.World.DialogTemplates=new(templates);var sent=new List<byte[]>();
         Sender(c,(b,v,a)=>{if(!v())return Task.FromResult(false);sent.Add(b);a();return Task.FromResult(true);});
         Check(await Service(c,"talk")&&sent[^1][0]==34,"NPC talk C34");
         Feed(c,Packet(b=>{b.Write((byte)39);b.Write(456u);Text(b,"test");b.Write((ushort)0);b.Write((ushort)0);}));

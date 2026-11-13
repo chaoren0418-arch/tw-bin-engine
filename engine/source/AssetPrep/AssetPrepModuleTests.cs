@@ -64,6 +64,24 @@ static class AssetPrepModuleTests {
             t.Check(Refused(()=>recipe.Normalize(new[]{item}),AssetPrepFailure.InvalidRequest),"inventory item refused: \""+item+"\"");
         t.Check(InventoryIconRecipe.ParseIcon("65535")==65535&&InventoryIconRecipe.FileName(124)=="124.png","inventory icon range and file name");
 
+        // --- T456 maps recipe and the shared map scan (synthetic bytes only).
+        t.Check(product.Recipes.Count(r=>r is MapsRecipe{Id:MapsRecipe.RecipeId,Coverage:AssetRecipeCoverage.Complete,Sources:AssetPrepSources.Tile|AssetPrepSources.MapFiles})==1,"maps recipe discovered once, reads Tile and map/ only");
+        // T458 terrain recipe and rules (the file-system checks are the DemoChecks group terrain-recipe).
+        t.Check(product.Recipes.Count(r=>r is TerrainRecipe{Id:TerrainRecipe.RecipeId,Coverage:AssetRecipeCoverage.Complete,Sources:AssetPrepSources.MapFiles})==1,"terrain recipe discovered once, reads map/ only");
+        t.Check(new TerrainRecipe().Normalize(new[]{"terrain0","maps","original-map0","maps"}).SequenceEqual(new[]{"maps","original-map0","terrain0"}),"terrain items normalised");
+        t.Check(Refused(()=>new TerrainRecipe().Normalize(new[]{"0"}),AssetPrepFailure.InvalidRequest),"terrain recipe refuses unknown items");
+        t.Check(TerrainRules.Passage(0,0,0,0)==15&&TerrainRules.Passage(1,1,1,1)==0&&TerrainRules.Passage(1,0,0,1)==3&&TerrainRules.Passage(1,1,0,0)==10&&TerrainRules.Passage(0,0,1,1)==5,"terrain passage bits 0–3");
+        t.Check(TerrainRules.Zone(0x40)==16&&TerrainRules.Zone(0x41)==16&&TerrainRules.Zone(0x04)==16&&TerrainRules.Zone(0x48)==16&&TerrainRules.Zone(0x08)==32&&TerrainRules.Zone(0x60)==0&&TerrainRules.Zone(0x20)==0&&TerrainRules.Zone(0x01)==0,"terrain zone bits 4–5");
+        t.Check(Refused(()=>new MapsRecipe().Normalize(new[]{"terrain"}),AssetPrepFailure.InvalidRequest),"maps recipe refuses unknown items");
+        var names=new[]{"7FFD8002.S32","7ffe8003.s32","7fff8000.seg"}.Select(n=>MapScan.BlockName(n)!).ToArray();
+        t.Check(MapScan.Bounds(names)==new MapBounds(32576,32768,32767,33023),"bounds: x0 = (bx − 0x7E00) × 64, max + 63, .seg included");
+        static byte[] S32(Action<BinaryWriter> tail){using var s=new MemoryStream();using var w=new BinaryWriter(s);for(int i=0;i<8192;i++)w.Write(i==1?uint.MaxValue:(uint)(7<<8|3));w.Write((ushort)1);w.Write((byte)0);w.Write((byte)0);w.Write((uint)(9<<8));w.Write(new byte[16384]);w.Write(1);w.Write((ushort)1);w.Write((ushort)1);w.Write(new byte[3]);w.Write((uint)(11<<8));w.Write(0);w.Write(0);w.Write((ushort)0);tail(w);return s.ToArray();}
+        var scan=MapScan.Parse(S32(w=>{w.Write((ushort)1);w.Write((ushort)6016);w.Write((ushort)0);w.Write((ushort)0);}),false);
+        t.Check(scan.TileIds.SetEquals(new[]{7,9,11,0xFFFF})&&scan.EffectIds.SequenceEqual(new[]{6016})&&!scan.NoEffectTail&&scan.PortalCount==0,"S32 scan: ground, cover and object tile ids; effect tail ids");
+        t.Check(MapScan.Parse(S32(_=>{}),false).NoEffectTail,"S32 scan: file ending after portals has no effect tail");
+        t.Throws<InvalidDataException>(()=>MapScan.Parse(S32(w=>{w.Write((ushort)0);w.Write((byte)1);}),false),"S32 scan: trailing data refused");
+        t.Throws<InvalidDataException>(()=>MapScan.Parse(S32(w=>{w.Write((ushort)2);w.Write(new byte[6]);}),false),"S32 scan: truncated effect tail refused");
+
         // --- PNG container: signature, IHDR, one stored IDAT, IEND; pixels in R, G, B, A order.
         uint[] pixels=[0xFF102030u,0x00000000u,0x80FFEEDDu,0xFF000001u,0xFFFFFFFFu,0x01020304u];
         byte[] png=PngWriter.Encode(3,2,pixels);

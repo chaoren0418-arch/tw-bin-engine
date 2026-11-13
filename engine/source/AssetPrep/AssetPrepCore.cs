@@ -6,7 +6,7 @@ namespace P06.AssetPrep;
 
 // T451 (#1036, B15): local asset preparer core. Design: docs/design/portable-delivery.md「本機生成與啟動」.
 // The preparer turns the user's own original client (an explicit, absolute TW_CLIENT_ROOT) into derived files under
-// <engine>/assets/<recipe-id>. Nothing here carries game content: only algorithms, container pins and path rules.
+// <engine>/assets/<recipe-id>. Nothing here carries game content: only algorithms, anchor hashes and path rules.
 //
 // Adding a category (auto-discovery, docs/design/m6-contract.md「自動發現」): in your own file,
 //   [AssetRecipe] public sealed class XxxRecipe:IAssetRecipe{ … }      // public or internal parameterless constructor
@@ -20,12 +20,18 @@ public enum AssetPrepFailure {
     ClientRoot,
     /// <summary>A pinned container file (idx or pak) is not in TW_CLIENT_ROOT.</summary>
     MissingContainer,
-    /// <summary>A container (or a pinned Text entry) is not the pinned version: SHA-256 or size differs.</summary>
+    /// <summary>An anchor entry (list.spz, a pinned Text entry) is not the supported version: its decoded SHA-256 differs.</summary>
     ContainerMismatch,
-    /// <summary>The container has the pinned identity but its structure is unusable (truncated index, entry out of range).</summary>
+    /// <summary>The container's structure is unusable (index size, entry out of range, duplicate name, truncated pak).</summary>
     CorruptContainer,
+    /// <summary>The client has the data but the recipe's rules cannot produce this item (an action the item needs is not
+    /// in list.spz, same-named alternates differ, …). Nothing is substituted.</summary>
+    Unavailable,
     /// <summary>The entry a recipe needs is in none of its candidate containers.</summary>
     MissingEntry,
+    /// <summary>Wrong order (T455): a recipe this one reads from (<see cref="IAssetRecipe.Requires"/>) has not been
+    /// published, or did not produce the output asked for, or that output no longer matches its receipt.</summary>
+    Prerequisite,
     /// <summary>The entry is there but cannot be decoded (truncated or malformed payload).</summary>
     CorruptEntry,
     /// <summary>Path traversal, or the target / one of its ancestors is a junction or symlink.</summary>
@@ -67,6 +73,29 @@ public interface IAssetRecipe {
     IReadOnlyList<string> Normalize(IReadOnlyList<string> items);
     /// <summary>Produces one item: reads through the context (sources are recorded) and writes through the context.</summary>
     void Produce(string item,AssetRecipeItemContext context);
+    /// <summary>True for an item whose output is derived from the request itself (a manifest of the requested items):
+    /// a resumed run only reuses it when the earlier run had exactly the same request.</summary>
+    bool DependsOnRequest(string item)=>false;
+    /// <summary>Recipes whose published output this one reads (asset-recipe.md 6). Each must have a final receipt in
+    /// assets/&lt;id&gt;/ before this recipe runs; otherwise the run stops with <see cref="AssetPrepFailure.Prerequisite"/>
+    /// before anything is produced. Only these may be read through <see cref="AssetRecipeItemContext.ReadPrior"/>.</summary>
+    IReadOnlyList<string> Requires=>[];
+}
+
+/// <summary>T456: which parts of TW_CLIENT_ROOT a recipe reads. Opened (and recorded as receipt inputs) before the first item.</summary>
+[Flags]
+public enum AssetPrepSources {
+    /// <summary>The 17 Sprite containers and Text (the default for recipes that do not say otherwise).</summary>
+    Sprites=1,
+    /// <summary>Tile.idx / Tile.pak, checked for structure only (no whole-pak pin, asset-recipe.md §1.1 point 3).</summary>
+    Tile=2,
+    /// <summary>The loose files below TW_CLIENT_ROOT/map.</summary>
+    MapFiles=4,
+}
+
+/// <summary>Optional: a recipe that does not read the Sprite containers says what it reads instead.</summary>
+public interface IAssetRecipeSources {
+    AssetPrepSources Sources{get;}
 }
 
 public static class AssetRecipeDiscovery {

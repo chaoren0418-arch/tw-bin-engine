@@ -30,29 +30,38 @@ public sealed class Assets {
     public int CanvasHeight {get;}
     public Assets(string root) {
         Root=Path.GetFullPath(root);VerifyIntegrity(Root);
+        (CanvasWidth,CanvasHeight)=LoadScene(root,Scene);
+        LoadCharacter(root,Frames,Sequences);
+        // T459（#1044）：方向、每格毫秒與離線起點是產品規則（MotionRules），不再讀 motion.json。
+        FrameMs=MotionRules.FrameMs;Spawn=MotionRules.Spawn();Directions=MotionRules.Directions();
+    }
+    /// <summary>scene/manifest.json, tile-pixels.json and draw-commands.json (p22-dual-map-v1); returns the canvas size.
+    /// Also used by the scene recipe checks (T457) on a prepared directory.</summary>
+    public static (int Width,int Height) LoadScene(string root,List<Draw> scene) {
         var manifest=Json.Read(Path.Combine(root,"scene/manifest.json"));
         if(manifest.S("schema")!="p22-dual-map-v1" || !manifest.A("world_inclusive_bounds").SequenceEqual(new[]{Coordinates.MinX,Coordinates.MinY,Coordinates.MaxX,Coordinates.MaxY}) || !manifest.A("pixel_origin").SequenceEqual(new[]{0,756}) || manifest.I("terrain_stride")!=Coordinates.Columns || manifest.I("terrain_rows")!=Coordinates.Rows)throw new InvalidDataException("Unsupported scene format/bounds");
-        var canvas=manifest.A("canvas_size");if(canvas.Length!=2||canvas.Any(v=>v<=0)||((long)canvas[0]*canvas[1])>16000000)throw new InvalidDataException("Invalid scene canvas");CanvasWidth=canvas[0];CanvasHeight=canvas[1];
+        var canvas=manifest.A("canvas_size");if(canvas.Length!=2||canvas.Any(v=>v<=0)||((long)canvas[0]*canvas[1])>16000000)throw new InvalidDataException("Invalid scene canvas");int width=canvas[0],height=canvas[1];
         var tiles=new Dictionary<(int,int),Tile>();
         foreach(var t in Json.Read(Path.Combine(root,"scene/tile-pixels.json")).EnumerateArray())tiles.Add((t.I("tile"),t.I("index")),new(t.I("type"),ReadPixels(t)));
         foreach(var c in Json.Read(Path.Combine(root,"scene/draw-commands.json")).EnumerateArray()) {
             var layer=c.S("layer");if(layer is not ("ground" or "cover" or "objects"))throw new InvalidDataException("Unknown draw layer");
             var t=tiles[(c.I("tile"),c.I("index"))];if((layer=="ground" && t.Type is not (0 or 1 or 16 or 17))||(layer!="ground"&&t.Type is not (2 or 3 or 6 or 7)))throw new InvalidDataException("Unsupported tile type/layer combination");
-            Scene.Add(new(c.I("x"),c.I("y"),c.TryGetProperty("z",out var z)?z.GetInt32():0,c.I("serial"),layer,c.I("source_index"),c.TryGetProperty("group",out var g)?g.GetInt32():-1,c.I("offset"),t));
+            scene.Add(new(c.I("x"),c.I("y"),c.TryGetProperty("z",out var z)?z.GetInt32():0,c.I("serial"),layer,c.I("source_index"),c.TryGetProperty("group",out var g)?g.GetInt32():-1,c.I("offset"),t));
         }
-        if(Scene.Count!=manifest.I("draw_count") || !Scene.SequenceEqual(Scene.OrderBy(x=>x,DrawComparer.Instance)) || Scene.Any(c=>c.Px<0||c.Py<0||c.Px+24>CanvasWidth||c.Py+24>CanvasHeight))throw new InvalidDataException("Scene command count/order/bounds mismatch");
+        if(scene.Count!=manifest.I("draw_count") || !scene.SequenceEqual(scene.OrderBy(x=>x,DrawComparer.Instance)) || scene.Any(c=>c.Px<0||c.Py<0||c.Px+24>width||c.Py+24>height))throw new InvalidDataException("Scene command count/order/bounds mismatch");
+        return (width,height);
+    }
+    /// <summary>character/blocks.json and character/animation.json (also used by the asset-preparer checks, T454).</summary>
+    public static void LoadCharacter(string root,Dictionary<string,Frame> frames,Dictionary<(string,int),string[]> sequences) {
         var blocks=Json.Read(Path.Combine(root,"character/blocks.json"));if(blocks.S("schema")!="p06-spr-blocks-v1")throw new InvalidDataException("Unsupported SPR block schema");
-        foreach(var f in blocks.GetProperty("frames").EnumerateArray())Frames.Add(f.S("key"),new(f.S("key"),f.A("bounds"),f.GetProperty("blocks").EnumerateArray().Select(b=>new Block(b.I("a"),b.I("b"),b.I("z"),b.I("source_order"),new(2,ReadPixels(b)))).ToArray()));
+        foreach(var f in blocks.GetProperty("frames").EnumerateArray())frames.Add(f.S("key"),new(f.S("key"),f.A("bounds"),f.GetProperty("blocks").EnumerateArray().Select(b=>new Block(b.I("a"),b.I("b"),b.I("z"),b.I("source_order"),new(2,ReadPixels(b)))).ToArray()));
         var anim=Json.Read(Path.Combine(root,"character/animation.json"));if(anim.S("schema")!="p04-character-v1")throw new InvalidDataException("Unsupported animation schema");
         foreach(var m in anim.GetProperty("mapping").EnumerateArray()) {
             var keys=m.GetProperty("sequence").EnumerateArray().Select(s=>s.S("key")).ToArray();
-            if(keys.Any(k=>!Frames.ContainsKey(k)))throw new InvalidDataException("Animation references absent frame");
-            Sequences.Add((m.S("action"),m.I("direction")),keys);
+            if(keys.Any(k=>!frames.ContainsKey(k)))throw new InvalidDataException("Animation references absent frame");
+            sequences.Add((m.S("action"),m.I("direction")),keys);
         }
-        if(Frames.Count!=96||Sequences.Count!=16)throw new InvalidDataException("Incomplete character");
-        var motion=Json.Read(Path.Combine(root,"motion.json"));FrameMs=motion.I("frame_ms");Spawn=motion.A("spawn");
-        Directions=motion.GetProperty("directions").EnumerateArray().Select(d=>new Direction(d.I("direction"),d.A("world_delta")[0],d.A("world_delta")[1],d.A("screen_delta")[0],d.A("screen_delta")[1])).ToArray();
-        if(FrameMs!=166||Directions.Length!=8||Directions.Where((d,i)=>d.Id!=i||d.Sx!=24*(d.Dx+d.Dy)||d.Sy!=12*(d.Dy-d.Dx)).Any())throw new InvalidDataException("Invalid motion mapping");
+        if(frames.Count!=96||sequences.Count!=16)throw new InvalidDataException("Incomplete character");
     }
     static Pixel[] ReadPixels(JsonElement t)=>t.GetProperty("pixels").EnumerateArray().Select(p=>{
         var v=p.EnumerateArray().Select(x=>x.GetInt32()).ToArray();
