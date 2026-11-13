@@ -247,6 +247,7 @@ jobs:
           path: |
             scratch/issue-1053/launcher-*/results.json
             scratch/issue-1053/command-*/command-output.jsonl
+            scratch/issue-1053/command-*/command-cases.json
           if-no-files-found: ignore
   dotnet:
     runs-on: ubuntu-latest

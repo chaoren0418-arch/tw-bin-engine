@@ -31,12 +31,14 @@
 - dotnet 的 CLI home、NuGet cache、TEMP／TMP 均在本 worktree 的 `scratch/`，同時設 `DOTNET_ADD_GLOBAL_TOOLS_TO_PATH=false`；本機沒有執行任何編譯產物。
 - `git diff --check`；同步 `origin/main`。不修改 `rebuild-lock.json`、`docs/REPORT.md`、原始專案目錄、客戶端、封存或硬連結。
 
-CI 測試已加入，結果待 PR 最新 commit 完成後補記：
+CI 已驗證：
+
+- [PR #1111](https://github.com/chaoren0418-arch/tw-bin-engine/pull/1111) 的 [build run 43470477159](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/43470477159) 已通過 Linux `dotnet` 建置，以及 Windows 的 `Launcher preparation states T468` 與 `Native UI resource layer`（含本任務兩組測試）步驟；[NPC run 43470477161](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/43470477161) 已通過。這些結果對應產品與 launcher 最終程式；後續只補測試輸出保存與本報告。交付時另核對 PR 最新 commit 全部 checks。
 
 - `LauncherChecks` 直接編譯正式 launcher 來源，用合成目錄、攔截程序邊界與執行期探測測試四種狀態、錯誤 client、準備後重驗、失敗／假成功阻擋、程式檔損壞與舊 v1；Windows CI 建立真 junction 驗相容性，結束時僅移除連結本身。
 - `[CheckGroup("asset-prepare-command")]` 自動掛入既有 `native-ui-resources` CI 群組，使用合成客戶端與實際 13 個 recipe；驗中斷、續跑重用、ready、收據竄改、錯誤參數與重跑冪等，並核對合成客戶端樹保持不變。
 - Windows CI 直接執行產品 WinExe 的 `--prepare-assets`（未設 client）與混合正常入口參數；要求 UTF-8 JSON、結束碼 2、`uiStarted=false`，驗證分派確實在 UI 前返回。這些程式只在 GitHub Actions 執行。
-- CI artifact `launcher-preparation-checks` 保存 launcher 各情境輸出及產品命令成功進度；合成 fixture 不代表真實素材驗收。
+- CI artifact `launcher-preparation-checks` 保存 launcher 各情境輸出、產品命令成功進度及各次呼叫的前置狀態／結束碼／輸出；合成 fixture 不代表真實素材驗收。
 
 ## 未驗證什麼
 

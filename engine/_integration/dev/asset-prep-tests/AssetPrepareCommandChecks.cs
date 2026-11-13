@@ -10,9 +10,12 @@ partial class Checks {
         AssetPrepSetResult Run(AssetPrepSetRequest r)=>runner.Run(r with{Pins=fixture.Pins,SetPins=fixture.SetPins,EstimatedOutputBytes=16*1024*1024,AvailableSpace=_=>long.MaxValue});
         string clientBefore=ApTreeHash(fixture.Client);
         using var output=new StringWriter();
+        var cases=new List<object>();
         int Invoke(string[]? args=null,string? client=null,Func<AssetPrepSetRequest,AssetPrepSetResult>? run=null){
             output.GetStringBuilder().Clear();
-            return AssetPrepareCommand.Run(args??["--prepare-assets"],engine,client??fixture.Client,output,run:run??Run);
+            string before=AssetPreparationState.Inspect(engine).State;
+            int code=AssetPrepareCommand.Run(args??["--prepare-assets"],engine,client??fixture.Client,output,run:run??Run);
+            cases.Add(new{before,code,output=output.ToString()});return code;
         }
         JsonElement Last(){using var doc=JsonDocument.Parse(output.ToString().Trim().Split('\n')[^1]);return doc.RootElement.Clone();}
         Check(AssetPreparationState.Inspect(engine).State=="unprepared"&&!Directory.Exists(engine),"COMMAND missing assets is read-only unprepared");
@@ -36,5 +39,6 @@ partial class Checks {
         File.WriteAllBytes(receipt,bytes);
         Check(Invoke()==0&&Last().GetProperty("produced").GetInt32()==0,"COMMAND ready rerun is idempotent");
         Check(ApTreeHash(fixture.Client)==clientBefore,"COMMAND original synthetic client remains read-only");
+        File.WriteAllText(Path.Combine(root,"command-cases.json"),JsonSerializer.Serialize(cases,AssetPreparationState.JsonOptions));
     }
 }
