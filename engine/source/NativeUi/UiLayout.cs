@@ -8,6 +8,10 @@ public sealed class UiLayoutException(string file,string path,string message,Exc
     :UiResourceException($"{file}{(path.Length>0?":"+path:"")}: {message}",inner){
     public string File=>file;
     public string NodePath=>path;
+    /// <summary>The bare reason, without the "file:path: " prefix of Message.</summary>
+    public string Reason=>message;
+    /// <summary>Registered panel whose Load threw (set by UiRoot.Build; null when the XML itself failed before any panel ran).</summary>
+    public string? PanelId{get;set;}
 }
 
 /// <summary>Parsed UI XML (element names kept verbatim, including original misspellings such as FOOD_GUAGE_BAR).</summary>

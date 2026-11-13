@@ -15,6 +15,28 @@ public sealed class UiRoot {
     public static readonly Rectangle WorldRect=new(0,0,LogicalWidth,LogicalHeight);
     /// <summary>One-line error shown when the switch is on but the client resources do not match the pins (§2.1).</summary>
     public const string PinMismatchMessage="原客戶端 UI 資源與鎖定版本不符";
+    /// <summary>Prefix of the line shown for any other start failure (kept from C2).</summary>
+    public const string GenericFailurePrefix="原生 UI 無法啟動，已使用舊介面：";
+
+    /// <summary>
+    /// #1097: classify a native-UI start failure for the red line and window-events.json. A UiLayoutException (a panel's XML
+    /// layout does not fit, e.g. #475 SM01 SPELL_WINDOW) is not a pin mismatch, so it must not be reported as one:
+    ///   UiLayoutException → "layout", "原生 UI 版面載入失敗（file:window）：reason，已使用舊介面";
+    ///   other UiResourceException (pins / anchors / idx / container checks) → "pin", PinMismatchMessage;
+    ///   anything else → "other", GenericFailurePrefix + message.
+    /// </summary>
+    public static UiStartFailure DescribeStartFailure(Exception? error){
+        switch(error){
+            case UiLayoutException le:{
+                string where=le.PanelId??le.NodePath;
+                bool nodeIsWindow=le.PanelId==null||le.NodePath.Length==0||le.NodePath==le.PanelId||le.NodePath.EndsWith("/"+le.PanelId,StringComparison.Ordinal);
+                string reason=nodeIsWindow?le.Reason:$"{le.NodePath}: {le.Reason}";
+                return new("layout",$"原生 UI 版面載入失敗（{le.File}{(where.Length>0?":"+where:"")}）：{reason}，已使用舊介面");
+            }
+            case UiResourceException:return new("pin",PinMismatchMessage);
+            default:return new("other",GenericFailurePrefix+error?.Message);
+        }
+    }
 
     readonly List<IUiPanel> panels=[];
     readonly List<IUiPanel> windowOrder=[];
@@ -229,13 +251,17 @@ public sealed class UiRoot {
             if(!layouts.TryGetValue(reg.Layout,out var layout))layouts[reg.Layout]=layout=resources.Xml.Load(reg.Layout);
             var panel=reg.Create(root);
             if(panel.Id!=reg.Id)throw new InvalidOperationException($"註冊 {reg.Id} 建立出的面板 Id 是 {panel.Id}");
-            panel.Load(layout,resources.Surfs);
+            try{panel.Load(layout,resources.Surfs);}
+            catch(UiLayoutException ex) when(ex.PanelId==null){ex.PanelId=reg.Id;throw;}   // #1097: name the window in the fallback line
             root.Add(panel);
         }
         foreach(var g in root.groups.Values)g.Reset();
         return root;
     }
 }
+
+/// <summary>#1097: Category is "pin", "layout" or "other" (window-events.json failed event); Message is the red line.</summary>
+public sealed record UiStartFailure(string Category,string Message);
 
 /// <summary>
 /// Optional: a window the root may close when the stack is full (sub_A57C60 calls the evicted window's vtable+36).
