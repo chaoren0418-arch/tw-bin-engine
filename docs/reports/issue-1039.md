@@ -73,6 +73,10 @@ SPR 共用層與兩個 recipe（`character`、`objects`）已寫好，產品與 
 - 產品執行期的 Sprite pin（`ClientArchive`、`GroundSpriteReader`）本張不動（契約 D1）。
 - `Tests.cs` 改過的檢查只在使用 r29 素材的整合流程跑，本機沒有執行。
 
+## CI
+
+PR #1076，commit `task #1039: T454 …` 的 run 43427036608：`dotnet`、`map-continuity`、`npc-offline` 三個 job 全部 pass。其中「Native UI resource layer」這一步（`native-ui-resources` 群組，含 `asset-prep`、`asset-prep-text`、`asset-prep-spr`）輸出 `PASS 1136 DEMO checks`；`--module-tests`（含 `asset-prep`）也通過。CI 的 log 不會逐項列出檢查名稱，所以只看得到總數，沒有分別列出 `asset-prep-spr` 的項數。
+
 ## 產出路徑
 
 - 程式：`engine/source/AssetPrep/SprShared.cs`、`engine/source/AssetPrep/SprRecipes.cs`，以及上表各檔的修改。
