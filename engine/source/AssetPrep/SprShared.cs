@@ -258,16 +258,18 @@ public sealed class SprFile {
     public static (int X,int Y) Origin(int a,int b){int half=(int)Math.Floor(a/2d);return (24*(b+a-half),12*(b-half));}
 
     /// <summary>True when every pixel of the frame lies inside its bounds (the check the players recipe needs, sprites.md §4.2).</summary>
-    public bool PixelsInsideBounds(int frame){
+    public bool PixelsInsideBounds(int frame)=>FirstPixelOutsideBounds(frame)==null;
+    /// <summary>T455: canvas position of the first pixel (tile order, then block order) outside the frame's bounds; null when there is none.</summary>
+    public (int X,int Y)? FirstPixelOutsideBounds(int frame){
         var f=Frames[frame];
         foreach(var tile in f.Tiles){
             var (ox,oy)=Origin(tile.A,tile.B);
             foreach(var p in Blocks[tile.BlockIndex]){
                 int x=ox+p.X,y=oy+p.Y;
-                if(x<f.Bounds[0]||x>f.Bounds[2]||y<f.Bounds[1]||y>f.Bounds[3])return false;
+                if(x<f.Bounds[0]||x>f.Bounds[2]||y<f.Bounds[1]||y>f.Bounds[3])return (x,y);
             }
         }
-        return true;
+        return null;
     }
 }
 

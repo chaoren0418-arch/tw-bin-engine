@@ -5,8 +5,10 @@ public static class PlayerProfiles {
     // TW16 sub_A3EF40 第 3 點（AN§3.4）：他人的 sprite 檔不存在時改畫 gfx 1120、動作 0。只用於他人
     // （ObjectRendering 的 ObjectDrawFallback）；自己沒有這條退回，仍由 AppearanceNotice 告知。
     public const int MissingSpriteGfx=1120;
-    static readonly Lazy<Dictionary<(int,int),PlayerProfile>> profiles=new(()=>{
-        string root=System.IO.Path.GetFullPath(System.IO.Path.Combine(AppContext.BaseDirectory,"../../assets")),relative="players/manifest.json";
+    static readonly Lazy<Dictionary<(int,int),PlayerProfile>> profiles=new(()=>LoadManifest(System.IO.Path.GetFullPath(System.IO.Path.Combine(AppContext.BaseDirectory,"../../assets"))));
+    /// <summary>players/manifest.json of an assets tree, checked against that tree's integrity.json (T455: the preparer's tests load prepared trees with this same reader).</summary>
+    public static Dictionary<(int,int),PlayerProfile> LoadManifest(string root){
+        root=System.IO.Path.GetFullPath(root);const string relative="players/manifest.json";
         var pin=Json.Read(System.IO.Path.Combine(root,"integrity.json")).GetProperty("files").EnumerateArray().Single(f=>f.S("path")==relative);
         string path=System.IO.Path.Combine(root,relative);using(var stream=File.OpenRead(path)){if(stream.Length!=pin.GetProperty("size").GetInt64()||!Convert.ToHexString(SHA256.HashData(stream)).Equals(pin.S("sha256"),StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Player profile manifest integrity");}
         var manifest=Json.Read(path);if(manifest.S("schema")!="p24-player-profiles-v1")throw new InvalidDataException("Player profile schema");var result=new Dictionary<(int,int),PlayerProfile>();
@@ -17,7 +19,7 @@ public static class PlayerProfiles {
             result.Add((profile.Gfx,profile.Weapon),profile);
         }
         return result;
-    });
+    }
     // TW16 sub_A3EF40 (FO 0x63E340): a missing armed action falls back to the stance walk action,
     // then to stance 0. A profile always carries its own walk, so a missing (gfx, legal stance)
     // profile resolves to the same gfx bare-handed. Unknown gfx and illegal stances stay null.
