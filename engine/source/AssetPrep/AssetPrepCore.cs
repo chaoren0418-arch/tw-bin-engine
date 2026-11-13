@@ -29,6 +29,9 @@ public enum AssetPrepFailure {
     Unavailable,
     /// <summary>The entry a recipe needs is in none of its candidate containers.</summary>
     MissingEntry,
+    /// <summary>Wrong order (T455): a recipe this one reads from (<see cref="IAssetRecipe.Requires"/>) has not been
+    /// published, or did not produce the output asked for, or that output no longer matches its receipt.</summary>
+    Prerequisite,
     /// <summary>The entry is there but cannot be decoded (truncated or malformed payload).</summary>
     CorruptEntry,
     /// <summary>Path traversal, or the target / one of its ancestors is a junction or symlink.</summary>
@@ -73,6 +76,10 @@ public interface IAssetRecipe {
     /// <summary>True for an item whose output is derived from the request itself (a manifest of the requested items):
     /// a resumed run only reuses it when the earlier run had exactly the same request.</summary>
     bool DependsOnRequest(string item)=>false;
+    /// <summary>Recipes whose published output this one reads (asset-recipe.md 6). Each must have a final receipt in
+    /// assets/&lt;id&gt;/ before this recipe runs; otherwise the run stops with <see cref="AssetPrepFailure.Prerequisite"/>
+    /// before anything is produced. Only these may be read through <see cref="AssetRecipeItemContext.ReadPrior"/>.</summary>
+    IReadOnlyList<string> Requires=>[];
 }
 
 public static class AssetRecipeDiscovery {
