@@ -58,7 +58,7 @@
 - 新測試 `engine/_integration/dev/asset-prep-tests/SceneEffectsRecipeChecks.cs`：`[CheckGroup("asset-prep-scene")]`，同時掛 CI 已在跑的 `map-continuity`（Order 310）與預設全套。全部合成資料，寫在 `scratch/issue-1042/run-<時間>/`：
   - scene：兩個輸出目錄逐 byte 相同；只有 4 個產品檔；不含絕對路徑；manifest **全文**逐 byte 等於期望字串（固定字串取自基線格式）；draw-commands 開頭兩筆的確切 bytes、鍵順序、serial／y 偏移、ground 的 `index／uk／offset`、cover 的 File Offset；tile-pixels 的 (tile, index, type) 清單、菱形與 RLE 像素；opacity 的格式（indent 2、CRLF、檔尾無換行、南先北後）、`maps[]` 無 path、groups 的 `globalY`、triggers 的 `bits`／`admittedByColdSlot`；**產品 `Assets.LoadScene` 與 `OpacityCatalog` 載入輸出**；已是最新；缺南區塊、缺 TIL、截斷、沒有 tail、多餘資料、未知項目都拒絕。
   - map-effects：metadata 切段規則（`#70` 不是 `#7`、`#7x` 不結束 entry）；SPR 拒絕原因字串；兩個輸出目錄逐 byte 相同；**5 個特效檔（含 6016）的整檔 bytes 等於測試端用字串自己拼出的 Python `json.dumps` 格式**（不經 Utf8JsonWriter）；manifest 鍵、`source` 四欄、6016 來源 `Sprite13`、替代包相同內容可收、10 個不可用 id 與原因；tempseg 與解析失敗的地圖不提供 id；**產品 `MapEffectCatalog`（integrity 取 manifest SHA）與 `Effect6016Definition.FromR27Metadata` 載入輸出**，合成 6016 被真 pin 拒絕（pin 沒有放寬）；6016 pin 不符 → 停止並指出 `Sprite13` 與 `6016-0.SPR`；沒有 6016 → 拒絕；list.spr／list.spz 錨點不符、缺 list.spr 錨點、未知項目都拒絕；區塊改動後續跑重做。
-- PR #1080 的 CI：見文末「CI 結果」。
+- PR #1080 的 CI（run 43433765437、43433765569，commit c8e17afd）：`dotnet`、`map-continuity`、`npc-offline` 全部 pass。`map-continuity` 的 DemoChecks 產物 `map-checks.json` 為 `status: pass`、33,561 項，其中本張的 `SE …` 檢查 101 項；既有的 map-provider（160 項）、portals、minimap、ship、map-ambient、opacity 相關群組同一個 run 一起通過。`dotnet` job 編譯了 `Effect6016Checks`（CI 只編譯不執行，與原本相同）。第一次 run（43433171486）失敗在測試本身：id 700 沒有 SPR，先被 sprite 檢查判為 `no sprite candidate`（與 Python 原型的檢查順序相同），補上 SPR 後通過。
 
 ## 未驗證（待驗證）
 
