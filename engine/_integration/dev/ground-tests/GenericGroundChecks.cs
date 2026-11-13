@@ -11,7 +11,7 @@ partial class Checks {
         Text(b,o.Name);Text(b,o.Title);b.Write(o.Flags);b.Write(o.ClanId);Text(b,o.Clan);Text(b,o.Owner);
         b.Write(o.Rank);b.Write(o.HpByte);b.Write(o.Brave);b.Write(o.Level);b.Write(o.Unknown);b.Write(o.Tail1);b.Write(o.Tail2);
     });
-    static async Task GenericGroundChecks(GroundDefinition gold){
+    static async Task GenericGroundChecks(GroundTestItem gold){
         Check(GroundCatalog.Find(-1)==null&&GroundCatalog.Find(65536)==null,"gfx bounds");
         foreach(ushort gfx in new ushort[]{22,42,46,3247,999,65535}){
             using var c=Seed(gold);var o=c.World.SelectedGround!.Envelope with{Gfx=gfx,Name="$99999 [7]",Light=8};
@@ -76,7 +76,7 @@ partial class Checks {
             Check(new GroundAppearance("unused",gfx).Frame.Bounds.SequenceEqual(frame.Bounds),"production appearance runtime lookup "+gfx);
             if(args.Length>3){
                 var assets=new Assets(Path.Combine(args[3],"assets"));using var renderer=new Renderer(assets);
-                using var c=Seed(row);var draws=new List<Draw>();var visuals=new List<ObjectVisual>();
+                using var c=Seed(Synthetic(gfx));var draws=new List<Draw>();var visuals=new List<ObjectVisual>();
                 typeof(Renderer).GetMethod("ComposeGround",F)!.Invoke(renderer,[c.World,new ObjectAssets(assets.Root),draws,visuals]);
                 Check(visuals.Single().Gfx==gfx&&draws.All(d=>d.ObjectId==900101),"generic ComposeGround and hit ownership "+gfx);
             }

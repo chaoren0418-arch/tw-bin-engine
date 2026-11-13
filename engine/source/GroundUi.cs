@@ -43,11 +43,25 @@ public sealed partial class ClientForm {
         if(current?.Epoch!=old?.Epoch||current?.Id!=old?.Id||current?.Selection!=old?.Selection){if(pickup)pickupSelection=current;else dropSelection=current;}
     }
     // Keyboard P = Action_Loot (WO §2): first item within 1 tile, whole stack. Drop keeps the explicit count.
-    Task<bool> NativeGroundQuantity(bool pickup)=>World.Walking?Task.FromResult(false):pickup?login.LootNearby():login.SendGroundQuantity(false,dropCount.Text,dropSelection);
+    Task<bool> NativeGroundQuantity(bool pickup)=>World.Walking?Task.FromResult(false):pickup?login.LootNearby():ConfirmedDrop(dropCount.Text,dropSelection);
+    // T464（L2＝X）：本機不再用模板白名單擋丟棄；每一次丟棄都先確認，能不能丟由伺服器決定。
+    // Automation seam (GroundDemo): answers the same prompt instead of the modal box; the prompt is still built and logged.
+    Func<string,bool>? dropConfirmAnswer;
+    async Task<bool> ConfirmedDrop(string text,GroundQuantitySelection? selection){
+        if(transferDialogOpen)return false;
+        if(login.NeedsDropConfirm(text,selection,out var item,out uint count)){
+            transferDialogOpen=true;bool yes;string prompt=GroundCatalog.DropConfirmPrompt(ItemName(item!),count);
+            try{yes=dropConfirmAnswer?.Invoke(prompt)??MessageBox.Show(this,prompt,"確認丟棄物品",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2)==DialogResult.Yes;}
+            finally{transferDialogOpen=false;}
+            if(!yes){login.CancelDrop();return false;}
+            if(World.Walking)return false;
+        }
+        return await login.SendGroundQuantity(false,text,selection);
+    }
     // Object click on a ground item (sub_F112F0): walk to 1 tile, then whole stack or the quantity prompt.
     // Used by the scene double-click (PlayerPointerUi → PlayerPointerController.ClickGroundAsync, R2-C) and the pickup button.
     internal Task<bool> PickupGroundClicked(uint id)=>login.PickupGround(id,()=>World.Walking);
     void BeginInvokeIfReady(Action action){if(IsDisposed)return;if(IsHandleCreated&&InvokeRequired)BeginInvoke(action);else action();}
     object GroundWeb()=>new{epoch=login.World.WorldEpoch,selectionRevision=login.World.GroundSelectionRevision,revision=login.World.GroundRevision,selectedId=login.World.SelectedGroundId,notice=login.World.GroundStatus,busy=login.MovementBusy,items=login.World.Ground.Select(i=>new{id=i.ObjectId,name=GroundName(i),count=i.Count,x=i.X,y=i.Y,selected=i.ObjectId==login.World.SelectedGroundId,image=GroundCatalog.Find(i.Gfx)!=null?$"https://p08.example/ground/{i.Gfx}.png":null}).ToArray()};
-    async Task WebGround(int id,bool pickup,string count,GroundQuantitySelection selection){bool sent=!pickup?!World.Walking&&await login.SendGroundQuantity(false,count,selection):login.World.PickupPrompt is {} prompt&&prompt.Id==selection.Id?await login.AnswerPickupPrompt(count):await login.PickupGround(selection.Id,()=>World.Walking);Reply(id,sent?"已送出一次，等待原服回報":login.World.GroundNotice);PublishWebState();}
+    async Task WebGround(int id,bool pickup,string count,GroundQuantitySelection selection){bool sent=!pickup?!World.Walking&&await ConfirmedDrop(count,selection):login.World.PickupPrompt is {} prompt&&prompt.Id==selection.Id?await login.AnswerPickupPrompt(count):await login.PickupGround(selection.Id,()=>World.Walking);Reply(id,sent?"已送出一次，等待原服回報":login.World.GroundNotice);PublishWebState();}
 }

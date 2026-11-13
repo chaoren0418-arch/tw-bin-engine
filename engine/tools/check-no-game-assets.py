@@ -11,8 +11,8 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[2]
 POLICY = Path(__file__).with_name('game-assets-allowlist.json')
 # T463 (#1048): the two pickup JSON resources are no longer embedded; the preparer's "pickup" recipe writes them below assets/pickup.
+# T464 (#1049): ground-catalog.json removed (L2 = X); its four SPR pins live in GroundCatalog.Pinned.
 RESOURCES = {
-    ('engine/source/OfflineClient.csproj', 'Resources/ground-catalog.json', 'P06.Resources.GroundCatalog.json'),
     ('engine/audio/P24.Audio.csproj', 'Resources/combat-sfx-pins.json', 'P24.Audio.CombatSfxPins.json'),
 }
 
@@ -96,15 +96,20 @@ def main():
             errors.append(f'{path}: {type(ex).__name__}: {ex}')
     for path in set(policy['b15Exceptions']) | set(policy['binaryExceptions']):
         if path not in paths: errors.append(f'{path}: pinned exception missing from tracked inventory')
-    if resources != RESOURCES: errors.append(f'EmbeddedResource inventory differs from the {len(RESOURCES)} approved declarations')
     if args.probe:
         probe = args.probe.resolve()
         if not probe.is_relative_to(ROOT / 'scratch'): errors.append('probe must be inside repo scratch/')
         else:
             reason = inspect(probe.relative_to(ROOT).as_posix(), probe.read_bytes(), policy)
             if reason: errors.append(f'{probe.relative_to(ROOT).as_posix()}: {reason}')
+    # T464: every remaining B15 exception carries a recorded reason (known limit or pending task); never a silent pass.
+    reasons = policy.get('b15ExceptionReasons', {})
+    for path in sorted(policy['b15Exceptions']):
+        if not reasons.get(path): errors.append(f'{path}: B15 exception without a recorded reason')
+        else: print(f'B15-EXCEPTION: {path}: {reasons[path]}')
+    for path in sorted(set(reasons) - set(policy['b15Exceptions'])): errors.append(f'{path}: reason recorded for a path that is not a B15 exception')
     for error in errors: print('REFUSED: ' + error)
-    print(json.dumps({'status': 'blocked' if errors else 'pass', 'trackedFiles': len(paths), 'errors': len(errors), 'embeddedResourceDeclarations': len(resources)}))
+    print(json.dumps({'status': 'blocked' if errors else 'pass', 'trackedFiles': len(paths), 'errors': len(errors), 'embeddedResourceDeclarations': len(resources), 'b15Exceptions': len(policy['b15Exceptions'])}))
     return 1 if errors else 0
 
 

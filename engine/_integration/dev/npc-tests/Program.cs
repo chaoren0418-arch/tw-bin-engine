@@ -30,8 +30,12 @@ partial class Checks {
     static byte[] Shop(uint npc=456,byte op=70)=>Packet(b=>{b.Write(op);b.Write(npc);b.Write((ushort)1);b.Write(op==70?7u:901u);if(op==70)b.Write((ushort)124);b.Write(2u);if(op==70){Text(b,"$23");b.Write((byte)0);b.Write((ushort)7);}});
     static byte[] Dialog()=>Packet(b=>{b.Write((byte)39);b.Write(456u);Text(b,"synthetic");b.Write((ushort)0);b.Write((ushort)0);});
     static void Page(LoginConnection c,params string[] actions)=>Set(c.World,"InteractionPage",new NpcPage("合成對話",actions.Select((s,i)=>new NpcOption(i,s,"action",s,true)).ToArray(),""));
+    // T464: the server-template ground catalog is gone. Gold keeps the protocol identity the product
+    // already recognises (description 0, icon 5, name "$4"); the stack item is invented test data.
+    static readonly (ushort Desc,byte Use,ushort Icon,string Name,ushort Gfx) Gold=(0,255,5,"$4",9004),Stack=(9003,0,9002,"$9001",9001);
+    static string CountName(string token,uint count)=>count>1?token+" ("+count+")":token;
     static void Item(LoginConnection c,uint id,uint count,bool gold=false)=>Feed(c,Packet(b=>{
-        var r=GroundCatalog.Rows.Single(x=>x.Id==(gold?"gold":"meat"));b.Write((byte)15);b.Write(id);b.Write(r.InventoryDesc);b.Write(r.WireUseType);b.Write((byte)0);b.Write(r.InventoryIcon);b.Write((byte)1);b.Write(count);b.Write((byte)0);Text(b,r.CountName(count));b.Write((byte)0);b.Write(new byte[11]);
+        var r=gold?Gold:Stack;b.Write((byte)15);b.Write(id);b.Write(r.Desc);b.Write(r.Use);b.Write((byte)0);b.Write(r.Icon);b.Write((byte)1);b.Write(count);b.Write((byte)0);Text(b,CountName(r.Name,count));b.Write((byte)0);b.Write(new byte[11]);
     }));
     static void Count(LoginConnection c,uint id,uint count)=>Feed(c,Packet(b=>{b.Write((byte)24);b.Write(id);Text(b,"updated");b.Write(count);b.Write((byte)0);}));
     static uint Held(LoginConnection c,uint id)=>c.World.Inventory.FirstOrDefault(i=>i.ObjectId==id)?.Count??0;
@@ -83,10 +87,10 @@ partial class Checks {
         Feed(a,LoginPackets.Pad([57,..BitConverter.GetBytes(901u)]));Item(b,902,1);Feed(a,LoginPackets.Pad([112,0]));Feed(b,LoginPackets.Pad([112,0]));Check(a.World.TradeState=="completed"&&b.World.TradeState=="completed"&&Held(a,901)==0&&Held(b,902)==1,"two offline clients complete one item transfer");
     }
     static async Task MeatCycle(){
-        var sent=new List<byte[]>();using var c=Seed(sent);Item(c,901,10);var meat=GroundCatalog.Rows.Single(r=>r.Id=="meat");
+        var sent=new List<byte[]>();using var c=Seed(sent);Item(c,901,10);var meat=Stack;
         foreach(uint amount in new uint[]{1,10}){
             c.World.SelectItem(901);Check(await c.DropSelected(amount),"drop meat "+amount);Check(sent.Last()[0]==25&&D(sent.Last(),5)==901&&D(sent.Last(),9)==amount,"C25 meat wire "+amount);Check(Held(c,901)==10,"drop awaits inventory "+amount);
-            Item(c,901,10-amount);Feed(c,Packet(w=>{w.Write((byte)87);w.Write((ushort)32600);w.Write((ushort)32940);w.Write(903u);w.Write(meat.GroundGfx);w.Write(new byte[4]);w.Write(amount);w.Write((ushort)0);Text(w,meat.CountName(amount));Text(w,"");w.Write((byte)0);w.Write(0u);Text(w,"");Text(w,"");w.Write((byte)0);w.Write((byte)255);w.Write(new byte[3]);w.Write((byte)255);w.Write((byte)255);}));
+            Item(c,901,10-amount);Feed(c,Packet(w=>{w.Write((byte)87);w.Write((ushort)32600);w.Write((ushort)32940);w.Write(903u);w.Write(meat.Gfx);w.Write(new byte[4]);w.Write(amount);w.Write((ushort)0);Text(w,CountName(meat.Name,amount));Text(w,"");w.Write((byte)0);w.Write(0u);Text(w,"");Text(w,"");w.Write((byte)0);w.Write((byte)255);w.Write(new byte[3]);w.Write((byte)255);w.Write((byte)255);}));
             Check(c.World.SelectGround(903)&&c.World.SelectedGround!.Count==amount,"S87 dropped ground "+amount);await Task.Delay(LoginConnection.GroundClickGuardMs+20);
             Check(await c.PickupSelected(amount),"pickup meat "+amount);Check(sent.Last()[0]==112&&D(sent.Last(),5)==903&&D(sent.Last(),9)==amount,"C112 meat wire "+amount);
             Item(c,901,10);Feed(c,LoginPackets.Pad([120,..BitConverter.GetBytes(903u)]));// No map/renderer is loaded in this protocol-only test.
