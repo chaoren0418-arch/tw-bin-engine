@@ -211,7 +211,7 @@ partial class Checks {
             [6016]=new(6016,0,new[]{11,0,1,2,3,4,5,6,7,8,9,10}.Select((f,i)=>(f,5,i==1?"<3332<1340<1340":"")).ToArray(),SeSpr(6016,12,indexed:true)),
         };
         var files=new List<(int Archive,string Name,byte[] Data)>{
-            (0,"85-0.spr",SrEncode(effects[85].Spr)),(0,"701-0.spr",SrEncode(effects[701].Spr)),(0,"702-0.spr",SrEncode(SeSpr(702,2))),
+            (0,"85-0.spr",SrEncode(effects[85].Spr)),(0,"700-0.spr",SrEncode(SeSpr(700,1))),(0,"701-0.spr",SrEncode(effects[701].Spr)),(0,"702-0.spr",SrEncode(SeSpr(702,2))),
             (0,"703-0.spr",SrEncode(SeSpr(703,2))),(0,"704-0.spr",SrEncode(SeSpr(704,1))),(16,"704-0.spr",SrEncode(SeSpr(7040,1))),
             (0,"706-0.spr",SrEncode(SeSpr(706,1,bounds:[10,0,5,5]))),(0,"707-0.spr",SrEncode(SeSpr(707,1))),
             (4,"708-0.spr",SrEncode(effects[708].Spr)),(8,"708-0.spr",SrEncode(effects[708].Spr)),
