@@ -52,7 +52,9 @@ MySQL 最初回傳父PID10516、監聽子PID5432；採證腳本一開始只比�
 
 資料核對僅送出 `readback.sql` 中的 SELECT，沒有DML、建角、補物品或設GM。伺服器啟動及登入自身可能更新運行資料，因此不宣稱DB逐byte不變。沒有直接DML需要逆向SQL，也沒有執行還原；若需整體回復，由持有實驗環境資源鎖者另行處理完整冷備份。
 
-未執行客戶端、GUI、進世界、R06雙開或SM smoke；無截圖，以真實SQL讀回、TCP明文解碼回包、程序與log作證。沒有連正式2000／3306。此張只有文件與證據摘要變更，未重新建置產品或以離線測試冒充實機成果。
+未執行客戶端、GUI、進世界、R06雙開或SM smoke；無截圖，以真實SQL讀回、TCP明文解碼回包、程序與log作證。沒有連正式2000／3306。
+
+提交後main新增#1129報告，因此另合併 `c91763653852e19ce2a74f4ceed6c88443d3513e`；只有兩份文件新增，沒有程式變動。依常設要求補做產品build（0錯誤／4個既有警告）與LoginChecks（396,589 assertions通過；network/game/database均false）。證據為 `build-check.ps1`、`build.log`、`login-checks.log`；此離線檢查不替代本次實機回包。所有CLI home、NuGet快取、TEMP與建置產物都在本worktree，並同時設定 `DOTNET_ADD_GLOBAL_TOOLS_TO_PATH=false`。`git diff --check`與報告17列／JSON一致性核對通過；未改 `docs/REPORT.md` 或dev lock。
 
 ## 給下一棒的提示
 

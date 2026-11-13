@@ -999,5 +999,24 @@
     "classification": "原JAR自行封存的log檔；屬授權日誌寫入"
   },
   "conclusion": "部分通過（✅ 16／❌ 0／⚠️ 1）",
-  "evidenceManifestSha256": "b90aa76b117204b9f59b576e69403b2f95822ed53aef788e4e2e4a87d854377c"
+  "syncValidation": {
+    "syncedMainCommit": "c91763653852e19ce2a74f4ceed6c88443d3513e",
+    "mainChanges": "僅#1129兩份文件",
+    "build": {
+      "exitCode": 0,
+      "warnings": 4,
+      "errors": 0,
+      "logSha256": "3d534f2f3f07148ca094a7a4028b260b5d57a1444b848d08ad1c408389e9a298"
+    },
+    "loginChecks": {
+      "status": "pass",
+      "assertions": 396589,
+      "network": false,
+      "game": false,
+      "database": false,
+      "logSha256": "b622684fde8a79f2214fe9434ca59f3130632ebad97c40f2a8f77145fcabceac"
+    },
+    "note": "同步後僅執行建置與離線檢查，未重跑實機項目；所有產物與快取都在本worktree。"
+  },
+  "evidenceManifestSha256": "090809323925246e64f4ff61b2aed2c2c827494283242003fe70062c8096b8fa"
 }
