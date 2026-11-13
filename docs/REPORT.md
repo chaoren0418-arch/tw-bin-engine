@@ -459,3 +459,4 @@
 - 2026-11-14 — #1052 b15-prep-orchestrator: T467 準備器總流程：全類別排程、integrity 與收據、進度與重試（code，codex-local，PR 已合併）→ [報告](reports/issue-1052.md)
 - 2026-11-14 — #1107 f1098-timed-orphan: P24Lab 開服阻塞：限時紀錄 itemObjId=10306 孤兒資料處置＋42061 開服到選角（#1098 R03／R04／R06）（resource，codex-local，PR 已合併）→ [報告](reports/issue-1107.md)
 - 2026-11-14 — #1053 b15-launcher-prepare: T468 接線：產品 `--prepare-assets` 入口與 launcher 的未準備／準備／檢查流程（code，codex-local，PR 已合併）→ [報告](reports/issue-1053.md)
+- 2026-11-14 — #1055 b15-verify-preparer: T470 實跑驗證：真客戶端全量準備，與 r29 基線比對（test，codex-local，PR #1113 已合併）→ [報告](reports/issue-1055.md)
