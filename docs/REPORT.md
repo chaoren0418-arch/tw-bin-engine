@@ -444,3 +444,4 @@
 - 2026-11-13 — #1044 b15-prep-motion-blend: T459 產品規則：motion 與混色查表改為程式計算（code，claude-local，PR 已合併）→ [報告](reports/issue-1044.md)
 - 2026-11-13 — #1043 b15-prep-terrain: T458 準備器：terrain 與 bounds（從客戶端 S32／SEG）（code，claude-local，PR 已合併）→ [報告](reports/issue-1043.md)
 - 2026-11-13 — #1046 b15-deserver-timing: T461 去伺服器依賴：動作時序與職業 gfx 集合（code，claude-local，PR 已合併）→ [報告](reports/issue-1046.md)
+- 2026-11-13 — #1048 b15-exc-pickup: T463 移除已知例外：兩個 pickup 內嵌 JSON 改由準備器產生（code，claude-local，PR 已合併）→ [報告](reports/issue-1048.md)
