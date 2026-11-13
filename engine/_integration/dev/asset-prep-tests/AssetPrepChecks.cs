@@ -33,10 +33,10 @@ partial class Checks {
         // T454: Sprite containers are no longer pinned whole (asset-recipe.md 1.1); the only pin is the list.spz anchor.
         return AssetPrepPins.Tw1608262200;
     }
-    /// <summary>The 17 Sprite containers as they are on disk, for the product readers (ClientArchive) that still pin whole files.</summary>
-    static ClientArchivePin[] ApArchivePins(string dir)=>Enumerable.Range(0,17).Select(i=>{
-        string name=SpriteName(i);byte[] pak=File.ReadAllBytes(Path.Combine(dir,name+".pak"));
-        return new ClientArchivePin(name,Sha(File.ReadAllBytes(Path.Combine(dir,name+".idx"))),Sha(pak),pak.Length);
+    /// <summary>The 17 Sprite containers as they are on disk: name, idx SHA-256 and pak size (what the receipt records).</summary>
+    static (string Name,string IndexSha256,long PakSize)[] ApArchivePins(string dir)=>Enumerable.Range(0,17).Select(i=>{
+        string name=SpriteName(i);
+        return (name,Sha(File.ReadAllBytes(Path.Combine(dir,name+".idx"))),new FileInfo(Path.Combine(dir,name+".pak")).Length);
     }).ToArray();
     static AssetPrepRequest ApRequest(string? client,string engine,AssetPrepPins pins,params string[] items)=>
         new(client,engine,InventoryIconRecipe.RecipeId,items){Pins=pins};
@@ -117,7 +117,7 @@ partial class Checks {
             &&p.First.IndexSize==new FileInfo(Path.Combine(client,p.Second.Name+".idx")).Length),"AP receipt records idx size / idx SHA-256 and pak size of all 17 input containers (no whole-pak hash)");
         Check(!receiptText.Contains("pakSha256",StringComparison.OrdinalIgnoreCase)&&!receiptText.Contains("pakVerified",StringComparison.OrdinalIgnoreCase),"AP receipt has no whole-pak hash field");
 
-        var archives=onDisk.Select(p=>new ClientArchive(client,p)).ToArray();
+        var archives=onDisk.Select(p=>new ClientArchive(client,new ClientArchivePin(p.Name))).ToArray();
         try{
             var live=ItemIconSource.FromSprites(archives);
             foreach(var (icon,tbt,where) in new[]{(124,t124,SpriteName(Hn("124.tbt"))+"/124.tbt"),(40,t40c,SpriteName(Hn("40c.tbt"))+"/40c.tbt"),(7,t7,"Sprite/7.tbt")}){

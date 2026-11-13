@@ -280,17 +280,10 @@ public static class SprSource {
     /// same-named file in Sprite00–15 must be byte-identical: two different contents make the file unavailable
     /// (refused, never one picked). Null when no container has the name. Every entry read is recorded as a source.
     /// </summary>
-    public static byte[]? TryRead(AssetRecipeItemContext context,string name){
-        if(context.TryReadSprite(0,name) is {} main)return main;
-        byte[]? found=null;string? first=null;
-        for(int archive=1;archive<context.SpriteCount;archive++){
-            if(context.TryReadSprite(archive,name) is not {} data)continue;
-            if(found==null){found=data;first=context.SpriteName(archive);continue;}
-            if(!found.AsSpan().SequenceEqual(data))
-                throw new AssetPrepException(AssetPrepFailure.Unavailable,$"{name} 不在主包 Sprite，替代包 {first} 與 {context.SpriteName(archive)} 的內容不同；不選用任何一份",context.SpriteName(archive));
-        }
-        return found;
-    }
+    public static byte[]? TryRead(AssetRecipeItemContext context,string name)=>
+        // T479: the rule itself is shared with the runtime readers (P06.NativeUi.SpriteContainerRule).
+        P06.NativeUi.SpriteContainerRule.Choose(context.SpriteCount,archive=>context.TryReadSprite(archive,name),
+            (first,other)=>new AssetPrepException(AssetPrepFailure.Unavailable,$"{name} 不在主包 Sprite，替代包 {context.SpriteName(first)} 與 {context.SpriteName(other)} 的內容不同；不選用任何一份",context.SpriteName(other)))?.Data;
     public static byte[] Read(AssetRecipeItemContext context,string name)=>
         TryRead(context,name)??throw new AssetPrepException(AssetPrepFailure.MissingEntry,$"{name} 不在 TW_CLIENT_ROOT 的任何 Sprite 容器");
 }
