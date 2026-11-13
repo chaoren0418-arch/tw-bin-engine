@@ -449,3 +449,4 @@
 - 2026-11-13 — #1050 b15-exc-test-vectors: T465 移除已知例外：三個測試向量檔改為合成規則測試（code，claude-local，PR 已合併）→ [報告](reports/issue-1050.md)
 - 2026-11-13 — #1049 b15-exc-exp-ground: T464 移除已知例外：OriginalExpTable.cs 與 ground-catalog.json（code，claude-local，PR 已合併）→ [報告](reports/issue-1049.md)
 - 2026-11-13 — #1073 b15-ondemand-appearance-a: T477 執行期按需準備：預熱清單以外的物件、怪物、NPC 外觀（ObjectAssets）（code，claude-local，PR 已合併）→ [報告](reports/issue-1073.md)
+- 2026-11-13 — #1094 分流：tw-bin-engine#475 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1095 已合併）→ [報告](reports/issue-1094.md)
