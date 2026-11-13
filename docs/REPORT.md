@@ -452,3 +452,4 @@
 - 2026-11-13 — #1094 分流：tw-bin-engine#475 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1095 已合併）→ [報告](reports/issue-1094.md)
 - 2026-11-13 — #1093 原生 UI 啟動失敗：SPELL_WINDOW 直向等級條使清單高度為零（#475 SM01）（code，claude-local，PR 已合併）→ [報告](reports/issue-1093.md)
 - 2026-11-14 — #1045 b15-audio-provider: T460 音效：Sound 改由 TW_CLIENT_ROOT 直讀，audio-manifest 改本機產生（code，claude-local，PR 已合併）→ [報告](reports/issue-1045.md)
+- 2026-11-14 — #1056 b15-exc-ci-close: T471 CI 拒收收尾：b15Exceptions 清空，例外機制移除（code，claude-local，PR 已合併）→ [報告](reports/issue-1056.md)
