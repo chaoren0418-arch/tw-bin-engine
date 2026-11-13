@@ -197,10 +197,14 @@ public sealed partial class Renderer {
         }
         if(v==null||!session.SceneContains(v.X,v.Y))continue;
         if(projectileFrames.Count==0){
-            var j=Json.Read(Path.Combine(assets.Root,"objects/projectile-66.json"));
-            foreach(var f in j.GetProperty("frames").EnumerateArray())projectileFrames.Add(f.S("key"),new(f.S("key"),f.A("bounds"),f.GetProperty("blocks").EnumerateArray().Select(b=>new Block(b.I("a"),b.I("b"),b.I("z"),b.I("source_order"),new(2,b.GetProperty("pixels").EnumerateArray().Select(pix=>{var n=pix.EnumerateArray().Select(x=>x.GetInt32()).ToArray();return new Pixel(n[0],n[1],(ushort)n[2]);}).ToArray()))).ToArray()));
+            // T478 (#1074): a tree without objects/projectile-66.json builds it on demand (objects recipe "projectile-66");
+            // until that is ready, or when it is unavailable, the arrow is not drawn.
+            string prepared=Path.Combine(assets.Root,"objects/projectile-66.json");
+            if(File.Exists(prepared))foreach(var (key,f) in RuntimeAppearances.ProjectileFrames(Json.Read(prepared)))projectileFrames.Add(key,f);
+            else if(RuntimeAppearances.Active?.Projectile(66) is {} built)foreach(var (key,f) in built)projectileFrames.Add(key,f);
+            else continue;
         }
-        var frame=projectileFrames[v.Frame];CurrentProjectileVisual=v;visuals.Add(v);
+        if(!projectileFrames.TryGetValue(v.Frame,out var frame))continue;CurrentProjectileVisual=v;visuals.Add(v);
         // Original SPR depth keys participate in the same map compositor; no global overlay.
         draws.AddRange(frame.Blocks.Select(b=>new Draw(2*(v.X-Coordinates.MinX)+b.A,v.Y-Coordinates.MinY+b.B,b.Z,1100000+b.Order,"projectile",b.Order,-1,-1,b.Tile)));
         }

@@ -10,8 +10,16 @@ public sealed class ObjectAppearance {
     public bool Supports(string action,int direction)=>Sequences.ContainsKey((action,direction));
     public Dictionary<string,Frame> Frames {get;}=[];
     public Dictionary<(string,int),AnimationStep[]> Sequences {get;}=[];
-    public ObjectAppearance(string path){
-        var j=Json.Read(path);int effectTileType=j.TryGetProperty("effectTileType",out var blend)?blend.GetInt32():2;if(effectTileType is not (2 or 6 or 18 or 34))throw new InvalidDataException("Unsupported effect blend");Gfx=j.I("gfx");Sprite=j.I("sprite");StepMs=j.I("stepMs");
+    /// <summary>T478 (#1074): true when the appearance was built at runtime from TW_CLIENT_ROOT (on demand), not loaded from the prepared tree.</summary>
+    public bool Runtime {get;private set;}
+    public ObjectAppearance(string path):this(Json.Read(path)){}
+    /// <summary>T478: an appearance file a recipe produced in memory (runtime on-demand path); read and checked exactly like a file.</summary>
+    public static ObjectAppearance FromRuntimeJson(byte[] json){
+        using var doc=System.Text.Json.JsonDocument.Parse(json);
+        return new(doc.RootElement){Runtime=true};
+    }
+    ObjectAppearance(System.Text.Json.JsonElement j){
+        int effectTileType=j.TryGetProperty("effectTileType",out var blend)?blend.GetInt32():2;if(effectTileType is not (2 or 6 or 18 or 34))throw new InvalidDataException("Unsupported effect blend");Gfx=j.I("gfx");Sprite=j.I("sprite");StepMs=j.I("stepMs");
         if(j.TryGetProperty("actionMs",out var durations))foreach(var a in durations.EnumerateObject())ActionMs[a.Name]=a.Value.GetDouble();
         foreach(var f in j.GetProperty("frames").EnumerateArray())Frames.Add(f.S("key"),new(f.S("key"),f.A("bounds"),f.GetProperty("blocks").EnumerateArray().Select(b=>new Block(b.I("a"),b.I("b"),b.I("z"),b.I("source_order"),new(effectTileType,b.GetProperty("pixels").EnumerateArray().Select(p=>{var v=p.EnumerateArray().Select(x=>x.GetInt32()).ToArray();return new Pixel(v[0],v[1],(ushort)v[2]);}).ToArray()))).ToArray()));
         foreach(var s in j.GetProperty("sequences").EnumerateArray())Sequences.Add((s.S("action"),s.I("direction")),s.GetProperty("sequence").EnumerateArray().Select(t=>new AnimationStep(t.S("key"),t.I("ticks"),t.TryGetProperty("milliseconds",out var ms)?ms.GetInt32():null,t.TryGetProperty("events",out var events)?events.GetString()??"":"")).ToArray());
@@ -29,7 +37,7 @@ public sealed class ObjectAppearance {
     /// </summary>
     public static ObjectAppearance FromCreature(AssetPrep.ObjectsRecipe.CreatureModel model){
         const int blend=2;
-        var a=new ObjectAppearance(model.Entry.Gfx,model.Entry.Sprite,model.StepMs);
+        var a=new ObjectAppearance(model.Entry.Gfx,model.Entry.Sprite,model.StepMs){Runtime=true};
         foreach(var (label,action) in model.Actions)a.ActionMs[label]=model.ActionMs(label,action);
         foreach(int sid in model.Body.Sids){
             var file=model.Body.File(sid);
@@ -54,13 +62,32 @@ public sealed class ObjectAssets {
         try{return pickupAssets=PickupAssets.Load(Path.GetDirectoryName(root)!);}
         catch(Exception ex) when(ex is IOException or InvalidDataException or System.Text.Json.JsonException){pickupFailure=System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex);throw;}
     }
-    internal bool PickupSupports(int gfx,int weapon)=>Pickup().Supports(gfx,weapon);
-    internal Frame[]? PickupFrames(ObjectAppearance appearance,int direction,int weapon=0)=>
-        Pickup().Supports(appearance.Gfx,weapon)&&ReferenceEquals(appearance,Get(appearance.Gfx,weapon))
-        ?Pickup().For(appearance,direction,weapon):null;
+    // T478 (#1074): a stance the prepared pickup data does not have, whose body was built on demand, gets its pickup group on
+    // demand: it is supported when its list.spz entry has a usable action 15 (PickupRecipe.RuntimeGroup), not by a list.
+    // While that group is pending the frames are null (the pickup is suppressed like any unready asset); unavailable = unsupported.
+    readonly RuntimeAppearances? runtime;
+    /// <summary>T478: the on-demand source for shops, doors and pickup groups (null = prepared tree only, as before).</summary>
+    public RuntimeAppearances? Runtime=>runtime;
+    internal bool PickupSupports(int gfx,int weapon){
+        if(Pickup().Supports(gfx,weapon))return true;
+        if(runtime==null||Get(gfx,weapon) is not {Runtime:true} body)return false;
+        runtime.Pickup(body,weapon);
+        return runtime.State(RuntimeAppearances.PickupKey(body,weapon))!=OnDemandState.Unavailable;
+    }
+    internal Frame[]? PickupFrames(ObjectAppearance appearance,int direction,int weapon=0){
+        if(!ReferenceEquals(appearance,Get(appearance.Gfx,weapon)))return null;
+        if(Pickup().Supports(appearance.Gfx,weapon))return Pickup().For(appearance,direction,weapon);
+        return appearance.Runtime&&Runtime?.Pickup(appearance,weapon) is {} group?PickupAssets.Compose(group,appearance,direction):null;
+    }
     readonly OriginalAppearanceCatalog shops,monsters,worldAppearances,doors;
-    public ObjectAppearance? GetDoor(int gfx)=>gfx==2346?doors.Get(gfx):null;
-    public ObjectAppearance? GetShop(int gfx)=>shops.Get(gfx);
+    // T478: shops (action 70) and doors (actions 28 / 29) outside the prepared catalogs are built on demand; null while pending
+    // (ShopPending / DoorPending tell the renderer to treat the object like AppearancePending) or unavailable (not drawn, as before).
+    public ObjectAppearance? GetDoor(int gfx)=>doors.Get(gfx)??runtime?.Door(gfx);
+    public ObjectAppearance? GetShop(int gfx)=>shops.Get(gfx)??runtime?.Shop(gfx);
+    public bool DoorPending(int gfx)=>runtime?.Pending(RuntimeAppearances.DoorKey(gfx))==true;
+    public bool ShopPending(int gfx)=>runtime?.Pending(RuntimeAppearances.ShopKey(gfx))==true;
+    /// <summary>T478: true while a player stance of this gfx (prepared class gfx, stance outside the preheat list) is being built.</summary>
+    public bool StancePending(int gfx,int weapon)=>RuntimeAppearances.Active!=null&&PlayerProfiles.IsCharacter(gfx)&&PlayerProfiles.Pending(gfx,weapon==8?0:weapon);
     public string DisplayName(WorldObject o)=>(string.IsNullOrWhiteSpace(o.Name)?$"未命名物件 #{o.ObjectId}":Name(o.Name))+(o.ShopActive?"（個人商店）":"");
     readonly Dictionary<(int,int),ObjectAppearance> players=[];
     ObjectAppearance Player(PlayerProfile profile){var key=(profile.Gfx,profile.Weapon);if(!players.TryGetValue(key,out var a)){a=PlayerProfiles.Load(Path.GetDirectoryName(root)!,profile);players[key]=a;}return a;}
@@ -76,6 +103,8 @@ public sealed class ObjectAssets {
     /// <summary>T477: true while the gfx is being decoded on demand. The renderer then treats the object like AppearancePending (not drawn, no 1120 substitute).</summary>
     public bool Pending(int gfx)=>onDemand?.State(gfx)==OnDemandState.Pending;
     public ObjectAssets(string assets,ObjectAppearanceOnDemand? onDemand):this(assets){this.onDemand=onDemand;}
+    /// <summary>T478 (#1074): also builds shops, doors and pickup groups outside the prepared tree on demand.</summary>
+    public ObjectAssets(string assets,ObjectAppearanceOnDemand? onDemand,RuntimeAppearances? runtime):this(assets,onDemand){this.runtime=runtime;}
     public ObjectAssets(string assets){root=Path.Combine(assets,"objects");supported=Json.Read(Path.Combine(root,"manifest.json")).A("gfx").ToHashSet();names=Json.Read(Path.Combine(root,"names.json")).EnumerateArray().Select(x=>x.GetString()!).ToArray();shops=new(assets,"shops/manifest.json","p24-original-shop-appearance-v1",["shop"]);monsters=new(assets,"encountered-monsters.json","p24-original-encountered-monsters-v1",["walk","breath","attack","damage","die"]);worldAppearances=new(assets,"world-appearances.json","p24-original-world-appearances-v1",["breath"]);doors=new(assets,"doors/manifest.json","p24-original-inn-door-v1",["open","close"]);}
     public ObjectAppearance? Get(int gfx){if(PlayerProfiles.Get(gfx,0) is {} profile)return Player(profile);if(monsters.Get(gfx) is {} monster)return monster;if(worldAppearances.Get(gfx) is {} scenery)return scenery;
         // T477: not prepared → on demand (creature rule only; player gfx stay with the prepared profiles until T478). Null while pending or unavailable.

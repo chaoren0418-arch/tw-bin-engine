@@ -458,8 +458,18 @@ public sealed class ShadowsRecipe:IAssetRecipe {
         context.Set("gfx",SprManifest.Text(gfx));
     }
 
-    static void Shadow(AssetRecipeItemContext context,int gfx,IReadOnlyList<(string Recipe,string Path)> bodies){
-        var profiles=bodies.Select(b=>(b.Path,Appearance:SprManifest.ReadAppearance(context.ReadPrior(b.Recipe,b.Path),b.Path))).ToArray();
+    static void Shadow(AssetRecipeItemContext context,int gfx,IReadOnlyList<(string Recipe,string Path)> bodies)=>
+        Shadow(context,gfx,bodies.Select(b=>(b.Path,SprManifest.ReadAppearance(context.ReadPrior(b.Recipe,b.Path),b.Path))).ToArray());
+    /// <summary>
+    /// T478 (#1074): the same shadow rule for a body the runtime already holds (an on-demand player stance or creature): sprite
+    /// from 101.shadow, frames = the keys the given body sequences use. Writes shadows/&lt;gfx&gt;.json into the (memory) context;
+    /// a refusal is thrown (Unavailable), not turned into a manifest row.
+    /// </summary>
+    public static void Runtime(AssetRecipeItemContext context,int gfx,IReadOnlyList<(string Path,SprManifest.Appearance Appearance)> bodies){
+        if(bodies.Count==0)throw new AssetPrepException(AssetPrepFailure.InvalidRequest,$"gfx {gfx} 沒有 body，無法決定陰影的幀");
+        Shadow(context,gfx,bodies);
+    }
+    static void Shadow(AssetRecipeItemContext context,int gfx,IReadOnlyList<(string Path,SprManifest.Appearance Appearance)> profiles){
         foreach(var (bodyPath,a) in profiles)
             if(a.Gfx!=gfx)throw new AssetPrepException(AssetPrepFailure.Prerequisite,$"{bodyPath} 的 gfx 是 {a.Gfx}，不是 {gfx}；要重新準備它的 recipe");
         int bodySprite=profiles[0].Appearance.Sprite;
