@@ -60,10 +60,10 @@
 - `dotnet build engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release`（含 asset-prep、polymorph 等所有模組）：成功，3 個既有的 CS8602 警告（不是本張的檔）。`CombatSfxChecks.csproj` 也建置成功。
 - 基線等價：`scratch/t461-verify.py`（不入 git）以 Python 讀 `releases/r29/assets`，用 R1／R2 從各 profile 外觀檔的 ticks 重算，與 manifest 比對：42 個 profile、336 項全部相符；gfx 0 的 916、791 也相符。也確認 31 個非弓 profile 的攻擊動作帶 `!`，所以放箭點必須限定姿勢 20。
 - **本機沒有執行任何編譯出的程式**（依本機執行限制），測試結果以 PR 的 CI 為準。
+- **CI（PR #1086，run 43441928244）全部綠燈**：`dotnet`、`map-continuity`、`npc-offline` 三個 job 都 pass。`map-continuity` job 內含 module tests、combat-admission（共用 fixture 的 cast-cadence 等）、polymorph-cadence，以及新步驟 `action-timing`（輸出 `PASS 359 DEMO checks`，數字含前置群組）。
 
 ## 沒有驗證的
 
-- CI 尚未跑完（push 後看 PR）。新群組 `action-timing`、改過的 combat-admission、polymorph-cadence 都要等 CI。
 - `PlayerProfiles.Load` 新加的 stepMs 核對，在合成測試沒有覆蓋（要完整外觀檔，含 8 方向與像素）；r29 基線 Python 核過 42／42 相符。T455 的 asset-prep 測試會走到 `Load`，由 CI 驗。
 - 真機：L5 限制照舊（基線以外的姿勢、變身外型、伺服器改過的 spr_action 列沒有對照）。真機遇到伺服器回退或擋動作請記進 Issue，不在客戶端加表。由 T474 真機回歸留意。
 - 在本機以 `engine/assets`（r29）跑的模組測試（`MagicRenderingTests` 的 `CastMs(4)==1320`、`RangedRenderingTests` 的 791）預期不變（Python 核過），但沒有實跑。
