@@ -52,6 +52,7 @@ T100 與 T101 都會碰 `Magic.cs`，但分別是送出端與接收端，**不�
 | DemoChecks 測試群組 | `[CheckGroup("群組名")]` 標在 `static void`／`static Task` 方法上；同時要進預設全套就再加 `[CheckGroup(CheckGroups.Default)]`；要進 CI 會跑的 `map-continuity`、`combat-admission` 等群組就加那個名稱 | `demo-tests/AutoDiscovery.cs` |
 | DemoChecks 原始檔 | 放在 `engine/_integration/dev/<模組>-tests/`（**這個資料夾不可有自己的 `.csproj`**），所有 `.cs` 自動編進 DemoChecks | `DemoChecks.csproj` 萬用字元 |
 | 原生 UI 面板 | `[UiPanel(順序)] internal static UiPanelRegistration Registration=>new(Id,"版面",root=>new XxxPanel());`（一個模組多個視窗：`IEnumerable<UiPanelRegistration>`） | `AutoDiscovery.cs`（`UiPanelDiscovery`），`UiPanelRegistry.Panels` |
+| 本機素材準備器的類別（T451，#1036） | `[AssetRecipe] public sealed class XxxRecipe:IAssetRecipe{…}`（無參數建構式；`Id` 只用小寫英數與單一連字號，同時是 `assets/` 下的目錄名） | `AssetPrep/AssetPrepCore.cs`（`AssetRecipeDiscovery.Product`）；`asset-prep` 模組測試要求 `Errors` 為空 |
 
 ### DemoChecks 群組規則
 - 命令列不變：`dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release -- <repo> <out.json> [群組]`；不帶群組＝`CheckGroups.Default` 全套；群組名不存在仍是 `Unknown regression group`（結束碼 1）。
