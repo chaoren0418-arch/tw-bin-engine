@@ -55,7 +55,7 @@ partial class Checks {
         }
         files["map/4/7e007e00.S32"]=MpS32();
         files["map/4/7e017e00.s32"]=MpS32(objectTile:9999);
-        files["map/4/7e027e00.seg"]=[1,2,3];
+        files["map/4/7e027e00.seg"]=TrSeg();
         files["map/4/7e007e01.s32.gz"]=[4,5,6];
         files["map/4/tempseg.s32"]=MpS32();
         files["map/4/800F7FF3E.s32"]=MpS32();
@@ -93,7 +93,7 @@ partial class Checks {
         string Out(string engine,string relative)=>Path.Combine(engine,"assets",MapsRecipe.RecipeId,relative.Replace('/',Path.DirectorySeparatorChar));
 
         // --- 0. 自動發現與純函式。
-        Check(AssetRecipeDiscovery.Product.Errors.Count==0&&AssetRecipeDiscovery.Product.Recipes.Any(r=>r is MapsRecipe{Coverage:AssetRecipeCoverage.Partial}),"MP maps recipe discovered, coverage partial (terrain is T458)");
+        Check(AssetRecipeDiscovery.Product.Errors.Count==0&&AssetRecipeDiscovery.Product.Recipes.Any(r=>r is MapsRecipe{Coverage:AssetRecipeCoverage.Complete,Version:2}),"MP maps recipe discovered, coverage complete (terrain fields since T458)");
         Check(new MapsRecipe().Normalize(["maps","cache","maps"]).SequenceEqual(["cache","maps"]),"MP items normalised to cache, maps");
         Check(MapScan.BlockName("7FFD8002.S32") is {Stem:"7ffd8002",Bx:0x7ffd,By:0x8002,Seg:false}&&MapScan.BlockName("7fff8000.seg") is {Seg:true},"MP block names: 8 hex digits, extension case-insensitive");
         foreach(string bad in new[]{"tempseg.s32","800F7FF3E.s32","7ffd8002.s32.gz","7ffd800g.s32","7ffd8002.scc","7ffd8002s32"})Check(MapScan.BlockName(bad)==null,"MP not a block file: "+bad);
@@ -132,7 +132,7 @@ partial class Checks {
         var mapRows=maps["maps"]!.AsArray();
         Check(mapRows.Select(m=>m!["mapId"]!.GetValue<int>()).SequenceEqual([0,4]),"MP maps[]: 0 and 4 (7 has a broken block, 18 has only .seg, abc is not decimal)");
         var m0=mapRows[0]!;var m4=mapRows[1]!;
-        Check(m0.AsObject().Select(p=>p.Key).SequenceEqual(["mapId","minX","maxX","minY","maxY","width","height","verifiedAbsent","unsupportedBlocks"]),"MP maps[] keys: no name, terrain (T458) or server fields");
+        Check(m0.AsObject().Select(p=>p.Key).SequenceEqual(["mapId","minX","maxX","minY","maxY","width","height","terrain","verifiedAbsent","unsupportedBlocks"]),"MP maps[] keys: terrain (T458), no name or server fields");
         Check(m0["minX"]!.GetValue<int>()==32448&&m0["maxX"]!.GetValue<int>()==32703&&m0["minY"]!.GetValue<int>()==32832&&m0["maxY"]!.GetValue<int>()==33151&&m0["width"]!.GetValue<int>()==256&&m0["height"]!.GetValue<int>()==320,"MP map 0 bounds from block names: x 32448–32703, y 32832–33151, 256 × 320");
         Check(m4["minX"]!.GetValue<int>()==0&&m4["maxX"]!.GetValue<int>()==191&&m4["minY"]!.GetValue<int>()==0&&m4["maxY"]!.GetValue<int>()==63,"MP map 4 bounds include the .seg-only block (x 0–191)");
         var va0=m0["verifiedAbsent"]!.AsArray().Select(v=>v!.GetValue<string>()).ToList();
@@ -150,7 +150,7 @@ partial class Checks {
 
         // --- 3. cache/manifest.json。
         var cacheJson=MpJson(Out(engineA,MapsRecipe.CacheManifestPath));
-        Check(cacheJson["schema"]!.GetValue<string>()==MapsRecipe.CacheSchema&&cacheJson.AsObject().Select(p=>p.Key).SequenceEqual(["schema","maps","tiles","verifiedMissing"]),"MP cache manifest: schema, maps, tiles, verifiedMissing (no record / pixelModes / sourceArchives / scope / terrain)");
+        Check(cacheJson["schema"]!.GetValue<string>()==MapsRecipe.CacheSchema&&cacheJson.AsObject().Select(p=>p.Key).SequenceEqual(["schema","maps","tiles","terrain","verifiedMissing"]),"MP cache manifest: schema, maps, tiles, terrain, verifiedMissing (no record / pixelModes / sourceArchives / scope)");
         var cm=cacheJson["maps"]!.AsArray();
         Check(cm.Select(x=>x!["name"]!.GetValue<string>()).SequenceEqual(MapsRecipe.CacheBlocks.Select(s=>s+".s32"))&&cm.Count==20,"MP cache maps: 20 blocks, bx outer");
         Check(cm.All(x=>x!["sha256"]!.GetValue<string>()==Sha(client.Files["map/0/"+x["name"]!.GetValue<string>()])&&x["size"]!.GetValue<long>()==client.Files["map/0/"+x["name"]!.GetValue<string>()].Length),"MP cache maps: SHA-256 and size of the client file");
@@ -163,7 +163,7 @@ partial class Checks {
         Check(receipt.Inputs.Count==1&&receipt.Inputs[0] is {Name:"Tile"}&&receipt.Inputs[0].IndexSize==new FileInfo(Path.Combine(client.Root,"Tile.idx")).Length&&receipt.Inputs[0].IndexSha256==Sha(File.ReadAllBytes(Path.Combine(client.Root,"Tile.idx")))&&receipt.Inputs[0].PakSize==new FileInfo(Path.Combine(client.Root,"Tile.pak")).Length,"MP receipt inputs: Tile idx SHA-256 and pak size only, no Sprite container");
         var mapsItem=receipt.Completed.Single(c=>c.Item=="maps");
         Check(mapsItem.Sources.Any(s=>s is {Container:"map",Entry:"map/0/7ffd8002.s32"}&&s.Sha256==Sha(client.Files["map/0/7ffd8002.s32"]))&&mapsItem.Sources.Any(s=>s is {Container:"Tile",Entry:"140.til"})&&mapsItem.Sources.Any(s=>s is {Container:"map",Entry:"map/4/"}),"MP receipt sources: map files, directory listings and Tile entries");
-        Check(mapsItem.Metadata["unsupportedMaps"]=="7"&&mapsItem.Metadata["missingTileIds"]=="9999"&&receipt.Status==AssetReceipt.Partial,"MP receipt metadata and partial status");
+        Check(mapsItem.Metadata["unsupportedMaps"]=="7"&&mapsItem.Metadata["missingTileIds"]=="9999"&&receipt.Status==AssetReceipt.Complete,"MP receipt metadata and complete status");
 
         // --- 5. 已是最新；客戶端改動後重新產生。
         var again=runner.Run(Request(client.Root,engineA));
@@ -184,16 +184,20 @@ partial class Checks {
         Check(ApTreeHash(client.Root)==clientBefore,"MP the client tree is unchanged by the runs (read-only)");
 
         // --- 7. provider：準備好的樹（integrity v2）直讀客戶端；與 r29 式的封裝樹畫出同一個場景。
-        // terrain 由 T458 補上；這裡用合成 terrain 模擬，只為了讓產品讀取點能載入。
-        byte[] terrain=Enumerable.Repeat((byte)3,256*320).ToArray();
+        // T458：terrain 由 recipe terrain 對同一個 client 產生；maps recipe 寫的 terrain SHA 必須等於這兩個檔。
         // engineA 在 5. 已換成 changedClient 的 manifest；engineB 仍是原本 client 的。
+        var terrainRun=runner.Run(new(client.Root,engineB,TerrainRecipe.RecipeId,[TerrainRecipe.MapsItem,TerrainRecipe.CacheItem]));
+        Check(terrainRun.Outcome==AssetPrepOutcome.Published,"MP terrain recipe published for the same client");
+        byte[] terrain=File.ReadAllBytes(Path.Combine(engineB,"assets",TerrainRecipe.RecipeId,"maps","terrain","0.bin"));
+        byte[] txtBytes=File.ReadAllBytes(Path.Combine(engineB,"assets",TerrainRecipe.RecipeId,"cache","original-map0.txt"));
         var mapsNode=MpJson(Out(engineB,MapsRecipe.MapsManifestPath));
-        mapsNode["maps"]!.AsArray().Single(m=>m!["mapId"]!.GetValue<int>()==0)!.AsObject()["terrain"]=new JsonObject{["path"]="terrain/0.bin",["sha256"]=Sha(terrain)};
-        byte[] mapsBytes=Encoding.UTF8.GetBytes(mapsNode.ToJsonString());
-        string txt=string.Concat(Enumerable.Range(0,512).Select(_=>string.Join(",",Enumerable.Repeat("3",512))+"\r\n"));byte[] txtBytes=Encoding.ASCII.GetBytes(txt);
+        var m0Terrain=mapsNode["maps"]!.AsArray().Single(m=>m!["mapId"]!.GetValue<int>()==0)!["terrain"]!;
+        Check(terrain.Length==256*320&&m0Terrain["path"]!.GetValue<string>()=="terrain/0.bin"&&m0Terrain["sha256"]!.GetValue<string>()==Sha(terrain),"MP maps manifest terrain of map 0 = SHA-256 of the terrain recipe's file");
+        byte[] mapsBytes=File.ReadAllBytes(Out(engineB,MapsRecipe.MapsManifestPath));
         var cacheNode=MpJson(Out(engineB,MapsRecipe.CacheManifestPath));
-        cacheNode.AsObject()["terrain"]=new JsonObject{["path"]="original-map0.txt",["sha256"]=Sha(txtBytes),["origin"]=new JsonArray(32256,32768),["size"]=new JsonArray(512,512)};
-        byte[] cacheBytes=Encoding.UTF8.GetBytes(cacheNode.ToJsonString());
+        var ct=cacheNode["terrain"]!;
+        Check(ct["path"]!.GetValue<string>()=="original-map0.txt"&&ct["sha256"]!.GetValue<string>()==Sha(txtBytes)&&ct["origin"]!.AsArray().Select(v=>v!.GetValue<int>()).SequenceEqual([32256,32768])&&ct["size"]!.AsArray().Select(v=>v!.GetValue<int>()).SequenceEqual([512,512]),"MP cache manifest terrain: original-map0.txt with the terrain recipe's SHA-256, origin and size");
+        byte[] cacheBytes=File.ReadAllBytes(Out(engineB,MapsRecipe.CacheManifestPath));
         void Save(string dir,string rel,byte[] data){string full=Path.Combine(dir,rel.Replace('/',Path.DirectorySeparatorChar));Directory.CreateDirectory(Path.GetDirectoryName(full)!);File.WriteAllBytes(full,data);}
         string prepared=Case("assets-v2"),packaged=Case("assets-v1");
         Save(prepared,"integrity.json",Encoding.UTF8.GetBytes(MpIntegrity(MapRawSource.IntegrityV2,("cache/manifest.json",cacheBytes),("maps/manifest.json",mapsBytes))));
