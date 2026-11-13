@@ -466,3 +466,4 @@
 - 2026-11-14 — #1120 分流：tw-bin-engine#1109 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1122 已合併）→ [報告](reports/issue-1120.md)
 - 2026-11-14 — #1121 分流：tw-bin-engine#1118 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1123 已合併）→ [報告](reports/issue-1121.md)
 - 2026-11-14 — #1129 分流：tw-bin-engine#1119 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1130 已合併）→ [報告](reports/issue-1129.md)
+- 2026-11-14 — #1133 分流：tw-bin-engine#1124 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1135 已合併）→ [報告](reports/issue-1133.md)
