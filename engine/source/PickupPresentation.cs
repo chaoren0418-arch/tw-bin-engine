@@ -28,7 +28,7 @@ public sealed partial class WorldSession {
         ?new(generation(),WorldEpoch,MapId,a.ObjectId,AppearanceRevision,Corrections,SpeedRevision,a.Gfx,a.Weapon,a.Direction,a.X,a.Y):null;
     string? PickupGuard()=>Actor is not {} a||Status?.ObjectId!=a.ObjectId?"actor-identity":
         !Ready||!Renderable?"world-unavailable":OwnDead||Status.Hp==0||a.HpPercent==0?"health/death":SelfAppearancePending?"appearance-pending":
-        !PickupAssets.Supports(a.Gfx,a.Weapon)||a.Direction>7||a.Speed is not (0 or 1)||a.Brave!=0?"unsupported-profile/speed":
+        a.Direction>7||a.Speed is not (0 or 1)||a.Brave!=0?"unsupported-profile/speed":
         ActionLocked?"locked":pickupShop?"shop":pickupRemoved?"removed":null;
     PickupContext? PickupContextAt(long now,out string? reason){
         reason=PickupGuard();if(reason!=null)return null;
@@ -79,7 +79,10 @@ public sealed partial class Renderer {
     static string OwnCombatName(int action)=>action switch{1=>"attack",2=>"damage",8=>"die",18=>"spellDir",19=>"spellNoDir",_=>"unsupported"};
     void BindPickupPresentation(World own,WorldSession session,ObjectAssets catalog){
         session.PickupRenderContext=now=>{
-            if(session.Actor is not {} a||catalog.Get(a.Gfx,a.Weapon) is not {} appearance||catalog.PickupFrames(appearance,a.Direction,a.Weapon) is not {} frames)return null;
+            if(session.Actor is not {} a||catalog.Get(a.Gfx,a.Weapon) is not {} appearance)return null;
+            // T463: which stances have a pickup profile is the prepared pickup data (it follows players/manifest.json).
+            if(!catalog.PickupSupports(a.Gfx,a.Weapon))return new(appearance,[],"unsupported-profile/speed");
+            if(catalog.PickupFrames(appearance,a.Direction,a.Weapon) is not {} frames)return null;
             // Resolve pending projectile impacts using the very same compositor logic before admission.
             ComposeProjectile(session,[],now);
             string? blocked=own.Walking?"walking":ActiveOwnCombat(session,appearance,now)!=null?"active-combat/projectile":null;
