@@ -1,6 +1,7 @@
 param([string]$NuGetConfig = 'engine/NuGet.Config')
 # 離線 B07 音效選擇檢查（#433）。需先以 rebuild.py --build 產出 engine/build/client-product-dev。
-# 不讀遊戲素材、WAV，不開音訊裝置。完整 combat-sfx 套件（需 engine/assets 與客戶端 WAV）不在此腳本。
+# 不讀遊戲素材、WAV，不開音訊裝置；含 T465 合成 metadata 的排程規則測試。
+# 完整 combat-sfx 套件（需 engine/assets 與客戶端 WAV）不在此腳本；缺素材時該套件回報 not-run、結束碼 3，不算通過。
 $ErrorActionPreference = 'Stop'
 $root = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../../..'))
 Set-Location $root
