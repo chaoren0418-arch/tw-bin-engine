@@ -46,9 +46,10 @@ public sealed partial class ClientForm {
             events.Add(new{kind="native-ui",state="active",panels=root.Panels.Select(p=>p.Id).ToArray()});
         }else{
             nativeUiState=UiStartState.Failed;
-            nativeUiError=error is UiResourceException?UiRoot.PinMismatchMessage:"原生 UI 無法啟動，已使用舊介面："+error?.Message;
-            UiResourceLog.Write("native-ui fallback: "+error);
-            events.Add(new{kind="native-ui",state="failed",error=error?.ToString()});
+            var failure=UiRoot.DescribeStartFailure(error);   // #1097: layout errors are not pin mismatches
+            nativeUiError=failure.Message;
+            UiResourceLog.Write($"native-ui fallback ({failure.Category}): "+error);
+            events.Add(new{kind="native-ui",state="failed",category=failure.Category,error=error?.ToString()});
         }
         SyncPlayerHud();Invalidate();
     }

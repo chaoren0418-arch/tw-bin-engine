@@ -384,6 +384,7 @@ T451 報告列出的缺口，分給第一個用到的任務：
 - 加速與緩速係數（0.755、2.0，`NormalHaste.cs`、`ActionCadence.cs`）是產品既有常數，註解寫明出自 JAR d287。它們不是素材，七張閉合任務都沒有重新查證。T476 沒有另開查證（M8 不處理）。
 - B15 例外清單現況（2026-11-13，`engine/tools/game-assets-allowlist.json`）：7 列。T466 已處理 2 列；剩 pickup 2 列（T463）、EXP 表（L1，定案保留）、ground-catalog（L2，T464 拿掉）、測試向量 3 列（T465）。M8 結束時的目標是 **1 列**（`OriginalExpTable.cs`）。
 - T463（#1048）、T465（#1050）、T464（#1049）之後：**1 列**，只剩 `OriginalExpTable.cs`（L1，定案保留），已達 M8 目標。理由寫在 allowlist 的 `b15ExceptionReasons`，`check-no-game-assets.py` 輸出 `"b15Exceptions": 1`。
+- T471（#1056）收尾：腳本的 `KNOWN_LIMITS` 把 B15 例外清單鎖死在 `OriginalExpTable.cs` 一列，allowlist 多出任何一列都會失敗（要放行只能改程式並經 PR 審查）；這一列每次執行都以 `B15-KNOWN-LIMIT L1:` 印出理由。另外 `engine/source/Resources/`、`engine/audio/Resources/` 的檔案與所有 EmbeddedResource 的內容不得是圖檔、pixels／RGB555 或時序表（`frameTimings`、`timeline`、`delays` 等鍵）。CI 先跑 `--self-test`（14 項離線測試）再跑檢查本身。
 
 ## 8. 其他決定（主控裁定，已定案）
 

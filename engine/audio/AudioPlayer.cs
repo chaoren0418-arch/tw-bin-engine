@@ -30,14 +30,19 @@ public sealed class AudioPlayer : IAsyncDisposable, IAudioPlayback
         thread.SetApartmentState(ApartmentState.MTA);
         thread.Start(); // No device/DLL access until an approved Play reaches native open.
     }
-    public static bool TryCreate(string assetsRoot, string trustedManifestSha256, int maxConcurrentVoices,
+    /// <summary>6016 地圖特效播放器（T460）：聲音由 <paramref name="clientRoot"/>（TW_CLIENT_ROOT）的 Sound 目錄直讀並驗程式內 pin。
+    /// <paramref name="contract"/> 是 host 認可的版本字串，與 <see cref="Effect6016Contract"/> 不同即拒絕建立。</summary>
+    public const string Effect6016Contract = AudioAssets.Effect6016Contract;
+    public static bool TryCreate(string clientRoot, string contract, int maxConcurrentVoices,
         out AudioPlayer? player, out string error)
     {
         player = null; error = "";
         if (maxConcurrentVoices is < 1 or > 1024) { error = "Explicit resource capacity must be 1..1024"; return false; }
+        if (!string.Equals(contract, Effect6016Contract, StringComparison.Ordinal))
+        { error = $"Audio contract mismatch: host '{contract}', audio '{Effect6016Contract}'"; return false; }
         try
         {
-            var assets = AudioAssets.Load(assetsRoot, trustedManifestSha256);
+            var assets = AudioAssets.LoadEffect6016(clientRoot);
             player = new(new AudioCore(assets, new DirectShowDriver(() => new WindowsPlaybackGraph()), maxConcurrentVoices));
             return true;
         }
@@ -45,6 +50,9 @@ public sealed class AudioPlayer : IAsyncDisposable, IAudioPlayback
         { error = ex.Message; return false; }
     }
     internal static AudioPlayer ForTests(AudioCore core, IAudioSessionLifetime? session=null) => new(core,session);
+    /// <summary>測試用：與 TryCreate 相同的 DirectShow 播放鏈，但 catalog 由測試提供（合成 WAV 與合成 pin）。</summary>
+    internal static AudioPlayer NativeForTests(AudioAssets assets, int capacity) =>
+        new(new AudioCore(assets, new DirectShowDriver(() => new WindowsPlaybackGraph()), capacity));
     public static AudioPlayer CreateCombat(string clientRoot, int capacity = 32)
     {
         if (capacity is < 1 or > 1024) throw new ArgumentOutOfRangeException(nameof(capacity));
