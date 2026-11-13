@@ -17,7 +17,16 @@ namespace P06.AssetPrep;
 public sealed record AssetPrepPins(string ListSpzSha256) {
     public const int SpriteArchiveCount=17;
     /// <summary>The supported TW1608262200 client.</summary>
-    public static AssetPrepPins Tw1608262200{get;}=new("e8cec0388d6e9fdf518493fba1674953141c023765e02c210c05a23dfbbe6242");
+    public static AssetPrepPins Tw1608262200{get;}=new("e8cec0388d6e9fdf518493fba1674953141c023765e02c210c05a23dfbbe6242"){
+        ListSprSha256="523c61ad5cc362a56a36f58b262c84efa8b4435f017e7074d35b5834e8b9f127",
+        Effect6016Sha256=P24.MapEffectEvents.Effect6016Definition.AcceptedMetadataSha256,
+    };
+    /// <summary>T457: decoded SHA-256 of Text/list.spr (asset-recipe.md §1.2 anchor; the map effects need it equal to list.spz per entry).
+    /// Null = the recipes that need it refuse to run.</summary>
+    public string? ListSprSha256{get;init;}
+    /// <summary>T457: whole-file SHA-256 of the produced maps/effects/6016.json (asset-recipe.md §1.2 output anchor = the
+    /// ClientEffect6016 pin, never changed). Null only in synthetic tests that have no 6016 at all.</summary>
+    public string? Effect6016Sha256{get;init;}
     /// <summary>Index 0 = Sprite (the main container), 1+h = Sprite{h:00}.</summary>
     public static string SpriteName(int archive)=>archive==0?"Sprite":"Sprite"+(archive-1).ToString("00",System.Globalization.CultureInfo.InvariantCulture);
 }
@@ -117,8 +126,18 @@ public sealed class AssetPrepInput:IDisposable {
     public static AssetPrepInput Open(string? clientRoot,AssetPrepPins pins,AssetPrepSources sources){
         string root=RequireClientRoot(clientRoot);
         if(pins.ListSpzSha256 is not {Length:64})throw new AssetPrepException(AssetPrepFailure.InvalidRequest,"list.spz 的錨點必須是 SHA-256");
-        if((sources&AssetPrepSources.Sprites)==0){
-            var input=new AssetPrepInput(root,pins,[]);
+        // T457: map-effects reads the Sprite containers and the map/ block files together (its ids come from the .s32 effect tails).
+        if(sources==0||(sources&~(AssetPrepSources.Sprites|AssetPrepSources.Tile|AssetPrepSources.MapFiles))!=0)
+            throw new AssetPrepException(AssetPrepFailure.InvalidRequest,$"recipe 宣告的來源不支援：{sources}");
+        var opened=new List<PrepArchive>();
+        AssetPrepInput? input=null;
+        try{
+            if((sources&AssetPrepSources.Sprites)!=0)
+                for(int i=0;i<AssetPrepPins.SpriteArchiveCount;i++){
+                    string name=AssetPrepPins.SpriteName(i);
+                    opened.Add(Guard(name,()=>PrepArchive.Open(root,name)));
+                }
+            input=new AssetPrepInput(root,pins,opened.ToArray());
             if((sources&AssetPrepSources.Tile)!=0)input.tile=Guard(MapRawSource.TileContainer,()=>PrepArchive.Open(root,MapRawSource.TileContainer));
             if((sources&AssetPrepSources.MapFiles)!=0){
                 if(!Directory.Exists(Path.Combine(root,MapContainer)))throw new AssetPrepException(AssetPrepFailure.MissingContainer,$"TW_CLIENT_ROOT 缺少 {MapContainer}/ 目錄（{root}）",MapContainer);
@@ -126,16 +145,7 @@ public sealed class AssetPrepInput:IDisposable {
                 input.mapFiles=true;
             }
             return input;
-        }
-        if(sources!=AssetPrepSources.Sprites)throw new AssetPrepException(AssetPrepFailure.InvalidRequest,"Sprite 與 Tile／map 來源不可在同一個 recipe 混用");
-        var opened=new List<PrepArchive>();
-        try{
-            for(int i=0;i<AssetPrepPins.SpriteArchiveCount;i++){
-                string name=AssetPrepPins.SpriteName(i);
-                opened.Add(Guard(name,()=>PrepArchive.Open(root,name)));
-            }
-            return new(root,pins,opened.ToArray());
-        }catch{foreach(var a in opened)a.Dispose();throw;}
+        }catch{if(input!=null)input.Dispose();else foreach(var a in opened)a.Dispose();throw;}
     }
 
     static T Guard<T>(string container,Func<T> read){
