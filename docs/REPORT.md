@@ -425,3 +425,4 @@
 - 2026-11-13 — #1027 B15 開放：可攜 zip＋使用者本機產生 engine/assets——拆分實作任務（使用者 2026-11-13 同意）（design，claude-local，PR #1028 已合併）→ [報告](reports/issue-1027.md)
 - 2026-11-13 — #1031 b15-src-rule-tables: T446 來源閉合：規則表（skills.json、magic/catalog.json、EXP 表、ground-catalog 模板列）（resource，claude-local，PR #1061 已合併）→ [報告](reports/issue-1031.md)
 - 2026-11-13 — #1030 b15-src-terrain: T445 來源閉合：terrain／bounds 能否只從客戶端 S32／SEG 推導（resource，claude-local，PR #1062 已合併）→ [報告](reports/issue-1030.md)
+- 2026-11-13 — #1032 b15-src-action-timing: T447 來源閉合：動作時序（serverActionMs／spr_action）與 gfx 選取清冊（resource，claude-local，PR #1063 已合併）→ [報告](reports/issue-1032.md)
