@@ -41,18 +41,22 @@ public sealed class Assets {
             Scene.Add(new(c.I("x"),c.I("y"),c.TryGetProperty("z",out var z)?z.GetInt32():0,c.I("serial"),layer,c.I("source_index"),c.TryGetProperty("group",out var g)?g.GetInt32():-1,c.I("offset"),t));
         }
         if(Scene.Count!=manifest.I("draw_count") || !Scene.SequenceEqual(Scene.OrderBy(x=>x,DrawComparer.Instance)) || Scene.Any(c=>c.Px<0||c.Py<0||c.Px+24>CanvasWidth||c.Py+24>CanvasHeight))throw new InvalidDataException("Scene command count/order/bounds mismatch");
-        var blocks=Json.Read(Path.Combine(root,"character/blocks.json"));if(blocks.S("schema")!="p06-spr-blocks-v1")throw new InvalidDataException("Unsupported SPR block schema");
-        foreach(var f in blocks.GetProperty("frames").EnumerateArray())Frames.Add(f.S("key"),new(f.S("key"),f.A("bounds"),f.GetProperty("blocks").EnumerateArray().Select(b=>new Block(b.I("a"),b.I("b"),b.I("z"),b.I("source_order"),new(2,ReadPixels(b)))).ToArray()));
-        var anim=Json.Read(Path.Combine(root,"character/animation.json"));if(anim.S("schema")!="p04-character-v1")throw new InvalidDataException("Unsupported animation schema");
-        foreach(var m in anim.GetProperty("mapping").EnumerateArray()) {
-            var keys=m.GetProperty("sequence").EnumerateArray().Select(s=>s.S("key")).ToArray();
-            if(keys.Any(k=>!Frames.ContainsKey(k)))throw new InvalidDataException("Animation references absent frame");
-            Sequences.Add((m.S("action"),m.I("direction")),keys);
-        }
-        if(Frames.Count!=96||Sequences.Count!=16)throw new InvalidDataException("Incomplete character");
+        LoadCharacter(root,Frames,Sequences);
         var motion=Json.Read(Path.Combine(root,"motion.json"));FrameMs=motion.I("frame_ms");Spawn=motion.A("spawn");
         Directions=motion.GetProperty("directions").EnumerateArray().Select(d=>new Direction(d.I("direction"),d.A("world_delta")[0],d.A("world_delta")[1],d.A("screen_delta")[0],d.A("screen_delta")[1])).ToArray();
         if(FrameMs!=166||Directions.Length!=8||Directions.Where((d,i)=>d.Id!=i||d.Sx!=24*(d.Dx+d.Dy)||d.Sy!=12*(d.Dy-d.Dx)).Any())throw new InvalidDataException("Invalid motion mapping");
+    }
+    /// <summary>character/blocks.json and character/animation.json (also used by the asset-preparer checks, T454).</summary>
+    public static void LoadCharacter(string root,Dictionary<string,Frame> frames,Dictionary<(string,int),string[]> sequences) {
+        var blocks=Json.Read(Path.Combine(root,"character/blocks.json"));if(blocks.S("schema")!="p06-spr-blocks-v1")throw new InvalidDataException("Unsupported SPR block schema");
+        foreach(var f in blocks.GetProperty("frames").EnumerateArray())frames.Add(f.S("key"),new(f.S("key"),f.A("bounds"),f.GetProperty("blocks").EnumerateArray().Select(b=>new Block(b.I("a"),b.I("b"),b.I("z"),b.I("source_order"),new(2,ReadPixels(b)))).ToArray()));
+        var anim=Json.Read(Path.Combine(root,"character/animation.json"));if(anim.S("schema")!="p04-character-v1")throw new InvalidDataException("Unsupported animation schema");
+        foreach(var m in anim.GetProperty("mapping").EnumerateArray()) {
+            var keys=m.GetProperty("sequence").EnumerateArray().Select(s=>s.S("key")).ToArray();
+            if(keys.Any(k=>!frames.ContainsKey(k)))throw new InvalidDataException("Animation references absent frame");
+            sequences.Add((m.S("action"),m.I("direction")),keys);
+        }
+        if(frames.Count!=96||sequences.Count!=16)throw new InvalidDataException("Incomplete character");
     }
     static Pixel[] ReadPixels(JsonElement t)=>t.GetProperty("pixels").EnumerateArray().Select(p=>{
         var v=p.EnumerateArray().Select(x=>x.GetInt32()).ToArray();
