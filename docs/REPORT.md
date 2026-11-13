@@ -464,3 +464,4 @@
 - 2026-11-14 — #1058 b15-readme: T473 文件：可攜版 README、啟動入口的 TW_CLIENT_ROOT 設定、BUILD／ARCHITECTURE 同步（code，claude-local，PR #1114 已合併）→ [報告](reports/issue-1058.md)
 - 2026-11-14 — #1116 分流：tw-bin-engine#1108 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1117 已合併）→ [報告](reports/issue-1116.md)
 - 2026-11-14 — #1120 分流：tw-bin-engine#1109 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1122 已合併）→ [報告](reports/issue-1120.md)
+- 2026-11-14 — #1121 分流：tw-bin-engine#1118 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1123 已合併）→ [報告](reports/issue-1121.md)
