@@ -1,8 +1,8 @@
 # UIA／GDI 操作工具（#1126／#1138）
 
-記事本前置改為 **UIA 聚焦＋SendInput Unicode 輸入＋TextPattern 讀回**。Windows 10 記事本編輯區是 `ControlType.Document`（Class `Edit`、AutomationId `15`），只提供 `TextPattern`／`ScrollPattern`，不支援 `ValuePattern`。不要把狀態列的五個 `ControlType.Edit` 當編輯區。#1138 實機結果見下方報告；完整客戶端路徑仍待重測。
+記事本前置改為 **UIA 聚焦＋SendInput Unicode 輸入＋TextPattern 讀回**。Windows 10 記事本編輯區是 `ControlType.Document`（Class `Edit`、AutomationId `15`），只提供 `TextPattern`／`ScrollPattern`，不支援 `ValuePattern`。不要把狀態列的五個 `ControlType.Edit` 當編輯區。#1138 實機結果見下方報告；記事本 #1149 已通過；客戶端 #1150 部分通過，實證與限制見下方客戶端章節。
 
-**#1138 單次實跑尚未通過**：輸入前 `Set-UiaForeground` 回報 `Foreground window does not match target`，未執行 SendInput／讀回，GDI 也被前景檢查擋下。根因是舊版只呼叫一次 `SetForegroundWindow`，而背景 shell 受 Windows 前景鎖限制（前景是使用者正在用的程式）。**#1148 已改為多步驟取得前景並附診斷、截圖改 PrintWindow 優先**（見下節）；實機效果待重測任務 `f1138-retest` 驗證。
+**#1138 單次實跑尚未通過**：輸入前 `Set-UiaForeground` 回報 `Foreground window does not match target`，未執行 SendInput／讀回，GDI 也被前景檢查擋下。根因是舊版只呼叫一次 `SetForegroundWindow`，而背景 shell 受 Windows 前景鎖限制（前景是使用者正在用的程式）。**#1148 已改為多步驟取得前景並附診斷、截圖改 PrintWindow 優先**（見下節）；記事本實機效果已由 [#1149](../../docs/reports/issue-1149.md) 驗證通過。
 
 ## 前景取得（#1148）
 
@@ -52,50 +52,59 @@ Save-UiaGdiScreenshot $window scratch/window.png
 
 `Save-UiaGdiScreenshot` **先用 `PrintWindow($h, hdc, PW_RENDERFULLCONTENT=2)`**（#1148）把目標視窗畫進 24bpp bitmap（尺寸取 `GetWindowRect`，含 Win10 隱形邊框），不需要前景、被遮住也能截。`PrintWindow` 回傳 false 或整張全黑／全白時，才改走舊路徑：`Set-UiaForeground` 核對前景後，以 UIA 實體像素矩形 `CopyFromScreen` 並裁切至虛擬桌面。回傳物件含 `Method`（`PrintWindow`／`CopyFromScreen`）、`PrintWindowError`、`CopyFromScreenError`（各自錯誤原文，未走到為 null）、`Foreground`（走 CopyFromScreen 時的前景診斷），以及 PNG SHA-256、尺寸、每隔 4 像素取樣的平均 RGB 強度、非黑／非白比例。兩條路都失敗才拋錯（訊息含兩者原文）。最小化視窗直接失敗。`Nonblank` 只是排除全黑／全白，仍須檢視圖片，不能取代功能驗收；部分 GPU／DirectX 繪製的視窗 PrintWindow 可能畫出空白，屆時會自動退回 CopyFromScreen。
 
-## 客戶端操作用法（全部待真機驗證）
+## 客戶端操作實證（#1150，2026-11-14）
 
-先確認已有授權且登入至 `CharacterList`。以下是 pattern 包裝方法與使用範例，**不是本輪通過的操作清單**。每次操作後重新找控制項並讀樹；名稱／AutomationId 必須來自當次 UIA 樹，不沿用歷史 element index。重名／找不到控制項會直接拋錯。
+完整結果見 [issue-1150.md](../../docs/reports/issue-1150.md) 與 [UIA／量測證據](../../docs/reports/issue-1150-evidence.json)。本輪使用 `--classic-ui --login-demo real-interactive --login-port 42061 --evidence <scratch 路徑>`，登入 p24svc01 至 CharacterList。**只有下表標示成功的方法已驗證；職業／能力值與真正送出仍未驗證。**
 
-WinForms `TextBox`／`NumericUpDown` 的 Edit 子項**預期**提供 ValuePattern，仍待客戶端實機重測確認；若沒有，文字欄位可用 `Send-UiaText`（先依當次觀察準備插入點／選取範圍），能力值可用微調鈕 Invoke。不得把記事本成功推論為客戶端已通過。
+| 方法 | 實機結果 |
+|---|---|
+| 主視窗找窗、讀樹 | ✅ `Get-UiaWindow -ProcessId ... -Title 'P24 診斷客戶端'`、`Get-UiaTree` 成功。主畫布本身沒有可讀的場景文字控制項，樹包含 owned 開發工具視窗。 |
+| 開發工具找窗 | ✅ 從主窗 `Find-UiaControl -Name '開發工具（過渡操作介面） · Ctrl+Shift+F9' -Type Window`；❌ 用 `Get-UiaWindow` 頂層列舉會 `found 0`，因它是 owned 子視窗。 |
+| GDI 截圖 | ✅ 主窗 1206×871、開發工具 826×711、建角 466×661，皆 `PrintWindow`、DPI 192、未最小化，已目視。 |
+| `SelectionItemPattern` 切分頁 | ❌ 對觀察到的「登入／選角」呼叫 Select 後，畫面成為「控制」；新樹找「服務」與「登入／選角」皆 `found 0`。這個方法不能宣稱可用。 |
+| 鍵盤進入登入分頁 | ✅ 當畫面位於「控制」時，UIA 聚焦唯一 Tab 控制項、核對 HasKeyboardFocus，再送 Left，出現「登入／選角」及建立／刪除按鈕。只在相同起始狀態使用；它不算 G07 的 SelectionItemPattern 通過。 |
+| UIA Invoke「建立角色」 | ⚠️ 確實開啟對話框，但 Invoke 等待後回報 `Operation timed out. (Exception from HRESULT: 0x80131505)`。不要因逾時再次 Invoke；先核對前景與截圖。 |
+| 對話框樹、職業切換、能力值設定 | ❌ 對話框的 FindAll／Get-UiaTree 未在開啟期間返回，取消後才釋放；Get-UiaTree 最終報 `The property 'ProgrammaticName' cannot be found on this object. Verify that the property exists.`。未取得 ComboBox／NumericUpDown Edit，因此 ValuePattern、微調 Invoke、Send-UiaText 均未實證。 |
+| 取消對話框 | ✅ 核對前景 HWND／PID 為本輪「建立角色」後，送 Escape；回到 CharacterList 3/3，未送出。未驗證取消鈕的 UIA Invoke。 |
+| `Send-UiaF12` 單鍵 F12 | ❌ 前景核對與送鍵完成，但沒有新 manual PNG；函式不丟錯不代表擷取成功。 |
+| `Ctrl+Shift+F12` | ✅ `Send-ClientKey <主窗 HWND> 'Ctrl+Shift+F12'`，產生三張新的 `manual-client.png`、`manual-screen.png`、`manual-logical.png`，修改時間晚於送鍵。 |
+
+已實證的找窗與截圖：
 
 ```powershell
-# 切分頁；dev 是用本次精確視窗標題取回的開發工具視窗。
-Select-UiaItem (Find-UiaControl $dev -Name '服務' -Type TabItem)
+$main = Get-UiaWindow -ProcessId $ownedProcessId -Title 'P24 診斷客戶端'
+$dev = Find-UiaControl $main -Name '開發工具（過渡操作介面） · Ctrl+Shift+F9' -Type Window
 Get-UiaTree $dev
-Select-UiaItem (Find-UiaControl $dev -Name '登入／選角' -Type TabItem)
-Get-UiaTree $dev
+Save-UiaGdiScreenshot $main scratch/main.png
+Save-UiaGdiScreenshot $dev scratch/dev.png
 
-# 僅從開發工具視窗開啟對話框；不要在對話框內按同名送出按鈕。
-Invoke-UiaButton (Find-UiaControl $dev -Name '建立角色' -Type Button)
-$dialog = Get-UiaWindow -ProcessId $ownedProcessId -Title '建立角色'
-Get-UiaTree $dialog
-Save-UiaGdiScreenshot $dialog scratch/create-dialog.png
+# 只有當最新截圖確認目前是「控制」分頁時，才使用此 Left 範例。
+Set-UiaForeground $dev
+$tab = Find-UiaControl $dev -Type Tab
+$tab.SetFocus()
+if (-not $tab.Current.HasKeyboardFocus) { throw 'Tab control has no keyboard focus' }
+Send-ClientKey ([IntPtr]$dev.Current.NativeWindowHandle) 'Left'
+Get-UiaTree $dev  # 必須確認出現 CharacterList 與建立角色按鈕。
 
-# 從最新樹取得職業 ComboBox 的唯一 Id；不要將性別 ComboBox 當職業。
-$combo = Find-UiaControl $dialog -AutomationId $observedClassComboId -Type ComboBox
-Expand-UiaCombo $combo
-Get-UiaTree $dialog
-# 從實際展開清單取得王族／騎士 ListItem。若清單屬於另一頂層視窗，
-# 先依同 PID 的新 UIA 樹找該視窗，不能假設 ListItem 一定位於 dialog。
-Select-UiaItem (Find-UiaControl $observedListRoot -Name $observedClassName -Type ListItem)
-Get-UiaTree $dialog
-Save-UiaGdiScreenshot $dialog scratch/class-selected.png
-
-# 能力值：以最新樹中對應 NumericUpDown 的 Edit 子項呼叫 ValuePattern。
-# 若沒有 ValuePattern，改對該微調控制項的向上／向下 Button 呼叫 InvokePattern。
-Set-UiaValue $observedStatEdit '12'
-Get-UiaValue $observedStatEdit
-# 或：Invoke-UiaButton $observedStatIncrementButton
-
-# 結束必須取消，不輸入 Enter、不呼叫對話框的「建立角色」。
-Invoke-UiaButton (Find-UiaControl $dialog -Name '取消' -Type Button)
-Get-UiaTree $dev
-
-# 主視窗 F12：驗證前景後用 SendInput 送按下／放開。
-Send-UiaF12 $main
+# 已實證的新證據快捷鍵；單獨 F12 在 #1150 沒有輸出。
+Set-UiaForeground $main
+Send-ClientKey ([IntPtr]$main.Current.NativeWindowHandle) 'Ctrl+Shift+F12'
+Get-ChildItem <本張evidence路徑>/manual-*.png | Select Name,LastWriteTimeUtc
 ```
 
-F12 必須在啟動客戶端時提供 `--evidence <本張 scratch 路徑>`；檢查此次新產生的 `manual-client.png`／`manual-screen.png`／`manual-logical.png` 及修改時間。它只保留主視窗證據，無法取代獨立建角對話框截圖。#1138 的腳本沒有座標點擊（#1154 已補上，見下一節「原生 UI 客戶端」）；當時的任務允許以 UIA patterns 與 F12 代替。能力值設定也未在本輪執行。
+本輪觀察到 owned 建角對話框可由前景 HWND 取得，不必掃描整個主窗；對話框開啟後掃主窗或對話框子樹可能阻塞。以下只說明 #1150 已完成的截圖／取消，不代表已解決 UIA 樹問題：
+
+```powershell
+$fg = Get-UiaForegroundInfo
+if ($fg.ProcessId -ne $ownedProcessId) { throw 'Foreground is not the owned client' }
+$dialog = [Windows.Automation.AutomationElement]::FromHandle([IntPtr]$fg.Handle)
+if ($dialog.Current.Name -ne '建立角色') { throw 'Unexpected dialog' }
+Save-UiaGdiScreenshot $dialog scratch/create-dialog.png
+# 僅在本張操作要求取消、且再次核對前景 HWND/PID 未改變後使用。
+Send-ClientKey ([IntPtr]$fg.Handle) 'Escape'
+```
+
+職業清單與能力值仍待可及性問題修復後實證。不要沿用舊 element index、猜 AutomationId、把不支援的 pattern 當成驗證成功，也不要改用座標硬點。F12 類的內建證據只保存主窗，不能替代獨立建角對話框 GDI 圖。
 
 ## 原生 UI 客戶端（#1154；給 #1145 N01–N04 用，**全部待真機驗證**）
 
@@ -160,8 +169,8 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -STA -File work/f1118-uia-path
 ### 已知限制
 
 - **WGC 不可用、不使用**：#1126 D01 在這台機器上單次診斷的原文是 `Error: FrameArrived timed out: timed out waiting on channel`（[issue-1126.md](../../docs/reports/issue-1126.md) 第 31–35 行；GTX 1080、單螢幕 3840×2160、DPI 192）。本目錄的工具只用 PrintWindow／BitBlt／Ctrl+P。
-- PrintWindow 對 GPU／DirectX 繪製的視窗可能畫出空白；客戶端是 GDI+ 畫的 WinForms（`UiPresenter.cs:52–56` 用 `Graphics.DrawImage`），推測可以，待真機確認。
+- PrintWindow 對 GPU／DirectX 繪製的視窗可能畫出空白；客戶端是 GDI+ 畫的 WinForms（`UiPresenter.cs:52–56` 用 `Graphics.DrawImage`），classic-ui 已由 #1150 實證 PrintWindow 可用；本節原生登入路徑仍依其專屬任務結果判定。
 - 前景鎖：`Send-*` 和 BitBlt 都需要客戶端在前景，限制和上方「前景取得」相同（使用者正在打字、鎖定畫面、UAC、較高完整性的前景程式）。拿不到前景就拋錯，不改用其他方法硬送。
 - `Unicode` 模式在原生登入框可能不會產生字元（見上方 `Send-ClientText`）。
 
-歷史結果：[issue-1126.md](../../docs/reports/issue-1126.md)（保留原文）。本次結果與下一棒：[issue-1138.md](../../docs/reports/issue-1138.md)。本目錄只放腳本與 README，本次 PNG 留在 `scratch/issue-1138/`。
+歷史結果：[issue-1126.md](../../docs/reports/issue-1126.md)（保留原文）。記事本結果：[issue-1149.md](../../docs/reports/issue-1149.md)；客戶端結果與下一棒：[issue-1150.md](../../docs/reports/issue-1150.md)。本目錄只放腳本與 README，PNG 留在各任務 worktree 的 scratch。
