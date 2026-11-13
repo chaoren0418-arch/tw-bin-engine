@@ -8,4 +8,5 @@
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <Deterministic>true</Deterministic><PathMap>$(MSBuildProjectDirectory)=/_/p24/launcher</PathMap>
   </PropertyGroup>
+  <ItemGroup><Compile Include="../../../source/AssetPrep/AssetPreparationState.cs" Link="AssetPreparationState.cs" /></ItemGroup>
 </Project>

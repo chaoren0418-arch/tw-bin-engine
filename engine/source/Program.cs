@@ -5,6 +5,7 @@ namespace P06;
 static class Program {
     static void awaitReal(string path)=>RealLoginTests.Probe(path).GetAwaiter().GetResult();
     [STAThread] static int Main(string[] args) {
+        if(AssetPrep.AssetPrepareCommand.TryRun(args,out int prepareExit))return prepareExit;
         string? Value(string k) {int i=Array.IndexOf(args,k);return i>=0&&i+1<args.Length?args[i+1]:null;}
         args=P06.NativeUi.UiOptions.Strip(args); // C2/T317: --native-ui / --classic-ui are switches, not diagnostic modes; the normal entry still sees no arguments.
         string root=Value("--assets")??Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../assets"));
