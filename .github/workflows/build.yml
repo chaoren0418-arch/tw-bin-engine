@@ -228,6 +228,28 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           dotnet run --project engine/_integration/dev/web-resource-tests/WebResourceChecks.csproj -c Release --no-restore -- scratch/issue-161/legacy scratch/issue-161/legacy.json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      # T472 (#1057): native-layout dev build (product + manifest + launcher), then allowlist packaging and
+      # zip content review. Only the file list is uploaded; the zip is never published as a Release.
+      - name: Portable zip allowlist packaging and content review T472 (no publish)
+        shell: pwsh
+        run: |
+          python -B -X utf8 engine/tools/package-portable.py --self-test
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config --output scratch/issue-1057/rebuild
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -B -X utf8 engine/tools/package-portable.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -B -X utf8 engine/tools/package-portable.py --review engine/build/portable/tw-bin-engine-portable.zip
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: portable-zip-file-list
+          path: engine/build/portable/tw-bin-engine-portable.files.json
+          if-no-files-found: ignore
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -265,6 +287,8 @@ jobs:
         run: python -B -X utf8 engine/tools/check-no-game-assets.py --self-test
       - name: Reject tracked game assets
         run: python -B -X utf8 engine/tools/check-no-game-assets.py
+      - name: Portable zip packager self-test T472 (synthetic trees; symlink case on Linux)
+        run: python -B -X utf8 engine/tools/package-portable.py --self-test
       - name: Restore
         working-directory: engine
         run: dotnet restore source/OfflineClient.csproj --configfile ../.github/nuget.ci.config -p:EnableWindowsTargeting=true -r win-x64 -p:SelfContained=false
