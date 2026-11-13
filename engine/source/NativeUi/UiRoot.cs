@@ -205,9 +205,9 @@ public sealed class UiRoot {
     }
 
     /// <summary>
-    /// Forces every pin check up front (§2.1): Tile and all 17 Sprite idx are loaded (idx SHA-256, size rules) and one entry of
-    /// each pak is read (pak size + SHA-256), then SurfList.xml is parsed. Throws UiResourceException on any mismatch or gap.
-    /// Hashing the paks reads several GB; call it off the UI thread.
+    /// Forces every container check up front (§2.1; T479 three layers): Tile and all 17 Sprite idx are loaded and structure-checked
+    /// against their pak, and one entry of each pak is read (which first compares that container's anchor entries), then
+    /// SurfList.xml is parsed. Throws UiResourceException on any mismatch or gap. No pak is hashed whole any more.
     /// </summary>
     public static void VerifyResources(UiResources resources){
         foreach(var archive in new[]{resources.Tile}.Concat(resources.Sprites)){

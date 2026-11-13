@@ -240,8 +240,8 @@ static class WidgetSlotTests {
         string main=s.Sub("main"),refRoot=s.Sub("ref");
         var (mIdx,mPak)=Archive(("Other-c.xml",Encoding.UTF8.GetBytes("<a/>")));
         s.Write("main","Tile.idx",mIdx);s.Write("main","Tile.pak",mPak);
-        var pins=Enumerable.Range(0,17).Select(i=>new ClientArchivePin(RefClientSurfFallback.ArchiveName(i),"0","0",0)).ToArray();
-        using var res=new UiResources(main,new ClientArchivePin("Tile",Sha(mIdx),Sha(mPak),mPak.Length),pins);
+        var pins=Enumerable.Range(0,17).Select(i=>new ClientArchivePin(RefClientSurfFallback.ArchiveName(i))).ToArray();
+        using var res=new UiResources(main,new ClientArchivePin("Tile"),pins);
 
         var (none,_,noneError)=WidgetSlotLayout.Open(res,WidgetSlotLayout.MainFile);
         t.Check(none==null&&noneError==null,"main client without WidgetSlot.xml and no reference → uistatus86 look, no error");

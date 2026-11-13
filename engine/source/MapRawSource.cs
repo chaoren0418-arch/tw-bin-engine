@@ -25,7 +25,7 @@ public enum MapSourceMode { Packaged, Client }
 /// name (case-insensitive). Used by the map provider (Tile) and the preparer; it records the idx SHA-256 but pins nothing.
 /// </summary>
 public sealed class PlainArchive {
-    public const int RecordSize=28,NameSize=20,MaxRecords=1_000_000;
+    public const int RecordSize=ClientArchiveIndex.RecordSize,NameSize=ClientArchiveIndex.NameSize,MaxRecords=ClientArchiveIndex.MaxRecords;
     public string Name{get;}
     public string IndexPath{get;}
     public string PakPath{get;}
@@ -39,24 +39,11 @@ public sealed class PlainArchive {
         string index=Path.Combine(root,name+".idx"),pak=Path.Combine(root,name+".pak");
         foreach(string file in new[]{index,pak})if(!File.Exists(file))throw new FileNotFoundException($"{name}: 缺少 {Path.GetFileName(file)}",file);
         long pakSize=new FileInfo(pak).Length;
-        byte[] data;
-        using(var file=new FileStream(index,FileMode.Open,FileAccess.Read,FileShare.Read)){
-            if(file.Length<4||file.Length>4+(long)RecordSize*MaxRecords)throw new InvalidDataException($"{name}: idx 大小不合理");
-            data=new byte[file.Length];file.ReadExactly(data);
-        }
-        uint count=BitConverter.ToUInt32(data,0);
-        if(count>MaxRecords||data.Length!=4+(long)RecordSize*count)throw new InvalidDataException($"{name}: idx 筆數×28+4 不等於檔案大小");
-        var table=new Dictionary<string,ClientArchiveEntry>(StringComparer.OrdinalIgnoreCase);
-        for(int i=0;i<count;i++){
-            int at=4+i*RecordSize;long offset=BitConverter.ToUInt32(data,at);
-            var raw=data.AsSpan(at+4,NameSize);int end=raw.IndexOf((byte)0);if(end<0)end=NameSize;
-            if(end==0)throw new InvalidDataException($"{name}: 第 {i} 筆名稱為空");
-            foreach(byte c in raw[..end])if(c is <32 or >=127)throw new InvalidDataException($"{name}: 第 {i} 筆名稱含不可列印字元");
-            string entry=Encoding.ASCII.GetString(raw[..end]);uint size=BitConverter.ToUInt32(data,at+4+NameSize);
-            if(offset+size>pakSize)throw new InvalidDataException($"{name}: {entry} 越界（offset+size 超過 pak 大小）");
-            if(size>int.MaxValue||!table.TryAdd(entry,new(name,i,entry,offset,(int)size)))throw new InvalidDataException($"{name}: {entry} 在同一 idx 重名或過大");
-        }
-        return new(name,index,pak,Convert.ToHexString(SHA256.HashData(data)).ToLowerInvariant(),pakSize,table);
+        // T479: the shared structure rule (ClientArchiveIndex); its refusal is reported as InvalidDataException as before.
+        byte[] data;Dictionary<string,ClientArchiveEntry> table;
+        try{data=ClientArchiveIndex.ReadIndex(name,index);table=ClientArchiveIndex.Parse(name,data,pakSize);}
+        catch(ClientArchiveFormatException ex){throw new InvalidDataException(ex.Message,ex);}
+        return new(name,index,pak,ClientArchiveIndex.Sha256(data),pakSize,table);
     }
     public ClientArchiveEntry? Find(string entry)=>Entries.GetValueOrDefault(entry);
     public byte[] Read(ClientArchiveEntry entry){

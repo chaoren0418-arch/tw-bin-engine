@@ -168,7 +168,7 @@ static class RefClientXmlSourceTests {
             refOnly=Bytes("<?xml version=\"1.0\"?><Window name=\"OptionUI\" note=\"中\"/>");
         var (mIdx,mPak)=Archive(("Panel-c.xml",Encrypt(mainPanel)));
         string main=s.Sub("main");s.WriteIn("main","Tile.idx",mIdx);s.WriteIn("main","Tile.pak",mPak);
-        using var tile=new ClientArchive(main,new ClientArchivePin("Tile",Sha(mIdx),Sha(mPak),mPak.Length));
+        using var tile=new ClientArchive(main,new ClientArchivePin("Tile"));
         var (rIdx,rPak)=Archive(("Panel.xml",Encrypt(refPanel)),("OptionUI-c.xml",Encrypt(refOnly)));
 
         var xml=new UiXmlSource(tile);

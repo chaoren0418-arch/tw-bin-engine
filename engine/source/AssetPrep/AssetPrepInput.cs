@@ -1,4 +1,5 @@
 using System.Text;
+using P06.NativeUi;
 namespace P06.AssetPrep;
 
 // T451 (#1036) / T454 (#1039): read-only input side of the preparer.
@@ -40,7 +41,6 @@ public sealed record AssetContainerRecord(string Name,long IndexSize,string Inde
 /// <summary>One plain (Sprite-style) idx/pak pair, structure-checked on open. Read-only; the pak stays open with FileShare.Read.</summary>
 sealed class PrepArchive:IDisposable {
     public const int MaxEntrySize=8*1024*1024;
-    const int RecordSize=28,NameSize=20,MaxRecords=1_000_000;
     public sealed record Entry(int Record,string Name,long Offset,long Size);
     readonly Dictionary<string,Entry> entries;
     readonly string pakPath;
@@ -59,26 +59,14 @@ sealed class PrepArchive:IDisposable {
         foreach(string ext in new[]{".idx",".pak"})
             if(!File.Exists(Path.Combine(root,name+ext)))throw new AssetPrepException(AssetPrepFailure.MissingContainer,$"TW_CLIENT_ROOT 缺少容器檔 {name}{ext}（{root}）",name);
         long pakSize=new FileInfo(pakPath).Length;
-        byte[] data;
-        using(var file=new FileStream(idxPath,FileMode.Open,FileAccess.Read,FileShare.Read)){
-            if(file.Length<4||file.Length>4+(long)RecordSize*MaxRecords)throw Corrupt(name,"idx 大小不合理");
-            data=new byte[file.Length];file.ReadExactly(data);
-        }
-        uint count=BitConverter.ToUInt32(data,0);
-        if(count>MaxRecords||data.Length!=4+(long)RecordSize*count)throw Corrupt(name,"idx 筆數×28+4 不等於檔案大小");
+        // T479: the structure rule is the shared ClientArchiveIndex (also used by the runtime readers); messages unchanged.
+        byte[] data;Dictionary<string,ClientArchiveEntry> parsed;
+        try{
+            data=ClientArchiveIndex.ReadIndex(name,idxPath);
+            parsed=ClientArchiveIndex.Parse(name,data,pakSize);
+        }catch(ClientArchiveFormatException ex){throw Corrupt(name,ex.Detail);}
         var table=new Dictionary<string,Entry>(StringComparer.OrdinalIgnoreCase);
-        for(int i=0;i<count;i++){
-            int at=4+i*RecordSize;
-            long offset=BitConverter.ToUInt32(data,at);
-            var raw=data.AsSpan(at+4,NameSize);int end=raw.IndexOf((byte)0);if(end<0)end=NameSize;
-            if(end==0)throw Corrupt(name,$"第 {i} 筆名稱為空");
-            foreach(byte c in raw[..end])if(c is <32 or >=127)throw Corrupt(name,$"第 {i} 筆名稱含不可列印字元");
-            string entry=Encoding.ASCII.GetString(raw[..end]);
-            long size=BitConverter.ToUInt32(data,at+4+NameSize);
-            if(offset+size>pakSize)throw Corrupt(name,$"{entry} 越界（offset+size 超過 {name}.pak 的大小 {pakSize}；截斷或不同版本）");
-            // Duplicate names inside one container are refused instead of silently picking one.
-            if(!table.TryAdd(entry,new(i,entry,offset,size)))throw Corrupt(name,$"{entry} 在同一 idx 重名");
-        }
+        foreach(var e in parsed.Values)table.Add(e.Name,new(e.Record,e.Name,e.Offset,e.Size));
         return new(name,pakPath,data.Length,AssetPrepPaths.Sha256(data),pakSize,table);
     }
     public Entry? Find(string name)=>entries.GetValueOrDefault(name);
