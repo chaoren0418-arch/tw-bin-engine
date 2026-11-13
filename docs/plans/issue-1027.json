@@ -1,0 +1,258 @@
+[
+  {
+    "id": "b15-src-text",
+    "title": "T444 來源閉合：Text 容器版本差異與文字類素材（names、templates、list.spr／spz）",
+    "stage": "resource",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 2–3 小時。背景見 docs/reports/issue-1027.md 與 docs/design/portable-delivery.md 前置 4、6。\n\n目標：確認只用使用者的原客戶端 Text.idx／Text.pak 就能重建文字類素材。\n\n範圍（唯讀，Python 解析腳本只放 scratch/）：(1) 本機 Text.idx／pak 的 SHA 與歷史 pin 不同（設計附錄 B／C）；依產品現有 `engine/source/TextArchive.cs` 的格式解出索引，列出 list.spr、list.spz、desc-c.tbl、全部 *-c.html／htm 的 record、File Offset、大小、payload SHA。(2) 把解出的內容與本機基線 `D:\\lineage開發\\TW1608262200研究\\engine\\assets`（唯讀 junction）的 objects/names.json、dialogs/templates.json（8,896 模板）做語義比對，寫出相同／不同筆數與差異樣本的 ID（不貼內文）。(3) 查明歷史解碼器 PakTools 的 Map1.bin–Map5.bin 查表是否就是 TextArchive 已有的演算法；若 html 或 spz 內層另有編碼，寫出演算法與依據。(4) 定出 names.json、templates.json 的序列化規則（欄位、排序、編碼）。\n\n驗收：`docs/reference/asset-recipes/text.md` 逐項標 pass 或 blocked（blocked 要寫缺哪個 entry 或哪段演算法）；宣稱缺資源前先用 PakViewer 查過全部 pak 並附清單。不提交任何解出的文字或表；不讀 SQL／JAR／DB。報告 docs/reports/當次issue.md 分已驗證／推測／待驗證。",
+    "depends_on": []
+  },
+  {
+    "id": "b15-src-terrain",
+    "title": "T445 來源閉合：terrain／bounds 能否只從客戶端 S32／SEG 推導",
+    "stage": "resource",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 2–3 小時。背景見 docs/reports/issue-1027.md 與 docs/design/portable-delivery.md 前置 1、契約第 3 點。\n\n目標：判定 `maps/terrain/*.bin`（713 份）、`terrain0.bin`、`cache/original-map0.txt` 與地圖 bounds 能否不靠伺服器 `server/maps/*.txt` 與靜態 SQL metadata，只從客戶端 `map/**/*.s32`、`.seg` 推導。\n\n範圍（唯讀，Python 腳本只放 scratch/）：(1) 依 docs/protocol/portals.md 與 `OriginalMapCache.cs` 已知的 S32／SEG 區段順序，讀 attribute 層。(2) 寫出「attribute → 產品 terrain byte」的候選規則，對本機基線 `engine/assets/maps/terrain/*.bin` **713 份全部**逐格比對，輸出每張地圖的相符率與不符格數。(3) bounds：由區塊檔名範圍推導，與 `maps/manifest.json` 的 bounds 逐圖比對。(4) 產品讀 terrain 的位置（Ground.cs、OnlineMovement.cs、ApproachWalk.cs、MagicTargetPreparation.cs、OriginalMapCache.cs）各用到哪些位元，列表。\n\n驗收：`docs/reference/asset-recipes/terrain.md` 給出明確結論：pass（全部相符，附規則）、部分 pass（列出不符的地圖與位元）或 blocked（寫明伺服器資料有、客戶端沒有的欄位）。不得用「全部可走」或自產 hash 當等價證明；不讀伺服器 maps／SQL 的內容（基線 bin 是既有本機素材，可以比對）。blocked 的部分列為已知限制交主控，不找 SQL／JAR 替代。報告分已驗證／推測／待驗證。",
+    "depends_on": []
+  },
+  {
+    "id": "b15-src-rule-tables",
+    "title": "T446 來源閉合：規則表（skills.json、magic/catalog.json、EXP 表、ground-catalog 模板列）",
+    "stage": "resource",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 2–3 小時。背景見 docs/reports/issue-1027.md、docs/design/portable-delivery.md 前置 2、docs/reports/issue-102.md「其餘 10 個 D 檔」。\n\n目標：四份目前來自伺服器 SQL 或原服模板的規則表，各找出客戶端來源或自主規則，找不到就定為已知限制。\n\n範圍（唯讀）：(1) `dialogs/skills.json`（807 筆 name／level）：先查產品實際用到哪些欄位（NpcUi.cs:76 一帶與技能相關程式），再用 PakViewer 查全部 pak（Text、Tile、Sprite 系列、UI 相關）有沒有技能名稱與等級的表。(2) `magic/catalog.json`（技能 1／3／4／8）：列出產品讀取點；M6／M7 已有的 SkillCast 與 docs/protocol/skills.md 能否取代。(3) `engine/source/OriginalExpTable.cs`：`Rewards.cs` 怎麼用；原版客戶端的 EXP 百分比怎麼算（靜態分析 TW1608262200.bin，標 VA／File Offset）；是否能改成執行期只用伺服器送來的值。(4) `ground-catalog.json` 7 筆 template／nameToken：desc-c.tbl 或其他客戶端表能否提供同樣的匹配鍵。\n\n驗收：`docs/reference/asset-recipes/rule-tables.md` 每份表一節，結論三選一：client-only 來源（附容器、entry、欄位）、可改為不需要此表（附產品改法）、blocked（寫明缺什麼欄位、為什麼客戶端沒有，附 PakViewer 查過的 pak 與檔名清單）。blocked 的列為已知限制交主控；不得把表改成常數、Base64 或壓縮字串藏進程式。不讀 SQL／JAR／DB。",
+    "depends_on": []
+  },
+  {
+    "id": "b15-src-action-timing",
+    "title": "T447 來源閉合：動作時序（serverActionMs／spr_action）與 gfx 選取清冊",
+    "stage": "resource",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 2–3 小時。背景見 docs/reports/issue-1027.md、docs/design/portable-delivery.md 前置 2、契約第 4 點。\n\n目標：(A) players／objects profile 裡的 `serverActionMs`（原自 SQL spr_action）與職業 gfx 集合（原自 JAR 常數）改由客戶端 metadata 或自主規則取得；(B) 哪些 gfx 要準備，不再靠研究清冊。\n\n範圍（唯讀，Python 腳本只放 scratch/）：(A1) 列出產品讀 serverActionMs 的每個位置與用途（冷卻、送包節流、動畫）。(A2) 從 list.spr 的動作 metadata 算出每個動作的總時間，與本機基線 players/*.json、objects/*.json 的 serverActionMs **逐 profile、逐動作**比對，輸出相符率與差異分布。(A3) 職業 gfx 集合：列出讀取點，確認能否改用伺服器封包送來的 gfx。(B) encountered-monsters.json、world-appearances.json、shops、players、shadows、doors、objects 的 gfx 清單現在是研究時挑的；評估「執行期遇到新 gfx 再準備並快取」與「一次準備 list.spr 全部 gfx」兩種做法的容量與耗時（用樣本估算），提出建議。\n\n驗收：`docs/reference/asset-recipes/action-timing.md`：A 的結論為 pass（規則＋全量比對結果）、部分 pass（列不符的 gfx／動作）或 blocked（寫明伺服器才有的欄位）；B 有明確建議與估算。不讀 SQL／JAR／DB；blocked 的列為已知限制交主控。",
+    "depends_on": []
+  },
+  {
+    "id": "b15-src-motion-blend",
+    "title": "T448 來源閉合：motion.json 與三張混色查表改為純程式算法",
+    "stage": "resource",
+    "priority": "P2",
+    "text": "runner: claude-local。預算 2 小時。背景見 docs/reports/issue-1027.md、docs/design/portable-delivery.md 前置 3 與附錄 C（VA 區間）。\n\n目標：`motion.json`（八方向位移、166／664 ms、spawn）與 `cache/screen-channel.bin`、multiply、half 三張查表，改由產品內的純程式規則產生，不需要 BIN、IDB 或 Unicorn。\n\n範圍（唯讀）：(1) 用 IDA 靜態讀未加殼的 TW1608262200.bin：screen `0x0097B766..0x0097B823`、multiply／half `0x0097B9B3..0x0097BA67`，寫出三張表的算式。(2) 用 Python 依算式產生三張表，與本機基線 `engine/assets/cache/*-channel.bin` 逐 byte 比對。(3) motion.json：逐欄說明來源（八方向是幾何規則還是資料；166／664 ms 的依據；spawn 是否為研究時的固定值），判斷哪些可以寫成產品規則。\n\n驗收：`docs/reference/asset-recipes/motion-blend.md`：三張表各自 byte-exact 相符才算 pass，並附算式與 VA／File Offset；不符就 blocked 並寫差異位置。motion.json 每欄有來源結論。腳本與輸出只放 scratch/，不提交表的內容。",
+    "depends_on": []
+  },
+  {
+    "id": "b15-src-sprite-recipes",
+    "title": "T449 來源閉合：SPR 類素材的 recipe（character、objects、players、shops、shadows、doors、ground、pickup）",
+    "stage": "resource",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 3 小時。背景見 docs/reports/issue-1027.md、docs/design/portable-delivery.md 素材分類表、docs/reports/issue-102.md pickup 兩列。\n\n目標：確認 SPR 衍生的 JSON／PNG 都能只從 Sprite.idx／pak、Sprite00–15 與 Text 的 list.spr 重建，並寫出各類的 recipe。\n\n範圍（唯讀，Python 原型只放 scratch/）：(1) 依產品 `GroundSpriteReader.cs` 的 SPR 解碼與 `ClientArchive.cs` 的 pin，寫 Python 原型解 SPR 幀。(2) 每類至少抽 3 個樣本（players 與 objects 另加全部 schema 欄位盤點），與本機基線 `engine/assets/<類別>` 比對 frames、blocks、RGB555 像素、offset、bounds、動作 ticks、events。(3) 寫明 gfx → sprite 編號、主包優先與替代包唯一性政策（主管/P24-外觀來源版本選擇-20261026.md）。(4) shadows 用到的 `101.shadow` 與 body frame keys 的關係。(5) pickup 兩個內嵌 JSON（base15 gfx0 weapon0 的 24 幀、extension 的 12 groups／288 幀）：列出每個 group 的 container、entry、payload SHA，確認能否由同一 recipe 產生。(6) character 的 GIF、contact sheet、canvas checks 等預覽檔：查產品有沒有讀，沒讀的建議不再產生。\n\n驗收：`docs/reference/asset-recipes/sprites.md`：每類一節，列輸入 entry 規則、輸出 schema、樣本比對結果、pass／blocked。任何一類樣本有不符就寫明差異，不得略過。不提交像素或幀資料。",
+    "depends_on": []
+  },
+  {
+    "id": "b15-src-map-tiles",
+    "title": "T450 來源閉合：地圖、TIL、scene、cache、地圖特效的 recipe",
+    "stage": "resource",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 3 小時。背景見 docs/reports/issue-1027.md、docs/design/portable-delivery.md 素材分類表的 cache、maps、scene 三列。\n\n目標：maps（13,304 檔）、cache（378 檔）、scene（13 檔）哪些是原檔或 pak entry 的逐 byte 切片（可改成 provider 直讀），哪些是衍生資料（要準備器產生）。\n\n範圍（唯讀，Python 腳本只放 scratch/）：(1) 對本機基線的 7,198 個 map 原檔、5,052＋353 個 TIL、3 個 LAC、20 個 map0 S32，逐檔算 SHA，與 `TW_CLIENT_ROOT/map/**`、Tile.idx／pak 的 entry 比對，輸出逐 byte 相同的數量與例外清單。(2) 衍生檔逐一寫 recipe：maps/manifest.json（去掉絕對路徑與伺服器 terrain 來源欄位後的欄位）、cache/manifest.json、scene 的 draw-commands／tile-pixels／atlas／manifest（注意現行 schema 是 p22-dual-map-v1，不是 P24 同名腳本的版本）、scene/opacity.json、maps/effects 的 337 檔（含 6016.json）。(3) 列出產品各讀取點（Assets.cs、OriginalMapCache.cs、MapEffects.cs、Portals.cs、SceneOpacity.cs、ShipBackdrop.cs、ClientEffect6016.cs）對 integrity.json 與 manifest 的 SHA 檢查，哪些會因為新產生的檔而要調整。(4) 估算全量準備的磁碟用量與時間；建議原檔切片是複製進 assets 還是 provider 直讀。\n\n驗收：`docs/reference/asset-recipes/maps.md`：每個子類有 pass／blocked、輸入規則、輸出 schema、比對數字。不複製任何 map／TIL 進專案。",
+    "depends_on": []
+  },
+  {
+    "id": "b15-prep-core",
+    "title": "T451 準備器核心：輸入驗證、staging、收據、原子發布，加 TBT 圖示垂直切片",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 3 小時。依 docs/design/portable-delivery.md「本機生成與啟動」。（原 #103 沒有執行過，本張從頭做。）\n\n範圍：新增 `engine/source/AssetPrep/`：(1) `IAssetRecipe` 契約與 `[AssetRecipe]` attribute，各類準備器用自動發現註冊（照 docs/design/m6-contract.md「自動發現」的做法），不改 Program.cs 與註冊表。(2) 輸入：明確的絕對 `TW_CLIENT_ROOT`，容器 pin 驗證沿用 `ClientArchive.cs`／`TextArchive.cs`；版本不符回報具體容器，不退回開發機路徑。(3) 輸出：先寫 `engine/runtime/assets-staging/<recipe-id>`，收據記錄輸入 SHA、工具版本、完成項目、輸出 SHA；全部驗過才在同磁碟換成正式目錄；目標或任何祖先是 junction／symlink 就拒絕；同時只允許一個 writer；中斷後重跑先驗已完成項目。(4) 第一個 recipe：`inventory`，用 `ItemIconSource` 既有的 TBT 解碼把指定 icon 轉成 PNG。收據標 `partial`，不輸出 ready。\n\n驗收：離線測試用 `[CheckGroup]`，全部用程式合成的 idx／pak／TBT：兩個輸出目錄的 decoded RGBA 與 offset 相同；缺檔、錯 pin、截斷、越界拒絕；staging 未完成不發布；第二個 writer 被拒；中斷重試；junction 與路徑穿越拒絕。`rebuild.py --build` 編譯通過、CI 綠燈。本機不執行編譯出的程式。PR 不改 rebuild-lock.json；不把 PNG 或素材表放進 git 或 embedded resource。報告分已驗證／推測／待驗證。",
+    "depends_on": []
+  },
+  {
+    "id": "b15-recipe-contract",
+    "title": "T452 設計：依七張來源閉合結果定 recipe 契約與已知限制清單",
+    "stage": "design",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 2 小時。\n\n目標：把 T444–T450 的結論收成一份實作契約，後面的準備器任務只照這份做。\n\n範圍：新增 `docs/design/asset-recipe.md`：(1) 19 類素材加 pickup 的總表：來源閉合結論（pass／部分／blocked）、採「準備器產生」或「provider 直讀」、輸出路徑與 schema 版本、驗收用的比對方式（逐 byte／語義／decoded RGBA）。(2) 新的收據與 integrity 格式（不含絕對路徑；與 `p06-assets-integrity-v1` 的關係；產品各處以 integrity SHA 驗檔的讀取點怎麼接）。(3) gfx 範圍：一次全量或遇到再準備（依 T447 的建議定案）。(4) recipe 之間的先後（例如 shadows 要先有 body）。(5) **已知限制清單**：所有 blocked 項，每項寫缺什麼、對遊戲的影響、暫行做法（功能停用並明確提示，或保留為已知例外），標 `needs:claude` 交主控裁定；不得用 SQL／JAR／研究輸出／既有 assets 補。(6) 依結論修正後續任務的範圍：某類 blocked 時，對應任務只做已閉合的部分，在本文件寫明。同步修訂 docs/design/portable-delivery.md 的過時處（assets junction 現在指向 r29、22 張 web PNG 已由 T035 移出）。\n\n驗收：文件齊全，每個 blocked 項有明確結論與交接對象；TASKS.md 對應列的範圍若要改，一併改。只改文件。",
+    "depends_on": ["b15-src-text", "b15-src-terrain", "b15-src-rule-tables", "b15-src-action-timing", "b15-src-motion-blend", "b15-src-sprite-recipes", "b15-src-map-tiles", "b15-prep-core"]
+  },
+  {
+    "id": "b15-prep-text",
+    "title": "T453 準備器：文字類（dialogs/templates.json、objects/names.json）",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 2–3 小時。依 docs/design/asset-recipe.md 與 docs/reference/asset-recipes/text.md。\n\n範圍：在 `engine/source/AssetPrep/` 新增文字類 recipe（`[AssetRecipe]` 自動發現）：用 `TextArchive` 讀使用者的 Text.idx／pak，以檔名找 entry（不用舊 offset），產生 dialogs/templates.json 與 objects/names.json，欄位與排序照契約。Text 版本不在支援清單時，回報具體 entry 並停止。T444 判 blocked 的部分不做，在報告列出。\n\n驗收：`[CheckGroup]` 離線測試用合成的 Text 容器：正常產生、同名 entry 的處理、截斷與越界拒絕、輸出可被 `DialogTemplates` 與 `ObjectAssets` 的既有讀取程式接受（用合成資料）。編譯通過、CI 綠燈。真客戶端的全量比對留給 T470。不把任何模板或名稱放進 git。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-recipe-contract"]
+  },
+  {
+    "id": "b15-prep-sprites-a",
+    "title": "T454 準備器：SPR 共用解碼與 character、objects（一般／武器／projectile／magic／world）",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 3 小時。依 docs/design/asset-recipe.md 與 docs/reference/asset-recipes/sprites.md。\n\n範圍：(1) `engine/source/AssetPrep/` 的 SPR 共用層：gfx → sprite 編號（list.spr）、主包優先與替代包唯一性、幀與 block 解碼、動作 metadata。既有 `GroundSpriteReader` 不改（它的 pin 與測試保持原樣），共用邏輯另寫或抽出不影響它的部分。(2) recipe：character（animation.json、blocks.json、產品實際會讀的 PNG 幀）、objects（`<gfx>.json`、`<gfx>-weapon-<n>.json`、projectile-66.json、magic-<gfx>.json、manifest.json）。輸出 schema 與現行讀取程式（Assets.cs、ObjectAssets.cs、MagicRendering.cs、ProjectileRendering.cs）相容。\n\n驗收：`[CheckGroup]` 離線測試用合成 SPR 與 list.spr：解碼結果、替代包衝突拒絕、輸出能被既有讀取程式載入。編譯通過、CI 綠燈。不提交幀或像素。真客戶端比對留給 T470。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-recipe-contract"]
+  },
+  {
+    "id": "b15-prep-sprites-b",
+    "title": "T455 準備器：players、shops、shadows、doors、ground、encountered-monsters、world-appearances",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 3 小時。依 docs/design/asset-recipe.md 與 docs/reference/asset-recipes/sprites.md。\n\n範圍：用 T454 的 SPR 共用層新增 recipe：players（profile JSON＋manifest）、shops（profile＋manifest）、shadows（`101.shadow`＋body frame keys，排在 body 之後）、doors（2346）、ground（36、66 的 JSON／PNG）、encountered-monsters.json、world-appearances.json。gfx 範圍照契約（全量或遇到再準備）。serverActionMs 欄位照 T447 的結論填；T447 判 blocked 的欄位不填假值，照契約的暫行做法處理並在報告列出。\n\n驗收：`[CheckGroup]` 離線測試用合成資料：每類輸出能被既有讀取程式（PlayerProfiles.cs、PlayerShadows.cs、ObjectAssets.cs、GroundRendering.cs 等）載入；先後順序錯誤時明確失敗。編譯通過、CI 綠燈。不提交幀或像素。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-prep-sprites-a"]
+  },
+  {
+    "id": "b15-prep-maps-raw",
+    "title": "T456 準備器／provider：地圖原檔、TIL、LAC 與 maps／cache manifest",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 3 小時。依 docs/design/asset-recipe.md 與 docs/reference/asset-recipes/maps.md。\n\n範圍：照契約決定的方式（複製切片進 assets，或 provider 直讀 `TW_CLIENT_ROOT/map/**` 與 Tile.idx／pak）提供 S32／SEG、TIL、Water.lac／Pier1.lac／Pier5.lac；產生 maps/manifest.json（bounds 由客戶端資料推導，不含絕對路徑與伺服器來源欄位）與 cache/manifest.json、cache 的 map0 S32／TIL。調整 `OriginalMapCache.cs`、`Portals.cs`、`ShipBackdrop.cs` 的讀取與 SHA 檢查，讓它們接受新收據；行為不變。terrain 欄位留給 T458。\n\n驗收：`[CheckGroup]` 離線測試用合成 S32／SEG／TIL：manifest 欄位、bounds 推導、缺檔與 SHA 不符拒絕；既有 cache、portals、minimap、ship 測試全過。編譯通過、CI 綠燈。不複製任何 map／TIL 進 git。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-recipe-contract"]
+  },
+  {
+    "id": "b15-prep-scene-effects",
+    "title": "T457 準備器：scene（雙區繪製資料、opacity）與 maps/effects（含 6016）",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 3 小時。依 docs/design/asset-recipe.md 與 docs/reference/asset-recipes/maps.md。\n\n範圍：recipe：(1) scene 的 manifest、draw-commands、tile-pixels、atlas、opacity.json，schema 維持現行 p22-dual-map-v1 與 p23-original-opacity-v1，輸入是 `map/0/7ffd8002.s32`、`7ffd8003.s32` 與 Tile。(2) maps/effects 的 manifest 與各 gfx JSON（含 6016.json），輸入是 Sprite 特效與 Text metadata。`Assets.cs`、`SceneOpacity.cs`、`MapEffects.cs`、`ClientEffect6016.cs` 的 SHA 檢查改接新收據；6016 的固定 pin 怎麼處理照契約。\n\n驗收：`[CheckGroup]` 離線測試用合成資料：輸出能被上述讀取程式載入；既有 effect6016、map-ambient、opacity 相關測試全過。編譯通過、CI 綠燈。不提交像素。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-prep-maps-raw"]
+  },
+  {
+    "id": "b15-prep-terrain",
+    "title": "T458 準備器：terrain 與 bounds（從客戶端 S32／SEG）",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 2–3 小時。依 docs/reference/asset-recipes/terrain.md（T445）與 docs/design/asset-recipe.md。\n\n範圍：照 T445 驗過的規則，從 S32／SEG 的 attribute 層產生 `maps/terrain/<map>.bin`、`terrain0.bin`、`cache/original-map0.txt` 的等價資料，寫進 maps/manifest.json 的 terrain 欄位（來源改記客戶端檔案 SHA）。T445 判部分 pass 時，只對相符的地圖產生，其餘地圖照契約的暫行做法（明確標示不支援，不可設為全部可走）。**T445 判 blocked 時本張不寫程式**，只在報告寫明已知限制並把本張關閉。\n\n驗收：`[CheckGroup]` 離線測試用合成 S32：attribute → terrain 的每條規則、地圖邊界、不支援地圖的明確失敗。既有移動、施法選目標、approach-walk 測試全過。編譯通過、CI 綠燈。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-recipe-contract", "b15-prep-maps-raw"]
+  },
+  {
+    "id": "b15-prep-motion-blend",
+    "title": "T459 產品規則：motion 與混色查表改為程式計算",
+    "stage": "code",
+    "priority": "P2",
+    "text": "runner: claude-local。預算 2 小時。依 docs/reference/asset-recipes/motion-blend.md（T448）。\n\n範圍：(1) 三張混色表改由程式依 T448 的算式在啟動時計算（或由準備器寫出 `cache/*-channel.bin`，照契約），`Renderer.cs:33` 一帶改接；(2) motion.json 的內容改成產品規則或由準備器寫出，`Assets.cs:53` 改接。T448 判 blocked 的表不動，列為已知限制。\n\n驗收：`[CheckGroup]` 離線測試：算式的邊界值與對稱性；與檔案版的介面相容；既有 renderer、移動相關測試全過。編譯通過、CI 綠燈。不把整張表寫成常數陣列。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-recipe-contract"]
+  },
+  {
+    "id": "b15-audio-provider",
+    "title": "T460 音效：Sound 改由 TW_CLIENT_ROOT 直讀，audio-manifest 改本機產生",
+    "stage": "code",
+    "priority": "P2",
+    "text": "runner: claude-local。預算 2 小時。依 docs/design/portable-delivery.md「本機生成與啟動」第 5 點與 docs/design/asset-recipe.md。\n\n範圍：`engine/audio/AudioAssets.cs` 的 1340／3332：改成由 `TW_CLIENT_ROOT/Sound/<id>.wav` 直讀並驗 pin（做法參考 SoundPackets.cs 與 combat SFX 的原檔 pin），或由準備器產生不含絕對路徑的 audio-manifest.json 與 sound/（照契約）。保留 MP3 unavailable／WAV fallback、缺檔與 pin 不符的既有行為；6016 的 manifest 版本契約一併調整。\n\n驗收：`[CheckGroup]` 離線測試用合成 WAV：正常、缺檔、pin 不符、fallback；既有 audio、effect6016、sound-packets 測試全過。編譯通過、CI 綠燈。不提交 WAV。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-recipe-contract"]
+  },
+  {
+    "id": "b15-deserver-timing",
+    "title": "T461 去伺服器依賴：動作時序與職業 gfx 集合",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 2–3 小時。依 docs/reference/asset-recipes/action-timing.md（T447）。\n\n範圍：產品讀 serverActionMs 與職業 gfx 集合的位置，改用 T447 定的客戶端來源或自主規則（例如由 list.spr 動作 metadata 計算、gfx 由伺服器封包取得）。T447 判 blocked 的欄位：照 docs/design/asset-recipe.md 已知限制的暫行做法，不填假值。\n\n驗收：`[CheckGroup]` 離線測試用合成 metadata：每個讀取點在新來源下的行為；既有 skill-cast、hotbar、移動、戰鬥相關測試全過。編譯通過、CI 綠燈。不讀 SQL／JAR。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-recipe-contract", "b15-prep-sprites-b"]
+  },
+  {
+    "id": "b15-deserver-skills-magic",
+    "title": "T462 去伺服器依賴：skills.json 與 magic/catalog.json",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 2 小時。依 docs/reference/asset-recipes/rule-tables.md（T446）。\n\n範圍：照 T446 的結論處理 `dialogs/skills.json`（NpcUi.cs:76 一帶）與 `magic/catalog.json` 的讀取點：改讀客戶端來源產生的表（加進 T453 的文字 recipe），或改成不需要這張表。T446 判 blocked 的部分照已知限制的暫行做法：功能明確提示不可用，不放替代資料。\n\n驗收：`[CheckGroup]` 離線測試用合成資料；既有 npc、skill-cast、magic 相關測試全過。編譯通過、CI 綠燈。不讀 SQL／JAR；不把技能表寫成常數。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-recipe-contract", "b15-prep-text"]
+  },
+  {
+    "id": "b15-exc-pickup",
+    "title": "T463 移除已知例外：兩個 pickup 內嵌 JSON 改由準備器產生",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 2–3 小時。依 docs/reference/asset-recipes/sprites.md 第 5 點與 docs/reports/issue-102.md pickup 兩列。\n\n範圍：新增 pickup recipe，產生 `assets/pickup/pickup-own-base15-gfx0-weapon0.json` 與 `pickup-own-base15-profile-extension.json`（42 profiles、312 幀）。`PickupAssets.cs` 改讀本機 assets；從 `OfflineClient.csproj` 拿掉這兩個 EmbeddedResource，刪除 `engine/source/Resources/` 下兩個檔；`engine/tools/game-assets-allowlist.json` 的 b15Exceptions 拿掉這兩列，EmbeddedResource 允許清單同步減少。保留 gfx0／weapon0、8 方向、步序與合成順序的契約。不可把原 JSON 複製到 assets 當成產生結果。\n\n驗收：`[CheckGroup]` 離線測試用合成 SPR 驗追加幀的產生與合成順序；pickup 既有測試改用合成資料後全過；`check-no-game-assets.py` 通過且例外剩 7 個。編譯通過、CI 綠燈。真客戶端 312 幀的比對留給 T470。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-prep-sprites-b"]
+  },
+  {
+    "id": "b15-exc-exp-ground",
+    "title": "T464 移除已知例外：OriginalExpTable.cs 與 ground-catalog.json",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 2–3 小時。依 docs/reference/asset-recipes/rule-tables.md（T446）第 3、4 節。\n\n範圍：(1) `OriginalExpTable.cs`：照 T446 結論改成客戶端來源的 provider，或改成只用伺服器送來的值；`Rewards.cs:13` 改接，保留低 32 位、level 範圍與 unknown 行為。(2) `ground-catalog.json`：把不含內容的 SPR pin（entry、offset、size、SHA）與來自原服模板的 template／nameToken 列分開；前者可留在程式，後者照 T446 結論改由客戶端表產生或改成不需要。兩者完成後從 git 移除原檔，allowlist 的 b15Exceptions 拿掉對應列。**T446 對某一份判 blocked 時，那一份保留為已知例外**，在報告與 docs/design/asset-recipe.md 已知限制寫明，不用常數或編碼字串藏表。\n\n驗收：`[CheckGroup]` 離線測試用合成資料；既有 rewards、ground、pickup 測試全過；`check-no-game-assets.py` 通過，例外數與報告一致。編譯通過、CI 綠燈。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-recipe-contract"]
+  },
+  {
+    "id": "b15-exc-test-vectors",
+    "title": "T465 移除已知例外：三個測試向量檔改為合成規則測試",
+    "stage": "code",
+    "priority": "P2",
+    "text": "runner: claude-local。預算 2 小時。依 docs/reports/issue-102.md 最後三列。\n\n範圍：`engine/action-metadata-vectors.json`、`engine/haste-metadata-vectors.json`、`engine/_integration/dev/combat-sfx-tests/expected-events.json` 三個測試 oracle 含真實動作／時序資料。(1) 確認正常遊戲不讀它們（issue-102 已查到前兩個沒有 runtime 讀取者，重新確認）。(2) combat-sfx 測試改成不含真資料的排程與選擇規則測試（合成 metadata），`combat-sfx-tests/Program.cs:24` 改接。(3) 需要真資料的對照改成選用：有本機 assets 時由測試從本機 profile 即時推導 expected（獨立於被測的 SoundSchedule），沒有時明確標示未執行，不可顯示通過。(4) 從 git 移除三個檔，allowlist 的 b15Exceptions 拿掉三列。\n\n驗收：CI 上合成測試全過；`check-no-game-assets.py` 通過。編譯通過。不改封存的歷史 harness。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-prep-sprites-b"]
+  },
+  {
+    "id": "b15-exc-work-evidence",
+    "title": "T466 移除已知例外：兩個帶 pixels 陣列的 work/ 歷史證據",
+    "stage": "code",
+    "priority": "P2",
+    "text": "runner: claude-local。預算 1–2 小時。背景：#110 裁定這兩個檔屬歷史審查證據、不刪除；B15 要把例外清到 0，兩者有衝突，**先由主控裁定再動手**（本張開工時若沒有裁定，在 Issue 留言標 `needs:claude` 並停下）。\n\n建議做法（預設）：`work/P31-pickup-composite-review-r1/cases.json`（68,935 筆 pixels 陣列）與 `work/engine-pickup-presentation-candidate-review-r1/execution-rows.json`（1 筆）：把每個 `pixels` 陣列換成「筆數＋該陣列的 SHA-256」，其餘欄位不動；原檔留在 git 歷史（不改寫歷史），並在同目錄加一行說明指向原 commit。allowlist 的 b15Exceptions 拿掉兩列。\n\n驗收：兩檔仍是合法 JSON、列數不變；`check-no-game-assets.py` 通過；報告附替換前後的檔案 SHA 與筆數。PR 不改 rebuild-lock.json。",
+    "depends_on": []
+  },
+  {
+    "id": "b15-prep-orchestrator",
+    "title": "T467 準備器總流程：全類別排程、integrity 與收據、進度與重試",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 3 小時。依 docs/design/asset-recipe.md。\n\n範圍：`engine/source/AssetPrep/` 的總流程：依 recipe 先後跑完全部類別，產生契約定的 integrity（讓 Assets.cs、MapEffects.cs、ObjectAssets.cs、PlayerProfiles.cs、PlayerShadows.cs、Portals.cs、OriginalMapCache.cs 的 SHA 檢查照常運作）與收據（輸入容器 SHA、recipe 版本、各類輸出 SHA、已知限制清單；不含絕對路徑）；進度回報（類別、完成數、估計所需空間）；磁碟不足、取消、中斷後續跑；全部通過才把收據標 ready 並原子替換。已知限制的類別在收據中明列，不算 ready 的阻擋條件要照契約。\n\n驗收：`[CheckGroup]` 離線測試用合成客戶端目錄跑完整流程：兩個目錄的收據內容 hash 相同；任一 recipe 失敗時不替換既有 active 目錄；續跑不重做已完成項。編譯通過、CI 綠燈。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-prep-text", "b15-prep-sprites-b", "b15-prep-scene-effects", "b15-prep-terrain", "b15-prep-motion-blend", "b15-audio-provider", "b15-exc-pickup"]
+  },
+  {
+    "id": "b15-launcher-prepare",
+    "title": "T468 接線：產品 `--prepare-assets` 入口與 launcher 的未準備／準備／檢查流程",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 3 小時。依 docs/design/portable-delivery.md「本機生成與啟動」與「README 步驟草稿」。\n\n範圍：(1) 產品加 `--prepare-assets` 模式：只處理檔案，不開 UI、不連線；入口掛接盡量用自動發現，必須動共用入口時只加一行分派並在報告說明。(2) `engine/_integration/dev/launcher-source/Program.cs`：`engine/assets` 不存在或收據不是 ready 時，先以 `TW_CLIENT_ROOT` 呼叫準備模式，完成後再驗收據並啟動；現行「manifest 必須含 assets/integrity.json 且 schema 為 p06-assets-integrity-v1」的檢查改成接受新收據，舊 junction 素材（開發機）仍可用。(3) `--check-only`：乾淨解壓尚未準備時回報明確的未準備狀態，`uiStarted=false`；已準備時輸出收據摘要。(4) `TW_CLIENT_ROOT` 沒設或目錄不對時，顯示繁體中文訊息指出要改哪裡，不退回開發機預設路徑（開發機預設只在非可攜模式保留）。不自動登入、不啟動服務、不連 DB。\n\n驗收：launcher 與產品的離線測試（合成目錄）：未準備、準備中斷、收據不符、已準備四種狀態的輸出；既有 check-only 行為在開發機 junction 下不變。編譯通過、CI 綠燈。實際執行留給 T470、T474。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-prep-orchestrator"]
+  },
+  {
+    "id": "b15-web-local-images",
+    "title": "T469 web 圖片：F9 面板的 icons／ground 一律由本機即時產生",
+    "stage": "code",
+    "priority": "P2",
+    "text": "runner: claude-local。預算 2 小時。依 docs/design/portable-delivery.md「本機生成與啟動」第 4 點。現況：22 張 web PNG 已由 T035 移出 git，`WebIconResource.cs` 讀 `engine/assets/inventory`，ground 走 `GroundSpriteReader`。\n\n範圍：`WebIconResource.cs`：assets/inventory 沒有該 icon 時，用 `ItemIconSource` 的 TBT 解碼即時產生 PNG（記憶體快取，或寫進 `engine/runtime/`），不再限於研究時挑的 20 個 icon；URI 路徑限制與「只有 assets 根可以是 junction」的規則保留。確認 `engine/web/` 只剩 8 個文字頁面檔，`.gitignore` 的 icons／ground 規則保留。\n\n驗收：web-resource-tests 加合成 TBT 的案例：有檔、無檔即時產生、不存在的 icon 回 404、路徑穿越拒絕；既有 F9 相關測試全過。編譯通過、CI 綠燈。不提交 PNG。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-prep-core"]
+  },
+  {
+    "id": "b15-verify-preparer",
+    "title": "T470 實跑驗證：真客戶端全量準備，與 r29 基線比對",
+    "stage": "test",
+    "priority": "P1",
+    "text": "runner: codex-local（Codex 不可用時改派 dot；claude-local 不能執行編譯出的程式）。預算 3 小時。\n\n目標：證明準備器用真的原客戶端產生的素材與現行基線等價。\n\n步驟：(1) 在 worktree 用 `rebuild.py --build` 建置。(2) 以 `TW_CLIENT_ROOT=D:\\lineage開發\\0-客戶端` 執行 `--prepare-assets`，輸出到 worktree 內兩個不同路徑（一個含空格與中文字）。(3) 兩份輸出逐檔比對，內容必須相同。(4) 與基線 `D:\\lineage開發\\TW1608262200研究\\engine\\assets`（唯讀）逐類比對，方式照 docs/design/asset-recipe.md：原檔切片逐 byte、JSON 語義（frames、RGB555、bounds、ticks、events）、PNG 比 decoded RGBA、terrain 逐格、pickup 312 幀。(5) 故障案例：缺檔、錯版本、截斷、取消後續跑、同時兩個 writer、目標是 junction。(6) 執行前後對 `TW_CLIENT_ROOT` 的容器算 SHA，必須不變。記錄耗時與磁碟用量。\n\n驗收：`docs/reports/當次issue.md` 逐類列相符／不符數字；不符的類別各開一張修正任務（寫進 `docs/plans/當次issue.json`）。不啟動遊戲、不連線；輸出只放 scratch／worktree 的 `engine/runtime`，不提交。",
+    "depends_on": ["b15-prep-orchestrator", "b15-launcher-prepare", "b15-deserver-timing", "b15-deserver-skills-magic", "b15-exc-exp-ground"]
+  },
+  {
+    "id": "b15-exc-ci-close",
+    "title": "T471 CI 拒收收尾：b15Exceptions 清空，例外機制移除",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 1–2 小時。\n\n範圍：`engine/tools/game-assets-allowlist.json` 的 b15Exceptions 應已由 T463–T466 清到 0；本張把 `check-no-game-assets.py` 的 B15 例外分支拿掉（或改成清單非空就失敗），EmbeddedResource 允許清單更新為實際剩下的 logical name，並加一項檢查：`engine/source/Resources/` 與 csproj 不得再出現 pixels／時序表類資源。T464 若有因 blocked 而保留的例外，保留該列並在腳本輸出與報告中明列為已知限制，不可靜默放行。同步更新 TASKS.md M3 的「已知例外」說明（加註已由 M8 處理，不改凍結文字本身）。\n\n驗收：CI 綠燈；腳本的自我測試涵蓋「新增任何例外即失敗」。報告列出最後的例外數（目標 0）與每個保留項的理由。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-exc-pickup", "b15-exc-exp-ground", "b15-exc-test-vectors", "b15-exc-work-evidence"]
+  },
+  {
+    "id": "b15-zip-allowlist",
+    "title": "T472 封裝：可攜 zip 白名單打包腳本與內容審查",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 2–3 小時。依 docs/design/portable-delivery.md「zip 內容白名單草案」。\n\n範圍：新增 `engine/tools/package-portable.py`：以明確白名單逐檔收集（不遞迴複製整個 engine，不跟隨 junction），產出 `engine/build/portable/` 下的 zip 與清單（路徑、大小、SHA-256）。白名單：README、`啟動引擎.cmd`、launcher、`engine/build/client-product-dev/` 的程式檔與 WebView2 相依、product manifest、`engine/web/` 的 8 個文字頁面檔、必要 docs。審查：對 zip 內每個檔檢查檔名、magic、嵌入資源（用既有 `engine/_integration/dev/pe_resource.py` 讀 assembly 資源名），拒絕 assets、圖片、音訊、map、Sprite、Tile、Text、PDB、source、vendor、SQL、JAR、BIN、IDB；改副檔名也要擋。腳本的單元測試用合成目錄。CI 加一步：建置後跑打包與審查（只驗清單，不上傳成 Release；是否發布 GitHub Release 由使用者決定，另開任務）。\n\n驗收：CI 綠燈；審查對合成的違規樣本（改名 PNG、junction、嵌入 pixels JSON）全部拒絕；報告附 zip 清單的檔數與總大小。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-launcher-prepare", "b15-web-local-images", "b15-exc-ci-close"]
+  },
+  {
+    "id": "b15-readme",
+    "title": "T473 文件：可攜版 README、啟動入口的 TW_CLIENT_ROOT 設定、BUILD／ARCHITECTURE 同步",
+    "stage": "code",
+    "priority": "P2",
+    "text": "runner: claude-local。預算 1–2 小時。依 docs/design/portable-delivery.md「README 步驟草稿」。\n\n範圍：(1) zip 用的 README（繁體中文）：需要的環境（Windows x64、.NET 10 Desktop Runtime、WebView2 Runtime、自己的原客戶端）、解壓、設定 `TW_CLIENT_ROOT`、第一次啟動會做什麼、所需磁碟空間與時間（用 T470 量到的數字）、常見錯誤訊息與處理、已知限制（照 docs/design/asset-recipe.md）、不附伺服器與帳號。(2) `啟動引擎.cmd` 加上唯一一處 `TW_CLIENT_ROOT` 設定與 `TW_ENGINE_ROOT` 自動推導（照設計）。(3) docs/BUILD.md、docs/ARCHITECTURE.md、engine/README.md 中關於 assets junction 的段落，補上「可攜模式由本機產生」的說明。打包白名單若因此要加檔，同步改 T472 的清單。\n\n驗收：README 的每個步驟都對得上實際的指令與訊息文字（引用程式中的字串）；CI 綠燈。",
+    "depends_on": ["b15-zip-allowlist", "b15-verify-preparer"]
+  },
+  {
+    "id": "b15-verify-clean-zip",
+    "title": "T474 真機驗收：乾淨目錄解壓可攜 zip，準備素材，進登入畫面並短程回歸",
+    "stage": "test",
+    "priority": "P1",
+    "text": "runner: dot（依 2026-11-06 授權，只限 P24Lab 42061／43324 的測試角色；不碰正式 2000／3306，不改 DB 與配置）。預算 2–3 小時。\n\n步驟：(1) 用 T472 的腳本產出 zip，解壓到專案 `scratch/` 下兩個不同路徑（一個含空格與中文字），目錄內沒有 junction、沒有研究目錄。(2) 照 README 設定 `TW_CLIENT_ROOT`，先跑 `啟動引擎.cmd --check-only`（應回報未準備），再正常啟動：看到準備進度，完成後出現登入畫面。(3) 再跑一次 `--check-only`（應回報已準備與收據摘要）。(4) 用測試角色登入，短程回歸：角色與場景顯示、走路、跨圖一次、NPC 對話、背包圖示、陰影、施法一次、地面物品、map4 的 6016 音效。(5) 記錄準備耗時、磁碟用量、原客戶端容器前後 SHA。\n\n驗收：`docs/reports/當次issue.md` 每一步有結果與截圖路徑（截圖照既有 demo 證據規則）；分已驗證／推測／待驗證；不通過的項目各開修正任務（`docs/plans/當次issue.json`）。「乾淨 Windows、沒裝 SDK／Python」這一項若無法在本機模擬，寫進待驗證交使用者。",
+    "depends_on": ["b15-verify-preparer", "b15-zip-allowlist", "b15-readme"]
+  },
+  {
+    "id": "b15-close",
+    "title": "T475 M8 結案：已知限制定案，TASKS／PLAN／demo 頁同步",
+    "stage": "plan",
+    "priority": "P2",
+    "text": "runner: claude-local（主控在線時由主控做）。預算 1 小時。\n\n範圍：依 T470、T474 的結果：(1) TASKS.md 的 M8 各列改狀態，Backlog B15 標示結案或剩餘項；(2) PLAN.md 現況與「可重現交付」列更新；(3) 已知限制（來源閉合判 blocked、真機未過的項目）整理成一張表放進 docs/design/asset-recipe.md 與 README，各附後續任務或「不做」的理由；(4) docs/demo/README.md 加一節「可攜交付」，連到驗收報告；(5) 是否建立 GitHub Release 屬於對外發布，列成選項交使用者決定，本張不發布。\n\n驗收：三份文件數字一致；每個已知限制有明確結論與負責對象。只改文件。",
+    "depends_on": ["b15-verify-clean-zip"]
+  }
+]
