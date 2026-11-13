@@ -1,0 +1,26 @@
+[
+  {
+    "id": "b15-limits-ruling",
+    "title": "T476 主控裁定：B15 已知限制 L1–L7 與決定 D1–D8（needs:claude）",
+    "stage": "plan",
+    "priority": "P1",
+    "text": "runner: claude-chat（主控，雲端 Claude；needs:claude）。預算 1 小時。只改文件。\n\n背景：T452（#1037）把 T444–T450 的來源閉合結果收成 `docs/design/asset-recipe.md`。19 類素材加 pickup 沒有任何一類整類受阻；受阻的是個別表與欄位。每一項在文件裡都有「暫行做法」，後續任務在沒有裁定時照暫行做法走，只有 T464（#1049）要等本張。\n\n要裁定的項目（選項、影響、建議都在 `docs/design/asset-recipe.md` 第 7、8 節）：\n- L1 EXP 門檻表（`OriginalExpTable.cs`）：A 保留為已知例外／B 拿掉表、EXP% 顯示空白／C 接受使用者自備門檻檔。建議 B。\n- L2 `ground-catalog.json` 的 7 筆模板列：X 拿掉可丟棄白名單、改由伺服器裁定（行為變更）／Y 維持並列為已知例外。建議 X。\n- L3 terrain 區域位元（8 張地圖 13,567 格，產品不讀）：確認 T470 的比對標準。\n- L4 `maps[].name` 拿掉；L5 伺服器 `spr_action` 無法由客戶端驗證；L6 154 個地圖特效不可用（基線既有）；L7 15 筆玩家 profile 不可用（要不要另開 gfx 138 修正任務）。\n- D1 產品執行期的 `Sprite03`–`Sprite14` pin 與本機客戶端不符（2026-11-09 客戶端被附加 36 個 `.img`）：更新 pin、還原客戶端，或執行期也改成結構檢查加逐 entry。這一項影響現在的產品，不只 B15。\n- D2 文字模板的 602／603 圖片編號與 `LiTo\\LTtext` 是否疊加；D3 地圖選取規則；D4 objects 動畫長度；D5 預熱清單留在程式裡；D6 junction 檢查範圍；D7 技能名稱 6 筆差異（知悉）；D8 是否做執行期按需準備（T477、T478）。\n- T476–T478 是否計入主線分母（`PLAN.md` 尚未更動）。\n\n交付：把每一項的裁定寫回 `docs/design/asset-recipe.md` 第 7、8 節（「暫行做法」改成「定案」），同步 `TASKS.md` 與 `PLAN.md`；L1、L2 裁定後在 #1049（T464）留言。D8 若裁定不做，把 T477、T478 以 not planned 關閉。涉及行為變更（L1 的 B、L2 的 X）或不可逆的事，照專案規則該問使用者的就標 `needs:user`。\n\n驗收：每個 L、D 項有明確結論；三份文件一致。",
+    "depends_on": []
+  },
+  {
+    "id": "b15-ondemand-appearance-a",
+    "title": "T477 執行期按需準備：預熱清單以外的物件、怪物、NPC 外觀（ObjectAssets）",
+    "stage": "code",
+    "priority": "P2",
+    "text": "runner: claude-local。預算 3 小時。依 `docs/design/asset-recipe.md` 第 5 節與 `docs/reference/asset-recipes/action-timing.md`「B」。\n\n開工前提：T476 對 D8 的裁定是「做」；T454（#1039）、T455（#1040）已合併（要用它們的 SPR 共用解碼與 recipe）。任何一項不成立：不改程式，在報告寫明後結束。\n\n目標：伺服器封包（S87）給了預熱清單以外的 gfx 時，產品能在執行期從 `TW_CLIENT_ROOT` 解出外觀，不需要事先準備。\n\n範圍：(1) `ObjectAssets`：查不到已準備的外觀檔時，把該 gfx 排進背景解碼（重用 `engine/source/AssetPrep/` 的 SPR 共用層與 `objects` recipe 的轉換，直接產生記憶體內的模型，不經 JSON）；完成前沿用現有的 `AppearancePending` 表現。(2) 結果只放記憶體，**不寫 `engine/assets`**（那棵樹只有準備模式一個 writer）；是否另做 `engine/runtime/` 下的磁碟快取，先量再決定，在報告寫明，不沿用現行 JSON 格式。快取鍵用（封存名、idx 的 offset 與 size、recipe 版本、`list.spz` 的 SHA），不用 gfx 編號當唯一鍵。(3) 缺檔、替代包內容不一致、沒有動作表的 gfx：照 `sprites.md` §3.3 的政策判定為不可用並記住結果，不重試、不挑一個湊數；畫面走既有的缺圖表現。(4) 解碼在背景執行緒，不可卡住畫面；同一個 gfx 同時只解一次。(5) 時間欄位照契約 3.2。\n\n不做：玩家姿勢、陰影、商店、門、魔法與飛行物（T478）。不改預熱清單的內容。\n\n驗收：`[CheckGroup]` 離線測試用合成的 Sprite 容器與 `list.spz`：清單外的 gfx 先顯示 pending、解完後外觀與「事先準備同一個 gfx」的結果逐幀相同；不可用的 gfx 明確標示且不重試；`engine/assets` 在整個測試前後逐檔 SHA 不變；既有 objects、NPC、怪物相關測試全過。編譯通過、CI 綠燈。不提交幀或像素。首次遇到新 gfx 的實際停頓留給真機（寫進待驗證）。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-limits-ruling"]
+  },
+  {
+    "id": "b15-ondemand-appearance-b",
+    "title": "T478 執行期按需準備：玩家姿勢、陰影、商店、門、魔法與飛行物",
+    "stage": "code",
+    "priority": "P2",
+    "text": "runner: claude-local。預算 3 小時。依 `docs/design/asset-recipe.md` 第 5 節。接續 T477 的背景解碼與記憶體快取。\n\n範圍：把同一套按需機制接到其餘 SPR 類讀取點：(1) `PlayerProfiles`：預熱清單以外的（gfx, 姿勢），含變身外型（S76）；`serverActionMs`、`stepMs`、`castReleaseMs`、`projectileReleaseMs` 照 `action-timing.md` R1、R2 由 `list.spz` 算。`IsCharacter` 要分辨的是什麼先讀程式確認（`action-timing.md` A3 的提醒），不要直接換成 `102.type`。自己角色的外觀在解完前沿用 `SelfAppearancePending`；他人沿用缺圖退回 gfx 1120。(2) `PlayerShadows`：sprite 取 `101.shadow`，frame keys 取 body 序列引用的 key。(3) 個人商店（動作 70）、門（動作 28／29）、魔法與飛行物（`MagicRendering`、`ProjectileRendering`、`MapEffects.cs:158` 的 `objects/magic-<gfx>.json`）。(4) pickup 追加幀（動作 15）對預熱清單以外的 profile：`PickupAssets.Supports` 現在是寫死的清單，改成看該 profile 有沒有動作 15。\n\n已知限制：基線以外的姿勢與變身外型，算出的間隔無法與伺服器的 `spr_action` 對照（契約 L5）。不在客戶端加表補；報告的待驗證要寫明。\n\n驗收：`[CheckGroup]` 離線測試用合成資料，每個讀取點各一組「清單外 → pending → 解完」與「不可用」案例；陰影與 body 的 key 對得上；`engine/assets` 前後不變；既有 players、shadows、shops、doors、magic、pickup 測試全過。編譯通過、CI 綠燈。PR 不改 rebuild-lock.json。",
+    "depends_on": ["b15-ondemand-appearance-a"]
+  }
+]

@@ -515,6 +515,8 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 
 **前置說明**：#1027 的派工文字寫「#101 來源查核、#103 準備器核心已完成」，實際上兩張都在 2026-11-06 依 #99 以 not planned 關閉，**沒有執行、沒有報告、沒有程式**。所以 terrain／bounds、skills／cooldown、motion／混色、Text 版本目前都**沒有 pass／blocked 結論**，由 T444–T450 重新查核；準備器核心由 T451 從頭做。細節見 `docs/reports/issue-1027.md`。
 
+**來源閉合結果（T452／#1037，2026-11-13）**：T444–T450 都已完成，19 類素材加 pickup 沒有任何一類整類 blocked。blocked 的是 EXP 門檻表、`ground-catalog.json` 的模板列、8 張地圖的 terrain 區域位元（產品不讀）、`maps[].name` 欄位。實作契約、已知限制 L1–L7 與待主控裁定的 D1–D8 在 `docs/design/asset-recipe.md`；下面各列的範圍已照契約第 9 節修正。新增 T476–T478（規劃檔 `docs/plans/issue-1037.json`），是否計入主線分母待主控決定，`PLAN.md` 尚未更動。
+
 分組與依賴：來源閉合 T444–T450（可平行）與核心 T451 → 契約 T452 → 各類準備器 T453–T460、去伺服器依賴 T461–T462、移除例外 T463–T466 → 總流程 T467 → 接線 T468–T469 → 實跑 T470 → CI 收尾 T471、封裝 T472、文件 T473 → 真機 T474 → 結案 T475。規劃檔 `docs/plans/issue-1027.json`（括號內是規劃檔的 id，Issue 編號由調度器建立後補）。
 
 ### T444 | todo | claude-local | 來源閉合：Text 容器版本差異與文字類素材（b15-src-text）
@@ -527,17 +529,17 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 ### T451 | todo | claude-local | 準備器核心：輸入驗證、staging、收據、原子發布，加 TBT 圖示切片（b15-prep-core）
 ### T452 | todo | claude-local | 設計：recipe 契約與已知限制清單（b15-recipe-contract）
 ### T453 | todo | claude-local | 準備器：文字類 templates.json、names.json（b15-prep-text）
-### T454 | todo | claude-local | 準備器：SPR 共用解碼與 character、objects（b15-prep-sprites-a）
-### T455 | todo | claude-local | 準備器：players、shops、shadows、doors、ground、encountered-monsters、world-appearances（b15-prep-sprites-b）
-### T456 | todo | claude-local | 準備器／provider：地圖原檔、TIL、LAC 與 maps／cache manifest（b15-prep-maps-raw）
-### T457 | todo | claude-local | 準備器：scene 與 maps/effects，含 6016（b15-prep-scene-effects）
-### T458 | todo | claude-local | 準備器：terrain 與 bounds（b15-prep-terrain；T445 判 blocked 時不寫程式，列已知限制）
-### T459 | todo | claude-local | 產品規則：motion 與混色查表改為程式計算（b15-prep-motion-blend）
-### T460 | todo | claude-local | 音效：Sound 由 TW_CLIENT_ROOT 直讀，audio-manifest 本機產生（b15-audio-provider）
-### T461 | todo | claude-local | 去伺服器依賴：動作時序與職業 gfx 集合（b15-deserver-timing）
-### T462 | todo | claude-local | 去伺服器依賴：skills.json 與 magic/catalog.json（b15-deserver-skills-magic）
+### T454 | todo | claude-local | 準備器：SPR 共用解碼與 character、objects（b15-prep-sprites-a；Sprite 輸入改逐 entry 驗證；character 只產生 2 個 JSON、不產生 PNG）
+### T455 | todo | claude-local | 準備器：players、shops、shadows、doors、encountered-monsters、world-appearances（b15-prep-sprites-b；ground 改執行期直讀、不產生；首次只準備預熱清單）
+### T456 | todo | claude-local | provider：地圖原檔、TIL、LAC 由 TW_CLIENT_ROOT 直讀、不複製；準備器產生 maps／cache manifest（b15-prep-maps-raw）
+### T457 | todo | claude-local | 準備器：scene（4 檔，不產生預覽）與 maps/effects，6016 逐 byte 相同、pin 不改（b15-prep-scene-effects）
+### T458 | todo | claude-local | 準備器：terrain 與 bounds（b15-prep-terrain；T445 部分 pass → 要寫程式，713 張全部產生，8 張的區域位元差異列已知限制 L3）
+### T459 | todo | claude-local | 產品規則：motion 與混色查表改為程式計算，不產生檔案（b15-prep-motion-blend）
+### T460 | todo | claude-local | 音效：Sound 由 TW_CLIENT_ROOT 直讀，audio-manifest 改成程式內 pin、不再是檔案（b15-audio-provider）
+### T461 | todo | claude-local | 去伺服器依賴：動作時序照 list.spz 規則，不建職業 gfx 表（b15-deserver-timing）
+### T462 | todo | claude-local | 去伺服器依賴：skills 與 magic 改為執行期直讀 Text 的 spelldesc-c.tbl，不產生檔案（b15-deserver-skills-magic）
 ### T463 | todo | claude-local | 移除已知例外：兩個 pickup 內嵌 JSON（b15-exc-pickup）
-### T464 | todo | claude-local | 移除已知例外：OriginalExpTable.cs 與 ground-catalog.json（b15-exc-exp-ground）
+### T464 | todo | claude-local | 移除已知例外：OriginalExpTable.cs 與 ground-catalog.json（b15-exc-exp-ground；兩者都是已知限制 L1、L2，等 T476 裁定後開工）
 ### T465 | todo | claude-local | 移除已知例外：三個測試向量檔（b15-exc-test-vectors）
 ### T466 | todo | claude-local | 移除已知例外：兩個帶 pixels 的 work/ 歷史證據，先等主控裁定（b15-exc-work-evidence）
 ### T467 | todo | claude-local | 準備器總流程：全類別排程、integrity 與收據、進度與重試（b15-prep-orchestrator）
@@ -549,6 +551,9 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 ### T473 | todo | claude-local | 文件：可攜版 README、啟動入口設定、BUILD／ARCHITECTURE 同步（b15-readme）
 ### T474 | todo | dot | 真機驗收：乾淨目錄解壓、準備素材、登入畫面與短程回歸（b15-verify-clean-zip）
 ### T475 | todo | claude-local | M8 結案：已知限制定案，TASKS／PLAN／demo 頁同步（b15-close）
+### T476 | todo | Claude | 主控裁定（needs:claude）： asset-recipe.md 的已知限制 L1–L7 與決定 D1–D8（b15-limits-ruling；#1037 新增）
+### T477 | todo | claude-local | 執行期按需準備：物件、怪物、NPC 外觀（b15-ondemand-appearance-a；#1037 新增，等 T476）
+### T478 | todo | claude-local | 執行期按需準備：玩家姿勢、陰影、商店、門、魔法與飛行物（b15-ondemand-appearance-b；#1037 新增）
 
 ---
 
