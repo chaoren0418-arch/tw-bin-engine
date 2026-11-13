@@ -136,6 +136,18 @@ public sealed class AssetRecipeItemContext {
     /// </summary>
     public static AssetRecipeItemContext ForRuntime(string item,AssetPrepInput input,SprDecodeCache? cache,CancellationToken cancel)=>
         new(item,input,new AssetPriorOutputs(input.ClientRoot,Array.Empty<string>()),_=>null,null,[],[item],cancel){DecodeCache=cache};
+    /// <summary>
+    /// T478 (#1074): the runtime on-demand context that runs a recipe's own Produce and keeps what it writes in memory
+    /// (<see cref="Captured"/>) instead of on disk. Same reads as <see cref="ForRuntime"/>; there is still no directory, so
+    /// nothing can reach engine/assets or engine/runtime. The captured bytes are parsed once by the product's readers and dropped.
+    /// </summary>
+    public static AssetRecipeItemContext ForRuntimeMemory(string item,AssetPrepInput input,SprDecodeCache? cache,CancellationToken cancel)=>
+        new(item,input,new AssetPriorOutputs(input.ClientRoot,Array.Empty<string>()),_=>null,null,[],[item],cancel){DecodeCache=cache,captured=new(StringComparer.Ordinal)};
+    Dictionary<string,byte[]>? captured;
+    /// <summary>T478: the files a memory context was given (relative path → bytes); empty for every other context.</summary>
+    public IReadOnlyDictionary<string,byte[]> Captured=>captured??(IReadOnlyDictionary<string,byte[]>)new Dictionary<string,byte[]>();
+    /// <summary>T478: the facts the recipe recorded for this item (manifest row, unavailable reason, …).</summary>
+    public IReadOnlyDictionary<string,string> Metadata=>metadata;
     /// <summary>T477: the entries read so far for this item (container, name, offset, size, SHA-256).</summary>
     public IReadOnlyList<AssetSource> Sources=>sources;
     /// <summary>T477: the recorded source of a Sprite entry this item read from container <paramref name="archive"/>.</summary>
@@ -213,6 +225,13 @@ public sealed class AssetRecipeItemContext {
         sources.Add(hit.Source);return hit.Data;
     }
 
+    /// <summary>T478: a memory context keeps the file (same path rules: safe relative, written once); false for any other context.</summary>
+    bool Capture(string relativePath,byte[] data){
+        if(captured==null)return false;
+        string relative=AssetPrepPaths.SafeRelative(relativePath);
+        if(!captured.TryAdd(relative,data))throw new AssetPrepException(AssetPrepFailure.InvalidRequest,$"輸出路徑 \"{relative}\" 被寫了兩次（項目 {Item}）");
+        return true;
+    }
     string Claim(string relativePath){
         if(directory==null)throw new AssetPrepException(AssetPrepFailure.InvalidRequest,$"執行期按需解碼不寫檔：\"{relativePath}\" 被拒絕（engine/assets 只由準備模式寫入）");
         string relative=AssetPrepPaths.SafeRelative(relativePath);
@@ -225,12 +244,14 @@ public sealed class AssetRecipeItemContext {
     }
     /// <summary>Writes one output file. The path is relative to the recipe directory (see AssetPrepPaths.SafeRelative); a path can be written once per run.</summary>
     public void Write(string relativePath,ReadOnlySpan<byte> data){
+        if(Capture(relativePath,data.ToArray()))return;
         string relative=Claim(relativePath);
         AssetPrepRunner.WriteFile(AssetPrepPaths.Combine(directory!,relative),data);
         outputs.Add(new(relative,data.Length,AssetPrepPaths.Sha256(data)));
     }
     /// <summary>T456: streams a large output straight to disk (no whole-file buffer); size and SHA-256 are taken from the written file.</summary>
     public void Write(string relativePath,Action<Stream> write){
+        if(captured!=null){using var memory=new MemoryStream();write(memory);Capture(relativePath,memory.ToArray());return;}
         string relative=Claim(relativePath),full=AssetPrepPaths.Combine(directory!,relative);
         using(var file=new FileStream(full,FileMode.Create,FileAccess.Write,FileShare.None)){write(file);file.Flush(true);}
         outputs.Add(new(relative,new FileInfo(full).Length,AssetPrepPaths.Sha256File(full)));
