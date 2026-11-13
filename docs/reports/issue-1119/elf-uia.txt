@@ -1,0 +1,60 @@
+Window: "建立角色", App: P11.ClientEngine.exe.
+	0 視窗 建立角色 Secondary Actions: Raise
+		1 窗格
+			2 文字 角色名稱
+			3 編輯 (settable, string) 角色名稱 Value: 晨風騎士
+			4 文字 職業
+			5 下拉式方塊 (settable, string) 職業 Value: 精靈
+				6 文字 職業
+				7 按鈕 開啟
+			8 文字 性別
+			9 下拉式方塊 (settable, string) 性別 Value: 男性
+				10 文字 性別
+				11 按鈕 開啟
+			12 文字 力量
+			13 微調按鈕 力量
+				14 微調按鈕 上下按鈕
+					15 按鈕 (disabled) 向上鍵
+					16 按鈕 (disabled) 向下鍵
+				17 編輯 (settable, string) 力量 Value: 18
+			18 文字 敏捷
+			19 微調按鈕 敏捷
+				20 微調按鈕 上下按鈕
+					21 按鈕 (disabled) 向上鍵
+					22 按鈕 (disabled) 向下鍵
+				23 編輯 (settable, string) 敏捷 Value: 12
+			24 文字 體質
+			25 微調按鈕 體質
+				26 微調按鈕 上下按鈕
+					27 按鈕 (disabled) 向上鍵
+					28 按鈕 (disabled) 向下鍵
+				29 編輯 (settable, string) 體質 Value: 12
+			30 文字 精神
+			31 微調按鈕 精神
+				32 微調按鈕 上下按鈕
+					33 按鈕 (disabled) 向上鍵
+					34 按鈕 (disabled) 向下鍵
+				35 編輯 (settable, string) 精神 Value: 12
+			36 文字 魅力
+			37 微調按鈕 魅力
+				38 微調按鈕 上下按鈕
+					39 按鈕 (disabled) 向上鍵
+					40 按鈕 (disabled) 向下鍵
+				41 編輯 (settable, string) 魅力 Value: 9
+			42 文字 智力
+			43 微調按鈕 智力
+				44 微調按鈕 上下按鈕
+					45 按鈕 (disabled) 向上鍵
+					46 按鈕 (disabled) 向下鍵
+				47 編輯 (settable, string) 智力 Value: 12
+			48 文字 剩餘點數：0 資料符合本機檢查，可以建立。
+			49 文字 名稱最多 12 個 Big5 位元組／5 個雙位元組字。 職業開放、禁用名稱與重名由伺服器最後檢查。
+			50 窗格 名稱最多 12 個 Big5 位元組／5 個雙位元組字。 職業開放、禁用名稱與重名由伺服器最後檢查。
+				51 按鈕 建立角色
+				52 按鈕 取消
+		53 標題列 (settable, string) Value: 建立角色
+			54 按鈕 關閉
+
+Document text: ```
+12
+```
