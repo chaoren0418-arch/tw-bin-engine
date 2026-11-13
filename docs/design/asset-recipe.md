@@ -327,6 +327,7 @@ T451 報告列出的缺口，分給第一個用到的任務：
   - T473 README 的已知限制寫明：EXP% 顯示用的是產品內建門檻表，伺服器的門檻不同時顯示會不準。
   - C（使用者自備門檻檔）不在 M8 範圍，日後要做另開任務。
 - **交接**：T464 只寫說明；T471、T473 照上列。
+- **實作（T464／#1049）**：`engine/tools/game-assets-allowlist.json` 新增 `b15ExceptionReasons`，這一列的理由指向本節。`check-no-game-assets.py` 現在要求每個 B15 例外都要有理由，執行時逐列印出（`B15-EXCEPTION:`），輸出 JSON 也帶例外數。`OriginalExpTable.cs` 的內容與 SHA 都沒動。
 
 ### L2　`ground-catalog.json` 的 7 筆模板列 — 不改行為就是 blocked
 
@@ -341,6 +342,7 @@ T451 報告列出的缺口，分給第一個用到的任務：
   - `ground-catalog.json` 從 `b15Exceptions` 拿掉。檔案裡從客戶端量得的 `groundGfx` 與 SPR pin 若仍有讀取者，改成程式裡的規則或雜湊、或交給準備器；`wireUseType`、`stackable`、`bless`、`templateId` 這些伺服器模板值**不可以**搬進程式常數（1.3 第 6 點）。
   - 原版送丟棄封包前在本機檢查什麼沒有反組譯過（`rule-tables.md` 4.3），這一點仍是待驗證；T474 真機回歸要包含丟棄一般物品、丟棄後伺服器拒絕兩種情況。
 - **交接**：T464 實作；T474 驗。
+- **實作（T464／#1049，2026-11-13）**：`ground-catalog.json` 已從 git 與 csproj 移除，`b15Exceptions` 也拿掉這一列。`GroundCatalog.CanDrop` 只留和模板無關的條件：物件 ID 不是 0、數量大於 0、沒有充能數、沒裝備、不是武器或防具、`Bless < 128`、旗標正常。4 筆 SPR pin（gfx 7、36、45、66：entry、idx 筆號、PAK File Offset、大小、payload／RGBA SHA-256，出處 #48）留在 `GroundCatalog.Pinned`，不含任何伺服器模板欄位。原本的 3 筆（gfx 22、42、46）沒有 pin，現在跟其他 gfx 一樣走通用描述。原產品**沒有**「丟到地上」的確認視窗（只有給予與刪除有），所以這張補上：WinForms 的丟棄鈕與 Web 面板的丟棄，送出前都會跳出「確認丟棄物品」（預設按鈕是「否」）。伺服器拒絕時沿用 S71 的既有訊息顯示。詳見 [`issue-1049.md`](../reports/issue-1049.md)。
 
 ### L3　terrain 的區域位元：8 張地圖 13,567 格 — 部分 blocked
 
@@ -381,6 +383,7 @@ T451 報告列出的缺口，分給第一個用到的任務：
 
 - 加速與緩速係數（0.755、2.0，`NormalHaste.cs`、`ActionCadence.cs`）是產品既有常數，註解寫明出自 JAR d287。它們不是素材，七張閉合任務都沒有重新查證。T476 沒有另開查證（M8 不處理）。
 - B15 例外清單現況（2026-11-13，`engine/tools/game-assets-allowlist.json`）：7 列。T466 已處理 2 列；剩 pickup 2 列（T463）、EXP 表（L1，定案保留）、ground-catalog（L2，T464 拿掉）、測試向量 3 列（T465）。M8 結束時的目標是 **1 列**（`OriginalExpTable.cs`）。
+- T463（#1048）、T465（#1050）、T464（#1049）之後：**1 列**，只剩 `OriginalExpTable.cs`（L1，定案保留），已達 M8 目標。理由寫在 allowlist 的 `b15ExceptionReasons`，`check-no-game-assets.py` 輸出 `"b15Exceptions": 1`。
 
 ## 8. 其他決定（主控裁定，已定案）
 

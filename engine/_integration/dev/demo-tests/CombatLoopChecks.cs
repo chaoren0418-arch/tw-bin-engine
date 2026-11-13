@@ -7,7 +7,7 @@ partial class Checks {
     static byte[] Resurrection(uint id=123)=>Packet(b=>{b.Write((byte)85);b.Write(id);b.Write((byte)0);b.Write(789u);b.Write(0u);});
     static byte[] Weapon(byte weapon)=>LoginPackets.Pad([119,..BitConverter.GetBytes(123u),weapon]);
     static byte[] Item(uint id,uint count,bool arrow=false,bool list=false)=>Packet(b=>{
-        var row=GroundCatalog.Rows.Single(r=>r.Id=="meat");
+        var row=SyntheticGroundItem.Stack;
         b.Write((byte)(list?5:15));if(list)b.Write((byte)1);
         b.Write(id);b.Write(arrow?(ushort)0:row.InventoryDesc);b.Write(arrow?(byte)254:row.WireUseType);
         b.Write((byte)0);b.Write(arrow?(ushort)7:row.InventoryIcon);b.Write((byte)1);b.Write(count);b.Write((byte)1);

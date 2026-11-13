@@ -57,7 +57,7 @@ public static class GroundSpriteReader {
                 var main=sprites.Count>0?sprites[0].Find(name):null;
                 if(main!=null){
                     if(!(main.Record==pin.IndexRecord&&main.Offset==pin.Offset&&main.Size==pin.Size&&main.Name==pin.Entry))
-                        throw new InvalidDataException($"地面原圖 {sprites[0].Pin.Name}/{main.Name} 與 ground-catalog 的 entry pin 不符（record {main.Record}、offset {main.Offset}、size {main.Size}）");
+                        throw new InvalidDataException($"地面原圖 {sprites[0].Pin.Name}/{main.Name} 與 GroundCatalog.Pinned 的 entry pin 不符（record {main.Record}、offset {main.Offset}、size {main.Size}）");
                     return sprites[0].Read(main);
                 }
             }

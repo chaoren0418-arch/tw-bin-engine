@@ -31,9 +31,9 @@ static class PointerFlowTests {
     static void Text(BinaryWriter b,string text){b.Write(LoginPackets.TextEncoding.GetBytes(text));b.Write((byte)0);}
     // S87 ground envelope (server S_NPCPack_Item shape, same fields GroundRules.IsGround checks).
     static byte[] GroundPack(uint id,ushort x,ushort y,uint count)=>Packet(b=>{
-        var row=GroundCatalog.Rows.Single(r=>r.Id=="meat");
-        b.Write((byte)87);b.Write(x);b.Write(y);b.Write(id);b.Write(row.GroundGfx);b.Write(new byte[4]);b.Write(count);b.Write((ushort)0);
-        Text(b,row.CountName(count));Text(b,"");b.Write((byte)0);b.Write(0u);Text(b,"");Text(b,"");b.Write((byte)0);b.Write((byte)255);b.Write(new byte[3]);b.Write((byte)255);b.Write((byte)255);
+        // T464: synthetic gfx/name (not a server template row); only the S87 envelope shape matters here.
+        b.Write((byte)87);b.Write(x);b.Write(y);b.Write(id);b.Write((ushort)9001);b.Write(new byte[4]);b.Write(count);b.Write((ushort)0);
+        Text(b,count>1?$"$9001 ({count})":"$9001");Text(b,"");b.Write((byte)0);b.Write(0u);Text(b,"");Text(b,"");b.Write((byte)0);b.Write((byte)255);b.Write(new byte[3]);b.Write((byte)255);b.Write((byte)255);
     });
     static byte[] NpcPack(uint id,ushort x,ushort y)=>Packet(b=>{
         b.Write((byte)87);b.Write(x);b.Write(y);b.Write(id);b.Write((ushort)1110);b.Write((byte)0);b.Write(new byte[3]);b.Write(0u);b.Write((ushort)0);

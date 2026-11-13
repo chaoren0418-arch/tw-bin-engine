@@ -17,13 +17,22 @@ partial class Checks {
     static void Feed(LoginConnection c,byte[] p)=>typeof(LoginConnection).GetMethod("ApplyWorldPacket",F)!.Invoke(c,[p,"offline",1L]);
     static byte[] Packet(Action<BinaryWriter> action){using var m=new MemoryStream();using var b=new BinaryWriter(m);action(b);return LoginPackets.Pad(m.ToArray());}
     static void Text(BinaryWriter b,string s){b.Write(LoginPackets.TextEncoding.GetBytes(s));b.Write((byte)0);}
-    static void Ground(LoginConnection c,GroundDefinition row,uint count=250,uint id=900101,ushort? x=null){
+    // T464 (#1049, asset-recipe.md §7 L2 = X): the server-template catalog is gone. Gold keeps the protocol
+    // identity the product already recognises (description 0, icon 5, "$4"); every other item is invented.
+    sealed record GroundTestItem(string Id,string NameToken,ushort GroundGfx,ushort InventoryIcon,ushort InventoryDesc,byte WireUseType){
+        public string CountName(uint count)=>count>1?NameToken+" ("+count+")":NameToken;
+        public GroundSprite? Sprite=>GroundCatalog.Find(GroundGfx)?.Sprite;
+    }
+    static readonly GroundTestItem gold=new("gold","$4",7,5,0,255);
+    static GroundTestItem Synthetic(ushort gfx)=>new("synthetic-gfx-"+gfx,"$9001",gfx,9002,9003,0);
+    static IEnumerable<GroundTestItem> PinnedItems=>GroundCatalog.Pinned.Select(p=>Synthetic(p.GroundGfx));
+    static void Ground(LoginConnection c,GroundTestItem row,uint count=250,uint id=900101,ushort? x=null){
         Feed(c,Packet(b=>{b.Write((byte)87);b.Write(x??c.World.Actor!.X);b.Write(c.World.Actor!.Y);b.Write(id);b.Write(row.GroundGfx);b.Write(new byte[4]);b.Write(count);b.Write((ushort)0);Text(b,row.CountName(count));Text(b,"");b.Write((byte)0);b.Write(0u);Text(b,"");Text(b,"");b.Write((byte)0);b.Write((byte)255);b.Write(new byte[3]);b.Write((byte)255);b.Write((byte)255);}));
     }
-    static void Item(LoginConnection c,GroundDefinition row,uint count=250,uint id=900101){
+    static void Item(LoginConnection c,GroundTestItem row,uint count=250,uint id=900101){
         Feed(c,Packet(b=>{b.Write((byte)15);b.Write(id);b.Write(row.InventoryDesc);b.Write(row.WireUseType);b.Write((byte)0);b.Write(row.InventoryIcon);b.Write((byte)1);b.Write(count);b.Write((byte)0);Text(b,row.CountName(count));b.Write((byte)0);b.Write(new byte[11]);}));
     }
-    static LoginConnection Seed(GroundDefinition row){
+    static LoginConnection Seed(GroundTestItem row){
         var c=new LoginConnection();Set(c,"State",LoginState.InWorld);Set(c.World,"Entered",true);Set(c.World,"MapId",(ushort)0);Set(c.World,"TimeReplies",1);Set(c.World,"CacheEnabled",false);
         Set(c.World,"Status",JsonSerializer.Deserialize<OwnStatus>("{\"ObjectId\":123,\"Hp\":100,\"MaxHp\":100}"));
         Set(c.World,"Actor",JsonSerializer.Deserialize<OwnActor>("{\"ObjectId\":123,\"X\":32600,\"Y\":32940,\"Name\":\"offline\"}"));
@@ -31,7 +40,7 @@ partial class Checks {
     }
     static void Sender(LoginConnection c,Func<byte[],Func<bool>,Action,Task<bool>> sender)=>Set(c,"sendMovementGate",sender);
     static Task<bool> Send(LoginConnection c,bool pickup,string count,GroundQuantitySelection? selection=null)=>c.SendGroundQuantity(pickup,count,selection??c.World.GroundQuantity(pickup));
-    static async Task RejectedDrop(GroundDefinition gold){
+    static async Task RejectedDrop(){
         // #49's unchanged static S15, plus a source-derived S71/125 response.
         // Neither is a live capture, and the sender never executes Java/network code.
         foreach(bool beforeCompletion in new[]{false,true}){
@@ -89,30 +98,32 @@ partial class Checks {
         using var guard=new SocketGuard();string repo=Path.GetFullPath(args[0]);string output=Path.GetFullPath(args[1]);
         byte[] raw=File.ReadAllBytes(Path.Combine(repo,"work/issue-51/fixtures-49.json"));Check(Convert.ToHexString(SHA256.HashData(raw)).Equals("2fd34c51c43b11becb5738508f1722918f9254ccb15f568a348f6b362061d9a4",StringComparison.OrdinalIgnoreCase),"#49 fixture SHA");
         using var doc=JsonDocument.Parse(raw);fixtures=doc.RootElement;
-        Check(GroundCatalog.Rows.Count==7&&GroundCatalog.Rows.Count(r=>r.Sprite!=null)==4,"catalog coverage");
-        foreach(var row in GroundCatalog.Rows){
-            Check(GroundCatalog.Find(row.GroundGfx)!=null,row.Id+" runtime appearance descriptor");
-            using var c=Seed(row);Check(c.World.Ground.Length==1,row.Id+" S87 classification");Check(GroundRules.Droppable(c.World.SelectedItem!)==(row.Sprite!=null),row.Id+" drop classification");
+        Check(GroundCatalog.Pinned.Count==4&&GroundCatalog.Pinned.All(r=>r.Sprite!=null),"pin coverage");
+        foreach(ushort gfx in new ushort[]{7,22,36,42,45,46,66,9001}){
+            Check(GroundCatalog.Find(gfx) is {} d&&d.GroundGfx==gfx&&(d.Sprite!=null)==GroundCatalog.Pinned.Any(p=>p.GroundGfx==gfx),gfx+" runtime appearance descriptor");
+            using var c=Seed(Synthetic(gfx));Check(c.World.Ground.Length==1,gfx+" S87 classification");Check(GroundRules.Droppable(c.World.SelectedItem!),gfx+" drop is not limited by a template whitelist");
         }
-        cases.Add("七筆皆可接收與拾取；本地丟棄白名單維持四筆");
-        var gold=GroundCatalog.Rows.Single(r=>r.Id=="gold");
-        await RejectedDrop(gold);
+        cases.Add("任何 gfx 皆可接收與拾取；丟棄不再受模板白名單限制（L2＝X），四筆 SPR pin 留在程式");
+        await RejectedDrop();
         await GenericGroundChecks(gold);
         foreach(string name in new[]{"gold","meat"}){
-            using var c=new LoginConnection();Feed(c,Fixture(name+"-s87"));Feed(c,Fixture(name+"-s15"));var row=GroundCatalog.Rows.Single(r=>r.Id==name);uint n=name=="gold"?250u:3u;
-            Check(c.World.Ground.Single().Count==n&&c.World.Ground.Single().Gfx==row.GroundGfx,"source S87 "+name);Check(GroundRules.Droppable(c.World.Inventory.Single()),"source S15 "+name);
+            using var c=new LoginConnection();Feed(c,Fixture(name+"-s87"));Feed(c,Fixture(name+"-s15"));uint n=name=="gold"?250u:3u;
+            Check(c.World.Ground.Single().Count==n,"source S87 "+name);Check(GroundRules.Droppable(c.World.Inventory.Single()),"source S15 "+name);
             var o=c.World.Ground.Single().Envelope;
             foreach(var bad in new[]{o with{Action=1},o with{Flags=4},o with{HpByte=100},o with{Title="npc"},o with{Owner="owner"},o with{ObjectId=0},o with{WireExp=2000000001}})Check(!GroundRules.IsGround(bad),"nonitem/mismatched envelope");
-            var i=c.World.Inventory.Single();foreach(var bad in new[]{i with{UseType=1},i with{Bless=129},i with{Flags=32},i with{Flags=128},i with{Charges=1},i with{IconId=999},i with{DescriptionId=999},i with{Name="same name"},i with{Count=0}})Check(!GroundRules.Droppable(bad),"inventory identity/policy");
+            var i=c.World.Inventory.Single();
+            foreach(var bad in new[]{i with{UseType=1},i with{UseType=2},i with{Bless=129},i with{Flags=32},i with{Flags=128},i with{Charges=1},i with{Count=0},i with{ObjectId=0}})Check(!GroundRules.Droppable(bad),"template-independent local policy");
+            // L2 = X: identity no longer matters locally; the server decides (S71/125 etc.).
+            foreach(var other in new[]{i with{IconId=999},i with{DescriptionId=999},i with{Name="same name"},i with{Bless=0},i with{Bless=2}})Check(GroundRules.Droppable(other),"no template whitelist");
         }
-        cases.Add("#49 金幣／肉 S87、S15 原 fixture 與同名／同 gfx 非物品欄位反例");
+        cases.Add("#49 金幣／肉 S87、S15 原 fixture；非物品欄位反例；本機只擋與模板無關的條件");
         foreach(var f in fixtures.GetProperty("packetFixtures").EnumerateArray().Where(f=>f.S("id").StartsWith("pickup-"))){
             using var c=Seed(gold);var wire=Convert.FromHexString(f.S("payloadHex"));uint id=BinaryPrimitives.ReadUInt32LittleEndian(wire.AsSpan(5)),count=BinaryPrimitives.ReadUInt32LittleEndian(wire.AsSpan(9));
             if(f.S("id")=="pickup-over-available"){Ground(c,gold,f.GetProperty("input").GetProperty("available").GetUInt32(),id);c.World.SelectGround(id);}else {c.World.SelectGround(null);Check(!c.World.SelectGround(id),"nonitem id cannot select");}
             int sends=0;Sender(c,(b,v,a)=>{sends++;return Task.FromResult(v());});Check(!await Send(c,true,count.ToString())&&sends==0,"#49 "+f.S("id"));
         }
         cases.Add("#49 非物品與超量拒絕 fixture");
-        foreach(var row in GroundCatalog.Rows.Where(r=>r.Sprite!=null))foreach(bool pickup in new[]{false,true})foreach(uint count in new uint[]{1,250}){
+        foreach(var row in PinnedItems)foreach(bool pickup in new[]{false,true})foreach(uint count in new uint[]{1,250}){
             using var c=Seed(row);int sends=0;byte[]? actual=null;Sender(c,(b,v,a)=>{if(!v())return Task.FromResult(false);actual=b;a();sends++;return Task.FromResult(true);});
             Check(await Send(c,pickup,count.ToString()),row.Id+" 1/N admitted");Check(actual!.SequenceEqual(GroundRules.Request(pickup?(byte)112:(byte)25,32600,32940,900101,count)),"wire exact");
             Check(actual![0]==(pickup?112:25)&&BinaryPrimitives.ReadUInt32LittleEndian(actual.AsSpan(9))==count&&actual.Length==16&&actual.AsSpan(13).ToArray().All(b=>b==0),"wire fields/padding");
@@ -120,7 +131,7 @@ partial class Checks {
             Feed(c,LoginPackets.Pad([158,..BitConverter.GetBytes(123u),15]));Check(c.World.SelectedItem!.Count==250&&c.World.SelectedGround!.Count==250,"S158 does not settle quantity");
             Ground(c,row,200);Item(c,row,300);Check(c.World.SelectedGround!.Count==200&&c.World.SelectedItem!.Count==300,"authoritative replacement");
         }
-        cases.Add("金幣／肉／箭／治癒藥水 C25/C112：1/N、padding、不預扣、權威更新、900ms");
+        cases.Add("四個 pin gfx 上的合成物品 C25/C112：1/N、padding、不預扣、權威更新、900ms");
         foreach(bool pickup in new[]{false,true})foreach(string text in new[]{"0","-1","1.0","1.5","2147483648","4294967296","999999999999999999999999999","251",""," ","+1","1e2"," 1","１"}){
             using var c=Seed(gold);int sends=0;Sender(c,(b,v,a)=>{sends++;return Task.FromResult(v());});Check(!await Send(c,pickup,text)&&sends==0,"strict quantity "+text);
         }
@@ -150,7 +161,7 @@ partial class Checks {
             int sends=0;Sender(c,(b,v,a)=>{if(!v())return Task.FromResult(false);a();sends++;return Task.FromResult(true);});Check(await Send(c,true,"1"),"timeout initial");await Task.Delay(3050);Check(c.World.PickupOutcomeTimedOut&&!await Send(c,true,"1")&&sends==1,"3000ms pending retained");
         }
         cases.Add("3000ms 未確認鎖定不重送");
-        foreach(var row in GroundCatalog.Rows.Where(r=>r.Sprite!=null)){
+        foreach(var row in GroundCatalog.Pinned){
             var frame=GroundSpriteReader.Read(row,args.Length>2?args[2]:null);Check(frame.Bounds.SequenceEqual(row.Sprite!.Bounds)&&frame.Blocks.Length>0,"actual SPR bounds/hash/RGBA "+row.Id);
             using var image=GroundSpriteReader.Image(frame);Check(image.Width==frame.Bounds[2]-frame.Bounds[0]+1&&image.Height==frame.Bounds[3]-frame.Bounds[1]+1,"web image bounds");
             var rgba=new List<byte>();for(int y=0;y<image.Height;y++)for(int x=0;x<image.Width;x++){var pixel=image.GetPixel(x,y);rgba.AddRange([pixel.R,pixel.G,pixel.B,pixel.A]);}
@@ -158,7 +169,7 @@ partial class Checks {
             var bounds=new System.Drawing.Rectangle(0,0,48,96);var colors=new ushort[bounds.Width*bounds.Height];var mask=new bool[colors.Length];var owners=new uint?[colors.Length];
             foreach(var block in frame.Blocks){var draw=new Draw(block.A,block.B,block.Z,block.Order,"actor",block.Order,-1,-1,block.Tile,900101);var area=bounds with{Y=716};Renderer.Blit(draw,area,colors,mask,null,owners);}
             Check(owners.Any(id=>id==900101)&&owners.Any(id=>id==null),"ground opaque pixels hit; transparent pixels do not hit");
-            if(args.Length>3&&row.Id is "meat" or "arrow"){
+            if(args.Length>3&&row.GroundGfx is 36 or 66){
                 var old=Json.Read(Path.Combine(args[3],"assets/ground/"+row.GroundGfx+".json"));var oldBlocks=old.GetProperty("blocks").EnumerateArray().ToArray();
                 Check(old.A("bounds").SequenceEqual(frame.Bounds)&&oldBlocks.Length==frame.Blocks.Length,"legacy frame bounds/block count");
                 for(int i=0;i<oldBlocks.Length;i++){
@@ -173,7 +184,7 @@ partial class Checks {
         cases.Add("四筆原客戶端 IDX／payload／RGBA pin、bounds、Web 原圖尺寸");
         if(args.Length>3){
             var assets=new Assets(Path.Combine(args[3],"assets"));using var renderer=new Renderer(assets);var objects=new ObjectAssets(assets.Root);
-            foreach(var row in GroundCatalog.Rows.Where(r=>r.Sprite!=null)){
+            foreach(var row in PinnedItems){
                 using var c=Seed(row);var draws=new List<Draw>();var visuals=new List<ObjectVisual>();
                 typeof(Renderer).GetMethod("ComposeGround",F)!.Invoke(renderer,[c.World,objects,draws,visuals]);
                 Check(visuals.Single().ObjectId==900101&&visuals.Single().Gfx==row.GroundGfx&&draws.All(d=>d.ObjectId==900101),"catalog reaches production rendering "+row.Id);
