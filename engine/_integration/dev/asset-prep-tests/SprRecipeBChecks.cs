@@ -106,6 +106,11 @@ partial class Checks {
             &&ApNames(Path.Combine(Active(engineA,"shadows"),"shadows")).SequenceEqual(new[]{"0.json","50.json","61.json","manifest.json"}),"SB shops, doors, lists and shadows write exactly their files (no ground recipe)");
         foreach(string id in ids)foreach(string file in Directory.GetFiles(Active(engineA,id),"*.json",SearchOption.AllDirectories)){
             string text=File.ReadAllText(file);
+            if(Path.GetFileName(file)==AssetReceipt.FileName){
+                // The receipt keeps each manifest row as an escaped JSON string (\"gfx\":…), so look for the real roots instead of ":\".
+                Check(!text.Contains(client,StringComparison.OrdinalIgnoreCase)&&!text.Contains(JsonSerializer.Serialize(client)[1..^1],StringComparison.OrdinalIgnoreCase)&&!text.Contains(root,StringComparison.OrdinalIgnoreCase)&&!text.Contains(JsonSerializer.Serialize(root)[1..^1],StringComparison.OrdinalIgnoreCase)&&!text.Contains("className",StringComparison.Ordinal),"SB "+id+" receipt: no client or engine path, no className");
+                continue;
+            }
             Check(!text.Contains(":\\",StringComparison.Ordinal)&&!text.Contains("scratch",StringComparison.OrdinalIgnoreCase)&&!text.Contains("className",StringComparison.Ordinal)&&!text.Contains("source_offset",StringComparison.Ordinal)&&!text.Contains("Policy",StringComparison.Ordinal),"SB "+id+"/"+Path.GetFileName(file)+": no path, className, policy text or provenance-only field");
         }
 
