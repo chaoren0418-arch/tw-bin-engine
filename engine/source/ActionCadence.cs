@@ -23,7 +23,7 @@ public sealed record ActionCadence(int Gfx,int Weapon,int Action,int ServerBaseM
     public int CastSpeedWaitMs(byte speed)=>(this with{Slow=speed==2,Haste=speed==1}).CastWaitMs;
     public bool Matches(int gfx,int weapon)=>Gfx==gfx&&Weapon==weapon;
     public static string Name(int action)=>action switch{1=>"attack",18=>"spellDir",19=>"spellNoDir",_=>throw new ArgumentOutOfRangeException(nameof(action))};
-    sealed record Metadata(int Native,int Legacy,int? Release,int HasteNative,int? HasteRelease);
+    sealed record Metadata(int Native,int Legacy,int? Release,int HasteNative,int? HasteRelease,int Server);
     static readonly Dictionary<(int Gfx,int Weapon,int Action),Metadata> metadata=[];
     static readonly object gate=new();
     public static ActionCadence Capture(int gfx,int weapon,int action,byte speed,byte brave,int reuse=0,int margin=0){
@@ -44,11 +44,14 @@ public sealed record ActionCadence(int Gfx,int Weapon,int Action,int ServerBaseM
                 }
                 int legacy=json.GetProperty("actionMs").GetProperty(name).GetInt32();
                 if(native<=0||legacy<=0)throw new InvalidDataException("Empty action timing");
-                data=new(native,legacy,release,hasteNative,hasteRelease);metadata.Add(key,data);
+                // T461：伺服器間隔照 R1 由同一段 list.spr 影格的 ticks 計算（不讀 manifest 的 serverActionMs）。
+                data=new(native,legacy,release,hasteNative,hasteRelease,ActionTiming.ServerMs(ActionTiming.Steps(json,name)));metadata.Add(key,data);
             }
         }
-        return new(gfx,weapon,action,profile.ServerActionMs[Name(action)],data.Native,data.Legacy,data.Release,reuse,margin,speed==2){Haste=speed==1,HasteAnimationMs=data.HasteNative,HasteReleaseMs=data.HasteRelease};
+        return new(gfx,weapon,action,data.Server,data.Native,data.Legacy,data.Release,reuse,margin,speed==2){Haste=speed==1,HasteAnimationMs=data.HasteNative,HasteReleaseMs=data.HasteRelease};
     }
+    /// <summary>R1：(gfx, 姿勢) 某動作（1、18、19）的伺服器間隔，速度不計；沒有 profile 時丟 InvalidDataException。</summary>
+    public static int ServerMs(int gfx,int weapon,int action)=>PlayerProfiles.Get(gfx,weapon) is {} profile?ActionTiming.ServerMs(profile,Name(action)):throw new InvalidDataException("unsupported player action cadence");
     public Frame Frame(ObjectAppearance appearance,int direction,double elapsed){
         string name=Name(Action);if(!Slow&&!Haste)return appearance.At(name,direction,elapsed);
         if(Haste&&!Slow){

@@ -143,12 +143,15 @@ partial class Checks
         AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY", Path.Combine(root, "build", "offline-checks") + Path.DirectorySeparatorChar);
         // Authored timing metadata only, no game pixels/maps or copied server source.
         var actions = new { walk = 640, attack = 640, spellDir = 1320, spellNoDir = 1480 };
+        // T461: the server interval is R1 = 40 × list.spr ticks of the same sequence (16 → 640, 33 → 1320, 37 → 1480);
+        // the manifest no longer carries serverActionMs/castReleaseMs/projectileReleaseMs. milliseconds stays the native frame length.
+        var ticks = new Dictionary<string, int> { ["attack"] = 16, ["spellDir"] = 33, ["spellNoDir"] = 37 };
         var profile = JsonSerializer.SerializeToUtf8Bytes(new
         {
             actionMs = actions,
             sequences = new[] { "attack", "spellDir", "spellNoDir" }.Select(action => new
             {
-                action, direction = 0, sequence = new[] { new { milliseconds = 640, events = "!" } }
+                action, direction = 0, sequence = new[] { new { ticks = ticks[action], milliseconds = 640, events = "!" } }
             })
         });
         File.WriteAllBytes(Path.Combine(assets, "players/test-only.json"), profile);
@@ -158,7 +161,7 @@ partial class Checks
             profiles = new[] { 0, 4, 20, 46, 50 }.Select(weapon => new
             {
                 gfx = 0, weapon, path = "players/test-only.json", sha256 = Convert.ToHexString(SHA256.HashData(profile)),
-                stepMs = 640, serverActionMs = actions, castReleaseMs = new { spellDir = 320 }, projectileReleaseMs = 320
+                stepMs = 640
             })
         });
         File.WriteAllBytes(Path.Combine(assets, "players/manifest.json"), manifest);
