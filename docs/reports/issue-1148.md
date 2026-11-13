@@ -16,6 +16,7 @@
 3. `Test-Notepad.ps1`：啟動記事本前記錄 `ForegroundBefore`；`ForegroundDiagnostic` 存 `Set-UiaForeground` 的診斷（失敗時從 `Get-UiaLastForegroundDiagnostic` 取）。ExpectedText（`uia-1138 測試輸入 OK`）、Document/15、TextPattern 讀回、ordinal 比對、「不要儲存」Invoke、PID 身分核對後才強制收尾都不變。
 4. README：新增「前景取得（#1148）」一節（步驟、刻意不做的事、仍可能失敗的情境），截圖段改寫為 PrintWindow 優先。
 5. （第 2 次嘗試，回應合併前閘門）根目錄 `.gitignore` 的 `work/*/*` 只放行 `.md`／`.json`，兩個 `.ps1` 原本是被 ignore 卻硬加進 git。新增 `work/f1118-uia-path/.gitignore`（內容 `!.gitignore`、`!*.ps1`），只對這個目錄第一層放行 `.ps1`；不改根目錄 `.gitignore`，其他 `work/` 子目錄不受影響。核對：`git check-ignore --no-index` 對 `UiaGdi.ps1`、`Test-Notepad.ps1`、`.gitignore` 都沒有輸出（exit 1，都不再被 ignore）；對照組 `work/other/x.ps1` 仍被 ignore（exit 0）。
+6. （第 3 次嘗試，回應合併前閘門）閘門只讀**根目錄** `.gitignore`（以 fnmatch 比對、`!` 規則會重新放行），看不到子目錄的 `.gitignore`，所以第 2 次的做法仍被判定為違規。改為：刪除 `work/f1118-uia-path/.gitignore`，在根目錄 `.gitignore` 的 `!work/*/*.json` 後面加一行 `!work/f1118-uia-path/*.ps1`（附註解）。這是任務範圍外唯一的改動，只對這個目錄第一層的 `.ps1` 放行。核對：`git check-ignore -v --no-index` 顯示兩個 `.ps1` 都命中 `.gitignore:17:!work/f1118-uia-path/*.ps1`（不被 ignore）；對照組 `work/other/x.ps1` 仍命中 `work/*/*`（被 ignore）；Python `fnmatch('work/f1118-uia-path/UiaGdi.ps1','work/f1118-uia-path/*.ps1')` 為 True（與閘門的比對方式相同）。另外把閘門的 `_ignored()` 原樣拿來，對新的根 `.gitignore` 跑一次（只讀）：PR 的 8 個新增檔都回傳 None（不被排除），對照組 `work/other/x.ps1` 回傳 `work/*`。根 `.gitignore` 原本行尾混用 CRLF／LF，已保持原位元組，只多兩行。
 
 ## 怎麼驗證（全部靜態）
 
@@ -41,7 +42,8 @@ SHA-256：`UiaGdi.ps1` `CBBFCC7367E511BC5681C4CA6001480B0B9386D08A1DC8C1B70B457E
 
 ## 產出路徑
 
-- `work/f1118-uia-path/UiaGdi.ps1`、`Test-Notepad.ps1`、`README.md`、`.gitignore`（放行本目錄 `.ps1`）
+- `work/f1118-uia-path/UiaGdi.ps1`、`Test-Notepad.ps1`、`README.md`
+- 根目錄 `.gitignore`：加一行 `!work/f1118-uia-path/*.ps1`
 - `docs/reports/issue-1126.md`、`issue-1126-evidence.json`、`issue-1138.md`（原樣帶入）
 - 本報告 `docs/reports/issue-1148.md`
 - 編譯檢查用 DLL 在 `scratch/issue-1148/`（不追蹤）
