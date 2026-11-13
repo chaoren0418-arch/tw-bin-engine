@@ -61,7 +61,10 @@
 - 本機編譯（只編譯，未執行）：
   - `dotnet build engine/source/OfflineClient.csproj -c Release -o build/client-product-dev`：建置成功，0 錯誤；警告只有既有的 4 個（`HtmlActionTests.cs`、`MagicUi.cs`、`MapResources.cs`），本張沒有新增。
   - `dotnet build engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release`：建置成功，0 錯誤。
-- 測試：交給 PR 的 CI（`map-continuity` 群組含新測試與 map-provider；`--module-tests` 含 asset-prep）。既有移動、施法選目標、approach-walk 測試本張沒有改，由同一輪 CI 一起跑。
+- 測試：交給 PR #1081 的 CI（commit `a49d750c`，run 43436169232／43436169195），**三個 job 全部 pass**（`dotnet`、`map-continuity`、`npc-offline`）：
+  - `map-continuity` 的 `scratch/issue-140/map-checks.json`：`status: pass`、33,638 checks；其中 `TR`（本張新測試）74 項、`MP`（map-provider，含本張修改）163 項全部通過。
+  - `--module-tests`：`asset-prep` 87 checks pass、0 failures（含本張加的 terrain 純函式檢查）。
+  - 既有移動、施法選目標、approach-walk 測試本張沒有改，在同一輪 CI 通過。
 - 未改 `engine/_integration/dev/rebuild-lock.json`、`docs/REPORT.md`、`Program.cs`、`DemoChecks.csproj`。
 
 ## 未驗證什麼
