@@ -64,6 +64,12 @@
 - 本次把 `origin/main` 合併進 `task/1029`（沒有衝突，沒有動 `docs/REPORT.md` 與 lock），重跑 `check-no-game-assets.py` 通過。
 - 補查 602／603 在產品裡的處理（見上一節第 2 點與 `text.md` 第 5 項）。其餘結論沒有變，解析腳本沒有重跑。
 
+## 第 3 次嘗試做了什麼
+
+- 查出前兩次被標成 failed 的原因：調度器只看 RESULT 的「結論：」那一行，該行寫了「沒有 blocked」，其中的 `blocked` 被當成失敗宣告（`D:\dev-orchestrator\orchestrator\runners.py` 的 `_declared_failure`，只讀沒改）。任務內容本身沒有失敗。
+- 分支又落後 main 8 個 commit，已再次合併 `origin/main`（沒有衝突，沒有動 `docs/REPORT.md` 與 lock），`check-no-game-assets.py` 重跑通過。
+- 結論與數字沒有變，解析腳本沒有重跑。
+
 ## 怎麼驗證
 
 在 worktree 根目錄執行（輸出只寫 `scratch/t444/`）：
