@@ -1,0 +1,439 @@
+{
+  "issue": 1126,
+  "sourceHead": "13c66c895c48aef5504b40c3eff14d5c882b5197",
+  "results": {
+    "G01": "skip",
+    "G02": "skip",
+    "G03": "skip",
+    "G04": "skip",
+    "G05": "skip",
+    "G06": "skip",
+    "G07": "skip",
+    "F01": "skip",
+    "P01": "skip",
+    "S02": "fail",
+    "S02-GDI": "pass",
+    "D01": "pass",
+    "C01": "pass"
+  },
+  "counts": {
+    "pass": 3,
+    "fail": 1,
+    "skip": 9
+  },
+  "probe": {
+    "Window": {
+      "Title": "未命名 - 記事本",
+      "ProcessId": 4468,
+      "Handle": 16910534,
+      "Rectangle": "1782,112,1812,1600",
+      "Minimized": false,
+      "Dpi": 192,
+      "ProcessDpiSet": true,
+      "ProcessDpiError": 203
+    },
+    "DocumentPatterns": [
+      "ScrollPatternIdentifiers.Pattern",
+      "TextPatternIdentifiers.Pattern"
+    ],
+    "ValuePatternPassed": false,
+    "ValuePatternError": "System.Management.Automation.MethodInvocationException: Exception calling \"GetCurrentPattern\" with \"1\" argument(s): \"Unsupported Pattern.\" ---> System.InvalidOperationException: Unsupported Pattern.\r\n   at System.Windows.Automation.AutomationElement.GetCurrentPattern(AutomationPattern pattern)\r\n   at CallSite.Target(Closure , CallSite , Object , AutomationPattern )\r\n   --- End of inner exception stack trace ---\r\n   at System.Management.Automation.ExceptionHandlingOps.CheckActionPreference(FunctionContext funcContext, Exception exception)\r\n   at System.Management.Automation.Interpreter.ActionCallInstruction`2.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)",
+    "Screenshot": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1126\\scratch\\issue-1126\\notepad.png",
+      "Width": 1812,
+      "Height": 1600,
+      "SampleStride": 4,
+      "Samples": 181200,
+      "Mean": 247.5071596762336,
+      "NonzeroRatio": 0.9907836644591611,
+      "NonwhiteRatio": 0.10749448123620309,
+      "Nonblank": true,
+      "Sha256": "A7C63C14498910B8803CB3321E92871450CFFA6CEEF698EE08F171783463AB48",
+      "Window": {
+        "Title": "未命名 - 記事本",
+        "ProcessId": 4468,
+        "Handle": 16910534,
+        "Rectangle": "1782,112,1812,1600",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 203
+      }
+    },
+    "Diagnostics": {
+      "WgcAttempts": 1,
+      "ExecutorSession": 6,
+      "NotepadSession": 6,
+      "WgcError": "Error: FrameArrived timed out: timed out waiting on channel",
+      "DesktopProcesses": [
+        {
+          "Id": 14948,
+          "SessionId": 6
+        }
+      ],
+      "Lease": [
+        {
+          "name": "p24lab",
+          "holder": "chaoren0418-arch/tw-bin-engine#1126",
+          "since": 1794604315.4286966,
+          "exp": 1794609715.4286966
+        }
+      ],
+      "Video": [
+        {
+          "Name": "NVIDIA GeForce GTX 1080",
+          "DriverVersion": "32.0.15.6094"
+        }
+      ],
+      "Time": "2026-11-14T05:14:30.8768582+08:00",
+      "QuerySession": " SESSIONNAME       USERNAME                 ID  STATE   TYPE        DEVICE \r\n services                                    0  Disc                        \r\n>console           CHAOREN                   6  Active                      \r\n",
+      "ExecutorPid": 18568,
+      "Monitors": [
+        {
+          "Device": "\\\\.\\DISPLAY1",
+          "Primary": true,
+          "Bounds": "{X=0,Y=0,Width=3840,Height=2160}",
+          "DpiX": 192,
+          "DpiY": 192,
+          "HResult": 0
+        }
+      ]
+    }
+  },
+  "notepadTree": [
+    {
+      "Name": "未命名 - 記事本",
+      "Type": "ControlType.Window",
+      "Id": "",
+      "Class": "Notepad",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "1782,112,1812,1600",
+      "Patterns": [
+        "WindowPatternIdentifiers.Pattern",
+        "TransformPatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "文字編輯器",
+      "Type": "ControlType.Document",
+      "Id": "15",
+      "Class": "Edit",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "1795,209,1786,1450",
+      "Patterns": [
+        "ScrollPatternIdentifiers.Pattern",
+        "TextPatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "Horizontal Scroll Bar",
+      "Type": "ControlType.ScrollBar",
+      "Id": "Horizontal ScrollBar",
+      "Class": "",
+      "Enabled": false,
+      "Offscreen": false,
+      "Rectangle": "1795,1625,1752,34",
+      "Patterns": []
+    },
+    {
+      "Name": "Back by small amount",
+      "Type": "ControlType.Button",
+      "Id": "SmallDecrement",
+      "Class": "",
+      "Enabled": false,
+      "Offscreen": false,
+      "Rectangle": "1795,1625,17,34",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "Forward by small amount",
+      "Type": "ControlType.Button",
+      "Id": "SmallIncrement",
+      "Class": "",
+      "Enabled": false,
+      "Offscreen": false,
+      "Rectangle": "3530,1625,17,34",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "Vertical Scroll Bar",
+      "Type": "ControlType.ScrollBar",
+      "Id": "Vertical ScrollBar",
+      "Class": "",
+      "Enabled": false,
+      "Offscreen": false,
+      "Rectangle": "3547,209,34,1416",
+      "Patterns": []
+    },
+    {
+      "Name": "Back by small amount",
+      "Type": "ControlType.Button",
+      "Id": "SmallDecrement",
+      "Class": "",
+      "Enabled": false,
+      "Offscreen": false,
+      "Rectangle": "3547,209,34,17",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "Forward by small amount",
+      "Type": "ControlType.Button",
+      "Id": "SmallIncrement",
+      "Class": "",
+      "Enabled": false,
+      "Offscreen": false,
+      "Rectangle": "3547,1608,34,17",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "狀態列",
+      "Type": "ControlType.StatusBar",
+      "Id": "StatusBar",
+      "Class": "msctls_statusbar32",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "1795,1659,1786,40",
+      "Patterns": [
+        "GridPatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "",
+      "Type": "ControlType.Edit",
+      "Id": "StatusBar.Pane0",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "1795,1661,926,38",
+      "Patterns": [
+        "ValuePatternIdentifiers.Pattern",
+        "GridItemPatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "  第 1 列，第 1 行",
+      "Type": "ControlType.Edit",
+      "Id": "StatusBar.Pane1",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "2723,1661,278,38",
+      "Patterns": [
+        "ValuePatternIdentifiers.Pattern",
+        "GridItemPatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": " 100%",
+      "Type": "ControlType.Edit",
+      "Id": "StatusBar.Pane2",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "3003,1661,98,38",
+      "Patterns": [
+        "ValuePatternIdentifiers.Pattern",
+        "GridItemPatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": " Windows (CRLF)",
+      "Type": "ControlType.Edit",
+      "Id": "StatusBar.Pane3",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "3103,1661,238,38",
+      "Patterns": [
+        "ValuePatternIdentifiers.Pattern",
+        "GridItemPatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": " UTF-8",
+      "Type": "ControlType.Edit",
+      "Id": "StatusBar.Pane4",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "3343,1661,206,38",
+      "Patterns": [
+        "ValuePatternIdentifiers.Pattern",
+        "GridItemPatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "",
+      "Type": "ControlType.Custom",
+      "Id": "StatusBar.Grip",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "3549,1667,32,32",
+      "Patterns": []
+    },
+    {
+      "Name": "未命名 - 記事本",
+      "Type": "ControlType.TitleBar",
+      "Id": "TitleBar",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "1795,125,1786,45",
+      "Patterns": []
+    },
+    {
+      "Name": "System Menu Bar",
+      "Type": "ControlType.MenuBar",
+      "Id": "SystemMenuBar",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "1795,125,44,44",
+      "Patterns": []
+    },
+    {
+      "Name": "System",
+      "Type": "ControlType.MenuItem",
+      "Id": "Item 1",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "1795,125,44,44",
+      "Patterns": [
+        "ExpandCollapsePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "Minimize",
+      "Type": "ControlType.Button",
+      "Id": "Minimize",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "3302,113,94,57",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "Maximize",
+      "Type": "ControlType.Button",
+      "Id": "Maximize",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "3396,113,92,57",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "Close",
+      "Type": "ControlType.Button",
+      "Id": "Close",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "3488,113,94,57",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "Application",
+      "Type": "ControlType.MenuBar",
+      "Id": "MenuBar",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "1795,170,1786,38",
+      "Patterns": []
+    },
+    {
+      "Name": "檔案(F)",
+      "Type": "ControlType.MenuItem",
+      "Id": "Item 1",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "1795,170,91,38",
+      "Patterns": [
+        "ExpandCollapsePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "編輯(E)",
+      "Type": "ControlType.MenuItem",
+      "Id": "Item 2",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "1886,170,91,38",
+      "Patterns": [
+        "ExpandCollapsePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "格式(O)",
+      "Type": "ControlType.MenuItem",
+      "Id": "Item 3",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "1977,170,98,38",
+      "Patterns": [
+        "ExpandCollapsePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "檢視(V)",
+      "Type": "ControlType.MenuItem",
+      "Id": "Item 4",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "2075,170,94,38",
+      "Patterns": [
+        "ExpandCollapsePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "說明",
+      "Type": "ControlType.MenuItem",
+      "Id": "Item 5",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "2169,170,62,38",
+      "Patterns": [
+        "ExpandCollapsePatternIdentifiers.Pattern"
+      ]
+    }
+  ],
+  "cleanup": {
+    "Closed": true,
+    "NotepadPid": 4468,
+    "StartedJava": false,
+    "Listeners": [],
+    "StartedClient": false,
+    "StartedMySql": false
+  },
+  "sourceSha256": {
+    "work/f1118-uia-path/UiaGdi.ps1": "cd4745cbb41249c0ac8f3906803c25a5c0985f17622c9fe8e6aa352255af860c",
+    "work/f1118-uia-path/Test-Notepad.ps1": "6907de8bc17b2b7f80a2db8b410b9090a865f204d2586452bdc91a66de168f60",
+    "engine/source/CharacterManagementUi.cs": "c35649a33928457e8211cea05cf3755ea8ecaf501052b562ecb0bea3631712c9",
+    "engine/source/Program.cs": "eed7b7dfce9884fc76e0071ca2d4291e62b1f4e6215e9a6b6e75a1dd32367d33",
+    "C:/Windows/System32/notepad.exe": "da5807bb0997cc6b5132950ec87eda2b33b1ac4533cf1f7a22a6f3b576ed7c5b"
+  }
+}
