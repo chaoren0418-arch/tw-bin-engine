@@ -158,7 +158,7 @@ public sealed class AssetPrepOrchestrator {
                 Space(request.SpaceReserveBytes);Progress();Log("partial");
                 var result=runner.Stage(new(client,layout.EngineRoot,recipe.Id,requests[recipe.Id]){
                     Pins=request.Pins,Cancel=request.Cancel,
-                    BeforeItem=()=>Space(checked(request.SpaceReserveBytes+(long)((decimal)request.EstimatedOutputBytes*2*(total-completed)/Math.Max(1,total)))),
+                    BeforeItem=()=>{Space(checked(request.SpaceReserveBytes+(long)((decimal)request.EstimatedOutputBytes*2*(total-completed)/Math.Max(1,total))));Progress();},
                     ItemProgress=(_,wasReused)=>{completed++;if(wasReused)reused++;else produced++;Progress();Log("partial");}
                 });
                 if(!result.Receipt.IsFinal()||!result.Receipt.Completed.Select(c=>c.Item).SequenceEqual(requests[recipe.Id]))

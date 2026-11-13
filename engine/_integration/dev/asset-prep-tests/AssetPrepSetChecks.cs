@@ -78,6 +78,7 @@ partial class Checks {
         Check(ApTreeHash(Active(a))==ApTreeHash(Active(b))&&Sha(first.Receipt.ToJson())==Sha(second.Receipt.ToJson()),"SET two distinct client/output directories: all outputs, receipts and integrity byte-identical");
         Check(first.Receipt.KnownLimits.Single(l=>l.Id=="L3").Items.SequenceEqual(["0"])&&first.Receipt.KnownLimits.Single(l=>l.Id=="L6").Count==1&&first.Receipt.KnownLimits.Single(l=>l.Id=="L7").Count==4&&first.Receipt.KnownLimits.Single(l=>l.Id=="D3").Items.SequenceEqual(["12004"]),"SET actual known-limit counts do not block ready");
         Check(progress.Where(p=>p.Phase=="prepare").Select(p=>p.Recipe).Distinct().SequenceEqual(AssetPrepOrchestrator.RecipeOrder)&&progress.Zip(progress.Skip(1)).All(p=>p.First.Completed<=p.Second.Completed)&&progress[^1].Completed==progress[^1].Total&&progress.Any(p=>p.EstimatedRequiredBytes>0),"SET category, monotonic completed count and space progress");
+        Check(progress.Any(p=>p.Phase=="prepare"&&p.Completed==0&&p.EstimatedRequiredBytes>=Request(a).EstimatedOutputBytes),"SET full space estimate is reported before decoding the first item");
         foreach(string path in Directory.GetFiles(Active(a),"*.json",SearchOption.AllDirectories)){
             string text=File.ReadAllText(path);
             Check(!text.Contains(root,StringComparison.Ordinal)&&!text.Contains(JsonSerializer.Serialize(root)[1..^1],StringComparison.Ordinal),"SET no machine path: "+Path.GetRelativePath(Active(a),path));
