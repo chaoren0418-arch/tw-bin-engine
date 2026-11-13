@@ -50,3 +50,8 @@
 - 重測：`engine\啟動新版客戶端.cmd --evidence <scratch 內目錄>`，`native-ui.log` 應為 `verifying → active`，不再有 `SPELL_WINDOW: 魔法清單沒有空間`。開魔法窗（選單 3／Ctrl+S）確認文字列在等級條右側、不蓋住等級條；點等級條上下不同位置應切換等級頁。
 - 若仍退回 classic，看 `native-ui.log` 第一個例外的面板名：現在錯誤訊息會帶等級條與清單矩形。
 - 「原客戶端 UI 資源與鎖定版本不符」對所有版面例外一律顯示，會誤導；建議另開小任務讓 `UiClientBridge` 區分「資源 pin 不符」與「版面例外」。
+
+## CI 結果
+
+- PR #1096：dotnet、map-continuity、npc-offline 全部通過；windows-latest `--module-tests` 中 `native-spell-window`（`SpellWindowPanel.Checks`）pass、32 項檢查、0 失敗（run 43455217780）。
+
