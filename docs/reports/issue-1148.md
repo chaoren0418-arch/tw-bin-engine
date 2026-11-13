@@ -15,6 +15,7 @@
    - `Send-UiaF12` 吞掉 `Set-UiaForeground` 新的回傳值，避免汙染輸出。`Send-UiaText` 的 PID／鍵盤焦點保護未動。
 3. `Test-Notepad.ps1`：啟動記事本前記錄 `ForegroundBefore`；`ForegroundDiagnostic` 存 `Set-UiaForeground` 的診斷（失敗時從 `Get-UiaLastForegroundDiagnostic` 取）。ExpectedText（`uia-1138 測試輸入 OK`）、Document/15、TextPattern 讀回、ordinal 比對、「不要儲存」Invoke、PID 身分核對後才強制收尾都不變。
 4. README：新增「前景取得（#1148）」一節（步驟、刻意不做的事、仍可能失敗的情境），截圖段改寫為 PrintWindow 優先。
+5. （第 2 次嘗試，回應合併前閘門）根目錄 `.gitignore` 的 `work/*/*` 只放行 `.md`／`.json`，兩個 `.ps1` 原本是被 ignore 卻硬加進 git。新增 `work/f1118-uia-path/.gitignore`（內容 `!.gitignore`、`!*.ps1`），只對這個目錄第一層放行 `.ps1`；不改根目錄 `.gitignore`，其他 `work/` 子目錄不受影響。核對：`git check-ignore --no-index` 對 `UiaGdi.ps1`、`Test-Notepad.ps1`、`.gitignore` 都沒有輸出（exit 1，都不再被 ignore）；對照組 `work/other/x.ps1` 仍被 ignore（exit 0）。
 
 ## 怎麼驗證（全部靜態）
 
@@ -40,7 +41,7 @@ SHA-256：`UiaGdi.ps1` `CBBFCC7367E511BC5681C4CA6001480B0B9386D08A1DC8C1B70B457E
 
 ## 產出路徑
 
-- `work/f1118-uia-path/UiaGdi.ps1`、`Test-Notepad.ps1`、`README.md`
+- `work/f1118-uia-path/UiaGdi.ps1`、`Test-Notepad.ps1`、`README.md`、`.gitignore`（放行本目錄 `.ps1`）
 - `docs/reports/issue-1126.md`、`issue-1126-evidence.json`、`issue-1138.md`（原樣帶入）
 - 本報告 `docs/reports/issue-1148.md`
 - 編譯檢查用 DLL 在 `scratch/issue-1148/`（不追蹤）
