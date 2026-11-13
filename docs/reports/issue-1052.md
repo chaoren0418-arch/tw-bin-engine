@@ -18,7 +18,10 @@
 - 所有本機 dotnet 呼叫均把 CLI home、NuGet cache、暫存放在本 worktree，且設定 `DOTNET_ADD_GLOBAL_TOOLS_TO_PATH=false`。僅編譯，沒有執行編譯產物。
 - 已同步當時的 `origin/main`；沒有修改 `docs/REPORT.md`、`rebuild-lock.json`、Program.cs、DemoChecks.csproj 或註冊表。
 
-CI 驗證項目（最終結果待最新 commit 完成）：
+CI 已驗證：
+
+- [PR #1105](https://github.com/chaoren0418-arch/tw-bin-engine/pull/1105) 的 `dotnet`、`map-continuity`、`npc-offline` 全部通過。完整程式回歸證據：[build run 43464543939](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/43464543939)、[NPC run 43464543696](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/43464543696)；交付時再核對 PR 最新 commit 的 checks。
+- `native-ui-resources`（含本任務）：`PASS 1729 DEMO checks`；`map-continuity` 合成地圖群組：`PASS 33638 DEMO checks`。這些是整個既有群組的總數，不是本任務單獨的測試數。
 
 - 新增 `[CheckGroup("asset-prep-set")]`，亦掛入既有 CI 的 `native-ui-resources` 群組，不修改 workflow。
 - 合成兩份獨立客戶端，跑實際全部 13 個 recipe；比較整棵樹、收據與 integrity；用既有 Assets／PlayerProfiles／PlayerShadows／ObjectAssets／MapEffects／OriginalMapStore／Portals 讀取。
@@ -45,7 +48,7 @@ CI 驗證項目（最終結果待最新 commit 完成）：
 | 檔案 | SHA-256 |
 |---|---|
 | `AssetPrepOrchestrator.cs` | `6a55a4edb63c0b3110df8da8246411116ba366fa9cfca88e52eefab984565fc1` |
-| `AssetPrepSetReceipt.cs` | `af881f955baf2722f58c320c19ef3e7c4dd2e0c12a67414c55647c6ec9f82cb5` |
+| `AssetPrepSetReceipt.cs` | `0d9893079b7abb8482e5c01a95eb442901e11867cbe4b8086294cf69f8cd9dbf` |
 | `AssetPrepCore.cs` | `86160283f521f73966f92115e2d14c615ac4459a43f631b51524d7e5e9e37d67` |
 | `AssetPrepInput.cs` | `4965c110e15b371ba1b956dbfb3f55f1650853697d1efc2bc94424be3528d59e` |
 | `AssetPrepRunner.cs` | `9246b6a2b9365ef8b1f0bb396f3a9995195d03a539d06606794c4a0241c4cfc6` |

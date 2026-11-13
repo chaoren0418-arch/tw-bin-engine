@@ -22,7 +22,7 @@ public sealed record AssetSetReceipt(string Schema,string ToolVersion,string Sta
         new("inventory","ItemIconSource / WebIconGenerator","容器結構檢查、解碼驗證；不驗整包 SHA"),
         new("motion","MotionRules","產品規則，不驗外部檔案"),
         new("cache 混色表","Renderer","整數算式，不驗外部檔案"),
-        new("sound; audio-manifest","ClientSoundProvider / AudioAssets","WAV 程式 pin；MP3 解碼驗證"),
+        new("sound; audio-manifest","ProductSound / AudioAssets","Sound 解碼檢查；6016 WAV 程式 pin，MP3 不可用時記錄並退回 WAV"),
         new("EXP","OriginalExpTable","內建已知例外 L1"),
         new("ground-catalog","GroundCatalog","本機條件與伺服器裁定，不驗外部檔案")
     ];
