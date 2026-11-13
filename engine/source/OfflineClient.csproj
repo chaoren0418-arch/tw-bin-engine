@@ -16,6 +16,4 @@
   <ItemGroup><PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4258.31" /></ItemGroup>
   <Target Name="RemoveUnusedWpfReference" BeforeTargets="ResolveAssemblyReferences"><ItemGroup><Reference Remove="@(Reference)" Condition="$([System.String]::Copy('%(Reference.Identity)').Contains('Microsoft.Web.WebView2.Wpf'))" /></ItemGroup></Target>
   <ItemGroup><ProjectReference Include="../audio/P24.Audio.csproj" /></ItemGroup>
-  <ItemGroup><EmbeddedResource Include="Resources/pickup-own-base15-gfx0-weapon0.json" LogicalName="P06.Resources.PickupOwnBase15Gfx0Weapon0.json" /></ItemGroup>
-  <ItemGroup><EmbeddedResource Include="Resources/pickup-own-base15-profile-extension.json" LogicalName="P06.Resources.PickupOwnBase15ProfileExtension.json" /></ItemGroup>
 </Project>

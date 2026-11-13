@@ -4,7 +4,8 @@ using System.Text.Json;
 
 if(args.Length!=1){Console.Error.WriteLine("Usage: ResourceChecks <product-build-directory>");return 2;}
 var approved=new Dictionary<string,HashSet<string>> {
- ["P11.ClientEngine.dll"]=["P06.Resources.PickupOwnBase15Gfx0Weapon0.json","P06.Resources.PickupOwnBase15ProfileExtension.json"],
+ // T463 (#1048) and T464 (#1049): pickup JSON moved to the preparer, ground catalog removed; the product embeds no resources.
+ ["P11.ClientEngine.dll"]=[],
  ["P24.Audio.dll"]=["P24.Audio.CombatSfxPins.json"]
 };
 int count=0;

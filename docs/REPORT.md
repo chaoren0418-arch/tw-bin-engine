@@ -443,3 +443,4 @@
 - 2026-11-13 — #1072 b15-limits-ruling: T476 主控裁定：B15 已知限制 L1–L7 與決定 D1–D8（needs:claude）（plan，claude-local，PR #1082 已合併）→ [報告](reports/issue-1072.md)
 - 2026-11-13 — #1044 b15-prep-motion-blend: T459 產品規則：motion 與混色查表改為程式計算（code，claude-local，PR 已合併）→ [報告](reports/issue-1044.md)
 - 2026-11-13 — #1043 b15-prep-terrain: T458 準備器：terrain 與 bounds（從客戶端 S32／SEG）（code，claude-local，PR 已合併）→ [報告](reports/issue-1043.md)
+- 2026-11-13 — #1046 b15-deserver-timing: T461 去伺服器依賴：動作時序與職業 gfx 集合（code，claude-local，PR 已合併）→ [報告](reports/issue-1046.md)

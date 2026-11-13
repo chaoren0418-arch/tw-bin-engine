@@ -10,9 +10,9 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[2]
 POLICY = Path(__file__).with_name('game-assets-allowlist.json')
+# T463 (#1048): the two pickup JSON resources are no longer embedded; the preparer's "pickup" recipe writes them below assets/pickup.
+# T464 (#1049): ground-catalog.json removed (L2 = X); its four SPR pins live in GroundCatalog.Pinned.
 RESOURCES = {
-    ('engine/source/OfflineClient.csproj', 'Resources/pickup-own-base15-gfx0-weapon0.json', 'P06.Resources.PickupOwnBase15Gfx0Weapon0.json'),
-    ('engine/source/OfflineClient.csproj', 'Resources/pickup-own-base15-profile-extension.json', 'P06.Resources.PickupOwnBase15ProfileExtension.json'),
     ('engine/audio/P24.Audio.csproj', 'Resources/combat-sfx-pins.json', 'P24.Audio.CombatSfxPins.json'),
 }
 
@@ -96,7 +96,6 @@ def main():
             errors.append(f'{path}: {type(ex).__name__}: {ex}')
     for path in set(policy['b15Exceptions']) | set(policy['binaryExceptions']):
         if path not in paths: errors.append(f'{path}: pinned exception missing from tracked inventory')
-    if resources != RESOURCES: errors.append('EmbeddedResource inventory differs from the approved declarations')
     if args.probe:
         probe = args.probe.resolve()
         if not probe.is_relative_to(ROOT / 'scratch'): errors.append('probe must be inside repo scratch/')
