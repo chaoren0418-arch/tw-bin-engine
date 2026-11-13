@@ -1,14 +1,16 @@
-"""Read one CLR ManifestResource directly from PE bytes; never load/execute the DLL.
+"""Read CLR ManifestResources directly from PE bytes; never load/execute the DLL.
 
 Portable inspection uses metadata tables row sizes through ManifestResource (40).
+`manifest_resources(data)` lists every embedded resource (T472 portable zip review);
+`verify_resource(path)` keeps the original single-resource pin check.
 """
 import hashlib,struct
 RESOURCE_SHA='43b88cec329929484610aceae84566d1a922eb4b8ceba93e17dc44b65922ca90'
 LOGICAL='P06.Resources.PickupOwnBase15Gfx0Weapon0.json'
 def require(ok,message):
  if not ok:raise ValueError(message)
-def verify_resource(path):
- data=path.read_bytes()
+def manifest_resources(data):
+ """Return None for a native PE (no CLI header), else [dict(logicalName, embedded, payload)]."""
  def u16(p):return struct.unpack_from('<H',data,p)[0]
  def u32(p):return struct.unpack_from('<I',data,p)[0]
  require(data[:2]==b'MZ','not PE');pe=u32(60);require(data[pe:pe+4]==b'PE\0\0','PE signature')
@@ -19,7 +21,10 @@ def verify_resource(path):
    p=sections+40*i;va=u32(p+12);raw=u32(p+16)
    if va<=address<va+raw:return u32(p+20)+address-va
   raise ValueError('RVA outside raw section')
- dd=opt+(96 if magic==0x10b else 112);cli=rva(u32(dd+14*8));metadata=rva(u32(cli+8));resources=rva(u32(cli+24));resource_size=u32(cli+28)
+ dd=opt+(96 if magic==0x10b else 112);count=u32(dd-4)
+ if count<15 or u32(dd+14*8)==0:return None
+ cli=rva(u32(dd+14*8));metadata=rva(u32(cli+8));resource_size=u32(cli+28)
+ resources=rva(u32(cli+24)) if resource_size else 0
  require(data[metadata:metadata+4]==b'BSJB','metadata signature');p=(metadata+16+u32(metadata+12)+3)&~3;streams=u16(p+2);p+=4;headers={}
  for _ in range(streams):
   offset=u32(p);size=u32(p+4);end=data.index(0,p+8);name=data[p+8:end].decode('ascii');headers[name]=(metadata+offset,size);p=(end+4)&~3
@@ -35,8 +40,16 @@ def verify_resource(path):
  strings=headers['#Strings'][0];found=[]
  for i in range(rows.get(40,0)):
   q=p+i*sizes[40];nameindex=int.from_bytes(data[q+8:q+8+s],'little');start=strings+nameindex;name=data[start:data.index(0,start)].decode('utf-8')
-  if name!=LOGICAL:continue
-  require(int.from_bytes(data[q+8+s:q+8+s+impl],'little')==0,'resource must be embedded, not linked')
-  offset=u32(q);require(offset+4<=resource_size,'resource offset');length=u32(resources+offset);require(offset+4+length<=resource_size,'resource length')
-  payload=data[resources+offset+4:resources+offset+4+length];digest=hashlib.sha256(payload).hexdigest();require(length==239766 and digest==RESOURCE_SHA,'compiled resource size/hash mismatch');found.append(dict(logicalName=name,size=length,sha256=digest))
+  embedded=int.from_bytes(data[q+8+s:q+8+s+impl],'little')==0;payload=None
+  if embedded:
+   offset=u32(q);require(offset+4<=resource_size,'resource offset');length=u32(resources+offset);require(offset+4+length<=resource_size,'resource length')
+   payload=data[resources+offset+4:resources+offset+4+length]
+  found.append(dict(logicalName=name,embedded=embedded,payload=payload))
+ return found
+def verify_resource(path):
+ found=[]
+ for row in manifest_resources(path.read_bytes()) or []:
+  if row['logicalName']!=LOGICAL:continue
+  require(row['embedded'],'resource must be embedded, not linked')
+  payload=row['payload'];digest=hashlib.sha256(payload).hexdigest();require(len(payload)==239766 and digest==RESOURCE_SHA,'compiled resource size/hash mismatch');found.append(dict(logicalName=row['logicalName'],size=len(payload),sha256=digest))
  require(len(found)==1,'exact resource absent/duplicated in compiled DLL');return found[0]
