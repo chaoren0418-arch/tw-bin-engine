@@ -24,12 +24,23 @@ public static class MagicRules {
     // Verified skill 4 template, ranged=10. Other supported skills keep their targeting rules.
     public static bool InRange(int skill,int x,int y,int targetX,int targetY)=>skill!=4||CombatRules.TileDistance(x,y,targetX,targetY)<=10;
     public static LearnedMagic Describe(int id)=>MagicSpells.Get(id) is { } s?new(id,s.Name,true,SkillCast.Wire(id) switch{"HH"=>"指定座標","HD"=>"傳送書籤","S"=>"指定名字",_=>s.Target=="none"?"自己":s.Target=="attack"?"指定對象":"自己／指定對象"},s.Mp):new(id,$"原服技能 {id}",false,"超出伺服器技能範圍",0);
-    // Original spr_action gfx0 rows18/19, SprTable: framecount*40*24/framerate.
-    static readonly Lazy<int> release=new(()=>Json.Read(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../assets/objects/0.json"))).GetProperty("castReleaseMs").GetProperty("spellDir").GetInt32());
+    // T461：施法放出點照 R2（gfx 0 spellDir 第一個 '!' 之前的 floor(ticks×1000/24) 總和），由 objects/0.json 的 list.spr ticks
+    // 計算，不讀它的 castReleaseMs 欄位。基線兩者相同（916）。
+    static readonly Lazy<int> release=new(()=>ActionTiming.ReleaseMs(ActionTiming.StepsOfObject("objects/0.json","spellDir"))??throw new InvalidDataException("gfx 0 spellDir has no release marker"));
     public static int ReleaseMs=>release.Value;
-    public static int CastMs(int id)=>Math.Max(MagicSpells.Get(id)?.ReuseMs??0,MagicSpells.Get(id)?.Action==19?1480:1320);
-    public static int CastMsFor(int id,int gfx,int weapon)=>Math.Max(MagicSpells.Get(id)?.ReuseMs??0,PlayerProfiles.Get(gfx,weapon)?.ServerActionMs[MagicSpells.Get(id)?.Action==19?"spellNoDir":"spellDir"]??throw new InvalidDataException("Unsupported player casting cadence"));
-    public static int ReleaseFor(int gfx)=>PlayerProfiles.ForGfx(gfx)?.CastReleaseMs["spellDir"]??ReleaseMs;
+    /// <summary>gfx 0 空手的施法冷卻下限（舊介面，只剩測試用）：等於 <see cref="CastMsFor"/>(id, 0, 0)，不再寫死 1320／1480。</summary>
+    public static int CastMs(int id)=>CastMsFor(id,0,0);
+    /// <summary>技能 reuse 與 R1 伺服器施法間隔（spellDir／spellNoDir＝40 × ticks）取大值。</summary>
+    public static int CastMsFor(int id,int gfx,int weapon)=>Math.Max(MagicSpells.Get(id)?.ReuseMs??0,ActionCadence.ServerMs(gfx,weapon,MagicSpells.Get(id)?.Action==19?19:18));
+    /// <summary>
+    /// 沒有 ActionCadence 時（他人、cadence 未擷取）的施法放出點：施法者 gfx 已準備的 profile（姿勢最小者）照 R2 算；
+    /// gfx 不在已準備的 profile、spellDir 沒有 '!'、或 profile 讀不了時退回 gfx 0 的放出點（既有行為：未知 gfx 也是這樣退）。
+    /// </summary>
+    public static int ReleaseFor(int gfx){
+        if(PlayerProfiles.ForGfx(gfx) is not {} profile)return ReleaseMs;
+        try{return ActionTiming.CastReleaseMs(profile)??ReleaseMs;}
+        catch(Exception e) when(e is InvalidDataException or IOException or UnauthorizedAccessException or System.Text.Json.JsonException or KeyNotFoundException or InvalidOperationException){return ReleaseMs;}
+    }
     public static byte[] Request(int skill,uint target,ushort x,ushort y)=>SkillCast.Request(skill,
         new(SkillCast.Wire(skill)=="HH"?SkillTargetKind.Location:target==0?SkillTargetKind.None:SkillTargetKind.Object,target,x,y));
     public static byte[] Request(int skill,SkillCastTarget target,uint caster=0)=>SkillCast.Request(skill,target,caster);
