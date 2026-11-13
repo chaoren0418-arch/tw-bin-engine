@@ -1,0 +1,25 @@
+[
+  {
+    "id": "f1108-gui-capture",
+    "title": "真機 GUI 自動化環境修復：P11.ClientEngine.exe 視窗擷取逾時與座標輸入不可用（#1108 R07）",
+    "stage": "resource",
+    "priority": "P1",
+    "runner": "codex-local",
+    "runner_lock": true,
+    "real_machine": true,
+    "depends_on": [],
+    "text": "```yaml\nstage: resource\nrunner: codex-local\nrunner_lock: true\nreal_machine: true\n```\nrunner: dot／codex-local（依 CLAUDE.md 2026-11-06 授權，只限 P24Lab 42061／43324 測試角色；**不碰正式 2000／3306**）。預算 45 分鐘。來源：#1108 報告 `docs/reports/issue-1108.md`（`task/1108` 分支，PR #1115）R07、分流 #1116（`docs/reports/issue-1116.md`）。\n\n**問題（測試環境／自動化工具，不是引擎程式）**：#1108 以 `--classic-ui` 啟動本次建置的客戶端，已到 `CharacterList`；UI Automation 樹完整列出「建立角色」等按鈕（`scratch/issue-1108/gui-selection.txt`，視窗「開發工具（過渡操作介面） · Ctrl+Shift+F9」），客戶端自己的截圖 `client-service/manual-screen.png` 也正常產出。但 Windows 操作輔助工具連續回報 `FrameArrived timed out: timed out waiting on channel`、`window capture timed out: timed out waiting on channel`、`coordinate input geometry is unavailable`，因此 GUI 建角 0/7。被擷取的是一般 WinForms 視窗，引擎沒有對應錯誤，判定為擷取環境問題。\n\n做（**不寫 DB、不建角、不改任何系統設定／登錄檔／排程／服務**）：\n1. 記錄執行器所在 session：`query session`（或等效）是否為主控台互動 session、桌面是否鎖定、是否經由已中斷的 RDP。桌面鎖定或非互動 session → 立刻停止，標 `needs:local` 交本機對話安排解鎖或改在互動 session 執行，不要自己改設定。\n2. 用同一個 Windows 操作輔助工具先擷取一個無關的系統視窗（例如記事本），確認工具本身可用；不可用 → 依工具 Recovery 段重設一次，仍失敗就停止並附錯誤原文。\n3. 以 #1108 相同參數啟動客戶端（`scratch/issue-1108/start_client.py` 的參數：`--login-port 42061 --login-demo real-interactive --classic-ui --evidence <scratch 路徑>`；資源與客戶端根目錄照 #1108），登入 p24svc01 到 `CharacterList`。對**主視窗**與**開發工具視窗**各做：`get_window_state` 截圖一次、`include_text` 一次、在不改資料的位置做一次座標點擊（例如切換「登入／選角」分頁）。記錄視窗是否最小化／被遮蔽／DPI 縮放值。\n4. 若截圖仍逾時：改用不依賴座標的路徑驗證可行——`click` 帶 `element_index`、`set_value`、`perform_secondary_action`；畫面證據改用客戶端 `--evidence` 目錄的內建截圖（manual-screen／manual-client）。把可行的操作方法寫成短清單給重測用。\n5. 收尾：關閉本張自啟的客戶端、Java、MySQL（照 #1108 收尾方式），42061／43324 無監聽。\n\n驗收：(a) 主視窗與開發工具視窗截圖＋座標點擊都成功；或 (b) 說明擷取失敗的確切原因，並證明 element_index 操作＋內建截圖足以完成選角畫面的建角對話框操作（開啟對話框、切換職業、關閉，不送出）。兩者都不成立 → 寫明阻塞原因與需要誰處理（`needs:local`／`needs:user`），不要讓重測空轉。報告 `docs/reports/issue-<本號>.md`。"
+  },
+  {
+    "id": "f1108-r07-retest",
+    "title": "#1108 R07 重測：GUI 一般玩家建角（只重測 R07，其餘沿用 #1108）",
+    "stage": "test",
+    "priority": "P1",
+    "runner": "codex-local",
+    "runner_lock": true,
+    "real_machine": true,
+    "milestone_smoke": true,
+    "depends_on": ["f1108-gui-capture"],
+    "text": "```yaml\nstage: test\nrunner: codex-local\nrunner_lock: true\nreal_machine: true\nmilestone_smoke: true\n```\nrunner: dot／codex-local（依 2026-11-06 授權，只限 P24Lab 42061／43324 測試角色；不碰正式 2000／3306；全程 GM0，不需要設 GM）。預算 45 分鐘。來源：#1108（`docs/reports/issue-1108.md`、`docs/reports/issue-1108-evidence.json`）、分流 #1116。前置：f1108-gui-capture 已確認可用的 GUI 操作方法（照該張報告的方法操作）。環境：主專案 `D:\\lineage開發\\TW1608262200研究\\environments\\p24`（#1108 的持久資料）。\n\n## 只重測\n- **R07 七職業 GUI 建角**（前次 ⚠️：資料面 7/7 已由原服以 C84 建立並讀回，GUI 建角 0/7）。\n\n## 沿用 #1108、不重測\nB01、R05、R08、R09、R10、R11、R12、R13、R14、R15、C01、C02、V01 全部 ✅，本輪不動。理由：f1108-gui-capture 不改程式、不寫 DB，沒有任何一項的依據改變。**不得重放補物品、不得再建 #1108 已有的同名角色、不得改血盟／寵物資料。**\n\n## 步驟\n1. 以 main 建置（`engine/build-product.ps1`），照 #1108 方式啟動 43324 與 42061，以 `--classic-ui` 啟動客戶端；登入 p24svc01（目前 3/4 槽，只有 1 個空位）。\n2. 按「建立角色」開對話框；**七個職業各切換一次**，每個職業：分配合法能力值到剩餘點數 0、本機檢查顯示「資料符合本機檢查，可以建立」且建立鈕可按，截一張圖（7 張），然後取消、不送出。\n3. 只用那 1 個空位做真正送出：選任一職業（建議騎士），名稱不含「測試」（伺服器禁用字，#1108 已證實會回 S98=9）且與現有 17 角色不同名，送出；記錄回包 S98／S127、選角清單出現新角色、DB 只讀 SELECT 讀回 objid／Type／AccessLevel=0。\n4. 用 GUI「刪除角色」刪掉**第 3 步本輪自己建的角色**（只限這一個），記錄伺服器行為（立即刪除或七日排程）；讓 p24svc01 回到 3/4。若變成七日排程而佔住槽位，照實記錄，不另外動 DB。\n5. 收尾：關閉自啟程序，42061／43324 無監聽；最終 SELECT 全角色 AccessLevel=0、OnlineStatus=0。\n\n驗收：R07 判定 ✅ 的條件——七職業在 GUI 建角對話框各有一張「可以建立」截圖，且至少一次經 GUI 真正送出並被原服接受（S98=2＋清單／DB 讀回）；加上 #1108 已有的七職業協定建角證據，合為 R07 完成。任一職業在 GUI 無法達到可建立狀態 → 寫明畫面訊息與 `CharacterManagementPackets.Validate` 對應錯誤，列為 ❌ 並附重現步驟。報告 `docs/reports/issue-<本號>.md`，逐項分已驗證／推測／待驗證；R07 以外的列照 #1108 結果原樣沿用並標「沿用」。\n\n不做：SM08（原生 CreateUI 職業頁）、SM09、SM48 屬於 #1109 的 M7 smoke 範圍，本張不跑。"
+  }
+]
