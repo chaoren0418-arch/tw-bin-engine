@@ -7,7 +7,7 @@
 - 共用 BCL-only `AssetPreparationState`，由產品與 launcher 編譯同一份來源。接受 `tw-assets-integrity-v2`／`tw-asset-prep-set-v1`，驗總收據 SHA、ready、每個索引輸出的大小及 SHA；拒絕新收據路徑中的 junction、重複／越界／保留路徑。這是本機產物一致性檢查，不把收據當成第三方簽章。
 - launcher 先驗程式 manifest，再判讀素材。一般啟動遇到未準備、中斷或不符時，以獨立產品程序執行 `--prepare-assets`，傳遞明確 `TW_CLIENT_ROOT`／`TW_ENGINE_ROOT`，同步讀取 stdout／stderr；成功後再驗 active 收據與程式 manifest，最後檢查 Desktop／WebView2 Runtime 並啟動 `--normal-product`。即使準備程序回傳 0，沒有合格收據仍拒絕啟動。
 - `--check-only` 不呼叫準備程序；尚未準備時也不載入 WebView2。已準備時保留 `checked-only`，新增 `assetState`、`assetReceipt`、`assetReceiptSha256`，保留舊版 runtime／manifest／安全旗標欄位。
-- 舊 v1 素材必須仍由產品 manifest 鎖定 `assets/integrity.json` SHA；沿用檔案存在／大小檢查，允許開發機 junction，沒有要求開發機補設 `TW_CLIENT_ROOT`。v2 的 integrity／收據是本機生成資料，不要求打包 manifest 包含它們，也不以打包時的舊 integrity pin 拒絕重新生成結果。
+- 舊 v1 素材只接受開發機 junction，且必須仍由產品 manifest 鎖定 `assets/integrity.json` SHA；沿用檔案存在／大小檢查，沒有要求開發機補設 `TW_CLIENT_ROOT`。普通 assets 目錄必須用 v2，不能藉由夾帶 v1 索引進入開發機 fallback。v2 的 integrity／收據是本機生成資料，不要求打包 manifest 包含它們，也不以打包時的舊 integrity pin 拒絕重新生成結果。
 - 可攜流程不使用開發機預設路徑；未設定、相對路徑、不存在目錄或缺少 Text／Tile／17 個 Sprite 容器與 map 目錄，會以繁體中文指出缺項，以及「修改啟動引擎.cmd 的 TW_CLIENT_ROOT；直接呼叫 exe 則設定同名環境變數」。容器內容版本與結構由既有準備器／provider 繼續驗證。Sound 維持既有 provider 的缺失／fallback 規則。
 
 ## 狀態與結束碼
@@ -61,7 +61,7 @@ CI 測試已加入，結果待 PR 最新 commit 完成後補記：
 
 | 檔案 | SHA-256 |
 |---|---|
-| `AssetPreparationState.cs` | `123f0a82484e8c2d99ca3b04eebc3d94331e060087e509cdffc77cf84368eda9` |
+| `AssetPreparationState.cs` | `17de8b7b331f853faab1776e3f7bd3a24da95049fb4f18499d23cf6e3b0b67bf` |
 | `AssetPrepareCommand.cs` | `9d79a33551502cfaceace8c6781115472c0abc4b906a91aaead9966885ba51e0` |
 | launcher `Program.cs` | `d29f5ca0dd1d60ab07c5af0208350308a8bd600ff63afec35353d592086bad1d` |
 

@@ -63,16 +63,22 @@ internal static class LauncherChecks {
             Case("payload-tamper",p=>{Assets(p);File.AppendAllText(Path.Combine(p,"build/client-product-dev/P11.ClientEngine.dll")," ");var r=Invoke(p,[],client);Check(r.Code==1&&r.Calls==0,"payload checked before process");});
             Case("legacy",p=>{
                 Assets(p,legacy:true);Package(p,legacy:true);var r=Invoke(p,["--check-only"]);
-                Check(r.Code==0&&r.Calls==0&&r.Json.GetProperty("assetState").GetString()=="legacy-ready"&&r.Json.GetProperty("hashedRuntimeAndWebFiles").GetInt32()==5,"legacy check keeps manifest/presence-size semantics without client env");
-                Check(Invoke(p,[],process:(_,prepare)=>{Check(!prepare,"legacy skips prep");return 0;}).Code==0,"legacy still launches normally");
+                Check(r.Code==2&&r.Calls==0&&r.Json.GetProperty("status").GetString()=="receipt-mismatch","regular assets cannot opt into legacy development fallback with a pinned v1 index");
             });
             // CI Windows can create a real junction without symbolic-link privilege. Remove only the link, never recurse.
             if(OperatingSystem.IsWindows())Case("legacy-junction",p=>{
                 string target=Path.Combine(root,"legacy-target");Assets(target,legacy:true);string link=Path.Combine(p,"assets");
                 var mk=new ProcessStartInfo("cmd.exe"){UseShellExecute=false,CreateNoWindow=true};mk.ArgumentList.Add("/c");mk.ArgumentList.Add("mklink");mk.ArgumentList.Add("/J");mk.ArgumentList.Add(link);mk.ArgumentList.Add(Path.Combine(target,"assets"));
                 using(var child=Process.Start(mk)!){child.WaitForExit();Check(child.ExitCode==0,"create CI junction");}
-                try{Package(p,legacy:true);Check(Invoke(p,["--check-only"]).Code==0,"legacy junction check unchanged");}
-                finally{Directory.Delete(link,false);}
+                try{
+                    Package(p,legacy:true);var r=Invoke(p,["--check-only"]);
+                    Check(r.Code==0&&r.Calls==0&&r.Json.GetProperty("assetState").GetString()=="legacy-ready"&&r.Json.GetProperty("hashedRuntimeAndWebFiles").GetInt32()==5,"legacy junction check keeps manifest/presence-size semantics without client env");
+                    Check(Invoke(p,[],process:(_,prepare)=>{Check(!prepare,"legacy skips prep");return 0;}).Code==0,"legacy junction still launches normally");
+                }
+                finally{
+                    var rm=new ProcessStartInfo("cmd.exe"){UseShellExecute=false,CreateNoWindow=true};rm.ArgumentList.Add("/c");rm.ArgumentList.Add("rmdir");rm.ArgumentList.Add(link);
+                    using var child=Process.Start(rm)!;child.WaitForExit();Check(child.ExitCode==0,"remove CI junction only, no /s");
+                }
                 Check(File.Exists(Path.Combine(target,"assets/sample.txt")),"junction target preserved");
             });
             Write(Path.Combine(root,"results.json"),new{checks,cases=evidence});Console.WriteLine($"PASS {checks} launcher checks; evidence: {root}");return 0;

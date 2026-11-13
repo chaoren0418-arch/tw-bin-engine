@@ -55,6 +55,7 @@ public static class AssetPreparationState {
             bool legacy=schema=="p06-assets-integrity-v1";
             JsonElement? receipt=null;string? receiptHash=null;
             if(legacy){
+                Require((File.GetAttributes(root)&FileAttributes.ReparsePoint)!=0,"普通 assets 目錄需要 v2 準備收據；v1 僅供開發機 junction 使用。");
                 Require(legacyIntegritySha256!=null&&Hash(index)==legacyIntegritySha256,"舊素材索引未經產品 manifest 鎖定，或索引 SHA-256 不符。");
             }else{
                 Require(schema=="tw-assets-integrity-v2","素材索引格式不符。");
