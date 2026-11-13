@@ -84,6 +84,23 @@ public sealed class SpellWindowPanel:LegacyWindowPanel {
     /// <summary>Text rows (R4-B, 推測 geometry): 16-pixel rows between the level strip and the lower arrow, base edge to scrollbar.</summary>
     public LegacyCellGrid Rows{get;private set;}=LegacyCellGrid.Empty;
     public const int RowPitch=16;
+    /// <summary>Union of all level images relative to the window origin (empty when no level surf loaded).</summary>
+    public Rectangle LevelStrip{get;private set;}
+    internal static Rectangle LevelStripOf(IEnumerable<Rectangle> images)=>images.Aggregate(Rectangle.Empty,(a,r)=>a.IsEmpty?r:Rectangle.Union(a,r));
+    /// <summary>
+    /// List area between the arrows (top = upper arrow, bottom = lower arrow) and from the base's left edge to the scrollbar,
+    /// minus the level strip (#1093). The real 3.81 level images are tall 14×212 strips at (12, 37) — 已驗證 from the client
+    /// (Sprite13 2058c.img, all 33 level surfs 14×212) — so the strip sits on the list's left and the rows start right of it;
+    /// a wide strip (as the earlier synthetic checks assumed) still pushes the rows below it. The exact original text origin
+    /// is 推測 (not traced in the BIN); the rows are only kept off the level strip.
+    /// </summary>
+    internal static Rectangle ListArea(Rectangle strip,int left,int right,int top,int bottom){
+        if(!strip.IsEmpty){
+            if(strip.Height>strip.Width)left=Math.Max(left,strip.Right);
+            else top=Math.Max(top,strip.Bottom);
+        }
+        return right>left&&bottom>top?Rectangle.FromLTRB(left,top,right,bottom):Rectangle.Empty;
+    }
     protected override int ScrollCount=>Rows.ScrollPositions(PageSpells.Count);
     public IReadOnlyList<LearnedMagic> VisibleSpells=>PageSpells.Skip(ScrollOffset).Take(Rows.PageSize).ToArray();
     public Rectangle RowRect(int row)=>Logical(Rows.CellRect(row));
@@ -115,12 +132,12 @@ public sealed class SpellWindowPanel:LegacyWindowPanel {
             var cls=c;
             groups[c]=list.Select((e,k)=>AddPart(e,surfs,()=>Class==cls&&SelectedLevel==k,e.Offset??anchor)).ToArray();
         }
-        // Rows start below the tallest level image (or the upper arrow, whichever is lower) and end at the lower arrow.
         var up=w.Placed("SURF_RENEWAL_WIN_INC_BUT_OFF").Offset!.Value;var down=w.Placed("SURF_RENEWAL_WIN_DEC_BUT_OFF").Offset!.Value;
-        int stripBottom=groups.Values.SelectMany(g=>g).Select(p=>p.Offset.Y+(p.Image?.Height??0)).DefaultIfEmpty(0).Max();
         int left=w.Placed("SURF_RENEWAL_WIN_SPELL_BASE").Offset!.Value.X,right=w.Placed("SURF_RENEWAL_WIN_SCROLLBAR").Offset!.Value.X;
-        Rows=LegacyCellGrid.Fit(left,Math.Max(stripBottom,Math.Min(up.Y,down.Y)),right,Math.Max(up.Y,down.Y),new(right-left,RowPitch),right-left);
-        if(Rows.PageSize==0)throw new UiLayoutException(w.FileName,w.WindowId,"魔法清單沒有空間（等級鈕／箭頭的位置不合理）");
+        LevelStrip=LevelStripOf(groups.Values.SelectMany(g=>g).Where(p=>p.Image!=null).Select(p=>new Rectangle(p.Offset,new Size(p.Image!.Width,p.Image.Height))));
+        var area=ListArea(LevelStrip,left,right,Math.Min(up.Y,down.Y),Math.Max(up.Y,down.Y));
+        Rows=LegacyCellGrid.Fit(area.Left,area.Top,area.Right,area.Bottom,new(area.Width,RowPitch),area.Width);
+        if(Rows.PageSize==0)throw new UiLayoutException(w.FileName,w.WindowId,$"魔法清單沒有空間（等級條 {LevelStrip}，清單範圍 {area}：等級鈕／箭頭的位置不合理）");
         Class=null;SelectedLevel=0;localSelection=null;
     }
     protected override void OnUpdate(IUiGameState state){
@@ -177,11 +194,20 @@ public sealed class SpellWindowPanel:LegacyWindowPanel {
     [WorldModuleTest("native-spell-window")]
     static void Checks(WorldModuleTestContext t){
         var sizes=new Dictionary<int,(int,int)>{[2056]=(170,260),[2057]=(200,290),[2037]=(12,12),[2039]=(10,160),[2040]=(10,12),[2042]=(10,12),[2044]=(10,10)};
-        for(int s=2058;s<=2090;s++)sizes[s]=(150,18);
+        // #1093: the real level images are tall strips (all 33 surfs 14×212, e.g. Sprite13 2058c.img); a wide 150×18 stand-in
+        // hid the bug where the rows were pushed below the strip (top 249 > lower arrow 225 → no rows → native UI refused).
+        for(int s=2058;s<=2090;s++)sizes[s]=(14,212);
         var surf=LegacyWindowTestKit.Surfaces(sizes);
         string xml=TestXml();
         var layout=UiLayout.Parse(xml,"uimagicitem.xml");
         var p=new SpellWindowPanel();p.Load(layout,surf.Get);
+        t.Equal(new Rectangle(12,37,14,212),p.LevelStrip,"level strip 14×212 at (12,37) (real client size)");
+        t.Equal(11,p.Rows.PageSize,"real 14×212 strip → 11 rows of 16 px between the arrows (44–225)");
+        t.Equal(new Rectangle(26,47,145,175),p.Rows.Area,"rows right of the strip (x 26) up to the scrollbar (x 171)");
+        t.Check(!p.Rows.Area.IntersectsWith(p.LevelStrip),"list does not cover the level buttons");
+        t.Equal(Rectangle.FromLTRB(6,62,171,225),ListArea(new(12,37,150,25),6,171,44,225),"a wide strip still pushes the rows below it");
+        t.Equal(Rectangle.Empty,ListArea(new(12,37,200,190),6,171,44,225),"wide strip reaching past the lower arrow → no area");
+        t.Throws<UiLayoutException>(()=>{var s2=new Dictionary<int,(int,int)>(sizes);for(int s=2058;s<=2090;s++)s2[s]=(165,212);new SpellWindowPanel().Load(layout,LegacyWindowTestKit.Surfaces(s2).Get);},"strip covering the whole list → UiLayoutException (not a silent empty list)");
         t.Check(p.Id=="SPELL_WINDOW"&&p.Layer==UiLayer.Window,"SPELL_WINDOW on the window layer");
         t.Equal(new Rectangle(0,0,200,290),p.Bounds,"bounds");
         t.Equal(new Rectangle(179,15,12,12),p.CloseRect,"close 2037 at (179,15)");
@@ -195,10 +221,10 @@ public sealed class SpellWindowPanel:LegacyWindowPanel {
         var spells=new[]{new LearnedMagic(1,"合成技能 1",true,"自己",4),new LearnedMagic(2,"合成技能 2",true,"自己",4),new LearnedMagic(5,"合成技能 5",false,"指定對象",8)};
         p.Open();p.Update(new UiSpellWindowGameState(basic,new UiSpellWindowData(LegacySpellClass.Elf,spells)));
         t.Check(p.Visible&&p.Class==LegacySpellClass.Elf&&p.Learned?.Count==3,"state through the decorator: elf, 3 learned spells");
-        t.Equal(new Rectangle(12,37,150,18),p.LevelRect,"level image at (12,37)");
+        t.Equal(new Rectangle(12,37,14,212),p.LevelRect,"level image at (12,37)");
         t.Check(p.PaintedParts.Where(x=>x.Surf is >=2058 and <=2090).Select(x=>x.Surf).SequenceEqual(new int?[]{2075}),"elf level 1 → 2075 only");
         p.SetLevel(10);
-        t.Check(p.PaintedParts.Where(x=>x.Surf is >=2058 and <=2090).Select(x=>x.Surf).SequenceEqual(new int?[]{2085})&&p.LevelRect==new Rectangle(12,37,150,18),"elf level 11 → 2085 at the same anchor");
+        t.Check(p.PaintedParts.Where(x=>x.Surf is >=2058 and <=2090).Select(x=>x.Surf).SequenceEqual(new int?[]{2085})&&p.LevelRect==new Rectangle(12,37,14,212),"elf level 11 → 2085 at the same anchor");
         t.Throws<ArgumentOutOfRangeException>(()=>p.SetLevel(11),"elf has no level 12");
         p.Update(new UiSpellWindowGameState(basic,new UiSpellWindowData(LegacySpellClass.DarkElf,spells)));
         t.Check(p.SelectedLevel==0&&p.PaintedParts.Any(x=>x.Surf==2086),"class change resets the level; dark elf 2086");
@@ -213,6 +239,9 @@ public sealed class SpellWindowPanel:LegacyWindowPanel {
         p.Update(new UiSpellWindowGameState(basic,new UiSpellWindowData(LegacySpellClass.General,spells[..1])));
         t.Equal(0,p.ScrollOffset,"shorter list re-clamps the scroll");
         t.Check(LegacyWindowTestKit.Click(p,new(20,40),cmd)&&p.SelectedLevel==0,"click on the first segment of the level strip → level 1 (R4-B)");
+        t.Check(LegacyWindowTestKit.Click(p,new(20,37+211),cmd)&&p.SelectedLevel==9,"tall strip is cut top to bottom: bottom end → general level 10 (#1093)");
+        t.Check(LegacyWindowTestKit.Click(p,new(20,37+22),cmd)&&p.SelectedLevel==1,"second 21 px segment → level 2");
+        p.SetLevel(0);
         LegacyWindowTestKit.Click(p,new(185,20),cmd);
         t.Check(!p.Visible&&cmd.Calls.Count==0,"close hides, nothing sent");
 
