@@ -525,7 +525,8 @@ def self_test():
         def tearDown(self):
             for p in list(self.tmp.rglob('*')):  # remove links first so cleanup can never follow them
                 if os.path.lexists(p) and is_link(p):
-                    os.rmdir(p) if os.name == 'nt' else os.unlink(p)
+                    # Directory junction/symlink on Windows needs rmdir (never recursive); file links use unlink.
+                    os.rmdir(p) if os.name == 'nt' and p.lstat().st_file_attributes & stat.FILE_ATTRIBUTE_DIRECTORY else os.unlink(p)
             shutil.rmtree(self.tmp)
 
         def package(self):
