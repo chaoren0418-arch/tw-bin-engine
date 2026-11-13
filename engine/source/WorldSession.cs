@@ -15,10 +15,14 @@ public sealed partial class WorldSession {
     public bool CoreComplete=>Entered&&MapId!=null&&Status!=null&&Actor!=null&&Status.ObjectId==Actor.ObjectId;
     public bool Ready=>CoreComplete&&TimeReplies>0;
     public bool SupportedMap=>Actor!=null&&(CacheEnabled?MapResourceState=="ready"&&MapCache is {} loaded&&loaded.MapId==MapId&&loaded.Bounds.Contains(Actor.X,Actor.Y)&&loaded.Contains(Actor.X,Actor.Y):MapId==0&&Coordinates.Inside(Actor.X,Actor.Y));
-    public bool SelfAppearancePending {get;private set;}
+    // T478 (#1074): the own appearance is also "pending" while its (gfx, stance) is being built on demand (a stance outside the
+    // preheat list, or an S76 polymorph form); the existing pending presentation covers it ("角色外觀正在更新", nothing drawn).
+    bool selfAppearancePending;
+    public bool SelfAppearancePending {get=>selfAppearancePending||RuntimeAppearances.Active!=null&&Actor is {} actor&&OwnProfile(actor,out bool pending)==null&&pending;private set=>selfAppearancePending=value;}
     public int AppearanceRevision {get;private set;}
+    static PlayerProfile? OwnProfile(OwnActor actor,out bool pending)=>PlayerProfiles.Own(actor.Gfx,actor.Weapon==8?0:actor.Weapon,out pending);
     // S87 serializes status8 instead of currentWeapon for a dead player.
-    public PlayerProfile? AppearanceProfile=>Actor is {} actor?PlayerProfiles.Get(actor.Gfx,actor.Weapon==8?0:actor.Weapon):null;
+    public PlayerProfile? AppearanceProfile=>Actor is {} actor?OwnProfile(actor,out _):null;
     public bool SupportedAppearance=>AppearanceProfile!=null&&!SelfAppearancePending;
     public string AppearanceNotice=>Actor==null?"等待角色資料":SelfAppearancePending?"角色外觀正在更新；可取消連線":SupportedAppearance?"角色外觀已載入":$"尚未支援此外觀（角色 {Actor.Gfx}／武器 {Actor.Weapon}）；移動與戰鬥已停止，仍可從背包卸下裝備或取消連線。";
     public bool Renderable=>Ready&&!TeleportPending&&SupportedMap&&SupportedAppearance;

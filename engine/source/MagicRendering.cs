@@ -438,7 +438,14 @@ public sealed partial class Renderer {
     public MagicVisual[] MagicVisuals {get;private set;}=[];
     // Effects whose drawing is deliberately withheld (unverified presentation), as data.
     public UndrawnMagic[] UndrawnMagicEffects {get;private set;}=[];
-    ObjectAppearance MagicAppearance(int gfx){if(!magicAppearances.TryGetValue(gfx,out var a)){a=new(Path.Combine(assets.Root,$"objects/magic-{gfx}.json"));magicAppearances[gfx]=a;}return a;}
+    // T478 (#1074): a tree without objects/magic-<gfx>.json builds it on demand (objects recipe "magic-<gfx>", memory only);
+    // while pending or unavailable the effect is not drawn this frame (null), the prepared file is unchanged.
+    ObjectAppearance? MagicAppearance(int gfx){
+        if(magicAppearances.TryGetValue(gfx,out var a))return a;
+        string path=Path.Combine(assets.Root,$"objects/magic-{gfx}.json");
+        if(File.Exists(path))a=new(path);else if(RuntimeAppearances.Active is {} od){a=od.Magic(gfx);if(a==null)return null;}else a=new(path);
+        magicAppearances[gfx]=a;return a;
+    }
     void ComposeMagic(WorldSession session,List<Draw> draws,long now){
         if(magicEpoch!=session.WorldEpoch){magicFlights.Clear();magicLandings?.Clear();ClearEruptions();magicEpoch=session.WorldEpoch;}var visuals=new List<MagicVisual>();var undrawn=new List<UndrawnMagic>();
         // R5-C（sub_A40250）：施法者動作播完的排隊封包在這一格播出（與收包同一個 UI 執行緒）。
@@ -462,7 +469,7 @@ public sealed partial class Renderer {
                 // Constructor-free test renderers have no resource state: treat as no native metadata.
                 var native=effectResourceErrors==null?null:NativeEffect(gfx);
                 if(e.Target!=0&&e.DamageWord>0&&LegacyMagic.Hit(native,at,now) is long hitAt)MagicHit(session,e.Target,hitAt);
-                var a=MagicAppearance(gfx);if(now-at>=a.Duration(phase))continue;
+                if(MagicAppearance(gfx) is not {} a||now-at>=a.Duration(phase))continue;
                 ObserveEffectFrames(session,$"magic:{e.Number}",native!=null?ActionTimeline.Of(native):ActionTimeline.Pure(a.Sequences[(phase,0)],false),now-at,x,y,d,now);
                 frame=MagicMotion.PureFrame(a,phase,now-at);
             }
@@ -476,8 +483,8 @@ public sealed partial class Renderer {
                     flight=(tx,ty,release,impact);magicFlights[e.Number]=flight;
                 }
                 var motion=MagicMotion.At(e,flight.X,flight.Y,flight.Release,Math.Min(now,flight.Impact));x=motion.X;y=motion.Y;d=motion.Direction;
-                if(now<flight.Impact){phase="fly";frame=MagicAppearance(167).Frames[$"{d}:{(motion.Step-1)%4}"];at=flight.Release;}
-                else {gfx=219;phase="impact";at=flight.Impact;var a=MagicAppearance(gfx);if(now-at>=a.Duration("impact"))continue;frame=MagicMotion.PureFrame(a,"impact",now-at);if(e.Target!=0&&e.DamageWord>0&&(!projectileHits.TryGetValue(e.Target,out var hit)||hit.At<at))projectileHits[e.Target]=new(2,at,false);
+                if(now<flight.Impact){if(MagicAppearance(167) is not {} fly)continue;phase="fly";frame=fly.Frames[$"{d}:{(motion.Step-1)%4}"];at=flight.Release;}
+                else {gfx=219;phase="impact";at=flight.Impact;if(MagicAppearance(gfx) is not {} a||now-at>=a.Duration("impact"))continue;frame=MagicMotion.PureFrame(a,"impact",now-at);if(e.Target!=0&&e.DamageWord>0&&(!projectileHits.TryGetValue(e.Target,out var hit)||hit.At<at))projectileHits[e.Target]=new(2,at,false);
                     if(effectResourceErrors!=null)ObserveLandingFrames(session,$"magic-impact:{e.Number}:0",NativeEffect(219),now-at,x,y,d,now);}
             }
             if(frame==null||!session.SceneContains(x,y))continue;visuals.Add(new(e.Number,gfx,x,y,d,frame.Key,phase,at));draws.AddRange(frame.Blocks.Select(b=>new Draw(2*(x-Coordinates.MinX)+b.A,y-Coordinates.MinY+b.B,b.Z,1200000+b.Order,"magic",b.Order,-1,-1,b.Tile)));
