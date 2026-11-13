@@ -423,3 +423,4 @@
 - 2026-11-11 — #1024 T443：M7 結案覆核——R13-A 合併後重算 gap-matrix（15.16）（resource，claude-local，PR 已合併）→ [報告](reports/issue-1024.md)
 - 2026-11-11 — #1023 T-plan：M7 結案（R13-A 合併後）（plan，claude-chat，PR 已合併）→ [報告](reports/issue-1023.md)
 - 2026-11-13 — #1027 B15 開放：可攜 zip＋使用者本機產生 engine/assets——拆分實作任務（使用者 2026-11-13 同意）（design，claude-local，PR #1028 已合併）→ [報告](reports/issue-1027.md)
+- 2026-11-13 — #1031 b15-src-rule-tables: T446 來源閉合：規則表（skills.json、magic/catalog.json、EXP 表、ground-catalog 模板列）（resource，claude-local，PR #1061 已合併）→ [報告](reports/issue-1031.md)
