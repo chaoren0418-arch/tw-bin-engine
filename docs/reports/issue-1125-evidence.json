@@ -1,0 +1,1256 @@
+{
+  "issue": 1125,
+  "branch": "task/1125",
+  "testedHead": "47ac3ef06d5cb82f19838840d6c69d80adcd410b",
+  "conclusion": "部分通過",
+  "counts": {
+    "pass": 7,
+    "fail": 0,
+    "warning": 59
+  },
+  "rows": [
+    {
+      "id": "R03",
+      "status": "✅",
+      "observation": "原 JAR PID6836 監聽42061，log 開服完成，無拒絕開服。",
+      "steps": "沿用 #1107 持久 server 工作目錄、JDK17 啟動。",
+      "evidence": "listeners.json；server.stdout.log",
+      "category": ""
+    },
+    {
+      "id": "R04",
+      "status": "✅",
+      "observation": "p24svc01 收 S233=0、S178=3/4、三筆 S93 角色清單。",
+      "steps": "連127.0.0.1:42061，以既有測試憑證登入至選角後關閉。",
+      "evidence": "login.json；packets.json",
+      "category": ""
+    },
+    {
+      "id": "R05",
+      "status": "✅",
+      "observation": "服務驗證與透明王子同時在線 map4，相距1格；雙方收到對方S87、SQL OnlineStatus均1。",
+      "steps": "兩個不同帳號登入、C137進世界、C95探測，保持連線讀回。",
+      "evidence": "first-segment.json；dual-online.tsv；dual-service-packets.jsonl；dual-prince-packets.jsonl",
+      "category": ""
+    },
+    {
+      "id": "R06",
+      "status": "✅",
+      "observation": "A進世界後，同帳號第二次登入回S233=22；該帳號新舊連線皆EOF，另一帳號保持在線。",
+      "steps": "維持R05兩session，再以p24svc01開第三session，觀察3秒。",
+      "evidence": "first-segment.json；same-account-second-packets.jsonl；server.stdout.log",
+      "category": ""
+    },
+    {
+      "id": "R12",
+      "status": "✅",
+      "observation": "法師LV52／GM0／MP276、技能51、項圈與牧羊關聯成立，笛9、寶石57。",
+      "steps": "只讀查角色、技能、背包、寵物關聯；本列驗準備條件，不施法或消耗物品。",
+      "evidence": "conditions.json",
+      "category": ""
+    },
+    {
+      "id": "R13",
+      "status": "✅",
+      "observation": "血盟10171、服務驗證盟主rank4／透明王子rank8、盟倉治癒藥水1件。",
+      "steps": "只讀查血盟、兩成員及盟倉；不重建血盟或重存物品。",
+      "evidence": "conditions.json",
+      "category": ""
+    },
+    {
+      "id": "R17",
+      "status": "✅",
+      "observation": "本輪R03／R04／R05／R06／R12／R13與沿用前置成立，P24Lab可交SM；後續GUI擷取另列SM01。",
+      "steps": "核對本輪回包、資料條件與沿用 #1124／#1119 結果。",
+      "evidence": "first-segment.json；conditions.json；login.json",
+      "category": ""
+    },
+    {
+      "id": "SM01",
+      "status": "⚠️",
+      "observation": "事件 verifying→active，載入63面板含SPELL_WINDOW；擷取兩次逾時，無PNG、核對中畫面或可接受耗時判定。",
+      "steps": "main產品build→check-only→正常launcher帶evidence；get_window_state失敗，reset／重選窗後再失敗，依閘門停止。",
+      "evidence": "smoke-A/window-events.json；smoke-A/native-ui.log；capture-errors.json",
+      "category": "環境"
+    },
+    {
+      "id": "SM02",
+      "status": "⚠️",
+      "observation": "參考客戶端資源：依SM01擷取環境閘門未執行；#475「參考XML載入」沿用，其餘子步驟未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM03",
+      "status": "⚠️",
+      "observation": "縮放 1×／2×：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM04",
+      "status": "⚠️",
+      "observation": "登入畫面輸入：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM05",
+      "status": "⚠️",
+      "observation": "登入背景動畫：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM06",
+      "status": "⚠️",
+      "observation": "登入公告 S48：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM07",
+      "status": "⚠️",
+      "observation": "選角畫面：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM08",
+      "status": "⚠️",
+      "observation": "建角與中文名稱：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM09",
+      "status": "⚠️",
+      "observation": "建立、刪除、切換角色：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM10",
+      "status": "⚠️",
+      "observation": "常駐 HUD 外觀：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM11",
+      "status": "⚠️",
+      "observation": "名稱、頭上條、身體中線：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM12",
+      "status": "⚠️",
+      "observation": "聊天窗：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM13",
+      "status": "⚠️",
+      "observation": "狀態圖示：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM14",
+      "status": "⚠️",
+      "observation": "紅字、中央綠字、鑑定訊息：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM15",
+      "status": "⚠️",
+      "observation": "WidgetSlot：依SM01擷取環境閘門未執行；#475「參考XML載入」沿用，其餘子步驟未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM16",
+      "status": "⚠️",
+      "observation": "巨集 F5–F12 與選單按鈕：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM17",
+      "status": "⚠️",
+      "observation": "小地圖與 Field_Map：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM18",
+      "status": "⚠️",
+      "observation": "背包窗：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM19",
+      "status": "⚠️",
+      "observation": "倉庫窗：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM20",
+      "status": "⚠️",
+      "observation": "魔法窗：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM21",
+      "status": "⚠️",
+      "observation": "商店、修理、學魔法：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM22",
+      "status": "⚠️",
+      "observation": "兩個角色交易：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM23",
+      "status": "⚠️",
+      "observation": "私商與個人商店：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM24",
+      "status": "⚠️",
+      "observation": "血盟窗：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM25",
+      "status": "⚠️",
+      "observation": "寵物、召喚、盟屋地圖：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM26",
+      "status": "⚠️",
+      "observation": "料理窗：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM27",
+      "status": "⚠️",
+      "observation": "公告板：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM28",
+      "status": "⚠️",
+      "observation": "能力值重置窗：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM29",
+      "status": "⚠️",
+      "observation": "盟屋拍賣：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM30",
+      "status": "⚠️",
+      "observation": "釣魚：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM31",
+      "status": "⚠️",
+      "observation": "排名窗：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM32",
+      "status": "⚠️",
+      "observation": "動作窗：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM33",
+      "status": "⚠️",
+      "observation": "HyperText 顏色：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM34",
+      "status": "⚠️",
+      "observation": "好友與封鎖：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM35",
+      "status": "⚠️",
+      "observation": "隊伍窗與名稱旁圖示：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM36",
+      "status": "⚠️",
+      "observation": "召喚窗停用格：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM37",
+      "status": "⚠️",
+      "observation": "血盟倉庫紀錄窗：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM38",
+      "status": "⚠️",
+      "observation": "書籤窗：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM39",
+      "status": "⚠️",
+      "observation": "近戰擊殺與 EXP：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM40",
+      "status": "⚠️",
+      "observation": "弓箭：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM41",
+      "status": "⚠️",
+      "observation": "時序：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM42",
+      "status": "⚠️",
+      "observation": "特效：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM43",
+      "status": "⚠️",
+      "observation": "盲目光圈：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM44",
+      "status": "⚠️",
+      "observation": "死亡、QUIT_WINDOW、復活：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM45",
+      "status": "⚠️",
+      "observation": "選目標游標：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM46",
+      "status": "⚠️",
+      "observation": "丟撿與拾取更正：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM47",
+      "status": "⚠️",
+      "observation": "指定目標道具與緩速：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM48",
+      "status": "⚠️",
+      "observation": "各職業技能：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM49",
+      "status": "⚠️",
+      "observation": "傳送控制戒指：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM50",
+      "status": "⚠️",
+      "observation": "換圖：洞穴、船運、傳送：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM51",
+      "status": "⚠️",
+      "observation": "聲音：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM52",
+      "status": "⚠️",
+      "observation": "NPC 衣物層：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM53",
+      "status": "⚠️",
+      "observation": "聊天指令與伺服器回應：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM54",
+      "status": "⚠️",
+      "observation": "classic 模式的死亡備援窗：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM55",
+      "status": "⚠️",
+      "observation": "切回舊介面：依SM01擷取環境閘門未執行；#475「兩種關閉方式與恢復」沿用，其餘子步驟未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM56",
+      "status": "⚠️",
+      "observation": "登出：依SM01擷取環境閘門未執行；#475「五次closed事件」沿用，其餘子步驟未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM57",
+      "status": "⚠️",
+      "observation": "選項窗：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM58",
+      "status": "⚠️",
+      "observation": "走路動作 stride 與靜態外型 altdir：依SM01擷取環境閘門未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    },
+    {
+      "id": "SM59",
+      "status": "⚠️",
+      "observation": "classic 備援入口逐一點開：依SM01擷取環境閘門未執行；#475「classic登入頁焦點」沿用，其餘子步驟未執行。",
+      "steps": "先由needs:local恢復擷取，再按smoke-m7對應列執行。",
+      "evidence": "capture-errors.json；本報告SM01",
+      "category": "環境／前置閘門"
+    }
+  ],
+  "nativeUiEvents": [
+    {
+      "kind": "native-ui",
+      "state": "verifying",
+      "source": "default",
+      "fill": false
+    },
+    {
+      "kind": "native-ui",
+      "state": "active",
+      "panels": [
+        "LEFT_WINDOW",
+        "CENTER_WINDOW",
+        "SummonMonster_Window",
+        "PET_CONTROL",
+        "HpMpWindow",
+        "MiniHpMpBar",
+        "Field_Map",
+        "MINI_MAP_WINDOW",
+        "EX_MACRO_WINDOW",
+        "RIGHT_WINDOW",
+        "PARTY_INTERFACE",
+        "PARTY_PET_RT_WINDOW",
+        "TRADE_WINDOW",
+        "PersonalShop_Window",
+        "PersonalShop_Prompt",
+        "PersonalShop_OkGuard",
+        "PersonalShop_CancelGuard",
+        "Friend_Window",
+        "Exclude_Window",
+        "Mailexclude_Window",
+        "RIGHT_WINDOW/BUTTON_2STAGE_LIST",
+        "STATUS_EFFECT_ICONS",
+        "AgitMap_Window",
+        "RED_NOTICE",
+        "UserPlayStatsUI",
+        "UserObtainUI",
+        "CENTER_MESSAGE",
+        "QUIT_WINDOW",
+        "COOK_BOOK_WINDOW",
+        "R2M_LocationShareList",
+        "CU3_LocationShareMarker",
+        "CLAN_WAREHOUSE_HISTORY_WINDOW",
+        "HYPER_TEXT_WINDOW",
+        "AgitAuctionUI",
+        "USERSHOP_HYPER_TEXT",
+        "ITEM_WINDOW",
+        "PledgeUI",
+        "SPELL_WINDOW",
+        "WAREHOUSE_WINDOW",
+        "OptionUI",
+        "GameRanking_Window",
+        "Bookmark_Window",
+        "RenewalStatusUI",
+        "YES_NO_PROMPT",
+        "Fishing_Window",
+        "StatInfoUI",
+        "ResetStatUI",
+        "AgitAuctionUI/AuctionInfo_Window",
+        "TRANSACTION_WINDOW",
+        "SelectUI",
+        "CreateUI",
+        "RenewalMailUI",
+        "AgitAuctionUI/Bid_Window",
+        "LoginUI",
+        "Action_Window",
+        "ActionUI_Button",
+        "MapCommunicationSelectWindow",
+        "R9B_MapSendPrompt",
+        "MapLocationSaveWindow",
+        "R9H_FriendDeletePrompt",
+        "FishObtainUI",
+        "R9P_FishingQuitPrompt",
+        "CU3_BoardConfirmPrompt"
+      ]
+    }
+  ],
+  "closedEvents": [
+    {
+      "kind": "closed",
+      "timerEnabled": false,
+      "pid": 12560,
+      "model": {
+        "X": 32588,
+        "Y": 32928,
+        "Direction": 5,
+        "Walking": false,
+        "FrameIndex": 0,
+        "Frame": "13:7",
+        "gfx": 0,
+        "sprite": 3225,
+        "presentationAge": 0,
+        "networkStepMs": 640,
+        "Intent": null,
+        "Elapsed": 0,
+        "Steps": 0,
+        "DiscardedMs": 114.87609999999995,
+        "BoundaryNotice": ""
+      }
+    }
+  ],
+  "capture": {
+    "firstAttempt": {
+      "windowId": 723252,
+      "error": "FrameArrived timed out: timed out waiting on channel",
+      "source": "computer-use tool result; no successful screenshot"
+    },
+    "recovery": {
+      "utc": "2026-11-13T21:45:45.977Z",
+      "window": {
+        "app": "process:D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1125\\engine\\build\\client-product-dev\\P11.ClientEngine.exe",
+        "id": 723252,
+        "title": "P24 客戶端"
+      },
+      "recovery": "js_reset + initialize + list_windows + get_window + activate_window",
+      "success": false,
+      "error": "Error: FrameArrived timed out: timed out waiting on channel"
+    },
+    "cleanupClick": {
+      "elementIndex": 39,
+      "error": "coordinate input geometry is unavailable"
+    },
+    "cleanup": "reselected window; refreshed UIA; Alt_L+F4; closed event PID12560"
+  },
+  "firstSegment": {
+    "startedUtc": "2026-11-13T21:43:51.069394+00:00",
+    "target": "127.0.0.1:42061",
+    "loginA": {
+      "account": "p24svc01",
+      "result": 0,
+      "slots": 4,
+      "characters": [
+        "資源法師",
+        "服務驗證",
+        "服務交易"
+      ],
+      "trace": [
+        {
+          "opcode": 233,
+          "length": 16
+        },
+        {
+          "opcode": 178,
+          "length": 8
+        },
+        {
+          "opcode": 93,
+          "length": 40
+        },
+        {
+          "opcode": 93,
+          "length": 48
+        },
+        {
+          "opcode": 93,
+          "length": 40
+        }
+      ]
+    },
+    "loginB": {
+      "account": "p241db6e",
+      "result": 0,
+      "slots": 4,
+      "characters": [
+        "資源騎士",
+        "資源妖精",
+        "資源暗妖",
+        "透明王子"
+      ],
+      "trace": [
+        {
+          "opcode": 233,
+          "length": 16
+        },
+        {
+          "opcode": 178,
+          "length": 8
+        },
+        {
+          "opcode": 93,
+          "length": 40
+        },
+        {
+          "opcode": 93,
+          "length": 40
+        },
+        {
+          "opcode": 93,
+          "length": 40
+        },
+        {
+          "opcode": 93,
+          "length": 48
+        }
+      ]
+    },
+    "R05": {
+      "A": {
+        "map": 4,
+        "own": {
+          "x": 33072,
+          "y": 32799,
+          "objectId": 1900249001,
+          "gfx": 0,
+          "heading": 4,
+          "name": "服務驗證"
+        },
+        "peer": {
+          "x": 33072,
+          "y": 32800,
+          "objectId": 1900240001,
+          "gfx": 0,
+          "heading": 0,
+          "name": "透明王子"
+        },
+        "closed": false
+      },
+      "B": {
+        "map": 4,
+        "own": {
+          "x": 33072,
+          "y": 32800,
+          "objectId": 1900240001,
+          "gfx": 0,
+          "heading": 0,
+          "name": "透明王子"
+        },
+        "peer": {
+          "x": 33072,
+          "y": 32799,
+          "objectId": 1900249001,
+          "gfx": 0,
+          "heading": 4,
+          "name": "服務驗證"
+        },
+        "closed": false
+      },
+      "database": "objid\tchar_name\tOnlineStatus\tMapID\tLocX\tLocY\tAccessLevel\n1900240001\t透明王子\t1\t4\t33072\t32800\t0\n1900249001\t服務驗證\t1\t4\t33072\t32799\t0\n",
+      "pass": true
+    },
+    "R06": {
+      "before": "A entered world; B is another account",
+      "secondLogin": {
+        "account": "p24svc01",
+        "result": 22,
+        "characters": [],
+        "trace": [
+          {
+            "opcode": 233,
+            "length": 16
+          },
+          {
+            "opcode": 227,
+            "length": 8
+          },
+          {
+            "opcode": 227,
+            "length": 8
+          }
+        ]
+      },
+      "firstClosed": true,
+      "secondClosed": true,
+      "otherAccountClosed": false,
+      "pass": true
+    },
+    "finishedUtc": "2026-11-13T21:44:04.239024+00:00"
+  },
+  "conditions": {
+    "utc": "2026-11-13T21:44:30.419270+00:00",
+    "identity": [
+      {
+        "port": "43324",
+        "datadir": "D:\\BinEngine\\environments\\p24\\db-data\\"
+      }
+    ],
+    "mage": [
+      {
+        "objid": "10334",
+        "char_name": "資源法師",
+        "level": "52",
+        "Type": "3",
+        "AccessLevel": "0",
+        "CurMp": "276"
+      }
+    ],
+    "items": [
+      {
+        "id": "10336",
+        "item_id": "141245",
+        "count": "1"
+      },
+      {
+        "id": "10337",
+        "item_id": "300175",
+        "count": "1"
+      },
+      {
+        "id": "10338",
+        "item_id": "40079",
+        "count": "20"
+      },
+      {
+        "id": "10339",
+        "item_id": "40308",
+        "count": "8000"
+      },
+      {
+        "id": "10340",
+        "item_id": "300004",
+        "count": "1"
+      },
+      {
+        "id": "10341",
+        "item_id": "40744",
+        "count": "3000"
+      },
+      {
+        "id": "10342",
+        "item_id": "300178",
+        "count": "1"
+      },
+      {
+        "id": "10343",
+        "item_id": "300186",
+        "count": "1"
+      },
+      {
+        "id": "1900251101",
+        "item_id": "40314",
+        "count": "1"
+      },
+      {
+        "id": "1900251102",
+        "item_id": "41160",
+        "count": "9"
+      },
+      {
+        "id": "1900251103",
+        "item_id": "40318",
+        "count": "57"
+      }
+    ],
+    "skill": [
+      {
+        "skill_id": "51"
+      }
+    ],
+    "pet": [
+      {
+        "item_obj_id": "1900251101",
+        "objid": "1900251199",
+        "npcid": "45034",
+        "name": "資源牧羊",
+        "lvl": "5"
+      }
+    ],
+    "clan": [
+      {
+        "clan_id": "10171",
+        "clan_name": "資源血盟",
+        "leader_id": "1900249001",
+        "leader_name": "服務驗證"
+      }
+    ],
+    "members": [
+      {
+        "objid": "1900240001",
+        "char_name": "透明王子",
+        "ClanID": "10171",
+        "ClanRank": "8",
+        "AccessLevel": "0"
+      },
+      {
+        "objid": "1900249001",
+        "char_name": "服務驗證",
+        "ClanID": "10171",
+        "ClanRank": "4",
+        "AccessLevel": "0"
+      }
+    ],
+    "warehouse": [
+      {
+        "id": "10276",
+        "clan_name": "資源血盟",
+        "item_id": "40010",
+        "item_name": "治癒藥水",
+        "count": "1"
+      }
+    ],
+    "gm": [
+      {
+        "objid": "10305",
+        "char_name": "資源王族",
+        "AccessLevel": "0",
+        "OnlineStatus": "0"
+      },
+      {
+        "objid": "10314",
+        "char_name": "資源騎士",
+        "AccessLevel": "0",
+        "OnlineStatus": "0"
+      },
+      {
+        "objid": "10325",
+        "char_name": "資源妖精",
+        "AccessLevel": "0",
+        "OnlineStatus": "0"
+      },
+      {
+        "objid": "10334",
+        "char_name": "資源法師",
+        "AccessLevel": "0",
+        "OnlineStatus": "0"
+      },
+      {
+        "objid": "10344",
+        "char_name": "資源暗妖",
+        "AccessLevel": "0",
+        "OnlineStatus": "0"
+      },
+      {
+        "objid": "10356",
+        "char_name": "資源龍騎",
+        "AccessLevel": "0",
+        "OnlineStatus": "0"
+      },
+      {
+        "objid": "10365",
+        "char_name": "資源幻術",
+        "AccessLevel": "0",
+        "OnlineStatus": "0"
+      },
+      {
+        "objid": "1900240001",
+        "char_name": "透明王子",
+        "AccessLevel": "0",
+        "OnlineStatus": "0"
+      },
+      {
+        "objid": "1900240002",
+        "char_name": "透明王子乙",
+        "AccessLevel": "0",
+        "OnlineStatus": "0"
+      },
+      {
+        "objid": "1900240003",
+        "char_name": "驗收王子",
+        "AccessLevel": "0",
+        "OnlineStatus": "0"
+      },
+      {
+        "objid": "1900240004",
+        "char_name": "驗收王子乙",
+        "AccessLevel": "0",
+        "OnlineStatus": "0"
+      },
+      {
+        "objid": "1900240005",
+        "char_name": "透明觀察甲",
+        "AccessLevel": "0",
+        "OnlineStatus": "0"
+      },
+      {
+        "objid": "1900240006",
+        "char_name": "透明觀察乙",
+        "AccessLevel": "0",
+        "OnlineStatus": "0"
+      },
+      {
+        "objid": "1900240007",
+        "char_name": "驗收觀察甲",
+        "AccessLevel": "0",
+        "OnlineStatus": "0"
+      },
+      {
+        "objid": "1900240008",
+        "char_name": "驗收觀察乙",
+        "AccessLevel": "0",
+        "OnlineStatus": "0"
+      },
+      {
+        "objid": "1900249001",
+        "char_name": "服務驗證",
+        "AccessLevel": "0",
+        "OnlineStatus": "0"
+      },
+      {
+        "objid": "1900249201",
+        "char_name": "服務交易",
+        "AccessLevel": "0",
+        "OnlineStatus": "0"
+      }
+    ],
+    "R12": true,
+    "R13": true
+  },
+  "checkOnly": {
+    "status": "checked-only",
+    "revision": "dev",
+    "executable": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1125\\engine\\build\\client-product-dev\\P11.ClientEngine.exe",
+    "workingDirectory": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1125\\engine",
+    "arguments": [
+      "--normal-product"
+    ],
+    "manifest": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1125\\engine\\build\\product-dev-manifest.json",
+    "manifestSha256": "8ecd5c05fecb0a9802bfad603ea34b910349957d08a5ae352bd1604f38895070",
+    "hashedRuntimeAndWebFiles": 24,
+    "assetFilesCheckedForPresenceAndSize": 13957,
+    "assetContentVerification": "Pinned integrity manifest; body hashes remain verified by the product when loaded, matching prior entry contract.",
+    "assetState": "legacy-ready",
+    "message": "開發機舊素材索引檢查完成。",
+    "assetReceipt": null,
+    "assetReceiptSha256": null,
+    "runtime": {
+      "architecture": "x64",
+      "loadedCoreVersion": "10.0.8",
+      "loadedCoreDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\10.0.8\\",
+      "desktopVersion": "10.0.8",
+      "desktopDirectory": "C:\\Program Files\\dotnet\\shared\\Microsoft.WindowsDesktop.App\\10.0.8"
+    },
+    "webView2Version": "157.0.4341.46",
+    "powerShellRequired": false,
+    "pathLookupUsed": false,
+    "autoLogin": false,
+    "uiStarted": false,
+    "networkStarted": false,
+    "servicesStarted": false
+  },
+  "snapshot": {
+    "utc": "2026-11-13T21:42:49.295145+00:00",
+    "backup": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\backups\\issue-1125-before",
+    "files": 1722,
+    "bytes": 279502536,
+    "manifestSha256": "1917432faa7fad37a2272743102d7db80902a78b72e79106da0598a7f41d47e9",
+    "verified": true
+  },
+  "cleanup": {
+    "mysqladminExit": 0,
+    "java": {
+      "exited": true,
+      "pid": 6836,
+      "method": "owned Process.Kill; no graceful shutdown claim"
+    },
+    "mysql": {
+      "exited": true,
+      "pid": 11256,
+      "method": "mysqladmin shutdown"
+    },
+    "listeners": null,
+    "utc": "2026-11-13T21:46:44.6241780Z"
+  },
+  "gmFinal": [
+    {
+      "objid": "10305",
+      "char_name": "資源王族",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "10314",
+      "char_name": "資源騎士",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "10325",
+      "char_name": "資源妖精",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "10334",
+      "char_name": "資源法師",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "10344",
+      "char_name": "資源暗妖",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "10356",
+      "char_name": "資源龍騎",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "10365",
+      "char_name": "資源幻術",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900240001",
+      "char_name": "透明王子",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900240002",
+      "char_name": "透明王子乙",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900240003",
+      "char_name": "驗收王子",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900240004",
+      "char_name": "驗收王子乙",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900240005",
+      "char_name": "透明觀察甲",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900240006",
+      "char_name": "透明觀察乙",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900240007",
+      "char_name": "驗收觀察甲",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900240008",
+      "char_name": "驗收觀察乙",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900249001",
+      "char_name": "服務驗證",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900249201",
+      "char_name": "服務交易",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    }
+  ],
+  "protected": {
+    "equal": true,
+    "files": 24
+  },
+  "writeAudit": {
+    "startedUtc": "2026-11-13T21:42:08.627808+00:00",
+    "finishedUtc": "2026-11-13T21:52:46.438101+00:00",
+    "filesScanned": 1456337,
+    "counts": {
+      "excluded-worktree-git": 152,
+      "jar-log-temp": 2,
+      "mysql-runtime": 48,
+      "task-backup-evidence": 20
+    },
+    "knownErrors": [
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P35-release-generator-rg2-review-r1\\\\synthetic-wi9s08by'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r2\\\\synthetic-independent-q1wqqc0p'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r2\\\\synthetic-independent-gifbyfat'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r1\\\\synthetic-new-tools-_uw75d3y'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r1\\\\synthetic-new-tools-w7ao7rf2'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r1\\\\synthetic-new-tools-d4j_sxsa'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r1\\\\synthetic-contract-fmak1edg'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-pickup-integration-review-r1\\\\synthetic-zhurl291'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-pickup-integration-review-r1\\\\synthetic-tj11g_rj'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-pickup-integration-review-r1\\\\synthetic-hecff5h6'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-authority-rebind-review-r1\\\\synthetic-independent-fgjl3e7f'"
+    ],
+    "unknownErrors": [],
+    "jarArchives": [
+      {
+        "path": "environments\\p24\\server\\back\\2026-11-14-05-43-20.zip",
+        "entries": [
+          "/",
+          "movement/",
+          "movement/movement.log",
+          "server.log",
+          "teleport/",
+          "teleport/teleport.log"
+        ]
+      }
+    ],
+    "result": "pass",
+    "limitations": "mtime 時窗不能識別刪除或保留原時間的複製；本張未刪除。依 #1133 排除 worktree、.git 及列出的11個拒讀歷史目錄。"
+  },
+  "evidenceRoot": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\backups\\issue-1125-evidence",
+  "productDllSha256": "1642ea357d5300fcdac8f5b40e6595ba3504c17aa10b830d8fd6816041726e93",
+  "finalProcessAudit": {
+    "listeners": [],
+    "utc": "2026-11-13T21:49:50.8643453Z",
+    "trackedPids": [
+      12560,
+      1944,
+      6836,
+      11256,
+      2280
+    ],
+    "remaining": []
+  },
+  "evidenceManifestSha256": "8cbeca36a1a125433ebe2d88c680150529f137044d313ca31b03a2017d4d2db0"
+}
