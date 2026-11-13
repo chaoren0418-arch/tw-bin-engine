@@ -110,8 +110,10 @@ public sealed class SpriteList {
     readonly byte[] data;
     readonly Dictionary<int,(int Start,int End)> ranges=[];
     readonly Dictionary<int,SprEntry> parsed=[];
-    SpriteList(byte[] data){this.data=data;}
+    SpriteList(byte[] data){this.data=data;Sha256=AssetPrepPaths.Sha256(data);}
     public int Count=>ranges.Count;
+    /// <summary>SHA-256 of the decoded table (the list.spz anchor value for the supported client).</summary>
+    public string Sha256{get;}
 
     /// <summary>Inner layer of list.spz: after the Text DES layer the payload is <c>S1223</c>, AES-128-CBC over the whole
     /// 16-byte blocks that follow, and a tail XORed with the previous cipher block (same as SpriteTypeTable.Load).</summary>
@@ -350,7 +352,8 @@ public static class SprJson {
 
     public static byte[] Write(Action<Utf8JsonWriter> body){
         using var stream=new MemoryStream();
-        using(var writer=new Utf8JsonWriter(stream,new JsonWriterOptions{Indented=false,SkipValidation=false})){body(writer);}
+        // Relaxed escaping keeps event strings such as "<479" literal; everything written here is ASCII.
+        using(var writer=new Utf8JsonWriter(stream,new JsonWriterOptions{Indented=false,SkipValidation=false,Encoder=System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping})){body(writer);}
         return stream.ToArray();
     }
 
