@@ -4,7 +4,8 @@ namespace P06;
 public sealed partial class ClientForm {
     // Default factory uses supervisor-accepted r3; injectable for managed host tests.
     public static Func<string,IEffectAudio?> Accepted6016TransportFactory {get;set;}=P24.HostAudio.AudioApiTransport.Create;
-    const string Effect6016Pin="825673b11feb6b28c6d34663cd53266d0ca2209230b1b1cfa4c0a80125263383";
+    // T457: the pin is unchanged (asset-recipe.md §3.5); it is the same constant the map-effects recipe checks its 6016.json against.
+    const string Effect6016Pin=Effect6016Definition.AcceptedMetadataSha256;
     readonly EffectHostLane effectLane=new();readonly object audioLogGate=new();
     readonly List<Effect6016Host> retiredAudioHosts=[];
     readonly Dictionary<Effect6016Host,EffectAudioReply> audioMaintenanceSnapshots=[];

@@ -112,6 +112,8 @@ public sealed class SpriteList {
     readonly Dictionary<int,SprEntry> parsed=[];
     SpriteList(byte[] data){this.data=data;Sha256=AssetPrepPaths.Sha256(data);}
     public int Count=>ranges.Count;
+    /// <summary>T457: the fully decoded table (the map effects cut their metadata bytes from it, maps.md「metadata」).</summary>
+    public ReadOnlyMemory<byte> Decoded=>data;
     /// <summary>SHA-256 of the decoded table (the list.spz anchor value for the supported client).</summary>
     public string Sha256{get;}
 
