@@ -429,3 +429,4 @@
 - 2026-11-13 — #1034 b15-src-sprite-recipes: T449 來源閉合：SPR 類素材的 recipe（character、objects、players、shops、shadows、doors、ground、pickup）（resource，claude-local，PR #1064 已合併）→ [報告](reports/issue-1034.md)
 - 2026-11-13 — #1035 b15-src-map-tiles: T450 來源閉合：地圖、TIL、scene、cache、地圖特效的 recipe（resource，claude-local，PR #1065 已合併）→ [報告](reports/issue-1035.md)
 - 2026-11-13 — #1036 b15-prep-core: T451 準備器核心：輸入驗證、staging、收據、原子發布，加 TBT 圖示垂直切片（code，claude-local，PR #1066 已合併）→ [報告](reports/issue-1036.md)
+- 2026-11-13 — #1029 b15-src-text: T444 來源閉合：Text 容器版本差異與文字類素材（names、templates、list.spr／spz）（resource，claude-local，PR #1067 已合併）→ [報告](reports/issue-1029.md)
