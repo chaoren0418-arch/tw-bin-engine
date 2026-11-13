@@ -67,7 +67,7 @@ partial class Checks {
     }
     [CheckGroup(CheckGroups.Default,Order=230)]
     static async Task Quantity(){
-        using var c=Seed();var row=GroundCatalog.Rows.Single(r=>r.Id=="meat");
+        using var c=Seed();var row=SyntheticGroundItem.Stack;
         Feed(c,Packet(b=>{b.Write((byte)15);b.Write(900101u);b.Write(row.InventoryDesc);b.Write(row.WireUseType);b.Write((byte)0);b.Write(row.InventoryIcon);b.Write((byte)1);b.Write(10u);b.Write((byte)0);Text(b,row.CountName(10));b.Write((byte)0);b.Write(new byte[11]);}));
         c.World.SelectItem(900101);var selection=c.World.GroundQuantity(false);int revision=c.World.InventoryContentRevision;
         Sender(c,(_,_,_)=>throw new Exception("invalid quantity reached sender"));
@@ -80,7 +80,7 @@ partial class Checks {
         }
     }
     static void GroundPacket(LoginConnection c,uint count=10)=>Feed(c,Packet(b=>{
-        var row=GroundCatalog.Rows.Single(r=>r.Id=="meat");
+        var row=SyntheticGroundItem.Stack;
         b.Write((byte)87);b.Write((ushort)32600);b.Write((ushort)32940);b.Write(900102u);b.Write(row.GroundGfx);b.Write(new byte[4]);b.Write(count);b.Write((ushort)0);
         Text(b,row.CountName(count));Text(b,"");b.Write((byte)0);b.Write(0u);Text(b,"");Text(b,"");b.Write((byte)0);b.Write((byte)255);b.Write(new byte[3]);b.Write((byte)255);b.Write((byte)255);
     }));
@@ -92,7 +92,7 @@ partial class Checks {
             Call(form,"SyncQuantitySelection",true);
             var snapshot=(GroundQuantitySelection)typeof(ClientForm).GetField("pickupSelection",F)!.GetValue(form)!;
             if(!pickupError){
-                var row=GroundCatalog.Rows.Single(r=>r.Id=="meat");
+                var row=SyntheticGroundItem.Stack;
                 Feed(c,Packet(b=>{b.Write((byte)15);b.Write(900101u);b.Write(row.InventoryDesc);b.Write(row.WireUseType);b.Write((byte)0);b.Write(row.InventoryIcon);b.Write((byte)1);b.Write(10u);b.Write((byte)0);Text(b,row.CountName(10));b.Write((byte)0);b.Write(new byte[11]);}));
                 c.World.SelectItem(900101);
             }

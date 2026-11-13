@@ -18,5 +18,4 @@
   <ItemGroup><ProjectReference Include="../audio/P24.Audio.csproj" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="Resources/pickup-own-base15-gfx0-weapon0.json" LogicalName="P06.Resources.PickupOwnBase15Gfx0Weapon0.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="Resources/pickup-own-base15-profile-extension.json" LogicalName="P06.Resources.PickupOwnBase15ProfileExtension.json" /></ItemGroup>
-  <ItemGroup><EmbeddedResource Include="Resources/ground-catalog.json" LogicalName="P06.Resources.GroundCatalog.json" /></ItemGroup>
 </Project>
