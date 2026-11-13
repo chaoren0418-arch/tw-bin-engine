@@ -433,3 +433,4 @@
 - 2026-11-13 — #1051 b15-exc-work-evidence: T466 移除已知例外：兩個帶 pixels 陣列的 work/ 歷史證據（code，claude-local，PR #1068 已合併）→ [報告](reports/issue-1051.md)
 - 2026-11-13 — #1054 b15-web-local-images: T469 web 圖片：F9 面板的 icons／ground 一律由本機即時產生（code，claude-local，PR #1069 已合併）→ [報告](reports/issue-1054.md)
 - 2026-11-13 — #1033 b15-src-motion-blend: T448 來源閉合：motion.json 與三張混色查表改為純程式算法（resource，claude-local，PR #1070 已合併）→ [報告](reports/issue-1033.md)
+- 2026-11-13 — #1037 b15-recipe-contract: T452 設計：依七張來源閉合結果定 recipe 契約與已知限制清單（design，claude-local，PR #1071 已合併）→ [報告](reports/issue-1037.md)
