@@ -1,0 +1,10 @@
+[
+  {
+    "id": "b15-runtime-archive-verify",
+    "title": "T479 執行期封存驗證：UiResourcePins 與 GroundSpriteReader 的整包 pin 改成結構檢查＋錨點＋逐 entry（D1）",
+    "stage": "code",
+    "priority": "P1",
+    "text": "runner: claude-local。預算 3 小時。依 `docs/design/asset-recipe.md` 1.1 第 3 點、1.2 與第 8 節 D1 的定案（T476／#1072）。\n\n背景：本機客戶端的 `Sprite03`–`Sprite14` 在 2026-11-09 被附加 36 個無關的 `.img`，12 組 idx／pak 的 SHA 與大小都變了，用到的 SPR 內容沒變（`docs/reference/asset-recipes/sprites.md` §8.1）。產品執行期仍用整包 pin：`engine/source/NativeUi/ClientArchive.cs` 的 `UiResourcePins`（Sprite＋Sprite00–15，加 Tile）與 `engine/source/GroundSpriteReader.cs` 的 `archivePins`。照原始碼，產品現在開這 12 包會被拒絕；可攜版要接受使用者自己的客戶端，整包 pin 也會擋到。主控定案：不更新 pin、不還原客戶端，執行期改成與準備器相同的三層驗證。\n\n範圍：(1) 兩處整包 pin（idx SHA、pak 大小、整包 SHA）不再當拒絕條件，改成：結構檢查（idx 大小 = 筆數 × 28 ＋ 4；每筆 offset＋size 不超出 pak；同包不重名）＋契約 1.2 的錨點 entry（用得到的那幾筆）＋讀到的 entry 照現有方式核對（已有 per-entry SHA 的地方保留）。優先重用 `engine/source/AssetPrep/` 裡 T454 已做好的 Sprite 三層驗證，不要寫第二份；必要時把它抽成兩邊共用的元件。(2) `GroundSpriteReader` 原本為了『不改』而重複一份 pin（ClientArchive.cs:21 的註解），這次一起改成共用元件。(3) 主包優先與替代包唯一性照 `sprites.md` §3.3。(4) 錯誤訊息寫出容器與 entry 名稱；拒絕時行為照現有（不退回其他來源）。(5) 同步改 `engine/_integration/dev/native-ui-tests/ResourceChecks.cs:230` 等依賴 pin 表形狀的測試，改成驗新的驗證規則。\n\n不做：不改準備器（T454 已做）；不改 `ShipBackdrop.cs`、`OriginalMapCache.cs`、`ClientEffect6016.cs` 的 entry 級 SHA（那些本來就是錨點）；不碰 `D:\\lineage開發\\0-客戶端` 的任何檔案，不還原被附加的 `.img`。\n\n驗收：`[CheckGroup]` 離線測試用合成的 Sprite／Tile 容器：(a) 在 pak 尾端附加無關 entry、idx 多出對應筆數 → 接受，讀到的 entry 內容不變；(b) idx 大小不合、offset 越界、同包重名 → 拒絕並指出容器；(c) 錨點 entry 內容被改 → 拒絕並指出 entry。既有 UI 資源、ground、REF-SURF 測試全過。編譯通過、CI 綠燈。PR 不改 rebuild-lock.json。本機客戶端下實際畫面（UI、地面物品）的確認寫進待驗證，交 T474 真機驗收。",
+    "depends_on": []
+  }
+]
