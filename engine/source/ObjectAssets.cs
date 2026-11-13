@@ -20,10 +20,19 @@ public sealed class ObjectAppearance {
     public Frame At(string action,int direction,double elapsed){var seq=Sequences[(action,direction)];if(seq.All(s=>s.Milliseconds!=null)){double length=seq.Sum(s=>s.Milliseconds!.Value),age=action=="breath"?elapsed%length:Math.Clamp(elapsed,0,length-.00001);foreach(var s in seq){if(age<s.Milliseconds!.Value)return Frames[s.Key];age-=s.Milliseconds.Value;}return Frames[seq[^1].Key];}double total=seq.Sum(s=>s.Ticks);double t=action!="breath"?Math.Clamp(elapsed/Duration(action),0,.999999)*total:(elapsed/(1000d/24))%total;foreach(var s in seq){if(t<s.Ticks)return Frames[s.Key];t-=s.Ticks;}return Frames[seq[^1].Key];}
 }
 public sealed class ObjectAssets {
-    PickupAssets? pickupAssets;
+    // T463: pickup/* of this assets tree (prepared by the "pickup" recipe), loaded once. A tree without them (for example the
+    // r29 baseline) fails the same way every time without re-reading integrity.json on each frame.
+    PickupAssets? pickupAssets;System.Runtime.ExceptionServices.ExceptionDispatchInfo? pickupFailure;
+    PickupAssets Pickup(){
+        if(pickupAssets!=null)return pickupAssets;
+        pickupFailure?.Throw();
+        try{return pickupAssets=PickupAssets.Load(Path.GetDirectoryName(root)!);}
+        catch(Exception ex) when(ex is IOException or InvalidDataException or System.Text.Json.JsonException){pickupFailure=System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex);throw;}
+    }
+    internal bool PickupSupports(int gfx,int weapon)=>Pickup().Supports(gfx,weapon);
     internal Frame[]? PickupFrames(ObjectAppearance appearance,int direction,int weapon=0)=>
-        PickupAssets.Supports(appearance.Gfx,weapon)&&ReferenceEquals(appearance,Get(appearance.Gfx,weapon))
-        ?(pickupAssets??=PickupAssets.Load()).For(appearance,direction,weapon):null;
+        Pickup().Supports(appearance.Gfx,weapon)&&ReferenceEquals(appearance,Get(appearance.Gfx,weapon))
+        ?Pickup().For(appearance,direction,weapon):null;
     readonly OriginalAppearanceCatalog shops,monsters,worldAppearances,doors;
     public ObjectAppearance? GetDoor(int gfx)=>gfx==2346?doors.Get(gfx):null;
     public ObjectAppearance? GetShop(int gfx)=>shops.Get(gfx);
