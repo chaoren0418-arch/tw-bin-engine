@@ -336,7 +336,10 @@ def collect(root):
             errors.append(f'{zip_path}: differs from the build product manifest (stale or modified build output)')
         files.append(dict(path=rel, size=len(data), sha256=sha(data)))
     packaged = {f['path'] for f in files}
+    scanned = {r['path'] for r in excluded}  # build files already reported with their specific reason
     for rel in sorted(set(rows) - packaged):
+        if f'engine/{rel}' in scanned:
+            continue
         excluded.append(dict(path=f'engine/{rel}', size=rows[rel].get('size'), reason='manifest row outside allowlist (dropped from portable manifest)'))
     portable = {k: v for k, v in source.items() if k != 'files'}
     portable['files'] = files
