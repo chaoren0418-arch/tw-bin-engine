@@ -389,6 +389,8 @@ def main():
     if args.review:
         errors, listing = review_zip(args.review)
         summary = dict(status='pass' if not errors else 'refused', fileCount=len(listing), totalSize=sum(f['size'] for f in listing), errors=len(errors))
+    elif template_errors(REPO):  # README/entry drifted from the program: refuse before anything is packaged
+        errors, summary = template_errors(REPO), dict(status='refused', zip=None, published=False)
     else:
         result = package(REPO, REPO / OUT)
         errors = result['errors']
@@ -402,6 +404,50 @@ def main():
         print('REFUSED: ' + error)
     print(json.dumps(summary, ensure_ascii=False))
     return 1 if errors else 0
+
+
+# ---- portable README / entry templates (T473) ----
+# Program text the README may quote: the launcher and the preparation command/core it reports from.
+MESSAGE_SOURCES = ('engine/_integration/dev/launcher-source/Program.cs', 'engine/source/AssetPrep/*.cs')
+CLIENT_ROOT_LINE = re.compile(r'^set "TW_CLIENT_ROOT=([^"]+)"$', re.I)
+CJK = re.compile(r'[㐀-鿿＀-￯]')
+
+
+def template_errors(repo):
+    """The README quotes program messages verbatim (`…` marks a value filled in at run time) and the entry has
+    exactly one TW_CLIENT_ROOT setting. Reads the repo templates and C# sources only; runs nothing."""
+    errors = []
+    readme = (repo / TEMPLATES['README.md']).read_text('utf-8')
+    raw = (repo / TEMPLATES['啟動引擎.cmd']).read_bytes()
+    corpus = '\n'.join(p.read_text('utf-8-sig') for pattern in MESSAGE_SOURCES for p in sorted(repo.glob(pattern)))
+    corpus = corpus.replace('\\"', '"')
+    if not raw.isascii():
+        errors.append('啟動引擎.cmd: must be ASCII (cmd.exe reads it in the console code page)')
+    if raw.replace(b'\r\n', b'').count(b'\n') or raw.replace(b'\r\n', b'').count(b'\r'):
+        errors.append('啟動引擎.cmd: line endings must be CRLF')
+    cmd = raw.decode('ascii', 'replace').splitlines()
+    roots = [line for line in cmd if CLIENT_ROOT_LINE.match(line.strip())]
+    assigned = [line for line in cmd if re.match(r'^\s*set\s+"?TW_CLIENT_ROOT=', line, re.I)]
+    if len(roots) != 1 or len(assigned) != 1:
+        errors.append(f'啟動引擎.cmd: expected exactly one set "TW_CLIENT_ROOT=..." line, found {len(assigned)}')
+    for need in ('set "TW_ENGINE_ROOT=%~dp0engine"', '"%TW_ENGINE_ROOT%\\launcher\\P24.Launcher.exe" %*', 'exit /b %TW_EXIT%'):
+        if need not in (line.strip() for line in cmd):
+            errors.append(f'啟動引擎.cmd: missing line {need}')
+    if 'P24.Launcher.exe' not in LAUNCHER_FILES:
+        errors.append('啟動引擎.cmd: launcher exe is not packaged')
+    if roots and roots[0].strip() not in readme:
+        errors.append(f'README.md: does not show the entry line {roots[0].strip()}')
+    if 'set \\"TW_CLIENT_ROOT=' not in (repo / 'engine/source/AssetPrep/AssetPreparationState.cs').read_text('utf-8-sig'):
+        errors.append('AssetPreparationState.ClientRootHint no longer points at the set "TW_CLIENT_ROOT=..." line')
+    for span in re.findall(r'`([^`\n]+)`', readme):
+        if span.startswith('[tw-bin-engine]'):
+            if not any(span in line for line in cmd):
+                errors.append(f'README.md: entry message not in 啟動引擎.cmd: {span}')
+        elif CJK.search(span) and span not in TEMPLATES:
+            missing = [piece.strip() for piece in span.split('…') if piece.strip() and piece.strip() not in corpus]
+            if missing:
+                errors.append(f'README.md: quoted message not found in program sources: {span} (missing {missing})')
+    return errors
 
 
 # ---- self-test (synthetic trees only; written below repo scratch/) ----
@@ -667,6 +713,32 @@ def self_test():
         def test_missing_allowlisted_file_refused(self):
             (self.root / 'engine/web/trade.js').unlink()
             self.assertRefused(collect(self.root)[2], 'engine/web/trade.js')
+
+        def test_real_templates_match_program(self):
+            self.assertEqual(template_errors(REPO), [])
+
+        def test_template_check_catches_drift(self):
+            for rel in TEMPLATES.values():
+                target = self.root / rel
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes((REPO / rel).read_bytes())
+            for pattern in MESSAGE_SOURCES:
+                for p in REPO.glob(pattern):
+                    dest = self.root / p.relative_to(REPO)
+                    dest.parent.mkdir(parents=True, exist_ok=True)
+                    dest.write_bytes(p.read_bytes())
+            self.assertEqual(template_errors(self.root), [])
+            readme, cmd = self.root / TEMPLATES['README.md'], self.root / TEMPLATES['啟動引擎.cmd']
+            original_readme, original_cmd = readme.read_bytes(), cmd.read_bytes()
+            readme.write_bytes(original_readme + '\n| `這句話不在程式裡。` | x | y |\n'.encode('utf-8'))
+            self.assertRefused(template_errors(self.root), 'quoted message not found in program sources: 這句話不在程式裡。')
+            readme.write_bytes(original_readme)
+            cmd.write_bytes(original_cmd + b'set "TW_CLIENT_ROOT=C:\\Other"\r\n')
+            self.assertRefused(template_errors(self.root), 'expected exactly one set "TW_CLIENT_ROOT=..." line, found 2')
+            cmd.write_bytes(original_cmd.replace(b'\r\n', b'\n'))
+            self.assertRefused(template_errors(self.root), 'line endings must be CRLF')
+            cmd.write_bytes(original_cmd + 'rem 中文\r\n'.encode('utf-8'))
+            self.assertRefused(template_errors(self.root), 'must be ASCII')
 
         def test_real_policy_matches_design(self):
             self.assertEqual(len(WEB_FILES), 8)

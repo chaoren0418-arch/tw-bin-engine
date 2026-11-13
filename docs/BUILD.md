@@ -37,6 +37,16 @@ dotnet --version
 
 因 #153 確認 r28 與 r33 的素材缺失，#155 將主目錄 junction 改接已核驗的 r29 獨立副本。
 
+**可攜模式（M8，T467–T473）的 `engine/assets` 由使用者本機產生，不是 junction**：
+
+- 可攜 zip（`engine/tools/package-portable.py` 打包，白名單見 T472／#1057）不含 `engine/assets`。使用者在 zip 根目錄的 `啟動引擎.cmd`（來源 `engine/tools/portable/啟動引擎.cmd`）設定唯一一處 `set "TW_CLIENT_ROOT=…"`；`TW_ENGINE_ROOT` 由入口位置推導為 `%~dp0engine`。launcher 與產品則一律以自己的位置推導引擎根目錄（`AppContext.BaseDirectory`），不讀 `TW_ENGINE_ROOT`。
+- 第一次啟動時，launcher 發現沒有 ready 的資源，就以 `P11.ClientEngine.exe --prepare-assets` 從 `TW_CLIENT_ROOT` 準備。輸出先寫 `engine/runtime/assets-staging/`，全部驗過後換成普通目錄 `engine/assets`，內容是 `integrity.json`（`tw-assets-integrity-v2`）與 `prep-receipt.json`。契約見 `docs/design/asset-recipe.md` 第 4 節；使用者步驟見 `engine/tools/portable/README.md`。
+- 兩種模式由 `AssetPreparationState.Inspect` 分辨：
+  - v1 `integrity.json` 只在 `engine/assets` 是 junction、且索引 SHA 與產品 manifest 的 `assets/integrity.json` pin 相符時接受（`legacy-ready`），也就是本開發機。
+  - 普通目錄必須有 v2 索引與收據，並逐檔核對 SHA-256（`ready`）。
+- 準備器拒絕寫入 junction／symlink，所以**開發機的 r29 junction 不會被準備器改寫**。不要為了試可攜模式而拆掉或改寫這個 junction；要試請解壓到另一個目錄（依專案規則放 `scratch/`）。
+- 可攜 manifest 拿掉 `assets/integrity.json` 這一列（T472），所以可攜目錄不會走 legacy 路徑。
+
 建置與 check-only 怎麼依賴它們：
 
 - `rebuild.py --build` 若看得到 `engine/assets/integrity.json`，會把它寫進 `engine/build/product-dev-manifest.json`。
@@ -44,6 +54,12 @@ dotnet --version
 - 根目錄 `啟動引擎.cmd` 依賴 `releases\r33\launcher\P24.Launcher.exe`，不是 git 內容。沒有封存 release 的乾淨 clone，這條入口會 `exit /b 2`。
 
 TASKS T003 寫了環境變數 `TW_ENGINE_ROOT`／`TW_CLIENT_ROOT`（後者預設即 `D:\lineage開發\0-客戶端`）。目前 `rebuild.py` 與 `build-product.ps1` **沒有讀這兩個變數**：repo 根由腳本位置推導（`rebuild.py` 的 `Path(__file__)`；PowerShell 的 `$PSScriptRoot`）。
+
+執行期：
+
+- 產品的 provider（地圖原檔、TIL、Sound、UI 用的 Sprite／Tile）讀 `TW_CLIENT_ROOT`，沒設定時退回開發機的 `D:\lineage開發\0-客戶端`。
+- launcher 與 `--prepare-assets` **不退回**：沒設定或目錄缺 `Text`／`Tile`／`Sprite`／`Sprite00`–`Sprite15` 的 `.idx`／`.pak` 或 `map` 目錄，就直接拒絕。
+- 例外：開發機的 `legacy-ready`（junction）模式下，launcher 不要求 `TW_CLIENT_ROOT`。
 
 ---
 
@@ -228,6 +244,7 @@ CI **沒有** `engine/assets`（gitignore），也**不跑 check-only**。`--bui
 | `找不到 .NET 10 Windows Desktop Runtime` | dev launcher | 已裝 SDK 或一般 Runtime 不夠。加裝 x64 **Desktop** Runtime 10。 |
 | `找不到可用 WebView2 Runtime` | dev launcher | 機器沒有可用的 WebView2 Runtime。NuGet 的 `WebView2Loader.dll` 不能代替 Runtime。 |
 | `缺少 dev 產品 manifest`／`缺少或大小不符的素材` | dev launcher | 沒跑過 `--build`，或 `engine/assets` junction 沒指到完整 r29 素材。不要為了補齊而去複製 pak／map／sprite。 |
+| `尚未準備素材；請設定 TW_CLIENT_ROOT 後執行啟動入口。`／`普通 assets 目錄需要 v2 準備收據；v1 僅供開發機 junction 使用。` | launcher（可攜模式） | 可攜目錄還沒準備，或有人把 v1 素材複製成普通目錄。可攜模式的資源只能由 `--prepare-assets` 在本機產生；使用者端的錯誤訊息與處理見 `engine/tools/portable/README.md` 第 6 節。 |
 | `r33`／`r34` 的 `rebuild.py` 拒絕 | 舊 lock 要 177／180 檔 | 現行來源用 `engine/_integration/dev/rebuild.py`。 |
 | `productDllSha256 differs from receipt` | `rebuild.py --verify` | 產物與 `receipt.json` 不一致。改過程式後應重新 `--build --write-receipt`（這是 CI 的做法），不要手改 receipt。 |
 
