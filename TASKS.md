@@ -1,6 +1,6 @@
 # TASKS — tw-bin-engine
 
-更新：2026-11-13（#1027 B15 升級為 M8 可攜交付，T444–T475；#76 範圍凍結；#99、#110 調整 M3；#128 依使用者節流指示改寫驗證方式與 M2；#162 M2 結案、新增 M4；#177 M4 結案、新增 M5；#186 新增 M6 內容擴充；#238 M6 補列 T113–T134；#385 補列 T135–T146；#418 補列 T147–T153；#427 第四層證據：原版表現查證先於開發；#485 補列 T167–T201；#503 新增 M7 重建補缺；#535 M7 補列 T203–T227；#569 M7 補列 T228–T243；#657 M7 補列 T244–T274；#727 M7 補列 T275–T304；#894 M7 補列 T305–T383；#982 M7 補列 T384–T427；#1023 M7 補列 T428–T443 並結案）。格式：`### ID | 狀態 | 負責 | 範圍`。狀態只用 todo／doing／review／done／blocked。
+更新：2026-11-13（#1072 B15 已知限制與決定裁定，M8 +4；#1027 B15 升級為 M8 可攜交付，T444–T475；#76 範圍凍結；#99、#110 調整 M3；#128 依使用者節流指示改寫驗證方式與 M2；#162 M2 結案、新增 M4；#177 M4 結案、新增 M5；#186 新增 M6 內容擴充；#238 M6 補列 T113–T134；#385 補列 T135–T146；#418 補列 T147–T153；#427 第四層證據：原版表現查證先於開發；#485 補列 T167–T201；#503 新增 M7 重建補缺；#535 M7 補列 T203–T227；#569 M7 補列 T228–T243；#657 M7 補列 T244–T274；#727 M7 補列 T275–T304；#894 M7 補列 T305–T383；#982 M7 補列 T384–T427；#1023 M7 補列 T428–T443 並結案）。格式：`### ID | 狀態 | 負責 | 範圍`。狀態只用 todo／doing／review／done／blocked。
 
 **計算規則（凍結）**：
 - 調度台的進度條**只算 `## M*` 區段**；`## Backlog` 只顯示數量，不算進度。
@@ -506,16 +506,18 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 
 ---
 
-## M8 可攜交付 — 主線 32 項，封頂（B15 升級；使用者 2026-11-13 同意，#1027）
+## M8 可攜交付 — 主線 36 項，封頂（B15 升級；使用者 2026-11-13 同意，#1027；T476 裁定 +4：T476–T479，#1072）
 
 **驗收：使用者打開會看到什麼（#1027 由本機 Claude 起草，待主控與使用者過目後凍結）**：
 - 拿到一個**不含任何遊戲資源**的 zip，解壓到任意目錄，在 `啟動引擎.cmd` 填自己的原客戶端路徑（`TW_CLIENT_ROOT`）後執行：第一次會在本機產生 `engine/assets`，完成後出現登入畫面。過程不需要 SDK、Python、SQL、JAR、研究目錄或 `releases/` junction。
-- repo 的 main 上，#110 的 9 個已知例外歸零；CI 拒收檢查沒有 B15 例外。來源閉合判定「只有伺服器才有」的資料不偷渡，改列在 `docs/design/asset-recipe.md` 的**已知限制**，每項寫明缺什麼與影響。
+- repo 的 main 上，#110 的 9 個已知例外**只剩 `engine/source/OriginalExpTable.cs` 一個**（使用者 2026-11-13 裁定 L1＝A，#1072：EXP 門檻表保留為已知例外，CI 仍以精確路徑加 SHA 鎖定），其餘歸零。來源閉合判定「只有伺服器才有」的資料不偷渡，改列在 `docs/design/asset-recipe.md` 的**已知限制**，每項寫明缺什麼與影響。
 - 用真的原客戶端產生的素材，與現行基線（r29 assets）逐類比對的結果寫在 T470 的報告；乾淨目錄解壓後的真機短程回歸寫在 T474 的報告。
 
 **前置說明**：#1027 的派工文字寫「#101 來源查核、#103 準備器核心已完成」，實際上兩張都在 2026-11-06 依 #99 以 not planned 關閉，**沒有執行、沒有報告、沒有程式**。所以 terrain／bounds、skills／cooldown、motion／混色、Text 版本目前都**沒有 pass／blocked 結論**，由 T444–T450 重新查核；準備器核心由 T451 從頭做。細節見 `docs/reports/issue-1027.md`。
 
-**來源閉合結果（T452／#1037，2026-11-13）**：T444–T450 都已完成，19 類素材加 pickup 沒有任何一類整類 blocked。blocked 的是 EXP 門檻表、`ground-catalog.json` 的模板列、8 張地圖的 terrain 區域位元（產品不讀）、`maps[].name` 欄位。實作契約、已知限制 L1–L7 與待主控裁定的 D1–D8 在 `docs/design/asset-recipe.md`；下面各列的範圍已照契約第 9 節修正。新增 T476–T478（規劃檔 `docs/plans/issue-1037.json`），是否計入主線分母待主控決定，`PLAN.md` 尚未更動。
+**來源閉合結果（T452／#1037，2026-11-13）**：T444–T450 都已完成，19 類素材加 pickup 沒有任何一類整類 blocked。blocked 的是 EXP 門檻表、`ground-catalog.json` 的模板列、8 張地圖的 terrain 區域位元（產品不讀）、`maps[].name` 欄位。實作契約、已知限制 L1–L7 與待主控裁定的 D1–D8 在 `docs/design/asset-recipe.md`；下面各列的範圍已照契約第 9 節修正。新增 T476–T478（規劃檔 `docs/plans/issue-1037.json`）。
+
+**裁定結果（T476／#1072，2026-11-13）**：L1–L7、D1–D8 全部定案，寫在 `asset-recipe.md` 第 7、8 節。使用者裁定 **L1＝A**（EXP 表保留為唯一的已知例外）、**L2＝X**（拿掉 ground-catalog 可丟棄白名單，由伺服器裁定，保留確認視窗）；主控裁定 L3 照 T470 標準、L4 拿掉 `maps[].name`、L5 照 R1、L6 知悉、L7 gfx 138 等 T470 過了再開；D1 執行期改三層驗證（新增 **T479**）、D2 不疊加 LTtext、D3–D6 照暫行定案、D7 知悉、**D8 做**（T477、T478 保留）。T476–T479 計入主線分母（+4）。影響：T464 只做 L2；T471 例外目標是 1 不是 0；T473、T474、T475 的範圍照契約第 9 節。
 
 分組與依賴：來源閉合 T444–T450（可平行）與核心 T451 → 契約 T452 → 各類準備器 T453–T460、去伺服器依賴 T461–T462、移除例外 T463–T466 → 總流程 T467 → 接線 T468–T469 → 實跑 T470 → CI 收尾 T471、封裝 T472、文件 T473 → 真機 T474 → 結案 T475。規劃檔 `docs/plans/issue-1027.json`（括號內是規劃檔的 id，Issue 編號由調度器建立後補）。
 
@@ -539,21 +541,22 @@ T070–T074 都是 **code 任務**：先唯讀查閱 `D:\lineage開發\1-伺服�
 ### T461 | todo | claude-local | 去伺服器依賴：動作時序照 list.spz 規則，不建職業 gfx 表（b15-deserver-timing）
 ### T462 | todo | claude-local | 去伺服器依賴：skills 與 magic 改為執行期直讀 Text 的 spelldesc-c.tbl，不產生檔案（b15-deserver-skills-magic）
 ### T463 | todo | claude-local | 移除已知例外：兩個 pickup 內嵌 JSON（b15-exc-pickup）
-### T464 | todo | claude-local | 移除已知例外：OriginalExpTable.cs 與 ground-catalog.json（b15-exc-exp-ground；兩者都是已知限制 L1、L2，等 T476 裁定後開工）
+### T464 | todo | claude-local | 移除已知例外：ground-catalog.json 白名單拿掉（L2＝X）；OriginalExpTable.cs 保留為已知例外、只寫理由（L1＝A）（b15-exc-exp-ground；T476 已裁定）
 ### T465 | todo | claude-local | 移除已知例外：三個測試向量檔（b15-exc-test-vectors）
 ### T466 | todo | claude-local | 移除已知例外：兩個帶 pixels 的 work/ 歷史證據，先等主控裁定（b15-exc-work-evidence）
 ### T467 | todo | claude-local | 準備器總流程：全類別排程、integrity 與收據、進度與重試（b15-prep-orchestrator）
 ### T468 | todo | claude-local | 接線：產品 `--prepare-assets` 與 launcher 的未準備／準備／檢查流程（b15-launcher-prepare）
 ### T469 | todo | claude-local | web 圖片：F9 面板 icons／ground 由本機即時產生（b15-web-local-images）
 ### T470 | todo | codex-local | 實跑驗證：真客戶端全量準備，與 r29 基線比對（b15-verify-preparer）
-### T471 | todo | claude-local | CI 拒收收尾：b15Exceptions 清空（b15-exc-ci-close）
+### T471 | todo | claude-local | CI 拒收收尾：b15Exceptions 只留 OriginalExpTable.cs 一列，例外機制保留（b15-exc-ci-close；L1＝A）
 ### T472 | todo | claude-local | 封裝：可攜 zip 白名單打包腳本與內容審查（b15-zip-allowlist）
 ### T473 | todo | claude-local | 文件：可攜版 README、啟動入口設定、BUILD／ARCHITECTURE 同步（b15-readme）
 ### T474 | todo | dot | 真機驗收：乾淨目錄解壓、準備素材、登入畫面與短程回歸（b15-verify-clean-zip）
 ### T475 | todo | claude-local | M8 結案：已知限制定案，TASKS／PLAN／demo 頁同步（b15-close）
-### T476 | todo | Claude | 主控裁定（needs:claude）： asset-recipe.md 的已知限制 L1–L7 與決定 D1–D8（b15-limits-ruling；#1037 新增）
-### T477 | todo | claude-local | 執行期按需準備：物件、怪物、NPC 外觀（b15-ondemand-appearance-a；#1037 新增，等 T476）
-### T478 | todo | claude-local | 執行期按需準備：玩家姿勢、陰影、商店、門、魔法與飛行物（b15-ondemand-appearance-b；#1037 新增）
+### T476 | done | Claude | 主控裁定： asset-recipe.md 的已知限制 L1–L7 與決定 D1–D8（b15-limits-ruling；#1072，L1＝A、L2＝X 為使用者裁定）
+### T477 | todo | claude-local | 執行期按需準備：物件、怪物、NPC 外觀（b15-ondemand-appearance-a；#1073；D8 裁定「做」）
+### T478 | todo | claude-local | 執行期按需準備：玩家姿勢、陰影、商店、門、魔法與飛行物（b15-ondemand-appearance-b；#1074）
+### T479 | todo | claude-local | 執行期封存驗證：UiResourcePins 與 GroundSpriteReader 的整包 pin 改成結構檢查＋錨點＋逐 entry（b15-runtime-archive-verify；D1 定案，規劃檔 `docs/plans/issue-1072.json`）
 
 ---
 
