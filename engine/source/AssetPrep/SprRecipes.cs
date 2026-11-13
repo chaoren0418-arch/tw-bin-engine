@@ -274,22 +274,42 @@ public sealed class ObjectsRecipe:IAssetRecipe {
         throw new AssetPrepException(AssetPrepFailure.Unavailable,$"list.spz 的 gfx {entry.Gfx} 沒有 walk 也沒有 breath，無法決定 stepMs",AssetPrepInput.TextContainer);
     }
 
-    /// <summary>Monster / NPC / world appearance: the creature actions the entry has.</summary>
-    static byte[] Monster(AssetRecipeItemContext context,SprEntry entry){
+    /// <summary>
+    /// T477 (#1073): one monster / NPC / world appearance before serialization — what objects/&lt;gfx&gt;.json holds and what the
+    /// runtime on-demand path (ObjectAppearanceOnDemand) turns straight into an in-memory ObjectAppearance. Both outputs come
+    /// from this one model, so a prepared file and an on-demand appearance of the same gfx carry the same frames and times.
+    /// </summary>
+    public sealed record CreatureModel(SprEntry Entry,int StepMs,IReadOnlyList<(string Label,SprAction Action)> Actions,SprBody Body,IReadOnlyList<SprSequence> Sequences){
+        /// <summary>actionMs of an action by the monster rule (×40 or exact; contract 3.2, D4).</summary>
+        public double ActionMs(string label,SprAction action)=>SprCreature.MonsterRule(label) switch{
+            SprCreature.Duration.Times40=>SprTiming.Times40(action),
+            SprCreature.Duration.Floor=>SprTiming.Floor(action),
+            _=>SprTiming.Exact(action),
+        };
+    }
+    /// <summary>Monster / NPC / world appearance: the creature actions the entry has (refusals as before, item named).</summary>
+    public static CreatureModel Creature(AssetRecipeItemContext context,SprEntry entry){
         var actions=SprCreature.MonsterActions.Select(a=>(a.Label,Action:entry.Action(a.Action))).Where(a=>a.Action!=null).Select(a=>(a.Label,Action:a.Action!)).ToArray();
         if(actions.Length==0)throw new AssetPrepException(AssetPrepFailure.Unavailable,$"list.spz 的 gfx {entry.Gfx} 沒有任何生物動作（0、1、2、3、8、18、19）",AssetPrepInput.TextContainer);
         int stepMs=StepMs(entry);
         var body=new SprBody(context,entry.Sprite);
         var sequences=actions.SelectMany(a=>body.Sequences(a.Label,a.Action)).ToArray();
+        return new(entry,stepMs,actions,body,sequences);
+    }
+    /// <summary>The plain-object items whose rule is not the creature rule (gfx 0: player rules; 234: clothes composite).</summary>
+    public static bool CreatureRule(int gfx)=>!CharacterGfx.Contains(gfx)&&!ClothesComposite.Contains(gfx);
+
+    static byte[] Monster(AssetRecipeItemContext context,SprEntry entry){
+        var m=Creature(context,entry);
         return SprJson.Write(w=>{
             w.WriteStartObject();
-            Head(w,entry);w.WriteNumber("sprite",entry.Sprite);w.WriteNumber("stepMs",stepMs);
+            Head(w,entry);w.WriteNumber("sprite",entry.Sprite);w.WriteNumber("stepMs",m.StepMs);
             w.WriteStartObject("actionMs");
-            foreach(var (label,action) in actions)SprCreature.WriteDuration(w,label,action,SprCreature.MonsterRule(label));
+            foreach(var (label,action) in m.Actions)SprCreature.WriteDuration(w,label,action,SprCreature.MonsterRule(label));
             w.WriteEndObject();
             w.WriteString("entryHash",entry.Sha256);
-            SprCreature.Sequences(w,sequences,_=>false);
-            SprJson.Frames(w,body);
+            SprCreature.Sequences(w,m.Sequences,_=>false);
+            SprJson.Frames(w,m.Body);
             w.WriteEndObject();
         });
     }

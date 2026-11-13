@@ -34,7 +34,7 @@ partial class Checks {
             Item(c,900,100,true);Item(c,901,10);Item(c,902,3);
             await QuerySale(c,(901,2),(902,5));
             Check(sent[^1][0]==125&&LoginPackets.TextEncoding.GetString(sent[^1],5,4)=="sell","C125 sale query wire");
-            Check(c.World.ShopRows[0] is {Id:901,Icon:124,Price:2,Available:10},"S65 inventory presentation");
+            Check(c.World.ShopRows[0] is {Id:901,Icon:9002,Price:2,Available:10},"S65 inventory presentation");
             foreach(var choices in new ShopChoice[][]{[],[new ShopChoice(901,0)],[new ShopChoice(901,11)],[new ShopChoice(999,1)],[new ShopChoice(901,1),new ShopChoice(901,1)],[new ShopChoice(901,uint.MaxValue)]})
                 Check(!await Npc(c,"shop",0,choices),"NPC invalid sale rejected");
             Check(await Npc(c,"shop",0,new ShopChoice(901,3),new ShopChoice(902,2)),"NPC multiple sale rows accepted");

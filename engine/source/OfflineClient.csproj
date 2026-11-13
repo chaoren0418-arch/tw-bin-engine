@@ -16,5 +16,4 @@
   <ItemGroup><PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4258.31" /></ItemGroup>
   <Target Name="RemoveUnusedWpfReference" BeforeTargets="ResolveAssemblyReferences"><ItemGroup><Reference Remove="@(Reference)" Condition="$([System.String]::Copy('%(Reference.Identity)').Contains('Microsoft.Web.WebView2.Wpf'))" /></ItemGroup></Target>
   <ItemGroup><ProjectReference Include="../audio/P24.Audio.csproj" /></ItemGroup>
-  <ItemGroup><EmbeddedResource Include="Resources/ground-catalog.json" LogicalName="P06.Resources.GroundCatalog.json" /></ItemGroup>
 </Project>

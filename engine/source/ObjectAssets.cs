@@ -15,7 +15,32 @@ public sealed class ObjectAppearance {
         if(j.TryGetProperty("actionMs",out var durations))foreach(var a in durations.EnumerateObject())ActionMs[a.Name]=a.Value.GetDouble();
         foreach(var f in j.GetProperty("frames").EnumerateArray())Frames.Add(f.S("key"),new(f.S("key"),f.A("bounds"),f.GetProperty("blocks").EnumerateArray().Select(b=>new Block(b.I("a"),b.I("b"),b.I("z"),b.I("source_order"),new(effectTileType,b.GetProperty("pixels").EnumerateArray().Select(p=>{var v=p.EnumerateArray().Select(x=>x.GetInt32()).ToArray();return new Pixel(v[0],v[1],(ushort)v[2]);}).ToArray()))).ToArray()));
         foreach(var s in j.GetProperty("sequences").EnumerateArray())Sequences.Add((s.S("action"),s.I("direction")),s.GetProperty("sequence").EnumerateArray().Select(t=>new AnimationStep(t.S("key"),t.I("ticks"),t.TryGetProperty("milliseconds",out var ms)?ms.GetInt32():null,t.TryGetProperty("events",out var events)?events.GetString()??"":"")).ToArray());
+        Validate();
+    }
+    void Validate(){
         if(StepMs<=0||Sequences.Count<8||Sequences.Count%8!=0||Sequences.Values.Any(s=>s.Length==0||s.Sum(t=>t.Ticks)<=0||s.Any(t=>t.Ticks<0||!Frames.ContainsKey(t.Key))))throw new InvalidDataException("object animation cache invalid");
+    }
+    ObjectAppearance(int gfx,int sprite,int stepMs){Gfx=gfx;Sprite=sprite;StepMs=stepMs;}
+    /// <summary>
+    /// T477 (#1073): the appearance of a monster / NPC built in memory from the objects recipe's creature model — no JSON in
+    /// between. Same values as loading objects/&lt;gfx&gt;.json of the same gfx: blend 2 (creatures have no effectTileType),
+    /// actionMs by the monster rule, steps without milliseconds, every frame of every file read (by file number, then frame).
+    /// Pixel arrays are shared with the decoded SPR (read-only after decoding). Checked by the same rule as a file.
+    /// </summary>
+    public static ObjectAppearance FromCreature(AssetPrep.ObjectsRecipe.CreatureModel model){
+        const int blend=2;
+        var a=new ObjectAppearance(model.Entry.Gfx,model.Entry.Sprite,model.StepMs);
+        foreach(var (label,action) in model.Actions)a.ActionMs[label]=model.ActionMs(label,action);
+        foreach(int sid in model.Body.Sids){
+            var file=model.Body.File(sid);
+            for(int f=0;f<file.Frames.Count;f++){
+                string key=AssetPrep.SprJson.Key(sid,f);var frame=file.Frames[f];
+                a.Frames.Add(key,new(key,(int[])frame.Bounds.Clone(),frame.Tiles.Select((t,i)=>new Block(t.A,t.B,t.Z,i,new(blend,file.Blocks[t.BlockIndex]))).ToArray()));
+            }
+        }
+        foreach(var s in model.Sequences)a.Sequences.Add((s.Label,s.Direction),s.Keys.Select((key,i)=>{var step=s.Action.Steps[i];return new AnimationStep(key,step.Ticks,null,step.Events);}).ToArray());
+        a.Validate();
+        return a;
     }
     public Frame At(string action,int direction,double elapsed){var seq=Sequences[(action,direction)];if(seq.All(s=>s.Milliseconds!=null)){double length=seq.Sum(s=>s.Milliseconds!.Value),age=action=="breath"?elapsed%length:Math.Clamp(elapsed,0,length-.00001);foreach(var s in seq){if(age<s.Milliseconds!.Value)return Frames[s.Key];age-=s.Milliseconds.Value;}return Frames[seq[^1].Key];}double total=seq.Sum(s=>s.Ticks);double t=action!="breath"?Math.Clamp(elapsed/Duration(action),0,.999999)*total:(elapsed/(1000d/24))%total;foreach(var s in seq){if(t<s.Ticks)return Frames[s.Key];t-=s.Ticks;}return Frames[seq[^1].Key];}
 }
@@ -45,8 +70,16 @@ public sealed class ObjectAssets {
         return weapon is 0 or 8?Get(gfx):null;
     }
     readonly Dictionary<int,ObjectAppearance> cache=[];readonly string root;readonly HashSet<int> supported;readonly string[] names;
+    // T477 (#1073): appearances of gfx outside the prepared tree, decoded on demand from TW_CLIENT_ROOT (memory only).
+    readonly ObjectAppearanceOnDemand? onDemand;
+    public ObjectAppearanceOnDemand? OnDemand=>onDemand;
+    /// <summary>T477: true while the gfx is being decoded on demand. The renderer then treats the object like AppearancePending (not drawn, no 1120 substitute).</summary>
+    public bool Pending(int gfx)=>onDemand?.State(gfx)==OnDemandState.Pending;
+    public ObjectAssets(string assets,ObjectAppearanceOnDemand? onDemand):this(assets){this.onDemand=onDemand;}
     public ObjectAssets(string assets){root=Path.Combine(assets,"objects");supported=Json.Read(Path.Combine(root,"manifest.json")).A("gfx").ToHashSet();names=Json.Read(Path.Combine(root,"names.json")).EnumerateArray().Select(x=>x.GetString()!).ToArray();shops=new(assets,"shops/manifest.json","p24-original-shop-appearance-v1",["shop"]);monsters=new(assets,"encountered-monsters.json","p24-original-encountered-monsters-v1",["walk","breath","attack","damage","die"]);worldAppearances=new(assets,"world-appearances.json","p24-original-world-appearances-v1",["breath"]);doors=new(assets,"doors/manifest.json","p24-original-inn-door-v1",["open","close"]);}
-    public ObjectAppearance? Get(int gfx){if(PlayerProfiles.Get(gfx,0) is {} profile)return Player(profile);if(monsters.Get(gfx) is {} monster)return monster;if(worldAppearances.Get(gfx) is {} scenery)return scenery;if(!supported.Contains(gfx))return null;if(!cache.TryGetValue(gfx,out var a)){a=new(Path.Combine(root,gfx+".json"));cache[gfx]=a;}return a;}
+    public ObjectAppearance? Get(int gfx){if(PlayerProfiles.Get(gfx,0) is {} profile)return Player(profile);if(monsters.Get(gfx) is {} monster)return monster;if(worldAppearances.Get(gfx) is {} scenery)return scenery;
+        // T477: not prepared → on demand (creature rule only; player gfx stay with the prepared profiles until T478). Null while pending or unavailable.
+        if(!supported.Contains(gfx))return onDemand==null||PlayerProfiles.IsCharacter(gfx)?null:onDemand.Request(gfx);if(!cache.TryGetValue(gfx,out var a)){a=new(Path.Combine(root,gfx+".json"));cache[gfx]=a;}return a;}
     public string Name(string raw)=>Regex.Replace(raw,@"\$(\d+)",m=>int.TryParse(m.Groups[1].Value,out int id)&&id<names.Length?names[id]:m.Value);
 }
 // Separate action-70 catalog: a private shop is not a weapon-70 player profile.

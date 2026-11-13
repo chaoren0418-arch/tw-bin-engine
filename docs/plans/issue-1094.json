@@ -1,0 +1,35 @@
+[
+  {
+    "id": "f475-ui-fail-message",
+    "title": "原生 UI 退回舊介面時的紅字把版面例外誤報成「資源與鎖定版本不符」（#475 SM01）",
+    "stage": "code",
+    "priority": "P1",
+    "runner": "claude-local",
+    "text": "runner: claude-local。預算 1.5 小時。來源：#475 真機 smoke SM01（報告 `docs/reports/issue-475.md` 已驗證第 2 點）、分流 #1094。\n\n與 #1093 的分工：#1093 修 SPELL_WINDOW 幾何（直向 14×212 等級條使 `Rows.PageSize=0`）；本張只修**錯誤分類與訊息**，不碰 `SpellWindowPanel.cs` 的排版。兩張可並行；若 #1093 已經順手改了訊息，本張只補測試並在報告說明。\n\n根因（已讀原始碼確認）：`engine/source/NativeUi/UiLayout.cs:7` 的 `UiLayoutException` 繼承 `UiResourceException`；`engine/source/NativeUi/UiClientBridge.cs` 的 `ApplyNativeUiStart` 只要 `error is UiResourceException` 就顯示 `UiRoot.PinMismatchMessage`（`UiRoot.cs:17`「原客戶端 UI 資源與鎖定版本不符」）。所以面板版面例外也被說成 pin 不符，使用者與驗收者會去查錯方向（#475 證據：畫面紅字是 pin 不符，`native-ui.log` 實際是 `uimagicitem.xml:SPELL_WINDOW: 魔法清單沒有空間`）。\n\n重現：照 #1093 重現步驟（`engine\\啟動新版客戶端.cmd --evidence <專案內證據目錄>`），在 #1093 修好前看紅字；離線可用合成 XML 讓任一面板 Load 拋 `UiLayoutException` 重現（不必開遊戲）。本機證據：`D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-475\\scratch\\issue-475\\A\\native-ui.log`、`m7-SM01-1.png`（不進 git）。\n\n範圍：`UiClientBridge.cs` 的訊息分類（必要時 `UiRoot.cs` 加一條版面錯誤的常數訊息）。分三類：資源 pin／容器驗證失敗 → 維持現有 pin 訊息；`UiLayoutException` → 「原生 UI 版面載入失敗（<檔名>:<視窗>）：<原因>，已使用舊介面」；其他例外 → 現有通用訊息。`window-events.json` 的 failed 事件加 `category`（pin／layout／other）。不改 Build 的全有或全無行為（那是 `docs/design/native-ui.md` 的設計，見 #1094 報告已知限制）。不改 Program.cs、註冊表、rebuild-lock.json。\n\n驗收：`[CheckGroup]` 離線測試：(a) `UiLayoutException` → 版面訊息且含檔名與視窗 Id、category=layout；(b) 純 `UiResourceException`（pin 不符）→ 原 pin 訊息、category=pin；(c) 其他例外 → 通用訊息。CI 綠燈、PR 不改 lock。真機畫面紅字確認寫待驗證，交 f475-retest（SM01）。",
+    "depends_on": []
+  },
+  {
+    "id": "f475-p24lab-ready",
+    "title": "P24Lab 實驗服就緒與 SM 測試資料準備（#475 全部世界內項目受阻）",
+    "stage": "resource",
+    "priority": "P1",
+    "runner": "codex-local",
+    "runner_lock": true,
+    "real_machine": true,
+    "text": "```yaml\nstage: resource\nrunner: codex-local\nrunner_lock: true\nreal_machine: true\n```\nrunner: dot／codex-local（依 CLAUDE.md 2026-11-05 P24Lab 授權與 #160／#175 例外；只限 P24Lab 42061／43324 與測試角色；**不碰正式 2000／3306**）。預算 1.5 小時。來源：#475 報告「做了什麼」第 5 點、分流 #1094。\n\n問題（環境，不是程式）：#475 執行時 42061／43324 都未監聽；文件寫的 `D:\\P24Lab-ClientEngine` 不存在，實體是主專案 `environments\\p24`（#1094 已改 `docs/testing/smoke-m7.md` §0.1）。因此 SM04–SM59 中所有需要登入的列都無法執行。\n\n做：(1) 依 `environments\\p24` 現有腳本／設定啟動 MySQL 43324 與伺服器 42061，確認可監聽且用測試帳號登入到選角（用舊式客戶端或協定檢查即可，不必跑 smoke）。(2) 改 DB 前完整備份到 `environments\\p24\\backups`。(3) 依 `docs/testing/smoke-m7.md` §0.1 與 `docs/demo/RUN.md`「M5 smoke 準備」表準備測試條件，只做最小寫入：同帳號或第二帳號可同時登入的**兩個**測試角色（SM22／SM23／SM35）；七職業各一測試角色或確認可建（SM48）；弓 172＋普通箭 40743（SM40）；普通肉（SM46）；傳送控制戒指（SM49）；料理書（SM26）；寵物／召喚條件（SM25／SM36）；測試血盟與血盟倉庫（SM24／SM37）；足夠金幣（SM19／SM21／SM29）。需要 GM 只暫時設定，記錄改回方式。(4) 確認同帳號能否雙開並寫進 RESULT。(5) RESULT 附：服務啟動指令與監聽證據、備份路徑、前後對照、還原 SQL、測試帳號／角色清單（不寫密碼）。\n\n不做：不改伺服器程式與設定檔機密（config/server.properties 不貼內容）、不刪既有資料、不跑 smoke 項目。驗收：42061／43324 監聽且測試角色可進選角；上列物品與角色就緒或逐項寫明為何不能；f475-retest 可直接開跑。服務是否在 retest 前保持啟動，由 dot 依時段安排並在 RESULT 註明。",
+    "depends_on": []
+  },
+  {
+    "id": "f475-retest",
+    "title": "#475 M7 真機 smoke 重測：SM01–SM59（#1093＋分流修正後；先閘門 SM01）",
+    "stage": "test",
+    "priority": "P1",
+    "runner": "codex-local",
+    "runner_lock": true,
+    "real_machine": true,
+    "milestone_smoke": true,
+    "depends_on_issues": [1093],
+    "text": "```yaml\nstage: test\nrunner: codex-local\nrunner_lock: true\nreal_machine: true\nmilestone_smoke: true\ndepends_on: [1093]\n```\n**前置（必須）**：#1093（SPELL_WINDOW 幾何）已合併，且本計畫的 f475-ui-fail-message、f475-p24lab-ready 已完成。調度器若只依 plan id 建依賴，請另把 #1093 補進本張 depends_on（#1094 報告說明）。\n\nrunner: dot／codex-local（依 2026-11-06 授權，只限 P24Lab 42061／43324 測試角色；不碰正式 2000／3306）。照 `docs/testing/smoke-m7.md`（§0 跑法、§12 結果表、§13–§15 最新預期）。結果寫 `docs/reports/issue-<本號>.md`，分已驗證／推測／待驗證。來源：#475（第 1 次結果 `docs/reports/issue-475.md`，`task/475` 分支）、分流 #1094。\n\n**#475 沒有任何完整通過（✅）的項目**：59 列中 ❌ 1（SM01）、⚠️ 58。因此本張重測全部 SM01–SM59，但下列已取得的部分證據沿用、不再重做：SM55 的 `--classic-ui` 命令列與 `native-ui.json` nativeUi=false 兩種關閉方式生效、移除設定後恢復原生驗證；SM56 五次啟動都留下 closed 事件；SM59 classic 啟動自動開登入／選角頁且帳號框有焦點；SM15 WidgetSlot 參考 XML 有載入；SM02 參考 WidgetSlot／WidgetSubSlot 與 option-png 有讀到。這幾列只補 #475 表中寫「未測」的子步驟。\n\n**閘門（防空轉，使用者 2026-11-13 規定）**：開跑先做 §0.2 check-only，確認 42061／43324 監聽，再做 SM01。若 SM01 仍未到 `native-ui active`（`window-events.json` 沒有 active 事件），立刻停止、只交 SM01 證據與 `native-ui.log` 失敗原因（應已是 f475-ui-fail-message 的分類訊息），不要逐列填 58 個 ⚠️。同樣，若連不上 P24Lab，停在 SM04 並回報環境問題。\n\n重測清單（依 #1094 分流）：\n- 受 #1093＋f475-ui-fail-message 直接影響（必測）：SM01（原生 UI 預設開啟、active 耗時、失敗時紅字分類）、SM20（魔法窗：真實 14×212 等級條、清單不覆蓋等級鈕、各職業開窗、map509 限制）、SM02、SM03。\n- 原生 UI 與登入受阻：SM04–SM09。\n- 世界內原生視窗受阻：SM10–SM19、SM21–SM38。\n- 戰鬥／道具／魔法／換圖／聲音受阻：SM39–SM53、SM58。\n- classic 與登出補子步驟：SM54、SM55（舊 HUD 世界操作、原生 active）、SM56（遊戲內 Quit／Esc 登出）、SM57、SM59（世界內備援入口與封包觸發窗）。\n\n驗收：每列有證據檔名（`m7-SMxx-n.png`、log 關鍵字）；❌／⚠️ 列寫一句原因；產品 DLL SHA-256 與 #475 的 `7f861fce…2c77` 對照（應不同，因 #1093 改了程式）。是否把 nativeUi 設為預設、能否結案 #475／T112 交主控裁定。",
+    "depends_on": ["f475-ui-fail-message", "f475-p24lab-ready"]
+  }
+]

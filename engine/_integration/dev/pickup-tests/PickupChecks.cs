@@ -13,7 +13,7 @@ partial class Checks {
         return c;
     }
     static void PickupGroundAt(LoginConnection c,uint id,int dx,int dy,uint count){
-        var row=GroundCatalog.Rows.Single(r=>r.Id=="meat");ushort x=(ushort)(c.World.Actor!.X+dx),y=(ushort)(c.World.Actor.Y+dy);
+        var row=SyntheticGroundItem.Stack;ushort x=(ushort)(c.World.Actor!.X+dx),y=(ushort)(c.World.Actor.Y+dy);
         Feed(c,Packet(b=>{b.Write((byte)87);b.Write(x);b.Write(y);b.Write(id);b.Write(row.GroundGfx);b.Write(new byte[4]);b.Write(count);b.Write((ushort)0);Text(b,row.CountName(count));Text(b,"");b.Write((byte)0);b.Write(0u);Text(b,"");Text(b,"");b.Write((byte)0);b.Write((byte)255);b.Write(new byte[3]);b.Write((byte)255);b.Write((byte)255);}));
     }
     static List<byte[]> PickupSender(LoginConnection c){var sent=new List<byte[]>();Sender(c,(b,v,a)=>{if(!v())return Task.FromResult(false);sent.Add(b);a();return Task.FromResult(true);});return sent;}

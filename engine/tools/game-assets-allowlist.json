@@ -21,7 +21,9 @@
     "docs/project-consolidation/physical-migration/phase1-documents.zip": "286d1bcd4d20eeb4984d0c76e4ba606cec68a63770c19cb9f6e16a25c6725e00"
   },
   "b15Exceptions": {
-    "engine/source/OriginalExpTable.cs": "325384a1437d6959b6233cbf2b7c76c681a2c8c6c1a05b41b7b9373e5bc198b1",
-    "engine/source/Resources/ground-catalog.json": "ee5446856a00eeced52fecc296a8da139650ecaa8f69a47c725ba9d93c71f4d8"
+    "engine/source/OriginalExpTable.cs": "325384a1437d6959b6233cbf2b7c76c681a2c8c6c1a05b41b7b9373e5bc198b1"
+  },
+  "b15ExceptionReasons": {
+    "engine/source/OriginalExpTable.cs": "known limit L1=A (user ruling 2026-11-13, T476/#1072): per-level cumulative EXP thresholds are server rule values; the client keeps its own table in the protected executable's .data and the server does not send thresholds, so no client source exists. Kept unchanged, pinned by path and SHA-256. See docs/design/asset-recipe.md section 7 L1 and docs/reference/asset-recipes/rule-tables.md section 3"
   }
 }

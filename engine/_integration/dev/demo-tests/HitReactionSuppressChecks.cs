@@ -136,7 +136,7 @@ partial class Checks {
         }
     }
     static void SuppressInventoryRegression(LoginConnection c){
-        var row=GroundCatalog.Rows.Single(r=>r.Id=="meat");
+        var row=SyntheticGroundItem.Stack;
         Feed(c,Packet(b=>{
             b.Write((byte)15);b.Write(900101u);b.Write(row.InventoryDesc);b.Write(row.WireUseType);b.Write((byte)0);
             b.Write(row.InventoryIcon);b.Write((byte)1);b.Write(10u);b.Write((byte)0);Text(b,"test");b.Write((byte)0);b.Write(new byte[11]);
