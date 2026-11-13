@@ -40,14 +40,13 @@
   - `dotnet build engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release`：0 錯誤。
   - `dotnet build engine/_integration/dev/ground-tests/GroundChecks.csproj -c Release`：0 錯誤、0 警告。
 - 唯讀核對本機客戶端（python，只讀 `D:\lineage開發\0-客戶端\Tile.idx／Tile.pak`，腳本在 `scratch/tile_anchor.py`）：`Tile.idx` 152,492 bytes = 5,446 × 28 ＋ 4；`water.lac`（record 5445）、`pier1.lac`（5409）、`pier5.lac`（5413）的 SHA-256 與 `ShipBackdrop.cs`／新 Tile 錨點完全相同，所以本機 Tile 會通過錨點。
-- 測試由 CI 跑：`native-ui-resources` 群組（含新的 `RuntimeArchiveVerifyChecks`、既有 `NativeUiResourceChecks`、`AssetPrepChecks`、REF-SURF 等）與 `native-ui-canvas`。CI 結果見 PR。
+- CI（PR #1088，run 43445840433）：`dotnet`、`map-continuity`、`npc-offline` 全部 pass；「Native UI resource layer」步驟 `PASS 1411 DEMO checks`（`native-ui-resources` 群組，含新的 `RuntimeArchiveVerifyChecks`、既有 `NativeUiResourceChecks`、`AssetPrepChecks`、REF-SURF 等），`native-ui-canvas` 等其他群組也過。
 - PR 不改 `engine/_integration/dev/rebuild-lock.json`。
 
 ## 未驗證什麼（待驗證）
 
 - **本機客戶端下的實際畫面**：原生 UI 能否啟動（之前照原始碼會因 Sprite03–14 的 pin 被拒而退回舊介面）、surf 圖、地面物品圖。交 **T474 真機驗收**。
 - 本機客戶端的 17 個 Sprite 容器是否都通過新的結構檢查：照 `sprites.md` §8.1，附加的 36 個 `.img` 都在舊檔尾之後、不重名，推測會通過；本張沒有在本機執行產品驗證。
-- CI 綠燈：push 後由 PR 的 CI 確認（本報告撰寫時尚未出結果）。
 
 ## 範圍外、仍有整檔 pin 的地方（沒改，給後續參考）
 
