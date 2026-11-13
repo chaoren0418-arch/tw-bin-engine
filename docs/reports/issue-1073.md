@@ -61,7 +61,7 @@
   9. 執行期 context 的兩種 `Write` 都被拒絕。
   10. 測試前後：合成客戶端、測試自己準備的引擎目錄（含 `assets/` 與 `runtime/`）、本 repo 的 `engine/assets`（存在時），三者逐檔 SHA 都不變。
 - 既有的 objects、NPC、怪物相關測試（`asset-prep-spr`、`native-ui-resources`、`doors`、`pickup` 等）由同一次 CI 跑。
-- **CI 結果**：見 PR 的 CI；結果出來後補在本節。
+- **CI 結果（PR #1091，run 43451001045／43451001039）**：`dotnet`、`map-continuity`、`npc-offline` 三個 job 全部 pass。`native-ui-resources` 步驟顯示 `PASS 1488 DEMO checks`；同一時間 main 的同一步驟是 1411，多出的 77 項就是本張新增的 `OnDemandAppearanceChecks`（項數吻合），所以新測試確實在 CI 跑過並通過。其餘既有群組（含 objects、NPC、怪物、doors、pickup 相關）也都通過。
 
 ## 未驗證／待驗證（交給 Codex／真機）
 
