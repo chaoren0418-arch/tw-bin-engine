@@ -13,6 +13,8 @@ work/*
 work/*/*
 !work/*/*.md
 !work/*/*.json
+# #1148：UIA／GDI 驗收工具腳本（Test-Notepad.ps1、UiaGdi.ps1）要進 git 供重測使用
+!work/f1118-uia-path/*.ps1
 主管/*
 !主管/*/
 主管/*/*
