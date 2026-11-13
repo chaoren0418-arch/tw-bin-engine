@@ -69,6 +69,22 @@ public interface IAssetRecipe {
     void Produce(string item,AssetRecipeItemContext context);
 }
 
+/// <summary>T456: which parts of TW_CLIENT_ROOT a recipe reads. Opened (and recorded as receipt inputs) before the first item.</summary>
+[Flags]
+public enum AssetPrepSources {
+    /// <summary>The 17 pinned Sprite containers (the default for recipes that do not say otherwise).</summary>
+    Sprites=1,
+    /// <summary>Tile.idx / Tile.pak, checked for structure only (no whole-pak pin, asset-recipe.md §1.1 point 3).</summary>
+    Tile=2,
+    /// <summary>The loose files below TW_CLIENT_ROOT/map.</summary>
+    MapFiles=4,
+}
+
+/// <summary>Optional: a recipe that does not read the Sprite containers says what it reads instead.</summary>
+public interface IAssetRecipeSources {
+    AssetPrepSources Sources{get;}
+}
+
 public static class AssetRecipeDiscovery {
     public sealed record Result(IReadOnlyList<IAssetRecipe> Recipes,IReadOnlyList<string> Errors);
     static readonly Lazy<Result> product=new(()=>Discover(typeof(AssetRecipeDiscovery).Assembly),LazyThreadSafetyMode.ExecutionAndPublication);

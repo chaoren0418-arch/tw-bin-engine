@@ -10,6 +10,8 @@ public sealed partial class WorldSession {
     public MapBounds? LoadedMapBounds=>MapCache?.Bounds;
     public bool SceneContains(int x,int y)=>MapCache is {} cache?cache.Bounds.Contains(x,y)&&cache.Contains(x,y):MapId==0&&Coordinates.Inside(x,y);
     internal string MapAssetsRoot=Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../assets"));
+    // T456: original client for maps whose raw files are read directly (prepared assets tree, MapRawSource). Null = TW_CLIENT_ROOT.
+    internal string? MapClientRoot;
     void MapWaiting(){MapResourceState="waiting";MapResourceNotice="等待地圖與角色位置；可取消連線或回離線預覽。";}
     void MapFailed(Exception ex){Clear6016(SceneClock());sceneOpacity=null;MapCache=null;MapResourceState="unavailable";MapResourceNotice=$"地圖 {MapId} 資源無法載入：{ex.Message}。可取消連線或回離線預覽。";RefreshArrivalNotice();ObserveOpacity("resource-error");}
 }

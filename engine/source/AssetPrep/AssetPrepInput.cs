@@ -26,6 +26,8 @@ public sealed class AssetPrepInput:IDisposable {
     readonly ClientArchive[] sprites;
     readonly bool[] pakVerified;
     TextArchive? text;
+    PlainArchive? tile;
+    bool mapFiles;
     public string ClientRoot{get;}
     public AssetPrepPins Pins{get;}
 
@@ -46,8 +48,22 @@ public sealed class AssetPrepInput:IDisposable {
     /// Opens every pinned Sprite container: both files must exist, the pak must have the pinned size and the idx the pinned
     /// SHA-256 and a valid structure. The pak SHA-256 is checked by ClientArchive on the first read of that container.
     /// </summary>
-    public static AssetPrepInput Open(string? clientRoot,AssetPrepPins pins){
+    public static AssetPrepInput Open(string? clientRoot,AssetPrepPins pins)=>Open(clientRoot,pins,AssetPrepSources.Sprites);
+
+    /// <summary>T456: opens only what the recipe reads. Without <see cref="AssetPrepSources.Sprites"/> no Sprite container is opened or recorded.</summary>
+    public static AssetPrepInput Open(string? clientRoot,AssetPrepPins pins,AssetPrepSources sources){
         string root=RequireClientRoot(clientRoot);
+        if((sources&AssetPrepSources.Sprites)==0){
+            var input=new AssetPrepInput(root,pins,[]);
+            if((sources&AssetPrepSources.Tile)!=0)input.tile=OpenTile(root);
+            if((sources&AssetPrepSources.MapFiles)!=0){
+                if(!Directory.Exists(Path.Combine(root,MapContainer)))throw new AssetPrepException(AssetPrepFailure.MissingContainer,$"TW_CLIENT_ROOT 缺少 {MapContainer}/ 目錄（{root}）",MapContainer);
+                AssetPrepPaths.RejectReparsePoints(Path.Combine(root,MapContainer),"原客戶端 map 目錄");
+                input.mapFiles=true;
+            }
+            return input;
+        }
+        if(sources!=AssetPrepSources.Sprites)throw new AssetPrepException(AssetPrepFailure.InvalidRequest,"Sprite 與 Tile／map 來源不可在同一個 recipe 混用");
         if(pins.Sprites.Count!=AssetPrepPins.SpriteArchiveCount)throw new AssetPrepException(AssetPrepFailure.InvalidRequest,$"Sprite 容器 pin 應為 {AssetPrepPins.SpriteArchiveCount} 個");
         var opened=new List<ClientArchive>();
         try{
@@ -112,6 +128,7 @@ public sealed class AssetPrepInput:IDisposable {
     /// False = the record no longer holds (the item is produced again). A container that fails its pin still throws.
     /// </summary>
     public bool Verify(AssetSource source){
+        if(source.Container==MapRawSource.TileContainer||source.Container==MapContainer)return !string.IsNullOrEmpty(source.Entry)&&VerifyOther(source);
         int archive=Array.FindIndex(sprites,s=>s.Pin.Name==source.Container);
         if(archive<0||string.IsNullOrEmpty(source.Entry))return false;
         var a=sprites[archive];
@@ -120,9 +137,80 @@ public sealed class AssetPrepInput:IDisposable {
         return TryReadSprite(archive,source.Entry) is {} hit&&hit.Source.Sha256==source.Sha256;
     }
 
-    /// <summary>Verified identity of every Sprite container (the receipt's input list).</summary>
-    public IReadOnlyList<AssetContainerRecord> Containers()=>
-        sprites.Select((a,i)=>new AssetContainerRecord(a.Pin.Name,a.Pin.IndexSha256.ToLowerInvariant(),a.Pin.PakSha256.ToLowerInvariant(),a.Pin.PakSize,pakVerified[i])).ToList();
+    /// <summary>Verified identity of every opened container (the receipt's input list). Tile has no pak SHA-256: it is never pinned whole.</summary>
+    public IReadOnlyList<AssetContainerRecord> Containers(){
+        var list=sprites.Select((a,i)=>new AssetContainerRecord(a.Pin.Name,a.Pin.IndexSha256.ToLowerInvariant(),a.Pin.PakSha256.ToLowerInvariant(),a.Pin.PakSize,pakVerified[i])).ToList();
+        if(tile!=null)list.Add(new(tile.Name,tile.IndexSha256,"",tile.PakSize,false));
+        return list;
+    }
+
+    // ---- T456 (#1041): Tile container and the loose map/ files. ----
+    public const string MapContainer="map";
+
+    static PlainArchive OpenTile(string root){
+        foreach(string ext in new[]{".idx",".pak"})
+            if(!File.Exists(Path.Combine(root,MapRawSource.TileContainer+ext)))throw new AssetPrepException(AssetPrepFailure.MissingContainer,$"TW_CLIENT_ROOT 缺少容器檔 {MapRawSource.TileContainer}{ext}（{root}）",MapRawSource.TileContainer);
+        return Guard(MapRawSource.TileContainer,()=>PlainArchive.Open(root,MapRawSource.TileContainer));
+    }
+    PlainArchive TileArchive=>tile??throw new AssetPrepException(AssetPrepFailure.InvalidRequest,"recipe 沒有宣告 Tile 來源");
+    string MapRoot=>mapFiles?Path.Combine(ClientRoot,MapContainer):throw new AssetPrepException(AssetPrepFailure.InvalidRequest,"recipe 沒有宣告 map 來源");
+
+    /// <summary>True when Tile.idx lists the entry (case-insensitive).</summary>
+    public bool HasTile(string name)=>TileArchive.Find(name)!=null;
+    /// <summary>A Tile entry by name (case-insensitive), or null when there is none.</summary>
+    public (byte[] Data,AssetSource Source)? TryReadTile(string name){
+        var archive=TileArchive;
+        return Guard<(byte[],AssetSource)?>(archive.Name,()=>{
+            if(archive.Find(name) is not {} entry)return null;
+            byte[] data=archive.Read(entry);
+            return (data,new AssetSource(archive.Name,entry.Name,entry.Offset,entry.Size,AssetPrepPaths.Sha256(data)));
+        });
+    }
+
+    /// <summary>Directory names directly below TW_CLIENT_ROOT/map (ordinal order).</summary>
+    public IReadOnlyList<string> MapDirectories()=>Guard(MapContainer,()=>Directory.EnumerateDirectories(MapRoot).Select(d=>Path.GetFileName(d)!).Order(StringComparer.Ordinal).ToList());
+    /// <summary>File names (original case) in TW_CLIENT_ROOT/map/&lt;directory&gt; (ordinal order). Junctions are refused.</summary>
+    public IReadOnlyList<string> MapFiles(string directory){
+        if(!AssetPrepPaths.IsItemToken(directory))throw new AssetPrepException(AssetPrepFailure.UnsafePath,$"map 目錄名稱 \"{directory}\" 不合法");
+        return Guard(MapContainer,()=>{
+            var dir=new DirectoryInfo(Path.Combine(MapRoot,directory));
+            if((dir.Attributes&FileAttributes.ReparsePoint)!=0)throw new AssetPrepException(AssetPrepFailure.UnsafePath,$"{dir.FullName} 是 junction／symlink，拒絕讀取");
+            return dir.EnumerateFiles().Select(f=>f.Name).Order(StringComparer.Ordinal).ToList();
+        });
+    }
+    /// <summary>Source record of a directory listing: SHA-256 of the names (ordinal, one per line). Lets a resumed run notice added or removed files.</summary>
+    public AssetSource MapListing(string directory){
+        var names=MapFiles(directory);
+        byte[] text=System.Text.Encoding.UTF8.GetBytes(string.Concat(names.Select(n=>n+"\n")));
+        return new(MapContainer,$"{MapContainer}/{directory}/",0,names.Count,AssetPrepPaths.Sha256(text));
+    }
+    /// <summary>TW_CLIENT_ROOT/map/&lt;directory&gt;/&lt;file&gt;, file name as listed by <see cref="MapFiles"/>. The entry is the relative path.</summary>
+    public (byte[] Data,AssetSource Source) ReadMapFile(string directory,string file){
+        if(!AssetPrepPaths.IsItemToken(directory)||!AssetPrepPaths.IsItemToken(file))throw new AssetPrepException(AssetPrepFailure.UnsafePath,$"map 檔名 \"{directory}/{file}\" 不合法");
+        string relative=$"{MapContainer}/{directory}/{file}";
+        return Guard(MapContainer,()=>{
+            string path=Path.Combine(MapRoot,directory,file);
+            if(!File.Exists(path))throw new AssetPrepException(AssetPrepFailure.MissingEntry,$"TW_CLIENT_ROOT 缺少 {relative}",MapContainer);
+            byte[] data=File.ReadAllBytes(path);
+            return (data,new AssetSource(MapContainer,relative,0,data.Length,AssetPrepPaths.Sha256(data)));
+        });
+    }
+
+    bool VerifyOther(AssetSource source){
+        try{
+            if(source.Container==MapRawSource.TileContainer&&tile!=null){
+                var entry=tile.Find(source.Entry);
+                return entry!=null&&entry.Offset==source.Offset&&entry.Size==source.Size&&AssetPrepPaths.Sha256(tile.Read(entry))==source.Sha256;
+            }
+            if(source.Container==MapContainer&&mapFiles){
+                var parts=source.Entry.Split('/');
+                if(parts.Length!=3||parts[0]!=MapContainer||!AssetPrepPaths.IsItemToken(parts[1]))return false;
+                if(parts[2].Length==0)return MapListing(parts[1]) is var l&&l.Size==source.Size&&l.Sha256==source.Sha256;
+                return AssetPrepPaths.IsItemToken(parts[2])&&ReadMapFile(parts[1],parts[2]).Source==source;
+            }
+            return false;
+        }catch(Exception ex) when(ex is AssetPrepException or IOException or InvalidDataException or UnauthorizedAccessException){return false;}
+    }
 
     public void Dispose(){foreach(var a in sprites)a.Dispose();}
 }
