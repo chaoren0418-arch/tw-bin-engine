@@ -49,13 +49,13 @@ F9 面板的道具圖示不再限於研究時挑的 20 個：`assets/inventory` 
 
 既有的 F9 相關測試（同一步驟的 `--product-page`、原本的 42／65536／999 檢查、`world-ui-tests` 的 `Icons`、`local-resource-tests`）沒有改，呼叫端不傳產生器時行為與原本相同。
 
-CI 結果見 PR；本報告提交時 CI 尚未跑完，結果以 PR 最新 commit 為準。
+**CI 結果（PR #1069，commit `056dd2dc`）**：`dotnet`、`map-continuity`、`npc-offline` 三個 job 全過。`map-continuity` 的 log 有 `PASS T469 generated icons: 55 checks (file wins, generated on demand, 404, traversal, junction rule)` 與 `PASS WebView2 PNG bytes/MIME/decode/404/cache`（後者包含產生圖在真 WebView2 的位元組、尺寸與 canvas 像素比對）。之後只有本報告的文字更新。
 
 ## 未驗證什麼
 
 - **真機**：沒有開遊戲看 F9 面板。待驗證：登入後背包裡不在那 20 張之內的道具，F9 面板顯示圖示而不是「缺圖」；舊 WinForms 背包清單同樣有圖。
 - **真實 Sprite*.pak**：測試全部用合成 .tbt；真實客戶端圖示經 `ItemIconSource` 解碼已由 #706／#1036 的測試涵蓋，本次沒有另外對真實檔案跑。
-- **canvas 讀回像素**：新增的 WebView2 檢查假設不透明像素經 Chromium 解碼再由 canvas 讀回時數值不變。若 CI 上出現色彩管理造成的 ±1 誤差，該項要放寬成只比位元組與尺寸。
+- **canvas 讀回像素**：新增的 WebView2 檢查假設不透明像素經 Chromium 解碼再由 canvas 讀回時數值不變。這次 CI 通過；若日後 runner 的 WebView2 版本出現色彩管理造成的 ±1 誤差，該項要放寬成只比位元組與尺寸。
 - **ground**：沒有改，也沒有新增測試。現況：`/ground/<gfx>.png` 只對 `GroundCatalog` 有登錄的 gfx 由 `GroundSpriteReader` 即時產生。
 
 ## 產出路徑
