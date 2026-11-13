@@ -1,0 +1,102 @@
+{
+  "issue": 1119,
+  "conclusion": "阻塞",
+  "sourceHead": "50679105c5e9643fccc490e1728412730867b8aa",
+  "sources": {
+    "issue-1108.md": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1108\\docs\\reports\\issue-1108.md",
+      "sha256": "08f74da1eac0c8033074a609eced6d45d0b719e9d4d395ff04618e406ccbb9b6"
+    },
+    "issue-1108-evidence.json": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1108\\docs\\reports\\issue-1108-evidence.json",
+      "sha256": "4f2db8612b025aed547d8e54097adbe26b19b18d5f5d8d335b08c19d1c261b93"
+    },
+    "issue-1118.md": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1118\\docs\\reports\\issue-1118.md",
+      "sha256": "8151c613c4b8415ccf2d422907f110fa01c7b750e12a33bde3e05c7ce1740eee"
+    },
+    "issue-1118-evidence.json": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1118\\docs\\reports\\issue-1118-evidence.json",
+      "sha256": "37ee441461ce0943fc6d28c7c3a367bf0780ccc51285d0c7f87bacfa88205df3"
+    }
+  },
+  "capture": {
+    "window": {
+      "app": "process:C:\\Windows\\System32\\notepad.exe",
+      "id": 2753956,
+      "title": "未命名 - 記事本"
+    },
+    "attempts": [
+      {
+        "utc": "2026-11-13T20:10:26.527Z",
+        "success": false,
+        "error": "Error: FrameArrived timed out: timed out waiting on channel"
+      },
+      {
+        "utc": "2026-11-13T20:10:40.230Z",
+        "success": false,
+        "error": "Error: window capture timed out: timed out waiting on channel"
+      }
+    ]
+  },
+  "ownedProcess": {
+    "path": "C:\\Windows\\System32\\notepad.exe",
+    "pid": 5904,
+    "started": "2026-11-13T20:10:15.2066812Z"
+  },
+  "cleanup": {
+    "ownedPids": [
+      5904
+    ],
+    "utc": "2026-11-13T20:10:58.8481837Z",
+    "remainingOwnedPids": [],
+    "listeners": [],
+    "leases": [
+      {
+        "name": "p24lab",
+        "holder": "chaoren0418-arch/tw-bin-engine#1119",
+        "since": 1794600553.9769065,
+        "exp": 1794605953.9769065,
+        "expiresUtc": "2026-11-13T21:39:13.976907+00:00"
+      }
+    ]
+  },
+  "results": {
+    "currentR07": "blocked",
+    "guiClassScreenshots": 0,
+    "guiCreatesSubmitted": 0,
+    "guiDeletesSubmitted": 0,
+    "inheritedPassed": [
+      "B01",
+      "R05",
+      "R08",
+      "R09",
+      "R10",
+      "R11",
+      "R12",
+      "R13",
+      "R14",
+      "R15",
+      "C01",
+      "C02",
+      "V01"
+    ],
+    "combined": {
+      "passed": 13,
+      "failed": 0,
+      "unverified": 1
+    }
+  },
+  "notPerformed": [
+    "build",
+    "clientLaunch",
+    "mysqlLaunch",
+    "serverLaunch",
+    "login",
+    "databaseRead",
+    "databaseWrite",
+    "SM08",
+    "SM09",
+    "SM48"
+  ]
+}
