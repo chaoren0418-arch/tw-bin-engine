@@ -87,6 +87,13 @@ public sealed class AssetRecipeItemContext {
         var hit=input.ReadText(name,decodedSha256);
         sources.Add(hit.Source);return hit.Decoded;
     }
+    /// <summary>Every Text index row, in index order (names can repeat).</summary>
+    public IReadOnlyList<TextArchive.Entry> TextEntries()=>input.TextEntries();
+    /// <summary>One Text index row, decoded; recorded as a source with the SHA-256 of the decoded bytes.</summary>
+    public byte[] ReadTextEntry(TextArchive.Entry entry){
+        var hit=input.ReadTextEntry(entry);
+        sources.Add(hit.Source);return hit.Decoded;
+    }
 
     /// <summary>Writes one output file. The path is relative to the recipe directory (see AssetPrepPaths.SafeRelative); a path can be written once per run.</summary>
     public void Write(string relativePath,ReadOnlySpan<byte> data){
