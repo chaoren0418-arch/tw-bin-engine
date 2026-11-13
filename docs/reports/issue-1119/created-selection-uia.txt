@@ -1,0 +1,41 @@
+Window: "開發工具（過渡操作介面） · Ctrl+Shift+F9", App: P11.ClientEngine.exe.
+	0 視窗 開發工具（過渡操作介面） · Ctrl+Shift+F9 Secondary Actions: Raise
+		1 索引標籤
+			53 窗格 登入／選角
+				54 窗格 請重新選取稱號／表情頁面。
+					55 下拉式方塊 (disabled, settable, string) 請重新選取稱號／表情頁面。 Value: p24-real-jar-d287-client2
+						56 文字 (disabled) 請重新選取稱號／表情頁面。
+						57 按鈕 (disabled) 開啟
+					58 微調按鈕 (disabled)
+						59 微調按鈕 (disabled) 上下按鈕
+							60 按鈕 (disabled) 向上鍵
+							61 按鈕 (disabled) 向下鍵
+						62 編輯 (disabled, settable, string) 微調按鈕 Value: 42061
+					63 編輯 (disabled, settable, string) Description: 帳號 Value: p24svc01
+					64 編輯 (disabled, settable, string) Description: 密碼 Value: 拒絕存取
+					65 按鈕 (disabled) 登入
+					66 按鈕 取消 / 斷線
+					67 按鈕 離線預覽
+					68 下拉式方塊 (settable, string) 晨風騎士 Value: 晨風騎士
+						69 文字
+						70 按鈕 開啟
+					71 按鈕 進入世界
+					72 按鈕 (disabled) 建立角色
+					73 按鈕 刪除角色
+					74 文字 CharacterList • 角色已建立，可從清單選擇進入世界。 登入請求已送出，請查看連線狀態。
+			21 索引標籤項目 (selectable) 網頁面板
+			22 索引標籤項目 (selectable) 服務
+			23 索引標籤項目 (selectable) 登入／選角
+			24 索引標籤項目 (selectable) 控制
+			25 索引標籤項目 (selectable) 狀態列
+			26 索引標籤項目 (selectable) Button
+		27 標題列 (settable, string) Value: 開發工具（過渡操作介面） · Ctrl+Shift+F9
+			28 功能表列 系統 ID: MenuBar
+				76 功能表項目 系統
+			30 按鈕 最小化
+			31 按鈕 最大化
+			32 按鈕 關閉
+
+Document text: ```
+p24svc01
+```

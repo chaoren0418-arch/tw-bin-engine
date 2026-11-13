@@ -1,0 +1,62 @@
+Window: "P24 診斷客戶端", App: P11.ClientEngine.exe.
+	0 視窗 P24 診斷客戶端 Secondary Actions: Raise
+		43 對話 確認角色刪除 Secondary Actions: Raise
+			44 按鈕 是(Y) ID: 6
+			45 按鈕 否(N) ID: 7
+			46 影像 ID: 20
+			47 文字 確定刪除「晨風騎士」嗎？ 伺服器可能立即刪除，或依等級設定七日刪除排程。 ID: 65535
+			48 標題列 (settable, string) Value: 確認角色刪除
+				49 按鈕 (disabled) 關閉
+		1 視窗 開發工具（過渡操作介面） · Ctrl+Shift+F9 Secondary Actions: Raise
+			2 索引標籤
+				3 窗格 登入／選角
+					4 窗格 請重新選取稱號／表情頁面。
+						5 下拉式方塊 (disabled, settable, string) 請重新選取稱號／表情頁面。 Value: p24-real-jar-d287-client2
+							6 文字 (disabled) 請重新選取稱號／表情頁面。
+							7 按鈕 (disabled) 開啟
+						8 微調按鈕 (disabled)
+							9 微調按鈕 (disabled) 上下按鈕
+								10 按鈕 (disabled) 向上鍵
+								11 按鈕 (disabled) 向下鍵
+							12 編輯 (disabled, settable, string) 微調按鈕 Value: 42061
+						13 編輯 (disabled, settable, string) Description: 帳號 Value: p24svc01
+						14 編輯 (disabled, settable, string) Description: 密碼 Value: 拒絕存取
+						15 按鈕 (disabled) 登入
+						16 按鈕 取消 / 斷線
+						17 按鈕 離線預覽
+						18 下拉式方塊 (settable, string) 晨風騎士 Value: 晨風騎士
+							19 文字
+							20 按鈕 開啟
+						21 按鈕 進入世界
+						22 按鈕 (disabled) 建立角色
+						23 按鈕 刪除角色
+						24 文字 CharacterList • 角色已建立，可從清單選擇進入世界。 登入請求已送出，請查看連線狀態。
+				25 索引標籤項目 (selectable) 網頁面板
+				26 索引標籤項目 (selectable) 服務
+				27 索引標籤項目 (selectable) 登入／選角
+				28 索引標籤項目 (selectable) 控制
+				29 索引標籤項目 (selectable) 狀態列
+				30 索引標籤項目 (selectable) Button
+			31 標題列 (settable, string) Value: 開發工具（過渡操作介面） · Ctrl+Shift+F9
+				32 功能表列 系統 ID: MenuBar
+					33 功能表項目 系統
+				34 按鈕 最小化
+				35 按鈕 最大化
+				36 按鈕 關閉
+		37 標題列 (settable, string) Value: P24 診斷客戶端
+			38 功能表列 系統 ID: MenuBar
+				39 功能表項目 系統
+			40 按鈕 最小化
+			41 按鈕 最大化
+			42 按鈕 關閉
+		43 對話 確認角色刪除 Secondary Actions: Raise
+			44 按鈕 是(Y) ID: 6
+			45 按鈕 否(N) ID: 7
+			46 影像 ID: 20
+			47 文字 確定刪除「晨風騎士」嗎？ 伺服器可能立即刪除，或依等級設定七日刪除排程。 ID: 65535
+			48 標題列 (settable, string) Value: 確認角色刪除
+				49 按鈕 (disabled) 關閉
+
+Document text: ```
+p24svc01
+```
