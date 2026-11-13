@@ -82,6 +82,16 @@ public sealed class AssetRecipeItemContext {
         if(!sources.Contains(hit.Source))sources.Add(hit.Source);
         return hit.Data;
     }
+    /// <summary>T457: like <see cref="TryReadSprite"/>, with the source record (container, entry name as listed, offset, size, SHA-256).</summary>
+    public (byte[] Data,AssetSource Source)? TryReadSpriteSource(int archive,string name){
+        if(input.TryReadSprite(archive,name) is not {} hit)return null;
+        if(!sources.Contains(hit.Source))sources.Add(hit.Source);
+        return hit;
+    }
+    /// <summary>T457: the anchors of this run (asset-recipe.md §1.2).</summary>
+    public AssetPrepPins Pins=>input.Pins;
+    /// <summary>T457: Text/list.spr, decoded and checked against the list.spr anchor. No anchor in the pins → refused.</summary>
+    public byte[] ReadListSpr()=>ReadText("list.spr",input.Pins.ListSprSha256??throw new AssetPrepException(AssetPrepFailure.InvalidRequest,"沒有 list.spr 的錨點",AssetPrepInput.TextContainer));
     /// <summary>A pinned Text entry, decoded.</summary>
     public byte[] ReadText(string name,string decodedSha256){
         var hit=input.ReadText(name,decodedSha256);
