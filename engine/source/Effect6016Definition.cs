@@ -7,6 +7,9 @@ namespace P24.MapEffectEvents;
 public sealed class Effect6016Definition
 {
     public const int EffectId = 6016;
+    /// <summary>Whole-file SHA-256 of the accepted maps/effects/6016.json. One value for the product (ClientEffect6016) and the
+    /// asset preparer's output anchor (asset-recipe.md §1.2, §3.5: never changed; a prepared file must be byte-identical).</summary>
+    public const string AcceptedMetadataSha256 = "825673b11feb6b28c6d34663cd53266d0ca2209230b1b1cfa4c0a80125263383";
     public const int TickRate = 24;
     public const int TicksPerStep = 5;
     public const int StepCount = 12;

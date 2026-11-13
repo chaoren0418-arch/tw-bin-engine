@@ -14,14 +14,18 @@ public static class Tests {
             for(int i=0;i<r.BaseColors.Length;i++)if(r.BaseColors[i]!=(expected[2*i]|expected[2*i+1]<<8))diff++;
             Check("independent original dual-block full RGB555 reference",diff==0,new{pixels=r.BaseColors.Length,differences=diff,commands=a.Scene.Count});
             int spritePixels=0;
+            // T454 (#1039): the character PNG previews are no longer part of the assets tree (asset-recipe.md 3.2). The reference is
+            // now an independent placement of every block pixel (x = 24·(b + a − ⌊a/2⌋), y = 12·(b − ⌊a/2⌋), sprites.md §3.4) inside
+            // the frame bounds, compared with what Renderer.Blit draws.
             foreach(var f in a.Frames.Values) {
-                var meta=Json.Read(Path.Combine(a.Root,"character/animation.json")).GetProperty("frames").EnumerateArray().Single(x=>x.S("key")==f.Key);
-                using var png=new Bitmap(Path.Combine(a.Root,"character",meta.S("file")));var bounds=f.Bounds;var rect=new Rectangle(bounds[0],bounds[1],png.Width,png.Height);
-                var colors=new ushort[png.Width*png.Height];var mask=new bool[colors.Length];
+                var bounds=f.Bounds;var rect=new Rectangle(bounds[0],bounds[1],bounds[2]-bounds[0]+1,bounds[3]-bounds[1]+1);
+                var colors=new ushort[rect.Width*rect.Height];var mask=new bool[colors.Length];
                 foreach(var b in f.Blocks)Renderer.Blit(new(b.A,b.B,b.Z,b.Order,"actor",0,-1,0,b.Tile),new(rect.X,rect.Y+756,rect.Width,rect.Height),colors,mask,null);
+                var expectedColors=new ushort[colors.Length];var expectedMask=new bool[colors.Length];int outside=0;
+                foreach(var b in f.Blocks){int half=(int)Math.Floor(b.A/2.0),ox=24*(b.B+b.A-half),oy=12*(b.B-half);foreach(var p in b.Tile.Pixels){int x=ox+p.X-rect.X,y=oy+p.Y-rect.Y;if((uint)x>=(uint)rect.Width||(uint)y>=(uint)rect.Height){outside++;continue;}expectedColors[y*rect.Width+x]=p.Color;expectedMask[y*rect.Width+x]=true;}}
                 int differences=0;
-                for(int y=0;y<png.Height;y++)for(int x=0;x<png.Width;x++){int i=y*png.Width+x;var p=png.GetPixel(x,y);if((p.A>0)!=mask[i]||(mask[i]&&p.ToArgb()!=Renderer.Argb(colors[i])))differences++;if(mask[i])spritePixels++;}
-                Check("original SPR block placement vs P04 PNG "+f.Key,differences==0,new{differences});
+                for(int i=0;i<colors.Length;i++){if(mask[i]!=expectedMask[i]||(mask[i]&&colors[i]!=expectedColors[i]))differences++;if(mask[i])spritePixels++;}
+                Check("original SPR block placement vs independent placement "+f.Key,differences==0&&outside==0,new{differences,outside});
             }
             Check("all source pixels retained",spritePixels==65805,new{spritePixels});
             // Mathematical contract tests use synthetic coordinates, separate from actual map/PNG reference above.

@@ -41,7 +41,7 @@ public sealed record AssetReceipt(string Schema,string ToolVersion,string Recipe
             if(!File.Exists(path))return null;
             var r=JsonSerializer.Deserialize<AssetReceipt>(File.ReadAllBytes(path),json);
             bool valid=r is {Schema:SchemaId,ToolVersion:not null,RecipeId:not null,Status:not null,Inputs:not null,Requested:not null,Completed:not null}
-                &&r.Inputs.All(i=>i is {Name:not null,IndexSha256:not null,PakSha256:not null})
+                &&r.Inputs.All(i=>i is {Name:not null,IndexSha256:not null})
                 &&r.Requested.All(x=>x!=null)
                 &&r.Completed.All(c=>c is {Item:not null,Sources:not null,Outputs:not null,Metadata:not null}
                     &&c.Sources.All(s=>s is {Container:not null,Entry:not null,Sha256:not null})
@@ -52,9 +52,66 @@ public sealed record AssetReceipt(string Schema,string ToolVersion,string Recipe
     }
 }
 
-/// <summary>What a recipe may do while producing one item: read pinned input (recorded as sources) and write below its own staging directory.</summary>
+/// <summary>
+/// T455 (#1040, asset-recipe.md 4.6): the published output of the recipes a recipe declares in <see cref="IAssetRecipe.Requires"/>
+/// (shadows read the body profiles, the appearance lists read objects, players point at objects/0*.json …).
+/// A prior output is taken from assets/&lt;id&gt;/ only when that recipe's receipt is final and lists the file with the size and
+/// SHA-256 found on disk. Every file read is recorded as a source "assets/&lt;id&gt;" (entry = the relative path), so a resumed
+/// or repeated run notices when the earlier recipe was run again with another result.
+/// </summary>
+public sealed class AssetPriorOutputs {
+    public const string ContainerPrefix="assets/";
+    readonly string activeRoot;
+    readonly IReadOnlyCollection<string> allowed;
+    readonly Dictionary<string,(AssetReceipt Receipt,Dictionary<string,AssetReceiptOutput> Outputs)> receipts=new(StringComparer.Ordinal);
+    internal AssetPriorOutputs(string activeRoot,IReadOnlyCollection<string> allowed){this.activeRoot=activeRoot;this.allowed=allowed;}
+    static AssetPrepException Wrong(string message)=>new(AssetPrepFailure.Prerequisite,message);
+
+    (AssetReceipt Receipt,Dictionary<string,AssetReceiptOutput> Outputs) Load(string recipeId){
+        if(receipts.TryGetValue(recipeId,out var hit))return hit;
+        if(!allowed.Contains(recipeId))throw new AssetPrepException(AssetPrepFailure.InvalidRequest,$"recipe 沒有宣告依賴 {recipeId}，不能讀它的輸出");
+        string directory=Path.Combine(activeRoot,AssetPrepPaths.RequireRecipeId(recipeId));
+        if(AssetReceipt.TryLoad(Path.Combine(directory,AssetReceipt.FileName)) is not {} receipt||!receipt.IsFinal()||receipt.RecipeId!=recipeId)
+            throw Wrong($"先後順序錯誤：需要先完成 recipe {recipeId}（{directory} 沒有已發布的收據）");
+        var outputs=new Dictionary<string,AssetReceiptOutput>(StringComparer.Ordinal);
+        foreach(var output in receipt.Completed.SelectMany(c=>c.Outputs))outputs.TryAdd(output.RelativePath,output);
+        hit=(receipt,outputs);receipts[recipeId]=hit;return hit;
+    }
+    /// <summary>Stops the run unless every required recipe has a final receipt (checked before any item is produced).</summary>
+    internal void RequireAll(){foreach(string id in allowed)Load(id);}
+
+    /// <summary>The relative paths a required recipe published, ordinal order.</summary>
+    public IReadOnlyList<string> Outputs(string recipeId)=>Load(recipeId).Outputs.Keys.Order(StringComparer.Ordinal).ToList();
+
+    /// <summary>A published file of a required recipe, checked against that recipe's receipt.</summary>
+    public (byte[] Data,AssetSource Source) Read(string recipeId,string relativePath){
+        var (_,outputs)=Load(recipeId);
+        string relative=AssetPrepPaths.SafeRelative(relativePath);
+        if(!outputs.TryGetValue(relative,out var expected))throw Wrong($"先後順序錯誤：recipe {recipeId} 沒有產生 {relative}（先用 {recipeId} 準備它）");
+        string full=AssetPrepPaths.Combine(Path.Combine(activeRoot,recipeId),relative);
+        var file=new FileInfo(full);
+        if(!file.Exists||(file.Attributes&FileAttributes.ReparsePoint)!=0||file.Length!=expected.Size||file.Length>int.MaxValue)
+            throw Wrong($"recipe {recipeId} 的 {relative} 不存在或與它的收據不符（要重新準備 {recipeId}）");
+        byte[] data=File.ReadAllBytes(full);string sha=AssetPrepPaths.Sha256(data);
+        if(sha!=expected.Sha256)throw Wrong($"recipe {recipeId} 的 {relative} 與它的收據不符（要重新準備 {recipeId}）");
+        return (data,new AssetSource(ContainerPrefix+recipeId,relative,0,data.Length,sha));
+    }
+
+    public static bool IsPrior(AssetSource source)=>source.Container.StartsWith(ContainerPrefix,StringComparison.Ordinal);
+    /// <summary>A recorded prior source still holds: the required recipe is still published with the same file.</summary>
+    internal bool Verify(AssetSource source){
+        string id=source.Container[ContainerPrefix.Length..];
+        if(!allowed.Contains(id))return false;
+        try{return Read(id,source.Entry).Source==source;}
+        catch(AssetPrepException ex) when(ex.Failure==AssetPrepFailure.Prerequisite||ex.Failure==AssetPrepFailure.UnsafePath){return false;}
+    }
+}
+
+/// <summary>What a recipe may do while producing one item: read the client's containers (every entry read is recorded as a source) and write below its own staging directory.</summary>
 public sealed class AssetRecipeItemContext {
     readonly AssetPrepInput input;
+    readonly AssetPriorOutputs prior;
+    readonly Func<string,AssetReceiptItem?> completed;
     readonly string directory;
     readonly HashSet<string> taken;
     readonly List<AssetSource> sources=[];
@@ -62,17 +119,48 @@ public sealed class AssetRecipeItemContext {
     readonly SortedDictionary<string,string> metadata=new(StringComparer.Ordinal);
     public string Item{get;}
     public CancellationToken Cancel{get;}
-    internal AssetRecipeItemContext(string item,AssetPrepInput input,string directory,HashSet<string> taken,CancellationToken cancel){
-        Item=item;this.input=input;this.directory=directory;this.taken=taken;Cancel=cancel;
+    /// <summary>Every item of this run in canonical order (what Normalize returned). A run publishes only when all of them are done.</summary>
+    public IReadOnlyList<string> Requested{get;}
+    internal AssetRecipeItemContext(string item,AssetPrepInput input,AssetPriorOutputs prior,Func<string,AssetReceiptItem?> completed,string directory,HashSet<string> taken,IReadOnlyList<string> requested,CancellationToken cancel){
+        Item=item;this.input=input;this.prior=prior;this.completed=completed;this.directory=directory;this.taken=taken;Requested=requested;Cancel=cancel;
     }
 
+    /// <summary>T455: an item of this run that is already finished (produced now or reused), with its outputs and metadata;
+    /// null when it is not done yet. Manifest items, ordered last by Normalize, are built from these records.</summary>
+    public AssetReceiptItem? Completed(string item)=>completed(item);
+    /// <summary>T455: the relative paths a required recipe (<see cref="IAssetRecipe.Requires"/>) published.</summary>
+    public IReadOnlyList<string> PriorOutputs(string recipeId)=>prior.Outputs(recipeId);
+    /// <summary>T455: one published file of a required recipe, verified against its receipt and recorded as a source.</summary>
+    public byte[] ReadPrior(string recipeId,string relativePath){
+        var hit=prior.Read(recipeId,relativePath);
+        if(!sources.Contains(hit.Source))sources.Add(hit.Source);
+        return hit.Data;
+    }
+
+    /// <summary>The animation table (Text/list.spz), anchor-checked; recorded once as a source of this item.</summary>
+    public SpriteList ReadSpriteList(){
+        var hit=input.ReadSpriteList();
+        if(!sources.Contains(hit.Source))sources.Add(hit.Source);
+        return hit.List;
+    }
     public int SpriteCount=>input.SpriteCount;
     public string SpriteName(int archive)=>input.SpriteName(archive);
     /// <summary>Entry bytes from a Sprite container (0 = Sprite, 1+h = Sprite{h:00}), or null when it has no such entry.</summary>
     public byte[]? TryReadSprite(int archive,string name){
         if(input.TryReadSprite(archive,name) is not {} hit)return null;
-        sources.Add(hit.Source);return hit.Data;
+        if(!sources.Contains(hit.Source))sources.Add(hit.Source);
+        return hit.Data;
     }
+    /// <summary>T457: like <see cref="TryReadSprite"/>, with the source record (container, entry name as listed, offset, size, SHA-256).</summary>
+    public (byte[] Data,AssetSource Source)? TryReadSpriteSource(int archive,string name){
+        if(input.TryReadSprite(archive,name) is not {} hit)return null;
+        if(!sources.Contains(hit.Source))sources.Add(hit.Source);
+        return hit;
+    }
+    /// <summary>T457: the anchors of this run (asset-recipe.md §1.2).</summary>
+    public AssetPrepPins Pins=>input.Pins;
+    /// <summary>T457: Text/list.spr, decoded and checked against the list.spr anchor. No anchor in the pins → refused.</summary>
+    public byte[] ReadListSpr()=>ReadText("list.spr",input.Pins.ListSprSha256??throw new AssetPrepException(AssetPrepFailure.InvalidRequest,"沒有 list.spr 的錨點",AssetPrepInput.TextContainer));
     /// <summary>A pinned Text entry, decoded.</summary>
     public byte[] ReadText(string name,string decodedSha256){
         var hit=input.ReadText(name,decodedSha256);
@@ -86,16 +174,45 @@ public sealed class AssetRecipeItemContext {
         sources.Add(hit.Source);return hit.Decoded;
     }
 
-    /// <summary>Writes one output file. The path is relative to the recipe directory (see AssetPrepPaths.SafeRelative); a path can be written once per run.</summary>
-    public void Write(string relativePath,ReadOnlySpan<byte> data){
+    // T456 (#1041): Tile entries and the loose map/ files, recorded as sources like the Sprite entries.
+    public bool HasTile(string name)=>input.HasTile(name);
+    /// <summary>A Tile entry by name (case-insensitive), or null when Tile.idx has none.</summary>
+    public byte[]? TryReadTile(string name){
+        if(input.TryReadTile(name) is not {} hit)return null;
+        sources.Add(hit.Source);return hit.Data;
+    }
+    public IReadOnlyList<string> MapDirectories()=>input.MapDirectories();
+    /// <summary>File names of TW_CLIENT_ROOT/map/&lt;directory&gt;; the listing itself is recorded as a source (added or removed files invalidate a resume).</summary>
+    public IReadOnlyList<string> MapFiles(string directory){
+        var listing=input.MapListing(directory);
+        if(!sources.Contains(listing))sources.Add(listing);
+        return input.MapFiles(directory);
+    }
+    public byte[] ReadMapFile(string directory,string file){
+        var hit=input.ReadMapFile(directory,file);
+        sources.Add(hit.Source);return hit.Data;
+    }
+
+    string Claim(string relativePath){
         string relative=AssetPrepPaths.SafeRelative(relativePath);
         if(relative.StartsWith(AssetReceipt.FileName,StringComparison.OrdinalIgnoreCase))throw new AssetPrepException(AssetPrepFailure.UnsafePath,$"輸出路徑 \"{relativePath}\" 被拒絕：保留給收據");
         string full=AssetPrepPaths.Combine(directory,relative);
         if(!taken.Add(relative))throw new AssetPrepException(AssetPrepFailure.InvalidRequest,$"輸出路徑 \"{relative}\" 被寫了兩次（項目 {Item}）");
         Directory.CreateDirectory(Path.GetDirectoryName(full)!);
         AssetPrepPaths.RejectReparsePoints(full,"輸出");
-        AssetPrepRunner.WriteFile(full,data);
+        return relative;
+    }
+    /// <summary>Writes one output file. The path is relative to the recipe directory (see AssetPrepPaths.SafeRelative); a path can be written once per run.</summary>
+    public void Write(string relativePath,ReadOnlySpan<byte> data){
+        string relative=Claim(relativePath);
+        AssetPrepRunner.WriteFile(AssetPrepPaths.Combine(directory,relative),data);
         outputs.Add(new(relative,data.Length,AssetPrepPaths.Sha256(data)));
+    }
+    /// <summary>T456: streams a large output straight to disk (no whole-file buffer); size and SHA-256 are taken from the written file.</summary>
+    public void Write(string relativePath,Action<Stream> write){
+        string relative=Claim(relativePath),full=AssetPrepPaths.Combine(directory,relative);
+        using(var file=new FileStream(full,FileMode.Create,FileAccess.Write,FileShare.None)){write(file);file.Flush(true);}
+        outputs.Add(new(relative,new FileInfo(full).Length,AssetPrepPaths.Sha256File(full)));
     }
     /// <summary>Records a fact about the item in the receipt (for example the icon's draw offset).</summary>
     public void Set(string key,string value){
@@ -142,7 +259,7 @@ public sealed record AssetPrepResult(AssetPrepOutcome Outcome,string ActiveDirec
 
 public sealed class AssetPrepRunner {
     /// <summary>Recorded in every receipt; staged work of another tool version is discarded.</summary>
-    public const string ToolVersion="tw-asset-prep/1";
+    public const string ToolVersion="tw-asset-prep/2";   // 2 (T454): receipt inputs are idx size / idx SHA-256 / pak size, no whole-pak hash
     readonly Dictionary<string,IAssetRecipe> recipes=new(StringComparer.Ordinal);
 
     public AssetPrepRunner(IEnumerable<IAssetRecipe> recipes){
@@ -175,7 +292,7 @@ public sealed class AssetPrepRunner {
 
     static bool SameIdentity(AssetReceipt receipt,IAssetRecipe recipe,IReadOnlyList<AssetContainerRecord> inputs)=>
         receipt.ToolVersion==ToolVersion&&receipt.RecipeId==recipe.Id&&receipt.RecipeVersion==recipe.Version&&receipt.Inputs.Count==inputs.Count
-        &&receipt.Inputs.Zip(inputs).All(p=>p.First.Name==p.Second.Name&&p.First.IndexSha256==p.Second.IndexSha256&&p.First.PakSha256==p.Second.PakSha256&&p.First.PakSize==p.Second.PakSize);
+        &&receipt.Inputs.Zip(inputs).All(p=>p.First==p.Second);
 
     static bool OutputIntact(string directory,AssetReceiptOutput output){
         try{
@@ -240,13 +357,19 @@ public sealed class AssetPrepRunner {
             else{Directory.CreateDirectory(layout.ActiveRoot);checkTargets();Retry(()=>Directory.Move(previous,active));}
         }
 
-        using var input=AssetPrepInput.Open(clientRoot,request.Pins);
+        using var input=AssetPrepInput.Open(clientRoot,request.Pins,(recipe as IAssetRecipeSources)?.Sources??AssetPrepSources.Sprites);
         var identity=input.Containers();
+        // Order (asset-recipe.md 6): every recipe this one reads must already be published, before anything is produced.
+        var requires=(recipe.Requires??[]).Select(AssetPrepPaths.RequireRecipeId).Distinct(StringComparer.Ordinal).ToList();
+        if(requires.Contains(id))throw new AssetPrepException(AssetPrepFailure.InvalidRequest,$"recipe {id} 不能依賴自己");
+        var prior=new AssetPriorOutputs(layout.ActiveRoot,requires);
+        prior.RequireAll();
+        bool Verify(AssetSource source)=>AssetPriorOutputs.IsPrior(source)?prior.Verify(source):input.Verify(source);
 
         if(Directory.Exists(active)&&AssetReceipt.TryLoad(Path.Combine(active,AssetReceipt.FileName)) is {} current
             &&current.Status==FinalStatus(recipe)&&SameIdentity(current,recipe,identity)
             &&current.Requested.SequenceEqual(requested,StringComparer.Ordinal)&&current.Completed.Select(c=>c.Item).SequenceEqual(requested,StringComparer.Ordinal)
-            &&TreeError(active,current)==null&&current.Completed.All(c=>c.Sources.All(input.Verify))){
+            &&TreeError(active,current)==null&&current.Completed.All(c=>c.Sources.All(Verify))){
             AssetPrepPaths.DeleteTree(staging);
             return new(AssetPrepOutcome.UpToDate,active,current,[],requested);
         }
@@ -256,10 +379,12 @@ public sealed class AssetPrepRunner {
         var taken=new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         if(Directory.Exists(staging)&&AssetReceipt.TryLoad(Path.Combine(staging,AssetReceipt.FileName)) is {} earlier&&SameIdentity(earlier,recipe,identity)){
             var wanted=requested.ToHashSet(StringComparer.Ordinal);
+            bool sameRequest=earlier.Requested.SequenceEqual(requested,StringComparer.Ordinal);
             foreach(var item in earlier.Completed){
                 if(!wanted.Contains(item.Item)||done.ContainsKey(item.Item))continue;
+                if(!sameRequest&&recipe.DependsOnRequest(item.Item))continue;
                 if(item.Outputs.Any(o=>taken.Contains(o.RelativePath))||item.Outputs.Select(o=>o.RelativePath).Distinct(StringComparer.OrdinalIgnoreCase).Count()!=item.Outputs.Count)continue;
-                if(!item.Outputs.All(o=>OutputIntact(staging,o))||!item.Sources.All(input.Verify))continue;
+                if(!item.Outputs.All(o=>OutputIntact(staging,o))||!item.Sources.All(Verify))continue;
                 done[item.Item]=new(item.Item,item.Sources.ToList(),item.Outputs.ToList(),new SortedDictionary<string,string>(item.Metadata.ToDictionary(m=>m.Key,m=>m.Value),StringComparer.Ordinal));
                 foreach(var output in item.Outputs)taken.Add(output.RelativePath);
             }
@@ -281,7 +406,7 @@ public sealed class AssetPrepRunner {
         foreach(string item in requested){
             request.Cancel.ThrowIfCancellationRequested();
             if(done.ContainsKey(item)){reused.Add(item);continue;}
-            var context=new AssetRecipeItemContext(item,input,staging,taken,request.Cancel);
+            var context=new AssetRecipeItemContext(item,input,prior,i=>done.GetValueOrDefault(i),staging,taken,requested,request.Cancel);
             recipe.Produce(item,context);
             done[item]=context.Build();
             WriteReceipt(staging,Snapshot(AssetReceipt.InProgress));

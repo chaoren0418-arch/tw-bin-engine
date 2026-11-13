@@ -29,11 +29,15 @@ partial class Checks {
         foreach(var (name,data) in entries){
             if(name.StartsWith("main:",StringComparison.Ordinal))items[0].Add((name[5..],data));else items[Hn(name)].Add((name,data));
         }
-        for(int i=0;i<17;i++)items[i].Add(($"pad{i}.img",Img(1,1,0,0)));
-        return new(Enumerable.Range(0,17).Select(i=>Archive(dir,SpriteName(i),items[i].ToArray())).ToArray());
+        for(int i=0;i<17;i++){items[i].Add(($"pad{i}.img",Img(1,1,0,0)));Archive(dir,SpriteName(i),items[i].ToArray());}
+        // T454: Sprite containers are no longer pinned whole (asset-recipe.md 1.1); the only pin is the list.spz anchor.
+        return AssetPrepPins.Tw1608262200;
     }
-    static AssetPrepPins ApWithPin(AssetPrepPins pins,int index,Func<ClientArchivePin,ClientArchivePin> change)=>
-        new(pins.Sprites.Select((p,i)=>i==index?change(p):p).ToArray());
+    /// <summary>The 17 Sprite containers as they are on disk, for the product readers (ClientArchive) that still pin whole files.</summary>
+    static ClientArchivePin[] ApArchivePins(string dir)=>Enumerable.Range(0,17).Select(i=>{
+        string name=SpriteName(i);byte[] pak=File.ReadAllBytes(Path.Combine(dir,name+".pak"));
+        return new ClientArchivePin(name,Sha(File.ReadAllBytes(Path.Combine(dir,name+".idx"))),Sha(pak),pak.Length);
+    }).ToArray();
     static AssetPrepRequest ApRequest(string? client,string engine,AssetPrepPins pins,params string[] items)=>
         new(client,engine,InventoryIconRecipe.RecipeId,items){Pins=pins};
     static AssetPrepException ApRefused(Action action,AssetPrepFailure failure,string label,string? container=null){
@@ -108,11 +112,12 @@ partial class Checks {
         Check(!receiptText.Contains("引擎",StringComparison.Ordinal)&&!receiptText.Contains("scratch",StringComparison.OrdinalIgnoreCase)&&!receiptText.Contains(":\\",StringComparison.Ordinal),"AP receipt carries no path");
         var loaded=AssetReceipt.TryLoad(Receipt(Active(engineA)))??throw new Exception("AP receipt does not load");
         Check(loaded is {Schema:AssetReceipt.SchemaId,ToolVersion:AssetPrepRunner.ToolVersion,RecipeId:id,RecipeVersion:1}&&loaded.Requested.SequenceEqual(a.Produced),"AP receipt records schema, tool version, recipe and requested items");
-        Check(loaded.Inputs.Count==17&&loaded.Inputs.Zip(pins.Sprites).All(p=>p.First.Name==p.Second.Name&&p.First.IndexSha256==p.Second.IndexSha256&&p.First.PakSha256==p.Second.PakSha256&&p.First.PakSize==p.Second.PakSize),"AP receipt records idx / pak SHA-256 and pak size of all 17 input containers");
-        var hashed=new HashSet<string>{SpriteName(Hn("124.tbt")),SpriteName(Hn("40c.tbt")),"Sprite"};
-        Check(loaded.Inputs.Where(i=>i.PakVerified).Select(i=>i.Name).ToHashSet().SetEquals(hashed),"AP receipt marks the paks that were read (and therefore hashed whole): "+string.Join(",",hashed));
+        var onDisk=ApArchivePins(client);
+        Check(loaded.Inputs.Count==17&&loaded.Inputs.Zip(onDisk).All(p=>p.First.Name==p.Second.Name&&p.First.IndexSha256==p.Second.IndexSha256&&p.First.PakSize==p.Second.PakSize
+            &&p.First.IndexSize==new FileInfo(Path.Combine(client,p.Second.Name+".idx")).Length),"AP receipt records idx size / idx SHA-256 and pak size of all 17 input containers (no whole-pak hash)");
+        Check(!receiptText.Contains("pakSha256",StringComparison.OrdinalIgnoreCase)&&!receiptText.Contains("pakVerified",StringComparison.OrdinalIgnoreCase),"AP receipt has no whole-pak hash field");
 
-        var archives=pins.Sprites.Select(p=>new ClientArchive(client,p)).ToArray();
+        var archives=onDisk.Select(p=>new ClientArchive(client,p)).ToArray();
         try{
             var live=ItemIconSource.FromSprites(archives);
             foreach(var (icon,tbt,where) in new[]{(124,t124,SpriteName(Hn("124.tbt"))+"/124.tbt"),(40,t40c,SpriteName(Hn("40c.tbt"))+"/40c.tbt"),(7,t7,"Sprite/7.tbt")}){
@@ -169,9 +174,10 @@ partial class Checks {
             Rejected("AP client root empty",AssetPrepFailure.ClientRoot,null,"",pins,"124");
             Rejected("AP client root relative",AssetPrepFailure.ClientRoot,null,"client",pins,"124");
             Rejected("AP client root missing",AssetPrepFailure.ClientRoot,null,Path.Combine(root,"no-such-client"),pins,"124");
-            // 支援版本（真實 pin）對上別的客戶端：回報第一個不符的容器，不改讀其他目錄。
-            var version=ApRefused(()=>runner.Run(new AssetPrepRequest(client,engine,id,["124"])),AssetPrepFailure.ContainerMismatch,"AP supported-version pins against another client","Sprite");
-            Check(version.Message.Contains("Sprite.pak",StringComparison.Ordinal)&&!version.Message.Contains("0-客戶端",StringComparison.Ordinal)&&!Directory.Exists(Active(engine)),"AP version mismatch names the container file and no development path: "+version.Message);
+            // T454：Sprite 容器不再整包 pin（asset-recipe.md 1.1）。另一份客戶端多了無關的 entry 仍可讀；版本由錨點 entry（list.spz）判定，見 SprRecipeChecks。
+            string extra=Case("extra-entries");ApClient(extra,("124.tbt",t124),("main:unrelated.img",Img(2,2,0,0)),("22130.img",Img(2,2,0,0)));
+            Check(runner.Run(ApRequest(extra,Case("extra-engine"),AssetPrepPins.Tw1608262200,"124")).Outcome==AssetPrepOutcome.Published,"AP containers with unrelated extra entries are accepted (no whole-pak pin)");
+            ApRefused(()=>runner.Run(ApRequest(client,engine,new AssetPrepPins("abc"),"124")),AssetPrepFailure.InvalidRequest,"AP anchor that is not a SHA-256");
 
             string c1=Case("missing-pak");var p1=ApClient(c1,("124.tbt",t124));File.Delete(Path.Combine(c1,"Sprite05.pak"));
             Rejected("AP missing pak",AssetPrepFailure.MissingContainer,"Sprite05",c1,p1,"124");
@@ -179,22 +185,19 @@ partial class Checks {
             Rejected("AP missing idx",AssetPrepFailure.MissingContainer,"Sprite11",c2,p2,"124");
 
             int k=Hn("124.tbt");string kName=SpriteName(k);
-            Rejected("AP wrong idx pin",AssetPrepFailure.ContainerMismatch,"Sprite02",client,ApWithPin(pins,3,p=>p with{IndexSha256=new string('0',64)}),"124");
-            Rejected("AP wrong pak pin",AssetPrepFailure.ContainerMismatch,kName,client,ApWithPin(pins,k,p=>p with{PakSha256=new string('0',64)}),"124");
-            Rejected("AP wrong pak size pin",AssetPrepFailure.ContainerMismatch,"Sprite15",client,ApWithPin(pins,16,p=>p with{PakSize=p.PakSize+1}),"124");
-
             string c3=Case("truncated-pak");var p3=ApClient(c3,("124.tbt",t124));
             string pak3=Path.Combine(c3,kName+".pak");File.WriteAllBytes(pak3,File.ReadAllBytes(pak3)[..^1]);
-            Rejected("AP truncated pak",AssetPrepFailure.ContainerMismatch,kName,c3,p3,"124");
+            Rejected("AP truncated pak (last entry beyond the pak)",AssetPrepFailure.CorruptContainer,kName,c3,p3,"124");
             string c4=Case("truncated-idx");var p4=ApClient(c4,("124.tbt",t124));
             string idx4=Path.Combine(c4,kName+".idx");byte[] cut=File.ReadAllBytes(idx4)[..^5];File.WriteAllBytes(idx4,cut);
-            Rejected("AP truncated idx (pinned version)",AssetPrepFailure.ContainerMismatch,kName,c4,p4,"124");
-            Rejected("AP truncated idx (structure)",AssetPrepFailure.CorruptContainer,kName,c4,ApWithPin(p4,k,p=>p with{IndexSha256=Sha(cut)}),"124");
+            Rejected("AP truncated idx (count × 28 + 4 ≠ size)",AssetPrepFailure.CorruptContainer,kName,c4,p4,"124");
 
             string c5=Case("out-of-range");var p5=ApClient(c5,("124.tbt",t124));
-            byte[] idx5=[..BitConverter.GetBytes(1u),..IdxRecord(10,Name20("124.tbt"),1000)];
-            var bad5=RawArchive(c5,kName,idx5,new byte[20]);
-            Rejected("AP entry beyond the pak",AssetPrepFailure.CorruptContainer,kName,c5,ApWithPin(p5,k,_=>bad5),"124");
+            RawArchive(c5,kName,[..BitConverter.GetBytes(1u),..IdxRecord(10,Name20("124.tbt"),1000)],new byte[20]);
+            Rejected("AP entry beyond the pak",AssetPrepFailure.CorruptContainer,kName,c5,p5,"124");
+            string c5b=Case("duplicate-name");var p5b=ApClient(c5b,("124.tbt",t124));
+            RawArchive(c5b,"Sprite02",[..BitConverter.GetBytes(2u),..IdxRecord(0,Name20("x.img"),4),..IdxRecord(4,Name20("X.IMG"),4)],new byte[8]);
+            Rejected("AP same name twice in one idx",AssetPrepFailure.CorruptContainer,"Sprite02",c5b,p5b,"124");
             string c6=Case("oversized-entry");var p6=ApClient(c6,("124.tbt",new byte[ClientArchive.MaxEntrySize+1]));
             Rejected("AP entry larger than the reader's limit",AssetPrepFailure.CorruptContainer,kName,c6,p6,"124");
 
