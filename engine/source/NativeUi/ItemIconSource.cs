@@ -238,10 +238,15 @@ public sealed class RefClientIconFallback {
     }
 }
 
-/// <summary>Equal segments of a strip image (tab / level strip) — which segment a click is on (推測: equal widths).</summary>
+/// <summary>
+/// Equal segments of a strip image (tab / level strip) — which segment a click is on (推測: equal lengths). The strip is cut
+/// along its long side: left to right for a wide strip (item tabs), top to bottom for a tall one (#1093: the 14×212 spell levels).
+/// </summary>
 public static class LegacyStrip {
     public static int? SegmentAt(Rectangle strip,int segments,Point p){
-        if(segments<=0||strip.Width<segments||!strip.Contains(p))return null;
-        return Math.Min(segments-1,(p.X-strip.X)*segments/strip.Width);
+        if(segments<=0||!strip.Contains(p))return null;
+        bool vertical=strip.Height>strip.Width;int length=vertical?strip.Height:strip.Width;
+        if(length<segments)return null;
+        return Math.Min(segments-1,(vertical?p.Y-strip.Y:p.X-strip.X)*segments/length);
     }
 }

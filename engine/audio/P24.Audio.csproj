@@ -12,6 +12,9 @@
     <EmbeddedResource Include="Resources/combat-sfx-pins.json" LogicalName="P24.Audio.CombatSfxPins.json" />
     <InternalsVisibleTo Include="CombatSfxChecks" />
     <InternalsVisibleTo Include="SoundRulesChecks" />
+    <!-- T460 (#1045): synthetic-WAV client-root checks ([CheckGroup] audio-provider) and the 6016 native regression use synthetic pins. -->
+    <InternalsVisibleTo Include="DemoChecks" />
+    <InternalsVisibleTo Include="Effect6016Checks" />
     <!-- T302: SoundVolumeUpdateTests (module tests in the product assembly) drive AudioCore with a fake driver. -->
     <InternalsVisibleTo Include="P11.ClientEngine" />
   </ItemGroup>
