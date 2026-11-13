@@ -32,9 +32,8 @@ public sealed class Assets {
         Root=Path.GetFullPath(root);VerifyIntegrity(Root);
         (CanvasWidth,CanvasHeight)=LoadScene(root,Scene);
         LoadCharacter(root,Frames,Sequences);
-        var motion=Json.Read(Path.Combine(root,"motion.json"));FrameMs=motion.I("frame_ms");Spawn=motion.A("spawn");
-        Directions=motion.GetProperty("directions").EnumerateArray().Select(d=>new Direction(d.I("direction"),d.A("world_delta")[0],d.A("world_delta")[1],d.A("screen_delta")[0],d.A("screen_delta")[1])).ToArray();
-        if(FrameMs!=166||Directions.Length!=8||Directions.Where((d,i)=>d.Id!=i||d.Sx!=24*(d.Dx+d.Dy)||d.Sy!=12*(d.Dy-d.Dx)).Any())throw new InvalidDataException("Invalid motion mapping");
+        // T459（#1044）：方向、每格毫秒與離線起點是產品規則（MotionRules），不再讀 motion.json。
+        FrameMs=MotionRules.FrameMs;Spawn=MotionRules.Spawn();Directions=MotionRules.Directions();
     }
     /// <summary>scene/manifest.json, tile-pixels.json and draw-commands.json (p22-dual-map-v1); returns the canvas size.
     /// Also used by the scene recipe checks (T457) on a prepared directory.</summary>
