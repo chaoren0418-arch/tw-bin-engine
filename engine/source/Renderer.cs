@@ -30,8 +30,8 @@ public sealed partial class Renderer:IDisposable {
     public Renderer(Assets a) {assets=a;BaseColors=new ushort[Width*Height];BaseMask=new bool[Width*Height];foreach(var c in a.Scene)Blit(c,new(0,0,Width,Height),BaseColors,BaseMask,null);background=BitmapOf(Width,Height,BaseColors,BaseMask);}
     public static ushort Blend(ushort a,ushort b)=>(ushort)((((a&31)+(b&31))>>1)|(((((a>>5)&31)+((b>>5)&31))>>1)<<5)|(((((a>>10)&31)+((b>>10)&31))>>1)<<10));
     public static int InitialFlags(Draw c)=>c.Layer=="shadow"?5:c.Layer=="ground"?0:(c.Tile.Type&16)!=0?8:(c.Tile.Type&4)!=0?256:(c.Tile.Type&32)!=0?128:0;
-    static readonly Lazy<ushort[]> originalScreen=new(()=>{var b=File.ReadAllBytes(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../assets/cache/screen-channel.bin")));if(b.Length!=2048)throw new InvalidDataException("Original screen table");return Enumerable.Range(0,1024).Select(i=>System.Buffers.Binary.BinaryPrimitives.ReadUInt16LittleEndian(b.AsSpan(i*2))).ToArray();});
-    public static ushort ScreenBlend(ushort a,ushort b){var t=originalScreen.Value;return (ushort)(t[(a&31)*32+(b&31)]|(t[((a>>5)&31)*32+((b>>5)&31)]<<5)|(t[((a>>10)&31)*32+((b>>10)&31)]<<10));}
+    // T459（#1044）：screen 表改由 BlendRules 在啟動時依原碼算式算出，不再讀 assets/cache/screen-channel.bin。
+    public static ushort ScreenBlend(ushort a,ushort b)=>BlendRules.Compose(ChannelBlend.Screen,a,b);
     public static ushort MultiplyBlend(ushort a,ushort b)=>(ushort)(((a&31)*(b&31)/31)|((((a>>5)&31)*((b>>5)&31)/31)<<5)|((((a>>10)&31)*((b>>10)&31)/31)<<10));
     public static int Argb(ushort c) {int r=(c>>10)&31,g=(c>>5)&31,b=c&31;return unchecked((int)0xff000000)|((r*8+r/4)<<16)|((g*8+g/4)<<8)|(b*8+b/4);}
     // Sparse original SPR runs define coverage. Zero RGB555 is a valid black pixel.

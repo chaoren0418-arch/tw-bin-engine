@@ -10,8 +10,10 @@ namespace P06.AssetPrep;
 //   item "cache" → cache/manifest.json  (p24-original-cache-v1: the 20 map 0 blocks, their TIL, verifiedMissing)
 // Output paths are relative to the assets tree (§4.5); assembling recipes into one tree is T467. With the single-recipe
 // publish of T451 they land below assets/maps/.
-// Not written here (T458): maps[].terrain and cache terrain (the terrain recipe adds them), so Coverage stays Partial and the
-// product cannot load a prepared map until T458 is merged — expected by §6.
+// T458 (#1043): maps[].terrain {path, sha256} and the cache terrain {path, sha256, origin, size} carry the SHA-256 of the files the
+// `terrain` recipe writes (maps/terrain/<id>.bin, cache/original-map0.txt). Both recipes derive them with MapTerrain /
+// TerrainRules from the same client blocks, so this recipe recomputes the bytes instead of reading the other recipe's output
+// (reading earlier outputs is not in the core yet, §4.6). A map whose terrain cannot be derived is in unsupportedMaps.
 // Left out on purpose (§3.3): maps[].name (L4), copyTerrainMapId, clientMapDirectoryPresent, directTerrainFilePresent,
 // terrain.sourcePath/sourceSha256, tiles[].record, originalSource, unsupportedBlocks[].sources, provenance, scope, nativeVa,
 // nativeImageBase; cache: record, pixelModes, sourceArchives, scope. No absolute path, time or machine name is written.
@@ -27,8 +29,8 @@ public sealed class MapsRecipe:IAssetRecipe,IAssetRecipeSources {
     public static readonly IReadOnlyList<string> CacheVerifiedMissing=["7e007e00","7e017e00","7e007e01","7e017e01"];
 
     public string Id=>RecipeId;
-    public int Version=>1;
-    public AssetRecipeCoverage Coverage=>AssetRecipeCoverage.Partial;
+    public int Version=>2;   // 2 (T458): terrain fields; .seg-only blocks must be readable
+    public AssetRecipeCoverage Coverage=>AssetRecipeCoverage.Complete;
     public AssetPrepSources Sources=>AssetPrepSources.Tile|AssetPrepSources.MapFiles;
 
     public IReadOnlyList<string> Normalize(IReadOnlyList<string> items){
@@ -44,35 +46,22 @@ public sealed class MapsRecipe:IAssetRecipe,IAssetRecipeSources {
     internal static JsonWriterOptions JsonOptions=>new(){Indented=true,IndentSize=2,NewLine="\r\n",Encoder=JavaScriptEncoder.UnsafeRelaxedJsonEscaping};
 
     sealed record BlockRow(int MapId,string Name,string Path,string Sha256,bool NoEffectTail,bool Seg);
-    sealed record MapRow(int MapId,MapBounds Bounds,List<string> VerifiedAbsent,List<string> UnsupportedBlocks);
+    sealed record MapRow(int MapId,MapBounds Bounds,string TerrainSha256,List<string> VerifiedAbsent,List<string> UnsupportedBlocks);
 
     static void ProduceMaps(AssetRecipeItemContext context){
         var blocks=new List<BlockRow>();var maps=new List<MapRow>();var unsupportedMaps=new List<(int MapId,string Reason)>();var tileIds=new SortedSet<int>{MissingGroundTile};
-        foreach(string directory in context.MapDirectories()){
-            context.Cancel.ThrowIfCancellationRequested();
-            if(!MapScan.IsMapDirectory(directory,out _))continue;
-            MapDirectoryPlan? plan;
-            try{plan=MapScan.Plan(directory,context.MapFiles(directory));}
-            catch(InvalidDataException ex){throw new AssetPrepException(AssetPrepFailure.CorruptEntry,ex.Message,AssetPrepInput.MapContainer,ex);}
-            if(plan==null)continue;
-            var rows=new List<BlockRow>();var ids=new HashSet<int>();var failures=new List<string>();
-            foreach(var (stem,file) in plan.Blocks){
-                context.Cancel.ThrowIfCancellationRequested();
-                bool seg=file.EndsWith(".seg",StringComparison.OrdinalIgnoreCase);
-                byte[] data=context.ReadMapFile(directory,file);string sha=AssetPrepPaths.Sha256(data);
-                if(seg&&sha!=MapScan.SegAnchorSha256)
-                    throw new AssetPrepException(AssetPrepFailure.ContainerMismatch,$"map/{directory} 的 {file} 與支援版本不符（SHA-256 {sha}）",$"{AssetPrepInput.MapContainer}/{directory}");
-                MapBlockScan scan;
-                try{scan=MapScan.Parse(data,seg);}
-                catch(InvalidDataException ex){failures.Add($"{file}: {ex.Message}");continue;}
-                rows.Add(new(plan.MapId,stem+(seg?".seg":".s32"),$"{AssetPrepInput.MapContainer}/{directory}/{file}",sha,scan.NoEffectTail,seg));
-                ids.UnionWith(scan.TileIds);
+        foreach(var plan in MapTerrain.Plans(context)){
+            // T458: the same read as the terrain recipe (blocks, .seg-only attribute layers, terrain), so terrain.sha256 here is
+            // the SHA-256 of the file that recipe writes, and both agree on which maps are unsupported.
+            var read=MapTerrain.Read(context,plan);
+            // D3: one block that cannot be read makes the whole map explicitly unsupported (never "all walkable").
+            if(read.FailureReason is {} reason){unsupportedMaps.Add((plan.MapId,reason));continue;}
+            foreach(var b in read.Blocks){
+                blocks.Add(new(plan.MapId,b.Stem+(b.Seg?".seg":".s32"),$"{AssetPrepInput.MapContainer}/{plan.Directory}/{b.File}",b.Sha256,b.Scan.NoEffectTail,b.Seg));
+                tileIds.UnionWith(b.Scan.TileIds);
             }
-            // D3: one block the product reader would refuse makes the whole map explicitly unsupported (never "all walkable").
-            if(failures.Count>0){unsupportedMaps.Add((plan.MapId,$"{failures.Count} 個區塊無法解析；第一個：{failures[0]}"));continue;}
-            blocks.AddRange(rows);tileIds.UnionWith(ids);
             var (absent,unsupported)=MapScan.Coverage(plan);
-            maps.Add(new(plan.MapId,plan.Bounds,absent,unsupported));
+            maps.Add(new(plan.MapId,plan.Bounds,AssetPrepPaths.Sha256(read.Terrain!),absent,unsupported));
         }
         tileIds.Remove(0xFFFF);
         var tiles=new List<(int Tile,string Sha256)>();var missing=new List<int>();
@@ -101,6 +90,7 @@ public sealed class MapsRecipe:IAssetRecipe,IAssetRecipeSources {
                     w.WriteStartObject();w.WriteNumber("mapId",m.MapId);
                     w.WriteNumber("minX",m.Bounds.MinX);w.WriteNumber("maxX",m.Bounds.MaxX);w.WriteNumber("minY",m.Bounds.MinY);w.WriteNumber("maxY",m.Bounds.MaxY);
                     w.WriteNumber("width",m.Bounds.Width);w.WriteNumber("height",m.Bounds.Height);
+                    w.WriteStartObject("terrain");w.WriteString("path",MapTerrain.TerrainPath(m.MapId));w.WriteString("sha256",m.TerrainSha256);w.WriteEndObject();
                     w.WriteStartArray("verifiedAbsent");foreach(string s in m.VerifiedAbsent)w.WriteStringValue(s);w.WriteEndArray();
                     w.WriteStartArray("unsupportedBlocks");foreach(string s in m.UnsupportedBlocks){w.WriteStartObject();w.WriteString("name",s);w.WriteEndObject();}w.WriteEndArray();
                     w.WriteEndObject();
@@ -142,6 +132,8 @@ public sealed class MapsRecipe:IAssetRecipe,IAssetRecipeSources {
             tiles.Add((id,AssetPrepPaths.Sha256(data),data.Length));
         }
         var missing=CacheVerifiedMissing.Where(stem=>!MapScan.ExistenceSuffixes.Any(s=>lower.ContainsKey(stem+s))).ToList();
+        // T458: SHA-256 of cache/original-map0.txt as the terrain recipe writes it (same code, same client files).
+        string terrainSha=AssetPrepPaths.Sha256(TerrainRecipe.CacheText(MapTerrain.CacheMap(context)));
         context.Set("blocks",rows.Count.ToString(System.Globalization.CultureInfo.InvariantCulture));
         context.Set("tiles",tiles.Count.ToString(System.Globalization.CultureInfo.InvariantCulture));
         context.Write(CacheManifestPath,stream=>{
@@ -154,6 +146,11 @@ public sealed class MapsRecipe:IAssetRecipe,IAssetRecipeSources {
             w.WriteStartArray("tiles");
             foreach(var t in tiles){w.WriteStartObject();w.WriteNumber("tile",t.Tile);w.WriteString("sha256",t.Sha256);w.WriteNumber("size",t.Size);w.WriteEndObject();}
             w.WriteEndArray();
+            var window=TerrainRules.CacheWindow;
+            w.WriteStartObject("terrain");w.WriteString("path",Path.GetFileName(TerrainRecipe.CacheTextPath));w.WriteString("sha256",terrainSha);
+            w.WriteStartArray("origin");w.WriteNumberValue(window.MinX);w.WriteNumberValue(window.MinY);w.WriteEndArray();
+            w.WriteStartArray("size");w.WriteNumberValue(window.Width);w.WriteNumberValue(window.Height);w.WriteEndArray();
+            w.WriteEndObject();
             w.WriteStartArray("verifiedMissing");foreach(string s in missing)w.WriteStringValue(s);w.WriteEndArray();
             w.WriteEndObject();
         });

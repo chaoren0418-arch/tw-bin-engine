@@ -441,3 +441,5 @@
 - 2026-11-13 — #1042 b15-prep-scene-effects: T457 準備器：scene（雙區繪製資料、opacity）與 maps/effects（含 6016）（code，claude-local，PR 已合併）→ [報告](reports/issue-1042.md)
 - 2026-11-13 — #1040 b15-prep-sprites-b: T455 準備器：players、shops、shadows、doors、ground、encountered-monsters、world-appearances（code，claude-local，PR #1079 已合併）→ [報告](reports/issue-1040.md)
 - 2026-11-13 — #1072 b15-limits-ruling: T476 主控裁定：B15 已知限制 L1–L7 與決定 D1–D8（needs:claude）（plan，claude-local，PR #1082 已合併）→ [報告](reports/issue-1072.md)
+- 2026-11-13 — #1044 b15-prep-motion-blend: T459 產品規則：motion 與混色查表改為程式計算（code，claude-local，PR 已合併）→ [報告](reports/issue-1044.md)
+- 2026-11-13 — #1043 b15-prep-terrain: T458 準備器：terrain 與 bounds（從客戶端 S32／SEG）（code，claude-local，PR 已合併）→ [報告](reports/issue-1043.md)
