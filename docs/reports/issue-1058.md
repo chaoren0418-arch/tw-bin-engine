@@ -42,7 +42,9 @@
 - 本機只跑 Python 唯讀檢查，沒有執行任何編譯產物，也沒有執行 `啟動引擎.cmd`：
   - `python -B -X utf8 scratch/issue-1058/probe_templates.py .` → 26 句程式訊息逐段對上，`errors: []`。
   - `package-portable.py` 語法檢查通過。
-- 完整的 `--self-test`（含新增的 2 項）在 CI 跑：ubuntu `dotnet` job 與 Windows `map-continuity` job。Windows job 也會以實際建置打包，然後 `--review`。結果以 PR 最新 commit 的 CI 為準。
+- CI（PR #1114，commit `3ad20fb1`，run 43482091638）：`dotnet`、`map-continuity`、`npc-offline` 三個 job 全部通過。
+  - 兩個 job 都跑了 `package-portable.py --self-test`，共 17 項（新增 2 項）全部 ok。
+  - Windows 實際建置後打包：`status: pass`，23 檔，總大小 10,251,856 bytes；zip 3,463,843 bytes，errors 0。`--review` 也是 pass。
 - README 中的數字出處：
   - 1,616 MiB：`AssetPrepOrchestrator.cs` 的 `EstimatedOutputBytes`（800 MiB）× 2 ＋ `SpaceReserveBytes`（16 MiB）。
   - zip 大小：#1057 實測。
