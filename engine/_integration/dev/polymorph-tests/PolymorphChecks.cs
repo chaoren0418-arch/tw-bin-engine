@@ -168,16 +168,17 @@ partial class Checks {
         var profiles=new List<object>();
         foreach(int gfx in new[]{0,6894})
         foreach(int weapon in new[]{0,4,20,50}){
-            int ms=(gfx==0?640:960)+weapon;
+            // T461: server interval = R1 (40 × list.spr ticks), authored separately from the native frame length ms.
+            int ms=(gfx==0?640:960)+weapon,ticks=(gfx==0?16:24)+weapon;
             var actions=new{walk=ms,attack=ms,spellDir=ms,spellNoDir=ms};
             byte[] metadata=JsonSerializer.SerializeToUtf8Bytes(new{
                 actionMs=actions,
                 sequences=new[]{"attack","spellDir","spellNoDir"}.Select(action=>new{
-                    action,direction=0,sequence=new[]{new{milliseconds=ms,events="!"}}
+                    action,direction=0,sequence=new[]{new{ticks,milliseconds=ms,events="!"}}
                 })
             });
             string path=$"players/synthetic-{gfx}-{weapon}.json";File.WriteAllBytes(Path.Combine(assets,path),metadata);
-            profiles.Add(new{gfx,weapon,path,sha256=Convert.ToHexString(SHA256.HashData(metadata)),stepMs=ms,serverActionMs=actions,castReleaseMs=new{spellDir=ms},projectileReleaseMs=ms});
+            profiles.Add(new{gfx,weapon,path,sha256=Convert.ToHexString(SHA256.HashData(metadata)),stepMs=ms});
         }
         byte[] manifest=JsonSerializer.SerializeToUtf8Bytes(new{schema="p24-player-profiles-v1",profiles});
         File.WriteAllBytes(Path.Combine(assets,"players/manifest.json"),manifest);
@@ -189,14 +190,14 @@ partial class Checks {
             var w=PolyWorld();
             PolyFeed(w,PolyPack(123,0,4,speed,0));PolyFeed(w,PolyPack(456,0,4,speed,0));
             PolyFeed(w,PolyAction(123,1));var old=w.OwnCombat;
-            Check(old?.Timing is {Gfx:0,Weapon:4,ServerBaseMs:644},"POLY cadence starts from old authoritative appearance "+speed);
+            Check(old?.Timing is {Gfx:0,Weapon:4,ServerBaseMs:800},"POLY cadence starts from old authoritative appearance "+speed);
             PolyFeed(w,Poly(123,6894));PolyFeed(w,Poly(456,6894));
             Check(w.OwnCombat==null,"POLY old cadence retired "+speed);
             foreach(uint id in new uint[]{123,456}){
                 // S30 melee report, with zero coordinate/reserved bytes as required by its existing parser.
                 PolyFeed(w,Packet(b=>{b.Write((byte)30);b.Write((byte)1);b.Write(id);b.Write(0u);b.Write((ushort)0);b.Write((byte)5);b.Write((ushort)0);b.Write((ushort)0);b.Write((byte)0);}));
                 var attack=id==123?w.OwnCombat:w.Objects.Single().Combat;
-                Check(attack?.Timing is {Gfx:6894,Weapon:4,ServerBaseMs:964},"POLY S30 captures new gfx/weapon cadence "+id+"/"+speed);
+                Check(attack?.Timing is {Gfx:6894,Weapon:4,ServerBaseMs:1120},"POLY S30 captures new gfx/weapon cadence "+id+"/"+speed);
                 int expected=speed==0?964:speed==1?723:1928;
                 Check(attack!.Timing!.AnimationMs==expected,"POLY attack follows existing authoritative speed mode "+id+"/"+speed);
             }
@@ -204,9 +205,9 @@ partial class Checks {
             PolyFeed(w,Poly(123,6894,0));PolyFeed(w,PolyAction(123,1));
             Check(w.OwnCombat?.Timing is {Gfx:6894,Weapon:0,ServerBaseMs:960},"POLY takeoff changes following attack pose "+speed);
             PolyFeed(w,PolyWeapon(123,50));PolyFeed(w,PolyAction(123,1));
-            Check(w.OwnCombat?.Timing is {Gfx:6894,Weapon:50,ServerBaseMs:1010},"POLY S119 changes following attack pose "+speed);
+            Check(w.OwnCombat?.Timing is {Gfx:6894,Weapon:50,ServerBaseMs:2960},"POLY S119 changes following attack pose "+speed);
             PolyFeed(w,Poly(123,0));PolyFeed(w,PolyAction(123,1));
-            Check(w.OwnCombat?.Timing is {Gfx:0,Weapon:50,ServerBaseMs:690},"POLY undo selects original gfx cadence with current server weapon "+speed);
+            Check(w.OwnCombat?.Timing is {Gfx:0,Weapon:50,ServerBaseMs:2640},"POLY undo selects original gfx cadence with current server weapon "+speed);
             PolyFeed(w,Poly(123,6894));
             PolyFeed(w,Packet(b=>{b.Write((byte)255);b.Write(123u);b.Write((byte)2);b.Write((ushort)10);}));
             PolyFeed(w,PolyAction(123,1));

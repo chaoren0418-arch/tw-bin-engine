@@ -22,7 +22,8 @@ public static class CombatRules {
     public static int ClockMargin(int weapon)=>weapon==20?32:0;
     static readonly Dictionary<int,int> armedMs=[];
     public static int Duration(int weapon){if(weapon==20)return 1200;if(weapon==0)return AttackMs;if(weapon is not (4 or 20 or 50))throw new InvalidDataException("unsupported weapon cadence");if(!armedMs.TryGetValue(weapon,out int ms)){ms=Json.Read(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,$"../../assets/objects/0-weapon-{weapon}.json"))).GetProperty("actionMs").GetProperty("attack").GetInt32();armedMs[weapon]=ms;}return ms;}
-    public static int DurationFor(int gfx,int weapon)=>PlayerProfiles.Get(gfx,weapon)?.ServerActionMs["attack"]??throw new InvalidDataException("unsupported player attack cadence");
+    // T461：R1（40 × list.spr 攻擊動作的 ticks 總和），不讀 manifest 的 serverActionMs。
+    public static int DurationFor(int gfx,int weapon)=>ActionCadence.ServerMs(gfx,weapon,1);
     public static byte[] Attack(WorldObject target,int weapon=0){byte[] b=new byte[16];b[0]=(byte)(weapon==20?123:229);BinaryPrimitives.WriteUInt32LittleEndian(b.AsSpan(1),target.ObjectId);BinaryPrimitives.WriteUInt16LittleEndian(b.AsSpan(5),target.X);BinaryPrimitives.WriteUInt16LittleEndian(b.AsSpan(7),target.Y);return b;}
 }
 public sealed partial class WorldSession {
