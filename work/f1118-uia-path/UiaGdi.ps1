@@ -322,3 +322,415 @@ function Save-UiaGdiScreenshot {
     }
     [pscustomobject]@{Path=$full;Method=$method;PrintWindowError=$printError;CopyFromScreenError=$copyError;Width=$width;Height=$height;SampleStride=$stats.SampleStride;Samples=$stats.Samples;Mean=$stats.Mean;NonzeroRatio=$stats.NonzeroRatio;NonwhiteRatio=$stats.NonwhiteRatio;Nonblank=$stats.Nonblank;Sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath $full).Hash;Foreground=$foreground;Window=(Get-UiaWindowInfo $Window)}
 }
+
+# ---------------------------------------------------------------------------
+# Native UI client (#1154): client-area GDI capture and client-coordinate SendInput.
+# The game canvas is not UIA; these work on a raw HWND and an 800x600 logical frame.
+# Process DPI awareness is already set to PER_MONITOR_AWARE_V2 (-4) at the top of this file
+# (failure only recorded in $script:ProcessDpiSet/ProcessDpiError). The client is PMv2 as well
+# (engine/source/Program.cs:15 SetHighDpiMode(PerMonitorV2), :102 AutoScaleMode.None), so every
+# rectangle below is in physical pixels in both processes. No WGC; no system setting is changed.
+# ---------------------------------------------------------------------------
+$script:ClientInputNativeSource=@'
+using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
+public static class ClientInputNative {
+ [StructLayout(LayoutKind.Sequential)] public struct RECT { public int Left,Top,Right,Bottom; }
+ [StructLayout(LayoutKind.Sequential)] public struct POINT { public int X,Y; }
+ [StructLayout(LayoutKind.Sequential)] public struct MOUSEINPUT { public int dx,dy; public uint mouseData,dwFlags,time; public UIntPtr dwExtraInfo; }
+ [StructLayout(LayoutKind.Sequential)] public struct KEYBDINPUT { public ushort wVk,wScan; public uint dwFlags,time; public UIntPtr dwExtraInfo; }
+ [StructLayout(LayoutKind.Explicit)] public struct INPUTUNION { [FieldOffset(0)] public MOUSEINPUT mi; [FieldOffset(0)] public KEYBDINPUT ki; }
+ // x64: type(4) + padding(4) + union(32; MOUSEINPUT 4*5 + padding 4 + pointer 8) = 40 bytes.
+ [StructLayout(LayoutKind.Sequential)] public struct INPUT { public uint type; public INPUTUNION u; }
+ [DllImport("user32.dll", SetLastError=true)] public static extern bool GetClientRect(IntPtr hwnd, out RECT rect);
+ [DllImport("user32.dll", SetLastError=true)] public static extern bool ClientToScreen(IntPtr hwnd, ref POINT point);
+ [DllImport("user32.dll", SetLastError=true)] public static extern bool GetWindowRect(IntPtr hwnd, out RECT rect);
+ [DllImport("user32.dll", SetLastError=true)] static extern uint SendInput(uint count, INPUT[] inputs, int size);
+ [DllImport("user32.dll")] public static extern IntPtr GetForegroundWindow();
+ [DllImport("user32.dll")] public static extern uint GetWindowThreadProcessId(IntPtr hwnd, out uint processId);
+ [DllImport("user32.dll")] public static extern IntPtr WindowFromPoint(POINT point);
+ [DllImport("user32.dll")] public static extern IntPtr GetAncestor(IntPtr hwnd, uint flags);
+ [DllImport("user32.dll")] public static extern bool IsWindow(IntPtr hwnd);
+ [DllImport("user32.dll")] public static extern bool IsWindowVisible(IntPtr hwnd);
+ [DllImport("user32.dll")] public static extern int GetSystemMetrics(int index);
+ [DllImport("user32.dll")] public static extern uint MapVirtualKey(uint code, uint mapType);
+ [DllImport("user32.dll")] public static extern uint GetDpiForWindow(IntPtr hwnd);
+ [DllImport("user32.dll")] public static extern IntPtr GetDC(IntPtr hwnd);
+ [DllImport("user32.dll")] public static extern int ReleaseDC(IntPtr hwnd, IntPtr hdc);
+ [DllImport("gdi32.dll", SetLastError=true)] static extern bool BitBlt(IntPtr hdcDest, int xDest, int yDest, int width, int height, IntPtr hdcSrc, int xSrc, int ySrc, uint rop);
+ [DllImport("kernel32.dll")] static extern void SetLastError(uint code);
+ public const uint SRCCOPY = 0x00CC0020, CAPTUREBLT = 0x40000000;
+ public static int InputSize { get { return Marshal.SizeOf(typeof(INPUT)); } }
+
+ public static uint ForegroundProcessId(out IntPtr hwnd) { uint pid; hwnd = GetForegroundWindow(); GetWindowThreadProcessId(hwnd, out pid); return pid; }
+
+ // Foreground owner is checked in native code right before SendInput (no PowerShell gap in between).
+ // Returns SendInput's count and error = GetLastError of that call (cleared first). When the foreground window
+ // does not belong to expectedPid nothing is sent: returns 0 with error = -1.
+ public static uint SendGuarded(INPUT[] inputs, uint expectedPid, out int error, out long foregroundHwnd, out uint foregroundPid) {
+  IntPtr fg; foregroundPid = ForegroundProcessId(out fg); foregroundHwnd = fg.ToInt64();
+  if (foregroundPid != expectedPid) { error = -1; return 0; }
+  SetLastError(0); uint n = SendInput((uint)inputs.Length, inputs, InputSize); error = Marshal.GetLastWin32Error(); return n;
+ }
+ public static INPUT Mouse(int dx, int dy, uint flags) { INPUT i = new INPUT(); i.type = 0; i.u.mi.dx = dx; i.u.mi.dy = dy; i.u.mi.dwFlags = flags; return i; }
+ public static INPUT Key(ushort vk, ushort scan, uint flags) { INPUT i = new INPUT(); i.type = 1; i.u.ki.wVk = vk; i.u.ki.wScan = scan; i.u.ki.dwFlags = flags; return i; }
+
+ public static bool BitBltScreenLE(IntPtr hdcDest, int x, int y, int w, int h, out int error) {
+  IntPtr screen = GetDC(IntPtr.Zero);
+  if (screen == IntPtr.Zero) { error = Marshal.GetLastWin32Error(); return false; }
+  try { SetLastError(0); bool r = BitBlt(hdcDest, 0, 0, w, h, screen, x, y, SRCCOPY | CAPTUREBLT); error = Marshal.GetLastWin32Error(); return r; }
+  finally { ReleaseDC(IntPtr.Zero, screen); }
+ }
+
+ // Every-pixel statistics via LockBits (GetPixel is too slow for 0.5 s polling). {pixels, mean, nonBlackRatio, nonWhiteRatio}.
+ public static double[] Stats(Bitmap b) {
+  Rectangle r = new Rectangle(0, 0, b.Width, b.Height);
+  BitmapData d = b.LockBits(r, ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+  try {
+   byte[] row = new byte[d.Stride]; double sum = 0; long nonBlack = 0, nonWhite = 0, n = (long)b.Width * b.Height;
+   for (int y = 0; y < b.Height; y++) {
+    Marshal.Copy(new IntPtr(d.Scan0.ToInt64() + (long)y * d.Stride), row, 0, d.Stride);
+    for (int x = 0; x < b.Width; x++) { int v = row[x*3] + row[x*3+1] + row[x*3+2]; sum += v / 3.0; if (v > 0) nonBlack++; if (v < 765) nonWhite++; }
+   }
+   return new double[] { n, n == 0 ? 0 : sum / n, n == 0 ? 0 : (double)nonBlack / n, n == 0 ? 0 : (double)nonWhite / n };
+  } finally { b.UnlockBits(d); }
+ }
+
+ // Pixels with |dR|+|dG|+|dB| > threshold. Returns {changedTotal, changedInside, insideArea, bboxLeft, bboxTop, bboxRight, bboxBottom}
+ // (bbox = -1 when nothing changed). Inside rectangle = (ix, iy, iw, ih) in bitmap pixels. Both bitmaps must have equal size.
+ public static long[] Diff(Bitmap a, Bitmap b, int threshold, int ix, int iy, int iw, int ih) {
+  if (a.Width != b.Width || a.Height != b.Height) throw new ArgumentException("bitmap sizes differ");
+  Rectangle r = new Rectangle(0, 0, a.Width, a.Height);
+  BitmapData da = a.LockBits(r, ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+  try {
+   BitmapData db = b.LockBits(r, ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+   try {
+    byte[] ra = new byte[da.Stride], rb = new byte[db.Stride];
+    long total = 0, inside = 0; int l = int.MaxValue, t = int.MaxValue, rr = -1, bb = -1;
+    for (int y = 0; y < a.Height; y++) {
+     Marshal.Copy(new IntPtr(da.Scan0.ToInt64() + (long)y * da.Stride), ra, 0, da.Stride);
+     Marshal.Copy(new IntPtr(db.Scan0.ToInt64() + (long)y * db.Stride), rb, 0, db.Stride);
+     for (int x = 0; x < a.Width; x++) {
+      int k = x * 3; int dv = Math.Abs(ra[k]-rb[k]) + Math.Abs(ra[k+1]-rb[k+1]) + Math.Abs(ra[k+2]-rb[k+2]);
+      if (dv <= threshold) continue;
+      total++; if (x < l) l = x; if (y < t) t = y; if (x > rr) rr = x; if (y > bb) bb = y;
+      if (x >= ix && x < ix + iw && y >= iy && y < iy + ih) inside++;
+     }
+    }
+    return new long[] { total, inside, (long)iw * ih, total == 0 ? -1 : l, total == 0 ? -1 : t, rr, bb };
+   } finally { b.UnlockBits(db); }
+  } finally { a.UnlockBits(da); }
+ }
+}
+'@
+if (-not ('ClientInputNative' -as [type])) {
+    Add-Type -ReferencedAssemblies System.Drawing -TypeDefinition $script:ClientInputNativeSource
+}
+
+function Get-ClientWindowGeometry {
+    # Client area in screen pixels (GetClientRect + ClientToScreen) and the engine's 800x600 viewport.
+    # Default mapping follows UiPresenter.Compute with fill=false (engine/source/NativeUi/UiPresenter.cs:42-44):
+    #   k = max(1, min(floor(w/800), floor(h/600))), viewport offset = ((w-800k)/2, (h-600k)/2).
+    # -Fill (native-ui.json "fill": true) follows UiPresenter.cs:37-40 (float scale, rounded size).
+    # RatioX/RatioY (= w/800, h/600) are recorded as-is; RatioNote is set when they differ or are not 1x/2x.
+    param([Parameter(Mandatory)][IntPtr]$Hwnd,[switch]$Fill)
+    if(-not [ClientInputNative]::IsWindow($Hwnd)){throw "HWND $($Hwnd.ToInt64()) is not a window"}
+    $cr=New-Object ClientInputNative+RECT
+    if(-not [ClientInputNative]::GetClientRect($Hwnd,[ref]$cr)){throw "GetClientRect failed; LastError=$([Runtime.InteropServices.Marshal]::GetLastWin32Error())"}
+    $pt=New-Object ClientInputNative+POINT
+    if(-not [ClientInputNative]::ClientToScreen($Hwnd,[ref]$pt)){throw "ClientToScreen failed; LastError=$([Runtime.InteropServices.Marshal]::GetLastWin32Error())"}
+    $wr=New-Object ClientInputNative+RECT
+    $null=[ClientInputNative]::GetWindowRect($Hwnd,[ref]$wr)
+    [uint32]$owner=0;$null=[ClientInputNative]::GetWindowThreadProcessId($Hwnd,[ref]$owner)
+    $w=$cr.Right-$cr.Left;$h=$cr.Bottom-$cr.Top
+    if($Fill){
+        $s=[Math]::Min($w/800.0,$h/600.0);if(-not ($s -gt 0)){$s=1.0}
+        $dw=[int][Math]::Round(800*$s,[MidpointRounding]::ToEven);$dh=[int][Math]::Round(600*$s,[MidpointRounding]::ToEven)
+        $scale=[double]$s;$mode='fill'
+    } else {
+        $k=[Math]::Max(1,[Math]::Min([Math]::Floor($w/800),[Math]::Floor($h/600)))
+        $dw=[int](800*$k);$dh=[int](600*$k);$scale=[double]$k;$mode='integer'
+    }
+    $ox=[int][Math]::Truncate(($w-$dw)/2);$oy=[int][Math]::Truncate(($h-$dh)/2)
+    $ratioX=$w/800.0;$ratioY=$h/600.0
+    $note=$null
+    if($ratioX -ne $ratioY -or @(1.0,2.0) -notcontains $ratioX){$note="client ${w}x${h}: width/800=$ratioX height/600=$ratioY (not a uniform 1x/2x); clicks use $mode scale $scale with viewport offset ($ox,$oy)"}
+    [pscustomobject][ordered]@{
+        Hwnd=$Hwnd.ToInt64();ProcessId=$owner;Dpi=[ClientInputNative]::GetDpiForWindow($Hwnd)
+        ClientWidth=$w;ClientHeight=$h;ClientScreenLeft=$pt.X;ClientScreenTop=$pt.Y
+        WindowRect=@($wr.Left,$wr.Top,$wr.Right,$wr.Bottom)
+        Mapping=$mode;Scale=$scale;ViewportLeft=$ox;ViewportTop=$oy;ViewportWidth=$dw;ViewportHeight=$dh
+        RatioX=$ratioX;RatioY=$ratioY;RatioNote=$note
+    }
+}
+function Convert-ClientLogicalToScreen {
+    # 800x600 logical point -> client pixel -> screen pixel (centre of the scaled logical pixel).
+    param([Parameter(Mandatory)]$Geometry,[Parameter(Mandatory)][double]$X,[Parameter(Mandatory)][double]$Y)
+    $cx=[int][Math]::Floor($Geometry.ViewportLeft+($X+0.5)*$Geometry.Scale)
+    $cy=[int][Math]::Floor($Geometry.ViewportTop+($Y+0.5)*$Geometry.Scale)
+    [pscustomobject]@{ClientX=$cx;ClientY=$cy;ScreenX=$Geometry.ClientScreenLeft+$cx;ScreenY=$Geometry.ClientScreenTop+$cy}
+}
+function Convert-ClientLogicalRect {
+    # 800x600 logical rectangle [x,y,w,h] -> client pixel rectangle (for capture diffs).
+    param([Parameter(Mandatory)]$Geometry,[Parameter(Mandatory)][int[]]$Rect)
+    $s=$Geometry.Scale
+    [pscustomobject]@{X=[int][Math]::Floor($Geometry.ViewportLeft+$Rect[0]*$s);Y=[int][Math]::Floor($Geometry.ViewportTop+$Rect[1]*$s);Width=[int][Math]::Ceiling($Rect[2]*$s);Height=[int][Math]::Ceiling($Rect[3]*$s)}
+}
+
+# One JSONL line per click / key batch. Default path is the worktree's scratch/; Test-NativeClient.ps1 points it
+# at <evidence>/client-input.jsonl.
+$script:ClientInputLogPath=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../scratch/client-input.jsonl'))
+function Set-ClientInputLog { param([Parameter(Mandatory)][string]$Path) $script:ClientInputLogPath=[IO.Path]::GetFullPath($Path) }
+function Write-ClientInputLog {
+    param([Parameter(Mandatory)][Collections.IDictionary]$Entry)
+    $dir=Split-Path -Parent $script:ClientInputLogPath
+    if(-not (Test-Path -LiteralPath $dir)){New-Item -ItemType Directory -Force $dir | Out-Null}
+    $line=([pscustomobject]$Entry | ConvertTo-Json -Depth 6 -Compress)
+    [IO.File]::AppendAllText($script:ClientInputLogPath,$line+"`n",[Text.UTF8Encoding]::new($false))
+}
+
+function Get-ClientWindowProcessId { param([IntPtr]$Hwnd) [uint32]$p=0;$null=[ClientInputNative]::GetWindowThreadProcessId($Hwnd,[ref]$p);$p }
+function Assert-ClientForeground {
+    # Foreground must belong to the client's PID. If not, run #1148's multi-step Set-UiaForeground once and re-check;
+    # still not -> throw (callers send nothing). Returns what happened.
+    param([Parameter(Mandatory)][IntPtr]$Hwnd)
+    $clientPid=Get-ClientWindowProcessId $Hwnd
+    if($clientPid -eq 0){throw "HWND $($Hwnd.ToInt64()) has no owning process"}
+    $fg=Get-UiaForegroundInfo
+    if($fg.ProcessId -eq $clientPid){return [pscustomobject]@{Acquired=$false;Foreground=$fg;Diagnostic=$null}}
+    $element=[Windows.Automation.AutomationElement]::FromHandle($Hwnd)
+    $diag=$null
+    try {$diag=Set-UiaForeground $element} catch {
+        throw "Client is not foreground and Set-UiaForeground failed; nothing was sent. $($_.Exception.Message)"
+    }
+    $fg=Get-UiaForegroundInfo
+    if($fg.ProcessId -ne $clientPid){throw "Foreground PID $($fg.ProcessId) (HWND $($fg.Handle)) is not client PID $clientPid after Set-UiaForeground; nothing was sent"}
+    [pscustomobject]@{Acquired=$true;Foreground=$fg;Diagnostic=$diag}
+}
+
+function Send-ClientInputBatch {
+    # Internal: one guarded SendInput call + one JSONL line. Throws when refused or partially sent.
+    param([IntPtr]$Hwnd,[object[]]$Inputs,[Collections.IDictionary]$Entry)
+    $clientPid=Get-ClientWindowProcessId $Hwnd
+    $array=[ClientInputNative+INPUT[]]::new($Inputs.Count)
+    for($i=0;$i -lt $Inputs.Count;$i++){$array[$i]=$Inputs[$i]}
+    [int]$err=0;[long]$fgh=0;[uint32]$fgp=0
+    $n=[ClientInputNative]::SendGuarded($array,$clientPid,[ref]$err,[ref]$fgh,[ref]$fgp)
+    $Entry['Utc']=[DateTime]::UtcNow.ToString('o');$Entry['Hwnd']=$Hwnd.ToInt64();$Entry['ProcessId']=$clientPid
+    $Entry['ForegroundHwnd']=$fgh;$Entry['ForegroundProcessId']=$fgp
+    $Entry['InputCount']=$array.Length;$Entry['SendInputReturned']=$n;$Entry['LastError']=$err;$Entry['InputSize']=[ClientInputNative]::InputSize
+    Write-ClientInputLog $Entry
+    if($err -eq -1){throw "Foreground PID $fgp (HWND $fgh) is not client PID $clientPid; SendInput not called ($($Entry['Action']))"}
+    if($n -ne $array.Length){throw "SendInput sent $n of $($array.Length) ($($Entry['Action'])); LastError=$err"}
+}
+function Copy-ClientLogEntry { param([Collections.IDictionary]$Source,[string]$Action) $e=[ordered]@{};foreach($k in $Source.Keys){$e[$k]=$Source[$k]};$e['Action']=$Action;$e }
+
+function Send-ClientClick {
+    # X/Y are 800x600 logical client coordinates. One SendInput batch: MOUSEEVENTF_MOVE|ABSOLUTE|VIRTUALDESK
+    # (normalised 0-65535 over the virtual desktop), then button down/up at the same point.
+    # Refuses (throws, sends nothing) when the client is not foreground after Set-UiaForeground, or when the target
+    # screen point is covered by another top-level window.
+    param([Parameter(Mandatory)][IntPtr]$Hwnd,[Parameter(Mandatory)][double]$X,[Parameter(Mandatory)][double]$Y,
+          [ValidateSet('Left','Right')][string]$Button='Left',[switch]$Double,[switch]$Fill)
+    if($X -lt 0 -or $X -ge 800 -or $Y -lt 0 -or $Y -ge 600){throw "Logical point ($X,$Y) is outside 800x600"}
+    $fgCheck=Assert-ClientForeground $Hwnd
+    $g=Get-ClientWindowGeometry $Hwnd -Fill:$Fill
+    $p=Convert-ClientLogicalToScreen $g $X $Y
+    $sp=New-Object ClientInputNative+POINT;$sp.X=$p.ScreenX;$sp.Y=$p.ScreenY
+    $hit=[ClientInputNative]::WindowFromPoint($sp);$hitRoot=[ClientInputNative]::GetAncestor($hit,2)   # GA_ROOT
+    $vx=[ClientInputNative]::GetSystemMetrics(76);$vy=[ClientInputNative]::GetSystemMetrics(77)          # SM_X/YVIRTUALSCREEN
+    $vw=[ClientInputNative]::GetSystemMetrics(78);$vh=[ClientInputNative]::GetSystemMetrics(79)          # SM_CX/CYVIRTUALSCREEN
+    $nx=[int][Math]::Round(($p.ScreenX-$vx)*65535.0/[Math]::Max(1,$vw-1));$ny=[int][Math]::Round(($p.ScreenY-$vy)*65535.0/[Math]::Max(1,$vh-1))
+    $action="click-$($Button.ToLowerInvariant())"
+    if($Double){$action+='-double'}
+    $entry=[ordered]@{
+        Action=$action;LogicalX=$X;LogicalY=$Y
+        ClientX=$p.ClientX;ClientY=$p.ClientY;ScreenX=$p.ScreenX;ScreenY=$p.ScreenY;NormalizedX=$nx;NormalizedY=$ny
+        Scale=$g.Scale;Mapping=$g.Mapping;RatioX=$g.RatioX;RatioY=$g.RatioY;RatioNote=$g.RatioNote
+        ClientWidth=$g.ClientWidth;ClientHeight=$g.ClientHeight;Dpi=$g.Dpi
+        VirtualDesk=@($vx,$vy,$vw,$vh);HitHwnd=$hit.ToInt64();HitRootHwnd=$hitRoot.ToInt64();ForegroundAcquired=$fgCheck.Acquired
+    }
+    if($hitRoot -ne $Hwnd){
+        $entry['Refused']="screen point hits root HWND $($hitRoot.ToInt64()), not the client"
+        $entry['Utc']=[DateTime]::UtcNow.ToString('o');$entry['Hwnd']=$Hwnd.ToInt64();Write-ClientInputLog $entry
+        throw "Refusing click: screen point ($($p.ScreenX),$($p.ScreenY)) hits HWND $($hitRoot.ToInt64()), not client $($Hwnd.ToInt64())"
+    }
+    $absolute=0x0001 -bor 0x8000 -bor 0x4000   # MOUSEEVENTF_MOVE | ABSOLUTE | VIRTUALDESK
+    $down=if($Button -eq 'Left'){0x0002}else{0x0008}
+    $up=if($Button -eq 'Left'){0x0004}else{0x0010}
+    Send-ClientInputBatch $Hwnd @([ClientInputNative]::Mouse($nx,$ny,$absolute),[ClientInputNative]::Mouse($nx,$ny,($absolute -bor $down)),[ClientInputNative]::Mouse($nx,$ny,($absolute -bor $up))) $entry
+    if($Double){
+        Start-Sleep -Milliseconds 60
+        Send-ClientInputBatch $Hwnd @([ClientInputNative]::Mouse($nx,$ny,($absolute -bor $down)),[ClientInputNative]::Mouse($nx,$ny,($absolute -bor $up))) (Copy-ClientLogEntry $entry "$action-second")
+    }
+    [pscustomobject]$entry
+}
+
+$script:ClientKeyNames=@{
+    'ENTER'=0x0D;'RETURN'=0x0D;'ESC'=0x1B;'ESCAPE'=0x1B;'TAB'=0x09;'SPACE'=0x20;'BACKSPACE'=0x08;'BACK'=0x08
+    'LEFT'=0x25;'UP'=0x26;'RIGHT'=0x27;'DOWN'=0x28;'HOME'=0x24;'END'=0x23;'PAGEUP'=0x21;'PAGEDOWN'=0x22;'INSERT'=0x2D;'DELETE'=0x2E;'DEL'=0x2E
+}
+$script:ClientExtendedKeys=@(0x21,0x22,0x23,0x24,0x25,0x26,0x27,0x28,0x2D,0x2E)
+$script:ClientModifierKeys=@{'CTRL'=0x11;'CONTROL'=0x11;'ALT'=0x12;'SHIFT'=0x10}
+function ConvertTo-ClientVirtualKey {
+    param([Parameter(Mandatory)][string]$Name)
+    $u=$Name.Trim().ToUpperInvariant()
+    if($script:ClientKeyNames.ContainsKey($u)){return [uint16]$script:ClientKeyNames[$u]}
+    if($u -match '^F([1-9]|1[0-9]|2[0-4])$'){return [uint16](0x6F+[int]$Matches[1])}
+    if($u -match '^[A-Z0-9]$'){return [uint16][int][char]$u}
+    throw "Unknown key name '$Name'"
+}
+function New-ClientKeyInput {
+    # Virtual-key code + scan code (MapVirtualKey MAPVK_VK_TO_VSC); KEYEVENTF_EXTENDEDKEY for the navigation block.
+    param([uint16]$Vk,[switch]$Up)
+    $scan=[uint16][ClientInputNative]::MapVirtualKey($Vk,0)
+    $flags=0
+    if($script:ClientExtendedKeys -contains [int]$Vk){$flags=$flags -bor 0x0001}
+    if($Up){$flags=$flags -bor 0x0002}
+    [ClientInputNative]::Key($Vk,$scan,[uint32]$flags)
+}
+function Send-ClientKey {
+    # '<key>' or '<Mod>+...+<key>': modifiers Ctrl/Alt/Shift; keys F1-F24, A-Z, 0-9, Enter, Esc, Tab, Space, Backspace,
+    # arrows, Home/End, PageUp/PageDown, Insert/Delete. Modifiers go down first and are always released in finally.
+    param([Parameter(Mandatory)][IntPtr]$Hwnd,[Parameter(Mandatory)][string]$Keys)
+    $parts=@($Keys -split '\+' | ForEach-Object {$_.Trim()} | Where-Object {$_})
+    if($parts.Count -lt 1){throw "Empty key specification"}
+    $mods=@()
+    for($i=0;$i -lt $parts.Count-1;$i++){
+        $mu=$parts[$i].ToUpperInvariant()
+        if(-not $script:ClientModifierKeys.ContainsKey($mu)){throw "Unknown modifier '$($parts[$i])' in '$Keys'"}
+        $mods+=[uint16]$script:ClientModifierKeys[$mu]
+    }
+    $vk=ConvertTo-ClientVirtualKey $parts[-1]
+    $fgCheck=Assert-ClientForeground $Hwnd
+    $pressed=[Collections.Generic.List[uint16]]::new()
+    $base=[ordered]@{Action='';Keys=$Keys;VirtualKey=('0x{0:X2}' -f $vk);Modifiers=@($mods | ForEach-Object {'0x{0:X2}' -f $_});ForegroundAcquired=$fgCheck.Acquired}
+    $releaseErrors=[Collections.Generic.List[string]]::new()
+    try {
+        foreach($m in $mods){
+            Send-ClientInputBatch $Hwnd @(New-ClientKeyInput $m) (Copy-ClientLogEntry $base ('key-down 0x{0:X2}' -f $m))
+            $pressed.Add($m)
+        }
+        Send-ClientInputBatch $Hwnd @((New-ClientKeyInput $vk),(New-ClientKeyInput $vk -Up)) (Copy-ClientLogEntry $base ('key-press 0x{0:X2}' -f $vk))
+    } finally {
+        # Release every modifier this call pressed (reverse order). The release still goes through the foreground
+        # guard; a refused release is logged in the JSONL and reported, never sent to another program.
+        for($i=$pressed.Count-1;$i -ge 0;$i--){
+            $m=$pressed[$i]
+            try {Send-ClientInputBatch $Hwnd @(New-ClientKeyInput $m -Up) (Copy-ClientLogEntry $base ('key-up 0x{0:X2}' -f $m))} catch {$releaseErrors.Add($_.Exception.Message)}
+        }
+    }
+    if($releaseErrors.Count -gt 0){throw "Modifier release refused: $($releaseErrors -join ' | ')"}
+    $base.Action='key';[pscustomobject]$base
+}
+function Send-ClientText {
+    # -Mode Unicode (default): KEYEVENTF_UNICODE down/up per UTF-16 unit (as Send-UiaText), target = game window.
+    # -Mode VirtualKey: [A-Za-z0-9 ] as virtual keys (Shift for capitals). The native login input boxes consume every
+    #   keydown and type from the key itself (engine/source/NativeUi/LoginPanel.cs:546-579, Program.cs:122), so the
+    #   VK_PACKET keydown of the Unicode mode is likely consumed there without a character (inferred, not observed).
+    # The foreground PID is checked before every character (inside SendGuarded). Existing text is not cleared.
+    param([Parameter(Mandatory)][IntPtr]$Hwnd,[Parameter(Mandatory)][AllowEmptyString()][string]$Text,[ValidateSet('Unicode','VirtualKey')][string]$Mode='Unicode')
+    if($Mode -eq 'VirtualKey' -and $Text -notmatch '^[A-Za-z0-9 ]*$'){throw "VirtualKey mode only types [A-Za-z0-9 ]"}
+    $fgCheck=Assert-ClientForeground $Hwnd
+    $index=0
+    foreach($c in $Text.ToCharArray()){
+        $entry=[ordered]@{Action="text-$($Mode.ToLowerInvariant())";Index=$index;CodeUnit=('U+{0:X4}' -f [int]$c);ForegroundAcquired=$fgCheck.Acquired}
+        if($Mode -eq 'Unicode'){
+            Send-ClientInputBatch $Hwnd @([ClientInputNative]::Key(0,[uint16]$c,0x0004),[ClientInputNative]::Key(0,[uint16]$c,0x0006)) $entry
+        } else {
+            $vk=[uint16][int][char]([string]$c).ToUpperInvariant();$shift=[char]::IsUpper($c)
+            $inputs=@()
+            if($shift){$inputs+=New-ClientKeyInput 0x10}
+            $inputs+=New-ClientKeyInput $vk
+            $inputs+=New-ClientKeyInput $vk -Up
+            if($shift){$inputs+=New-ClientKeyInput 0x10 -Up}
+            $entry['VirtualKey']=('0x{0:X2}' -f $vk);$entry['Shift']=$shift
+            Send-ClientInputBatch $Hwnd $inputs $entry
+        }
+        $index++
+    }
+}
+
+function Get-GdiClientBitmap {
+    # Internal: hashtable {Bitmap (24bpp, caller disposes), Method, Stats, PrintWindowError, BitBltError, Geometry, Foreground}.
+    # 1) PrintWindow(PW_RENDERFULLCONTENT=2) of the whole window into a GetWindowRect-sized bitmap (no foreground needed,
+    #    works when covered; same call as Save-UiaGdiScreenshot via UiaGdiNative.PrintWindowLE), cropped to the client
+    #    rectangle (ClientToScreen origin - window origin).
+    # 2) Only if it returns false or the client crop is uniformly black/white: Assert-ClientForeground (#1148
+    #    Set-UiaForeground) and BitBlt the same rectangle from the screen DC.
+    param([Parameter(Mandatory)][IntPtr]$Hwnd)
+    if([UiaGdiNative]::IsIconic($Hwnd)){throw 'Window is minimized; restore deliberately before capture'}
+    $g=Get-ClientWindowGeometry $Hwnd
+    if($g.ClientWidth -le 0 -or $g.ClientHeight -le 0){throw "Empty client area $($g.ClientWidth)x$($g.ClientHeight)"}
+    $printError=$null;$bltError=$null;$foreground=$null;$result=$null
+    $wr=$g.WindowRect;$ww=$wr[2]-$wr[0];$wh=$wr[3]-$wr[1]
+    $ox=$g.ClientScreenLeft-$wr[0];$oy=$g.ClientScreenTop-$wr[1]
+    if($ww -le 0 -or $wh -le 0 -or $ox -lt 0 -or $oy -lt 0 -or ($ox+$g.ClientWidth) -gt $ww -or ($oy+$g.ClientHeight) -gt $wh){
+        $printError="Window rect $($wr -join ',') does not contain the client rect at ($ox,$oy) $($g.ClientWidth)x$($g.ClientHeight)"
+    } else {
+        $full=[Drawing.Bitmap]::new($ww,$wh,[Drawing.Imaging.PixelFormat]::Format24bppRgb)
+        try {
+            $graphics=[Drawing.Graphics]::FromImage($full);[int]$pe=0;$ok=$false
+            try {
+                $hdc=$graphics.GetHdc()
+                try {$ok=[UiaGdiNative]::PrintWindowLE($Hwnd,$hdc,2,[ref]$pe)} finally {$graphics.ReleaseHdc($hdc)}
+            } finally {$graphics.Dispose()}
+            if(-not $ok){$printError="PrintWindow(PW_RENDERFULLCONTENT) returned false; LastError=$pe"}
+            else {
+                $crop=$full.Clone([Drawing.Rectangle]::new($ox,$oy,$g.ClientWidth,$g.ClientHeight),[Drawing.Imaging.PixelFormat]::Format24bppRgb)
+                $s=[ClientInputNative]::Stats($crop)
+                if($s[2] -eq 0 -or $s[3] -eq 0){
+                    $crop.Dispose()
+                    $printError="PrintWindow client image is uniformly black or white (Mean=$($s[1]), NonBlackRatio=$($s[2]), NonWhiteRatio=$($s[3]))"
+                } else {$result=@{Bitmap=$crop;Method='PrintWindow';Stats=$s}}
+            }
+        } catch {if($null -eq $printError){$printError=$_.Exception.ToString()}} finally {$full.Dispose()}
+    }
+    if($null -eq $result){
+        $bmp=$null
+        try {
+            $foreground=Assert-ClientForeground $Hwnd
+            $g=Get-ClientWindowGeometry $Hwnd
+            $bmp=[Drawing.Bitmap]::new($g.ClientWidth,$g.ClientHeight,[Drawing.Imaging.PixelFormat]::Format24bppRgb)
+            $graphics=[Drawing.Graphics]::FromImage($bmp);[int]$be=0;$ok=$false
+            try {
+                $hdc=$graphics.GetHdc()
+                try {$ok=[ClientInputNative]::BitBltScreenLE($hdc,$g.ClientScreenLeft,$g.ClientScreenTop,$g.ClientWidth,$g.ClientHeight,[ref]$be)} finally {$graphics.ReleaseHdc($hdc)}
+            } finally {$graphics.Dispose()}
+            if(-not $ok){throw "BitBlt(screen DC, SRCCOPY|CAPTUREBLT) returned false; LastError=$be"}
+            $s=[ClientInputNative]::Stats($bmp)
+            if($s[2] -eq 0 -or $s[3] -eq 0){$bltError="BitBlt client image is uniformly black or white (Mean=$($s[1]), NonBlackRatio=$($s[2]), NonWhiteRatio=$($s[3]))"}
+            $result=@{Bitmap=$bmp;Method='BitBlt';Stats=$s};$bmp=$null
+        } catch {
+            $bltError=$_.Exception.ToString()
+            if($null -eq $foreground){$foreground=Get-UiaLastForegroundDiagnostic}
+        } finally {if($null -ne $bmp){$bmp.Dispose()}}
+    }
+    if($null -eq $result){throw "Client capture failed on both paths. PrintWindow: $printError | BitBlt: $bltError"}
+    $result.PrintWindowError=$printError;$result.BitBltError=$bltError;$result.Geometry=$g;$result.Foreground=$foreground
+    $result
+}
+function Save-GdiClientBitmap {
+    # Internal: save a Get-GdiClientBitmap result as PNG and return the summary object.
+    param([Parameter(Mandatory)]$Capture,[Parameter(Mandatory)][string]$Path)
+    $full=[IO.Path]::GetFullPath($Path)
+    $Capture.Bitmap.Save($full,[Drawing.Imaging.ImageFormat]::Png)
+    $s=$Capture.Stats;$g=$Capture.Geometry
+    [pscustomobject][ordered]@{
+        Path=$full;Method=$Capture.Method;PrintWindowError=$Capture.PrintWindowError;BitBltError=$Capture.BitBltError
+        Width=$Capture.Bitmap.Width;Height=$Capture.Bitmap.Height;ClientWidth=$g.ClientWidth;ClientHeight=$g.ClientHeight
+        SizeMatchesClient=($Capture.Bitmap.Width -eq $g.ClientWidth -and $Capture.Bitmap.Height -eq $g.ClientHeight)
+        Dpi=$g.Dpi;Scale=$g.Scale;RatioNote=$g.RatioNote;ClientScreenLeft=$g.ClientScreenLeft;ClientScreenTop=$g.ClientScreenTop
+        Pixels=[long]$s[0];Mean=$s[1];NonBlackRatio=$s[2];NonWhiteRatio=$s[3];Nonblank=($s[2] -gt 0 -and $s[3] -gt 0)
+        Sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath $full).Hash;Foreground=$Capture.Foreground;Hwnd=$g.Hwnd;ProcessId=$g.ProcessId
+    }
+}
+function Get-GdiClientCapture {
+    # Client-area GDI screenshot of a raw HWND (no UIA tree, no WGC). Method order: see Get-GdiClientBitmap.
+    # Returns size, DPI, mean intensity, non-black / non-white ratios, SHA-256, Method and both paths' error texts.
+    param([Parameter(Mandatory)][IntPtr]$Hwnd,[Parameter(Mandatory)][string]$Path)
+    $c=Get-GdiClientBitmap $Hwnd
+    try {Save-GdiClientBitmap $c $Path} finally {$c.Bitmap.Dispose()}
+}
