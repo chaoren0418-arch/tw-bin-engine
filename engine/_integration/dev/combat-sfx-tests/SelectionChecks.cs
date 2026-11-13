@@ -4,7 +4,7 @@ using System.Text.Json;
 // #433（T165）：B07 音效選擇規則的離線檢查。不讀遊戲素材、不讀 WAV、不開音訊裝置。
 // 依據 docs/reference/rea-inventory.md「B07：音效選擇」：`<`＝模式 0、`[`＝模式 1 都走 A060F0 單次；
 // `^`＝模式 2 屬 T166 不播放；1 個候選取第 0 項；2～5 個 rand() % n；選中 0 略過不重抽；同 sample 200ms 冷卻。
-static class SelectionChecks
+static partial class SelectionChecks
 {
     sealed class ScriptedRandom(params int[] values) : Random
     {
@@ -114,11 +114,13 @@ static class SelectionChecks
             controller.Shutdown().GetAwaiter().GetResult();
         });
 
+        ScheduleCases(output, Case, Check);
+
         Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(output))!);
         File.WriteAllText(output, JsonSerializer.Serialize(new
         {
             status = "pass", checks, cases,
-            scope = "已驗證（離線）：B07 `<`／`[` 選擇規則與 200ms 冷卻；合成候選，不讀素材／WAV，未真機聽音"
+            scope = "已驗證（離線）：B07 `<`／`[` 選擇規則、200ms 冷卻與排程規則（T465）；合成候選與合成 metadata，不讀素材／WAV，未真機聽音"
         }, new JsonSerializerOptions { WriteIndented = true }));
         Console.WriteLine($"PASS selection {cases.Count} cases / {checks} checks");
     }

@@ -210,8 +210,8 @@ static class OptionPanelTests {
 
     static void Unavailable(WorldModuleTestContext t){
         var none=new OptionPanel();
-        var noSprites=Enumerable.Range(0,17).Select(i=>new ClientArchive(".",new(RefClientSurfFallback.ArchiveName(i),"0","0",0))).ToArray();
-        none.Load(UiLayout.Parse("<host/>","uistatus86-c.xml"),new SurfCatalog(new UiXmlSource(new ClientArchive(".",new("Tile","0","0",0))),noSprites));
+        var noSprites=Enumerable.Range(0,17).Select(i=>new ClientArchive(".",new(RefClientSurfFallback.ArchiveName(i)))).ToArray();
+        none.Load(UiLayout.Parse("<host/>","uistatus86-c.xml"),new SurfCatalog(new UiXmlSource(new ClientArchive(".",new("Tile"))),noSprites));
         t.Check(!none.Available&&none.Unavailable!=null&&!none.Open()&&!none.Visible,"no UiResources → unavailable, never opens");
 
         var noBase=Pngs();noBase.Remove(901);
@@ -284,8 +284,8 @@ static class OptionPanelTests {
         var (lIdx,lPak)=Archive(("920.png",localPng));
         string lArch=Arch("920.png");
         s.WriteIn("main",lArch+".idx",lIdx);s.WriteIn("main",lArch+".pak",lPak);
-        var pins=Enumerable.Range(0,17).Select(i=>RefClientSurfFallback.ArchiveName(i)).Select(n=>n==lArch?new ClientArchivePin(n,Sha(lIdx),Sha(lPak),lPak.Length):new ClientArchivePin(n,"0","0",0)).ToArray();
-        using var res=new UiResources(main,new ClientArchivePin("Tile",Sha(mIdx),Sha(mPak),mPak.Length),pins);
+        var pins=Enumerable.Range(0,17).Select(i=>RefClientSurfFallback.ArchiveName(i)).Select(n=>new ClientArchivePin(n)).ToArray();
+        using var res=new UiResources(main,new ClientArchivePin("Tile"),pins);
 
         var noRef=new OptionPanel(res);
         noRef.Load(UiLayout.Parse("<host/>","uistatus86-c.xml"),res.Surfs);

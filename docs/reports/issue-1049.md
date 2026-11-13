@@ -9,7 +9,7 @@
 | `engine/source/Resources/ground-catalog.json` | **已移除**（L2＝X）：拿掉可丟棄白名單，能不能丟由伺服器決定；4 筆 SPR pin 搬進程式；丟棄前一律確認 | 拿掉 |
 | `engine/source/OriginalExpTable.cs` | **保留為已知例外**（L1＝A，T446 判 blocked）：內容與 SHA 都沒動，理由寫進 allowlist | 保留 |
 
-B15 例外數：這張開工時是 7 列，拿掉 ground-catalog 後是 6 列；同步 main 時 T463（#1048）已經拿掉 pickup 2 列，所以合併後是 **4 列**：`OriginalExpTable.cs`（已知限制 L1）與測試向量 3 列（T465，待處理）。`check-no-game-assets.py` 的輸出是 `"b15Exceptions": 4`，跟這裡的數字一致。
+B15 例外數：這張開工時是 7 列，拿掉 ground-catalog 後是 6 列；同步 main 時 T463（#1048）已經拿掉 pickup 2 列，第二次同步時 T465（#1050）已經拿掉測試向量 3 列，所以合併後只剩 **1 列**：`OriginalExpTable.cs`（已知限制 L1），已達 M8 目標。`check-no-game-assets.py` 的輸出是 `"b15Exceptions": 1`，跟這裡的數字一致。
 
 ## 做了什麼
 
@@ -64,7 +64,8 @@ B15 例外數：這張開工時是 7 列，拿掉 ground-catalog 後是 6 列；
 
 - `dotnet build engine/source/OfflineClient.csproj -c Release`：0 警告、0 錯誤。
 - 只編譯、沒有執行：`DemoChecks`（0 錯誤；3 個警告都在既有的 `DisplayNoticeChecks.cs`、`MacroChecks.cs`，不是這次改的檔）、`NpcChecks`、`GroundChecks`、`ResourceChecks` 都 0 錯誤。
-- `python -B -X utf8 engine/tools/check-no-game-assets.py` → `status: pass`、`errors: 0`、`embeddedResourceDeclarations: 1`（只剩 `P24.Audio` 的 combat-sfx-pins；產品 DLL 已經沒有內嵌資源，`ResourceChecks` 的核准清單對應改成空集合）、`b15Exceptions: 4`，4 列理由逐列印出（同步 main 之後的結果）。
+- `python -B -X utf8 engine/tools/check-no-game-assets.py` → `status: pass`、`errors: 0`、`embeddedResourceDeclarations: 1`（只剩 `P24.Audio` 的 combat-sfx-pins；產品 DLL 已經沒有內嵌資源，`ResourceChecks` 的核准清單對應改成空集合）、`b15Exceptions: 1`，唯一一列的理由有印出（第二次同步 main 之後的結果）。
+- **第二次同步 main**（T465 #1050、T479 #1083 已合併）：allowlist 衝突，取 main 的例外清單（已經沒有測試向量 3 列與 ground-catalog），保留本分支的 `b15ExceptionReasons`，並刪掉 T465 三列的理由。T479 改寫的 `GroundSpriteReader.ReadPayload` 直接讀 `GroundSprite` 的 Entry／IndexRecord／Offset／Size，和 `GroundCatalog.Pinned` 相容；錯誤訊息裡的「ground-catalog」改成「GroundCatalog.Pinned」（測試只比對「entry pin 不符」）。重建 `build/client-product-dev` 後，`DemoChecks`、`GroundChecks`、`ResourceChecks`、`NpcChecks` 都 0 錯誤（只編譯）；`verify-sources.py` 仍 PASS。
 - `python -B -X utf8 engine/_integration/dev/ground-tests/verify-sources.py` → `PASS: 4 in-code SPR pins match #48, no server template fields in code, byte-exact #49 fixtures`。
 - **CI 結果**（PR #1087，commit `f87f8061`）：`dotnet`、`map-continuity`、`npc-offline` 全部通過。`map-continuity` 這個 job 會跑 DemoChecks 的 `pickup` 群組，新增的 `ground-drop` 測試也在裡面。第一輪 `npc-offline` 失敗，原因是 `SellChecks.cs` 寫死了舊的肉圖示 124；改成合成物品的 9002 後通過。
 - `rebuild-lock.json` 沒有改。
@@ -91,7 +92,7 @@ B15 例外數：這張開工時是 7 列，拿掉 ground-catalog 後是 6 列；
 
 ## 給下一棒的提示
 
-- **T471**：例外目標是 1 列（`OriginalExpTable.cs`）。`b15ExceptionReasons` 的機制已經在了（T463 的兩列理由在同步時已經刪掉）；T465 完成後，記得把對應的理由一起刪掉，否則腳本會報「reason recorded for a path that is not a B15 exception」。T471 要加的「新增任何例外即失敗」自我測試，可以直接比對 `b15Exceptions` 的鍵集合。
+- **T471**：例外已經是 1 列（`OriginalExpTable.cs`），`b15ExceptionReasons` 也只剩這一列。新增例外卻沒寫理由，或理由留給已經不是例外的路徑，腳本都會報錯。T471 要加的「新增任何例外即失敗」自我測試，可以直接比對 `b15Exceptions` 的鍵集合。
 - **T479**（D1 三層驗證）：`GroundCatalog.Pinned` 的 pin 綁的是 `Sprite.pak` 的 PAK File Offset 與 idx 筆號（`GroundSpriteReader.Read` 只在第一個 archive 核對）。改成三層驗證時，這 4 筆的 offset／record 檢查要一起決定要不要放寬。
 - **T473 README**：已知限制寫「能不能丟由伺服器決定，每次丟棄都會先確認」。
 - **T474 真機**：回歸項目照上面「待驗證」的真機清單。

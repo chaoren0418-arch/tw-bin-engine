@@ -2,78 +2,18 @@ using System.Security.Cryptography;
 using System.Text;
 namespace P06;
 
-// Runtime gfx -> SPR lookup. Only hashes/lengths live in source; artwork stays in TW_CLIENT_ROOT.
-// The verified archive handle remains read-only and denies writes/replacement on Windows.
+// Runtime gfx -> SPR lookup. Only hashes live in source; artwork stays in TW_CLIENT_ROOT.
+// T479 (#1083, asset-recipe.md 1.1 point 3 / §8 D1): the 17 Sprite containers are opened through the shared ClientArchive
+// (structure check, no whole-container pin; the pak handle stays read-only and denies writes/replacement on Windows).
+// The container is chosen by SpriteContainerRule (sprites.md §3.3). A catalogue row with a GroundSprite pin keeps its
+// per-entry check (main container, record, offset, size, payload SHA-256, header, bounds, RGBA) exactly as before.
 public static class GroundSpriteReader {
     public static string ClientRoot=>Environment.GetEnvironmentVariable("TW_CLIENT_ROOT")??@"D:\lineage開發\0-客戶端";
     static void Require(bool valid){if(!valid)throw new InvalidDataException("地面原圖來源或解碼 pin 不符");}
     static string Hash(byte[] bytes)=>Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant();
-    sealed record ArchivePin(string Name,string IndexSha256,string PakSha256,long Size);
-    // SHA-256 of the installed TW client archives, independently read for #190.
-    static readonly ArchivePin[] archivePins=[
-        new("Sprite","327c06372d87f6cf6d5176da51da5ef1f94dbf388d1588b735c5965b96b6a52b","4dd4e5348fbad2e69bae9cc388be23d7becebe8423ad9f79f393c1457a69ee62",1904012586L),
-        new("Sprite00","15b46ae6995b5b3d64a27a509c78847f0329ba55360a200961a7ecb73b13c96c","64741119e853880e0e31009cf06145a5f21520b5264d07ece5541ba701a01c9d",450577933L),
-        new("Sprite01","1e4c819debe37449691142025692ac1ff1d1f82c148830c76338e7fdff8cdd8f","a46a5a85e56c03cc6b1d7ed7cddf3d59e8887612313842cde9822b76932b5ac5",422714941L),
-        new("Sprite02","a0208077cfa7e76280641f1a2bf7f7aeacc43b6f9a16e21771ebd732e791ae5c","88858f8eaf57854d50ea21f2d84dd3d3e8c1d3fb30c5c583af2175fc465cde0c",412811463L),
-        new("Sprite03","4deb893637d40e1a9e91844a4a3274f9de25e7af42197e0ac69773241f233bf6","c8ee2e21f78c69eae9307db0dd7e721f929581ad07c386e984ee4735febb6c59",422961934L),
-        new("Sprite04","6ea2246d89bfd1dc7ee3d4b70a36f0bf700889d1eb5f4cad9ab633a72bf539f9","ece9df4053fb06eab08f183d8c0b555de0ec04262fdae87f9775d9ce81ca82eb",396502716L),
-        new("Sprite05","f4c6d5d7974ad355b066faf620aea9428104fa64274b5eeb24ce60bf54030158","606792a3a484065de833b1fcdaa1dc64f9b134da38945fc76084ce536f4d89a1",370792959L),
-        new("Sprite06","0248238be94b99e61d2c515d59066b445af9faf5b3430132bbdce706d6812bcf","5ab3fc86d66557ebb0810228174b3702d7e07cd4bd766dfb1874661f7567d861",399491486L),
-        new("Sprite07","ce996c526474647be2986c2610afe2e6b193f9d24069033615ffafb3a9136a60","30a4c7eccb62b3bec7d04a2891b8239e9bd98b3266e7406d0290d5ec7ab82065",428993498L),
-        new("Sprite08","4f96ce84bcb0f733842b28b3dcb39984828985f6af994ce88aae214162782022","3d23ee72b9d70c61d1cd156e2ad99e4a100d46b13324c6440deb8d6386f1d8ef",405690494L),
-        new("Sprite09","37edc3cbfb37ae667aa61a6ff3c141b7a7b351f60b6990d3bcee5c5eb55f8f9a","7256514d893846361b5e6854f5129a3f9e662fa44e41c3a4d7b44c0ce4a98b36",409910541L),
-        new("Sprite10","589c47ecb1a56dc9d0956ad7716e599a00f68290005f401bbc595879e253ecb1","966089b4aac89ccf139833492b96ddc8c8aa342d8d0506d74f9de43c1571a128",401362413L),
-        new("Sprite11","4d560607d2b290992d0cd6beaa7556cd6d03a009346418915636c01e06c20e88","cbcab1f612218ada11589a678f9ea85a07e393f62dea24529aded1c92712343e",408627491L),
-        new("Sprite12","ada81449a16e323f90539cdf0571e59f120c52629855a9fe536e19c8e34481fe","a5f735d10a891150da0b0f9b97c81a0c8e8f3ba269e1595e1cc2352bd8ac9a7c",392469796L),
-        new("Sprite13","e03cf669b50ee8fb86ac4e3242fb68a211580f78f8929770a9077d4fa776203b","216e300c8b6d0d7d312f95f2dc4323f9246c1d14a6cba63a0fc7ed172510408f",404075215L),
-        new("Sprite14","c6d10d9c14ecac20c5b96546f9b4494eb23cc9b28c1ab07a96070eb574e84c9a","ba14f7a681a690deda925f812bcbfeb6af392bab7b292a0e48742455f933dcc8",442915587L),
-        new("Sprite15","874b53afe762c43415e25204f4e8fcf405f36adfaca6b9258bd84c1eb1d4c441","864800d2afbd8b38ed9bfcc08a0079b27fbf53f018de562f4cba6fe54dccabd2",484407291L),
-    ];
-    sealed record Entry(int Record,string Name,long Offset,int Size);
-    sealed class Archive(ArchivePin pin,string root):IDisposable {
-        Dictionary<string,Entry>? entries;
-        FileStream? pak;
-        public Entry? Find(string name){
-            if(entries==null){
-                string path=Path.Combine(root,pin.Name+".idx");
-                if(!File.Exists(path))return null;
-                using var file=File.OpenRead(path);
-                Require(file.Length<=4+28L*1000000);
-                byte[] data=new byte[checked((int)file.Length)];file.ReadExactly(data);
-                Require(Hash(data)==pin.IndexSha256);
-                using var r=new BinaryReader(new MemoryStream(data));
-                uint count=r.ReadUInt32();Require(data.Length==4+28L*count);
-                var table=new Dictionary<string,Entry>(StringComparer.OrdinalIgnoreCase);
-                for(int i=0;i<count;i++){
-                    long offset=r.ReadUInt32();byte[] raw=r.ReadBytes(20);int end=Array.IndexOf(raw,(byte)0);
-                    Require(end>0&&raw.Take(end).All(c=>c is >=32 and <127));
-                    string entry=Encoding.ASCII.GetString(raw,0,end);uint size=r.ReadUInt32();
-                    Require(size<=int.MaxValue&&offset+size<=pin.Size);
-                    // Duplicate names are rejected rather than silently choosing different artwork.
-                    Require(table.TryAdd(entry,new(i,entry,offset,(int)size)));
-                }
-                entries=table;
-            }
-            return entries.GetValueOrDefault(name);
-        }
-        public byte[] Read(Entry entry){
-            Require(entry.Size is >0 and <=8*1024*1024);
-            if(pak==null){
-                var candidate=new FileStream(Path.Combine(root,pin.Name+".pak"),FileMode.Open,FileAccess.Read,FileShare.Read);
-                try{
-                    Require(candidate.Length==pin.Size);
-                    Require(Convert.ToHexString(SHA256.HashData(candidate)).Equals(pin.PakSha256,StringComparison.OrdinalIgnoreCase));
-                    pak=candidate;
-                }catch{candidate.Dispose();throw;}
-            }
-            Require(entry.Offset>=0&&entry.Offset+entry.Size<=pak.Length);
-            pak.Position=entry.Offset;byte[] payload=new byte[entry.Size];pak.ReadExactly(payload);return payload;
-        }
-        public void Dispose()=>pak?.Dispose();
-    }
     static readonly object archiveGate=new();
     static string? loadedRoot;
-    static Archive[] archives=[];
+    static P06.NativeUi.ClientArchive[] archives=[];
     static Dictionary<int,int>? aliases;
     static int SpriteId(int gfx,string root){
         if(aliases==null){
@@ -94,21 +34,39 @@ public static class GroundSpriteReader {
             string root=Path.GetFullPath(clientRoot??ClientRoot);
             if(!string.Equals(root,loadedRoot,StringComparison.OrdinalIgnoreCase)){
                 foreach(var archive in archives)archive.Dispose();
-                archives=archivePins.Select(p=>new Archive(p,root)).ToArray();aliases=null;loadedRoot=root;
+                archives=P06.NativeUi.UiResourcePins.Sprites.Select(p=>new P06.NativeUi.ClientArchive(root,p)).ToArray();aliases=null;loadedRoot=root;
             }
             try{
                 // Ground uses action 0/frame 0, preserving the existing static-ground policy.
                 string name=SpriteId(row.GroundGfx,root).ToString(System.Globalization.CultureInfo.InvariantCulture)+"-0.spr";
-                for(int i=0;i<archives.Length;i++){
-                    var entry=archives[i].Find(name);if(entry==null)continue;
-                    if(row.Sprite is {} pin){
-                        Require(i==0&&entry.Record==pin.IndexRecord&&entry.Offset==pin.Offset&&entry.Size==pin.Size&&entry.Name==pin.Entry);
-                    }
-                    return DecodeCore(archives[i].Read(entry),row.Sprite);
-                }
-                throw new InvalidDataException($"地面原圖缺件（gfx {row.GroundGfx}，{name}）");
+                byte[] payload=ReadPayload(archives,name,row.Sprite)??throw new InvalidDataException($"地面原圖缺件（gfx {row.GroundGfx}，{name}）");
+                return DecodeCore(payload,row.Sprite);
             }catch(EndOfStreamException ex){throw new InvalidDataException("地面原圖截斷",ex);}
         }
+    }
+
+    /// <summary>
+    /// The stored bytes of <paramref name="name"/> from the Sprite containers (index 0 = Sprite, 1+h = Sprite{h:00}), or null
+    /// when no container has it. Container choice: sprites.md §3.3 (main first; alternates must be byte-identical, otherwise
+    /// refused). A pinned row must come from the main container with the pinned name, record, offset and size (the payload,
+    /// header, bounds and RGBA are checked by the decoder). Every refusal is an InvalidDataException naming container and entry.
+    /// </summary>
+    public static byte[]? ReadPayload(IReadOnlyList<P06.NativeUi.ClientArchive> sprites,string name,GroundSprite? pin){
+        try{
+            if(pin!=null){
+                var main=sprites.Count>0?sprites[0].Find(name):null;
+                if(main!=null){
+                    if(!(main.Record==pin.IndexRecord&&main.Offset==pin.Offset&&main.Size==pin.Size&&main.Name==pin.Entry))
+                        throw new InvalidDataException($"地面原圖 {sprites[0].Pin.Name}/{main.Name} 與 GroundCatalog.Pinned 的 entry pin 不符（record {main.Record}、offset {main.Offset}、size {main.Size}）");
+                    return sprites[0].Read(main);
+                }
+            }
+            var chosen=P06.NativeUi.SpriteContainerRule.Choose(sprites.Count,i=>sprites[i].Find(name) is {} e?sprites[i].Read(e):null,
+                (a,b)=>new InvalidDataException($"地面原圖 {name} 不在主包 {sprites[0].Pin.Name}，替代包 {sprites[a].Pin.Name} 與 {sprites[b].Pin.Name} 的內容不同；不選用任何一份"));
+            if(chosen is {} hit&&pin!=null)
+                throw new InvalidDataException($"地面原圖 {name} 有 entry pin，但不在主包 {sprites[0].Pin.Name}（在 {sprites[hit.Archive].Pin.Name}）");
+            return chosen?.Data;
+        }catch(P06.NativeUi.UiResourceException ex){throw new InvalidDataException("地面原圖容器被拒絕："+ex.Message,ex);}
     }
     internal static Frame Decode(byte[] payload,GroundSprite pin)=>DecodeCore(payload,pin);
     static Frame DecodeCore(byte[] payload,GroundSprite? pin){

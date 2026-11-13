@@ -310,11 +310,12 @@ partial class Checks {
                 Check(canvas.Bitmap.GetPixel(0,0).ToArgb()==Color.Black.ToArgb(),"null surface draws nothing (no placeholder)");
             }
             const int k=6;   // Sprite05: any archive works, each carries a readable pad entry
-            var badPak=spritePins.Select((p,i)=>i==k?p with{PakSha256=new string('f',64)}:p).ToArray();
-            using(var res=new UiResources(dir,tilePin,badPak))Throws<UiResourceException>(()=>UiRoot.Build(res,[]),"Sprite pak pin mismatch refuses the native UI even before any surf is used","與鎖定版本不符");
-            var badIdx=spritePins.Select((p,i)=>i==16?p with{IndexSha256=new string('e',64)}:p).ToArray();
-            using(var res=new UiResources(dir,tilePin,badIdx))Throws<UiResourceException>(()=>UiRoot.VerifyResources(res),"Sprite idx pin mismatch refused");
-            using(var res=new UiResources(dir,tilePin with{PakSha256=new string('d',64)},spritePins))Throws<UiResourceException>(()=>UiRoot.VerifyResources(res),"Tile pak pin mismatch refused");
+            // T479: anchors replace the whole-container pins; VerifyResources reads one entry per container, which checks them.
+            var badAnchor=spritePins.Select((p,i)=>i==k?p with{Anchors=[new($"pad{k}.img",new string('f',64))]}:p).ToArray();
+            using(var res=new UiResources(dir,tilePin,badAnchor))Throws<UiResourceException>(()=>UiRoot.Build(res,[]),"Sprite anchor mismatch refuses the native UI even before any surf is used",$"pad{k}.img 與支援版本不符");
+            var goodAnchor=spritePins.Select((p,i)=>i==k?p with{Anchors=[new($"pad{k}.img",Sha(Img(1,1,0,0)))]}:p).ToArray();
+            using(var res=new UiResources(dir,tilePin,goodAnchor))UiRoot.VerifyResources(res);
+            using(var res=new UiResources(dir,tilePin with{Anchors=[new("SurfList.xml",new string('d',64))]},spritePins))Throws<UiResourceException>(()=>UiRoot.VerifyResources(res),"Tile anchor mismatch refused","Tile: 錨點 entry SurfList.xml");
             File.Delete(Path.Combine(dir,"Sprite09.idx"));
             using(var res=new UiResources(dir,tilePin,spritePins))Throws<UiResourceException>(()=>UiRoot.VerifyResources(res),"missing Sprite idx refused","缺少 idx");
             Check(UiRoot.PinMismatchMessage=="原客戶端 UI 資源與鎖定版本不符","fallback message text (§2.1)");

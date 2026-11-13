@@ -35,7 +35,7 @@ partial class Checks {
     static byte[] Name20(string name){var b=new byte[20];Encoding.ASCII.GetBytes(name).CopyTo(b,0);return b;}
     static ClientArchivePin RawArchive(string dir,string name,byte[] idx,byte[] pak){
         Directory.CreateDirectory(dir);File.WriteAllBytes(Path.Combine(dir,name+".idx"),idx);File.WriteAllBytes(Path.Combine(dir,name+".pak"),pak);
-        return new(name,Sha(idx),Sha(pak),pak.Length);
+        return new(name);   // T479: a container is identified by name; anchors are added by the caller where needed
     }
     static ClientArchivePin Archive(string dir,string name,params (string Name,byte[] Data)[] items){
         using var pak=new MemoryStream();using var idx=new MemoryStream();idx.Write(BitConverter.GetBytes((uint)items.Length));
@@ -138,12 +138,11 @@ partial class Checks {
             using(var arc=Raw("nonul-ctrl",[..BitConverter.GetBytes(1u),..IdxRecord(0,Encoding.ASCII.GetBytes("abcdefghijklmnopqrs\u0007"),10)],pak10))Throws<UiResourceException>(()=>arc.Find("x.img"),"20-byte name with control byte rejected","不可列印");
             using(var arc=Raw("empty-name",One(0,"",10),pak10))Throws<UiResourceException>(()=>arc.Find("x.img"),"empty name rejected");
             using(var arc=Raw("dup",[..BitConverter.GetBytes(2u),..IdxRecord(0,Name20("x.img"),5),..IdxRecord(5,Name20("X.img"),5)],pak10))Throws<UiResourceException>(()=>arc.Find("x.img"),"duplicate name in one idx rejected","重名");
-            using(var arc=Raw("idx-pin",One(0,"x.img",10),pak10,p=>p with{IndexSha256=new string('0',64)}))Throws<UiResourceException>(()=>arc.Find("x.img"),"idx pin mismatch rejected","idx 與鎖定版本不符");
-            using(var arc=Raw("pak-pin",One(0,"x.img",10),pak10,p=>p with{PakSha256=new string('0',64)}))Throws<UiResourceException>(()=>arc.Read(arc.Find("x.img")!),"pak pin mismatch rejected","pak 與鎖定版本不符");
-            // pak truncated after pinning: size is compared before any byte is served.
-            using(var arc=Raw("trunc-pak",One(0,"x.img",10),pak10,p=>p with{PakSize=20}))Throws<UiResourceException>(()=>arc.Read(arc.Find("x.img")!),"truncated pak rejected","pak 大小");
+            // T479: no whole-container pin. The pak only has to hold every listed entry (idx size and SHA are not compared).
+            using(var arc=Raw("trunc-pak",One(0,"x.img",10),pak10[..9]))Throws<UiResourceException>(()=>arc.Find("x.img"),"pak shorter than the idx says rejected","越界");
+            using(var arc=Raw("missing-pak",One(0,"x.img",10),pak10)){File.Delete(Path.Combine(root,$"{caseNo:00}-missing-pak","A.pak"));Throws<UiResourceException>(()=>arc.Find("x.img"),"idx without pak rejected","缺少 pak");}
             var big=9u*1024*1024;
-            using(var arc=Raw("too-big",One(0,"x.img",big),pak10,p=>p with{PakSize=big}))Throws<UiResourceException>(()=>arc.Read(arc.Find("x.img")!),"entry over 8 MiB rejected","8 MiB");
+            using(var arc=Raw("too-big",One(0,"x.img",big),new byte[big]))Throws<UiResourceException>(()=>arc.Read(arc.Find("x.img")!),"entry over 8 MiB rejected","8 MiB");
             using(var arc=Raw("zero",One(0,"x.img",0),pak10))Throws<UiResourceException>(()=>arc.Read(arc.Find("x.img")!),"zero-size entry rejected");
             using(var other=new ClientArchive(Case("foreign"),ok))Throws<UiResourceException>(()=>other.Read(new ClientArchiveEntry("B",0,"x.img",0,10)),"entry from another archive rejected");
         }
@@ -209,10 +208,10 @@ partial class Checks {
                 var again=lru.Get(10);Check(ReferenceEquals(again,lru.Get(10)),"cache hit returns same surface");
                 Check(SurfCatalog.DefaultCapacity==32L*1024*1024,"default memory cache 32 MiB");
             }
-            // Sprite pin mismatch: lookup still resolves, but reading pixels is refused.
-            var badPins=spritePins.Select((p,i)=>i==H("18.img")?p with{PakSha256=new string('f',64)}:p).ToArray();
-            using(var res=new UiResources(dir,tilePin,badPins))Throws<UiResourceException>(()=>res.Surfs.Get(18),"Sprite pak pin mismatch refused","與鎖定版本不符");
-            using(var res=new UiResources(dir,tilePin with{IndexSha256=new string('e',64)},spritePins))Throws<UiResourceException>(()=>res.Surfs.Get(10),"Tile idx pin mismatch refused");
+            // T479 anchor: lookup still resolves, but reading pixels is refused when an anchor entry of that container differs.
+            var badPins=spritePins.Select((p,i)=>i==H("18.img")?p with{Anchors=[new("18.img",new string('f',64))]}:p).ToArray();
+            using(var res=new UiResources(dir,tilePin,badPins))Throws<UiResourceException>(()=>res.Surfs.Get(18),"Sprite anchor mismatch refused (names the entry)","18.img 與支援版本不符");
+            using(var res=new UiResources(dir,tilePin with{Anchors=[new("NoSuch.lac",new string('e',64))]},spritePins))Throws<UiResourceException>(()=>res.Surfs.Get(10),"missing Tile anchor refused","缺少錨點 entry NoSuch.lac");
             Throws<ArgumentException>(()=>new UiResources(dir,tilePin,spritePins[..16]),"17 Sprite archives required");
         }
         {
@@ -227,7 +226,10 @@ partial class Checks {
             var spritePins=Enumerable.Range(0,17).Select(i=>Archive(dir,SpriteName(i))).ToArray();
             using var res=new UiResources(dir,tilePin,spritePins);Throws<UiLayoutException>(()=>res.Surfs.Get(1),"path-like file name rejected");
         }
-        Check(UiResourcePins.Sprites.Count==17&&UiResourcePins.Sprites[0].Name=="Sprite"&&UiResourcePins.Sprites[16].Name=="Sprite15"&&UiResourcePins.Tile.PakSize==593320968L,"production pin table shape");
+        // T479: production containers carry names and the asset-recipe.md 1.2 anchors only (no whole-file SHA or size).
+        Check(UiResourcePins.Sprites.Count==17&&Enumerable.Range(0,17).All(i=>UiResourcePins.Sprites[i].Name==SpriteName(i)&&UiResourcePins.Sprites[i].AnchorList.Count==0)
+            &&UiResourcePins.Tile.Name=="Tile"&&UiResourcePins.Tile.AnchorList.Select(a=>a.Entry).SequenceEqual(new[]{"Water.lac","Pier1.lac","Pier5.lac"})
+            &&UiResourcePins.Tile.AnchorList.All(a=>a.Sha256.Length==64&&a.Sha256.All(Uri.IsHexDigit)),"production containers: 17 Sprite names without whole pins, Tile anchors = asset-recipe.md 1.2");
     }
 
     // Optional (TW_CLIENT_ROOT set): read the real client read-only; outputs (JSON + PNG) go to scratch/issue-461/real only.

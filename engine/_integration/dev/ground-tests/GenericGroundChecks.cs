@@ -119,29 +119,26 @@ partial class Checks {
         bad=(byte[])payload.Clone();bad[28]=8;Refused(()=>decode.Invoke(null,[bad,null]),"expanded length mismatch");
         Refused(()=>decode.Invoke(null,[payload.Concat(new byte[]{0}).ToArray(),null]),"trailing SPR bytes");
 
-        string Hash(byte[] bytes)=>Convert.ToHexString(SHA256.HashData(bytes));
         byte[] Index(uint offset=0,uint? size=null,bool duplicate=false){
             using var m=new MemoryStream();using var b=new BinaryWriter(m);
             b.Write(duplicate?2u:1u);for(int i=0;i<(duplicate?2:1);i++){
                 b.Write(offset);byte[] name=new byte[20];System.Text.Encoding.ASCII.GetBytes("900-0.SPR").CopyTo(name,0);b.Write(name);b.Write(size??(uint)payload.Length);
             }return m.ToArray();
         }
-        var pinType=typeof(GroundSpriteReader).GetNestedType("ArchivePin",BindingFlags.NonPublic)!;
-        var archiveType=typeof(GroundSpriteReader).GetNestedType("Archive",BindingFlags.NonPublic)!;
-        var find=archiveType.GetMethod("Find")!;var read=archiveType.GetMethod("Read")!;
-        object Archive(byte[] idx,string? indexHash=null,string? pakHash=null,long? size=null){
+        // T479 (#1083): the reader is the shared P06.NativeUi.ClientArchive (structure check, no whole-container pin).
+        P06.NativeUi.ClientArchive Archive(byte[] idx){
             File.WriteAllBytes(Path.Combine(root,"Fixture.idx"),idx);File.WriteAllBytes(Path.Combine(root,"Fixture.pak"),payload);
-            var pin=Activator.CreateInstance(pinType,["Fixture",indexHash??Hash(idx).ToLowerInvariant(),pakHash??Hash(payload),size??payload.Length])!;
-            return Activator.CreateInstance(archiveType,[pin,root])!;
+            return new P06.NativeUi.ClientArchive(root,new("Fixture"));
         }
-        foreach(string fault in new[]{"index hash","pak hash","pak size","offset range","duplicate name","truncated index"}){
-            var idx=fault=="offset range"?Index(offset:1):fault=="duplicate name"?Index(duplicate:true):fault=="truncated index"?Index()[..^1]:Index();
-            using var archive=(IDisposable)Archive(idx,fault=="index hash"?new string('0',64):null,fault=="pak hash"?new string('0',64):null,fault=="pak size"?payload.Length+1:null);
-            Refused(()=>{var entry=find.Invoke(archive,["900-0.spr"]);read.Invoke(archive,[entry]);},"archive refuses "+fault);
+        foreach(string fault in new[]{"offset range","duplicate name","truncated index"}){
+            var idx=fault=="offset range"?Index(offset:1):fault=="duplicate name"?Index(duplicate:true):Index()[..^1];
+            using var archive=Archive(idx);
+            bool refused=false;try{archive.Read(archive.Find("900-0.spr")!);}catch(IOException){refused=true;}
+            Check(refused,"archive refuses "+fault);
         }
-        using(var archive=(IDisposable)Archive(Index())){
-            var entry=find.Invoke(archive,["900-0.spr"]);Check(entry!=null,"case-insensitive runtime entry lookup");
-            Check(((byte[])read.Invoke(archive,[entry])!).SequenceEqual(payload),"verified archive bounded payload");
+        using(var archive=Archive(Index())){
+            var entry=archive.Find("900-0.spr");Check(entry!=null,"case-insensitive runtime entry lookup");
+            Check(archive.Read(entry!).SequenceEqual(payload),"verified archive bounded payload");
             bool locked=false;try{using var writer=new FileStream(Path.Combine(root,"Fixture.pak"),FileMode.Open,FileAccess.Write);}catch(IOException){locked=true;}
             Check(locked,"verified handle prevents post-hash mutation on Windows");
         }
