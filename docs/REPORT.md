@@ -447,3 +447,4 @@
 - 2026-11-13 — #1048 b15-exc-pickup: T463 移除已知例外：兩個 pickup 內嵌 JSON 改由準備器產生（code，claude-local，PR 已合併）→ [報告](reports/issue-1048.md)
 - 2026-11-13 — #1083 b15-runtime-archive-verify: T479 執行期封存驗證：UiResourcePins 與 GroundSpriteReader 的整包 pin 改成結構檢查＋錨點＋逐 entry（D1）（code，claude-local，PR 已合併）→ [報告](reports/issue-1083.md)
 - 2026-11-13 — #1050 b15-exc-test-vectors: T465 移除已知例外：三個測試向量檔改為合成規則測試（code，claude-local，PR 已合併）→ [報告](reports/issue-1050.md)
+- 2026-11-13 — #1049 b15-exc-exp-ground: T464 移除已知例外：OriginalExpTable.cs 與 ground-catalog.json（code，claude-local，PR 已合併）→ [報告](reports/issue-1049.md)
