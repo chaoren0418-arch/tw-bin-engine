@@ -34,8 +34,8 @@
 
 ## 未驗證什麼
 
-- **CI 結果**：推送後以 PR 的 CI 為準，本機沒有執行任何測試。
-- 既有測試（combat-sfx `--selection`、sound-packets、sound-rules、module-tests 裡的 SoundFollowup2／SoundVolumeUpdate）本機只確認能編譯，結果待 CI。它們沒有用到被移除的 `AudioAssets.Load`。
+- 本機沒有執行任何測試。PR #1092 的 CI（run 43451391120）三個 job 全部通過，包括 map-continuity job 的新步驟「6016 sound provider … T460」（`PASS 365 DEMO checks`），以及同一個 job 裡的 module-tests（含 SoundFollowup2／SoundVolumeUpdate）、sound-rules／sound-packets、combat-sfx `--selection`；dotnet job 也成功編譯了 Effect6016Checks。
+- 同步 main 時 `ClientEffect6016.cs` 有衝突（T457 把 `Effect6016Pin` 改成常數），兩邊都保留。
 - **6016 Native 回歸**（`effect6016-tests/run.ps1 -Native`，會開音訊裝置）：CI 只編譯（ubuntu），需要在 Windows 實機執行，交給 Codex。
 - 真機聽感：進入有 6016 的地圖（例如 map4 港口），1340／3332 能從 `TW_CLIENT_ROOT/Sound` 正常播放，且 `web-evidence/audio/host.jsonl` 沒有 `create Unavailable`。待驗證。
 
