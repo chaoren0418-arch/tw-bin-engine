@@ -73,7 +73,7 @@ public sealed partial class ClientForm {
     string ResolveNpcText(string text)=>(objectAssets??=new(World.Assets.Root)).Name(text);
     void InitInteraction(){
         InitWeaponRepairService();
-        string path=Path.Combine(World.Assets.Root,"dialogs/templates.json");if(File.Exists(path))login.World.DialogTemplates=new(path);string skills=Path.Combine(World.Assets.Root,"dialogs/skills.json");if(File.Exists(skills))login.World.SkillCatalog=new(skills);
+        string path=Path.Combine(World.Assets.Root,"dialogs/templates.json");if(File.Exists(path))login.World.DialogTemplates=new(path);login.World.SkillCatalog=SkillCatalog.FromClient();// T462：技能名稱改讀客戶端 spelldesc-c.tbl，不再讀 dialogs/skills.json
         npcPanel.Controls.AddRange([npcContent,npcNotice,npcSubmit,npcClose]);Controls.Add(npcTalk);Controls.Add(npcPanel);npcPanel.BringToFront();npcTalk.BringToFront();
         npcTalk.Click+=async(_,_)=>await RunInteraction(CurrentNpcCommand("talk"));npcClose.Click+=async(_,_)=>{if(NpcContextOpen(login.World))await RunInteraction(CurrentNpcCommand("close"));else CloseQueryResult();};
         npcSubmit.Click+=async(_,_)=>{if(npcShopStamp!=null)await RunInteraction(npcShopStamp with{Choices=shopInputs.Where(x=>x.Input.Value>0).Select(x=>new ShopChoice(x.Id,(uint)x.Input.Value)).ToArray()});};
