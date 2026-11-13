@@ -50,9 +50,8 @@ public sealed class Assets {
             Sequences.Add((m.S("action"),m.I("direction")),keys);
         }
         if(Frames.Count!=96||Sequences.Count!=16)throw new InvalidDataException("Incomplete character");
-        var motion=Json.Read(Path.Combine(root,"motion.json"));FrameMs=motion.I("frame_ms");Spawn=motion.A("spawn");
-        Directions=motion.GetProperty("directions").EnumerateArray().Select(d=>new Direction(d.I("direction"),d.A("world_delta")[0],d.A("world_delta")[1],d.A("screen_delta")[0],d.A("screen_delta")[1])).ToArray();
-        if(FrameMs!=166||Directions.Length!=8||Directions.Where((d,i)=>d.Id!=i||d.Sx!=24*(d.Dx+d.Dy)||d.Sy!=12*(d.Dy-d.Dx)).Any())throw new InvalidDataException("Invalid motion mapping");
+        // T459（#1044）：方向、每格毫秒與離線起點是產品規則（MotionRules），不再讀 motion.json。
+        FrameMs=MotionRules.FrameMs;Spawn=MotionRules.Spawn();Directions=MotionRules.Directions();
     }
     static Pixel[] ReadPixels(JsonElement t)=>t.GetProperty("pixels").EnumerateArray().Select(p=>{
         var v=p.EnumerateArray().Select(x=>x.GetInt32()).ToArray();
