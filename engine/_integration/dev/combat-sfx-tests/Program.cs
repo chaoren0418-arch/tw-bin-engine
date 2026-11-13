@@ -13,15 +13,27 @@ if(args.Length>3 && args[3]=="--native-bolt") { NativeBoltChecks.Run(assets,clie
 if(args.Length>3 && args[3]=="--selection") { SelectionChecks.Run(output);return; }
 int checks = 0;
 var cases = new List<object>();
+var notRun = new List<string>();
+// T465（#1050）：需要真資料的案例改成選用。本機沒有 engine/assets（player profile）或客戶端目錄時，
+// 案例記為 not-run、整體狀態不是 pass、結束碼 3，不會顯示通過。CI 只跑 --selection（合成 metadata）。
+bool hasAssets = File.Exists(Path.Combine(assets, "players/manifest.json")) && File.Exists(Path.Combine(assets, "objects/manifest.json"));
+bool hasClient = client != "none" && Directory.Exists(client);
 void Check(bool ok, string name) { checks++; if (!ok) throw new Exception(name); }
-void Case(string name, Action run) { int before = checks; run(); cases.Add(new { name, checks = checks - before, status = "pass" }); }
+void Case(string name, Action run, bool needsAssets = false, bool needsClient = false)
+{
+    string? missing = needsAssets && !hasAssets ? "本機 engine/assets（players／objects manifest）不存在"
+        : needsClient && !hasClient ? "客戶端目錄不存在（WAV）" : null;
+    if (missing != null) { notRun.Add(name); cases.Add(new { name, checks = 0, status = "not-run", reason = missing }); return; }
+    int before = checks; run(); cases.Add(new { name, checks = checks - before, status = "pass" });
+}
 void Set(object value, string name, object data)
 {
     var field = value.GetType().GetField(name, BindingFlags.Instance | BindingFlags.NonPublic);
     if (field != null) field.SetValue(value, data);
     else value.GetType().GetProperty(name)!.SetValue(value, data);
 }
-var objects = new ObjectAssets(assets);
+ObjectAssets? objectAssets = null;
+ObjectAssets Objects() => objectAssets ??= new ObjectAssets(assets);
 Case("issue123-near-flight-drain-and-session-lifetime", () =>
 {
     var session=new WorldSession();
@@ -61,26 +73,31 @@ Case("issue123-near-flight-drain-and-session-lifetime", () =>
     Check(player.PlayAsync(97,asyncOwner).GetAwaiter().GetResult().Status=="StaleOrUnknownOwner","finished owner cannot dispatch again");
     Check(player.RetireAsync(asyncOwner).GetAwaiter().GetResult().RemainingVoices==0,"finished owner can still cancel tail");
     Check(player.ShutdownWithinAsync(TimeSpan.FromSeconds(2)).GetAwaiter().GetResult().Success&&!lifetime.IsOpen&&lifetime.Stops==1,"shutdown releases stream");
-});
-Case("issue47-all-62-melee-actions-and-four-skills", () =>
+}, needsAssets: true, needsClient: true);
+Case("issue47-local-profile-melee-actions-and-four-skills", () =>
 {
-    using var fixture = JsonDocument.Parse(File.ReadAllBytes(Path.Combine(repo, "engine/_integration/dev/combat-sfx-tests/expected-events.json")));
-    Check(fixture.RootElement.GetProperty("actions").GetArrayLength() == 62, "all31 profiles include attack and damage");
-    foreach (var action in fixture.RootElement.GetProperty("actions").EnumerateArray())
+    // T465：expected 由本機 player profile 原始 JSON 即時推導（LocalScheduleOracle，不經 SoundSchedule），
+    // 取代原本 git 追蹤的 expected-events.json。
+    var profiles = PlayerProfiles.LoadManifest(assets);
+    Check(profiles.Count > 0, "local player manifest lists profiles");
+    int soundFrames = 0;
+    foreach (var profile in profiles.Values.OrderBy(p => p.Gfx).ThenBy(p => p.Weapon))
     {
-        string label = action.GetProperty("label").GetString()!;
-        if (label is not ("attack" or "damage")) continue;
-        int gfx = action.GetProperty("gfx").GetInt32(), weapon = action.GetProperty("weapon").GetInt32();
-        var appearance = objects.Get(gfx, weapon)!;
+        int gfx = profile.Gfx, weapon = profile.Weapon;
+        var appearance = PlayerProfiles.Load(assets, profile);
+        using var raw = JsonDocument.Parse(File.ReadAllBytes(Path.Combine(assets, profile.Path)));
+        foreach (string label in new[] { "attack", "damage" })
         for (int direction = 0; direction < 8; direction++)
         {
             var sequence = appearance.Sequences[(label, direction)];
-            foreach (var entry in action.GetProperty("events").EnumerateArray())
-            {
-                int index = entry.GetProperty("sequenceIndex").GetInt32();
-                Check(sequence[index].Events == entry.GetProperty("rawEvents").GetString(), $"source suffix {gfx}/{weapon}/{label}/{direction}/{index}");
-            }
+            Check(sequence.Select(s => s.Events).SequenceEqual(LocalScheduleOracle.RawEvents(raw.RootElement, label, direction)),
+                $"source suffix {gfx}/{weapon}/{label}/{direction}");
+            var expected = LocalScheduleOracle.Expected(raw.RootElement, label, direction);
             var schedule = SoundSchedule.Create(appearance, label, direction);
+            Check(schedule.Frames.Length == expected.Count && schedule.Frames.Zip(expected).All(p =>
+                    p.First.Index == p.Second.Index && Math.Abs(p.First.At - p.Second.At) < 1e-6 && p.First.Candidates.SequenceEqual(p.Second.Candidates)),
+                $"schedule matches local-derived expected {gfx}/{weapon}/{label}/{direction}");
+            soundFrames += expected.Count(f => f.Candidates.Length > 0);
             var played = new List<(int Id, int Frame, long Cycle)>();
             var cursor = new SoundCursor(schedule, new Random(50));
             foreach (var frame in schedule.Frames)
@@ -89,14 +106,17 @@ Case("issue47-all-62-melee-actions-and-four-skills", () =>
                 cursor.Advance(frame.At - .001, (id, i, cycle) => played.Add((id, i, cycle)));
                 Check(before == played.Count, "no event before frame entry");
                 cursor.Advance(frame.At, (id, i, cycle) => played.Add((id, i, cycle)));
-                Check(played.Count - before == (frame.Candidates.Length == 0 ? 0 : 1), "exactly one candidate on entry");
-                if (frame.Candidates.Length > 0) Check(frame.Candidates.Contains(played[^1].Id) && played[^1].Frame == frame.Index, "source frame and candidate");
+                int dispatched = played.Count - before;
+                // 選中 0 會略過不重抽，所以含 0 的格允許 0 或 1 次；其餘恰好 1 次（無候選 0 次）。
+                Check(frame.Candidates.Contains(0) ? dispatched <= 1 : dispatched == (frame.Candidates.Length == 0 ? 0 : 1), "exactly one candidate on entry");
+                if (dispatched > 0) Check(frame.Candidates.Contains(played[^1].Id) && played[^1].Frame == frame.Index, "source frame and candidate");
                 before = played.Count;
                 cursor.Advance(frame.At, (id, i, cycle) => played.Add((id, i, cycle)));
                 Check(played.Count == before, "same timestamp/redraw does not repeat");
             }
         }
     }
+    Check(soundFrames > 0, "local profiles contain sound frames (derived oracle is not vacuous)");
     foreach (var skill in new[] { (1, 11722, "heal", 109), (3, 221, "effect", 127), (4, 167, "fly", 97), (8, 2165, "effect", 804) })
     {
         var appearance = new ObjectAppearance(Path.Combine(assets, $"objects/magic-{skill.Item2}.json"));
@@ -120,7 +140,7 @@ Case("issue47-all-62-melee-actions-and-four-skills", () =>
     Check(impact.Frames.All(f => f.Candidates.Length == 0), "219 impact has no invented sound");
     Check(SoundSchedule.Candidates("<206!<478<479").SequenceEqual(new[] { 206, 478, 479 }), "B07 angle suffix is sound mode0");
     Check(SoundSchedule.Candidates("[248[703[701!").SequenceEqual(new[] { 248, 703, 701 }), "candidate source order");
-});
+}, needsAssets: true);
 Case("seed-and-action-cadence", () =>
 {
     var schedule = new SoundSchedule([new(4, 0, [248, 703, 701])], 60, true);
@@ -130,7 +150,7 @@ Case("seed-and-action-cadence", () =>
         cursor.Advance(i * 60, (id, _, _) => played.Add(id));
         Check(played.Count == i + 1 && played[i] == schedule.Frames[0].Candidates[expected.Next(3)], "injected seed chooses exactly one");
     }
-    var appearance = objects.Get(0, 4)!;
+    var appearance = Objects().Get(0, 4)!;
     foreach (byte speed in new byte[] { 0, 1, 2 })
     {
         var timing = ActionCadence.Capture(0, 4, 1, speed, 0);
@@ -138,7 +158,7 @@ Case("seed-and-action-cadence", () =>
         foreach (var frame in timed.Frames)
             Check(timing.Frame(appearance, 0, frame.At + .001).Key == appearance.Sequences[("attack", 0)][frame.Index].Key, "normal/haste/slow frame boundary");
     }
-});
+}, needsAssets: true);
 Case("authority-melee-appearance-flight-owner-cancellation", () =>
 {
     var session = new WorldSession();
@@ -183,7 +203,7 @@ Case("authority-melee-appearance-flight-owner-cancellation", () =>
     Check(!scene.Snapshot(session, 1000).Any(s => s.Key.StartsWith("magic")), "expired appearance owner rejected");
     Set(session, "OwnDead", true); Check(!scene.Snapshot(session, 1000).Any(s => s.Actor == 1), "own death removes own sound");
     session.Reset(); Check(scene.Snapshot(session, 1000).Length == 0, "disconnect/reset cancels scene");
-});
+}, needsAssets: true);
 Case("controller-dedup-cancel-and-delayed-register", () =>
 {
     var fake = new FakeAudio(); var observed = new ConcurrentQueue<CombatSoundObservation>();
@@ -231,7 +251,7 @@ Case("authoritative-death-map-and-local-disconnect-events", () =>
     connection.Cancel();
     Check(connection.State == LoginState.Cancelled && fake.Retired.Count == 3, "offline Cancel reset and Changed retire owner");
     controller.Shutdown().GetAwaiter().GetResult();
-});
+}, needsAssets: true);
 Case("33-wav-pins-controls-missing-integrity-cleanup-and-6016-fallback", () =>
 {
     var catalog = AudioAssets.LoadCombat(client);
@@ -266,7 +286,7 @@ Case("33-wav-pins-controls-missing-integrity-cleanup-and-6016-fallback", () =>
     fallback.Register(owner); fallback.Configure(new(.5, false, true));
     Check(fallback.Play(3332, owner).Status == "StartedWavFallback" && fallbackDriver.Opens == 2, "existing6016 MP3-open fallback remains");
     Check(fallback.Shutdown().RemainingVoices == 0, "fallback voice released");
-});
+}, needsClient: true);
 Case("audio-player-owner-and-mute-fence", () =>
 {
     foreach (bool mute in new[] { false, true })
@@ -282,15 +302,22 @@ Case("audio-player-owner-and-mute-fence", () =>
         fence.GetAwaiter().GetResult(); Check(driver.Plays == 0 && core.Count == 0, "fence cleans opened voice");
         Check(player.ShutdownWithinAsync(TimeSpan.FromSeconds(2)).GetAwaiter().GetResult().Success, "worker releases");
     }
-});
+}, needsClient: true);
 Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(output))!);
 File.WriteAllText(output, JsonSerializer.Serialize(new
 {
-    status = "pass", checks, cases,
+    status = notRun.Count == 0 ? "pass" : "not-run", checks, cases, notRun,
     productSha256 = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(typeof(WorldSession).Assembly.Location))).ToLowerInvariant(),
-    scope = "已驗證（離線），真實 metadata/WAV 唯讀驗證，managed fake driver 無實際播放，待 #52 真機聽音"
+    scope = notRun.Count == 0
+        ? "已驗證（離線），真實 metadata/WAV 唯讀驗證（expected 由本機 profile 即時推導），managed fake driver 無實際播放，待 #52 真機聽音"
+        : "未執行：缺本機 assets 或客戶端，列在 notRun 的案例沒有跑，不算通過"
 }, new JsonSerializerOptions { WriteIndented = true }));
-Console.WriteLine($"PASS {cases.Count} cases / {checks} checks");
+if (notRun.Count == 0) Console.WriteLine($"PASS {cases.Count} cases / {checks} checks");
+else
+{
+    Console.WriteLine($"NOT RUN {notRun.Count} of {cases.Count} cases (missing local assets/client): {string.Join(", ", notRun)}");
+    Environment.ExitCode = 3;
+}
 
 sealed class FakeAudio : IAudioPlayback
 {
