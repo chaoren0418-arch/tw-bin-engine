@@ -4,13 +4,16 @@ using P24.MapEffectEvents;
 namespace P24.HostAudio;
 // Accepted r3 transport facade. Calls publish fences synchronously before mapping replies.
 public sealed class AudioApiTransport(AudioPlayer player):IEffectAudio,IEffectAudioLevel {
-    public const string ManifestPin="87c6cd6867e0d81bdc627c1cac0a922891d650018211b58525de9226926ad9fe";
+    // T460（#1045）：原本是 assets/audio-manifest.json 的整檔 SHA；聲音改由 TW_CLIENT_ROOT/Sound 直讀＋程式內 pin 後，改成版本字串。
+    // 與 P24.Audio 的 AudioPlayer.Effect6016Contract 不同時拒絕建立（6016 記 create Unavailable）。
+    public const string AudioContract="p24-audio-assets-v3-client-sound";
     // T310（R5-E）：產品同一時間只有一個 6016 主機（ClientEffect6016.Ensure6016 等上一個 Closed 才建新的）。
     // Effect6016Host 不公開它的 transport，所以由產品工廠記下最近一個尚未關閉的 transport，給每次更新改音量（ClientForm.Apply6016Levels）使用。
     static IEffectAudio? current;
     public static IEffectAudio? Current=>Volatile.Read(ref current);
-    public static IEffectAudio Create(string root){
-        if(!AudioPlayer.TryCreate(root,ManifestPin,32,out var player,out var error))throw new InvalidDataException(error);
+    /// <summary><paramref name="clientRoot"/>：原客戶端根目錄（TW_CLIENT_ROOT），唯讀。</summary>
+    public static IEffectAudio Create(string clientRoot){
+        if(!AudioPlayer.TryCreate(clientRoot,AudioContract,32,out var player,out var error))throw new InvalidDataException(error);
         var transport=new AudioApiTransport(player!);Volatile.Write(ref current,transport);return transport;
     }
     static AudioOwner Owner(EffectOwner owner)=>new(owner.TransportIdentity,owner.Generation);

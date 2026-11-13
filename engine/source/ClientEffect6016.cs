@@ -4,6 +4,7 @@ namespace P06;
 public sealed partial class ClientForm {
     // Default factory uses supervisor-accepted r3; injectable for managed host tests.
     public static Func<string,IEffectAudio?> Accepted6016TransportFactory {get;set;}=P24.HostAudio.AudioApiTransport.Create;
+    static string Effect6016ClientRoot=>Environment.GetEnvironmentVariable(ProductSound.ClientRootVariable) is {Length:>0} root?root:ProductSound.DefaultClientRoot;
     const string Effect6016Pin="825673b11feb6b28c6d34663cd53266d0ca2209230b1b1cfa4c0a80125263383";
     readonly EffectHostLane effectLane=new();readonly object audioLogGate=new();
     readonly List<Effect6016Host> retiredAudioHosts=[];
@@ -18,7 +19,8 @@ public sealed partial class ClientForm {
         if(login.World.Effects6016 is {Closed:false})return;
         try{
             effectDefinition??=Effect6016Definition.FromR27Metadata(File.ReadAllBytes(Path.Combine(World.Assets.Root,"maps/effects/6016.json")),Effect6016Pin);
-            IEffectAudio? transport=null;try{transport=Accepted6016TransportFactory?.Invoke(World.Assets.Root);}catch(Exception ex){Record6016(new("create",new(false,"Unavailable",ex.ToString())));}
+            // T460：工廠收原客戶端根目錄（TW_CLIENT_ROOT），1340／3332 由 Sound/ 直讀；不再讀 assets/audio-manifest.json。
+            IEffectAudio? transport=null;try{transport=Accepted6016TransportFactory?.Invoke(Effect6016ClientRoot);}catch(Exception ex){Record6016(new("create",new(false,"Unavailable",ex.ToString())));}
             var host=new Effect6016Host(new(effectDefinition),transport,effectLane,()=>login.World.SceneClock(),observer:Record6016);
             login.World.Attach6016(host);host.SetControls(masterGain,masterMute,false);
         }catch(Exception ex){Record6016(new("metadata",new(false,"Unavailable",ex.ToString())));}

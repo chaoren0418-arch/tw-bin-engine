@@ -64,17 +64,19 @@ static class Program
             c.Now=7709;h.Pump();Check(a.Plays.Count==2,"next unmuted cycle dispatches");
         });
     }
-    static string SyntheticAudio(string scratch)
+    // T460（#1045）：合成「客戶端根目錄」——Sound/<id>.wav（正弦波），pin 與產品 Effect6016Pins 同形（mp3 不可用、wav 有大小與 SHA），
+    // 只是大小／SHA 換成合成檔的值。不再產生 audio-manifest.json。
+    static (string root,AssetPin[] pins) SyntheticAudio(string scratch)
     {
-        string root=Path.Combine(scratch,"synthetic-audio");Directory.CreateDirectory(Path.Combine(root,"sound"));var rows=new List<object>();
+        string root=Path.Combine(scratch,"synthetic-client");Directory.CreateDirectory(Path.Combine(root,"Sound"));var pins=new List<AssetPin>();
         foreach(int id in new[]{3332,1340}){
-            string path=Path.Combine(root,$"sound/{id}.wav");
+            string path=Path.Combine(root,$"Sound/{id}.wav");
             using(var w=new BinaryWriter(File.Create(path))){int count=22050*8;w.Write("RIFF"u8);w.Write(36+count*2);w.Write("WAVEfmt "u8);w.Write(16);w.Write((short)1);w.Write((short)1);w.Write(22050);w.Write(44100);w.Write((short)2);w.Write((short)16);w.Write("data"u8);w.Write(count*2);for(int i=0;i<count;i++)w.Write((short)(6000*Math.Sin(2*Math.PI*(id==3332?440:660)*i/22050)));}
             var bytes=File.ReadAllBytes(path);
-            rows.Add(new{id,extension="mp3",relativePath=$"sound/{id}.mp3",available=false});
-            rows.Add(new{id,extension="wav",relativePath=$"sound/{id}.wav",available=true,size=bytes.Length,sha256=Sha(bytes)});
+            pins.Add(new(id,"mp3",$"Sound/{id}.mp3",null,null));
+            pins.Add(new(id,"wav",$"Sound/{id}.wav",bytes.Length,Sha(bytes)));
         }
-        File.WriteAllBytes(Path.Combine(root,"audio-manifest.json"),JsonSerializer.SerializeToUtf8Bytes(new{schema="p24-audio-assets-v2",assets=rows}));return root;
+        return(root,pins.ToArray());
     }
     static object ReadonlyMap(string assets)
     {
@@ -97,8 +99,12 @@ static class Program
     }
     static object Native(string scratch)
     {
-        string root=SyntheticAudio(scratch);
-        Check(AudioPlayer.TryCreate(root,Sha(File.ReadAllBytes(Path.Combine(root,"audio-manifest.json"))),32,out var player,out var error),error);
+        var(root,pins)=SyntheticAudio(scratch);
+        // 產品工廠的契約與根目錄檢查（合成檔不符產品 pin，所以真正播放走同一條 DirectShow 鏈＋合成 pin）。
+        Check(AudioPlayer.TryCreate(root,AudioApiTransport.AudioContract,32,out var product,out var error),error);
+        Check(product!.ShutdownWithinAsync(TimeSpan.FromSeconds(3)).GetAwaiter().GetResult().Success,"product factory released");
+        Check(!AudioPlayer.TryCreate(root,"p24-audio-assets-v2",32,out _,out _),"old manifest contract rejected");
+        var player=AudioPlayer.NativeForTests(AudioAssets.FromClientRoot(root,pins),32);
         // Same T064 factory/lifetime, no combat Play calls and no game files needed.
         var keepalive=AudioPlayer.CreateCombat(root);var c=new Clock();int slot=0;
         var h=new Effect6016Host(new(Definition(),()=>slot++%2),new AudioApiTransport(player!),new(),()=>c.Now);
