@@ -50,6 +50,8 @@ public static class PreheatList {
             case ShopsRecipe.RecipeId:items.AddRange(Shops.Select(S));items.Add(SprManifest.ManifestItem);break;
             case ShadowsRecipe.RecipeId:items.AddRange(Shadows.Select(S));items.Add(SprManifest.ManifestItem);break;
             case DoorsRecipe.RecipeId:items.AddRange(Doors.Select(S));items.Add(SprManifest.ManifestItem);break;
+            // T463: one item; which stances get a pickup profile follows the players manifest, not this list.
+            case PickupRecipe.RecipeId:items.Add(PickupRecipe.Item);break;
             case AppearanceListsRecipe.RecipeId:
                 items.AddRange(Monsters.Select(g=>"monster-"+S(g)));
                 items.AddRange(World.Select(g=>"world-"+S(g)));
