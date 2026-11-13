@@ -1,0 +1,427 @@
+{
+  "issue": 1119,
+  "attempt": 2,
+  "conclusion": "通過",
+  "sourceMain": "bdefe6535e53f8efa13b83ae9cdf4a2c8f58e838",
+  "testedHead": "4193c9e42a140b6f8e74277875dff269489c9522",
+  "sources": {
+    "issue-1108.md": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1108\\docs\\reports\\issue-1108.md",
+      "sha256": "08f74da1eac0c8033074a609eced6d45d0b719e9d4d395ff04618e406ccbb9b6"
+    },
+    "issue-1108-evidence.json": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1108\\docs\\reports\\issue-1108-evidence.json",
+      "sha256": "4f2db8612b025aed547d8e54097adbe26b19b18d5f5d8d335b08c19d1c261b93"
+    },
+    "issue-1118.md": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1118\\docs\\reports\\issue-1118.md",
+      "sha256": "8151c613c4b8415ccf2d422907f110fa01c7b750e12a33bde3e05c7ce1740eee"
+    },
+    "issue-1118-evidence.json": {
+      "path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1118\\docs\\reports\\issue-1118-evidence.json",
+      "sha256": "37ee441461ce0943fc6d28c7c3a367bf0780ccc51285d0c7f87bacfa88205df3"
+    }
+  },
+  "lease": {
+    "holder": "chaoren0418-arch/tw-bin-engine#1119",
+    "exp": 1794606732.564292,
+    "expiresUtc": "2026-11-13T21:52:12.564292+00:00",
+    "checkedLocal": "2026-11-14T04:22:47+08:00",
+    "validAtCheck": true
+  },
+  "build": {
+    "entry": "engine/build-product.ps1 -ConfigFile .github/nuget.ci.config",
+    "sdk": "10.0.300",
+    "productWarnings": 4,
+    "productErrors": 0,
+    "launcherWarnings": 0,
+    "launcherErrors": 0,
+    "lock": "temporary, committed lock unchanged"
+  },
+  "backup": {
+    "utc": "2026-11-13T20:26:46.967078+00:00",
+    "backup": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1119\\scratch\\issue-1119\\backup-before\\db-data",
+    "files": 1722,
+    "bytes": 279501517,
+    "manifestSha256": "012b0303b681bf7a559e443a6e8460ccb8360f09ffafa06d4dd07272dc8a4c4e",
+    "verified": true
+  },
+  "capture": {
+    "captureAttempts": [
+      {
+        "utc": "2026-11-13T20:23:29.593Z",
+        "error": "Error: FrameArrived timed out: timed out waiting on channel"
+      },
+      {
+        "utc": "2026-11-13T20:23:53.944Z",
+        "error": "Error: window capture timed out: timed out waiting on channel"
+      }
+    ],
+    "uiaProbe": {
+      "action": "success",
+      "observed": {
+        "focused_element": "1 編輯 (settable, string) 文字編輯器 Value: R07 UIA probe ID: 15",
+        "tree": "Window: \"未命名 - 記事本\", App: notepad.exe.\n\t0 視窗 未命名 - 記事本 Secondary Actions: Raise\n\t\t1 編輯 (settable, string) 文字編輯器 Value: R07 UIA probe ID: 15\n\t\t\t2 捲軸 (disabled, settable, float) 垂直 Value: 0 ID: NonClientVerticalScrollBar\n\t\t\t\t3 按鈕 (disabled) 上移一行 ID: UpButton\n\t\t\t\t4 按鈕 (disabled) 下移一行 ID: DownButton\n\t\t\t5 捲軸 (disabled, settable, float) 水平 Value: 0 ID: NonClientHorizontalScrollBar\n\t\t\t\t6 按鈕 (disabled) 左移一欄 ID: UpButton\n\t\t\t\t7 按鈕 (disabled) 右移一欄 ID: DownButton\n\t\t\t8 捲動方塊 (disabled)\n\t\t9 狀態列 狀態列 ID: 1025\n\t\t\t10 文字\n\t\t\t11 文字 第 1 列，第 1 行\n\t\t\t12 文字 100%\n\t\t\t13 文字 Windows (CRLF)\n\t\t\t14 文字 UTF-8\n\t\t15 標題列 (settable, string) Value: 未命名 - 記事本\n\t\t\t16 功能表列 系統 ID: MenuBar\n\t\t\t\t17 功能表項目 系統\n\t\t\t18 按鈕 最小化\n\t\t\t19 按鈕 最大化\n\t\t\t20 按鈕 關閉\n\t\t21 功能表列 應用程式 ID: MenuBar\n\t\t\t22 功能表項目 檔案(F)\n\t\t\t23 功能表項目 編輯(E)\n\t\t\t24 功能表項目 格式(O)\n\t\t\t25 功能表項目 檢視(V)\n\t\t\t26 功能表項目 說明\n\nThe focused UI element is 1 編輯 (settable, string) 文字編輯器 Value: R07 UIA probe ID: 15."
+      }
+    }
+  },
+  "guiMethod": "sky/cua keyboard + UIA set_value; Alt+Print -> Paint Ctrl+N/Ctrl+V/Ctrl+S, Alt+S; PNG visual verification; no custom Windows automation helper",
+  "classes": [
+    {
+      "class": "王族",
+      "statsStrDexConWisChaInt": [
+        18,
+        10,
+        13,
+        11,
+        13,
+        10
+      ],
+      "localRemaining": 0,
+      "createEnabled": true,
+      "submitted": false,
+      "cancelled": true,
+      "screenshot": "issue-1119/royal.png",
+      "uia": "issue-1119/royal-uia.txt"
+    },
+    {
+      "class": "騎士",
+      "statsStrDexConWisChaInt": [
+        18,
+        12,
+        16,
+        9,
+        12,
+        8
+      ],
+      "localRemaining": 0,
+      "createEnabled": true,
+      "submitted": false,
+      "cancelled": true,
+      "screenshot": "issue-1119/knight.png",
+      "uia": "issue-1119/knight-uia.txt"
+    },
+    {
+      "class": "精靈（妖精）",
+      "statsStrDexConWisChaInt": [
+        18,
+        12,
+        12,
+        12,
+        9,
+        12
+      ],
+      "localRemaining": 0,
+      "createEnabled": true,
+      "submitted": false,
+      "cancelled": true,
+      "screenshot": "issue-1119/elf.png",
+      "uia": "issue-1119/elf-uia.txt"
+    },
+    {
+      "class": "法師",
+      "statsStrDexConWisChaInt": [
+        18,
+        7,
+        18,
+        12,
+        8,
+        12
+      ],
+      "localRemaining": 0,
+      "createEnabled": true,
+      "submitted": false,
+      "cancelled": true,
+      "screenshot": "issue-1119/mage.png",
+      "uia": "issue-1119/mage-uia.txt"
+    },
+    {
+      "class": "黑暗精靈（黑暗妖精）",
+      "statsStrDexConWisChaInt": [
+        18,
+        15,
+        12,
+        10,
+        9,
+        11
+      ],
+      "localRemaining": 0,
+      "createEnabled": true,
+      "submitted": false,
+      "cancelled": true,
+      "screenshot": "issue-1119/darkelf.png",
+      "uia": "issue-1119/darkelf-uia.txt"
+    },
+    {
+      "class": "龍騎士",
+      "statsStrDexConWisChaInt": [
+        18,
+        11,
+        15,
+        12,
+        8,
+        11
+      ],
+      "localRemaining": 0,
+      "createEnabled": true,
+      "submitted": false,
+      "cancelled": true,
+      "screenshot": "issue-1119/dragon.png",
+      "uia": "issue-1119/dragon-uia.txt"
+    },
+    {
+      "class": "幻術師",
+      "statsStrDexConWisChaInt": [
+        18,
+        10,
+        15,
+        12,
+        8,
+        12
+      ],
+      "localRemaining": 0,
+      "createEnabled": true,
+      "submitted": false,
+      "cancelled": true,
+      "screenshot": "issue-1119/illusion.png",
+      "uia": "issue-1119/illusion-uia.txt"
+    }
+  ],
+  "create": {
+    "guiSubmissions": 1,
+    "name": "晨風騎士",
+    "objid": 10387,
+    "type": 1,
+    "class": 61,
+    "accessLevel": 0,
+    "slotsBefore": 3,
+    "slotsAfter": 4,
+    "capacity": 4,
+    "responseEvidence": "decoded-transitions.json event indexes 38 (S98 reason 2 branch) and 39 (S127 accepted identity branch); raw packet bytes not captured",
+    "interpretationSource": "engine/source/CharacterManagement.cs:115,117-120"
+  },
+  "delete": {
+    "guiSubmissions": 1,
+    "onlyDeletedObjid": 10387,
+    "immediate": true,
+    "scheduled": false,
+    "finalSlots": 3,
+    "decodedSourceEventIndex": 52,
+    "interpretation": "S6 result 5 branch; raw packet bytes not captured"
+  },
+  "databaseDiff": {
+    "tablesCompared": 70,
+    "rowsBefore": 500,
+    "rowsAfter": 500,
+    "added": 0,
+    "removed": 0,
+    "updated": 1,
+    "table": "accounts",
+    "key": {
+      "login": "p24svc01"
+    },
+    "field": "lastactive",
+    "before": "2026-11-14 02:43:18",
+    "after": "2026-11-14 04:27:30"
+  },
+  "restore": {
+    "path": "issue-1119-restore.sql",
+    "executed": false,
+    "reverseModelEqualsBefore": true,
+    "liveSqlSyntaxCheck": false,
+    "sha256": "e438012c9becee6aef341b4ac2f9c0d4800215dc41a9cf06b0743e2b8d1044b4"
+  },
+  "cleanup": {
+    "ownedPids": [
+      19844,
+      16628,
+      8956,
+      10044,
+      9812,
+      4544,
+      13632,
+      18532,
+      18080,
+      10372,
+      8836,
+      10888,
+      15172,
+      20140
+    ],
+    "utc": "2026-11-13T20:44:20.4730591Z",
+    "remainingOwned": [],
+    "listeners": []
+  },
+  "results": {
+    "newPassed": [
+      "R07"
+    ],
+    "inheritedPassed": [
+      "B01",
+      "R05",
+      "R08",
+      "R09",
+      "R10",
+      "R11",
+      "R12",
+      "R13",
+      "R14",
+      "R15",
+      "C01",
+      "C02",
+      "V01"
+    ],
+    "combined": {
+      "passed": 14,
+      "failed": 0,
+      "unverified": 0
+    },
+    "guiClassScreenshots": 7,
+    "guiCreatesSubmitted": 1,
+    "guiDeletesSubmitted": 1
+  },
+  "notPerformed": [
+    "SM08",
+    "SM09",
+    "SM48",
+    "rawPacketByteCapture",
+    "restoreSqlExecution"
+  ],
+  "rawLogSha256": {
+    "client-service/web-events.json": "b65b691173859a710b89dfbfd2d811fa562dd0e847aea4b515c598a899495ca3"
+  },
+  "sourceSha256": {
+    "engine/source/CharacterManagement.cs": "15dd02cf9fb83413d7152971f615ee28c00362d87d415b97836dcfe4df364f3d",
+    "engine/source/CharacterManagementUi.cs": "c35649a33928457e8211cea05cf3755ea8ecaf501052b562ecb0bea3631712c9",
+    "engine/source/ClientLogin.cs": "48853e84e38efea985a17b353f2d09df5a2dc2907420c5c32114b9d435fc5fa3",
+    "engine/build/client-product-dev/P11.ClientEngine.dll": "1642ea357d5300fcdac8f5b40e6595ba3504c17aa10b830d8fd6816041726e93",
+    "engine/build/client-product-dev/P24.Audio.dll": "4c4aa97837e7c4e610d3e0b75eb2b619faf41508096435e37c635c2cec456473",
+    "engine/launcher/P24.Launcher.dll": "25fabc452c5aeb39a7f496a038e87e7821d22f095fed1f8495cac01176f54a1e",
+    "scratch/issue-1119/server/Server_Game.jar": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf"
+  },
+  "artifactSha256": {
+    "after-create-characters.tsv": "415aad2b8e4dd48dd9db58db859d89bb24b2eef057451cba26fc1ea502de1be6",
+    "after-delete-characters.tsv": "890d874ee336c762bb5e90bd5ccf3593d95cffe90dc063d00acbb7345fbd3082",
+    "before-create-characters.tsv": "890d874ee336c762bb5e90bd5ccf3593d95cffe90dc063d00acbb7345fbd3082",
+    "created-selection-uia.txt": "1f98cc6703eb5287cd1e1a01707a3987ac7b43c12ae09b6f07fe0b0254fcfa0d",
+    "created-selection.png": "349b4c44abc44888d81af4b1fa15abd2374f1014bb6377163067a88814bc149c",
+    "darkelf-uia.txt": "137c229ed0be40053ac134c4a0bfbf1e20e90097a3de0ba229fba95ee3bb01f1",
+    "darkelf.png": "89cb5050c078c1b7a13641138fa8ef15e02cf9429442b40c5eacd9a78a49b1d1",
+    "data-diff.json": "97edba76e713ea24aec924c898b251129546aadf0680d3cf7afbbd257ff93b79",
+    "decoded-transitions.json": "4561fdfce3614edf0da506a8345bccd746b72d0737cd842a43f5d96f5c6337c3",
+    "delete-confirm-uia.txt": "b2ebb3e09c0e5350e958efc35964df8c3046a0855ecea8d076456b250b8cb694",
+    "deleted-selection-uia.txt": "6e848e75cc248529a56ebec66562e7e08343e7acee06f518222b4e8e04c6d892",
+    "deleted-selection.png": "5a06bf34e7b024ae4867bc44d702d8bba86d39e0104064a0e69000d4dfb2dcf9",
+    "dragon-uia.txt": "05456c7bd71960c22dad7270b4e1aabfbe6559f6921baf8cac78fee24c64ce9c",
+    "dragon.png": "9a1ec00d0034ebb324b34f607fc7cfcce1313112eec90b26e1b3fbb4397030f3",
+    "elf-uia.txt": "02669de3c98e1fc08e41d491a62f3deda4951f5f1a9ebf760d060afa2c2525a0",
+    "elf.png": "ffd6b05f7a19585ea3d1c25d65ed9cc260d8e215bb800fc746ea20c84ccf7f3f",
+    "final-characters.tsv": "890d874ee336c762bb5e90bd5ccf3593d95cffe90dc063d00acbb7345fbd3082",
+    "illusion-uia.txt": "ac36972d899a92a90f71229f6eced9239aeb8f35d6a5c5ff71a1f9dc0a7cc7bf",
+    "illusion.png": "1ddb30eef6d6cc19432ddcc39c53e09a7a2d69b12f6459e6d96d73d07b32d953",
+    "knight-uia.txt": "118104c0df00a898e912e4fe04d6867a93f8043bdeed1d87f9494a112d1fa8b4",
+    "knight.png": "b2962a7559e60b46bf48cc1b5b1b93126908e2d3acd1236246298cb32c37d899",
+    "launcher-build.log": "50226f53bfef73e4c1d707efd3fed04009fe5f36db98e4988d50dc3f9bdfe496",
+    "mage-uia.txt": "6e71a7a06b3e1457be93a15d7bb6f5fb80e86ec8b78389baa9b15c4ad3327974",
+    "mage.png": "a7821fa009b9cf1b614f535a7a75845830e38da2dc00ac535ce61f5af9f9e512",
+    "notepad-probe.png": "c8eef4fb5d7a5cc400499cce8dbc894c79711c2d4ebd15fef59ff4442a0f0b85",
+    "product-build.log": "c388774a1afc2e092168d970398a8897335e4ba90658588ffb94138708d013fb",
+    "royal-uia.txt": "6a25a8ba2f07aff0103211694d91cf54569640df059498866420df1664afc517",
+    "royal.png": "e5ce7699d1ac9e8901f3700ec5b936710824af5f46064b5969486485d350f7e1",
+    "selection.png": "526b3839b791795c3d139428fc7c8ac3c3db73f8b8c7b33c639b613213b4758b",
+    "submission-uia.txt": "118104c0df00a898e912e4fe04d6867a93f8043bdeed1d87f9494a112d1fa8b4"
+  },
+  "offGitEvidence": [
+    {
+      "path": "environments\\p24\\backups\\issue-1119-evidence\\created-selection.png",
+      "bytes": 23294,
+      "sha256": "349b4c44abc44888d81af4b1fa15abd2374f1014bb6377163067a88814bc149c",
+      "originalGitPath": "docs/reports/issue-1119/created-selection.png",
+      "sourceCommit": "79d30d6e8e14214e350aa95ec461579b1ebc3bf7"
+    },
+    {
+      "path": "environments\\p24\\backups\\issue-1119-evidence\\darkelf.png",
+      "bytes": 18961,
+      "sha256": "89cb5050c078c1b7a13641138fa8ef15e02cf9429442b40c5eacd9a78a49b1d1",
+      "originalGitPath": "docs/reports/issue-1119/darkelf.png",
+      "sourceCommit": "79d30d6e8e14214e350aa95ec461579b1ebc3bf7"
+    },
+    {
+      "path": "environments\\p24\\backups\\issue-1119-evidence\\deleted-selection.png",
+      "bytes": 23197,
+      "sha256": "5a06bf34e7b024ae4867bc44d702d8bba86d39e0104064a0e69000d4dfb2dcf9",
+      "originalGitPath": "docs/reports/issue-1119/deleted-selection.png",
+      "sourceCommit": "79d30d6e8e14214e350aa95ec461579b1ebc3bf7"
+    },
+    {
+      "path": "environments\\p24\\backups\\issue-1119-evidence\\dragon.png",
+      "bytes": 18661,
+      "sha256": "9a1ec00d0034ebb324b34f607fc7cfcce1313112eec90b26e1b3fbb4397030f3",
+      "originalGitPath": "docs/reports/issue-1119/dragon.png",
+      "sourceCommit": "79d30d6e8e14214e350aa95ec461579b1ebc3bf7"
+    },
+    {
+      "path": "environments\\p24\\backups\\issue-1119-evidence\\elf.png",
+      "bytes": 18818,
+      "sha256": "ffd6b05f7a19585ea3d1c25d65ed9cc260d8e215bb800fc746ea20c84ccf7f3f",
+      "originalGitPath": "docs/reports/issue-1119/elf.png",
+      "sourceCommit": "79d30d6e8e14214e350aa95ec461579b1ebc3bf7"
+    },
+    {
+      "path": "environments\\p24\\backups\\issue-1119-evidence\\illusion.png",
+      "bytes": 18951,
+      "sha256": "1ddb30eef6d6cc19432ddcc39c53e09a7a2d69b12f6459e6d96d73d07b32d953",
+      "originalGitPath": "docs/reports/issue-1119/illusion.png",
+      "sourceCommit": "79d30d6e8e14214e350aa95ec461579b1ebc3bf7"
+    },
+    {
+      "path": "environments\\p24\\backups\\issue-1119-evidence\\knight.png",
+      "bytes": 18710,
+      "sha256": "b2962a7559e60b46bf48cc1b5b1b93126908e2d3acd1236246298cb32c37d899",
+      "originalGitPath": "docs/reports/issue-1119/knight.png",
+      "sourceCommit": "79d30d6e8e14214e350aa95ec461579b1ebc3bf7"
+    },
+    {
+      "path": "environments\\p24\\backups\\issue-1119-evidence\\launcher-build.log",
+      "bytes": 179,
+      "sha256": "50226f53bfef73e4c1d707efd3fed04009fe5f36db98e4988d50dc3f9bdfe496",
+      "originalGitPath": "docs/reports/issue-1119/launcher-build.log",
+      "sourceCommit": "79d30d6e8e14214e350aa95ec461579b1ebc3bf7"
+    },
+    {
+      "path": "environments\\p24\\backups\\issue-1119-evidence\\mage.png",
+      "bytes": 18729,
+      "sha256": "a7821fa009b9cf1b614f535a7a75845830e38da2dc00ac535ce61f5af9f9e512",
+      "originalGitPath": "docs/reports/issue-1119/mage.png",
+      "sourceCommit": "79d30d6e8e14214e350aa95ec461579b1ebc3bf7"
+    },
+    {
+      "path": "environments\\p24\\backups\\issue-1119-evidence\\notepad-probe.png",
+      "bytes": 61925,
+      "sha256": "c8eef4fb5d7a5cc400499cce8dbc894c79711c2d4ebd15fef59ff4442a0f0b85",
+      "originalGitPath": "docs/reports/issue-1119/notepad-probe.png",
+      "sourceCommit": "79d30d6e8e14214e350aa95ec461579b1ebc3bf7"
+    },
+    {
+      "path": "environments\\p24\\backups\\issue-1119-evidence\\product-build.log",
+      "bytes": 2455,
+      "sha256": "c388774a1afc2e092168d970398a8897335e4ba90658588ffb94138708d013fb",
+      "originalGitPath": "docs/reports/issue-1119/product-build.log",
+      "sourceCommit": "79d30d6e8e14214e350aa95ec461579b1ebc3bf7"
+    },
+    {
+      "path": "environments\\p24\\backups\\issue-1119-evidence\\royal.png",
+      "bytes": 18636,
+      "sha256": "e5ce7699d1ac9e8901f3700ec5b936710824af5f46064b5969486485d350f7e1",
+      "originalGitPath": "docs/reports/issue-1119/royal.png",
+      "sourceCommit": "79d30d6e8e14214e350aa95ec461579b1ebc3bf7"
+    },
+    {
+      "path": "environments\\p24\\backups\\issue-1119-evidence\\selection.png",
+      "bytes": 50905,
+      "sha256": "526b3839b791795c3d139428fc7c8ac3c3db73f8b8c7b33c639b613213b4758b",
+      "originalGitPath": "docs/reports/issue-1119/selection.png",
+      "sourceCommit": "79d30d6e8e14214e350aa95ec461579b1ebc3bf7"
+    }
+  ]
+}
