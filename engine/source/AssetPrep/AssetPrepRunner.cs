@@ -164,16 +164,45 @@ public sealed class AssetRecipeItemContext {
         sources.Add(hit.Source);return hit.Decoded;
     }
 
-    /// <summary>Writes one output file. The path is relative to the recipe directory (see AssetPrepPaths.SafeRelative); a path can be written once per run.</summary>
-    public void Write(string relativePath,ReadOnlySpan<byte> data){
+    // T456 (#1041): Tile entries and the loose map/ files, recorded as sources like the Sprite entries.
+    public bool HasTile(string name)=>input.HasTile(name);
+    /// <summary>A Tile entry by name (case-insensitive), or null when Tile.idx has none.</summary>
+    public byte[]? TryReadTile(string name){
+        if(input.TryReadTile(name) is not {} hit)return null;
+        sources.Add(hit.Source);return hit.Data;
+    }
+    public IReadOnlyList<string> MapDirectories()=>input.MapDirectories();
+    /// <summary>File names of TW_CLIENT_ROOT/map/&lt;directory&gt;; the listing itself is recorded as a source (added or removed files invalidate a resume).</summary>
+    public IReadOnlyList<string> MapFiles(string directory){
+        var listing=input.MapListing(directory);
+        if(!sources.Contains(listing))sources.Add(listing);
+        return input.MapFiles(directory);
+    }
+    public byte[] ReadMapFile(string directory,string file){
+        var hit=input.ReadMapFile(directory,file);
+        sources.Add(hit.Source);return hit.Data;
+    }
+
+    string Claim(string relativePath){
         string relative=AssetPrepPaths.SafeRelative(relativePath);
         if(relative.StartsWith(AssetReceipt.FileName,StringComparison.OrdinalIgnoreCase))throw new AssetPrepException(AssetPrepFailure.UnsafePath,$"輸出路徑 \"{relativePath}\" 被拒絕：保留給收據");
         string full=AssetPrepPaths.Combine(directory,relative);
         if(!taken.Add(relative))throw new AssetPrepException(AssetPrepFailure.InvalidRequest,$"輸出路徑 \"{relative}\" 被寫了兩次（項目 {Item}）");
         Directory.CreateDirectory(Path.GetDirectoryName(full)!);
         AssetPrepPaths.RejectReparsePoints(full,"輸出");
-        AssetPrepRunner.WriteFile(full,data);
+        return relative;
+    }
+    /// <summary>Writes one output file. The path is relative to the recipe directory (see AssetPrepPaths.SafeRelative); a path can be written once per run.</summary>
+    public void Write(string relativePath,ReadOnlySpan<byte> data){
+        string relative=Claim(relativePath);
+        AssetPrepRunner.WriteFile(AssetPrepPaths.Combine(directory,relative),data);
         outputs.Add(new(relative,data.Length,AssetPrepPaths.Sha256(data)));
+    }
+    /// <summary>T456: streams a large output straight to disk (no whole-file buffer); size and SHA-256 are taken from the written file.</summary>
+    public void Write(string relativePath,Action<Stream> write){
+        string relative=Claim(relativePath),full=AssetPrepPaths.Combine(directory,relative);
+        using(var file=new FileStream(full,FileMode.Create,FileAccess.Write,FileShare.None)){write(file);file.Flush(true);}
+        outputs.Add(new(relative,new FileInfo(full).Length,AssetPrepPaths.Sha256File(full)));
     }
     /// <summary>Records a fact about the item in the receipt (for example the icon's draw offset).</summary>
     public void Set(string key,string value){
@@ -318,7 +347,7 @@ public sealed class AssetPrepRunner {
             else{Directory.CreateDirectory(layout.ActiveRoot);checkTargets();Retry(()=>Directory.Move(previous,active));}
         }
 
-        using var input=AssetPrepInput.Open(clientRoot,request.Pins);
+        using var input=AssetPrepInput.Open(clientRoot,request.Pins,(recipe as IAssetRecipeSources)?.Sources??AssetPrepSources.Sprites);
         var identity=input.Containers();
         // Order (asset-recipe.md 6): every recipe this one reads must already be published, before anything is produced.
         var requires=(recipe.Requires??[]).Select(AssetPrepPaths.RequireRecipeId).Distinct(StringComparer.Ordinal).ToList();

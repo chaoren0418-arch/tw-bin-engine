@@ -140,7 +140,6 @@ partial class Checks
         string root = Path.Combine(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../..")), "scratch", "issue-173", "synthetic-combat");
         string assets = Path.Combine(root, "assets");
         Directory.CreateDirectory(Path.Combine(assets, "players"));
-        Directory.CreateDirectory(Path.Combine(assets, "magic"));
         AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY", Path.Combine(root, "build", "offline-checks") + Path.DirectorySeparatorChar);
         // Authored timing metadata only, no game pixels/maps or copied server source.
         var actions = new { walk = 640, attack = 640, spellDir = 1320, spellNoDir = 1480 };
@@ -166,15 +165,6 @@ partial class Checks
         File.WriteAllBytes(Path.Combine(assets, "integrity.json"), JsonSerializer.SerializeToUtf8Bytes(new
         {
             files = new[] { new { path = "players/manifest.json", size = manifest.Length, sha256 = Convert.ToHexString(SHA256.HashData(manifest)) } }
-        }));
-        File.WriteAllBytes(Path.Combine(assets, "magic/catalog.json"), JsonSerializer.SerializeToUtf8Bytes(new
-        {
-            schema = "p24-magic-casting-v1",
-            spells = new[] { 1, 3, 4, 8 }.Select(id => new
-            {
-                id, name = "測試技能", mp = 3, action = id == 4 ? 18 : 19, effect = 167, reuseMs = 10,
-                target = id == 4 ? "attack" : id == 3 ? "none" : "buff", wire = id == 4 ? "DHH" : "D"
-            })
         }));
     }
 }

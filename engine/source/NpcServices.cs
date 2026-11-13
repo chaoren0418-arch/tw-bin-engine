@@ -1,9 +1,12 @@
-using System.Text.Json;
 namespace P06;
 public sealed record SkillTemplate(int Id,string Name,int Level);
 public sealed class SkillCatalog {
     readonly Dictionary<int,SkillTemplate> entries;
-    public SkillCatalog(string path){entries=JsonSerializer.Deserialize<SkillTemplate[]>(File.ReadAllText(path))!.ToDictionary(s=>s.Id);}
+    // T462（#1047）：不再讀 dialogs/skills.json（伺服器 SQL 產物）。名稱取客戶端 spelldesc-c.tbl，等級照原版算式
+    // ((id−1)>>3)+1（rule-tables.md 1.4／1.5）；表裡沒有的 id 不建項目（學費未知、不能學）。
+    public SkillCatalog(ClientSpellTable table){entries=table.Spells.ToDictionary(s=>s.Id,s=>new SkillTemplate(s.Id,s.Name,ClientSpellTable.Level(s.Id)));}
+    /// <summary>執行期的技能表；客戶端表讀不到時 null（學魔法清單會明確提示不可用）。</summary>
+    public static SkillCatalog? FromClient()=>ClientSpellTable.Current is {} table?new(table):null;
     public SkillTemplate? Get(int id)=>entries.GetValueOrDefault(id);
     // Pinned C_SkillBuyOK.PRICE: level^2, except level16 has zero (server rejects).
     public uint? Price(int id,uint basis){var s=Get(id);if(s==null||s.Level is <1 or >28||s.Level==16||basis==0)return null;long value=(long)basis*s.Level*s.Level;return value<=int.MaxValue?(uint)value:null;}
@@ -15,6 +18,8 @@ public static class ServicePackets {
 }
 public sealed partial class WorldSession {
     public SkillCatalog? SkillCatalog {get;set;}
+    /// <summary>T462：沒有客戶端技能表時的學魔法提示（不放替代資料）。</summary>
+    public static string SkillCatalogUnavailableNotice=>$"學習魔法暫不可用：讀不到客戶端技能表 {ClientSpellTable.NamesFileName}（{ClientSpellTable.LoadError??"未載入"}），無法顯示技能名稱與學費。";
     string pendingNpcReply="";int[] pendingLearned=[];
     public bool IsServiceSelection=>InteractionKind is "skills" or "deposit" or "withdraw" or "sell";
     public bool IsInteractionSelection=>InteractionKind is "buy" or "sell" or "skills" or "deposit" or "withdraw";
@@ -82,7 +87,7 @@ public sealed partial class WorldSession {
     }
     bool ReceiveNpcService(byte opcode,LoginReader r){
         if(opcode==65)return ReceiveNpcSale(r);
-        if(opcode==41){uint basis=r.D();int n=r.H();if(n>256||basis>int.MaxValue)throw new ProtocolException("skill list");var rows=new List<ShopRow>();var ids=new HashSet<uint>();for(int i=0;i<n;i++){uint index=r.D();if(index>=int.MaxValue||!ids.Add(index))throw new ProtocolException("skill identity");int id=(int)index+1;var template=SkillCatalog?.Get(id);uint? price=SkillCatalog?.Price(id,basis);rows.Add(new(index,0,price??0,template?.Name??$"技能 {id}（缺少名稱與價格依據）",price.HasValue&&id<=256&&!LearnedMagic.Any(s=>s.Id==id)?1u:0u,""));}r.Finish();CheckInteraction();if(!InteractionValid||pendingNpcReply!="skill-list"||InteractionKind!="waiting")return true;InteractionRevision++;InteractionPage=null;ShopRows=rows.ToArray();InteractionKind="skills";pendingNpcReply="";InteractionNotice=n==0?"原服目前沒有可學技能。":$"回包基價 {basis:N0} 金幣；預計學費依已核定技能等級表計算。選取數量 1 表示學習，送出後等待原服已學清單；未知價格者停用。";return true;}
+        if(opcode==41){uint basis=r.D();int n=r.H();if(n>256||basis>int.MaxValue)throw new ProtocolException("skill list");var rows=new List<ShopRow>();var ids=new HashSet<uint>();for(int i=0;i<n;i++){uint index=r.D();if(index>=int.MaxValue||!ids.Add(index))throw new ProtocolException("skill identity");int id=(int)index+1;var template=SkillCatalog?.Get(id);uint? price=SkillCatalog?.Price(id,basis);rows.Add(new(index,0,price??0,template?.Name??$"技能 {id}（缺少名稱與價格依據）",price.HasValue&&id<=256&&!LearnedMagic.Any(s=>s.Id==id)?1u:0u,""));}r.Finish();CheckInteraction();if(!InteractionValid||pendingNpcReply!="skill-list"||InteractionKind!="waiting")return true;InteractionRevision++;InteractionPage=null;ShopRows=rows.ToArray();InteractionKind="skills";pendingNpcReply="";InteractionNotice=n==0?"原服目前沒有可學技能。":SkillCatalog==null?SkillCatalogUnavailableNotice:$"回包基價 {basis:N0} 金幣；預計學費依原版技能等級算式計算（技能名稱取自客戶端 {ClientSpellTable.NamesFileName}）。選取數量 1 表示學習，送出後等待原服已學清單；未知價格者停用。";return true;}
         if(opcode==176){uint npc=r.D();int n=r.H();byte type=r.C();if(n>2048)throw new ProtocolException("warehouse list");var rows=new List<ShopRow>();var ids=new HashSet<uint>();for(int i=0;i<n;i++){uint id=r.D();r.C();ushort icon=r.H();r.C();uint count=r.D();r.C();string name=r.S();if(id==0||!ids.Add(id)||count>2000000000)throw new ProtocolException("warehouse item");rows.Add(new(id,icon,0,name,count,""));}uint fee=r.D();r.Finish();if(fee>int.MaxValue)throw new ProtocolException("warehouse fee");CheckInteraction();if(!InteractionValid||npc!=InteractionNpc||pendingNpcReply!="withdraw-list"||InteractionKind!="waiting")return true;if(type!=3){CloseInteraction("此倉庫類型尚未支援；沒有送出領取操作。");return true;}InteractionRevision++;InteractionPage=null;ShopRows=rows.Select(row=>row with{Price=fee}).ToArray();InteractionKind="withdraw";pendingNpcReply="";InteractionNotice=n==0?"原服個人倉庫清單為空，或本次無法領取。":$"原服領取費每個選取列 {fee:N0} 金幣（不乘堆疊數量）。物品與數量以此次倉庫回包為準。";return true;}
         return false;
     }
