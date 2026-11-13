@@ -2,11 +2,11 @@
 
 **結論：工具已寫好，靜態檢查全過；實機效果（N01–N04）全部待驗證。** 本張沒有執行任何 GUI、客戶端、記事本或伺服器。
 
-**本分支含 #1151（#1148）的內容**：開工時 PR #1151 還沒合併，依任務前置在本分支 `git merge origin/task/1148`，沒有改動 #1148 已有函式的行為。**請先合 #1151，再合本張。**
+**關於 #1151（#1148）**：開工時 PR #1151 還沒合併，依任務前置先在本分支 `git merge origin/task/1148`。提交前 #1151 已經合進 main，本分支再 `git merge origin/main`，所以 PR 的差異只剩本張的 4 個檔案，可以直接合併。#1148 已有函式的行為都沒有改。
 
 ## 做了什麼
 
-只改 `work/f1118-uia-path/` 與本報告（`.gitignore` 沒改，見「怎麼驗證」第 4 點）。
+只改 `work/f1118-uia-path/` 與本報告；`.gitignore` 沒改（見「怎麼驗證」第 4 點）。
 
 1. `UiaGdi.ps1` 在 #1148 的檔案尾端新增以下內容（前面原有的部分沒動）：
    - 內嵌 C# `ClientInputNative`：`GetClientRect`、`ClientToScreen`、`GetWindowRect`、`SendInput`（x64 `INPUT` 40 bytes）、`WindowFromPoint`／`GetAncestor`、`GetSystemMetrics`、`MapVirtualKey`、`GetDC`／`BitBlt`／`ReleaseDC`。另有 `SendGuarded`：在原生端緊接在 `SendInput` 前核對前景 PID，不符就不送。還有用 `LockBits` 算的 `Stats`／`Diff`。
@@ -47,7 +47,7 @@
    - `INPUT` 是 Sequential `{UInt32 type, INPUTUNION u}`；`INPUTUNION` 是 Explicit `{MOUSEINPUT, KEYBDINPUT}`；`MOUSEINPUT` 是 `{Int32 dx, Int32 dy, UInt32 mouseData, UInt32 dwFlags, UInt32 time, UIntPtr}`；`KEYBDINPUT` 是 `{UInt16 wVk, UInt16 wScan, UInt32 dwFlags, UInt32 time, UIntPtr}`。依 x64 對齊規則算：MOUSEINPUT 32、KEYBDINPUT 24、INPUT＝4＋4（padding）＋32＝**40**。執行時另外把 `Marshal.SizeOf` 記在 JSONL 的 `InputSize`。
    - `PrintWindow(IntPtr, IntPtr, UInt32)`、`BitBlt(IntPtr, Int32×4, IntPtr, Int32, Int32, UInt32)`（gdi32）、`ClientToScreen(IntPtr, POINT&)`、`GetClientRect(IntPtr, RECT&)`、`SetProcessDpiAwarenessContext(IntPtr) -> Boolean`（SetLastError=True）都與 Win32 定義一致。
 3. `git grep -i -E 'Windows\.Graphics\.Capture|GraphicsCaptureItem|SPI_SET|LockSetForegroundWindow|Set-ItemProperty|New-ItemProperty|HKCU:|HKLM:|reg add|Registry::' -- work/f1118-uia-path` → **沒有任何結果**。帳密：`git grep -i 'passw|pwd'` 只命中 `Test-NativeClient.ps1:4` 的註解「no password」和 #1148 `UiaGdi.ps1:93` 的 `[PASSWORD]` 遮罩，沒有帳號密碼字串。
-4. `git check-ignore -v work/f1118-uia-path/Test-NativeClient.ps1` → exit 1（沒有被排除）。`--no-index` 顯示命中的是 #1148 的 `work/f1118-uia-path/.gitignore:4:!*.ps1`。沿用 #1148 最後的解法（目錄層 `.gitignore`），根目錄 `.gitignore` 沒改。
+4. `git check-ignore work/f1118-uia-path/Test-NativeClient.ps1` → exit 1，沒有被排除。`git check-ignore -v --no-index` 命中的是 main 上 #1148 最後採用的放行規則 `.gitignore:17:!work/f1118-uia-path/*.ps1`。本張沿用這條規則，`.gitignore` 沒有修改。
 5. 兩支新增／修改的 `.ps1` 都是純 ASCII（Windows PowerShell 5.1 讀沒有 BOM 的檔案時不會誤判編碼）。啟動檔名的中文以 code point 組字。
 6. CI：push 後看 PR 的 build 結果（本張沒有改引擎，CI 不跑這些腳本）。
 
@@ -77,11 +77,11 @@
 - `work/f1118-uia-path/README.md`（新增「原生 UI 客戶端」一節，並更正 #1138 那段「沒有座標點擊」的說明）
 - `docs/reports/issue-1154.md`（本檔）
 - 不進 git：`scratch/issue-1154-loginui/`（LoginUI.xml 原檔與明文）、`scratch/issue-1154-static/`（抽出的 .cs、編好的 DLL、`signatures.txt`）
-- 分支 `task/1154`（含 `origin/task/1148` 的合併）
+- 分支 `task/1154`（已同步 main，含已合併的 #1151）
 
 ## 給下一棒的提示
 
-1. 合併順序：先合 #1151（#1148），再合本張。如果 #1151 有改動，本分支 `git merge origin/main` 時，`UiaGdi.ps1` 的衝突取 main 的上半部，保留檔尾「Native UI client」段。
+1. #1151 已合進 main，本張可以直接合併。之後若和 main 衝突：`UiaGdi.ps1` 的上半部取 main 的版本，保留檔尾「Native UI client」段。
 2. `f1145-retest` 跑法：在 worktree 根目錄先建置（`engine/build-product.ps1`），再執行 `powershell.exe -NoProfile -ExecutionPolicy Bypass -STA -File work/f1118-uia-path/Test-NativeClient.ps1 -EvidenceDirectory scratch/<任務>/native`。證據目錄必須在專案內，而且是新的目錄。登入畫面不需要伺服器，**不要**啟動 42061／43324。
 3. 判讀時要看：`native-result.json` 的 `N01..N04`、`client-input.jsonl`（`ForegroundProcessId`、`SendInputReturned`、`LastError`、`HitRootHwnd`），以及 `n01-*.png`、`n02-*.png`（人工確認原生登入畫面與 `abc`）。
 4. 依 P2，主控可以考慮把 N03 改成「進世界後再驗」，或另開 code 任務決定登入畫面要不要支援 Ctrl+P；本張沒有改引擎。如果 N02 用 VirtualKey 能輸入、Unicode 不能，就證實 P1，Unicode 輸入要不要支援屬於引擎決策，另開任務。
