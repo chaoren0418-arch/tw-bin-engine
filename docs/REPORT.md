@@ -436,3 +436,4 @@
 - 2026-11-13 — #1037 b15-recipe-contract: T452 設計：依七張來源閉合結果定 recipe 契約與已知限制清單（design，claude-local，PR #1071 已合併）→ [報告](reports/issue-1037.md)
 - 2026-11-13 — #1038 b15-prep-text: T453 準備器：文字類（dialogs/templates.json、objects/names.json）（code，claude-local，PR #1075 已合併）→ [報告](reports/issue-1038.md)
 - 2026-11-13 — #1039 b15-prep-sprites-a: T454 準備器：SPR 共用解碼與 character、objects（一般／武器／projectile／magic／world）（code，claude-local，PR 已合併）→ [報告](reports/issue-1039.md)
+- 2026-11-13 — #1041 b15-prep-maps-raw: T456 準備器／provider：地圖原檔、TIL、LAC 與 maps／cache manifest（code，claude-local，PR 已合併）→ [報告](reports/issue-1041.md)
