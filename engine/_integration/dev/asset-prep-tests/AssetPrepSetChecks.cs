@@ -88,7 +88,7 @@ partial class Checks {
         Check(new PlayerShadowCatalog(Active(a)).Get(0,30000,"0:0")!=null,"SET PlayerShadows reads manifest and frame SHA");
         Check(new ObjectAssets(Active(a)).GetShop(61)?.Gfx==61,"SET ObjectAssets reads shared shop manifest and SHA");
         _=new MapEffectCatalog(Path.Combine(Active(a),"maps"));
-        Check(new PacketEffectAssets(Active(a)).Get(167)!=null,"SET MapEffects reads objects/magic SHA");
+        Check(new PacketEffectAssets(Active(a)).Get(189)!=null,"SET MapEffects reads objects/magic SHA");
         Check(new OriginalMapStore(Active(a),0,clientRoot:fixture.Client).Available(0x7ffd,0x8002),"SET OriginalMapCache provider reads maps manifest and terrain SHA");
         var portalType=typeof(Assets).Assembly.GetType("P06.PortalCatalog",throwOnError:true)!;
         _=Activator.CreateInstance(portalType,System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic,null,[Active(a),0,fixture.Client],null);
@@ -128,6 +128,18 @@ partial class Checks {
         Check(ApTreeHash(Active(a))==before,"SET disk shortage preserves active");
         Check(runner.Run(Request(a)).Produced==0,"SET disk retry reuses every completed item");
 
+        using(var cancel=new CancellationTokenSource()){
+            bool cancelled=false;
+            try{runner.Run(Request(a) with{Cancel=cancel.Token,Progress=p=>{if(p.Phase=="publish")cancel.Cancel();}});}
+            catch(OperationCanceledException){cancelled=true;}
+            Check(cancelled&&ApTreeHash(Active(a))==before,"SET cancel at last publication gate preserves active");
+        }
+        ApRefused(()=>runner.Run(Request(a) with{Progress=p=>{
+            if(p.Phase=="publish")File.AppendAllText(Path.Combine(new AssetPrepLayout(a).SetCandidate,"objects","0.json")," ");
+        }}),AssetPrepFailure.Verification,"SET candidate tamper at last publication gate");
+        Check(ApTreeHash(Active(a))==before,"SET failed final verification preserves active");
+        Check(runner.Run(Request(a)).Produced==0,"SET cancelled or damaged assembly resumes without decoding");
+
         // Source/output tamper invalidates the affected checkpoint, including its aggregate manifest.
         var layout=new AssetPrepLayout(a);
         File.AppendAllText(Path.Combine(layout.Staging("objects"),"objects","0.json")," ");
@@ -161,6 +173,7 @@ partial class Checks {
             ApRefused(()=>runner.Run(Request(a)),AssetPrepFailure.Busy,"SET concurrent set writer");
             ApRefused(()=>new AssetPrepRunner(fixture.Recipes).Run(new(fixture.Client,a,"text",TextRecipe.AllItems){Pins=fixture.Pins}),AssetPrepFailure.Busy,"SET concurrent library writer");
         }
+        ApRefused(()=>new AssetPrepRunner(fixture.Recipes).Run(new(fixture.Client,a,"text",TextRecipe.AllItems){Pins=fixture.Pins}),AssetPrepFailure.InvalidRequest,"SET library runner cannot partially overwrite a shared set");
         string junctionEngine=Path.Combine(root,"junction-engine");Directory.CreateDirectory(junctionEngine);
         if(!ApJunction(Active(junctionEngine),Active(a)))throw new Exception("SET could not create test junction");
         try{ApRefused(()=>runner.Run(Request(junctionEngine)),AssetPrepFailure.UnsafePath,"SET active junction");Check(ApTreeHash(Active(a))==before,"SET junction target untouched");}

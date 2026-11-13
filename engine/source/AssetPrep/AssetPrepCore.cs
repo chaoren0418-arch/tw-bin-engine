@@ -11,7 +11,7 @@ namespace P06.AssetPrep;
 // Adding a category (auto-discovery, docs/design/m6-contract.md「自動發現」): in your own file,
 //   [AssetRecipe] public sealed class XxxRecipe:IAssetRecipe{ … }      // public or internal parameterless constructor
 // Do not edit Program.cs or any registry; AssetRecipeDiscovery.Product finds it.
-// Not wired into start-up on purpose: there is no --prepare-assets entry and no "ready" state until every category is closed.
+// AssetPrepOrchestrator (T467) publishes a ready set; startup/launcher wiring belongs to T468.
 
 public enum AssetPrepFailure {
     /// <summary>Bad request: unknown recipe, empty or malformed item list, roots that overlap.</summary>
@@ -53,7 +53,8 @@ public sealed class AssetPrepException(AssetPrepFailure failure,string message,s
 }
 
 public enum AssetRecipeCoverage {
-    /// <summary>Only part of the category is closed: the receipt says "partial" and must never be treated as ready.</summary>
+    /// <summary>Only part of the category (the requested preheat items). The recipe receipt says "partial";
+    /// only the set orchestrator can declare ready after all required preheat items and categories pass.</summary>
     Partial,
     /// <summary>The recipe produces the whole category.</summary>
     Complete,
@@ -142,7 +143,7 @@ public sealed class AssetPrepLayout {
     /// <summary>Where the replaced active directory waits during a publish ('.' cannot occur in a recipe id).</summary>
     public string Previous(string recipeId)=>Staging(recipeId)+".previous";
     public string Lock(string recipeId)=>Staging(recipeId)+".lock";
-    public string SetLock=>Path.Combine(StagingRoot,"set.lock");
+    public string SetLock=>Path.Combine(StagingRoot,"set.writer.lock");
     public string SetCandidate=>Path.Combine(StagingRoot,"set.candidate");
     public string SetPrevious=>Path.Combine(StagingRoot,"set.previous");
 }

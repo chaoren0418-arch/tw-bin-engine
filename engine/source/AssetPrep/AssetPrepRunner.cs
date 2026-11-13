@@ -383,6 +383,8 @@ public sealed class AssetPrepRunner {
             Directory.CreateDirectory(layout.StagingRoot);
             CheckTargets();
             using var setWriter=stageOnly?null:AssetPrepLock.Acquire(layout.SetLock,"asset-set");
+            if(!stageOnly&&File.Exists(Path.Combine(layout.ActiveRoot,AssetSetReceipt.FileName)))
+                throw new AssetPrepException(AssetPrepFailure.InvalidRequest,"完整 assets 樹只能由總流程更新；單一 recipe 程式庫模式請使用獨立目錄");
             using var writer=AssetPrepLock.Acquire(layout.Lock(id),id);
             return RunLocked(request,recipe,layout,clientRoot,requested,CheckTargets,stageOnly);
         }
