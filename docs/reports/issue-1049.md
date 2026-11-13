@@ -66,7 +66,7 @@ B15 例外數：這張開工時是 7 列，拿掉 ground-catalog 後是 6 列；
 - 只編譯、沒有執行：`DemoChecks`（0 錯誤；3 個警告都在既有的 `DisplayNoticeChecks.cs`、`MacroChecks.cs`，不是這次改的檔）、`NpcChecks`、`GroundChecks`、`ResourceChecks` 都 0 錯誤。
 - `python -B -X utf8 engine/tools/check-no-game-assets.py` → `status: pass`、`errors: 0`、`embeddedResourceDeclarations: 1`（只剩 `P24.Audio` 的 combat-sfx-pins；產品 DLL 已經沒有內嵌資源，`ResourceChecks` 的核准清單對應改成空集合）、`b15Exceptions: 4`，4 列理由逐列印出（同步 main 之後的結果）。
 - `python -B -X utf8 engine/_integration/dev/ground-tests/verify-sources.py` → `PASS: 4 in-code SPR pins match #48, no server template fields in code, byte-exact #49 fixtures`。
-- CI：見 PR 的 checks（結果補在下面「CI 結果」）。
+- **CI 結果**（PR #1087，commit `f87f8061`）：`dotnet`、`map-continuity`、`npc-offline` 全部通過。`map-continuity` 這個 job 會跑 DemoChecks 的 `pickup` 群組，新增的 `ground-drop` 測試也在裡面。第一輪 `npc-offline` 失敗，原因是 `SellChecks.cs` 寫死了舊的肉圖示 124；改成合成物品的 9002 後通過。
 - `rebuild-lock.json` 沒有改。
 
 ## 沒有驗證的（待驗證）
