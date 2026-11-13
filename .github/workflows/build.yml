@@ -180,6 +180,12 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           dotnet run --project engine/_integration/dev/combat-sfx-tests/CombatSfxChecks.csproj -c Release --no-restore -- . none scratch/issue-433/selection.json --selection
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: 6016 sound provider from TW_CLIENT_ROOT with synthetic WAV T460 (no game assets or audio device)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force scratch/issue-1045 | Out-Null
+          dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-1045/audio-provider.json audio-provider
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Player chat format, palette and channel contracts (no game or network)
         shell: pwsh
         run: |
