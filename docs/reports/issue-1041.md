@@ -23,7 +23,7 @@
 
 - SHA 照舊：區塊與 TIL 用 manifest 的值，SEG 與 LAC 用程式裡的 pin（沒改）。客戶端在準備後被改動 → `InvalidDataException`，Tile 沒有該 entry → `FileNotFoundException`，客戶端目錄不存在 → `DirectoryNotFoundException`。
 - Client 模式下 `cache/manifest.json` 也照 integrity 核對 SHA（Packaged 模式維持原本不核對的行為）。
-- `PlainArchive`：Tile 的結構檢查（idx 大小 = 筆數 × 28 ＋ 4、entry 不超出 pak、名稱不重複），記 idx SHA，**不 pin 整包 Tile.pak**（§1.1 第 3 點）。產品既有的 `ClientArchive`／`UiResourcePins.Tile` 沒動（D1 範圍外）。
+- `PlainArchive`（執行期用，丟 `InvalidDataException`；準備器那邊用 T454 的 `PrepArchive`）：Tile 的結構檢查（idx 大小 = 筆數 × 28 ＋ 4、entry 不超出 pak、名稱不重複），記 idx SHA，**不 pin 整包 Tile.pak**（§1.1 第 3 點）。產品既有的 `ClientArchive`／`UiResourcePins.Tile` 沒動（D1 範圍外）。
 - client 路徑只接受 `map/<十進位>/<8 個十六進位>.(s32|seg)`；LAC 名稱只接受 `<英數>.lac`。
 - `WorldSession.MapClientRoot`（`MapResources.cs`，null = `UiResourcePins.ClientRoot`，即 `TW_CLIENT_ROOT`）傳給 `WorldEntry`、`SceneOpacity`、`Portals` 的讀取點；`OriginalMapCache`／`OriginalMapStore` 建構式多一個可省略的 `clientRoot`。
 
@@ -50,7 +50,7 @@
 ### 4. 準備器核心（§4.6 分給 T456 的缺口）
 
 - `IAssetRecipeSources`／`AssetPrepSources`：recipe 宣告讀 `Tile`、`MapFiles`；沒宣告的維持只開 17 個 Sprite 容器（inventory 不變）。maps recipe 不開 Sprite 容器，所以不受 D1（Sprite03–14 pin 不符）影響。
-- `AssetPrepInput`：Tile 結構檢查（記 idx SHA 與 pak 大小，pak SHA 欄位留空）、`map/` 目錄列舉、讀檔；每個用到的檔記進收據（`Tile/<entry>`、`map/<目錄>/<檔名>`，另外每個目錄記一筆檔名清單的 SHA，加檔或刪檔都會讓續跑重做）。`Verify` 支援這兩種來源，續跑與「已是最新」都能判斷。
+- `AssetPrepInput`：Tile 用 T454 的 `PrepArchive` 做同樣的結構檢查（收據記 idx 大小、idx SHA、pak 大小，與 Sprite 容器一致）、`map/` 目錄列舉、讀檔；每個用到的檔記進收據（`Tile/<entry>`、`map/<目錄>/<檔名>`，另外每個目錄記一筆檔名清單的 SHA，加檔或刪檔都會讓續跑重做）。`Verify` 支援這兩種來源，續跑與「已是最新」都能判斷。
 - 串流寫入：`AssetRecipeItemContext.Write(path, Action<Stream>)`，manifest 直接寫檔，大小與 SHA 從寫好的檔案算。
 
 ### 5. 測試

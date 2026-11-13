@@ -160,7 +160,7 @@ partial class Checks {
 
         // --- 4. 收據：只有 Tile（結構檢查，沒有整包 pin）與 map 來源。
         var receipt=AssetReceipt.TryLoad(Out(engineA,AssetReceipt.FileName))??throw new Exception("MP receipt does not load");
-        Check(receipt.Inputs.Count==1&&receipt.Inputs[0] is {Name:"Tile",PakSha256:"",PakVerified:false}&&receipt.Inputs[0].IndexSha256==Sha(File.ReadAllBytes(Path.Combine(client.Root,"Tile.idx")))&&receipt.Inputs[0].PakSize==new FileInfo(Path.Combine(client.Root,"Tile.pak")).Length,"MP receipt inputs: Tile idx SHA-256 and pak size only, no Sprite container");
+        Check(receipt.Inputs.Count==1&&receipt.Inputs[0] is {Name:"Tile"}&&receipt.Inputs[0].IndexSize==new FileInfo(Path.Combine(client.Root,"Tile.idx")).Length&&receipt.Inputs[0].IndexSha256==Sha(File.ReadAllBytes(Path.Combine(client.Root,"Tile.idx")))&&receipt.Inputs[0].PakSize==new FileInfo(Path.Combine(client.Root,"Tile.pak")).Length,"MP receipt inputs: Tile idx SHA-256 and pak size only, no Sprite container");
         var mapsItem=receipt.Completed.Single(c=>c.Item=="maps");
         Check(mapsItem.Sources.Any(s=>s is {Container:"map",Entry:"map/0/7ffd8002.s32"}&&s.Sha256==Sha(client.Files["map/0/7ffd8002.s32"]))&&mapsItem.Sources.Any(s=>s is {Container:"Tile",Entry:"140.til"})&&mapsItem.Sources.Any(s=>s is {Container:"map",Entry:"map/4/"}),"MP receipt sources: map files, directory listings and Tile entries");
         Check(mapsItem.Metadata["unsupportedMaps"]=="7"&&mapsItem.Metadata["missingTileIds"]=="9999"&&receipt.Status==AssetReceipt.Partial,"MP receipt metadata and partial status");

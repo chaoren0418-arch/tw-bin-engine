@@ -41,7 +41,7 @@ public sealed record AssetReceipt(string Schema,string ToolVersion,string Recipe
             if(!File.Exists(path))return null;
             var r=JsonSerializer.Deserialize<AssetReceipt>(File.ReadAllBytes(path),json);
             bool valid=r is {Schema:SchemaId,ToolVersion:not null,RecipeId:not null,Status:not null,Inputs:not null,Requested:not null,Completed:not null}
-                &&r.Inputs.All(i=>i is {Name:not null,IndexSha256:not null,PakSha256:not null})
+                &&r.Inputs.All(i=>i is {Name:not null,IndexSha256:not null})
                 &&r.Requested.All(x=>x!=null)
                 &&r.Completed.All(c=>c is {Item:not null,Sources:not null,Outputs:not null,Metadata:not null}
                     &&c.Sources.All(s=>s is {Container:not null,Entry:not null,Sha256:not null})
@@ -52,7 +52,7 @@ public sealed record AssetReceipt(string Schema,string ToolVersion,string Recipe
     }
 }
 
-/// <summary>What a recipe may do while producing one item: read pinned input (recorded as sources) and write below its own staging directory.</summary>
+/// <summary>What a recipe may do while producing one item: read the client's containers (every entry read is recorded as a source) and write below its own staging directory.</summary>
 public sealed class AssetRecipeItemContext {
     readonly AssetPrepInput input;
     readonly string directory;
@@ -62,20 +62,36 @@ public sealed class AssetRecipeItemContext {
     readonly SortedDictionary<string,string> metadata=new(StringComparer.Ordinal);
     public string Item{get;}
     public CancellationToken Cancel{get;}
-    internal AssetRecipeItemContext(string item,AssetPrepInput input,string directory,HashSet<string> taken,CancellationToken cancel){
-        Item=item;this.input=input;this.directory=directory;this.taken=taken;Cancel=cancel;
+    /// <summary>Every item of this run in canonical order (what Normalize returned). A run publishes only when all of them are done.</summary>
+    public IReadOnlyList<string> Requested{get;}
+    internal AssetRecipeItemContext(string item,AssetPrepInput input,string directory,HashSet<string> taken,IReadOnlyList<string> requested,CancellationToken cancel){
+        Item=item;this.input=input;this.directory=directory;this.taken=taken;Requested=requested;Cancel=cancel;
     }
 
+    /// <summary>The animation table (Text/list.spz), anchor-checked; recorded once as a source of this item.</summary>
+    public SpriteList ReadSpriteList(){
+        var hit=input.ReadSpriteList();
+        if(!sources.Contains(hit.Source))sources.Add(hit.Source);
+        return hit.List;
+    }
     public int SpriteCount=>input.SpriteCount;
     public string SpriteName(int archive)=>input.SpriteName(archive);
     /// <summary>Entry bytes from a Sprite container (0 = Sprite, 1+h = Sprite{h:00}), or null when it has no such entry.</summary>
     public byte[]? TryReadSprite(int archive,string name){
         if(input.TryReadSprite(archive,name) is not {} hit)return null;
-        sources.Add(hit.Source);return hit.Data;
+        if(!sources.Contains(hit.Source))sources.Add(hit.Source);
+        return hit.Data;
     }
     /// <summary>A pinned Text entry, decoded.</summary>
     public byte[] ReadText(string name,string decodedSha256){
         var hit=input.ReadText(name,decodedSha256);
+        sources.Add(hit.Source);return hit.Decoded;
+    }
+    /// <summary>Every Text index row, in index order (names can repeat).</summary>
+    public IReadOnlyList<TextArchive.Entry> TextEntries()=>input.TextEntries();
+    /// <summary>One Text index row, decoded; recorded as a source with the SHA-256 of the decoded bytes.</summary>
+    public byte[] ReadTextEntry(TextArchive.Entry entry){
+        var hit=input.ReadTextEntry(entry);
         sources.Add(hit.Source);return hit.Decoded;
     }
 
@@ -164,7 +180,7 @@ public sealed record AssetPrepResult(AssetPrepOutcome Outcome,string ActiveDirec
 
 public sealed class AssetPrepRunner {
     /// <summary>Recorded in every receipt; staged work of another tool version is discarded.</summary>
-    public const string ToolVersion="tw-asset-prep/1";
+    public const string ToolVersion="tw-asset-prep/2";   // 2 (T454): receipt inputs are idx size / idx SHA-256 / pak size, no whole-pak hash
     readonly Dictionary<string,IAssetRecipe> recipes=new(StringComparer.Ordinal);
 
     public AssetPrepRunner(IEnumerable<IAssetRecipe> recipes){
@@ -197,7 +213,7 @@ public sealed class AssetPrepRunner {
 
     static bool SameIdentity(AssetReceipt receipt,IAssetRecipe recipe,IReadOnlyList<AssetContainerRecord> inputs)=>
         receipt.ToolVersion==ToolVersion&&receipt.RecipeId==recipe.Id&&receipt.RecipeVersion==recipe.Version&&receipt.Inputs.Count==inputs.Count
-        &&receipt.Inputs.Zip(inputs).All(p=>p.First.Name==p.Second.Name&&p.First.IndexSha256==p.Second.IndexSha256&&p.First.PakSha256==p.Second.PakSha256&&p.First.PakSize==p.Second.PakSize);
+        &&receipt.Inputs.Zip(inputs).All(p=>p.First==p.Second);
 
     static bool OutputIntact(string directory,AssetReceiptOutput output){
         try{
@@ -278,8 +294,10 @@ public sealed class AssetPrepRunner {
         var taken=new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         if(Directory.Exists(staging)&&AssetReceipt.TryLoad(Path.Combine(staging,AssetReceipt.FileName)) is {} earlier&&SameIdentity(earlier,recipe,identity)){
             var wanted=requested.ToHashSet(StringComparer.Ordinal);
+            bool sameRequest=earlier.Requested.SequenceEqual(requested,StringComparer.Ordinal);
             foreach(var item in earlier.Completed){
                 if(!wanted.Contains(item.Item)||done.ContainsKey(item.Item))continue;
+                if(!sameRequest&&recipe.DependsOnRequest(item.Item))continue;
                 if(item.Outputs.Any(o=>taken.Contains(o.RelativePath))||item.Outputs.Select(o=>o.RelativePath).Distinct(StringComparer.OrdinalIgnoreCase).Count()!=item.Outputs.Count)continue;
                 if(!item.Outputs.All(o=>OutputIntact(staging,o))||!item.Sources.All(input.Verify))continue;
                 done[item.Item]=new(item.Item,item.Sources.ToList(),item.Outputs.ToList(),new SortedDictionary<string,string>(item.Metadata.ToDictionary(m=>m.Key,m=>m.Value),StringComparer.Ordinal));
@@ -303,7 +321,7 @@ public sealed class AssetPrepRunner {
         foreach(string item in requested){
             request.Cancel.ThrowIfCancellationRequested();
             if(done.ContainsKey(item)){reused.Add(item);continue;}
-            var context=new AssetRecipeItemContext(item,input,staging,taken,request.Cancel);
+            var context=new AssetRecipeItemContext(item,input,staging,taken,requested,request.Cancel);
             recipe.Produce(item,context);
             done[item]=context.Build();
             WriteReceipt(staging,Snapshot(AssetReceipt.InProgress));

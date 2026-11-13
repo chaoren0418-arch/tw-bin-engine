@@ -434,3 +434,5 @@
 - 2026-11-13 — #1054 b15-web-local-images: T469 web 圖片：F9 面板的 icons／ground 一律由本機即時產生（code，claude-local，PR #1069 已合併）→ [報告](reports/issue-1054.md)
 - 2026-11-13 — #1033 b15-src-motion-blend: T448 來源閉合：motion.json 與三張混色查表改為純程式算法（resource，claude-local，PR #1070 已合併）→ [報告](reports/issue-1033.md)
 - 2026-11-13 — #1037 b15-recipe-contract: T452 設計：依七張來源閉合結果定 recipe 契約與已知限制清單（design，claude-local，PR #1071 已合併）→ [報告](reports/issue-1037.md)
+- 2026-11-13 — #1038 b15-prep-text: T453 準備器：文字類（dialogs/templates.json、objects/names.json）（code，claude-local，PR #1075 已合併）→ [報告](reports/issue-1038.md)
+- 2026-11-13 — #1039 b15-prep-sprites-a: T454 準備器：SPR 共用解碼與 character、objects（一般／武器／projectile／magic／world）（code，claude-local，PR 已合併）→ [報告](reports/issue-1039.md)
