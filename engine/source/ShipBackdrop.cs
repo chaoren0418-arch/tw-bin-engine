@@ -49,10 +49,11 @@ public sealed partial class WorldSession {
     internal ShipBackdropState? PrepareShipBackdrop(long now){if(!ShipRules.Supported(MapId))return null;shipBackdrop.Advance(now);return shipBackdrop;}
 }
 public sealed partial class Renderer {
-    ShipBackdropState? shipBackdrop;ushort shipMap;ShipLac? waterLac,pier1Lac,pier5Lac;
+    ShipBackdropState? shipBackdrop;ushort shipMap;ShipLac? waterLac,pier1Lac,pier5Lac;MapRawSource? shipSource;
     public bool HasShipBackdrop=>shipBackdrop!=null&&mapCache?.MapId==shipMap;
     void PrepareShipBackdrop(WorldSession session,long now){shipBackdrop=session.PrepareShipBackdrop(now);shipMap=session.MapId??0;if(shipBackdrop==null)return;
-        ShipLac Load(string name,string hash){byte[] b=File.ReadAllBytes(Path.Combine(assets.Root,"maps/ship",name));if(!Convert.ToHexString(SHA256.HashData(b)).Equals(hash,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("ship backdrop integrity: "+name);return new(b);}
+        // T456: assets/maps/ship (packaged tree) or the Tile.pak entry (prepared tree); the three pins below are unchanged.
+        ShipLac Load(string name,string hash){shipSource??=MapRawSource.Open(assets.Root,session.MapClientRoot);return new(shipSource.ShipLac(name,hash));}
         waterLac??=Load("Water.lac","36055e0acb7e5234c1f1cce27d41ca102be736991fd29b0f5071ca7d4fc7f2b3");pier1Lac??=Load("Pier1.lac","2202bf29f48675004fb2e2e73d6296ccd2c30e0789d1d5ba882a57bd67609f0a");pier5Lac??=Load("Pier5.lac","c5e619634f9cb34c6c7e7f5fd0b340c213fe3f6fd78edf336e363bb558c52fd4");
     }
     void FillShipBackdrop(Rectangle area,ushort[] colors,bool[] mask){

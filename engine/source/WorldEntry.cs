@@ -62,8 +62,8 @@ public sealed partial class LoginConnection {
     }
     async Task LoadWorldMap(int epoch,MapLoadRequest request,CancellationTokenSource cts){
         try{
-            var factory=MapLoader;var assetsRoot=World.MapAssetsRoot;
-            var task=factory!=null?factory(request,cts.Token):Task.Run(()=>new OriginalMapCache(assetsRoot,request.X,request.Y,request.Map,cts.Token),cts.Token);
+            var factory=MapLoader;var assetsRoot=World.MapAssetsRoot;var clientRoot=World.MapClientRoot;
+            var task=factory!=null?factory(request,cts.Token):Task.Run(()=>new OriginalMapCache(assetsRoot,request.X,request.Y,request.Map,cts.Token,clientRoot),cts.Token);
             var cache=await task.WaitAsync(TimeSpan.FromMilliseconds(WorldEntryTiming.LocalTimeoutMs),cts.Token);
             if(epoch!=generation||cts.IsCancellationRequested)return;
             lock(worldCaptureGate){if(World.CompleteMapLoad(request,cache))PublishWorldProgress();}

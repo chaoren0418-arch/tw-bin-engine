@@ -20,10 +20,11 @@ public static class PortalPackets {
 // the exact source already accepted by OriginalMapStore; destinations stay server-owned.
 internal sealed class PortalCatalog {
     readonly string root;
+    readonly MapRawSource source;
     readonly Dictionary<string,JsonElement> entries;
     readonly ConditionalWeakTable<OriginalMapBlock,HashSet<(int,int)>> cells=new();
-    internal PortalCatalog(string assetsRoot,int map){
-        root=Path.Combine(assetsRoot,"maps");
+    internal PortalCatalog(string assetsRoot,int map,string? clientRoot=null){
+        root=Path.Combine(assetsRoot,"maps");source=MapRawSource.Open(assetsRoot,clientRoot);
         using var integrity=JsonDocument.Parse(File.ReadAllBytes(Path.Combine(assetsRoot,"integrity.json")));
         var pin=integrity.RootElement.GetProperty("files").EnumerateArray().Single(p=>p.S("path")=="maps/manifest.json");
         using var manifest=JsonDocument.Parse(Verified(Path.Combine(root,"manifest.json"),pin.S("sha256")));
@@ -50,7 +51,10 @@ internal sealed class PortalCatalog {
         if(!entry.S("sha256").Equals(block.Sha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("portal block identity changed");
         bool seg=entry.TryGetProperty("format",out var format)&&format.GetString()=="classic-seg";
         if(seg&&(block.Name!="7fff8000"||block.Sha256!="aad5ff598f9daeb6574fcef8fdaa1b3b2963d6c0d60d8840057ef48d39101a45"))throw new NotSupportedException("unverified portal SEG profile");
-        return ReadCells(Verified(Path.Combine(root,entry.S("path")),block.Sha256),seg);
+        byte[] bytes;
+        try{bytes=source.Block(entry.S("path"),block.Sha256);}
+        catch(InvalidDataException ex) when(ex.Message.StartsWith("Original cache source hash",StringComparison.Ordinal)){throw new InvalidDataException("portal source hash mismatch",ex);}
+        return ReadCells(bytes,seg);
     }
     internal static HashSet<(int,int)> ReadCells(byte[] bytes,bool seg){
         using var reader=new BinaryReader(new MemoryStream(bytes,false));
@@ -75,7 +79,7 @@ public sealed partial class LoginConnection {
     async Task EnterPortalAtArrival(int x,int y,int session,int world,int corrections){
         if(session!=generation||world!=World.WorldEpoch||corrections!=World.Corrections||!MovementAvailable||World.MapCache is not {} cache||World.MapId!=cache.MapId||World.Actor is not {} actor||actor.X!=x||actor.Y!=y||sendMovementGate is not {} sender)return;
         try{
-            var catalog=portalCatalogs.GetValue(cache,c=>new(World.MapAssetsRoot,c.MapId));
+            var catalog=portalCatalogs.GetValue(cache,c=>new(World.MapAssetsRoot,c.MapId,World.MapClientRoot));
             if(!catalog.Contains(cache,x,y))return;
         }catch(Exception ex) when(ex is IOException or InvalidDataException or UnauthorizedAccessException or JsonException or InvalidOperationException or NotSupportedException or KeyNotFoundException){
             World.MotionNotice="入口資料無法核驗；未送出入口請求。";Set(State,World.MotionNotice);return;

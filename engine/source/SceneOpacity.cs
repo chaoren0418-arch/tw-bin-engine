@@ -114,7 +114,7 @@ public sealed partial class WorldSession {
                 // A distant authoritative correction cannot be satisfied by one adjacent 2x2 shift.
                 if(MapCache==null||MapCache.MapId!=map||!MapCache.Contains(a.X,a.Y)){
                     if(MapCache!=null)ResetOpacity();
-                    if(AsyncMapLoading){RequestMapLoad(a,map);return;}MapResourceState="loading";MapResourceNotice=$"載入地圖 {map}…";var fresh=new OriginalMapCache(MapAssetsRoot,a.X,a.Y,map);MapCache=fresh;sceneOpacity=new(fresh.Catalog);
+                    if(AsyncMapLoading){RequestMapLoad(a,map);return;}MapResourceState="loading";MapResourceNotice=$"載入地圖 {map}…";var fresh=new OriginalMapCache(MapAssetsRoot,a.X,a.Y,map,default,MapClientRoot);MapCache=fresh;sceneOpacity=new(fresh.Catalog);
                 }
                 else if(MapCache.Move(a.X,a.Y))sceneOpacity!.Rebind(MapCache.Catalog);
                 MapCache.ActivateEffects(now);Sync6016(now);
