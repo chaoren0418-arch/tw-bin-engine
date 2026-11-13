@@ -1,0 +1,719 @@
+{
+  "scope": "read-only baseline integrity and direct source bytes; NOT C# preparer verification",
+  "baselineIntegritySha256": "07dd19f4407ec3f2bf61da9c00cca827cbbe206866863a87a77f17fce7a18b98",
+  "baselineTarget": "D:\\lineage開發\\TW1608262200研究\\releases\\r29\\assets",
+  "baseline": {
+    "cache": {
+      "files": 378,
+      "bytes": 37687310,
+      "matched": 378,
+      "mismatched": 0
+    },
+    "character": {
+      "files": 103,
+      "bytes": 7028561,
+      "matched": 103,
+      "mismatched": 0
+    },
+    "dialogs": {
+      "files": 2,
+      "bytes": 9183942,
+      "matched": 2,
+      "mismatched": 0
+    },
+    "doors": {
+      "files": 2,
+      "bytes": 424972,
+      "matched": 2,
+      "mismatched": 0
+    },
+    "encountered-monsters.json": {
+      "files": 1,
+      "bytes": 8433,
+      "matched": 1,
+      "mismatched": 0
+    },
+    "ground": {
+      "files": 4,
+      "bytes": 14410,
+      "matched": 4,
+      "mismatched": 0
+    },
+    "inventory": {
+      "files": 20,
+      "bytes": 17018,
+      "matched": 20,
+      "mismatched": 0
+    },
+    "magic": {
+      "files": 1,
+      "bytes": 1626,
+      "matched": 1,
+      "mismatched": 0
+    },
+    "maps": {
+      "files": 13304,
+      "bytes": 1594410357,
+      "matched": 13304,
+      "mismatched": 0
+    },
+    "motion.json": {
+      "files": 1,
+      "bytes": 2250,
+      "matched": 1,
+      "mismatched": 0
+    },
+    "objects": {
+      "files": 54,
+      "bytes": 253124370,
+      "matched": 54,
+      "mismatched": 0
+    },
+    "players": {
+      "files": 39,
+      "bytes": 192141888,
+      "matched": 39,
+      "mismatched": 0
+    },
+    "scene": {
+      "files": 13,
+      "bytes": 65145865,
+      "matched": 13,
+      "mismatched": 0
+    },
+    "shops": {
+      "files": 12,
+      "bytes": 29666183,
+      "matched": 12,
+      "mismatched": 0
+    },
+    "terrain0.bin": {
+      "files": 1,
+      "bytes": 8192,
+      "matched": 1,
+      "mismatched": 0
+    },
+    "world-appearances.json": {
+      "files": 1,
+      "bytes": 2679,
+      "matched": 1,
+      "mismatched": 0
+    },
+    "shadows": {
+      "files": 18,
+      "bytes": 33812613,
+      "matched": 18,
+      "mismatched": 0
+    },
+    "audio-manifest.json": {
+      "files": 1,
+      "bytes": 3346,
+      "matched": 1,
+      "mismatched": 0
+    },
+    "sound": {
+      "files": 2,
+      "bytes": 39070,
+      "matched": 2,
+      "mismatched": 0
+    }
+  },
+  "baselineFailures": [],
+  "integritySeconds": 123.27274730001227,
+  "rawSourceBytes": {
+    "cache/map": {
+      "files": 20,
+      "bytes": 2429620,
+      "matched": 20,
+      "mismatched": 0
+    },
+    "cache/tiles": {
+      "files": 353,
+      "bytes": 34445943,
+      "matched": 353,
+      "mismatched": 0
+    },
+    "maps/map": {
+      "files": 7198,
+      "bytes": 828455751,
+      "matched": 7198,
+      "mismatched": 0
+    },
+    "maps/ship": {
+      "files": 3,
+      "bytes": 709197,
+      "matched": 3,
+      "mismatched": 0
+    },
+    "maps/tiles": {
+      "files": 5052,
+      "bytes": 555746825,
+      "matched": 5052,
+      "mismatched": 0
+    },
+    "sound": {
+      "files": 2,
+      "bytes": 39070,
+      "matched": 2,
+      "mismatched": 0
+    }
+  },
+  "rawFailures": [],
+  "tileIndexRecords": 5446,
+  "rawSeconds": 81.44734719998087,
+  "preparerExecutions": 0,
+  "preparerEquivalence": "not-run",
+  "faultCasesExecuted": 0,
+  "revision": "b581cca60d5881fd641a6395c6fd51c5f0cb68b6",
+  "containerAudit": {
+    "beforeSeconds": 43.088567600003444,
+    "afterSeconds": 51.67692639998859,
+    "bytes": 9186505456,
+    "matched": 38,
+    "unchanged": true,
+    "before": [
+      {
+        "path": "Sprite.idx",
+        "size": 2585972,
+        "sha256": "327c06372d87f6cf6d5176da51da5ef1f94dbf388d1588b735c5965b96b6a52b"
+      },
+      {
+        "path": "Sprite.pak",
+        "size": 1904012586,
+        "sha256": "4dd4e5348fbad2e69bae9cc388be23d7becebe8423ad9f79f393c1457a69ee62"
+      },
+      {
+        "path": "Sprite00.idx",
+        "size": 285800,
+        "sha256": "15b46ae6995b5b3d64a27a509c78847f0329ba55360a200961a7ecb73b13c96c"
+      },
+      {
+        "path": "Sprite00.pak",
+        "size": 450577933,
+        "sha256": "64741119e853880e0e31009cf06145a5f21520b5264d07ece5541ba701a01c9d"
+      },
+      {
+        "path": "Sprite01.idx",
+        "size": 286500,
+        "sha256": "1e4c819debe37449691142025692ac1ff1d1f82c148830c76338e7fdff8cdd8f"
+      },
+      {
+        "path": "Sprite01.pak",
+        "size": 422714941,
+        "sha256": "a46a5a85e56c03cc6b1d7ed7cddf3d59e8887612313842cde9822b76932b5ac5"
+      },
+      {
+        "path": "Sprite02.idx",
+        "size": 288964,
+        "sha256": "a0208077cfa7e76280641f1a2bf7f7aeacc43b6f9a16e21771ebd732e791ae5c"
+      },
+      {
+        "path": "Sprite02.pak",
+        "size": 412811463,
+        "sha256": "88858f8eaf57854d50ea21f2d84dd3d3e8c1d3fb30c5c583af2175fc465cde0c"
+      },
+      {
+        "path": "Sprite03.idx",
+        "size": 292828,
+        "sha256": "bb26979cf21f7655b3f5d57e2c0d152f8ca7e755ad66f1801a1edb455245cd72"
+      },
+      {
+        "path": "Sprite03.pak",
+        "size": 422963990,
+        "sha256": "3a1d8c976c70ad908f9b9f5de16f65cbcfa1cad47e5de7f84e615e18c8363f8d"
+      },
+      {
+        "path": "Sprite04.idx",
+        "size": 296608,
+        "sha256": "7c801f623f68bdca50271dbdddc2fefbcac990e9e9ef60776f48daa73f9cd1f5"
+      },
+      {
+        "path": "Sprite04.pak",
+        "size": 396506828,
+        "sha256": "8f4bbb0c296208c3d6a7ba6fc666d313a25621650d455557e709ebbbabfd14dd"
+      },
+      {
+        "path": "Sprite05.idx",
+        "size": 299604,
+        "sha256": "659b4cd84092e9de5b76b0ffa4793b562213b42bcf0a9771eb0e85e6aa5e379b"
+      },
+      {
+        "path": "Sprite05.pak",
+        "size": 370799127,
+        "sha256": "9bb611e401b2f48e4f0a89f7eeb79165d4b182ca082e6c09b36b3a46d9f7f93e"
+      },
+      {
+        "path": "Sprite06.idx",
+        "size": 303636,
+        "sha256": "45aa43f0ec1a1480e82c27379bd25b433f960f27160b87bf5e0dfe9f67d831e4"
+      },
+      {
+        "path": "Sprite06.pak",
+        "size": 399499710,
+        "sha256": "4514513774f4e591e1140efc801fe390231f405f4d030c2f0701aad6ff5e01b3"
+      },
+      {
+        "path": "Sprite07.idx",
+        "size": 306576,
+        "sha256": "c49468722b1265864cf66f169c09d1318f0decd4817af9f15cd8ebb67f6c98ab"
+      },
+      {
+        "path": "Sprite07.pak",
+        "size": 429001722,
+        "sha256": "7e4e7797e16471ed9bf8adbce6724e21c992a7a860bb10832214d3e9a94663ae"
+      },
+      {
+        "path": "Sprite08.idx",
+        "size": 307220,
+        "sha256": "4eb34a830bbae9d3c3ce112d83a2cc3dd96d0312bfa798ed59542f403924c63c"
+      },
+      {
+        "path": "Sprite08.pak",
+        "size": 405698718,
+        "sha256": "4fd3a06362673f2e5a3cb1434777366d32c6edad1a330e400d092ce62fd32e04"
+      },
+      {
+        "path": "Sprite09.idx",
+        "size": 307164,
+        "sha256": "cc8b83fe4010ee5a3fa470466a414931bd2e61308972d76c610ada8ea1c04896"
+      },
+      {
+        "path": "Sprite09.pak",
+        "size": 409918765,
+        "sha256": "06b8a0a98bbbf25871957c06e767247d92be49c9745aec4fc8593bbfab91e466"
+      },
+      {
+        "path": "Sprite10.idx",
+        "size": 304140,
+        "sha256": "7b4688cf2b01c7889a5e6ef8f06309c52c8aad781537bff92d23ed543e08fb8d"
+      },
+      {
+        "path": "Sprite10.pak",
+        "size": 401370637,
+        "sha256": "bd19155dccfc3a7c7dfc5adafa63ce63d65e6640a4a6d43f363093b3b3f245c2"
+      },
+      {
+        "path": "Sprite11.idx",
+        "size": 300052,
+        "sha256": "a190e3e9e54753d89b2ae1209910ad053e6be1d857e895f01631e6da9c7dd88e"
+      },
+      {
+        "path": "Sprite11.pak",
+        "size": 408635715,
+        "sha256": "f2d47ff75c12e25a49ef1018bc74284535fb452770434ba17fc44d7637424a78"
+      },
+      {
+        "path": "Sprite12.idx",
+        "size": 294620,
+        "sha256": "2c271ef696788ba1f44acaf0a8fe93e4abae5c88a57d6103e3ccb84c4b319541"
+      },
+      {
+        "path": "Sprite12.pak",
+        "size": 392475964,
+        "sha256": "cf1fa59d39a9c3a4ad4afcd2ef11382c48946f88bd5b29cf1a627f1aee5a5a46"
+      },
+      {
+        "path": "Sprite13.idx",
+        "size": 290000,
+        "sha256": "333d0670a4e2fe47c51b62f4f60de2a579b4b7bc5b9f0910bb2a7f79502c671b"
+      },
+      {
+        "path": "Sprite13.pak",
+        "size": 404079327,
+        "sha256": "ce206c743f0f7744bb7153791be27b6fb84e5c34f91b8cb92f2c6a520294c946"
+      },
+      {
+        "path": "Sprite14.idx",
+        "size": 287144,
+        "sha256": "51802133f6be2bb7a8e727c58f5da299b9c67c707506e2931ff63b1a4d4633cf"
+      },
+      {
+        "path": "Sprite14.pak",
+        "size": 442917643,
+        "sha256": "55a73c6b6f3315f5e5ea81e7b4d9c7b120f61e41864297f01b4c1f306f65c6d4"
+      },
+      {
+        "path": "Sprite15.idx",
+        "size": 285156,
+        "sha256": "874b53afe762c43415e25204f4e8fcf405f36adfaca6b9258bd84c1eb1d4c441"
+      },
+      {
+        "path": "Sprite15.pak",
+        "size": 484407291,
+        "sha256": "864800d2afbd8b38ed9bfcc08a0079b27fbf53f018de562f4cba6fe54dccabd2"
+      },
+      {
+        "path": "Text.idx",
+        "size": 1049948,
+        "sha256": "43a342ad3929b541096630165c04794192c48359ecbf116b538eaffc49741f6f"
+      },
+      {
+        "path": "Text.pak",
+        "size": 26267704,
+        "sha256": "9516a372c43b269cf1af7adc0ac00abd4163e1235dcd846e34294849616a37ff"
+      },
+      {
+        "path": "Tile.idx",
+        "size": 152492,
+        "sha256": "9291fd800ac8cae6dc355c1d8bbb965880561de169fbc7ea22d174fff9ad24db"
+      },
+      {
+        "path": "Tile.pak",
+        "size": 593320968,
+        "sha256": "82e52f47317f9a55ef775bbfce3c5f26f42b31a98748ffaa84ce5e2c3ed60d4a"
+      }
+    ],
+    "after": [
+      {
+        "path": "Sprite.idx",
+        "size": 2585972,
+        "sha256": "327c06372d87f6cf6d5176da51da5ef1f94dbf388d1588b735c5965b96b6a52b"
+      },
+      {
+        "path": "Sprite.pak",
+        "size": 1904012586,
+        "sha256": "4dd4e5348fbad2e69bae9cc388be23d7becebe8423ad9f79f393c1457a69ee62"
+      },
+      {
+        "path": "Sprite00.idx",
+        "size": 285800,
+        "sha256": "15b46ae6995b5b3d64a27a509c78847f0329ba55360a200961a7ecb73b13c96c"
+      },
+      {
+        "path": "Sprite00.pak",
+        "size": 450577933,
+        "sha256": "64741119e853880e0e31009cf06145a5f21520b5264d07ece5541ba701a01c9d"
+      },
+      {
+        "path": "Sprite01.idx",
+        "size": 286500,
+        "sha256": "1e4c819debe37449691142025692ac1ff1d1f82c148830c76338e7fdff8cdd8f"
+      },
+      {
+        "path": "Sprite01.pak",
+        "size": 422714941,
+        "sha256": "a46a5a85e56c03cc6b1d7ed7cddf3d59e8887612313842cde9822b76932b5ac5"
+      },
+      {
+        "path": "Sprite02.idx",
+        "size": 288964,
+        "sha256": "a0208077cfa7e76280641f1a2bf7f7aeacc43b6f9a16e21771ebd732e791ae5c"
+      },
+      {
+        "path": "Sprite02.pak",
+        "size": 412811463,
+        "sha256": "88858f8eaf57854d50ea21f2d84dd3d3e8c1d3fb30c5c583af2175fc465cde0c"
+      },
+      {
+        "path": "Sprite03.idx",
+        "size": 292828,
+        "sha256": "bb26979cf21f7655b3f5d57e2c0d152f8ca7e755ad66f1801a1edb455245cd72"
+      },
+      {
+        "path": "Sprite03.pak",
+        "size": 422963990,
+        "sha256": "3a1d8c976c70ad908f9b9f5de16f65cbcfa1cad47e5de7f84e615e18c8363f8d"
+      },
+      {
+        "path": "Sprite04.idx",
+        "size": 296608,
+        "sha256": "7c801f623f68bdca50271dbdddc2fefbcac990e9e9ef60776f48daa73f9cd1f5"
+      },
+      {
+        "path": "Sprite04.pak",
+        "size": 396506828,
+        "sha256": "8f4bbb0c296208c3d6a7ba6fc666d313a25621650d455557e709ebbbabfd14dd"
+      },
+      {
+        "path": "Sprite05.idx",
+        "size": 299604,
+        "sha256": "659b4cd84092e9de5b76b0ffa4793b562213b42bcf0a9771eb0e85e6aa5e379b"
+      },
+      {
+        "path": "Sprite05.pak",
+        "size": 370799127,
+        "sha256": "9bb611e401b2f48e4f0a89f7eeb79165d4b182ca082e6c09b36b3a46d9f7f93e"
+      },
+      {
+        "path": "Sprite06.idx",
+        "size": 303636,
+        "sha256": "45aa43f0ec1a1480e82c27379bd25b433f960f27160b87bf5e0dfe9f67d831e4"
+      },
+      {
+        "path": "Sprite06.pak",
+        "size": 399499710,
+        "sha256": "4514513774f4e591e1140efc801fe390231f405f4d030c2f0701aad6ff5e01b3"
+      },
+      {
+        "path": "Sprite07.idx",
+        "size": 306576,
+        "sha256": "c49468722b1265864cf66f169c09d1318f0decd4817af9f15cd8ebb67f6c98ab"
+      },
+      {
+        "path": "Sprite07.pak",
+        "size": 429001722,
+        "sha256": "7e4e7797e16471ed9bf8adbce6724e21c992a7a860bb10832214d3e9a94663ae"
+      },
+      {
+        "path": "Sprite08.idx",
+        "size": 307220,
+        "sha256": "4eb34a830bbae9d3c3ce112d83a2cc3dd96d0312bfa798ed59542f403924c63c"
+      },
+      {
+        "path": "Sprite08.pak",
+        "size": 405698718,
+        "sha256": "4fd3a06362673f2e5a3cb1434777366d32c6edad1a330e400d092ce62fd32e04"
+      },
+      {
+        "path": "Sprite09.idx",
+        "size": 307164,
+        "sha256": "cc8b83fe4010ee5a3fa470466a414931bd2e61308972d76c610ada8ea1c04896"
+      },
+      {
+        "path": "Sprite09.pak",
+        "size": 409918765,
+        "sha256": "06b8a0a98bbbf25871957c06e767247d92be49c9745aec4fc8593bbfab91e466"
+      },
+      {
+        "path": "Sprite10.idx",
+        "size": 304140,
+        "sha256": "7b4688cf2b01c7889a5e6ef8f06309c52c8aad781537bff92d23ed543e08fb8d"
+      },
+      {
+        "path": "Sprite10.pak",
+        "size": 401370637,
+        "sha256": "bd19155dccfc3a7c7dfc5adafa63ce63d65e6640a4a6d43f363093b3b3f245c2"
+      },
+      {
+        "path": "Sprite11.idx",
+        "size": 300052,
+        "sha256": "a190e3e9e54753d89b2ae1209910ad053e6be1d857e895f01631e6da9c7dd88e"
+      },
+      {
+        "path": "Sprite11.pak",
+        "size": 408635715,
+        "sha256": "f2d47ff75c12e25a49ef1018bc74284535fb452770434ba17fc44d7637424a78"
+      },
+      {
+        "path": "Sprite12.idx",
+        "size": 294620,
+        "sha256": "2c271ef696788ba1f44acaf0a8fe93e4abae5c88a57d6103e3ccb84c4b319541"
+      },
+      {
+        "path": "Sprite12.pak",
+        "size": 392475964,
+        "sha256": "cf1fa59d39a9c3a4ad4afcd2ef11382c48946f88bd5b29cf1a627f1aee5a5a46"
+      },
+      {
+        "path": "Sprite13.idx",
+        "size": 290000,
+        "sha256": "333d0670a4e2fe47c51b62f4f60de2a579b4b7bc5b9f0910bb2a7f79502c671b"
+      },
+      {
+        "path": "Sprite13.pak",
+        "size": 404079327,
+        "sha256": "ce206c743f0f7744bb7153791be27b6fb84e5c34f91b8cb92f2c6a520294c946"
+      },
+      {
+        "path": "Sprite14.idx",
+        "size": 287144,
+        "sha256": "51802133f6be2bb7a8e727c58f5da299b9c67c707506e2931ff63b1a4d4633cf"
+      },
+      {
+        "path": "Sprite14.pak",
+        "size": 442917643,
+        "sha256": "55a73c6b6f3315f5e5ea81e7b4d9c7b120f61e41864297f01b4c1f306f65c6d4"
+      },
+      {
+        "path": "Sprite15.idx",
+        "size": 285156,
+        "sha256": "874b53afe762c43415e25204f4e8fcf405f36adfaca6b9258bd84c1eb1d4c441"
+      },
+      {
+        "path": "Sprite15.pak",
+        "size": 484407291,
+        "sha256": "864800d2afbd8b38ed9bfcc08a0079b27fbf53f018de562f4cba6fe54dccabd2"
+      },
+      {
+        "path": "Text.idx",
+        "size": 1049948,
+        "sha256": "43a342ad3929b541096630165c04794192c48359ecbf116b538eaffc49741f6f"
+      },
+      {
+        "path": "Text.pak",
+        "size": 26267704,
+        "sha256": "9516a372c43b269cf1af7adc0ac00abd4163e1235dcd846e34294849616a37ff"
+      },
+      {
+        "path": "Tile.idx",
+        "size": 152492,
+        "sha256": "9291fd800ac8cae6dc355c1d8bbb965880561de169fbc7ea22d174fff9ad24db"
+      },
+      {
+        "path": "Tile.pak",
+        "size": 593320968,
+        "sha256": "82e52f47317f9a55ef775bbfce3c5f26f42b31a98748ffaa84ce5e2c3ed60d4a"
+      }
+    ]
+  },
+  "build": {
+    "command": [
+      "C:\\Users\\CHAOREN\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "engine/_integration/dev/rebuild.py",
+      "--build",
+      "--configfile",
+      "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1055\\scratch\\issue-1055\\NuGet.Config",
+      "--output",
+      "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1055\\scratch\\issue-1055\\build"
+    ],
+    "exitCode": 0,
+    "seconds": 36.96758230001433,
+    "status": "pass-dev-build",
+    "sourceFiles": 555,
+    "lock": "temporary",
+    "GUI": false,
+    "network": false,
+    "database": false,
+    "productDllSha256": "1642ea357d5300fcdac8f5b40e6595ba3504c17aa10b830d8fd6816041726e93",
+    "audioDllSha256": "4c4aa97837e7c4e610d3e0b75eb2b619faf41508096435e37c635c2cec456473",
+    "productManifestSha256": "7c9f0007c119cd282d29b57cc545c23076fd5c65a037fb3685fa67097feef771",
+    "launcherDllSha256": "fe3df5035e39578e1b98468d308e513c5ff7cb1678f59a5cf085315339f7266f"
+  },
+  "disk": {
+    "engine/build": {
+      "files": 16,
+      "logicalBytes": 12689176
+    },
+    "engine/launcher": {
+      "files": 5,
+      "logicalBytes": 223597
+    },
+    "engine/source/obj": {
+      "files": 21,
+      "logicalBytes": 14189051
+    },
+    "engine/audio/obj": {
+      "files": 17,
+      "logicalBytes": 243480
+    },
+    "engine/_integration/dev/launcher-source/obj": {
+      "files": 19,
+      "logicalBytes": 293824
+    },
+    "engine/.nuget": {
+      "files": 90,
+      "logicalBytes": 59947459
+    },
+    "scratch/issue-1055": {
+      "files": 31,
+      "logicalBytes": 72206
+    }
+  },
+  "sourcePins": [
+    {
+      "path": "engine/source/AssetPrep/AssetPreparationState.cs",
+      "sha256": "17de8b7b331f853faab1776e3f7bd3a24da95049fb4f18499d23cf6e3b0b67bf"
+    },
+    {
+      "path": "engine/source/AssetPrep/AssetPrepareCommand.cs",
+      "sha256": "9d79a33551502cfaceace8c6781115472c0abc4b906a91aaead9966885ba51e0"
+    },
+    {
+      "path": "engine/source/AssetPrep/AssetPrepCore.cs",
+      "sha256": "86160283f521f73966f92115e2d14c615ac4459a43f631b51524d7e5e9e37d67"
+    },
+    {
+      "path": "engine/source/AssetPrep/AssetPrepInput.cs",
+      "sha256": "4965c110e15b371ba1b956dbfb3f55f1650853697d1efc2bc94424be3528d59e"
+    },
+    {
+      "path": "engine/source/AssetPrep/AssetPrepModuleTests.cs",
+      "sha256": "0f2d1db9cce49a7b16fa4d7fbd207bd3a8eb7848152f9d5e180a7360bd428753"
+    },
+    {
+      "path": "engine/source/AssetPrep/AssetPrepOrchestrator.cs",
+      "sha256": "46012170f95985c221cfad8e6157446a83bb76915b501af2fa1c15511d33c7ce"
+    },
+    {
+      "path": "engine/source/AssetPrep/AssetPrepRunner.cs",
+      "sha256": "5c5a7f9e0f185a7739fe7a446bbefd0b8b35169bc4e4d889c2400e6266ac4810"
+    },
+    {
+      "path": "engine/source/AssetPrep/AssetPrepSetReceipt.cs",
+      "sha256": "0d9893079b7abb8482e5c01a95eb442901e11867cbe4b8086294cf69f8cd9dbf"
+    },
+    {
+      "path": "engine/source/AssetPrep/InventoryIconRecipe.cs",
+      "sha256": "35427d9af98624d831f4fecdc76298d7bff2ddd07186fa2a9cef0541ec31b438"
+    },
+    {
+      "path": "engine/source/AssetPrep/MapEffectsRecipe.cs",
+      "sha256": "80cabe52aa50944389556bb52e6af82825c94b0f7667ce5e061463b134c8d5d6"
+    },
+    {
+      "path": "engine/source/AssetPrep/MapScan.cs",
+      "sha256": "61fdec916e9eb28b7cd587027e0c8312753ac89ada4388249316378553b078ac"
+    },
+    {
+      "path": "engine/source/AssetPrep/MapsRecipe.cs",
+      "sha256": "804e9e916ab09466432651069630e17f52a9737e925ff04c40a02bc2cc0a3533"
+    },
+    {
+      "path": "engine/source/AssetPrep/PickupRecipe.cs",
+      "sha256": "d81bb0729616558c05a6b266b879e94f44fbd22b3c2e4c7adc2fb34bc2184d0e"
+    },
+    {
+      "path": "engine/source/AssetPrep/PreheatList.cs",
+      "sha256": "4d10f51f8526edf79cbb3d58f89056d85a6599a80abb693717525ecfcf8ee8de"
+    },
+    {
+      "path": "engine/source/AssetPrep/SceneRecipe.cs",
+      "sha256": "a3719700ab60679809814eb13b3a90e0fd25ae3236ae4f67d076a5b03849b49f"
+    },
+    {
+      "path": "engine/source/AssetPrep/SprRecipes.cs",
+      "sha256": "1667c3dd5bbf974151cb7906ffb49cd6ab168251bde80597f982415f56236e83"
+    },
+    {
+      "path": "engine/source/AssetPrep/SprRecipesB.cs",
+      "sha256": "83552b46c0c07d404f92793cfbc18a8630e1590ee165472f65b2d083d1d3f647"
+    },
+    {
+      "path": "engine/source/AssetPrep/SprShared.cs",
+      "sha256": "1d04e0720d41ddbe890f885d21341431ef7542fe45d008ebc937d3ef4285eb02"
+    },
+    {
+      "path": "engine/source/AssetPrep/TerrainRecipe.cs",
+      "sha256": "e44ad9166edec059344eb24d1f7c9eec446ac4b7ee4c78c16b1a2d9b35d3f235"
+    },
+    {
+      "path": "engine/source/AssetPrep/TextRecipe.cs",
+      "sha256": "57b3452db17b51257669a7db3d78999928ce228a1e54dd5a299cd6e2d9a3878a"
+    },
+    {
+      "path": "engine/source/AssetPrep/TextRecipeModuleTests.cs",
+      "sha256": "a6e7a3e6125d05734918286215ae2acf3a3ef873b3add49a9640ba54f51f3a4b"
+    }
+  ],
+  "auditToolPins": [
+    {
+      "path": "scratch/issue-1055/audit.py",
+      "sha256": "bbcf074f29073623f05af8ca876f4addc145760c5130c60c790f9d1936846937"
+    },
+    {
+      "path": "scratch/issue-1055/build.py",
+      "sha256": "9266c153edae635edd8e66d65cc617787b3f9429b6c9c01a59d7e4a52c91c8df"
+    },
+    {
+      "path": "scratch/issue-1055/collect.py",
+      "sha256": "451c160b7e06ed1ddeb4452a17b0a2c614de97f9c712a476c266ce8eed5687b6"
+    },
+    {
+      "path": "scratch/issue-1055/report.py",
+      "sha256": "3d17eb6a52e9f36965c21efb381f4d99aa201ebad980da4d09f224456cc23eae"
+    }
+  ]
+}
