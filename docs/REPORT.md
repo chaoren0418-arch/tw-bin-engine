@@ -482,3 +482,4 @@
 - 2026-11-14 — #1169 分流：tw-bin-engine#1165 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1170 已合併）→ [報告](reports/issue-1169.md)
 - 2026-11-14 — #1172 f1165-service-tabs-uia: f1165-service-tabs-uia: 開發工具「服務」頁巢狀分頁（開發工具服務分頁）UIA TabItem 名稱／矩形錯位、「血盟」不在樹中——比照 #1163 修正（code，claude-local，PR 已合併）→ [報告](reports/issue-1172.md)
 - 2026-11-14 — #1171 f1165-uia-tab-selection: f1165-uia-tab-selection: Select-UiaTab 改用實際存在的 SelectionPattern.Current.GetSelection()，fixture 照真實 API 形狀；Tab 定位限定直接子節點（#1165 G07／P01）（code，claude-local，PR #1175 已合併）→ [報告](reports/issue-1171.md)
+- 2026-11-14 — #1176 分流：tw-bin-engine#1173 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1177 已合併）→ [報告](reports/issue-1176.md)
