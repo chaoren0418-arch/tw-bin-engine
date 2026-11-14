@@ -480,3 +480,4 @@
 - 2026-11-14 — #1163 f1150-devtools-tab-uia: f1150-devtools-tab-uia: 開發工具分頁的 UIA TabItem 名稱與實際分頁錯一格、前兩個分頁不在樹中——查明並修正（#1150 G07）（code，claude-local，PR #1167 已合併）→ [報告](reports/issue-1163.md)
 - 2026-11-14 — #1164 f1150-uia-helper: f1150-uia-helper: UIA 工具改正證據快捷鍵為 Ctrl+Shift+F12、找 owned 視窗、讀樹容錯與逾時；README 同步（#1150 G04／P01）（resource，codex-local，PR 已合併）→ [報告](reports/issue-1164.md)
 - 2026-11-14 — #1169 分流：tw-bin-engine#1165 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1170 已合併）→ [報告](reports/issue-1169.md)
+- 2026-11-14 — #1172 f1165-service-tabs-uia: f1165-service-tabs-uia: 開發工具「服務」頁巢狀分頁（開發工具服務分頁）UIA TabItem 名稱／矩形錯位、「血盟」不在樹中——比照 #1163 修正（code，claude-local，PR 已合併）→ [報告](reports/issue-1172.md)
