@@ -8,7 +8,12 @@
 |---|---|---|
 | S216 | H 秒、C type | type 5／3／6／7／10 → 技能 3／99／151／159／168；其他 type 保留中性名稱 |
 | S250/20、21 單筆 | C sub、H 秒、C type | 專用 S_PacketBoxIcon1／2 格式；type 沒有已證實的名稱對照，顯示「狀態 sub/type」，不同 sub 不共用鍵 |
-| S250/20 快照 | C 20、D 204、204 bytes | S_Icons 全量快照。先完整檢查長度、padding 才套用；只解釋已核對的技能欄位，時間戳等其他 bytes 不當圖示 |
+| S250/20 快照（216 bytes） | C 20、D 204、204 bytes | S_Icons 全量快照。先完整檢查長度、padding 才套用；只解釋已核對的技能欄位，時間戳等其他 bytes 不當圖示 |
+| S250/20 登入狀態（≥106 bytes、≠216） | C 0x14、104 個欄位：值≠72 寫 C、值＝72 寫 D(秒級時間戳) | S_PacketBoxActiveSpells（#1187）。`C_LoginToServer` 每次登入還原 buff 後必送；全 0 時 raw 106 → 補零 112（#1179 N01 的封包）。只吃掉並計數（`WorldSession.LoginActiveSpellsPackets`／`LastLoginActiveSpellsLength`），不改任何 buff；狀態由後續 S_Icons／個別圖示封包補齊 |
+
+S250/20 依 plain 長度（含補零）判別：`8` → C/H 單筆；`216` 且 D＝204 → S_Icons；其他且 ≥106 → ActiveSpells；其餘（<106 且 ≠8、或 216 但 D≠204）丟 `ProtocolException("unsupported status snapshot size <長度>")`。
+
+ActiveSpells 的 72 怪癖：伺服器以 `switch(i){case 72: writeD(...)}` 依**值**而非欄位決定寬度，所以每個值＝72 的欄位多 3 bytes。會被填值的欄位只有 17、57、61、76、77、78、79、102、103（其餘註解掉），最長 raw 106＋27＝133 → 136，不會與 S_Icons 的 216 相撞。長度 106＋3k 補零後多個 k 共用同一長度（k≤2 都是 112），且補零的 0 與真正的 0 欄位無法區分，因此欄位位置無法從長度無歧義還原；唯一能確定位置的前 17 個欄位（索引 0–16）伺服器永遠寫 0，沒有資訊，所以本版不解析任何欄位。
 | S250/22 | C 22、C icon、H 秒、可選 C variant | 無 variant 的補零與 variant=0 等價；已知光環依下表，未知 icon/variant 保留中性名稱 |
 | S250/34、35、36、40 | C sub、H 秒 | 魔力回復藥水、變身、禁言、聖結界 |
 | S250/44 | C 44、D objectId、H 時間格數 | 風之枷鎖；只更新自身 objectId，每格 4 秒 |
@@ -52,6 +57,9 @@
 | serverpackets/S_PacketBoxIcon2.java | b15290a47cc1417954ec14da45d83e6df8f84ea121bbf5f5f3015330d6149cd3 |
 | serverpackets/S_PacketBoxIconAura.java | 8ed97f704874e3f979570df08c87b914c5417d9b3be06815c3db78710cec1998 |
 | serverpackets/S_Icons.java | a79c613fb69d5765ac8eaf3b64f2f879afd026ec47e5ffaea5aa9f0e74da047b |
+| serverpackets/S_PacketBoxActiveSpells.java | 0f4e0aa098041a1229582f91a10b56ca6d9798ac1aaadaa0f76fbd50ae77fde3 |
+| clientpackets/C_LoginToServer.java | c2eedcb6d78d9da7f33af485c596d393d49818a0a05bc5a37cbedb79bcfc9de4 |
+| serverpackets/ServerBasePacket.java | 3348c199e9694bd1eec050b130f28ab99590cae16f0047964c17b32df309a439 |
 | serverpackets/S_IconConfig.java | bc4f1629a14cc656c82402ca482aa55661345c85866e403b353bd3c7aba0cca9 |
 | serverpackets/S_MagicEquipment.java | b6e76b4e0003906803e71d092ff1cc2b9e6051c82e2059ea733974ab2b14baa7 |
 | serverpackets/S_PacketBox.java | 817ba5fd5b8ada480c6cef6d0529b9cb8ac8c6a33d84af550f8479a31fcce977 |
