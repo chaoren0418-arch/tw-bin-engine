@@ -504,3 +504,4 @@
 - 2026-11-14 — #1230 f1210-loopback-silent-session: f1210-loopback-silent-session: loopback 錄音改用 session 音量表區分「他人 active 但靜音」與「他人真的在出聲」，不再一見其他 active session 就拒錄（#1210 R07 Chrome session 導致無波形）（code，claude-local，PR 已合併）→ [報告](reports/issue-1230.md)
 - 2026-11-14 — #1237 分流：tw-bin-engine#1211 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1239 已合併）→ [報告](reports/issue-1237.md)
 - 2026-11-14 — #1238 分流：tw-bin-engine#1229 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1241 已合併）→ [報告](reports/issue-1238.md)
+- 2026-11-14 — #1234 f1215-fixture-persist: f1215-fixture-persist: 把 #1215 驗證過的 map4 DB fixture 從 task-1215 worktree 保存到 environments/p24/backups/issue-1215-map4-fixture（#1215 F07 ⚠️；worktree 已清理則從 #1186 冷備份逐 byte 重建），逐檔 SHA 核對並寫 fixture-persist.json（resource，codex-local，PR 已合併）→ [報告](reports/issue-1234.md)
