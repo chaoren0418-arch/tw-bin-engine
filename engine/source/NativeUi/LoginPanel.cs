@@ -431,7 +431,7 @@ namespace P06.NativeUi {
         void PaintNotice(UiCanvas canvas,LoginPiece label,int x,int y){
             var g=canvas.Graphics;
             var lines=Wrap(Notice!,label.DeclaredSize.Width,s=>UiText.Measure(g,s).Width);
-            int lineHeight=Math.Max(1,UiText.Font.Height);
+            int lineHeight=Math.Max(1,UiText.PixelHeight);
             SetNoticeLines(lines.Count,Math.Max(1,label.DeclaredSize.Height/lineHeight));
             for(int i=0;i<noticeVisibleLines&&NoticeScroll+i<lines.Count;i++)canvas.DrawText(lines[NoticeScroll+i],x,y+i*lineHeight,TextColor);
         }
@@ -459,14 +459,14 @@ namespace P06.NativeUi {
             canvas.DrawText(text,x,y,TextColor);
             if(focused){
                 int cx=x+Math.Min(UiText.Measure(g,text).Width,p.DeclaredSize.Width-1);
-                using var pen=new Pen(TextColor);g.DrawLine(pen,cx,y+1,cx,y+Math.Min(p.DeclaredSize.Height,UiText.Font.Height)-1);
+                using var pen=new Pen(TextColor);g.DrawLine(pen,cx,y+1,cx,y+Math.Min(p.DeclaredSize.Height,UiText.PixelHeight)-1);
             }
         }
 
         void PaintMessage(UiCanvas canvas,LoginPiece label,int x,int y){
             var g=canvas.Graphics;
             var lines=Wrap(Message!,label.DeclaredSize.Width,s=>UiText.Measure(g,s).Width);
-            int lineHeight=Math.Max(1,UiText.Font.Height);
+            int lineHeight=Math.Max(1,UiText.PixelHeight);
             int maxLines=Math.Max(1,label.DeclaredSize.Height/lineHeight);
             if(lines.Count>maxLines)lines=lines.Take(maxLines).ToList();
             int top=y+Math.Max(0,(label.DeclaredSize.Height-lines.Count*lineHeight)/2);   // VAlign="center"

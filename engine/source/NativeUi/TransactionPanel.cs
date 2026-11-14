@@ -295,7 +295,7 @@ public sealed class TransactionPanel(ItemIconSource? icons=null):IUiMovablePanel
                         var cell=CellRect(side,i++);
                         ItemIconSource.Draw(canvas,Icons.Get(o.Icon),cell.Location);
                         string n=ItemText.Count(o.Count);
-                        if(n.Length>0)canvas.DrawText(n,cell.Right-UiText.Measure(g,n).Width,cell.Bottom-UiText.Font.Height,Color.White,Color.Black);
+                        if(n.Length>0)canvas.DrawText(n,cell.Right-UiText.Measure(g,n).Width,cell.Bottom-UiText.PixelHeight,Color.White,Color.Black);
                     }
                     else canvas.DrawText(o.Name,area.X+2,area.Y+i++*RowHeight,Color.White,Color.Black);
                 }
