@@ -1,4 +1,8 @@
 'use strict';
+// Write text only when it changes: an equal textContent write still replaces the text node, and the
+// accessibility node rebuilt with it can be read back as Name=null by UIA clients (#1173 G06, #1178).
+function textChanged(current,value){return current!==value;}
+function setText(id,value){const el=document.getElementById(id);if(textChanged(el.textContent,value))el.textContent=value;}
 let serial=0;const send=(cmd,extra={})=>{const id=++serial;chrome.webview.postMessage({v:1,id,cmd,...extra});return id;};
 for(let d=0;d<8;d++){const b=document.createElement('button');b.textContent=`D${d}`;b.id=`d${d}`;b.onclick=()=>send('face',{direction:d});document.querySelector('#directions').append(b);}
 document.querySelector('#game').onclick=()=>send('focusGame');
@@ -86,7 +90,7 @@ let magicSignature='',magicSkillsSignature='',magicTargetsSignature='';
 function renderMagic(m){if(!m)return;const sig=JSON.stringify(m);if(sig===magicSignature)return;magicSignature=sig;
 const skills=document.getElementById('magicSkills');const sk=JSON.stringify(m.skills);if(sk!==magicSkillsSignature){magicSkillsSignature=sk;skills.replaceChildren(new Option('請選擇已學魔法',''));for(const x of m.skills){const op=new Option(`${x.Name} · ${x.Target} · 原模板MP${x.NominalMp}`,x.Id);op.disabled=!x.Supported;skills.add(op);}}skills.value=m.selectedId||'';
 const targets=document.getElementById('magicTargets');const tk=JSON.stringify([m.epoch,m.targetMode,m.targets]);if(tk!==magicTargetsSignature){magicTargetsSignature=tk;targets.replaceChildren(new Option(m.targetMode==='attack'?'選擇可見敵人':'自己',m.targetMode==='attack'?'':'0'));for(const x of m.targets)targets.add(new Option(x.name+' #'+x.id,x.id));}targets.disabled=m.targetMode==='none';targets.value=m.targetId==null?'':String(m.targetId);
-document.getElementById('magicVitals').textContent=m.hp==null?'等待原服 HP／MP':`HP ${m.hp}/${m.maxHp} · MP ${m.mp}/${m.maxMp}`;document.getElementById('castMagic').disabled=!m.available;document.getElementById('magicNotice').textContent=(m.targetName?'對象：'+m.targetName+'\n':'')+(m.acNotice||m.ac!=null?(m.acNotice||'AC '+m.ac)+' · '+([m.fire,m.water,m.wind,m.earth].every(v=>v!=null)?'抗性 火'+m.fire+' 水'+m.water+' 風'+m.wind+' 地'+m.earth:'抗性：等待原服資料')+'\n':'')+(m.buffs?m.buffs+'\n':'')+m.notice+'\n'+(m.message||'');}
+setText('magicVitals',m.hp==null?'等待原服 HP／MP':`HP ${m.hp}/${m.maxHp} · MP ${m.mp}/${m.maxMp}`);document.getElementById('castMagic').disabled=!m.available;setText('magicNotice',(m.targetName?'對象：'+m.targetName+'\n':'')+(m.acNotice||m.ac!=null?(m.acNotice||'AC '+m.ac)+' · '+([m.fire,m.water,m.wind,m.earth].every(v=>v!=null)?'抗性 火'+m.fire+' 水'+m.water+' 風'+m.wind+' 地'+m.earth:'抗性：等待原服資料')+'\n':'')+(m.buffs?m.buffs+'\n':'')+m.notice+'\n'+(m.message||''));}
 document.getElementById('magicSkills').onchange=e=>{const m=window.lastState?.magic;if(m&&e.target.value)send('selectMagic',{skillId:Number(e.target.value),epoch:m.epoch});};
 document.getElementById('magicTargets').onchange=e=>{const m=window.lastState?.magic;if(m&&e.target.value)send('selectMagicTarget',{targetId:Number(e.target.value),epoch:m.epoch});};
 document.getElementById('castMagic').onclick=()=>{const m=window.lastState?.magic;if(m?.selectedId)send('castMagic',{skillId:m.selectedId,epoch:m.epoch});};
@@ -94,7 +98,7 @@ document.getElementById('castMagic').onclick=()=>{const m=window.lastState?.magi
 chrome.webview.addEventListener('message',async e=>{
  const s=e.data;if(!s||s.v!==1||s.kind!=='scene')return;
  const img=document.getElementById('sceneImage');window.lastScene=s;window.renderedScene=null;
- if(!s.available){img.removeAttribute('src');document.getElementById('sceneStatus').textContent='尚未進入世界';return;}
+ if(!s.available){img.removeAttribute('src');setText('sceneStatus','尚未進入世界');return;}
  img.src=s.png;
  try{
    await img.decode();
@@ -104,13 +108,13 @@ chrome.webview.addEventListener('message',async e=>{
    if(actualHash!==s.sha256)throw new Error('scene source hash mismatch');
    img.dataset.sequence=String(s.sequence);img.dataset.sha256=actualHash;img.dataset.revision=String(s.opacityRevision);
    window.renderedScene={sequence:s.sequence,epoch:s.epoch,sha256:actualHash,opacityRevision:s.opacityRevision,actor:s.actor};
-   document.getElementById('sceneStatus').textContent=`${s.actor.X}, ${s.actor.Y} · ${s.actor.Name}`;
+   setText('sceneStatus',`${s.actor.X}, ${s.actor.Y} · ${s.actor.Name}`);
  }catch(error){if(window.lastScene===s)window.sceneDecodeError=String(error);}
 });
 
 function renderPresence(info){
- document.getElementById('incomingAttack').textContent=info?.IncomingAttack||'';
- document.getElementById('missingObjects').textContent=(info?.Labels||[]).filter(x=>x.Missing).map(x=>`${x.Name} #${x.Id} · ${x.X}, ${x.Y}\n${x.Detail}`).join('\n')||'';
+ setText('incomingAttack',info?.IncomingAttack||'');
+ setText('missingObjects',(info?.Labels||[]).filter(x=>x.Missing).map(x=>`${x.Name} #${x.Id} · ${x.X}, ${x.Y}\n${x.Detail}`).join('\n')||'');
 }
 
 // Both controls submit one complete settings value; host state is authoritative.
