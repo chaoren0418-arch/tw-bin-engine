@@ -501,3 +501,4 @@
 - 2026-11-14 — #1220 分流：tw-bin-engine#1209 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1221 已合併）→ [報告](reports/issue-1220.md)
 - 2026-11-14 — #1225 分流：tw-bin-engine#1210 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1226 已合併）→ [報告](reports/issue-1225.md)
 - 2026-11-14 — #1228 分流：tw-bin-engine#1215 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1232 已合併）→ [報告](reports/issue-1228.md)
+- 2026-11-14 — #1230 f1210-loopback-silent-session: f1210-loopback-silent-session: loopback 錄音改用 session 音量表區分「他人 active 但靜音」與「他人真的在出聲」，不再一見其他 active session 就拒錄（#1210 R07 Chrome session 導致無波形）（code，claude-local，PR 已合併）→ [報告](reports/issue-1230.md)
