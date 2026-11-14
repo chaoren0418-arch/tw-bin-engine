@@ -144,7 +144,10 @@ public sealed partial class WorldSession {
         }
         if(PlayerQueryPackets.DecodeRankHtml(plain) is not {} rank)return false;
         if(rank.ObjectId==Status?.ObjectId){
-            if(Ready&&PlayerQueryPackets.RequestRankingWindow(rank.ObjectId,rank.Html,rank.Arguments,rank.Lines))return true;
+            bool native=Ready&&PlayerQueryPackets.RequestRankingWindow(rank.ObjectId,rank.Html,rank.Arguments,rank.Lines);
+            // #1245 診斷：S39 排名頁走哪一條（原生排名窗／查詢頁）。
+            NativeUi.UiResourceLog.Write($"s39 rank {rank.Html} self 列數 {rank.Arguments.Take(10).Count(a=>a.Trim().Length>0)} → {(native?"原生排名窗":"查詢頁")}");
+            if(native)return true;
             ShowSelfQuery(rank.ObjectId,rank.Html,rank.Arguments,rank.Lines);return true;}
         // Ranking NPC page: the normal dialog handles the same packet; decoded rows replace a missing template.
         OfferDialogFallback(rank.Lines);
