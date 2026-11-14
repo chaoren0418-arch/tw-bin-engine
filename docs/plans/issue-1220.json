@@ -1,0 +1,27 @@
+[
+  {
+    "id": "f1209-board-fixture",
+    "title": "f1209-board-fixture: 補 SM27 公告板／SM29 盟屋拍賣板的測試條件（#1209 R12 公告板無出生列、R13 拍賣板 81161 四列 count=0）；先唯讀找現成或 GM 暫時召出，需改世界表就停下請使用者裁定",
+    "stage": "resource",
+    "priority": "P2",
+    "runner": "codex-local",
+    "runner_lock": true,
+    "real_machine": true,
+    "depends_on": [],
+    "text": "```yaml\nstage: resource\nrunner: codex-local\nrunner_lock: true\nreal_machine: true\n```\nrunner: codex-local（依 CLAUDE.md 2026-11-05／11-06 P24Lab 授權與 #175 測試準備寫入例外；只限 P24Lab 42061／43324，**不碰正式 2000／3306**）。預算 45 分鐘。\n來源：#1209 報告 `docs/reports/issue-1209.md`、`work/f1186-smoke/fixtures.json`（`task/1209` 分支 `fadb1e4f`／PR #1219；已合進 main 則以 main 為準）、分流報告 `docs/reports/issue-1220.md`、`docs/testing/smoke-m7.md`（SM27、SM29 列及 §14.2／§15.1 的 R12-B／R12-E 補充）。\n\n## 問題（#1209 的兩個 ⚠️，都是測試資料條件，不是引擎缺陷）\n- **R12（SM27 公告板）**：一般公告板 NPC 定義存在（#1209 查過 80006、81126–81130 與場景公告板），但 `spawnlist_npc` 查無出生列 → 遊戲世界裡沒有可點的公告板。證據：#1209 worktree `scratch/issue-1209/` 的 SELECT 讀回、E `boardNpcDefinitions`／`sceneryBoards`。\n- **R13（SM29 盟屋拍賣）**：拍賣佈告欄 81161 在 map4 有四筆出生列（spawnId 1016–1019：`(32611,32775)`、`(33959,33253)`、`(33585,33235)`、`(33421,32823)`），全部 `count=0`。證據：E `npcSpawns`、F `blockedFixtures`。\n\n## 先做（唯讀，不寫任何東西）\n0. 保全 #1209 冷備份：`D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1209\\environments\\p24\\backups\\issue-1209-before`（manifest SHA `cf27f301…5928`）若仍存在，逐檔複製到主專案 `environments\\p24\\backups\\issue-1209-before`（目的地已存在就不覆寫，只核對），複製後逐檔 SHA 與 manifest 一致才算完成；已不存在就照實記錄。\n1. 唯讀找「不寫世界表就能用」的公告板／拍賣板：\n   - `spawnlist_npc`、`spawnlist`（怪物表）及其他出生表（含 `spawnlist_*`）中，`npc` 模板 `impl`／類別為公告板（L1Board 類）或拍賣板、且 `count>0` 的全部列；\n   - 伺服器 JAR 位元碼（唯讀，`javap`／解壓讀 class，不改 JAR）中，公告板／拍賣板是否另有程式內建出生、或由盟屋、城堡等系統在執行時動態生成（例如有人持有盟屋時才出現）；\n   - 伺服器是否有 GM 指令可**暫時**召出 NPC（例如 `.spawn`／`.summon`／`.npc`），參數格式與是否寫回 DB。\n2. 拍賣板另外查：伺服器盟屋拍賣功能是否啟用（設定只讀、不改）、`house`／拍賣相關表是否有可出價的資料；`count=0` 是否為該伺服器版本刻意停用。\n\n## 再決定（照下面順序，第一個成立的就用）\n- **A. 有現成可用的**（count>0 的公告板／拍賣板，或盟屋系統執行時會自然生成）：只記座標與條件，不寫 DB。\n- **B. 只要 GM 暫時召出（不寫 DB）就能有**：記下指令、需要的 GM 等級與召出後存活時間，交給重測時依 #160 暫設 GM 準備、召出後改回 GM0 再以一般玩家操作；本張不實際召出。\n- **C. 只能改 `spawnlist_npc`（新增一般公告板出生列，或把 81161 某一列 count 改 1）**：這**超出 #175 授權範圍**（#175 只含 GM 設定、建測試角色、發測試物品）。**不要寫**。把 A／B 查不到的證據、要改的最小 SQL（含前值、還原 SQL）寫進報告，Issue 標 `needs:user`，請使用者在「授權只限本次、只改這一列、測完還原」與「列為已知限制」之間裁定。\n- **D. 伺服器根本沒有拍賣（或公告板）功能**（位元碼沒有處理器、或 count=0 是版本停用且沒有對應資料）：記為「伺服器不支援」的證據，交分流列已知限制；不要寫 DB。\n\n## 驗收\n- `docs/reports/issue-<本號>.md`：R12、R13 各自走到 A／B／C／D 哪一條及證據（表名、SELECT 條件、列數、JAR class／方法名）；#1209 備份保全結果（檔數、bytes、manifest SHA）。\n- 若結果是 A 或 B：更新 `work/f1186-smoke/fixtures.json` 的 `locations`／`blockedFixtures`，把可用的公告板／拍賣板座標或召出方法填入；兩項都解決時 `readyForRetest=true`，否則照實保留 false 並寫原因。\n- 本張不寫 DB（若意外需要寫，一律走 C 停下）、不改伺服器設定檔、不設 GM、不啟動客戶端、不做 SM 判定。若為了 SELECT 需要開 MySQL：開服前兩埠無監聽、收尾自啟程序全關、42061／43324 無監聽，持久 DB 檔 SHA 收尾前後一致。\n- 不改產品程式、`docs/REPORT.md`、rebuild-lock。\n"
+  },
+  {
+    "id": "f1209-board-retest",
+    "title": "f1209-board-retest: P24Lab 只重測 #1209 的 ⚠️ 對應項目 SM27 公告板、SM29 盟屋拍賣（R12、R13），其餘沿用",
+    "stage": "test",
+    "priority": "P2",
+    "runner": "codex-local",
+    "runner_lock": true,
+    "real_machine": true,
+    "milestone_smoke": true,
+    "depends_on": [
+      "f1209-board-fixture"
+    ],
+    "text": "```yaml\nstage: test\nrunner: codex-local\nrunner_lock: true\nreal_machine: true\nmilestone_smoke: true\n```\nrunner: dot／codex-local（依 CLAUDE.md 2026-11-06 授權，只限 P24Lab 42061／43324 測試角色；**不碰正式 2000／3306**）。預算 40 分鐘。測試準備需 GM 只照 #160／#175（寫入前完整備份、記前後對照、提供還原 SQL、結束改回 GM0）；實際驗收照一般玩家操作。\n來源：#1209 報告 `docs/reports/issue-1209.md`、分流報告 `docs/reports/issue-1220.md`、`f1209-board-fixture` 的報告與更新後的 `work/f1186-smoke/fixtures.json`、`docs/testing/smoke-m7.md` SM27／SM29（含 §15.1 R12-B／R12-E 取代列）。\n\n## 前置（任一不成立就不開跑，在 Issue 留言說明後結束，不列 ❌）\n1. `f1209-board-fixture` 結論是 A 或 B（公告板、拍賣板有可用座標或 GM 暫時召出方法）。若是 C（等使用者裁定）或 D（伺服器不支援），本張不跑，SM27／SM29 依該張結論處理。\n2. #1211（f1186-retest）已結案：本張要用它驗收過的工具（`f1186-smoke-tooling`）與文字修正（`f1186-uitext-pixel`）。**必須用 main 重建**（`engine/build-product.ps1`；設 `DOTNET_ADD_GLOBAL_TOOLS_TO_PATH=false`、`DOTNET_NOLOGO=1`），記 product DLL SHA-256 並與 #1211 用的 SHA 對照。\n3. 操作照 `work/f1118-uia-path/README.md`，不用 WGC／computer-use。證據圖放 `environments/p24/backups/issue-<本號>-evidence/`，PNG／log 不進 git。\n\n## 只重測這些項目\n#1209 的 ✅ 項目（B01、R01–R11、R14、R15、V01、C01）**不重測**，照 #1209 結果沿用：本輪沒有任何 code 任務，fixture 角色與物品沒有因本輪改變。\n- **R12 → SM27 公告板**：用 fixture 的公告板（若是 B，先依 #160 暫設 GM 召出，改回 GM0 後再操作）。照 smoke-m7 SM27：點公告板 → 原生清單窗開在 (0,0)、不出現 WinForms 窗；讀一篇後按 672／676／678；金幣不夠時按發文出現 189；用 IME 打一篇；§15.1 R12-E：點清單後伺服器回應前，左鍵／雙擊／右鍵雙擊都不動作，658 X 仍可關窗。截圖清單、讀文、發文各一張；要判定背景、列與按鈕對齊、字寬不超出。\n- **R13 → SM29 盟屋拍賣**：和拍賣佈告欄對話收到 S156 開清單；點一列 → 資訊窗；Bid → 出價窗；§15.1 R12-B：低於最低價按 Ok → 輸入框改成最低價、不送、聊天欄印 4381、窗不關；合法價按 Ok → 窗馬上關、伺服器回應照常；按 List 收起清單；關窗後鍵盤回到遊戲。截圖清單、資訊、出價各一張；判定城鎮／盟屋編號對照（`houseId >> 16`）、價格與截止日格式。出價只用測試角色金幣，不得讓測試血盟實際得標後留下盟屋資料（若會得標，只做到出價窗輸入、不按合法價 Ok，並照實記錄）。\n- 伺服器沒有回應時：先用工具確認 C 封包已送出，寫「已送出、伺服器未回」，**不可直接標伺服器不支援**。\n\n## 收尾與驗收\n- 報告 `docs/reports/issue-<本號>.md`：SM27、SM29 逐子步驟 ✅／❌／⚠️、圖檔路徑／尺寸／SHA-256 與目視結論；已驗證／推測／待驗證分開。\n- 若有設 GM 或召出 NPC：結束時全角色 AccessLevel=0、OnlineStatus=0（最終 SELECT），附還原 SQL；不刪除既有資料。\n- 自啟程序全關，42061／43324 無監聽；持久 DB 若有寫入，附寫入前完整備份 manifest SHA。\n- 不改產品程式、`docs/REPORT.md`、rebuild-lock。\n"
+  }
+]
