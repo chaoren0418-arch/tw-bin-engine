@@ -1,0 +1,2076 @@
+{
+  "sourceCommit": "6f7051fb27f60b32b2cd3eca7b008d6e5fcf9e64",
+  "backupAndOriginal": {
+    "files": 1722,
+    "allSha256Unchanged": true,
+    "changedFiles": [],
+    "utc": "2026-11-13T23:43:43.669884+00:00"
+  },
+  "loginFinalStateAfterClose": "Cancelled",
+  "loginBeforeCloseUiaText": [
+    "CharacterList • 已解析角色 3/3\n登入請求已送出，請查看連線狀態。"
+  ],
+  "guardedKeyboardInputs": [
+    {
+      "Ctrl+Shift+F12": null,
+      "Action": "key-down 0x11",
+      "Utc": "2026-11-13T23:37:58.9760246Z",
+      "Hwnd": 2425582,
+      "ProcessId": 6408,
+      "ForegroundHwnd": 2425582,
+      "ForegroundProcessId": 6408,
+      "InputCount": 1,
+      "SendInputReturned": 1,
+      "LastError": 0,
+      "InputSize": 40
+    },
+    {
+      "Ctrl+Shift+F12": null,
+      "Action": "key-down 0x10",
+      "Utc": "2026-11-13T23:37:59.0039491Z",
+      "Hwnd": 2425582,
+      "ProcessId": 6408,
+      "ForegroundHwnd": 2425582,
+      "ForegroundProcessId": 6408,
+      "InputCount": 1,
+      "SendInputReturned": 1,
+      "LastError": 0,
+      "InputSize": 40
+    },
+    {
+      "Ctrl+Shift+F12": null,
+      "Action": "key-press 0x7B",
+      "Utc": "2026-11-13T23:37:59.0069412Z",
+      "Hwnd": 2425582,
+      "ProcessId": 6408,
+      "ForegroundHwnd": 2425582,
+      "ForegroundProcessId": 6408,
+      "InputCount": 2,
+      "SendInputReturned": 2,
+      "LastError": 0,
+      "InputSize": 40
+    },
+    {
+      "Ctrl+Shift+F12": null,
+      "Action": "key-up 0x10",
+      "Utc": "2026-11-13T23:37:59.0129254Z",
+      "Hwnd": 2425582,
+      "ProcessId": 6408,
+      "ForegroundHwnd": 2425582,
+      "ForegroundProcessId": 6408,
+      "InputCount": 1,
+      "SendInputReturned": 1,
+      "LastError": 0,
+      "InputSize": 40
+    },
+    {
+      "Ctrl+Shift+F12": null,
+      "Action": "key-up 0x11",
+      "Utc": "2026-11-13T23:37:59.0149199Z",
+      "Hwnd": 2425582,
+      "ProcessId": 6408,
+      "ForegroundHwnd": 2425582,
+      "ForegroundProcessId": 6408,
+      "InputCount": 1,
+      "SendInputReturned": 1,
+      "LastError": 0,
+      "InputSize": 40
+    },
+    {
+      "Left": null,
+      "Action": "key-press 0x25",
+      "Utc": "2026-11-13T23:38:22.5587474Z",
+      "Hwnd": 788790,
+      "ProcessId": 6408,
+      "ForegroundHwnd": 788790,
+      "ForegroundProcessId": 6408,
+      "InputCount": 2,
+      "SendInputReturned": 2,
+      "LastError": 0,
+      "InputSize": 40
+    },
+    {
+      "Escape": null,
+      "Action": "key-press 0x1B",
+      "Utc": "2026-11-13T23:41:02.7689939Z",
+      "Hwnd": 854508,
+      "ProcessId": 6408,
+      "ForegroundHwnd": 854508,
+      "ForegroundProcessId": 6408,
+      "InputCount": 2,
+      "SendInputReturned": 2,
+      "LastError": 0,
+      "InputSize": 40
+    }
+  ],
+  "data": {
+    "snapshot.json": {
+      "utc": "2026-11-13T23:34:50.958670+00:00",
+      "files": 1722,
+      "bytes": 279502537,
+      "verified": true,
+      "source": "D:\\BinEngine\\environments\\p24\\db-data",
+      "runtime": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1150\\scratch\\issue-1150\\db-data",
+      "manifestSha256": "87a96204075351c1fd9ff00b9cf09f5f5e566e8d6a7de793708256c6e3083bf5"
+    },
+    "lease.json": {
+      "name": "p24lab",
+      "holder": "chaoren0418-arch/tw-bin-engine#1150",
+      "since": 1794612726.9398184,
+      "exp": 1794618126.9398184
+    },
+    "g02-window-info.json": {
+      "Title": "P24 診斷客戶端",
+      "ProcessId": 6408,
+      "Handle": 2425582,
+      "Rectangle": "1317,604,1206,871",
+      "Minimized": false,
+      "Dpi": 192,
+      "ProcessDpiSet": true,
+      "ProcessDpiError": 0
+    },
+    "dev-info.json": {
+      "Title": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+      "ProcessId": 6408,
+      "Handle": 788790,
+      "Rectangle": "98,98,826,711",
+      "Minimized": false,
+      "Dpi": 192,
+      "ProcessDpiSet": true,
+      "ProcessDpiError": 0
+    },
+    "main-initial-capture.json": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1150\\scratch\\issue-1150\\main-initial.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "CopyFromScreenError": null,
+      "Width": 1206,
+      "Height": 871,
+      "SampleStride": 4,
+      "Samples": 65836,
+      "Mean": 37.03759847702371,
+      "NonzeroRatio": 0.9664317394738441,
+      "NonwhiteRatio": 0.9389543714684975,
+      "Nonblank": true,
+      "Sha256": "E530C0A6933B662A1D1AAF09AF386F0961AFCEEE5239751D37A9F573A639CFF0",
+      "Foreground": null,
+      "Window": {
+        "Title": "P24 診斷客戶端",
+        "ProcessId": 6408,
+        "Handle": 2425582,
+        "Rectangle": "1317,604,1206,871",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 0
+      }
+    },
+    "dev-initial-capture.json": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1150\\scratch\\issue-1150\\dev-initial.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "CopyFromScreenError": null,
+      "Width": 826,
+      "Height": 711,
+      "SampleStride": 4,
+      "Samples": 36846,
+      "Mean": 67.77585988528708,
+      "NonzeroRatio": 0.9508766216142865,
+      "NonwhiteRatio": 0.9028117027628508,
+      "Nonblank": true,
+      "Sha256": "F5E6FE725F25B7F25528D759534F67CDACE38A60D4DD879CB66E3FA024D2B1D0",
+      "Foreground": null,
+      "Window": {
+        "Title": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "ProcessId": 6408,
+        "Handle": 788790,
+        "Rectangle": "98,98,826,711",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 0
+      }
+    },
+    "g-tests.json": {
+      "DevTopLevelError": "Expected one window for PID 6408 title '開發工具（過渡操作介面） · Ctrl+Shift+F9'; found 0",
+      "G04": {
+        "SentAtUtc": "2026-11-13T23:37:12.0745047Z",
+        "NewFiles": 0,
+        "Files": [],
+        "Foreground": {
+          "TargetHandle": 2425582,
+          "TargetProcessId": 6408,
+          "TargetThreadId": 9616,
+          "CallerThreadId": 17980,
+          "ForegroundBefore": {
+            "Handle": 788790,
+            "ProcessId": 6408,
+            "ThreadId": 9616,
+            "ProcessName": "P11.ClientEngine"
+          },
+          "ForegroundLockTimeout": {
+            "Ok": true,
+            "Milliseconds": 200000,
+            "LastError": 0
+          },
+          "Steps": [
+            {
+              "Round": 1,
+              "Step": "SetForegroundWindow",
+              "Returned": true,
+              "LastError": 0,
+              "ForegroundAfterMs": 1
+            }
+          ],
+          "Succeeded": true,
+          "Rounds": 1,
+          "ForegroundAtEnd": {
+            "Handle": 2425582,
+            "ProcessId": 6408,
+            "ThreadId": 9616,
+            "ProcessName": "P11.ClientEngine"
+          },
+          "Error": null
+        }
+      },
+      "服務": {
+        "Error": "System.Management.Automation.RuntimeException: Expected one control name='服務' id='' type='TabItem'; found 0"
+      },
+      "登入／選角": {
+        "Error": "System.Management.Automation.RuntimeException: Expected one control name='登入／選角' id='' type='TabItem'; found 0"
+      }
+    },
+    "f01-result.json": {
+      "At": "2026-11-13T23:37:58.5073189Z",
+      "Error": "System.Management.Automation.RuntimeException: Expected one control name='建立角色' id='' type='Button'; found 0",
+      "RawNames": [
+        "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "",
+        "控制",
+        "CharacterList • 已解析角色 3/3\n登入請求已送出，請查看連線狀態。",
+        "關閉本機面板 (Ctrl+Shift+F9)",
+        "遊戲控制 (Ctrl+Shift+F10)",
+        "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "System Menu Bar",
+        "System",
+        "Minimize",
+        "Maximize",
+        "Close"
+      ]
+    },
+    "p01-corrected-shortcut.json": {
+      "SentAtUtc": "2026-11-13T23:37:58.7920598Z",
+      "NewFiles": 3,
+      "Files": [
+        {
+          "Name": "manual-client.png",
+          "Length": 15722,
+          "LastWriteTimeUtc": "/Date(1794613079035)/"
+        },
+        {
+          "Name": "manual-logical.png",
+          "Length": 5361,
+          "LastWriteTimeUtc": "/Date(1794613079019)/"
+        },
+        {
+          "Name": "manual-screen.png",
+          "Length": 15768,
+          "LastWriteTimeUtc": "/Date(1794613079071)/"
+        }
+      ]
+    },
+    "create-capture.json": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1150\\scratch\\issue-1150\\create-dialog.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "CopyFromScreenError": null,
+      "Width": 466,
+      "Height": 661,
+      "SampleStride": 4,
+      "Samples": 19422,
+      "Mean": 212.7337898602952,
+      "NonzeroRatio": 0.9200906188857996,
+      "NonwhiteRatio": 0.8590258469776542,
+      "Nonblank": true,
+      "Sha256": "96F0E33B1F7B8661CBA250319B6370024372CA5657C866C3C10B22DF5ACB6809",
+      "Foreground": null,
+      "Window": {
+        "Title": "建立角色",
+        "ProcessId": 6408,
+        "Handle": 854508,
+        "Rectangle": "1687,709,466,661",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 0
+      }
+    },
+    "dialog-errors.json": {
+      "openCreate": {
+        "operation": "Invoke-UiaButton 建立角色",
+        "effect": "建角對話框開啟，未送出",
+        "error": "Exception calling \"Invoke\" with \"0\" argument(s): \"Operation timed out. (Exception from HRESULT: 0x80131505)\"",
+        "exitCode": 1
+      },
+      "dialogTree": {
+        "operation": "Get-UiaTree / FindAll Descendants",
+        "started": "2026-11-14T07:39:29.400+08:00",
+        "releasedOnlyAfterEscapeUtc": "2026-11-13T23:41:02.7689939Z",
+        "error": "Get-UiaTree : The property 'ProgrammaticName' cannot be found on this object. Verify that the property exists.",
+        "exitCode": 1
+      },
+      "dialogChildren": {
+        "operation": "FindAll Children",
+        "completedOnlyAfterCancel": true,
+        "returnedCount": 1,
+        "returnedElement": {
+          "Name": "",
+          "Type": "ControlType.Pane",
+          "Id": "15795304",
+          "Handle": 15795304,
+          "Rectangle": "1700,767,440,590"
+        }
+      },
+      "sevenClasses": {
+        "attemptedAllocation": 0,
+        "reason": "對話框 UIA 列舉阻塞，沒有取得職業與能力值控制項；不改用座標點擊。",
+        "submitted": false,
+        "deleted": false
+      }
+    },
+    "cancel-key.json": {
+      "Action": "key",
+      "Keys": "Escape",
+      "VirtualKey": "0x1B",
+      "Modifiers": [],
+      "ForegroundAcquired": false
+    },
+    "after-cancel-foreground.json": {
+      "Handle": 788790,
+      "ProcessId": 6408,
+      "ThreadId": 9616,
+      "ProcessName": "P11.ClientEngine"
+    },
+    "client-close.json": {
+      "WM_CLOSE": true,
+      "ForcedClose": false,
+      "Closed": true
+    },
+    "cleanup.json": {
+      "MysqlAdminExit": 0,
+      "Utc": "2026-11-13T23:42:16.5276678Z",
+      "RemainingOwned": [],
+      "Listeners": []
+    },
+    "original-db-final.json": {
+      "files": 1722,
+      "allSha256Unchanged": true,
+      "changedFiles": [],
+      "utc": "2026-11-13T23:43:43.669884+00:00"
+    },
+    "g03-main-tree.json": [
+      {
+        "Name": "P24 診斷客戶端",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1317,604,1206,871",
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "98,98,826,711",
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "111,156,800,640",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "CharacterList • 已解析角色 3/3\n登入請求已送出，請查看連線狀態。",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "119,200,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "關閉本機面板 (Ctrl+Shift+F9)",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "122,203,300,34",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "遊戲控制 (Ctrl+Shift+F10)",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "428,203,260,30",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "控制",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "511,160,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "狀態列",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "595,160,90,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "111,111,800,45",
+        "Patterns": []
+      },
+      {
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "111,111,44,44",
+        "Patterns": []
+      },
+      {
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "111,111,44,44",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Minimize",
+        "Type": "ControlType.Button",
+        "Id": "Minimize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "632,99,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Maximize",
+        "Type": "ControlType.Button",
+        "Id": "Maximize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "726,99,92,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "818,99,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "P24 診斷客戶端",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1330,617,1180,45",
+        "Patterns": []
+      },
+      {
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1330,617,44,44",
+        "Patterns": []
+      },
+      {
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1330,617,44,44",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Minimize",
+        "Type": "ControlType.Button",
+        "Id": "Minimize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "2231,605,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Maximize",
+        "Type": "ControlType.Button",
+        "Id": "Maximize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "2325,605,92,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "2417,605,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "g06-dev-tree.json": [
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "98,98,826,711",
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "111,156,800,640",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "CharacterList • 已解析角色 3/3\n登入請求已送出，請查看連線狀態。",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "119,200,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "關閉本機面板 (Ctrl+Shift+F9)",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "122,203,300,34",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "遊戲控制 (Ctrl+Shift+F10)",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "428,203,260,30",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "控制",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "511,160,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "狀態列",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "595,160,90,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "111,111,800,45",
+        "Patterns": []
+      },
+      {
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "111,111,44,44",
+        "Patterns": []
+      },
+      {
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "111,111,44,44",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Minimize",
+        "Type": "ControlType.Button",
+        "Id": "Minimize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "632,99,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Maximize",
+        "Type": "ControlType.Button",
+        "Id": "Maximize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "726,99,92,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "818,99,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "login-keyboard-tree.json": [
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "98,98,826,711",
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "111,156,800,640",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "119,200,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "130,211,175,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "130,211,175,38",
+        "Patterns": []
+      },
+      {
+        "Name": "開啟",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "272,212,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "311,211,90,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "368,212,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "368,212,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "368,230,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "微調按鈕",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "313,213,54,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "407,211,95,38",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "[PASSWORD]",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "508,211,95,38",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "609,211,88,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "取消 / 斷線",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "703,211,98,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "離線預覽",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "130,255,90,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "資源法師",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "226,255,155,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "226,255,155,38",
+        "Patterns": []
+      },
+      {
+        "Name": "開啟",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "348,256,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "進入世界",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "387,255,95,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "建立角色",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "488,255,92,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "刪除角色",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "586,255,110,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "CharacterList • 已解析角色 3/3\n登入請求已送出，請查看連線狀態。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "130,296,480,52",
+        "Patterns": []
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "433,160,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "控制",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "511,160,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "狀態列",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "595,160,90,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "111,111,800,45",
+        "Patterns": []
+      },
+      {
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "111,111,44,44",
+        "Patterns": []
+      },
+      {
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "111,111,44,44",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Minimize",
+        "Type": "ControlType.Button",
+        "Id": "Minimize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "632,99,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Maximize",
+        "Type": "ControlType.Button",
+        "Id": "Maximize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "726,99,92,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "818,99,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "f01-raw-tree.json": [
+      {
+        "Depth": 0,
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Handle": 788790,
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Depth": 1,
+        "Name": "",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Handle": 4458770,
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Depth": 2,
+        "Name": "控制",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Handle": 23462668,
+        "Patterns": []
+      },
+      {
+        "Depth": 3,
+        "Name": "CharacterList • 已解析角色 3/3\n登入請求已送出，請查看連線狀態。",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Handle": 14878802,
+        "Patterns": []
+      },
+      {
+        "Depth": 4,
+        "Name": "關閉本機面板 (Ctrl+Shift+F9)",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Handle": 6620904,
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Depth": 4,
+        "Name": "遊戲控制 (Ctrl+Shift+F10)",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Handle": 11339852,
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Depth": 1,
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Handle": 0,
+        "Patterns": []
+      },
+      {
+        "Depth": 2,
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "",
+        "Handle": 0,
+        "Patterns": []
+      },
+      {
+        "Depth": 3,
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Handle": 0,
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Depth": 2,
+        "Name": "Minimize",
+        "Type": "ControlType.Button",
+        "Id": "Minimize",
+        "Handle": 0,
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Depth": 2,
+        "Name": "Maximize",
+        "Type": "ControlType.Button",
+        "Id": "Maximize",
+        "Handle": 0,
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Depth": 2,
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Handle": 0,
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "after-cancel-tree.json": [
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "98,98,826,711",
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "111,156,800,640",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "119,200,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "130,211,175,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "130,211,175,38",
+        "Patterns": []
+      },
+      {
+        "Name": "開啟",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "272,212,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "311,211,90,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "368,212,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "368,212,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "368,230,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "微調按鈕",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "313,213,54,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "407,211,95,38",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "[PASSWORD]",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "508,211,95,38",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "609,211,88,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "取消 / 斷線",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "703,211,98,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "離線預覽",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "130,255,90,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "資源法師",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "226,255,155,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "226,255,155,38",
+        "Patterns": []
+      },
+      {
+        "Name": "開啟",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "348,256,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "進入世界",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "387,255,95,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "建立角色",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "488,255,92,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "刪除角色",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "586,255,110,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "CharacterList • 已解析角色 3/3\n登入請求已送出，請查看連線狀態。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "130,296,480,52",
+        "Patterns": []
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "433,160,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "控制",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "511,160,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "狀態列",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "595,160,90,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "111,111,800,45",
+        "Patterns": []
+      },
+      {
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "111,111,44,44",
+        "Patterns": []
+      },
+      {
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "111,111,44,44",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Minimize",
+        "Type": "ControlType.Button",
+        "Id": "Minimize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "632,99,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Maximize",
+        "Type": "ControlType.Button",
+        "Id": "Maximize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "726,99,92,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "818,99,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      }
+    ]
+  },
+  "characterReadback": {
+    "characters-before.tsv": "@@port\t@@datadir\n43324\tD:\\BinEngine\\scratch\\wt\\task-1150\\scratch\\issue-1150\\db-data\\\naccount_name\tchar_name\tobjid\tType\tAccessLevel\tOnlineStatus\np242db6e\t資源王族\t10305\t0\t0\t0\np241db6e\t資源騎士\t10314\t1\t0\t0\np241db6e\t資源妖精\t10325\t2\t0\t0\np24svc01\t資源法師\t10334\t3\t0\t0\np241db6e\t資源暗妖\t10344\t4\t0\t0\np242db6e\t資源龍騎\t10356\t5\t0\t0\np242db6e\t資源幻術\t10365\t6\t0\t0\np241db6e\t透明王子\t1900240001\t0\t0\t0\np242db6e\t透明王子乙\t1900240002\t0\t0\t0\np243db6e\t驗收王子\t1900240003\t0\t0\t0\np244db6e\t驗收王子乙\t1900240004\t0\t0\t0\np245db6e\t透明觀察甲\t1900240005\t0\t0\t0\np246db6e\t透明觀察乙\t1900240006\t0\t0\t0\np247db6e\t驗收觀察甲\t1900240007\t0\t0\t0\np248db6e\t驗收觀察乙\t1900240008\t0\t0\t0\np24svc01\t服務驗證\t1900249001\t0\t0\t0\np24svc01\t服務交易\t1900249201\t0\t0\t0\n",
+    "characters-final.tsv": "@@port\t@@datadir\n43324\tD:\\BinEngine\\scratch\\wt\\task-1150\\scratch\\issue-1150\\db-data\\\naccount_name\tchar_name\tobjid\tType\tAccessLevel\tOnlineStatus\np242db6e\t資源王族\t10305\t0\t0\t0\np241db6e\t資源騎士\t10314\t1\t0\t0\np241db6e\t資源妖精\t10325\t2\t0\t0\np24svc01\t資源法師\t10334\t3\t0\t0\np241db6e\t資源暗妖\t10344\t4\t0\t0\np242db6e\t資源龍騎\t10356\t5\t0\t0\np242db6e\t資源幻術\t10365\t6\t0\t0\np241db6e\t透明王子\t1900240001\t0\t0\t0\np242db6e\t透明王子乙\t1900240002\t0\t0\t0\np243db6e\t驗收王子\t1900240003\t0\t0\t0\np244db6e\t驗收王子乙\t1900240004\t0\t0\t0\np245db6e\t透明觀察甲\t1900240005\t0\t0\t0\np246db6e\t透明觀察乙\t1900240006\t0\t0\t0\np247db6e\t驗收觀察甲\t1900240007\t0\t0\t0\np248db6e\t驗收觀察乙\t1900240008\t0\t0\t0\np24svc01\t服務驗證\t1900249001\t0\t0\t0\np24svc01\t服務交易\t1900249201\t0\t0\t0\n"
+  },
+  "sha256": [
+    {
+      "path": "scratch/issue-1150/after-cancel-capture.json",
+      "bytes": 981,
+      "sha256": "66c7ee6b06b2495cad43da9554f571d811149f793655575d6c78dcc954dbc15a"
+    },
+    {
+      "path": "scratch/issue-1150/after-cancel-foreground.json",
+      "bytes": 122,
+      "sha256": "1e4dea4d571cbf780da2c9ca354d15949eeaa7479f5542a03527501adb8653e2"
+    },
+    {
+      "path": "scratch/issue-1150/after-cancel-tree.json",
+      "bytes": 12009,
+      "sha256": "293bb5348ae89b579306e63e24e134a9acfb0c47c4674078aed1212451c66b65"
+    },
+    {
+      "path": "scratch/issue-1150/after-cancel.png",
+      "bytes": 25462,
+      "sha256": "cf195dd02ba1d3b506e459803a0c84f4362c1c3854d80c8ac28e8b81f70f361d"
+    },
+    {
+      "path": "scratch/issue-1150/build-assets.log",
+      "bytes": 28498,
+      "sha256": "8be1bae8316d5bf68031c9badda6b2469a9761888207d3d85c146955a6c0c817"
+    },
+    {
+      "path": "scratch/issue-1150/build.log",
+      "bytes": 28498,
+      "sha256": "e207d19efa81251626c50f2addb8b7dcf7b80e626bcc5bfe31bc44114d6212b6"
+    },
+    {
+      "path": "scratch/issue-1150/cancel-dialog.ps1",
+      "bytes": 501,
+      "sha256": "21ec700bef90b80a4e7a11124ebee70950ca1f0cbcd0ec684a08a13ee40ab63f"
+    },
+    {
+      "path": "scratch/issue-1150/cancel-key.json",
+      "bytes": 163,
+      "sha256": "595bb62b4dd13baf91b2b38a33d63307e62fc80c00458b4c5cac00d82ac884cf"
+    },
+    {
+      "path": "scratch/issue-1150/capture-initial.ps1",
+      "bytes": 477,
+      "sha256": "1d224ee814c8ddd318090f635c080bd4660a07f6e936bd0b059f72508073d8eb"
+    },
+    {
+      "path": "scratch/issue-1150/characters-after-cancel.tsv",
+      "bytes": 810,
+      "sha256": "759b8e9116507ff3527c208c7fe721453d45cf9393d2251c1247a758ef7336a1"
+    },
+    {
+      "path": "scratch/issue-1150/characters-before.tsv",
+      "bytes": 810,
+      "sha256": "759b8e9116507ff3527c208c7fe721453d45cf9393d2251c1247a758ef7336a1"
+    },
+    {
+      "path": "scratch/issue-1150/characters-final.tsv",
+      "bytes": 810,
+      "sha256": "759b8e9116507ff3527c208c7fe721453d45cf9393d2251c1247a758ef7336a1"
+    },
+    {
+      "path": "scratch/issue-1150/cleanup-ui.ps1",
+      "bytes": 842,
+      "sha256": "b3fb8d10323611ca7629f5915eb73eed041819ddb88088e80bafbf81dbdf93f8"
+    },
+    {
+      "path": "scratch/issue-1150/cleanup.json",
+      "bytes": 180,
+      "sha256": "fb47b26f6eadc643a7c561fd23072d228d4e7c8a473551ba97c27ba655afa483"
+    },
+    {
+      "path": "scratch/issue-1150/client/client-network.jsonl",
+      "bytes": 463,
+      "sha256": "9990cc1f9dff8f82e13cbd5d24534d6164a91b660752bdb8afd8b2c121a6f20a"
+    },
+    {
+      "path": "scratch/issue-1150/client/login-state.json",
+      "bytes": 12654,
+      "sha256": "f989afa7b2a57ffcd13f409ce97cf7db217d1aa81914812fd1ee2b385410157b"
+    },
+    {
+      "path": "scratch/issue-1150/client/manual-client.png",
+      "bytes": 15722,
+      "sha256": "d749eccb2d906d41df2060cb9ccc61bbf4bd4b5d18ee7cd60b46a0ea08adb8b4"
+    },
+    {
+      "path": "scratch/issue-1150/client/manual-logical.png",
+      "bytes": 5361,
+      "sha256": "fc24474c24c28cbcf8b8bcd2cdc020e45b13aa3106cfe741c99996acc9353a2f"
+    },
+    {
+      "path": "scratch/issue-1150/client/manual-network.json",
+      "bytes": 499,
+      "sha256": "a1a95d32da7288d1b1cc4cc1651902318a726f481f73595b16f1d5b649f1bfbf"
+    },
+    {
+      "path": "scratch/issue-1150/client/manual-objects.json",
+      "bytes": 12186,
+      "sha256": "f2f93ef3ff1be9eeeb7ca3927584359fd26faf59a77459f13085039cdaca6641"
+    },
+    {
+      "path": "scratch/issue-1150/client/manual-screen.png",
+      "bytes": 15768,
+      "sha256": "7bb80281cc48466b4515e0285b0621c69a3d14d389994bb50de756e81e7f2835"
+    },
+    {
+      "path": "scratch/issue-1150/client/manual-state.json",
+      "bytes": 309,
+      "sha256": "a9ffca548b66ec94af28d934f968fc2528c1d8e1c748cc2d81723f1a7efb7ad7"
+    },
+    {
+      "path": "scratch/issue-1150/client/native-ui.log",
+      "bytes": 182,
+      "sha256": "1723a3271c0d6cb1f48d58dce80eb4ab43d71a556213bacc7d3ff80feeea2018"
+    },
+    {
+      "path": "scratch/issue-1150/client/web-events.json",
+      "bytes": 61910,
+      "sha256": "d0229e65c577530872726043ec547b22677142db0ca72624031ee26d6e70fde0"
+    },
+    {
+      "path": "scratch/issue-1150/client/web-events.jsonl",
+      "bytes": 61883,
+      "sha256": "0f9bec71597069a2afa66b85270ea175bdfe806fa08cfc6e3e8f61cae6d45d6d"
+    },
+    {
+      "path": "scratch/issue-1150/client/window-events.json",
+      "bytes": 5459089,
+      "sha256": "3c0f07371f08380f86b465afafd55c5b6fcf246193070740c603636ad3ae6401"
+    },
+    {
+      "path": "scratch/issue-1150/client-children.json",
+      "bytes": 149,
+      "sha256": "8b5ec28b32b7851b089b7018c358c197cbbcda922f5e245baf83201f4ec48c3d"
+    },
+    {
+      "path": "scratch/issue-1150/client-close.json",
+      "bytes": 82,
+      "sha256": "b8b28d65138c84253e300bf42cdca965eea15b53902caf97639a651b408002cd"
+    },
+    {
+      "path": "scratch/issue-1150/client-owned.json",
+      "bytes": 138,
+      "sha256": "0f517c241b85064d60abc4d9e93208081db24aedc189c8fb4e33a0183d5b7b27"
+    },
+    {
+      "path": "scratch/issue-1150/client-process.json",
+      "bytes": 194,
+      "sha256": "1637e30078aa31fe21508b99014e4d858db959c4f006ed5ace4be39b1932bad5"
+    },
+    {
+      "path": "scratch/issue-1150/client.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "scratch/issue-1150/client.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "scratch/issue-1150/create-capture.json",
+      "bytes": 946,
+      "sha256": "b47e83f4e4a84bd08004ac5b74be0798d024e34828b9930984101ea6c6bbd5b9"
+    },
+    {
+      "path": "scratch/issue-1150/create-dialog.png",
+      "bytes": 22066,
+      "sha256": "96f0e33b1f7b8661cba250319b6370024372ca5657c866c3c10b22df5acb6809"
+    },
+    {
+      "path": "scratch/issue-1150/db.py",
+      "bytes": 751,
+      "sha256": "c7bdf438d343cced996874dafda7632df262edf4669c64d024b70cb2eb231d2d"
+    },
+    {
+      "path": "scratch/issue-1150/dev-current.json",
+      "bytes": 4868,
+      "sha256": "bbf590c61fffa6f8de5d2504d133a67359afbbc1b91b2eac5629081cea02b254"
+    },
+    {
+      "path": "scratch/issue-1150/dev-info.json",
+      "bytes": 266,
+      "sha256": "2f57966dfe5ec59475b341d685ce7bd8b085c7f23ff93be597f63891a05e7eb4"
+    },
+    {
+      "path": "scratch/issue-1150/dev-initial-capture.json",
+      "bytes": 982,
+      "sha256": "6a38ee7b39b241adec4a355a88bee35294a30da2280166b6abe0fb2608a12734"
+    },
+    {
+      "path": "scratch/issue-1150/dev-initial.png",
+      "bytes": 17401,
+      "sha256": "f5e6fe725f25b7f25528d759534f67cdace38a60d4dd879cb66e3fa024d2b1d0"
+    },
+    {
+      "path": "scratch/issue-1150/dialog-children.ps1",
+      "bytes": 547,
+      "sha256": "89f50b8af8c9fcff9d2e16b329a02ce52bb65dbb5c971046770469ed57d16764"
+    },
+    {
+      "path": "scratch/issue-1150/dialog-errors.json",
+      "bytes": 1153,
+      "sha256": "75e46389bc9a5d5427dd6d4f6aac3d5a6df6abf6155b2943d2185e6a56a8ca15"
+    },
+    {
+      "path": "scratch/issue-1150/dialog-foreground.json",
+      "bytes": 122,
+      "sha256": "286240e192c8f85b92dcde723d847c783ee9e2443a073d5dfcc707aefc44d7c8"
+    },
+    {
+      "path": "scratch/issue-1150/dialog-probe.ps1",
+      "bytes": 491,
+      "sha256": "d42d70ab885c3cac3df250e76fe51206ab0b825a9f9251b249f95f42af4a48d1"
+    },
+    {
+      "path": "scratch/issue-1150/f01-before-tree.json",
+      "bytes": 4868,
+      "sha256": "bbf590c61fffa6f8de5d2504d133a67359afbbc1b91b2eac5629081cea02b254"
+    },
+    {
+      "path": "scratch/issue-1150/f01-probe.ps1",
+      "bytes": 1748,
+      "sha256": "333401b1da3059021bfa823eae2a7b4a5db97fb6ea5d0da397f02cbcb8411515"
+    },
+    {
+      "path": "scratch/issue-1150/f01-raw-tree.json",
+      "bytes": 3235,
+      "sha256": "08b0f3ed04186168647e3d7c0023fa63deadd8edbf6faeceee6711111401941b"
+    },
+    {
+      "path": "scratch/issue-1150/f01-result.json",
+      "bytes": 873,
+      "sha256": "a55fdc2b50375dc0116cb4c289392ebd7de1b7acb95a52b6f508886f8336bf1c"
+    },
+    {
+      "path": "scratch/issue-1150/g-tests.json",
+      "bytes": 3105,
+      "sha256": "519db70632b4ce0a4f931189627e2343cd1cd3a53194cc0f70766a68d016d9ce"
+    },
+    {
+      "path": "scratch/issue-1150/g-tests.ps1",
+      "bytes": 1740,
+      "sha256": "c9890c60748af9dfc932bb28449177398cf6b4f9a7f5dc95b2f4e698f52a996a"
+    },
+    {
+      "path": "scratch/issue-1150/g02-window-info.json",
+      "bytes": 237,
+      "sha256": "79cc19e53cf1bc8ff62801e8c8e9cbd2cc5841d900a774266b7faf82a649722f"
+    },
+    {
+      "path": "scratch/issue-1150/g03-main-tree.json",
+      "bytes": 7281,
+      "sha256": "854fd973b34da5d8180de6857baf04e56e9623c7b158cf705c34944b9cc7b48b"
+    },
+    {
+      "path": "scratch/issue-1150/g06-dev-tree.json",
+      "bytes": 4868,
+      "sha256": "bbf590c61fffa6f8de5d2504d133a67359afbbc1b91b2eac5629081cea02b254"
+    },
+    {
+      "path": "scratch/issue-1150/lease.json",
+      "bytes": 155,
+      "sha256": "de0527ac105f790e9ba5c785ac31408d4ae649eaa527ea5d9bc164bc029a3713"
+    },
+    {
+      "path": "scratch/issue-1150/login-keyboard-capture.json",
+      "bytes": 985,
+      "sha256": "21182506124964d9610448be2f816904a0ad5903d40109e9f9780c36281f801c"
+    },
+    {
+      "path": "scratch/issue-1150/login-keyboard-foreground.json",
+      "bytes": 1253,
+      "sha256": "cbeedaedebc3532cbe184c5d65736c44dddfb3193bc2e4b435afc87d2445e926"
+    },
+    {
+      "path": "scratch/issue-1150/login-keyboard-tree.json",
+      "bytes": 12009,
+      "sha256": "293bb5348ae89b579306e63e24e134a9acfb0c47c4674078aed1212451c66b65"
+    },
+    {
+      "path": "scratch/issue-1150/login-keyboard.png",
+      "bytes": 25453,
+      "sha256": "153d68fdd392213cdb118d971fbfd5e2e186873abf8b59287dd083daa5fb374c"
+    },
+    {
+      "path": "scratch/issue-1150/login-keyboard.ps1",
+      "bytes": 707,
+      "sha256": "3783336e22e023898e6b9d4da7ae8a8fa3310c0b24db0fd4ee50c2aa37a76fb8"
+    },
+    {
+      "path": "scratch/issue-1150/login-tab.ps1",
+      "bytes": 398,
+      "sha256": "0707222a7e164ec273ccc4be584d70c398d3cb852256dbdb1c7c1fbe12096740"
+    },
+    {
+      "path": "scratch/issue-1150/login-tree.json",
+      "bytes": 4868,
+      "sha256": "bbf590c61fffa6f8de5d2504d133a67359afbbc1b91b2eac5629081cea02b254"
+    },
+    {
+      "path": "scratch/issue-1150/main-initial-capture.json",
+      "bytes": 955,
+      "sha256": "d247592716e7c16e567eab5d4832f2a047904d8f7b242b27c979eb08fed0be3f"
+    },
+    {
+      "path": "scratch/issue-1150/main-initial.png",
+      "bytes": 9007,
+      "sha256": "e530c0a6933b662a1d1aaf09af386f0961afceee5239751d37a9f573a639cff0"
+    },
+    {
+      "path": "scratch/issue-1150/mysql-first-process.json",
+      "bytes": 155,
+      "sha256": "9d0201726161397f1cef24e702aa6e028624ac76b7915cbab561cbb94f830e11"
+    },
+    {
+      "path": "scratch/issue-1150/mysql-first.stderr.log",
+      "bytes": 977,
+      "sha256": "3477fa3af60bce71500d0296f864bc7ff056f80614c8bc90098c264e01abc268"
+    },
+    {
+      "path": "scratch/issue-1150/mysql-first.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "scratch/issue-1150/mysql-process.json",
+      "bytes": 156,
+      "sha256": "8680417c9dc63a93074ed2813192e3494b57ec5113dc608f84154a650e9975e1"
+    },
+    {
+      "path": "scratch/issue-1150/mysql.stderr.log",
+      "bytes": 1659,
+      "sha256": "29ee693a2a99f2cfb0c444e702ab6055d085c304834da9c63bb67fe2e04079b4"
+    },
+    {
+      "path": "scratch/issue-1150/mysql.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "scratch/issue-1150/observe.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "scratch/issue-1150/open-create.ps1",
+      "bytes": 314,
+      "sha256": "426acde5429f8e20c36cf7bc98fbd0dab3b9fc0b077853a71ce51956eca92f2a"
+    },
+    {
+      "path": "scratch/issue-1150/original-db-final.json",
+      "bytes": 121,
+      "sha256": "2b24b9885e5970e599b94d5302240215370c6865189743b501ba845148b89f35"
+    },
+    {
+      "path": "scratch/issue-1150/p01-corrected-shortcut.json",
+      "bytes": 735,
+      "sha256": "bc2a97003258bf42cb6af06f2a8671c6f707817f55e5a4e0570abaf86d03e92a"
+    },
+    {
+      "path": "scratch/issue-1150/package.py",
+      "bytes": 3229,
+      "sha256": "93afb997656b277d27ccd866c211d93fc5014d9e3480e1bcc76856ada17f9ed5"
+    },
+    {
+      "path": "scratch/issue-1150/prepare.py",
+      "bytes": 2571,
+      "sha256": "7c307bc8e0b14d5fb127d6a5edad21eed81f2d6397ecc3b7ea2f36c598f6978a"
+    },
+    {
+      "path": "scratch/issue-1150/server-owned.json",
+      "bytes": 500,
+      "sha256": "a9d7ca948678c1feec1e08b7fdeae4a1c12a0c757d78171c4811e4c8603ac5c5"
+    },
+    {
+      "path": "scratch/issue-1150/server-process.json",
+      "bytes": 168,
+      "sha256": "f159cf97151f5307ccbda11c2cff8c468bec0ae16d3691b94778f187d4352b7c"
+    },
+    {
+      "path": "scratch/issue-1150/server.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "scratch/issue-1150/server.stdout.log",
+      "bytes": 31930,
+      "sha256": "5319ea53df39c8a897841f307fe642d2df5f72c65a91c00dafeeaddef1e4a9a7"
+    },
+    {
+      "path": "scratch/issue-1150/session.txt",
+      "bytes": 236,
+      "sha256": "7a46464456aa89b555996e3acbd6203094a1c316e2e17fed391beab5ff0807d5"
+    },
+    {
+      "path": "scratch/issue-1150/snapshot.json",
+      "bytes": 367,
+      "sha256": "11956231b69625f7e89b13fb69f2c0acecddebc4d634d12a7bec1164d451b0b9"
+    },
+    {
+      "path": "scratch/issue-1150/source.txt",
+      "bytes": 42,
+      "sha256": "4bfba551c70e3320cd5a1e513190ccd74953d500279ae08e14874bd6262ff515"
+    },
+    {
+      "path": "scratch/issue-1150/start.py",
+      "bytes": 1892,
+      "sha256": "f49517fa2c58a27bcc81b64a99add6cf80e27e9e4b319e142f68fb42a966ac25"
+    },
+    {
+      "path": "scratch/issue-1150/ui.ps1",
+      "bytes": 994,
+      "sha256": "15ddf9fe9f53ea7cd99507d4dd1f18e8e56df5f4726ffe705049f5841eb7e8e6"
+    },
+    {
+      "path": "scratch/issue-1150/uia-pending.json",
+      "bytes": 549,
+      "sha256": "26c89737049f8782a95702966f54734ae3e813ce182ba631c658dfb5a106ebe4"
+    },
+    {
+      "path": "scratch/issue-1150/update-readme.py",
+      "bytes": 5155,
+      "sha256": "5df42e91d16f727b0e15f0a8ddba716d4ccf7b163ecddce06a8ac4eab63326bc"
+    },
+    {
+      "path": "scratch/issue-1150/window-2425582.json",
+      "bytes": 9930,
+      "sha256": "e70357d6c4ff9bd16c4d9016785ec202863625035a52fb70636c6e71252a0976"
+    }
+  ]
+}
