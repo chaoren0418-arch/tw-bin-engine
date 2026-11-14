@@ -31,7 +31,22 @@ public sealed record ActionCadence(int Gfx,int Weapon,int Action,int ServerBaseM
         var profile=PlayerProfiles.Get(gfx,weapon)??throw new NotSupportedException("Unsupported action appearance");
         var key=(gfx,weapon,action);Metadata data;
         lock(gate){
-            if(!metadata.TryGetValue(key,out data!)){
+            if(!metadata.TryGetValue(key,out data!)&&profile.Runtime is {} runtime){
+                // #1243: a profile built on demand has no file; its appearance carries the same list.spz steps and actionMs.
+                string name=Name(action);
+                if(!runtime.Sequences.TryGetValue((name,0),out var seq))throw new InvalidDataException($"profile has no {name} sequence");
+                int native=0,hasteNative=0;int? release=null,hasteRelease=null;
+                foreach(var step in seq){
+                    if(release==null&&step.Events.Contains('!')){release=native;hasteRelease=hasteNative;}
+                    int frameMs=step.Milliseconds??step.Ticks*1000/24;
+                    native+=frameMs;hasteNative+=HasteFrameMs(frameMs);
+                }
+                int legacy=(int)runtime.Duration(name);
+                if(native<=0||legacy<=0)throw new InvalidDataException("Empty action timing");
+                // Not cached: the same (gfx, stance) may later resolve to a prepared or another runtime profile.
+                data=new(native,legacy,release,hasteNative,hasteRelease,ActionTiming.ServerMs(ActionTiming.StepsOf(profile,name)));
+            }
+            else if(data==null){
                 string path=Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../assets",profile.Path));
                 var bytes=File.ReadAllBytes(path);if(!Convert.ToHexString(SHA256.HashData(bytes)).Equals(profile.Sha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Action profile integrity");
                 var json=System.Text.Json.JsonDocument.Parse(bytes).RootElement;string name=Name(action);
@@ -52,6 +67,8 @@ public sealed record ActionCadence(int Gfx,int Weapon,int Action,int ServerBaseM
     }
     /// <summary>R1：(gfx, 姿勢) 某動作（1、18、19）的伺服器間隔，速度不計；沒有 profile 時丟 InvalidDataException。</summary>
     public static int ServerMs(int gfx,int weapon,int action)=>PlayerProfiles.Get(gfx,weapon) is {} profile?ActionTiming.ServerMs(profile,Name(action)):throw new InvalidDataException("unsupported player action cadence");
+    /// <summary>#1243：(gfx, 姿勢) 有 profile，而且 profile 有這個動作（1、18、19）。寬鬆建置的外型可能沒有攻擊或施法動作。</summary>
+    public static bool Supported(int gfx,int weapon,int action)=>PlayerProfiles.Get(gfx,weapon) is {} profile&&ActionTiming.Has(profile,Name(action));
     public Frame Frame(ObjectAppearance appearance,int direction,double elapsed){
         string name=Name(Action);if(!Slow&&!Haste)return appearance.At(name,direction,elapsed);
         if(Haste&&!Slow){
@@ -172,7 +189,7 @@ public sealed partial class WorldSession {
             var other=Objects.FirstOrDefault(o=>o.ObjectId==id);
             int gfx=Actor?.ObjectId==id?Actor.Gfx:other?.Gfx??-1,weapon=Actor?.ObjectId==id?Actor.Weapon:other?.Action??-1;
             byte speed=Actor?.ObjectId==id?Actor.Speed:other?.Speed??255,brave=Actor?.ObjectId==id?Actor.Brave:other?.Brave??255;
-            if(NormalSpeed.Supported(speed,brave)&&PlayerProfiles.Get(gfx,weapon)!=null)timing=ActionCadence.Capture(gfx,weapon,action,speed,brave,margin:action==1?CombatRules.ClockMargin(weapon):100);
+            if(NormalSpeed.Supported(speed,brave)&&ActionCadence.Supported(gfx,weapon,action))timing=ActionCadence.Capture(gfx,weapon,action,speed,brave,margin:action==1?CombatRules.ClockMargin(weapon):100);
         }
         return new(action,ActionClock(),predicted){Timing=timing};
     }

@@ -124,7 +124,10 @@ public sealed partial class LoginConnection {
             World.MagicNotice=$"未送出：目標距離 {CombatRules.TileDistance(a.X,a.Y,x,y)} 格，光箭需在 10 格內；請走近、停下後再施法。";
             return false;
         }
-        var spell=MagicSpells.Get(id)!;var timing=ActionCadence.Capture(a.Gfx,a.Weapon,spell.Action,a.Speed,a.Brave,SpellListCooldowns.ReuseMs(id,spell.Action,spell.ReuseMs),100);int castMs=timing.CastWaitMs;int epoch=generation,we=World.WorldEpoch,sel=World.MagicSelectionRevision,ts=World.TargetRevision,input=inputVersion,correction=World.Corrections,appearanceRevision=World.AppearanceRevision,speedRevision=World.SpeedRevision,lease=++magicLease;var sender=sendMovementGate;byte[] bytes=cast.Bytes;magicSending=true;
+        var spell=MagicSpells.Get(id)!;
+        // #1243：寬鬆建置的外型（例如變身 1062 沒有動作 18／19）沒有施法節奏的來源；照實告知，不丟例外。
+        if(!ActionCadence.Supported(a.Gfx,a.Weapon,spell.Action)){World.MagicNotice=$"未送出：目前外觀（角色 {a.Gfx}／武器 {a.Weapon}）沒有施法動作 {spell.Action} 的資料（資料未到）。";P06.NativeUi.UiResourceLog.Write($"own-appearance spell action {spell.Action} unavailable gfx {a.Gfx} weapon {a.Weapon}: 資料未到（list.spz 沒有這個動作）");return false;}
+        var timing=ActionCadence.Capture(a.Gfx,a.Weapon,spell.Action,a.Speed,a.Brave,SpellListCooldowns.ReuseMs(id,spell.Action,spell.ReuseMs),100);int castMs=timing.CastWaitMs;int epoch=generation,we=World.WorldEpoch,sel=World.MagicSelectionRevision,ts=World.TargetRevision,input=inputVersion,correction=World.Corrections,appearanceRevision=World.AppearanceRevision,speedRevision=World.SpeedRevision,lease=++magicLease;var sender=sendMovementGate;byte[] bytes=cast.Bytes;magicSending=true;
         bool TargetCurrent()=>cast.Object==null||World.Objects.Any(o=>o.ObjectId==target&&!o.AppearancePending&&o.Dead==cast.Object.Dead);
         bool ArgumentsCurrent()=>TryPrepareSkillCast(requested,out var current)&&current!.Bytes.AsSpan().SequenceEqual(bytes);
         bool CompletionCurrent()=>epoch==generation&&lease==magicLease&&we==World.WorldEpoch&&input==inputVersion&&ts==World.TargetRevision&&TargetCurrent()&&correction==World.Corrections&&appearanceRevision==World.AppearanceRevision&&!World.SelfAppearancePending&&!World.OwnDead&&World.Status is {Hp:>0}&&World.Actor?.ObjectId==a.ObjectId&&World.Actor?.Gfx==a.Gfx&&World.Actor?.Weapon==a.Weapon;

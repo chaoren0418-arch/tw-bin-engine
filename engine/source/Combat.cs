@@ -101,7 +101,7 @@ public sealed partial class LoginConnection {
     public event Action<object>? CombatSent;
     public bool CombatBusy=>combatSending||ActionClock()<nextCombatAt;
     public bool CombatAvailable=>MovementAvailable&&!World.OwnDead&&World.HasAttackAmmunition&&World.Target is {Dead:false,AppearancePending:false};
-    void ApplyCombatAcknowledgement(long reportsBefore){if(!World.OwnDead&&World.AttackReports>reportsBefore&&World.LastAttack?.Attacker==World.Actor?.ObjectId&&World.Actor is {} actor&&World.AppearanceProfile!=null)nextCombatAt=Math.Max(nextCombatAt,ActionClock()+(World.OwnCombat?.Timing?.WaitMs??(CombatRules.DurationFor(actor.Gfx,actor.Weapon)+CombatRules.ClockMargin(actor.Weapon))));}
+    void ApplyCombatAcknowledgement(long reportsBefore){if(!World.OwnDead&&World.AttackReports>reportsBefore&&World.LastAttack?.Attacker==World.Actor?.ObjectId&&World.Actor is {} actor&&World.AppearanceProfile!=null&&(World.OwnCombat?.Timing!=null||ActionCadence.Supported(actor.Gfx,actor.Weapon,1)))nextCombatAt=Math.Max(nextCombatAt,ActionClock()+(World.OwnCombat?.Timing?.WaitMs??(CombatRules.DurationFor(actor.Gfx,actor.Weapon)+CombatRules.ClockMargin(actor.Weapon))));}
     void ResetCombatSend(){combatLease++;combatSending=false;nextCombatAt=0;lastCombatTiming=null;lastCombatAdmission=-1;}
     public Task<bool> Attack()=>AttackCore(null);
     async Task<bool> AttackCore(Func<bool>? pointerCurrent){
@@ -114,6 +114,8 @@ public sealed partial class LoginConnection {
             World.CombatNotice=$"未送出：目標距離 {CombatRules.TileDistance(actor.X,actor.Y,target.X,target.Y)} 格，近戰需在 2 格內；請走近、停下後再攻擊。";
             return false;
         }
+        // #1243：寬鬆建置的外型（變身成沒有攻擊動作的 gfx，例如 1461）沒有攻擊節奏的來源；照實告知，不丟例外。
+        if(!ActionCadence.Supported(actor.Gfx,actor.Weapon,1)){World.CombatNotice=$"未送出：目前外觀（角色 {actor.Gfx}／武器 {actor.Weapon}）沒有攻擊動作的資料（資料未到）。";P06.NativeUi.UiResourceLog.Write($"own-appearance attack unavailable gfx {actor.Gfx} weapon {actor.Weapon}: 資料未到（list.spz 沒有攻擊動作）");return false;}
         var timing=ActionCadence.Capture(actor.Gfx,actor.Weapon,1,actor.Speed,actor.Brave,margin:CombatRules.ClockMargin(actor.Weapon));int duration=timing.ServerIntervalMs,guard=timing.MarginMs;if(duration<=0)throw new InvalidDataException("missing attack cadence");
         var sender=sendMovementGate;byte[] bytes=CombatRules.Attack(target,actor.Weapon);combatSending=true;
         bool CompletionCurrent()=>epoch==generation&&lease==combatLease&&worldEpoch==World.WorldEpoch&&input==inputVersion&&selection==World.TargetRevision&&World.TargetId==target.ObjectId&&World.Target is {Dead:false,AppearancePending:false}&&correction==World.Corrections&&appearanceRevision==World.AppearanceRevision&&!World.SelfAppearancePending&&!World.OwnDead&&World.Status is {Hp:>0}&&World.Actor?.ObjectId==actor.ObjectId&&World.Actor?.Gfx==actor.Gfx&&World.Actor?.Weapon==actor.Weapon;

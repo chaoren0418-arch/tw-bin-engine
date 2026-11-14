@@ -73,6 +73,8 @@ public sealed class RuntimeAppearances:IDisposable {
 
     // ---- Item keys (one slot each). ----
     public static string PlayerKey(int gfx,int weapon)=>Inv($"players/{gfx}-{weapon}");
+    /// <summary>#1243: the lenient player build of a (gfx, stance) the players recipe refuses (see <see cref="Lenient"/>).</summary>
+    public static string LenientKey(int gfx,int weapon)=>Inv($"players-lenient/{gfx}-{weapon}");
     public static string ShopKey(int gfx)=>Inv($"shops/{gfx}");
     public static string DoorKey(int gfx)=>Inv($"doors/{gfx}");
     public static string MagicKey(int gfx)=>Inv($"objects/magic-{gfx}");
@@ -89,6 +91,17 @@ public sealed class RuntimeAppearances:IDisposable {
 
     // ---- Typed requests: the value when ready, otherwise null (the first request queues the item). ----
     public PlayerBuild? Player(int gfx,int weapon)=>Request(PlayerKey(gfx,weapon),b=>BuildPlayer(b,gfx,weapon)) as PlayerBuild;
+    /// <summary>
+    /// #1243 (f1211-player-appearance): a (gfx, stance) the players recipe refuses — a polymorph form without all seven player
+    /// actions (gfx 1062 has no 18 / 19, 1461 only 0 / 3 / 4), or gfx 138 whose SPR has opaque pixels outside the stored frame
+    /// bounds (L7) — built from the list.spz actions the entry does have, like the original client which draws any gfx from its
+    /// sprite table (FU14 §1.1 / AN§3.4: a missing action falls back, it does not stop the character). Same stance actions
+    /// (weapon + 0..3, 8, 18, 19), the creature model's frames and times (walk ×40 = R1; without a walk, stance 0 uses the breath
+    /// length, as ObjectsRecipe does for creatures); no bounds refusal (the renderer draws tiles, not the bounds rectangle).
+    /// Asked by <see cref="PlayerProfiles.Resolve"/> only after the player rule is unavailable. Memory only; never written to the
+    /// prepared tree, so players/manifest.json and the T470 comparison (L7) are unchanged.
+    /// </summary>
+    public PlayerBuild? Lenient(int gfx,int weapon)=>Request(LenientKey(gfx,weapon),b=>BuildLenient(b,gfx,weapon)) as PlayerBuild;
     public ObjectAppearance? Shop(int gfx)=>Request(ShopKey(gfx),b=>BuildShop(b,gfx)) as ObjectAppearance;
     public ObjectAppearance? Door(int gfx)=>Request(DoorKey(gfx),b=>BuildDoor(b,gfx)) as ObjectAppearance;
     public ObjectAppearance? Magic(int gfx)=>Request(MagicKey(gfx),b=>BuildMagic(b,gfx)) as ObjectAppearance;
@@ -160,7 +173,11 @@ public sealed class RuntimeAppearances:IDisposable {
         }
     }
     SprDecodeCache CacheFor(IAssetRecipe recipe,AssetPrepInput opened)=>caches.GetOrAdd(recipe.Id,_=>new SprDecodeCache(recipe.Id,recipe.Version,opened.ReadSpriteList().List.Sha256));
-    void Unavailable(Slot slot,AssetPrepFailure failure,string reason){slot.Failure=failure;slot.Reason=reason;slot.Value=null;Finish(slot,OnDemandState.Unavailable);}
+    void Unavailable(Slot slot,AssetPrepFailure failure,string reason){
+        slot.Failure=failure;slot.Reason=reason;slot.Value=null;Finish(slot,OnDemandState.Unavailable);
+        // #1243: every refused item is written once to native-ui.log (an item is never retried), so a missing appearance is visible.
+        P06.NativeUi.UiResourceLog.Write($"runtime-appearances unavailable {slot.Key} ({failure}): {reason}");
+    }
     static void Finish(Slot slot,OnDemandState state){Volatile.Write(ref slot.State,(int)state);slot.Done.TrySetResult();}
 
     // ---- Builders: the recipe's own Produce in a memory context, then the product's own reader. ----
@@ -186,6 +203,29 @@ public sealed class RuntimeAppearances:IDisposable {
         var appearance=ObjectAppearance.FromRuntimeJson(data);
         PlayerProfiles.Check(appearance,profile);
         return new(profile with{Runtime=appearance},appearance);
+    }
+    /// <summary>Virtual path of a lenient build (nothing exists there; <see cref="PlayerProfile.Runtime"/> carries the appearance).</summary>
+    public static string LenientPath(int gfx,int weapon)=>Inv($"runtime/players-lenient/{gfx}-{weapon}");
+    static PlayerBuild BuildLenient(Build b,int gfx,int weapon){
+        if(PlayersRecipe.InheritedPath(gfx,weapon) is {} inherited)throw new AssetPrepException(AssetPrepFailure.InvalidRequest,$"gfx {gfx} weapon {weapon} 由 objects 準備（{inherited}），不按需產生");
+        var context=b.Context(new PlayersRecipe(),Inv($"{gfx}-{weapon}"));
+        try{
+            var entry=context.ReadSpriteList().Find(gfx)??throw Refused($"list.spz has no entry for gfx {gfx}");
+            var actions=SprCreature.PlayerActions(weapon).Select(a=>(a.Label,Action:entry.Action(a.Action))).Where(a=>a.Action!=null).Select(a=>(a.Label,Action:a.Action!)).ToArray();
+            if(actions.Length==0)throw Refused($"list.spz 的 gfx {gfx} 沒有姿勢 {weapon} 的任何玩家動作（{weapon}–{weapon+3}、8、18、19）");
+            SprAction? Of(string label)=>actions.FirstOrDefault(a=>a.Label==label).Action;
+            // A stance other than 0 without its own walk is not this stance (PlayerProfiles.Resolve then tries stance 0).
+            int stepMs=Of("walk") is {} walk?SprTiming.Times40(walk):weapon==0&&Of("breath") is {} breath?(int)SprTiming.Exact(breath)
+                :throw Refused($"list.spz 的 gfx {gfx} 沒有姿勢 {weapon} 的 walk（動作 {weapon}）");
+            var body=new SprBody(context,entry.Sprite);
+            var sequences=actions.SelectMany(a=>body.Sequences(a.Label,a.Action)).ToArray();
+            var appearance=ObjectAppearance.FromCreature(new ObjectsRecipe.CreatureModel(entry,stepMs,actions,body,sequences));
+            if(appearance.Gfx!=gfx||appearance.StepMs!=stepMs)throw new InvalidDataException("lenient player appearance identity");
+            // actionMs as a players file has it (sprites.md §4.2: walk ×40, the other six the floor sum), not the monster rule.
+            foreach(var (label,action) in actions)appearance.ActionMs[label]=label=="walk"?SprTiming.Times40(action):SprTiming.Floor(action);
+            return new(new PlayerProfile(gfx,weapon,LenientPath(gfx,weapon),"",stepMs,[],[],null){Runtime=appearance},appearance);
+        }
+        finally{b.Record(context);}
     }
     static ObjectAppearance Checked(ObjectAppearance a,int gfx,params string[] actions){
         if(a.Gfx!=gfx||actions.Any(action=>Enumerable.Range(0,8).Any(d=>!a.Supports(action,d))))throw new InvalidDataException("Incomplete original appearance");
