@@ -515,3 +515,4 @@
 - 2026-11-14 — #1266 f1222-board-ruling-doc: 把 SM27／SM29「甲：GM 暫時召出」裁定寫進 CLAUDE.md 例外與 smoke-m7.md（code，claude-local，PR #1267 已合併）→ [報告](reports/issue-1266.md)
 - 2026-11-14 — #1269 分流：tw-bin-engine#1247 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1270 已合併）→ [報告](reports/issue-1269.md)
 - 2026-11-14 — #1249 f1229-adjacent-fixture-durable: f1229-adjacent-fixture-durable: 在 P24Lab 隔離副本讓兩個測試角色相鄰並保存成原專案新增的持久 fixture 目錄（#1229 P01–P04 因派工「原專案只讀」與持久 DB 寫入衝突未做）；先步行，不成立才依 #160 暫設 GM（resource，codex-local，PR 已合併）→ [報告](reports/issue-1249.md)
+- 2026-11-14 — #1274 分流：tw-bin-engine#1263 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1276 已合併）→ [報告](reports/issue-1274.md)
