@@ -31,7 +31,9 @@ namespace P06.NativeUi;
 // shows page <Page> and is drawn with its PushPng while that page is shown; Moveable="30" = the top 30 px drag the window;
 // ComboBox lists (UpDownList) stay collapsed; the shortcut List rows (Caption="name0" placeholders) are filled at run time
 // in the original and are not drawn. Labels carry Desc/String ids of the reference client's text tables; they are drawn
-// only through TextResolver (null in the product: the local string-c.tbl ids would not match — see the report).
+// only through TextResolver. #1208 (SM57): the check-button names of every page are such Desc ids (Home: 18805 18806 18803
+// 20826 18808 18807 18813 20829), not run-time Captions; kor25 stores "dummyNNNN" at those ids, so the product resolver
+// is RefClientTextFill (placeholders filled from a second client whose ids line up; docs/reports/issue-1208.md).
 // Not wired (待做): the radio/scroll/combo values, Help, Init, ChangeWarehousePassword — clicks on them do nothing.
 //
 // R9-Q (T377/#861, FU9§14.4): check buttons that match a setting the engine already has are wired, and a click takes effect
@@ -140,7 +142,9 @@ public static class OptionSettingsFile {
 }
 
 public sealed class OptionPanel(UiResources? resources=null,Func<HpMpPanel?>? hpMp=null):IUiMovablePanel,IUiClosablePanel {
-    [UiPanel(176)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,root=>new OptionPanel(root.Resources,()=>HpMpWindow(root)){TextResolver=RefClientTextSource.Resolver(root.Resources)});   // T330 (#768): OptionUI.xml from the reference client (P-A), loaded inside Load
+    // T330 (#768): OptionUI.xml from the reference client (P-A), loaded inside Load. #1208: label text = reference tables with
+    // the kor25 "dummyNNNN" placeholders filled from a second client (RefClientTextFill, RefClientTextSource.cs).
+    [UiPanel(176)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,root=>new OptionPanel(root.Resources,()=>HpMpWindow(root)){TextResolver=RefClientTextFill.Resolver(root.Resources)});
     public const string PanelId="OptionUI";
 
     // R9-Q (#861): MouseEvent names of the wired check buttons (kor25 OptionUI.xml, SHA-256 fe32d2fd…c8846d; FU9§14.4).
