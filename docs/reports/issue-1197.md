@@ -97,4 +97,4 @@ FROM p24_accounts.characters ORDER BY objid;
 - 下一棒：調度器／Claude 先安排明確的**地圖 4 測試前置**（例如核實 #1188 冷備份內既有資源法師位置，指定該備份的隔離副本供重測），再只派 M01；本輪 G01、N01-2、收尾可沿用。若需要 DB 寫入或角色移動，應另立前置任務，不擴大本張限制。
 - 未執行：其他 SEG 區塊、SM08／SM09／SM48、服務子頁按鈕、移動、戰鬥、交易、對話、N01-1／N01-3／N01-4；均按任務排除。
 - 產出：`docs/reports/issue-1197.md`、`docs/reports/issue-1197-evidence.json`；完整證據／腳本／備份在 `scratch/issue-1197/`。未改 `docs/REPORT.md`，未遞迴刪除任何目錄。
-- CI：PR 最新 commit 的結果以 GitHub checks 為準；本機另執行遊戲素材閘門，結果記於 scratch。
+- CI：PR 最新 commit 的結果以 GitHub checks 為準；本機遊戲素材閘門已通過（errors=0）；結果記於 scratch/issue-1197/asset-gate.txt。
