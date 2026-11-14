@@ -687,7 +687,7 @@ function Send-ClientInputBatch {
     if($err -eq -1){throw "Foreground PID $fgp (HWND $fgh) is not client PID $clientPid; SendInput not called ($($Entry['Action']))"}
     if($n -ne $array.Length){throw "SendInput sent $n of $($array.Length) ($($Entry['Action'])); LastError=$err"}
 }
-function Copy-ClientLogEntry { param([Collections.IDictionary]$Source,[string]$Action) $e=[ordered]@{};foreach($k in $Source.Keys){$e[$k]=$Source[$k]};$e['Action']=$Action;$e }
+function Copy-ClientLogEntry { param([Collections.IDictionary]$Source,[string]$Action) $e=[ordered]@{};foreach($pair in $Source.GetEnumerator()){$e[$pair.Key]=$pair.Value};$e['Action']=$Action;$e }
 
 function Send-ClientClick {
     # X/Y are 800x600 logical client coordinates. One SendInput batch: MOUSEEVENTF_MOVE|ABSOLUTE|VIRTUALDESK

@@ -297,7 +297,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -STA -File work/f1118-uia-path
    - **帳號欄矩形的出處**：登入版面讀的是參考客戶端（預設 kor25，`RefClientXmlSource.cs:23`）`Tile.pak` 裡的 `LoginUI.xml`。本機 `Tile.pak` 沒有這個檔（`docs/reference/pak-resources.md:110`）。#1154 用 PakViewer CLI `pak extract 'D:\381懶人包kor25(原)\Tile.idx' LoginUI.xml` 加上 `xml decrypt` 解出：原檔 SHA-256 `c79d636c…3c821a61`，明文 `dfefdd0d…b2c8d58f`，和 `pak-resources.md:88` 相同；解出的檔案只放 `scratch/`。內容是 `<Window Name="Login_Window" X="0" Y="0">` 和 `<InputBox Name="ID_Input" X="320" Y="364" Width="110" Height="20" …/>`。依 `LoginPanel.cs:290`（InputBox 的 Offset＝X/Y、Local＝Width/Height）與 `LoginPanel.cs:388`（`At`＝Origin＋Local），邏輯矩形是 (320, 364, 110, 20)，中心 (375, 374)。換用別的參考客戶端時要重查。
    - **點擊沒中也可能輸入成功**：登入窗一顯示，焦點就預設在 `ID_Input`（`LoginPanel.cs:330`；帳號已有字時 `:359`／`:382` 才改到密碼欄）。所以「看到 abc」只證明輸入成功，不證明點擊落點正確。點擊落點要看 JSONL 的 `ClientX/Y`、`HitRootHwnd`，必要時另外測一個非預設焦點的位置。
 4. **N03（登入畫面反向核對，`N03.Mode='login-negative'`，#1184）**：送 `Ctrl+P`，完整等 3 秒，期間看 `engine/runtime/Capture` 和 `<exe>/../../runtime/Capture` 有沒有新檔（有就記檔名、修改時間、SHA-256）。之後擷取 `n03-after.png`，在帳號欄矩形內和 `n02-after.png` 比對。**通過條件**：按鍵送出無錯誤、**沒有**新檔、客戶端仍在執行、帳號欄矩形內改變像素少於 `30·k²`（和 N02 同一個單位：游標閃爍約 14 像素不算，多畫出一個字元就算；表示 Ctrl+P 沒有把字元塞進帳號欄）。原版與引擎依據寫在 `N03.OriginalBasis`／`N03.EngineBasis`。世界內 Ctrl+P 會產檔，改由 `f1125-retest-3` 的 smoke-m7 SM15 實證，本腳本不進世界。
-5. **N04**：送 `Alt+F4`，等客戶端程序結束（10 秒），再讀 `window-events.json` 確認有 `closed`。之後核對所有自己啟動的程序（PID＋啟動時間差 1 秒內），還活著的才強制結束（`ForcedClose` 不是空的就算失敗），最後唯讀查 42061／43324 有沒有屬於自己程序的監聽。
+5. **N04**：`Close-SmokeClient` 送 `Alt+F4`，用共享讀取等待 `window-events.json` 的 `closed` 與客戶端退出，最多 15 秒。之後核對所有自己啟動的程序（PID＋啟動時間差 1 秒內），給包裝程序額外 3 秒退出時間；再次檢查仍存活才強制結束，退出競爭不算 Kill 失敗。`ForcedClose` 不是空的仍算失敗，最後唯讀查 42061／43324 的自啟監聽。
 
 結果寫在 `<dir>/native-result.json`（`N01`–`N04` 各有 `Passed` 和細節、`Errors`、`OwnedProcesses`、`ForcedClose`），四項都通過且沒有錯誤才回 0，否則回 1。
 
@@ -309,3 +309,146 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -STA -File work/f1118-uia-path
 - `Unicode` 模式在原生登入框可能不會產生字元（見上方 `Send-ClientText`）。
 
 歷史結果：[issue-1126.md](../../docs/reports/issue-1126.md)（保留原文）。記事本結果：[issue-1149.md](../../docs/reports/issue-1149.md)；客戶端結果與下一棒：[issue-1150.md](../../docs/reports/issue-1150.md)。本目錄只放腳本與 README，PNG 留在各任務 worktree 的 scratch。
+
+## f1186-retest：聊天、指定物件、錄音與共享取證（#1210）
+
+載入 `UiaGdi.ps1` 後再載入 `SmokeTools.ps1`。只對本輪自啟 PID 使用；兩個客戶端的 GUI 操作須依序執行，避免互搶前景。所有實機證據放各任務的 `scratch/`。#1210 的實測與限制見 [issue-1210.md](../../docs/reports/issue-1210.md)：聊天、NPC 點選、共享讀取、正常關窗已實測；雙角色點選與錄音波形仍待補。
+
+### 前置與啟動
+
+承接 `f1186-smoke-fixtures` 的測試角色／相鄰位置及 P24Lab 42061／43324；不要為本工具另改產品或正式服務。先建置本輪客戶端。以下以 worktree 根目錄為工作目錄，在 `powershell.exe -NoProfile -ExecutionPolicy Bypass -STA` 腳本中執行：
+
+```powershell
+$ev=[IO.Path]::GetFullPath('scratch/f1186-retest/A') # 每個客戶端獨立、未用過的目錄
+New-Item -ItemType Directory -Force $ev,"$ev/tmp" | Out-Null
+$env:TEMP="$ev/tmp"; $env:TMP=$env:TEMP
+. ./work/f1118-uia-path/UiaGdi.ps1
+. ./work/f1118-uia-path/SmokeTools.ps1
+Set-ClientInputLog "$ev/client-input.jsonl"
+# 必須在啟動客戶端之前設定；既有 client-network.jsonl 並不保證包含聊天 C 封包。
+$env:TW_PACKET_TRACE="$ev/packet-trace.jsonl"
+$p=Start-Process ./engine/build/client-product-dev/P11.ClientEngine.exe `
+    -ArgumentList @('--normal-product','--evidence',('"'+$ev+'"')) `
+    -WorkingDirectory ./engine -PassThru
+# 保存 $p.Id 和 $p.StartTime。等主窗出現後才取 HWND；不可依程序名稱認領其他客戶端。
+$deadline=[DateTime]::UtcNow.AddSeconds(30)
+do {
+    if($p.HasExited){throw 'Client exited'}
+    $p.Refresh();$hwnd=$p.MainWindowHandle
+    if($hwnd -ne [IntPtr]::Zero){break}
+    Start-Sleep -Milliseconds 200
+} while([DateTime]::UtcNow -lt $deadline)
+if($hwnd -eq [IntPtr]::Zero){throw 'No main window'}
+$statePath="$ev/login-state.json"
+```
+
+照既有登入／選角方法進世界。#1210 為工具準備曾以開發工具的「登入／選角」進世界，**不因此判定 SM07 通過**。使用測試憑證時不得將逐字 CodeUnit 或密碼寫入公開證據。等待 `Read-SmokeJson $statePath` 的 `state=InWorld`、`world.renderable=true`；先關掉會蓋住聊天列／目標的面板。
+
+### 聊天指令
+
+```powershell
+# 目前 uistatus86：CENTER_WINDOW=(129,470)，CHAT_BAR=(10,114)、346×16。
+# BarRoom 的文字矩形＝(143,586,338,12)。換 XML 版面時必須重新核對。
+$inputRect=@(143,586,338,12)
+Clear-SmokeChat $hwnd $statePath "$ev/clear" $inputRect
+$r=Send-SmokeCommand -Hwnd $hwnd -StatePath $statePath `
+    -TracePath "$ev/packet-trace.jsonl" -Command '/buddy' `
+    -ExpectedOpcode 4 -ResponseOpcodes 39 -InputRect $inputRect -EvidencePrefix "$ev/buddy"
+$r | Select-Object Status,SendConfirmed,ResponseObserved,Error
+# /rank：ExpectedOpcode 125、ResponseOpcodes 39。
+# /loc <角色>：ExpectedOpcode 254；S71 是錯誤提示之一，收件者端才看 S250/111。
+```
+
+`Clear-SmokeChat` 點輸入列**中央**（左端與頻道按鈕重疊），送 106 次 Backspace。原生 `ChatInputLine` 的上限是 106，沒有 Ctrl+A/Delete；Esc 只關閉、不清草稿。清除後拍 GDI，檢查文字區沒有白色字形（只排除起點兩像素的游標），輸入 `W` 作正向確認，再 Backspace 並重拍。`W` 必須出現在文字起點、刪除後必須恢復空白，否則拋錯，**不送指令**。這是目前白字／像素字型的視覺檢查，非 OCR；矩形、字型、文字色或背景變更時需重新校準，不能關掉檢查硬送。`-Fill` 要和 native-ui.json 的 fill 設定一致。
+
+`Send-SmokeCommand` 自行先清除，保存輸入後與送出後的 PNG、狀態快照及 `*-send.json`。它只讀 `TW_PACKET_TRACE` 的 `{utc,dir,op,len,seq}` 格式，採送 Enter 前的完整內容作分界，忽略舊列與未完成列；遇到截斷／替換視為未知。不可把其他格式的 client-network.jsonl 直接傳入。
+
+| Status | 報告怎麼寫 |
+|---|---|
+| `sent-expected-response-observed` | 觀察到指定 C opcode，之後觀察到指定 S opcode；再看畫面／狀態判定功能。 |
+| `sent-no-expected-response-in-window` | 已觀察到 C；指定秒數內未觀察到預期 S。不是「伺服器不支援」，也不能排除其他種類回覆。 |
+| `sent-response-not-specified` | 已觀察到 C；呼叫者沒指定回包，不判回應。 |
+| `send-not-observed` | 完整觀察窗內沒有指定 C；先看 `TraceRows`、送鍵與畫面，不能說伺服器沒有回。 |
+| `unknown-or-precondition-failed` | 清空、前景、取證或追蹤失敗；保留 `Error`，不能冒充已送出／沒送出。 |
+
+追蹤不含 payload，**opcode 相符不是內容或因果關係的證明**。同一客戶端一次只送一個操作，以輸入截圖、狀態與回包一起核對；本工具不重送、不注入封包。`/loc` 沒參數是本機拒絕，#1210 已用它確認不會把未送出當成「伺服器未回」。
+
+### 指定 objid 點選
+
+```powershell
+$s=Read-SmokeJson $statePath
+$s.world.objects | Select-Object ObjectId,Name,X,Y,Dead,AppearancePending
+# objid 必須取自上列實際狀態；這裡的 $targetId 由本輪選定的物件取得。
+Convert-SmokeObjectPoint $s $targetId -Zoom 1.5
+$r=Select-SmokeObject -Hwnd $hwnd -StatePath $statePath -ObjectId $targetId `
+    -Zoom 1.5 -EvidencePrefix "$ev/target"
+$r | Select-Object Selected,BeforeTarget,AfterTarget,Error
+```
+
+適用**原生 800×600、Camera.Follow=true、角色與目標已停穩**；預設世界 Zoom=1.5，改過縮放就傳入實際值，classic 不適用。換算依 `Coordinates.Screen`、`Camera.ToView`、`UiRoot.WorldRect`：相對角色 `(dx,dy)` → `(400+24(dx+dy)·Zoom, 300+12(dy-dx)·Zoom)`，再加身體偏移（場景像素，預設 `-BodyOffset @(0,-24)`），最後由 `Send-ClientClick` 處理視窗倍率與黑邊。
+
+畫布中的物件採**可見不透明像素**命中；座標不是精靈命中保證，外型、遮擋、其他面板都可能擋住。工具保存前後 GDI，只在較新 login-state 的 `world.targetId` 等於指定 objid 時回 `Selected=true`；已選中同一目標、物件消失、換地圖、投影超出裸露場景都拒絕，沒命中不自動掃點或雙擊。`-BodyOffset` 必須依實際截圖調整。若進入交易／組隊／施法「選對象」模式，該模式可能消費點擊而不改 targetId；應先在普通模式驗證點選，再於該 SM 以對應 C 封包／對方畫面驗證，不能拿 Selected=false 判模式故障。
+
+### WASAPI loopback
+
+```powershell
+# 不是錄麥克風，也不播放測試音代替遊戲。其他程式的 active session 只要全程靜音就照錄。
+$audio=Record-SmokeLoopback -Process $p -Path "$ev/game.wav" -Seconds 3
+$audio | Select-Object Completed,HasWaveform,Rms,Peak,CapturedSeconds,OwnMaxPeak,Threshold,RejectReason,RejectDetail,Error,Scope
+$audio.OtherSessions | Format-Table Pid,Name,Kind,State,MaxPeak,Polls,UnmeteredPolls,Verdict
+# 舊的嚴格模式（任何其他 active session 就拒錄）：
+# Record-SmokeLoopback -Process $p -Path "$ev/game-strict.wav" -Seconds 3 -RequireExclusive
+```
+
+`SmokeLoopback` 的 C# 原始碼內嵌在 `SmokeTools.ps1` 的 `Import-SmokeLoopback`（#1230：原本的 `SmokeLoopback.cs` 被 `.gitignore` 的 `work/*` 排除，只有 `work/f1118-uia-path/*.ps1` 放行，所以改為內嵌）；`Record-SmokeLoopback` 第一次呼叫時才 `Add-Type -TypeDefinition`，`Test-SmokeTools.ps1` 直接呼叫 `Import-SmokeLoopback`。改版後（#1230）型別簽章變了；同一個 PowerShell 程序若已載入舊版 `SmokeLoopback`，`Add-Type` 不會重載，請開新的 `powershell.exe` 再 dot-source。
+
+`SmokeLoopback` 不需 NuGet；採預設 eRender/eMultimedia 的 shared-mode WASAPI loopback，支援 float32、PCM16/24/32 與對應 extensible 格式，寫原 mix format 的 WAV。RMS／Peak 以滿刻度 1 正規化；`CapturedSeconds` 由實際 frames／sample rate 算，silent flag 算零樣本，discontinuity／timestamp error 另記。只接受 worktree 的 `scratch/` 路徑、拒絕 junction／symlink、既有 WAV 不覆寫，時長 1–30 秒；JSON 在 `<wav>.json`。
+
+錄製前、錄製中每約 20ms、結束後各檢查一次音訊 session（#1230）：
+
+- 自家客戶端 PID 必須有 Active session（否則 `RejectReason=own-not-active`）；其 session 音量表 peak 的最大值記為 `OwnMaxPeak`，輪詢次數記 `OwnPolls`。
+- 其他 PID、跨程序 session（`AUDCLNT_S_NO_SINGLE_PROCESS`）、系統音效 session 只要是 Active，就從 session control QueryInterface `IAudioMeterInformation`（IID `C02216F6-8C67-4B5B-9D00-D008E73E0064`）取 `GetPeakValue`：peak ≤ `Threshold`（常數 `1e-4`，約 -80 dBFS）記 `other-active-silent` 並繼續錄；任一次 > 門檻立即停止，`RejectReason=other-audible`；取不到 meter 視同可能有聲，`RejectReason=other-active-unmetered`。加 `-RequireExclusive` 時任何其他 active session 都拒錄（`other-active-exclusive`）。
+- 被拒錄時 **不留 WAV**（`WavKept=false`；開錄前就拒錄則根本不建檔），JSON 仍寫在 `<wav>.json`。錄音工具自己的 PowerShell PID 若出現 session 記為 `capture-host-ignored`。
+- 判定邏輯是純函式 `[SmokeLoopback]::ClassifySession(isOwn,state,peak,threshold,meterOk,crossProcess,requireExclusive)`，`Test-SmokeTools.ps1` 有離線契約檢查。
+
+JSON 新增欄位：`Threshold`、`OwnMaxPeak`、`OwnPolls`、`OtherSessions[]`（`Pid`、`Name`、`Kind`＝process／cross-process／system-sounds、`State`、`MaxPeak`、`Polls`、`UnmeteredPolls`、`LastMeterHResult`、`Verdict`、`Key`）、`RejectReason`、`RejectDetail`、`RequireExclusive`、`WavKept`；舊欄位（Frames、CapturedSeconds、RMS、Peak、HasWaveform…）照舊。
+
+**`other-audible`／`other-active-unmetered` 的處理**：該列記 ⚠️（環境）跳過，附 `<wav>.json`；**不關他人程式、不改系統音量或裝置設定**，可等安靜時段重錄一次。這仍是 **endpoint 混音與輪詢檢查，並非程序隔離錄音**：只證明每次輪詢瞬間其他 session 的音量表 ≤ 門檻，兩次輪詢之間的短促聲音無法排除（`Scope` 已寫明）；Windows 10 build 19045 沒有 build 20348+ 的程序隔離 loopback。#1210 的拒錄是 Chrome 靜音 active session 造成，改版後的實際錄音結果待 `f1210-tooling-retest` R07。`HasWaveform` 也只代表捕獲非零樣本，不等於某音效或 SM51 通過。設計依 [Microsoft loopback 說明](https://learn.microsoft.com/en-us/windows/win32/coreaudio/loopback-recording) 與 [GetBuffer 契約](https://learn.microsoft.com/en-us/windows/win32/api/audioclient/nf-audioclient-iaudiocaptureclient-getbuffer)。
+
+### 共享讀取、關窗與函式索引
+
+```powershell
+# 不要 Copy-Item／Get-Content 讀正在更新的 login-state.json。
+$snapshot=Copy-SmokeState $statePath "$ev/observed-state.json"
+$close=Close-SmokeClient -Process $p -Hwnd $hwnd -EventsPath "$ev/window-events.json"
+$close | Select-Object Closed,Exited,Passed,KeyError
+```
+
+所有狀態讀取使用 `FileShare.ReadWrite | FileShare.Delete`；`Read-SmokeJson` 另外重試瞬間空檔／半份 JSON，預設最多 12 次、間隔 50ms。共享旗標避免讀者阻擋寫者，但不能把寫入中的半份內容變成原子快照。`Copy-SmokeState` 先解析成功才另存 JSON，所以 SHA 是**保存後快照**的 SHA，非宣稱與瞬間來源逐 byte 相同。
+
+`Close-SmokeClient` 不 Kill；送 Alt+F4 後等待 closed 與 Process 退出。若逾時，呼叫者先記錄，再對本輪自啟、核對 PID＋建立時間的程序處理；Kill 前再次查 HasExited，catch 時若已退出就不報競爭錯誤。`Test-NativeClient.ps1` 已採此順序。
+
+| 函式 | 最小用法／結果 |
+|---|---|
+| `Read-SmokeText` | `Read-SmokeText $path`：短持有共享讀取 handle，回傳 UTF-8 字串。 |
+| `Read-SmokeJson` | `Read-SmokeJson $path -Attempts 12`：共享讀取、解析與有限重試。 |
+| `Save-SmokeJson` | `Save-SmokeJson $path $value`：保存測試工具自己的 JSON；不可拿來寫產品的狀態檔。 |
+| `Copy-SmokeState` | `Copy-SmokeState $source $dest`：驗證後另存，回 Path、Sha256、State。 |
+| `Get-SmokeTraceMark` | `Get-SmokeTraceMark $trace`：記錄現有追蹤前綴，供下一個函式使用。 |
+| `Read-SmokeTraceSince` | `Read-SmokeTraceSince $mark`：只回傳分界後的完整 JSONL 列，追蹤改寫時拒絕。 |
+| `Measure-SmokeInputInk` | `Measure-SmokeInputInk $bitmap $geometry $inputRect`：聊天列白字／探針像素統計，bitmap 由呼叫者 Dispose。 |
+| `Clear-SmokeChat` | 見聊天例；回 Empty 與三張 GDI／像素統計，失敗拋錯。 |
+| `Send-SmokeCommand` | 見聊天例；回 SendConfirmed、ResponseObserved、Status、Error，完整 JSON 另存。 |
+| `Convert-SmokeObjectPoint` | 見物件例；純座標換算，不送輸入。 |
+| `Select-SmokeObject` | 見物件例；單擊及較新 targetId 讀回，不自動攻擊／雙擊。單擊在產品的敵對目標模式仍可能觸發產品原有攻擊路徑，因此準備自測時選普通 PC／中立 NPC。 |
+| `Record-SmokeLoopback` | 見錄音例；回 format、frames、RMS、Peak、OwnMaxPeak、Threshold、OtherSessions、RejectReason、錯誤與錄音範圍；`-RequireExclusive` 為舊嚴格模式。 |
+| `Close-SmokeClient` | 見關窗例；回 Closed、Exited、Passed，不強制結束程序。 |
+
+離線契約測試（不啟動遊戲、不錄音）：
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File work/f1118-uia-path/Test-SmokeTools.ps1 `
+    -EvidenceDirectory scratch/f1186-retest/contracts
+```
+
+測試包含共享讀取與同時截斷寫入、有效快照、JSONL 舊列／半列／截斷拒絕、物件不存在拒絕、座標向量、錄音 interop 編譯、錄音 session 判定（自家有聲／他人靜音 active／他人有聲／無 meter／跨程序／-RequireExclusive）與 JSON 欄位，以及送鍵日誌保留 `Keys`／VirtualKey／Modifiers。這些是工具契約測試，不能替代真機自測或任何 SM 判定。
