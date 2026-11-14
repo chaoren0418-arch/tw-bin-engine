@@ -492,3 +492,4 @@
 - 2026-11-14 — #1192 分流：tw-bin-engine#1188 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1194 已合併）→ [報告](reports/issue-1192.md)
 - 2026-11-14 — #1196 f1188-evidence-png: f1188-evidence-png: #1188 把 6 張 PNG 提交到 docs/reports，被 check-no-game-assets 擋下，PR #1191 CI 紅燈——證據改放 scratch 並記 SHA，讓 PR 綠燈合併（resource，codex-local，PR #1198 已合併）→ [報告](reports/issue-1196.md)
 - 2026-11-14 — #1195 f1188-map-seg: f1188-map-seg: 只有 .seg 的地圖區塊（map 4 共 43 塊、map 3／10 共 3 塊）被列為 unsupportedBlocks，資源法師進世界後地圖 4 無法載入（#1188 M01 ⚠️）（code，claude-local，PR 已合併）→ [報告](reports/issue-1195.md)
+- 2026-11-14 — #1201 分流：tw-bin-engine#1186 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR 已合併）→ [報告](reports/issue-1201.md)
