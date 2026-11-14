@@ -82,7 +82,9 @@ public sealed class Camera {
     public void SetBounds(Rectangle bounds){canvasX=bounds.X;canvasY=bounds.Y;SetBounds(bounds.Width,bounds.Height);}
     public void SetBounds(int width,int height){if(width<=0||height<=0)throw new ArgumentOutOfRangeException();canvasWidth=width;canvasHeight=height;SetCenter(Center);}
     public void SetCenter(PointF p) {Center=new(Math.Clamp(p.X,canvasX,canvasX+canvasWidth),Math.Clamp(p.Y,canvasY,canvasY+canvasHeight));}
-    public PointF ToView(PointF p)=>new((p.X-Center.X)*Zoom+View.Width/2f+ViewOffset.X,(p.Y-Center.Y)*Zoom+View.Height/2f+ViewOffset.Y);
+    public PointF ToView(PointF p)=>ToView(p,new RectangleF(ViewOffset,View));
+    /// <summary>Project into an explicit viewport (native UI snapshots precede PaintScene's viewport update).</summary>
+    public PointF ToView(PointF p,RectangleF viewport)=>new((p.X-Center.X)*Zoom+viewport.Width/2f+viewport.X,(p.Y-Center.Y)*Zoom+viewport.Height/2f+viewport.Y);
     public PointF ToScene(PointF p)=>new((p.X-ViewOffset.X-View.Width/2f)/Zoom+Center.X,(p.Y-ViewOffset.Y-View.Height/2f)/Zoom+Center.Y);
     public void Scale(float factor,PointF mouse) {var before=ToScene(mouse);Zoom=Math.Clamp(Zoom*factor,.35f,3f);if(!Follow){var after=ToScene(mouse);SetCenter(new(Center.X+before.X-after.X,Center.Y+before.Y-after.Y));}}
     public void Pan(float dx,float dy) {Follow=false;SetCenter(new(Center.X-dx/Zoom,Center.Y-dy/Zoom));}

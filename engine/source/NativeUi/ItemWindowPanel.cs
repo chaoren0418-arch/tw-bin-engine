@@ -381,7 +381,7 @@ public sealed class ItemWindowPanel(ItemIconSource? icons=null,Func<IItemWindowH
         for(int s=0;s<page.Count;s++){
             var cell=CellRect(s);var item=page[s];
             ItemIconSource.Draw(canvas,Icons.For(item),cell.Location);
-            DrawRightAligned(canvas,ItemText.Count(item.Count),cell.Right,cell.Bottom-UiText.Font.Height,TextColor);
+            DrawRightAligned(canvas,ItemText.Count(item.Count),cell.Right,cell.Bottom-UiText.PixelHeight,TextColor);
             if(item.ObjectId==selected)DrawFrame(canvas,cell,SelectedColor);
         }
     }

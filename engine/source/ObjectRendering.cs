@@ -415,7 +415,7 @@ public static class NameLayout {
     /// <summary>自己的 P.x（場景座標，取整同 <see cref="CrownLayout.Position"/>）。</summary>
     public static int SelfOriginX(int x,int y)=>(int)Coordinates.Screen(x,y).X+SelfOriginDx;
     /// <summary>R10-H（T392／#907）：自己的 P.x 改用顯示中的腳下點（World.DisplayPosition＝OwnCombatVisual.Foot，走路時內插），
-    /// 與身體、頭上條（HpMpState.SelfHeadOrigin）同一基準。站著時等於 <see cref="SelfOriginX(int,int)"/>。</summary>
+    /// 站著時等於 <see cref="SelfOriginX(int,int)"/>。#1207 頭上條另以實際 actor 外框定位，不套用此名稱原點。</summary>
     public static int SelfOriginX(PointF foot)=>(int)Math.Floor(foot.X)+SelfOriginDx;
     /// <summary>自己的置中基準：P.x − 56 − 3·len。</summary>
     public static int SelfX(int originX,string text)=>originX+SelfNameDx-GlyphWidth/2*ByteLength(text);

@@ -267,7 +267,7 @@ public sealed class WarehouseWindowPanel(ItemIconSource? icons=null,Func<string,
             DrawRightAligned(canvas,row.Available.ToString(inv),rect.Right-3,rect.Y+NameY,TextColor);
             var up=CountUpRect(r);var down=CountDownRect(r);
             DrawCentered(canvas,countDown,down);DrawCentered(canvas,countUp,up);
-            DrawRightAligned(canvas,count.ToString(inv),up.X-2,up.Y+(up.Height-UiText.Font.Height)/2,color);
+            DrawRightAligned(canvas,count.ToString(inv),up.X-2,up.Y+(up.Height-UiText.PixelHeight)/2,color);
             if(FocusedRow==row.Id)DrawFrame(canvas,rect,SelectedColor);
         }
         // Withdraw fee (kinds × fee) after the TOTAL label (推測 position: right of the label, same line); 3.81 always draws it.
