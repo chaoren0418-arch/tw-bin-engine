@@ -88,6 +88,7 @@
   6. 既有順序不變：預建優先；預建職業的缺姿勢退回預建姿勢 0，不走寬鬆；未認領的 gfx 不建；非法姿勢不建；沒有按需來源時只用預建；已完成與不可用的項目都不重建。
   7. `WorldSession`：自己是 138、變身 1062 時 `SupportedAppearance` 為真、提示「角色外觀已載入」、移動節奏取自寬鬆 walk；1062 攻擊節奏可以擷取，施法回報不支援。變身 1395 時提示含「外觀資料未到」，再變回 138 恢復正常。
   - `Renderable` 的其他條件（Ready、地圖）在這組檢查不成立，所以只驗 `SupportedAppearance`，也就是 `Renderable` 裡外觀的那一項。
+  - **CI 結果（已驗證）**：PR #1253 commit `30f0b363` 的 dotnet、map-continuity、npc-offline 全部通過。第 1 次 push 時 map-continuity 失敗：CI 沒有 `engine/assets`，第 7 段的 `WorldSession` 要讀行程共用的 `players/manifest.json`。現在沒有 assets 時第 7 段改為略過，並記一筆 check。所以 **CI 實際驗到第 1–6 段（Resolve 規則與時間）；第 7 段只會在有 engine/assets 的環境執行（待驗證）**。
 - **推測（沒有實跑）**：
   - 138 的 SPR 有 bounds 外的像素，畫面照 tile 位置畫出，不會被裁切（`Renderer.Actor`、`ObjectRendering.cs:20` 都是逐 block 畫）。實際好不好看要看真機。
   - 1062／1461 的自己移動、走路 stride、影子（101.shadow）與 cloth 會照既有的按需路徑出現。
