@@ -21,9 +21,11 @@ public sealed class DevToolsForm : Form {
         }catch(Exception e) when(e is IOException or UnauthorizedAccessException or JsonException){ }
     }
     public void AddPage(string title,Control content){
-        var page=new TabPage(title){BackColor=Color.FromArgb(23,38,41),AutoScroll=true};
+        var page=new DevToolsPage(title){BackColor=Color.FromArgb(23,38,41),AutoScroll=true};
         content.Dock=DockStyle.Fill;page.Controls.Add(content);pages.TabPages.Add(page);
     }
+    /// <summary>分頁標題，依加入順序（#1163 離線檢查用）。</summary>
+    internal string[] PageTitles=>pages.TabPages.Cast<TabPage>().Select(p=>p.Text).ToArray();
     public void SelectPage(Control content){
         if(content.Parent is TabPage page&&page.Parent==pages)pages.SelectedTab=page;
     }
@@ -40,6 +42,32 @@ public sealed class DevToolsForm : Form {
         try{Directory.CreateDirectory(Path.GetDirectoryName(settingsPath)!);File.WriteAllText(settingsPath,JsonSerializer.Serialize(bounds));}
         catch(Exception e) when(e is IOException or UnauthorizedAccessException){ }
     }
+}
+
+/// <summary>
+/// #1163（#1150 G07）：開發工具的分頁。外觀、標題、內容與一般 TabPage 相同，只差在：
+/// 其他執行緒（包括其他行程的 UIA 用戶端）用 WM_GETTEXT／WM_GETTEXTLENGTH 讀這個分頁 HWND 的視窗文字時，回空字串；
+/// 本執行緒（WinForms 自己讀 Text、畫標籤）照舊拿到標題。
+/// 根因（詳見 docs/reports/issue-1163.md）：.NET Framework 的 UIA 用戶端代理 WindowsTab.GetOverrideProviderForHwnd
+/// 用分頁 HWND 的視窗文字比對標籤文字，配對到就把選取頁的 Pane 掛到代理的 TabItem(i) 底下；之後的兄弟節點改由代理產生，
+/// 只剩 i+1 以後的 TabItem，而且代理 TabItem 的名稱取自 WinForms MSAA childId=i+1，在 .NET 10 會對到 GetChild(i)
+/// （GetChild(0) 是選取頁 Pane），名稱比原生標籤早一格。文字比對不到時代理不介入，樹由 WinForms 原生 provider 提供：
+/// 選取頁 Pane 之後依序是每一個分頁的 TabItem，名稱＝分頁標題、矩形＝原生標籤、Select 選到同一頁。
+/// </summary>
+sealed class DevToolsPage:TabPage {
+    const int WM_GETTEXT=0x000D,WM_GETTEXTLENGTH=0x000E;
+    public DevToolsPage(string title):base(title){AccessibleName=title;}
+    /// <summary>InSendMessageEx 的結果非 ISMEX_NOSEND(0)＝訊息由其他執行緒送來，視窗文字不對外公開。</summary>
+    internal static bool HidesWindowText(uint inSendMessageEx)=>inSendMessageEx!=0;
+    protected override void WndProc(ref Message m){
+        if((m.Msg is WM_GETTEXT or WM_GETTEXTLENGTH)&&HidesWindowText(InSendMessageEx(IntPtr.Zero))){
+            if(m.Msg==WM_GETTEXT&&m.WParam!=IntPtr.Zero&&m.LParam!=IntPtr.Zero)System.Runtime.InteropServices.Marshal.WriteInt16(m.LParam,0);
+            m.Result=IntPtr.Zero;
+            return;
+        }
+        base.WndProc(ref m);
+    }
+    [System.Runtime.InteropServices.DllImport("user32.dll")] static extern uint InSendMessageEx(IntPtr reserved);
 }
 
 public sealed partial class ClientForm {
