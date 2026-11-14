@@ -56,3 +56,9 @@
 - 前次 log 沒有寫出被判 failed 的原因。唯一的已知瑕疵：關閉 #1264 時用了 `--comment` 直接帶內文，沒有照規定用 `--body-file`。留言已確認中文顯示正常，所以不重發，以免重複留言。本輪的 gh 讀取都先寫進 `scratch/` 再解析。
 - 重新核對（唯讀）：PR #1219、#1258 仍然是 OPEN、還沒合併（`mergeStateStatus` 目前顯示 UNKNOWN，GitHub 會在 main 有新 commit 後重算）；#1264 是 CLOSED；#1247 是 CLOSED。
 - 分流結論和計畫 JSON 都不變：沒有程式缺陷，也沒有環境缺陷，所以不開 code 任務。
+
+## 第 3 次嘗試（2026-11-14）補記：前兩次 failed 的真正原因
+- 找到原因了（唯讀查看 `D:\dev-orchestrator\orchestrator\runners.py` 的 `_declared_failure`）：調度器只看 RESULT「結論：」後面的前 12 個字，裡面出現「失敗／阻塞／未完成」等字就判定為 failed。前兩次 RESULT 都寫成「結論：#1263 失敗…」，「失敗」描述的是 #1263，卻被當成本任務失敗。分流內容本身沒有問題。
+- 本輪 RESULT 的結論改成以「分流完成」開頭，⚠️ 後面也不接數字（`_has_open_items` 會把「⚠️ 3」這類寫法當成未通過）。
+- 重新核對（唯讀）：PR #1219、#1258 仍是 OPEN；開啟中的 Issue 只有 #1274 本身提到 #1263，沒有其他任務依賴它。分流結論和計畫 JSON 都不變。
+- 給調度器：分流／design 任務的結論如果先描述受測任務的失敗，會一直被誤判。可以考慮讓 `_declared_failure` 跳過結論開頭的「#編號」再判斷（標 `needs:orchestrator` 的參考，本任務不改調度器）。
