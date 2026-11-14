@@ -75,6 +75,28 @@ public sealed partial class ClientForm {
         timer.Tick+=(_,_)=>AttachNativeCharacterScreens();
         // T436 (#994, classic-ui-audit G18): native UI active but LoginUI / SelectUI unusable → reveal the dev-tools login page.
         timer.Tick+=(_,_)=>SyncNativeLoginFallback();
+        // #1206: one native-ui.log line per change of the select screen's state (retest evidence for SM07–SM09).
+        timer.Tick+=(_,_)=>TraceNativeSelect();
+    }
+    /// <summary>
+    /// #1206 (#1186 SM07): the legacy scene's "等待真實世界初始化" text is drawn while online and the world is not renderable,
+    /// except while the native select screen is shown (it covers the canvas; the text belonged to the classic path).
+    /// --classic-ui / nativeUi false: nativeSelectShown is always false, so the classic path is unchanged.
+    /// </summary>
+    internal static bool WaitingTextShown(bool online,bool renderable,bool nativeSelectShown)=>online&&!renderable&&!nativeSelectShown;
+    /// <summary>#1206: the native select screen is painted and gets input now (native UI active, panel usable on the root).</summary>
+    bool NativeSelectScreenShown()=>NativeUiActive&&NativeUiRoot is {} root&&root.Find(P06.NativeUi.SelectCharPanel.PanelId) is P06.NativeUi.SelectCharPanel p&&root.Usable(p);
+    /// <summary>#1206: one diagnostic line for the select screen (login state, Available, Host, View state, Faulted, Visible, Bounds, create screen).</summary>
+    internal static string NativeSelectTrace(LoginState state,P06.NativeUi.SelectCharPanel p,bool faulted)=>
+        $"select-char-ui 狀態 login={state} available={p.Available}{(p.Available?"":$"({p.Unavailable})")} host={p.Host!=null} view={p.View?.State.ToString()??"null"} "+
+        $"characters={p.View?.Characters.Count??0} faulted={faulted} visible={p.Visible} bounds={p.Bounds.X},{p.Bounds.Y},{p.Bounds.Width}x{p.Bounds.Height} "+
+        $"main={(p.Main is {} m?$"{m.Size.Width}x{m.Size.Height}":"null")} create-visible={p.Create?.Visible==true} selected={p.Selected??(p.SelectedEmpty is int e?$"empty#{e}":"null")}";
+    string? nativeSelectTrace;
+    void TraceNativeSelect(){
+        if(!NativeUiActive||NativeUiRoot is not {} root||root.Find(P06.NativeUi.SelectCharPanel.PanelId) is not P06.NativeUi.SelectCharPanel p)return;
+        string line=NativeSelectTrace(login.State,p,root.Faulted.Contains(p));
+        if(line==nativeSelectTrace)return;
+        nativeSelectTrace=line;P06.NativeUi.UiResourceLog.Write(line);
     }
     /// <summary>
     /// T436 (G18): the native screen this login state needs. Before the character list → LoginUI; list / character management /
