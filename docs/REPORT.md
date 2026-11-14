@@ -486,3 +486,4 @@
 - 2026-11-14 — #1178 f1173-g06-web-tree: f1173-g06-web-tree: 網頁面板 UIA 樹 Name=null（sceneStatus 位置）——panel.js 文字值不同才寫；UiaGdi helper 保留壞節點身分、Select-UiaTab 先查 IsEnabled（#1173 G06，附 N01 診斷）（code，claude-local，PR #1180 已合併）→ [報告](reports/issue-1178.md)
 - 2026-11-14 — #1160 分流：tw-bin-engine#1155 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR 已合併）→ [報告](reports/issue-1160.md)
 - 2026-11-14 — #1181 分流：tw-bin-engine#1179 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1183 已合併）→ [報告](reports/issue-1181.md)
+- 2026-11-14 — #1187 f1179-activespells: f1179-activespells: 進世界時 S250/20 登入狀態封包（S_PacketBoxActiveSpells，112 bytes）被當成 S_Icons 快照拒收，客戶端 Faulted（#1179 N01）（code，claude-local，PR 已合併）→ [報告](reports/issue-1187.md)

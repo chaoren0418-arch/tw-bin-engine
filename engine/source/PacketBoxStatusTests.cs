@@ -129,4 +129,74 @@ static class PacketBoxStatusTests {
         t.Check(s.Protections.Length==0&&s.NoneTimeIcons.Length==0&&s.MagicBuffs.Length==0,"reset clears sets and buffs");
         t.Equal(0,st.GetProperty("delIcons").GetInt32(),"reset counters");
     }
+
+    // #1187（#1179 N01）：S250/20 依長度判別 S_PacketBox C/H（8）、S_Icons（216）、S_PacketBoxActiveSpells（其他且 ≥106）。
+    // ActiveSpells 依 serverpackets/S_PacketBoxActiveSpells.java 合成：int[104] 逐個 writeC，值==72 改 writeD(秒級時間戳)。
+    static byte[] ActiveSpells(params (int index,int value)[] fields){
+        var data=new int[104];foreach(var f in fields)data[f.index]=f.value;
+        var body=new List<byte>{250,0x14};
+        foreach(int v in data)if(v==72)body.AddRange(Le32(1_794_000_000));else body.Add((byte)v);
+        return LoginPackets.Pad([..body]);
+    }
+
+    [WorldModuleTest("packetbox-active-spells")]
+    static void RunActiveSpells(WorldModuleTestContext t){
+        long now=2_000_000;
+        var s=new WorldSession();s.MagicStatusClock=()=>now;
+        s.Receive(Box(34,[..Le16(60)]),"");
+        var before=s.MagicBuffs;
+
+        // (a) #1179 證據：112 bytes，FA 14 後面 110 個 0x00 → 不丟例外、buff 不變、留下計數。
+        var evidence=ActiveSpells();
+        t.Equal(112,evidence.Length,"#1179 evidence length");
+        t.Check(evidence[0]==0xFA&&evidence[1]==0x14&&evidence.AsSpan(2).IndexOfAnyExcept((byte)0)<0,"#1179 evidence bytes");
+        t.Check(Record(()=>s.Receive(evidence,""))==null,"112-byte all-zero active spells accepted");
+        t.Check(before.SequenceEqual(s.MagicBuffs),"active spells keeps buffs",s.MagicBuffs);
+        t.Equal(1,s.LoginActiveSpellsPackets,"active spells counted");
+        t.Equal<int?>(112,s.LastLoginActiveSpellsLength,"active spells length recorded");
+        t.Check(!Unhandled(s).TryGetProperty("0xFA/0x14",out _),"active spells not counted as unhandled subtype");
+
+        // (b) 含一個值 72（寫成 D 時間戳）：raw 109 → 112；仍吃掉、不改 buff。
+        var one72=ActiveSpells((17,72));
+        t.Equal(112,one72.Length,"single 72 quirk length");
+        t.Check(Record(()=>s.Receive(one72,""))==null,"active spells with value 72 accepted");
+        // 三個 72：raw 115 → 120；最長（9 個可填欄位全為 72）raw 133 → 136，都不與 216 衝突。
+        var three72=ActiveSpells((61,72),(76,72),(77,72));
+        t.Equal(120,three72.Length,"three 72 quirk length");
+        t.Check(Record(()=>s.Receive(three72,""))==null,"active spells 120 bytes accepted");
+        var all72=ActiveSpells((17,72),(57,72),(61,72),(76,72),(77,72),(78,72),(79,72),(102,72),(103,72));
+        t.Equal(136,all72.Length,"max active spells length");
+        t.Check(Record(()=>s.Receive(all72,""))==null,"active spells 136 bytes accepted");
+        t.Check(before.SequenceEqual(s.MagicBuffs),"active spells variants keep buffs");
+        t.Equal(4,s.LoginActiveSpellsPackets,"active spells counted per packet");
+        t.Equal<int?>(136,s.LastLoginActiveSpellsLength,"last active spells length");
+
+        // (c) S_Icons 216-byte 快照行為不變：格 0（冥想術 32，4 秒單位）15 → 約 60 秒。
+        var icons=new byte[204];icons[0]=15;
+        var snapshot=Box(20,[..Le32(204),..icons]);
+        t.Equal(216,snapshot.Length,"S_Icons length");
+        s.Receive(snapshot,"");
+        t.Check(Buff(s,32) is {Seconds:60,Source:"icons1",Approximate:true},"S_Icons snapshot still applied",Buff(s,32));
+        t.Equal(4,s.LoginActiveSpellsPackets,"S_Icons not counted as active spells");
+
+        // (d) 8-byte C/H（S_PacketBox(20,type,time) 與 S_PacketBoxIcon1）行為不變。
+        s.Receive(Box(20,[..Le16(30),5]),"");
+        t.Check(Buff(s,-20005) is {Seconds:30,Source:"icon20"},"S250/20 8-byte single icon",Buff(s,-20005));
+
+        // (e) 長度異常仍丟 ProtocolException，訊息帶實際長度；不改狀態。
+        var kept=s.MagicBuffs;
+        var shortBox=Box(20,new byte[18]);
+        t.Equal(24,shortBox.Length,"short box length");
+        var e=Record(()=>s.Receive(shortBox,""));
+        t.Check(e is ProtocolException&&e.Message.Contains("24"),"24-byte S250/20 rejected with length",e?.Message);
+        var unpadded=new byte[20];unpadded[0]=250;unpadded[1]=20;
+        e=Record(()=>s.Receive(unpadded,""));
+        t.Check(e is ProtocolException&&e.Message.Contains("20"),"20-byte S250/20 rejected with length",e?.Message);
+        var badIcons=Box(20,[..Le32(203),..new byte[204]]);
+        e=Record(()=>s.Receive(badIcons,""));
+        t.Check(e is ProtocolException&&e.Message.Contains("216"),"216-byte with D!=204 rejected",e?.Message);
+        t.Check(kept.SequenceEqual(s.MagicBuffs),"rejected packets keep buffs");
+        t.Equal(4,s.LoginActiveSpellsPackets,"rejected packets not counted as active spells");
+    }
+    static Exception? Record(Action a){try{a();return null;}catch(Exception e){return e;}}
 }

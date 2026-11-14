@@ -27,6 +27,14 @@ public sealed partial class WorldSession {
         else magicBuffs[skill]=new(skill,name??MagicStatusCatalog.Name(skill),seconds,MagicStatusClock(),source){Debuff=MagicStatusCatalog.Debuff(skill),Approximate=approximate};
         MagicRevision++;
     }
+    // S_Icons：C 250、C 20、D 204、204 bytes = 210 → 補零 216。
+    internal const int IconsSnapshotLength=216;
+    // S_PacketBoxActiveSpells：C 250、C 0x14、104 個 C（全不為 72）= 106 bytes，是最短的未補零長度。
+    internal const int ActiveSpellsMinLength=106;
+    /// 收到並略過的 S_PacketBoxActiveSpells 登入狀態封包數（#1187 診斷用；Reset 不清，跨 session 累計）。
+    public int LoginActiveSpellsPackets {get;private set;}
+    /// 最近一次 S_PacketBoxActiveSpells 的 plain 長度（含補零）；未收過為 null。
+    public int? LastLoginActiveSpellsLength {get;private set;}
     bool ReceiveMagicStatus(byte opcode,LoginReader r,byte[] plain){
         if(opcode==174){
             if(plain.Length!=16)throw new ProtocolException("truncated own defence");
@@ -48,8 +56,17 @@ public sealed partial class WorldSession {
         int sub=plain[1];
         if(sub is not (20 or 21 or 22 or 34 or 35 or 36 or 40 or 44 or 57 or 154))return false;
         r.C();
+        // S250/20 有三個發送者（#1187，docs/protocol/status-icons.md）：依 plain 長度判別。
+        //   8   → S_PacketBox(20,type,time) 的 C/H 單筆（下方 sub is 20 or 21 分支）。
+        //   216 → S_Icons 快照：D 204 + 204 bytes。
+        //   其他且 ≥106 → S_PacketBoxActiveSpells 登入狀態快照：int[104] 逐個寫 C，值==72 改寫 D(秒級時間戳)，
+        //         長度 106+3k 再補到 8 的倍數，欄位位置無法無歧義還原，所以只吃掉、不改 buff；後續 S_Icons／個別圖示會補齊。
         if(sub==20&&plain.Length!=8){
-            if(r.D()!=204)throw new ProtocolException("unsupported status snapshot size");
+            if(plain.Length!=IconsSnapshotLength){
+                if(plain.Length<ActiveSpellsMinLength)throw new ProtocolException($"unsupported status snapshot size {plain.Length}");
+                LoginActiveSpellsPackets++;LastLoginActiveSpellsLength=plain.Length;return true;
+            }
+            if(r.D()!=204)throw new ProtocolException($"unsupported status snapshot size {plain.Length}");
             var data=new byte[204];for(int i=0;i<data.Length;i++)data[i]=r.C();r.Finish();
             // Validate the entire packet before mutating any status. Zero slots clear only this source.
             foreach(var slot in MagicStatusCatalog.Slots)
