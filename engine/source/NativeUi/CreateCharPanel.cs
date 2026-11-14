@@ -178,7 +178,10 @@ public sealed class StatGaugeTable {
     public static int Width(int imageWidth,int percent)=>Math.Clamp((int)(imageWidth*(percent/100f)),0,Math.Max(0,imageWidth));
 }
 
-public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePanel,IUiTextInput {
+public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePanel,IUiTextInput,IUiImeCaret {
+    /// <summary>#1271: Username_Edit caret for the IME while the name can be typed (last painted position).</summary>
+    public Rectangle? ImeCaret=>Typing&&!Pending?nameCaret:null;
+    Rectangle? nameCaret;
     [UiPanel(187)] internal static UiPanelRegistration Registration=>new(PanelId,HostLayout,r=>new CreateCharPanel(r.Resources){TextResolver=RefClientTextSource.Resolver(r.Resources)});   // T327 (#765): CreateUI.xml from the reference client (P-A), loaded inside Load
     public const string PanelId="CreateUI";
     public const string LayoutName="CreateUI",RootNode="CreateUI",ClassWindow="Class_Select_Scene",StatWindow="Stat_Setting_Scene",MessageWindow="Message_Window";
@@ -545,6 +548,7 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
                 if(!MessageShown&&!Pending){
                     int cx=x+2+(Name.Length>0?UiText.Measure(canvas.Graphics,Name).Width:0);
                     using var pen=new Pen(Color.White);canvas.Graphics.DrawLine(pen,cx,ty,cx,ty+size.Height-1);
+                    nameCaret=new(cx,ty,1,size.Height);   // #1271: IME composition / candidate anchor
                 }
                 break;
             }

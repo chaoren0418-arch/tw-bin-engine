@@ -210,6 +210,12 @@ jobs:
           New-Item -ItemType Directory -Force scratch/issue-1045 | Out-Null
           dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-1045/audio-provider.json audio-provider
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Native UI IME placement, one-delivery and session rules f1247-ime-path (no window or IME)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force scratch/issue-1271 | Out-Null
+          dotnet run --project engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --no-restore -- . scratch/issue-1271/ime-checks.json ime
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Player chat format, palette and channel contracts (no game or network)
         shell: pwsh
         run: |

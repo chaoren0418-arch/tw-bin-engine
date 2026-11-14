@@ -24,6 +24,7 @@ public sealed partial class ClientForm {
         nativeUiOptions=UiOptions.Resolve(UiOptions.CommandLine,Path.Combine(stageRoot,"runtime",UiOptions.SettingsFileName));
         if(!nativeUiOptions.Enabled)return;
         KeyPress+=(_,e)=>{if(NativeUiChar(e.KeyChar))e.Handled=true;};   // ui-chat-window (#468)
+        InitNativeIme();   // f1247-ime-path (#1271): IME session, composition / candidate placement, IME log (NativeUiIme.cs)
         // §3.2: the client area is at least 800×600 and starts at 800×600 while the switch is on.
         MinimumSize=SizeFromClientSize(new(UiRoot.LogicalWidth,UiRoot.LogicalHeight));ClientSize=new(UiRoot.LogicalWidth,UiRoot.LogicalHeight);
         nativeUiState=UiStartState.Verifying;events.Add(new{kind="native-ui",state="verifying",source=nativeUiOptions.Source,fill=nativeUiOptions.Fill});
@@ -172,7 +173,8 @@ public sealed partial class ClientForm {
         var chat=new UiChatGameState(NativePartyGameState(WithBuffState(WithRedNoticeState(NativeLegacyWindowState(basic,inWorld)))),inWorld?new UiChatSnapshot(login.PlayerChatSnapshot(),gameFocus):UiChatSnapshot.Empty);
         return WithHpMpState(NativeMacroGameState(new UiLeftStatusGameState(chat,inWorld?LeftStatusState.From(w):LeftStatusState.Empty)));   // ui-hpmp #465 outside; #466 macro (MacroBook.StateOf unwraps HpMp only, so it sits right inside); ui-left-status #464 (LeftStatusState.From unwraps both)
     }
-    /// <summary>ui-chat-window (#468): typed characters (WM_CHAR, after IME composition) go to the native text input that takes them.</summary>
+    /// <summary>ui-chat-window (#468): typed characters go to the native text input that takes them: WM_CHAR through KeyPress, IME
+    /// results through WM_IME_CHAR (NativeUiIme.cs, once per character, #1271).</summary>
     bool NativeUiChar(char c){
         if(!NativeUiActive)return false;
         foreach(var p in nativeUiRoot!.HitOrder()){
