@@ -1,0 +1,770 @@
+{
+  "backup": {
+    "utc": "2026-11-14T07:21:37.481009+00:00",
+    "source": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\db-data",
+    "backup": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1209\\environments\\p24\\backups\\issue-1209-before",
+    "files": 1722,
+    "bytes": 279507053,
+    "manifestSha256": "cf27f301533e42568fabef9620fbe3f23dd8a57c98a4b29f28e5234178995928",
+    "verified": true,
+    "lease": {
+      "name": "p24lab",
+      "holder": "chaoren0418-arch/tw-bin-engine#1209",
+      "since": 1794640580.3330011,
+      "exp": 1794645980.3330011
+    }
+  },
+  "lease": {
+    "observedAtUtc": "2026-11-14T07:20:02.4397820Z",
+    "expectedHolder": "chaoren0418-arch/tw-bin-engine#1209",
+    "expectedExpiryUtc": "2026-11-14T08:46:20Z",
+    "leases": [
+      {
+        "name": "p24lab",
+        "holder": "chaoren0418-arch/tw-bin-engine#1209",
+        "since": 1794640580.3330011,
+        "exp": 1794645980.3330011
+      }
+    ],
+    "listeners": [],
+    "startedPids": []
+  },
+  "changes": {
+    "tablesCompared": 70,
+    "diff": {
+      "character_items": {
+        "added": 59,
+        "removed": 0
+      },
+      "character_skills": {
+        "added": 23,
+        "removed": 0
+      },
+      "characters": {
+        "added": 7,
+        "removed": 0
+      }
+    },
+    "existingRowsUnchanged": true,
+    "allCharacters": [
+      {
+        "n": "24",
+        "gm": "0",
+        "online": "0"
+      }
+    ]
+  },
+  "writeMode": {
+    "engines": [
+      {
+        "TABLE_NAME": "character_items",
+        "ENGINE": "MyISAM"
+      },
+      {
+        "TABLE_NAME": "character_skills",
+        "ENGINE": "MyISAM"
+      },
+      {
+        "TABLE_NAME": "characters",
+        "ENGINE": "MyISAM"
+      }
+    ],
+    "atomicTransaction": false,
+    "protection": "已完成冷備份、全列雜湊前置核對、三表 WRITE LOCK；失敗即停止，不宣稱 MyISAM 可 rollback"
+  },
+  "idAudit": {
+    "columnsChecked": 398,
+    "collisions": []
+  },
+  "restoreValidation": {
+    "preflight": 1,
+    "explainedDeletes": 3,
+    "restoreExecuted": false,
+    "lockedPreflight": 1,
+    "reverseModelMatchesBefore": true
+  },
+  "accounts": [
+    {
+      "login": "p241db6e",
+      "character_slot": "0",
+      "occupied": "4"
+    },
+    {
+      "login": "p242db6e",
+      "character_slot": "0",
+      "occupied": "4"
+    },
+    {
+      "login": "p243db6e",
+      "character_slot": "0",
+      "occupied": "4"
+    },
+    {
+      "login": "p244db6e",
+      "character_slot": "0",
+      "occupied": "4"
+    },
+    {
+      "login": "p245db6e",
+      "character_slot": "0",
+      "occupied": "2"
+    },
+    {
+      "login": "p246db6e",
+      "character_slot": "0",
+      "occupied": "1"
+    },
+    {
+      "login": "p247db6e",
+      "character_slot": "0",
+      "occupied": "1"
+    },
+    {
+      "login": "p248db6e",
+      "character_slot": "0",
+      "occupied": "1"
+    },
+    {
+      "login": "p24svc01",
+      "character_slot": "0",
+      "occupied": "3"
+    }
+  ],
+  "npcSpawns": [
+    {
+      "id": 268,
+      "locx": 32608,
+      "locy": 32787,
+      "count": 1,
+      "mapid": 4,
+      "heading": 5,
+      "randomx": 0,
+      "randomy": 0,
+      "location": "凱倫",
+      "respawn_delay": 0,
+      "npc_templateid": 60007,
+      "movement_distance": 100
+    },
+    {
+      "id": 763,
+      "locx": 32604,
+      "locy": 33200,
+      "count": 1,
+      "mapid": 4,
+      "heading": 4,
+      "randomx": 0,
+      "randomy": 0,
+      "location": "馬賓",
+      "respawn_delay": 0,
+      "npc_templateid": 70773,
+      "movement_distance": 100
+    },
+    {
+      "id": 1016,
+      "locx": 32611,
+      "locy": 32775,
+      "count": 0,
+      "mapid": 4,
+      "heading": 0,
+      "randomx": 0,
+      "randomy": 0,
+      "location": "拍賣佈告欄",
+      "respawn_delay": 0,
+      "npc_templateid": 81161,
+      "movement_distance": 0
+    },
+    {
+      "id": 1017,
+      "locx": 33959,
+      "locy": 33253,
+      "count": 0,
+      "mapid": 4,
+      "heading": 0,
+      "randomx": 0,
+      "randomy": 0,
+      "location": "拍賣佈告欄",
+      "respawn_delay": 0,
+      "npc_templateid": 81161,
+      "movement_distance": 0
+    },
+    {
+      "id": 1018,
+      "locx": 33585,
+      "locy": 33235,
+      "count": 0,
+      "mapid": 4,
+      "heading": 0,
+      "randomx": 0,
+      "randomy": 0,
+      "location": "拍賣佈告欄",
+      "respawn_delay": 0,
+      "npc_templateid": 81161,
+      "movement_distance": 0
+    },
+    {
+      "id": 1019,
+      "locx": 33421,
+      "locy": 32823,
+      "count": 0,
+      "mapid": 4,
+      "heading": 0,
+      "randomx": 0,
+      "randomy": 0,
+      "location": "拍賣佈告欄",
+      "respawn_delay": 0,
+      "npc_templateid": 81161,
+      "movement_distance": 0
+    },
+    {
+      "id": 1108,
+      "locx": 33426,
+      "locy": 32821,
+      "count": 1,
+      "mapid": 4,
+      "heading": 5,
+      "randomx": 0,
+      "randomy": 0,
+      "location": "馬賓",
+      "respawn_delay": 0,
+      "npc_templateid": 70773,
+      "movement_distance": 0
+    },
+    {
+      "id": 1275,
+      "locx": 32560,
+      "locy": 33086,
+      "count": 1,
+      "mapid": 0,
+      "heading": 4,
+      "randomx": 0,
+      "randomy": 0,
+      "location": "story npc 70009",
+      "respawn_delay": 0,
+      "npc_templateid": 70009,
+      "movement_distance": 0
+    },
+    {
+      "id": 1300,
+      "locx": 32645,
+      "locy": 32951,
+      "count": 1,
+      "mapid": 0,
+      "heading": 5,
+      "randomx": 0,
+      "randomy": 0,
+      "location": "潘朵拉",
+      "respawn_delay": 0,
+      "npc_templateid": 70014,
+      "movement_distance": 0
+    },
+    {
+      "id": 1324,
+      "locx": 32633,
+      "locy": 32968,
+      "count": 1,
+      "mapid": 0,
+      "heading": 7,
+      "randomx": 0,
+      "randomy": 0,
+      "location": "港口主人",
+      "respawn_delay": 0,
+      "npc_templateid": 70011,
+      "movement_distance": 0
+    },
+    {
+      "id": 1325,
+      "locx": 32560,
+      "locy": 32723,
+      "count": 1,
+      "mapid": 4,
+      "heading": 4,
+      "randomx": 0,
+      "randomy": 0,
+      "location": "港口主人",
+      "respawn_delay": 0,
+      "npc_templateid": 70022,
+      "movement_distance": 100
+    }
+  ],
+  "repairNpcSpawns": [
+    {
+      "id": 729,
+      "locx": 33471,
+      "locy": 32775,
+      "count": 1,
+      "mapid": 4,
+      "heading": 4,
+      "randomx": 0,
+      "randomy": 0,
+      "location": "海克特",
+      "respawn_delay": 0,
+      "npc_templateid": 70642,
+      "movement_distance": 100
+    },
+    {
+      "id": 968,
+      "locx": 32724,
+      "locy": 32828,
+      "count": 1,
+      "mapid": 602,
+      "heading": 4,
+      "randomx": 0,
+      "randomy": 0,
+      "location": "炎魔的鐵匠",
+      "respawn_delay": 0,
+      "npc_templateid": 80072,
+      "movement_distance": 0
+    }
+  ],
+  "repairNpcActions": [
+    {
+      "npcid": 80072,
+      "teleport_url": "",
+      "caotic_action": "lsmith0",
+      "normal_action": "lsmith0",
+      "teleport_urla": ""
+    },
+    {
+      "npcid": 70642,
+      "teleport_url": "",
+      "caotic_action": "hector2",
+      "normal_action": "hector1",
+      "teleport_urla": ""
+    }
+  ],
+  "boardNpcDefinitions": [
+    {
+      "npcid": "80006",
+      "name": "佈告欄",
+      "classname": "other.Npc_Board"
+    },
+    {
+      "npcid": "81126",
+      "name": "佈告欄",
+      "classname": "other.Npc_Board"
+    },
+    {
+      "npcid": "81127",
+      "name": "佈告欄",
+      "classname": "other.Npc_Board"
+    },
+    {
+      "npcid": "81128",
+      "name": "佈告欄",
+      "classname": "other.Npc_Board"
+    },
+    {
+      "npcid": "81129",
+      "name": "佈告欄",
+      "classname": "other.Npc_Board"
+    },
+    {
+      "npcid": "81130",
+      "name": "佈告欄",
+      "classname": "other.Npc_Board"
+    },
+    {
+      "npcid": "81161",
+      "name": "拍賣佈告欄",
+      "classname": "other.Npc_AuctionBoard"
+    },
+    {
+      "npcid": "81201",
+      "name": "結婚式　揭示板",
+      "classname": "other.Npc_Board"
+    }
+  ],
+  "sceneryBoards": [],
+  "sceneryChair": [],
+  "newsEvent": [
+    {
+      "id": 115,
+      "note": "0關閉1=開；關閉時登入不送 S_CommonNews；內容見資料表 公告_登入顯示",
+      "eventname": "公告_登入顯示",
+      "eventclass": "LoginNewsSet",
+      "eventother": "0",
+      "eventstart": 0
+    }
+  ],
+  "newsCount": [
+    {
+      "n": "15"
+    }
+  ],
+  "pet": [
+    {
+      "hp": 30,
+      "mp": 5,
+      "exp": 750,
+      "lvl": 5,
+      "name": "資源牧羊",
+      "npcid": 45034,
+      "objid": 1900251199,
+      "lawful": 0,
+      "item_obj_id": 1900251101
+    }
+  ],
+  "recipes": [
+    {
+      "note": "綿質長袍",
+      "max_count": 20,
+      "min_count": 1,
+      "resolvent_id": 41245,
+      "result_item_id": 41246,
+      "target_item_id": 20114
+    }
+  ],
+  "polyCommands": [
+    {
+      "name": "poly",
+      "note": "變身指令(參數:人物名稱 - 變身代號)",
+      "system": 0,
+      "class_name": "L1Poly",
+      "access_level": 200
+    }
+  ],
+  "polyRows": [],
+  "map5300": [
+    {
+      "endX": 32895,
+      "endY": 32959,
+      "mapid": 5300,
+      "startX": 32640,
+      "startY": 32704,
+      "penalty": 1,
+      "is_guaji": 1,
+      "markable": 0,
+      "painwand": 0,
+      "CopyMapId": -1,
+      "drop_rate": 1.0,
+      "escapable": 1,
+      "is_arrows": 0,
+      "take_pets": 0,
+      "underwater": 0,
+      "recall_pets": 0,
+      "usable_item": 1,
+      "usable_shop": 0,
+      "locationname": "釣魚池",
+      "resurrection": 1,
+      "teleportable": 0,
+      "usable_skill": 1,
+      "monster_amount": 1.0
+    }
+  ],
+  "fishingCoordinates": [
+    {
+      "stand": [
+        32792,
+        32784
+      ],
+      "target": [
+        32792,
+        32781
+      ],
+      "standTile": 19,
+      "waterTiles": [
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    }
+  ],
+  "sourceHashes": [
+    {
+      "path": "D:\\BinEngine\\environments\\p24\\server\\Server_Game.jar",
+      "sha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf"
+    },
+    {
+      "path": "D:\\BinEngine\\environments\\p24\\server\\maps\\5300.txt",
+      "sha256": "4833d8689c1118ff799ad78316b7b0a67d48c9b782ca0de8bb52ea66caea140d"
+    },
+    {
+      "path": "D:\\BinEngine\\environments\\p24\\sql\\380_db.sql",
+      "sha256": "0875f7cff78d7d97a7380cc5d24f47b2c66b630d452377e5f8bfa6f3d29fd95e"
+    }
+  ],
+  "shutdownSessions": [
+    {
+      "mysqladminExit": 0,
+      "utc": "2026-11-14T07:30:37.0954855Z",
+      "exited": true,
+      "listeners": [],
+      "pid": 16232
+    },
+    {
+      "mysqladminExit": 0,
+      "utc": "2026-11-14T07:31:52.4661949Z",
+      "exited": true,
+      "listeners": [],
+      "pid": 13920
+    }
+  ],
+  "finalProcessAudit": {
+    "ownedProcesses": [
+      {
+        "startUtc": "2026-11-14T07:22:10.9525992Z",
+        "pid": 16232,
+        "runningSameProcess": false
+      },
+      {
+        "startUtc": "2026-11-14T07:31:06.9991436Z",
+        "pid": 13920,
+        "runningSameProcess": false
+      }
+    ],
+    "listeners": [],
+    "gameServerStarted": false,
+    "observedAtUtc": "2026-11-14T07:35:06.4196619Z",
+    "clientStarted": false
+  },
+  "finalCharacters": [
+    {
+      "objid": "10305",
+      "char_name": "資源王族",
+      "account_name": "p242db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "10314",
+      "char_name": "資源騎士",
+      "account_name": "p241db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "10325",
+      "char_name": "資源妖精",
+      "account_name": "p241db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "10334",
+      "char_name": "資源法師",
+      "account_name": "p24svc01",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "10344",
+      "char_name": "資源暗妖",
+      "account_name": "p241db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "10356",
+      "char_name": "資源龍騎",
+      "account_name": "p242db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "10365",
+      "char_name": "資源幻術",
+      "account_name": "p242db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900240001",
+      "char_name": "透明王子",
+      "account_name": "p241db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900240002",
+      "char_name": "透明王子乙",
+      "account_name": "p242db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900240003",
+      "char_name": "驗收王子",
+      "account_name": "p243db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900240004",
+      "char_name": "驗收王子乙",
+      "account_name": "p244db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900240005",
+      "char_name": "透明觀察甲",
+      "account_name": "p245db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900240006",
+      "char_name": "透明觀察乙",
+      "account_name": "p246db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900240007",
+      "char_name": "驗收觀察甲",
+      "account_name": "p247db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900240008",
+      "char_name": "驗收觀察乙",
+      "account_name": "p248db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900249001",
+      "char_name": "服務驗證",
+      "account_name": "p24svc01",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900249201",
+      "char_name": "服務交易",
+      "account_name": "p24svc01",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900252001",
+      "char_name": "煙王甲",
+      "account_name": "p243db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900252002",
+      "char_name": "煙騎甲",
+      "account_name": "p243db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900252003",
+      "char_name": "煙妖甲",
+      "account_name": "p243db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900252004",
+      "char_name": "煙法甲",
+      "account_name": "p244db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900252005",
+      "char_name": "煙暗甲",
+      "account_name": "p244db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900252006",
+      "char_name": "煙龍甲",
+      "account_name": "p244db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    },
+    {
+      "objid": "1900252007",
+      "char_name": "煙幻甲",
+      "account_name": "p245db6e",
+      "AccessLevel": "0",
+      "OnlineStatus": "0"
+    }
+  ],
+  "bytecodeFindings": [
+    {
+      "className": "C_AuthLogin",
+      "method": "登入處理路徑（呼叫 isEnabled 的分支）",
+      "finding": "LoginNewsEventTable.isEnabled 控制 S_CommonNews；否則直接送角色清單"
+    },
+    {
+      "className": "LoginNewsEventTable",
+      "method": "load",
+      "finding": "SELECT eventstart FROM server_event WHERE eventclass='LoginNewsSet'，值1才啟用"
+    },
+    {
+      "className": "MsgServerList",
+      "method": "load",
+      "finding": "SELECT * FROM 公告_登入顯示 ORDER BY id ASC；讀message，略過空白／#開頭"
+    },
+    {
+      "className": "S_CommonNews",
+      "method": "<init>",
+      "finding": "opcode 48；文字來自MsgServerList"
+    },
+    {
+      "className": "FishingPole",
+      "method": "fishing",
+      "finding": "map5300；短竿41294距離3、魔法竿41293距離5；中心及四鄰水面；餌41295至少2"
+    },
+    {
+      "className": "L1V1Map",
+      "method": "isFishingZone",
+      "finding": "originalTile &127 等於28，或map5300且等於16"
+    },
+    {
+      "className": "Cooking_Book",
+      "method": "makeCooking",
+      "finding": "三格內需gfx5943；配方0耗40057×1，產出41277／41285等依亂數"
+    },
+    {
+      "className": "C_CreateClan",
+      "method": "建盟處理路徑（呼叫 consumeItemDurably 的分支）",
+      "finding": "必須王族；consumeItemDurably(40308,30000)，再建立血盟"
+    },
+    {
+      "className": "L1Poly",
+      "method": "execute",
+      "finding": "參數為角色名稱、整數gfx；doPoly(target,gfx,7200,2)"
+    },
+    {
+      "className": "L1PolyMorph",
+      "method": "isMatchCause",
+      "finding": "PolyTable無模板時回true；canDoPoly仍限制特殊地圖與覺醒狀態"
+    },
+    {
+      "className": "C_FixWeaponList",
+      "method": "start",
+      "finding": "只列武器type2=1且durability>0，正常損壞條件待retest取得"
+    }
+  ],
+  "artifactHashes": [
+    {
+      "path": "docs/reports/issue-1209-data-diff.json",
+      "sha256": "a7c4c593670b6d90805e7d9cc92bcef5f953a97c236e2f6a7caadcbcd2ee0c0f"
+    },
+    {
+      "path": "docs/reports/issue-1209-restore.sql",
+      "sha256": "7073a45974650e3ac91d1334971c2a919f57f8f40ea0faa98891949f1631b489"
+    }
+  ],
+  "buildAfterSync": {
+    "baseCommit": "bf43acb4fd9fe59474ec8ae7728fe2cc84414bac",
+    "command": "python -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config",
+    "exitCode": 0,
+    "productBuild": 0,
+    "launcherBuild": 0,
+    "lockMode": "temporary-not-written",
+    "productDllSha256": "0f2eba1bfca771c2cb60fbbdee45eab4c4f2428f4dee2493db85322f587e9834",
+    "log": "scratch/issue-1209/build-after-sync.log",
+    "productExecuted": false
+  }
+}
