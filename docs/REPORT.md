@@ -487,3 +487,4 @@
 - 2026-11-14 — #1160 分流：tw-bin-engine#1155 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR 已合併）→ [報告](reports/issue-1160.md)
 - 2026-11-14 — #1181 分流：tw-bin-engine#1179 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1183 已合併）→ [報告](reports/issue-1181.md)
 - 2026-11-14 — #1187 f1179-activespells: f1179-activespells: 進世界時 S250/20 登入狀態封包（S_PacketBoxActiveSpells，112 bytes）被當成 S_Icons 快照拒收，客戶端 Faulted（#1179 N01）（code，claude-local，PR 已合併）→ [報告](reports/issue-1187.md)
+- 2026-11-14 — #1184 f1155-capture-n03: f1155-capture-n03: 登入畫面 Ctrl+P 截圖（#1155 N03 ❌）——查原版行為，引擎或測試工具二選一修正，讓 N03 判定與設計一致、成功可回 0（code，claude-local，PR 已合併）→ [報告](reports/issue-1184.md)
