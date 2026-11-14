@@ -4,11 +4,27 @@
 
 前置：開工時 PR #1224（`task/1210`）**尚未合進 main**，依任務指示先 `git merge origin/task/1210` 再改。因此 PR diff 會連帶包含 #1210 的檔案（`SmokeLoopback.cs`、`SmokeTools.ps1`、`Test-SmokeTools.ps1`、`Test-NativeClient.ps1`、`UiaGdi.ps1`、`README.md`、`docs/reports/issue-1210.md`）。#1224 合併後，本 PR 實際的增量只有下面 4 個檔案加上本報告。
 
-## 做了什麼
+## 第 2 次嘗試：合併前閘門退回的修正
 
-只改 `work/f1118-uia-path/` 的 4 個檔案；沒改產品程式、`rebuild-lock.json` 和 `docs/REPORT.md`。
+閘門指出 `work/f1118-uia-path/SmokeLoopback.cs` 被 `.gitignore` 的 `work/*` 排除，卻被加進 git。`.gitignore` 對這個目錄只放行 `*.ps1`（#1148）與第一層 `*.md`／`*.json`。這個 `.cs` 是 #1210（PR #1224，至今仍未合併）引入、本分支合併 `origin/task/1210` 時帶進來的。
 
-1. `SmokeLoopback.cs`
+修正方式（不改 `.gitignore`，維持任務檔案範圍）：
+- 把 C# 原始碼**逐字**搬進 `SmokeTools.ps1` 的新函式 `Import-SmokeLoopback`（單引號 here-string ＋ `Add-Type -TypeDefinition`，型別已載入就直接返回），並 `git rm` 掉 `SmokeLoopback.cs`。
+- `Record-SmokeLoopback` 改呼叫 `Import-SmokeLoopback`；`Test-SmokeTools.ps1` 的 `Add-Type -Path SmokeLoopback.cs` 改成 `Import-SmokeLoopback`（它在前面已 dot-source `SmokeTools.ps1`）。
+- `SmokeTools.ps1` 維持純 ASCII、無 BOM（Windows PowerShell 5.1 對無 BOM 檔用 ANSI 碼頁讀取，非 ASCII 註解會被誤解碼，這次新增的註解也用英文）。
+- README 註明原始碼位置改變。
+- 因此本 PR 對 main 的 diff 不再含 `SmokeLoopback.cs`。**注意**：PR #1224 本身仍新增了被忽略的 `SmokeLoopback.cs`，若它先合進 main 再合本 PR，本 PR 的 `git rm` 會把它移除，結果一致。
+
+第 2 次的驗證（已驗證）：
+- 用 PowerShell AST 從 `SmokeTools.ps1` 抽出 here-string，與上一版 `SmokeLoopback.cs`（`8ca9312d`）比對：內容完全相同。
+- 抽出的原始碼以 `csc.exe /t:library /warn:4` 編譯：exit 0；DLL 只放 `scratch/issue-1230/inline/`，未載入、未執行。
+- `Parser::ParseFile` 剖析 `SmokeTools.ps1`、`Test-SmokeTools.ps1`：0 個語法錯誤。
+
+## 做了什麼（第 1 次）
+
+只改 `work/f1118-uia-path/` 的 4 個檔案；沒改產品程式、`rebuild-lock.json` 和 `docs/REPORT.md`。（第 2 次起，下文的 `SmokeLoopback.cs` 內容改在 `SmokeTools.ps1` 的 `Import-SmokeLoopback` 內。）
+
+1. `SmokeLoopback.cs`（現內嵌於 `SmokeTools.ps1`）
    - session 檢查時機跟原本相同：開錄前、錄製中約每 20 ms、結束後。每個 Active session 都會從 `ISessionControl2` 的 IUnknown `Marshal.QueryInterface` 取得 `IAudioMeterInformation`（IID `C02216F6-8C67-4B5B-9D00-D008E73E0064`），再直接呼叫 vtable 第 3 格的 `GetPeakValue`。不建立第二個 RCW，避免和 session control 共用 RCW 參考計數；用完 `Marshal.Release`。
    - 純函式 `ClassifySession(isOwn, state, peak, threshold, meterOk, crossProcess, requireExclusive)` 的判定規則：
      - 非 Active → `inactive`。
@@ -74,12 +90,12 @@
 - **已知限制**：Windows 10 build 19045 沒有 `AUDIOCLIENT_ACTIVATION_TYPE_PROCESS_LOOPBACK`（需要 20348+），所以仍然不是程序隔離錄音。
 
 ## 產出路徑
-- `work/f1118-uia-path/SmokeLoopback.cs`、`SmokeTools.ps1`、`Test-SmokeTools.ps1`、`README.md`
+- `work/f1118-uia-path/SmokeTools.ps1`（含內嵌的 `SmokeLoopback` C#）、`Test-SmokeTools.ps1`、`README.md`；`SmokeLoopback.cs` 已刪除
 - `docs/reports/issue-1230.md`（本檔）
 - 分支 `task/1230`（含 `origin/task/1210` 的合併）
 
 ## 給下一棒的提示
-- 調度器：#1224 合併後本 PR 的 diff 就只剩 #1230 的增量。如果先合本 PR，等於連 #1210 一起合進 main，請依合併順序裁定。
+- 調度器：PR #1224 本身也新增了被 `.gitignore` 排除的 `SmokeLoopback.cs`，閘門大概也會擋它；可考慮讓 #1224 採同樣的內嵌做法，或直接由本 PR 一併合入（本 PR 已移除該檔）。#1224 合併後本 PR 的 diff 就只剩 #1230 的增量。如果先合本 PR，等於連 #1210 一起合進 main，請依合併順序裁定。
 - `f1210-tooling-retest`：
   - 開**新的** `powershell.exe` 再 dot-source。舊程序裡已載入的 `SmokeLoopback` 型別沒有 4 參數多載。
   - R01 先跑 `Test-SmokeTools.ps1`；如果 `Add-Type` 編譯失敗，把錯誤原文貼回本 Issue。

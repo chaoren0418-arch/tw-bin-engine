@@ -5,7 +5,7 @@ $null=New-Item -ItemType Directory -Force $ev,"$ev/tmp"
 $env:TEMP="$ev/tmp";$env:TMP=$env:TEMP
 . "$PSScriptRoot/SmokeTools.ps1"
 . "$PSScriptRoot/UiaGdi.ps1"
-Add-Type -Path "$PSScriptRoot/SmokeLoopback.cs"
+Import-SmokeLoopback
 $checks=[Collections.Generic.List[object]]::new()
 function Check([string]$Name,[bool]$Passed,$Detail){
     $checks.Add([pscustomobject]@{Name=$Name;Passed=$Passed;Detail=$Detail})

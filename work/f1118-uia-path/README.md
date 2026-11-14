@@ -400,9 +400,9 @@ $audio.OtherSessions | Format-Table Pid,Name,Kind,State,MaxPeak,Polls,UnmeteredP
 # Record-SmokeLoopback -Process $p -Path "$ev/game-strict.wav" -Seconds 3 -RequireExclusive
 ```
 
-`SmokeLoopback.cs` 改版後（#1230）型別簽章變了；同一個 PowerShell 程序若已載入舊版 `SmokeLoopback`，`Add-Type` 不會重載，請開新的 `powershell.exe` 再 dot-source。
+`SmokeLoopback` 的 C# 原始碼內嵌在 `SmokeTools.ps1` 的 `Import-SmokeLoopback`（#1230：原本的 `SmokeLoopback.cs` 被 `.gitignore` 的 `work/*` 排除，只有 `work/f1118-uia-path/*.ps1` 放行，所以改為內嵌）；`Record-SmokeLoopback` 第一次呼叫時才 `Add-Type -TypeDefinition`，`Test-SmokeTools.ps1` 直接呼叫 `Import-SmokeLoopback`。改版後（#1230）型別簽章變了；同一個 PowerShell 程序若已載入舊版 `SmokeLoopback`，`Add-Type` 不會重載，請開新的 `powershell.exe` 再 dot-source。
 
-`SmokeLoopback.cs` 不需 NuGet；採預設 eRender/eMultimedia 的 shared-mode WASAPI loopback，支援 float32、PCM16/24/32 與對應 extensible 格式，寫原 mix format 的 WAV。RMS／Peak 以滿刻度 1 正規化；`CapturedSeconds` 由實際 frames／sample rate 算，silent flag 算零樣本，discontinuity／timestamp error 另記。只接受 worktree 的 `scratch/` 路徑、拒絕 junction／symlink、既有 WAV 不覆寫，時長 1–30 秒；JSON 在 `<wav>.json`。
+`SmokeLoopback` 不需 NuGet；採預設 eRender/eMultimedia 的 shared-mode WASAPI loopback，支援 float32、PCM16/24/32 與對應 extensible 格式，寫原 mix format 的 WAV。RMS／Peak 以滿刻度 1 正規化；`CapturedSeconds` 由實際 frames／sample rate 算，silent flag 算零樣本，discontinuity／timestamp error 另記。只接受 worktree 的 `scratch/` 路徑、拒絕 junction／symlink、既有 WAV 不覆寫，時長 1–30 秒；JSON 在 `<wav>.json`。
 
 錄製前、錄製中每約 20ms、結束後各檢查一次音訊 session（#1230）：
 
