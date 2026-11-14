@@ -59,6 +59,34 @@ try {
     $refused=$false;try {$null=Convert-SmokeObjectPoint $fixture 999}catch{$refused=$true}
     Check 'absent-object-refused' $refused 'No input is sent for an absent objid'
     Check 'loopback-interop-compiled' ($null -ne ('SmokeLoopback' -as [type])) 'C# interop compiled; not an audio playback claim'
+    # Pure session classification (no audio device): ClassifySession(isOwn,state,peak,threshold,meterOk,crossProcess,requireExclusive)
+    $t=[SmokeLoopback]::SilenceThreshold
+    Check 'loopback-threshold-constant' ($t -eq 1e-4) $t
+    $cases=@(
+        @{Name='own-audible';Args=@($true,1,0.25,$t,$true,$false,$false);Expect='own'},
+        @{Name='other-active-silent';Args=@($false,1,0.00005,$t,$true,$false,$false);Expect='other-active-silent'},
+        @{Name='other-silent-at-threshold';Args=@($false,1,$t,$t,$true,$false,$false);Expect='other-active-silent'},
+        @{Name='other-audible';Args=@($false,1,0.01,$t,$true,$false,$false);Expect='other-audible'},
+        @{Name='other-unmetered';Args=@($false,1,0.0,$t,$false,$false,$false);Expect='other-active-unmetered'},
+        @{Name='other-nan-peak-unmetered';Args=@($false,1,[double]::NaN,$t,$true,$false,$false);Expect='other-active-unmetered'},
+        @{Name='cross-process-silent';Args=@($true,1,0.0,$t,$true,$true,$false);Expect='other-active-silent'},
+        @{Name='cross-process-audible';Args=@($true,1,0.5,$t,$true,$true,$false);Expect='other-audible'},
+        @{Name='other-inactive';Args=@($false,0,0.9,$t,$true,$false,$false);Expect='inactive'},
+        @{Name='require-exclusive-silent-other';Args=@($false,1,0.0,$t,$true,$false,$true);Expect='other-active-exclusive'},
+        @{Name='require-exclusive-own';Args=@($true,1,0.2,$t,$true,$false,$true);Expect='own'}
+    )
+    foreach($c in $cases){
+        $a=$c.Args
+        $v=[SmokeLoopback]::ClassifySession([bool]$a[0],[int]$a[1],[double]$a[2],[double]$a[3],[bool]$a[4],[bool]$a[5],[bool]$a[6])
+        Check "loopback-classify-$($c.Name)" ($v -eq $c.Expect) @{Got=$v;Expect=$c.Expect;Args=($a -join ',')}
+    }
+    $rejecting=@('other-audible','other-active-unmetered','other-active-exclusive' | Where-Object {[SmokeLoopback]::IsRejecting($_)})
+    $continuing=@('own','inactive','other-active-silent','capture-host-ignored' | Where-Object {[SmokeLoopback]::IsRejecting($_)})
+    Check 'loopback-reject-set' ($rejecting.Count -eq 3 -and $continuing.Count -eq 0) @{Rejecting=$rejecting;Continuing=$continuing}
+    $shape=[SmokeLoopbackResult]::new()
+    $fields=@('Threshold','OwnMaxPeak','OtherSessions','RejectReason','Frames','CapturedSeconds','Rms','Peak','HasWaveform','Scope')
+    $missing=@($fields | Where-Object {-not $shape.PSObject.Properties[$_]})
+    Check 'loopback-json-fields' ($missing.Count -eq 0) @{Missing=$missing}
     $entry=Copy-ClientLogEntry ([ordered]@{Keys='Ctrl+Shift+F9';VirtualKey='0x78';Modifiers=@('0x11','0x10')}) 'test'
     Check 'key-log-preserves-Keys-member' ($entry['Keys'] -eq 'Ctrl+Shift+F9' -and $entry['VirtualKey'] -eq '0x78' -and $entry['Action'] -eq 'test') $entry
 } finally {Save-SmokeJson "$ev/results.json" @($checks.ToArray())}

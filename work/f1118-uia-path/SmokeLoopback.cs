@@ -1,32 +1,100 @@
-// Windows PowerShell 5.1 Add-Type; no NuGet, device/settings changes or microphone access.
-// WASAPI shared-mode endpoint loopback. Active rendering sessions are checked before and during capture.
-// This is NOT process-isolated capture: the report must disclose the polling/endpoint scope.
+// Windows PowerShell 5.1 Add-Type (C# 5); no NuGet, device/settings changes or microphone access.
+// WASAPI shared-mode endpoint loopback. Active render sessions are checked before, during (~20 ms) and after capture.
+// Other active sessions are metered (IAudioMeterInformation); capture continues only while they stay at or below
+// SilenceThreshold. This is NOT process-isolated capture: the report must disclose the polling/endpoint scope.
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 
+public sealed class SmokeLoopbackSession {
+    public string Key, Name, Kind, Verdict;
+    public uint Pid;
+    public int State, Polls, UnmeteredPolls, LastMeterHResult;
+    public double MaxPeak;
+    public bool CrossProcess, SystemSounds;
+}
+
 public sealed class SmokeLoopbackResult {
-    public string Path, StartedUtc, CompletedUtc, EndpointId, Error;
+    public string Path, StartedUtc, CompletedUtc, EndpointId, Error, RejectReason, RejectDetail;
     public int ProcessId, RequestedSeconds, SampleRate, Channels, BitsPerSample, FormatTag;
     public long Frames, Samples, SilentFrames;
-    public int Discontinuities, TimestampErrors, SessionChecks;
-    public double Rms, Peak, CapturedSeconds;
-    public bool Completed, HasWaveform;
-    public string Scope = "Default render/eMultimedia endpoint mix; own PID active and no other render PID at 20 ms polls; not process-isolated";
+    public int Discontinuities, TimestampErrors, SessionChecks, OwnPolls;
+    public double Rms, Peak, CapturedSeconds, Threshold, OwnMaxPeak;
+    public bool Completed, HasWaveform, RequireExclusive, WavKept;
+    public SmokeLoopbackSession[] OtherSessions = new SmokeLoopbackSession[0];
+    public string Scope;
+}
+
+public sealed class SmokeLoopbackRejectedException : Exception {
+    public readonly string Reason;
+    public SmokeLoopbackRejectedException(string reason, string detail) : base(reason + ": " + detail) { Reason = reason; }
 }
 
 public static class SmokeLoopback {
+    // ~ -80 dBFS on the session peak meter (normalised 0..1). Chosen as "inaudible"; constant, echoed in JSON.
+    public const double SilenceThreshold = 1e-4;
+    public const string Own = "own", Inactive = "inactive", OtherSilent = "other-active-silent",
+        OtherAudible = "other-audible", OtherUnmetered = "other-active-unmetered", OtherExclusive = "other-active-exclusive",
+        CaptureHost = "capture-host-ignored", OwnNotActive = "own-not-active";
+
     static void HR(int hr) { if (hr < 0) Marshal.ThrowExceptionForHR(hr); }
     static void Release(object o) { if (o != null && Marshal.IsComObject(o)) Marshal.ReleaseComObject(o); }
     static readonly Guid AudioClientId = new Guid("1CB9AD4C-DBFA-4c32-B178-C2F568A703B2");
     static readonly Guid CaptureId = new Guid("C8ADBD64-E71E-48a0-A4DE-185C395CD317");
     static readonly Guid SessionManagerId = new Guid("77AA99A0-1BD6-484F-8BC7-2C654C9A9B6F");
+    static readonly Guid MeterId = new Guid("C02216F6-8C67-4B5B-9D00-D008E73E0064"); // IAudioMeterInformation
 
-    static void CheckSessions(ISessionManager manager, int clientPid, SmokeLoopbackResult result) {
+    /// Pure decision for one session observation. isOwn = PID equals the owned client;
+    /// crossProcess (AUDCLNT_S_NO_SINGLE_PROCESS) is never treated as own, even if its PID matches.
+    public static string ClassifySession(bool isOwn, int state, double peak, double threshold, bool meterOk,
+            bool crossProcess, bool requireExclusive) {
+        if (state != 1) return Inactive;                 // AudioSessionStateActive == 1
+        if (isOwn && !crossProcess) return Own;
+        if (requireExclusive) return OtherExclusive;
+        if (!meterOk || Double.IsNaN(peak) || Double.IsInfinity(peak) || peak < 0) return OtherUnmetered;
+        return peak <= threshold ? OtherSilent : OtherAudible;
+    }
+
+    public static bool IsRejecting(string verdict) {
+        return verdict == OtherAudible || verdict == OtherUnmetered || verdict == OtherExclusive;
+    }
+
+    [UnmanagedFunctionPointer(CallingConvention.StdCall)] delegate int PeakFn(IntPtr self, out float peak);
+
+    // QueryInterface the session control for IAudioMeterInformation and call GetPeakValue (vtable slot 3)
+    // directly, so no extra RCW shares the control's reference count.
+    static bool TryGetPeak(object control, out double peak, out int hr) {
+        peak = 0; hr = 0; IntPtr unk = IntPtr.Zero, meter = IntPtr.Zero;
+        try {
+            unk = Marshal.GetIUnknownForObject(control);
+            Guid iid = MeterId; hr = Marshal.QueryInterface(unk, ref iid, out meter);
+            if (hr < 0 || meter == IntPtr.Zero) return false;
+            IntPtr vtable = Marshal.ReadIntPtr(meter);
+            var fn = (PeakFn)Marshal.GetDelegateForFunctionPointer(Marshal.ReadIntPtr(vtable, 3 * IntPtr.Size), typeof(PeakFn));
+            float value; hr = fn(meter, out value);
+            if (hr < 0 || Single.IsNaN(value) || Single.IsInfinity(value)) return false;
+            peak = value; return true;
+        } catch (Exception) { if (hr >= 0) hr = -1; return false; }
+        finally { if (meter != IntPtr.Zero) Marshal.Release(meter); if (unk != IntPtr.Zero) Marshal.Release(unk); }
+    }
+
+    static string ProcessName(uint pid, bool systemSounds) {
+        if (systemSounds) return "SystemSounds";
+        try { using (var p = Process.GetProcessById((int)pid)) return p.ProcessName; } catch (Exception) { return null; }
+    }
+
+    sealed class Tracker {
+        public readonly Dictionary<string, SmokeLoopbackSession> Others = new Dictionary<string, SmokeLoopbackSession>();
+        public readonly List<SmokeLoopbackSession> Order = new List<SmokeLoopbackSession>();
+        public bool RequireExclusive;
+    }
+
+    static void CheckSessions(ISessionManager manager, int clientPid, SmokeLoopbackResult result, Tracker tracker) {
         ISessionEnumerator sessions = null;
-        bool own = false;
+        bool own = false; int hostPid = Process.GetCurrentProcess().Id;
         try {
             HR(manager.GetSessionEnumerator(out sessions));
             int count; HR(sessions.GetCount(out count));
@@ -36,34 +104,69 @@ public static class SmokeLoopback {
                     HR(sessions.GetSession(i, out control));
                     int state; HR(control.GetState(out state));
                     if (state != 1) continue;
-                    uint pid; int hr = control.GetProcessId(out pid); HR(hr);
-                    // AUDCLNT_S_NO_SINGLE_PROCESS means a cross-process session, not proof of own-only playback.
-                    if (hr != 0) throw new InvalidOperationException("Cross-process render session; refusing mixed capture");
-                    if (pid == clientPid) own = true;
-                    else if (pid != Process.GetCurrentProcess().Id)
-                        throw new InvalidOperationException("Other active render session PID " + pid + "; capture stopped");
+                    uint pid; int pidHr = control.GetProcessId(out pid); HR(pidHr);
+                    bool cross = pidHr != 0; // AUDCLNT_S_NO_SINGLE_PROCESS
+                    bool system = control.IsSystemSoundsSession() == 0;
+                    double peak; int meterHr; bool meterOk = TryGetPeak(control, out peak, out meterHr);
+                    bool isOwn = pid == clientPid;
+                    string verdict;
+                    if (!cross && !system && pid == hostPid && !isOwn) verdict = CaptureHost;
+                    else verdict = ClassifySession(isOwn && !system, state, peak, SilenceThreshold, meterOk, cross || system, tracker.RequireExclusive);
+                    if (verdict == Own) {
+                        own = true; result.OwnPolls++;
+                        if (meterOk && peak > result.OwnMaxPeak) result.OwnMaxPeak = peak;
+                        continue;
+                    }
+                    string key = null;
+                    try { string id; if (control.GetSessionInstanceIdentifier(out id) >= 0) key = id; } catch (Exception) { }
+                    if (String.IsNullOrEmpty(key)) key = "pid:" + pid + (cross ? ":cross" : "") + (system ? ":system" : "");
+                    SmokeLoopbackSession s;
+                    if (!tracker.Others.TryGetValue(key, out s)) {
+                        s = new SmokeLoopbackSession { Key = key, Pid = pid, CrossProcess = cross, SystemSounds = system,
+                            Kind = system ? "system-sounds" : cross ? "cross-process" : "process", Name = ProcessName(pid, system), Verdict = verdict };
+                        tracker.Others.Add(key, s); tracker.Order.Add(s);
+                    }
+                    s.State = state; s.Polls++; s.LastMeterHResult = meterHr;
+                    if (!meterOk) s.UnmeteredPolls++;
+                    else if (peak > s.MaxPeak) s.MaxPeak = peak;
+                    s.Verdict = verdict; // a rejecting verdict throws below, so the last verdict is also the worst
+                    if (IsRejecting(verdict)) {
+                        result.OtherSessions = tracker.Order.ToArray();
+                        throw new SmokeLoopbackRejectedException(verdict, "pid " + pid + " (" + (s.Name ?? "?") + ", " + s.Kind + ")" +
+                            (meterOk ? " peak " + peak.ToString("R") + " vs threshold " + SilenceThreshold.ToString("R") : " meter hr 0x" + meterHr.ToString("X8")));
+                    }
                 } finally { Release(control); }
             }
             result.SessionChecks++;
-            if (!own) throw new InvalidOperationException("Owned client is not actively rendering on the default multimedia endpoint");
+            result.OtherSessions = tracker.Order.ToArray();
+            if (!own) throw new SmokeLoopbackRejectedException(OwnNotActive, "owned client PID " + clientPid + " is not actively rendering on the default multimedia endpoint");
         } finally { Release(sessions); }
     }
 
     public static SmokeLoopbackResult Record(Process clientProcess, string path, int seconds) {
+        return Record(clientProcess, path, seconds, false);
+    }
+
+    public static SmokeLoopbackResult Record(Process clientProcess, string path, int seconds, bool requireExclusive) {
         if (seconds < 1 || seconds > 30) throw new ArgumentOutOfRangeException("seconds");
         if (clientProcess.HasExited) throw new InvalidOperationException("Owned client already exited");
-        var result = new SmokeLoopbackResult { Path = path, ProcessId = clientProcess.Id, RequestedSeconds = seconds, StartedUtc = DateTime.UtcNow.ToString("o") };
+        var result = new SmokeLoopbackResult { Path = path, ProcessId = clientProcess.Id, RequestedSeconds = seconds, StartedUtc = DateTime.UtcNow.ToString("o"),
+            Threshold = SilenceThreshold, RequireExclusive = requireExclusive,
+            Scope = requireExclusive
+                ? "Default render/eMultimedia endpoint mix; own PID active and no other active render session at ~20 ms polls (-RequireExclusive); not process-isolated"
+                : "Default render/eMultimedia endpoint mix; own PID active; every other active render session (incl. cross-process/system sounds) had session meter peak <= Threshold at every ~20 ms poll; sound between polls is not excluded; not process-isolated" };
+        var tracker = new Tracker { RequireExclusive = requireExclusive };
         IDeviceEnumerator enumerator = null; IDevice device = null;
         IAudioClient audio = null; ICaptureClient capture = null; ISessionManager manager = null;
         IntPtr formatPointer = IntPtr.Zero; BinaryWriter writer = null;
-        bool started = false; long dataStart = 0; double squares = 0;
+        bool started = false, created = false, rejected = false; long dataStart = 0; double squares = 0;
         try {
             enumerator = (IDeviceEnumerator)new DeviceEnumerator();
             HR(enumerator.GetDefaultAudioEndpoint(0, 1, out device)); // eRender, eMultimedia
             string endpoint; HR(device.GetId(out endpoint)); result.EndpointId = endpoint;
             object activated; Guid iid = SessionManagerId;
             HR(device.Activate(ref iid, 23, IntPtr.Zero, out activated)); manager = (ISessionManager)activated;
-            CheckSessions(manager, clientProcess.Id, result);
+            CheckSessions(manager, clientProcess.Id, result, tracker);
             iid = AudioClientId; HR(device.Activate(ref iid, 23, IntPtr.Zero, out activated)); audio = (IAudioClient)activated;
             HR(audio.GetMixFormat(out formatPointer));
             int extra = (ushort)Marshal.ReadInt16(formatPointer, 16);
@@ -85,14 +188,14 @@ public static class SmokeLoopback {
             Guid session = Guid.Empty;
             HR(audio.Initialize(0, 0x20000, 1000000, 0, formatPointer, ref session)); // shared, LOOPBACK, 100 ms
             iid = CaptureId; HR(audio.GetService(ref iid, out activated)); capture = (ICaptureClient)activated;
-            writer = new BinaryWriter(new FileStream(path, FileMode.CreateNew, FileAccess.Write, FileShare.Read));
+            writer = new BinaryWriter(new FileStream(path, FileMode.CreateNew, FileAccess.Write, FileShare.Read)); created = true;
             writer.Write(System.Text.Encoding.ASCII.GetBytes("RIFF")); writer.Write(0);
             writer.Write(System.Text.Encoding.ASCII.GetBytes("WAVEfmt ")); writer.Write(format.Length); writer.Write(format);
             writer.Write(System.Text.Encoding.ASCII.GetBytes("data")); writer.Write(0); dataStart = writer.BaseStream.Position;
             HR(audio.Start()); started = true; var clock = Stopwatch.StartNew();
             while (clock.Elapsed.TotalSeconds < seconds) {
                 if (clientProcess.HasExited) throw new InvalidOperationException("Owned client exited during capture");
-                CheckSessions(manager, clientProcess.Id, result);
+                CheckSessions(manager, clientProcess.Id, result, tracker);
                 uint next; HR(capture.GetNextPacketSize(out next));
                 while (next != 0) {
                     IntPtr data; uint frames, flags; ulong position, qpc;
@@ -119,8 +222,11 @@ public static class SmokeLoopback {
                 }
                 Thread.Sleep(20);
             }
-            CheckSessions(manager, clientProcess.Id, result);
+            CheckSessions(manager, clientProcess.Id, result, tracker);
             result.Completed = true;
+        } catch (SmokeLoopbackRejectedException ex) {
+            rejected = true; result.RejectReason = ex.Reason; result.Error = ex.GetType().Name + ": " + ex.Message;
+            result.RejectDetail = ex.Message;
         } catch (Exception ex) { result.Error = ex.GetType().Name + ": " + ex.Message; }
         finally {
             if (started) { try { HR(audio.Stop()); } catch (Exception ex) { result.Completed = false; result.Error = ex.Message; } }
@@ -131,6 +237,10 @@ public static class SmokeLoopback {
                     writer.BaseStream.Position = dataStart - 4; writer.Write(checked((int)(length - dataStart))); writer.Flush();
                 } finally { writer.Dispose(); }
             }
+            // A rejected capture may contain other programs' audio: do not keep the WAV (CreateNew guarantees we made it).
+            if (rejected && created) { try { File.Delete(path); } catch (Exception ex) { result.Error += "; WAV delete failed: " + ex.Message; } }
+            result.WavKept = created && File.Exists(path);
+            if (result.OtherSessions.Length != tracker.Order.Count) result.OtherSessions = tracker.Order.ToArray();
             if (formatPointer != IntPtr.Zero) Marshal.FreeCoTaskMem(formatPointer);
             Release(capture); Release(audio); Release(manager); Release(device); Release(enumerator);
             result.Rms = result.Samples > 0 ? Math.Sqrt(squares / result.Samples) : 0;

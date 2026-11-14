@@ -227,7 +227,9 @@ function Close-SmokeClient {
 
 function Record-SmokeLoopback {
     param([Parameter(Mandatory)][Diagnostics.Process]$Process,[Parameter(Mandatory)][string]$Path,
-        [ValidateRange(1,30)][int]$Seconds=3)
+        [ValidateRange(1,30)][int]$Seconds=3,
+        # Old strict mode: any other active render session rejects, even if its meter is silent.
+        [switch]$RequireExclusive)
     if($Process.HasExited){throw 'Owned client has exited'}
     $repo=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
     $scratch=[IO.Path]::GetFullPath((Join-Path $repo 'scratch'))+[IO.Path]::DirectorySeparatorChar
@@ -239,7 +241,8 @@ function Record-SmokeLoopback {
     }
     [IO.Directory]::CreateDirectory([IO.Path]::GetDirectoryName($full)) | Out-Null
     if(-not ('SmokeLoopback' -as [type])){Add-Type -Path (Join-Path $PSScriptRoot 'SmokeLoopback.cs')}
-    $result=[SmokeLoopback]::Record($Process,$full,$Seconds)
+    # other-audible / other-active-unmetered: record as skipped (environment); never close other programs.
+    $result=[SmokeLoopback]::Record($Process,$full,$Seconds,[bool]$RequireExclusive)
     Save-SmokeJson ($full+'.json') $result
     $result
 }

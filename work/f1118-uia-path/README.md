@@ -392,14 +392,28 @@ $r | Select-Object Selected,BeforeTarget,AfterTarget,Error
 ### WASAPI loopback
 
 ```powershell
-# 確認只剩這個客戶端播放；不是錄麥克風，也不播放測試音代替遊戲。
+# 不是錄麥克風，也不播放測試音代替遊戲。其他程式的 active session 只要全程靜音就照錄。
 $audio=Record-SmokeLoopback -Process $p -Path "$ev/game.wav" -Seconds 3
-$audio | Select-Object Completed,HasWaveform,Rms,Peak,CapturedSeconds,Error,Scope
+$audio | Select-Object Completed,HasWaveform,Rms,Peak,CapturedSeconds,OwnMaxPeak,Threshold,RejectReason,RejectDetail,Error,Scope
+$audio.OtherSessions | Format-Table Pid,Name,Kind,State,MaxPeak,Polls,UnmeteredPolls,Verdict
+# 舊的嚴格模式（任何其他 active session 就拒錄）：
+# Record-SmokeLoopback -Process $p -Path "$ev/game-strict.wav" -Seconds 3 -RequireExclusive
 ```
+
+`SmokeLoopback.cs` 改版後（#1230）型別簽章變了；同一個 PowerShell 程序若已載入舊版 `SmokeLoopback`，`Add-Type` 不會重載，請開新的 `powershell.exe` 再 dot-source。
 
 `SmokeLoopback.cs` 不需 NuGet；採預設 eRender/eMultimedia 的 shared-mode WASAPI loopback，支援 float32、PCM16/24/32 與對應 extensible 格式，寫原 mix format 的 WAV。RMS／Peak 以滿刻度 1 正規化；`CapturedSeconds` 由實際 frames／sample rate 算，silent flag 算零樣本，discontinuity／timestamp error 另記。只接受 worktree 的 `scratch/` 路徑、拒絕 junction／symlink、既有 WAV 不覆寫，時長 1–30 秒；JSON 在 `<wav>.json`。
 
-錄製前與每約 20ms 檢查音訊 session：自家客戶端 PID 必須正在該 endpoint 播放；其他 render PID 正在播放或跨程序 session 會拒錄／中止。這仍是 **endpoint 混音與輪詢檢查，並非程序隔離錄音**，兩次輪詢間的聲音變動無法排除。只在獨佔播放時段使用，不能停止其他人的程序來湊證據。#1210 的 Windows 10 build 19045 有 Chrome active session，工具拒錄，**尚未取得客戶端波形**。`HasWaveform` 也只代表捕獲非零樣本，不等於某音效或 SM51 通過。設計依 [Microsoft loopback 說明](https://learn.microsoft.com/en-us/windows/win32/coreaudio/loopback-recording) 與 [GetBuffer 契約](https://learn.microsoft.com/en-us/windows/win32/api/audioclient/nf-audioclient-iaudiocaptureclient-getbuffer)。
+錄製前、錄製中每約 20ms、結束後各檢查一次音訊 session（#1230）：
+
+- 自家客戶端 PID 必須有 Active session（否則 `RejectReason=own-not-active`）；其 session 音量表 peak 的最大值記為 `OwnMaxPeak`，輪詢次數記 `OwnPolls`。
+- 其他 PID、跨程序 session（`AUDCLNT_S_NO_SINGLE_PROCESS`）、系統音效 session 只要是 Active，就從 session control QueryInterface `IAudioMeterInformation`（IID `C02216F6-8C67-4B5B-9D00-D008E73E0064`）取 `GetPeakValue`：peak ≤ `Threshold`（常數 `1e-4`，約 -80 dBFS）記 `other-active-silent` 並繼續錄；任一次 > 門檻立即停止，`RejectReason=other-audible`；取不到 meter 視同可能有聲，`RejectReason=other-active-unmetered`。加 `-RequireExclusive` 時任何其他 active session 都拒錄（`other-active-exclusive`）。
+- 被拒錄時 **不留 WAV**（`WavKept=false`；開錄前就拒錄則根本不建檔），JSON 仍寫在 `<wav>.json`。錄音工具自己的 PowerShell PID 若出現 session 記為 `capture-host-ignored`。
+- 判定邏輯是純函式 `[SmokeLoopback]::ClassifySession(isOwn,state,peak,threshold,meterOk,crossProcess,requireExclusive)`，`Test-SmokeTools.ps1` 有離線契約檢查。
+
+JSON 新增欄位：`Threshold`、`OwnMaxPeak`、`OwnPolls`、`OtherSessions[]`（`Pid`、`Name`、`Kind`＝process／cross-process／system-sounds、`State`、`MaxPeak`、`Polls`、`UnmeteredPolls`、`LastMeterHResult`、`Verdict`、`Key`）、`RejectReason`、`RejectDetail`、`RequireExclusive`、`WavKept`；舊欄位（Frames、CapturedSeconds、RMS、Peak、HasWaveform…）照舊。
+
+**`other-audible`／`other-active-unmetered` 的處理**：該列記 ⚠️（環境）跳過，附 `<wav>.json`；**不關他人程式、不改系統音量或裝置設定**，可等安靜時段重錄一次。這仍是 **endpoint 混音與輪詢檢查，並非程序隔離錄音**：只證明每次輪詢瞬間其他 session 的音量表 ≤ 門檻，兩次輪詢之間的短促聲音無法排除（`Scope` 已寫明）；Windows 10 build 19045 沒有 build 20348+ 的程序隔離 loopback。#1210 的拒錄是 Chrome 靜音 active session 造成，改版後的實際錄音結果待 `f1210-tooling-retest` R07。`HasWaveform` 也只代表捕獲非零樣本，不等於某音效或 SM51 通過。設計依 [Microsoft loopback 說明](https://learn.microsoft.com/en-us/windows/win32/coreaudio/loopback-recording) 與 [GetBuffer 契約](https://learn.microsoft.com/en-us/windows/win32/api/audioclient/nf-audioclient-iaudiocaptureclient-getbuffer)。
 
 ### 共享讀取、關窗與函式索引
 
@@ -427,7 +441,7 @@ $close | Select-Object Closed,Exited,Passed,KeyError
 | `Send-SmokeCommand` | 見聊天例；回 SendConfirmed、ResponseObserved、Status、Error，完整 JSON 另存。 |
 | `Convert-SmokeObjectPoint` | 見物件例；純座標換算，不送輸入。 |
 | `Select-SmokeObject` | 見物件例；單擊及較新 targetId 讀回，不自動攻擊／雙擊。單擊在產品的敵對目標模式仍可能觸發產品原有攻擊路徑，因此準備自測時選普通 PC／中立 NPC。 |
-| `Record-SmokeLoopback` | 見錄音例；回 format、frames、RMS、Peak、錯誤與錄音範圍。 |
+| `Record-SmokeLoopback` | 見錄音例；回 format、frames、RMS、Peak、OwnMaxPeak、Threshold、OtherSessions、RejectReason、錯誤與錄音範圍；`-RequireExclusive` 為舊嚴格模式。 |
 | `Close-SmokeClient` | 見關窗例；回 Closed、Exited、Passed，不強制結束程序。 |
 
 離線契約測試（不啟動遊戲、不錄音）：
@@ -437,4 +451,4 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File work/f1118-uia-path/Test
     -EvidenceDirectory scratch/f1186-retest/contracts
 ```
 
-測試包含共享讀取與同時截斷寫入、有效快照、JSONL 舊列／半列／截斷拒絕、物件不存在拒絕、座標向量、錄音 interop 編譯，以及送鍵日誌保留 `Keys`／VirtualKey／Modifiers。這些是工具契約測試，不能替代真機自測或任何 SM 判定。
+測試包含共享讀取與同時截斷寫入、有效快照、JSONL 舊列／半列／截斷拒絕、物件不存在拒絕、座標向量、錄音 interop 編譯、錄音 session 判定（自家有聲／他人靜音 active／他人有聲／無 meter／跨程序／-RequireExclusive）與 JSON 欄位，以及送鍵日誌保留 `Keys`／VirtualKey／Modifiers。這些是工具契約測試，不能替代真機自測或任何 SM 判定。
