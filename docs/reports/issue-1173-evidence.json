@@ -1,0 +1,4700 @@
+{
+  "issue": 1173,
+  "source": "88e23cc01e1807fc280897fed2b5ad6d96a3e2f1",
+  "productDllSha256": "998cc2d0983635a888bfde4f04f83408f2410ee84852acee10d6bf385d82ca95",
+  "sourceHashes": {
+    "work/f1118-uia-path/UiaGdi.ps1": "a96917524a541322a7a038b87632971c3d5a6878cc56ebcfbb4987b49498c7b0",
+    "engine/source/DevToolsForm.cs": "f83b246cd5a0baa155be1d55a06ac2767345a33f0792dc71dd6f1f6f296032ad",
+    "engine/source/ProductEntry.cs": "a2228e47a7f1362e98402adef84331908708a85dfb6186a2a7c148a538182334"
+  },
+  "artifacts": {
+    "dev-info.json": {
+      "Title": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+      "ProcessId": 3592,
+      "Handle": 18547580,
+      "Rectangle": "441,441,826,711",
+      "Minimized": false,
+      "Dpi": 192,
+      "ProcessDpiSet": true,
+      "ProcessDpiError": 0
+    },
+    "g01-login-state.json": {
+      "state": "CharacterList",
+      "detail": "已解析角色 3/3",
+      "expected": 3,
+      "slots": 4,
+      "characters": [
+        {
+          "Name": "資源法師",
+          "Clan": "",
+          "Class": 3,
+          "Sex": 0,
+          "Lawful": -10,
+          "Hp": 270,
+          "Mp": 276,
+          "Ac": 4,
+          "Level": 52,
+          "Strength": 8,
+          "Dexterity": 7,
+          "Constitution": 12,
+          "Wisdom": 12,
+          "Charisma": 8,
+          "Intelligence": 28,
+          "Gm": 0,
+          "CreateTime": 20261114,
+          "CheckCode": 47
+        },
+        {
+          "Name": "服務驗證",
+          "Clan": "資源血盟",
+          "Class": 0,
+          "Sex": 0,
+          "Lawful": 26,
+          "Hp": 236,
+          "Mp": 117,
+          "Ac": -4,
+          "Level": 59,
+          "Strength": 22,
+          "Dexterity": 13,
+          "Constitution": 16,
+          "Wisdom": 12,
+          "Charisma": 10,
+          "Intelligence": 11,
+          "Gm": 0,
+          "CreateTime": 20261026,
+          "CheckCode": 61
+        },
+        {
+          "Name": "服務交易",
+          "Clan": "",
+          "Class": 0,
+          "Sex": 0,
+          "Lawful": 0,
+          "Hp": 686,
+          "Mp": 117,
+          "Ac": 10,
+          "Level": 59,
+          "Strength": 22,
+          "Dexterity": 13,
+          "Constitution": 16,
+          "Wisdom": 12,
+          "Charisma": 10,
+          "Intelligence": 11,
+          "Gm": 0,
+          "CreateTime": 20261106,
+          "CheckCode": 61
+        }
+      ]
+    },
+    "g05-capture.json": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1173\\scratch\\issue-1173\\g05-dev.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "CopyFromScreenError": null,
+      "Width": 826,
+      "Height": 711,
+      "SampleStride": 4,
+      "Samples": 36846,
+      "Mean": 73.96245634983508,
+      "NonzeroRatio": 0.9508766216142865,
+      "NonwhiteRatio": 0.9030559626553765,
+      "Nonblank": true,
+      "Sha256": "5129A2751ECA45F986EBED28C514491B5B83987877332894D1DED92AED7566AB",
+      "Foreground": null,
+      "Window": {
+        "Title": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "ProcessId": 3592,
+        "Handle": 18547580,
+        "Rectangle": "441,441,826,711",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 0
+      }
+    },
+    "g06-dev-tree.json": [
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "441,441,826,711",
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,499,800,640",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "網頁面板",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,543,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,543,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "WebView2 初始化中…",
+        "Type": "ControlType.Pane",
+        "Id": "23856652",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,543,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "P24 登入與角色面板",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "Chrome_WidgetWin_1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,543,784,588",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern",
+          "ItemContainerPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "Intermediate D3D Window",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "462,543,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "P24 登入與角色面板 - 網頁內容",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "BrowserRootView",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,544,784,588",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "NonClientView",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,544,784,588",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "EmbeddedBrowserTabRootView",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "Empty",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "EmbeddedBrowserFrameView",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,544,784,588",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "BrowserView",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,544,784,588",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "TopContainerView",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "Empty",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "SidebarContentsSplitView",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,544,784,588",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "SidebarContentsSplitView",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,544,784,588",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "MultiContentsView",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,544,784,588",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "View",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,544,784,588",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "View",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "Empty",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "P24 登入與角色面板",
+        "Type": "ControlType.Document",
+        "Id": "RootWebArea",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,544,784,588",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "ScrollPatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.StatusBar",
+        "Id": "mapResource",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "484,583,710,18",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "等待地圖與角色位置；可取消連線或回離線預覽。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "484,583,308,18",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "P24 / AUTONOMOUS CLIENT",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "484,615,198,14",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "角色控制面板",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "484,639,710,31",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "原生世界 × 本機網頁",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "484,684,111,15",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "聲音",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "503,753,672,44",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "主音量",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "503,811,42,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.StatusBar",
+        "Id": "audioGainValue",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1146,808,29,26",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "50%",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1146,811,29,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "主音量",
+        "Type": "ControlType.Slider",
+        "Id": "audioGain",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "505,841,672,19",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "RangeValuePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "靜音",
+        "Type": "ControlType.CheckBox",
+        "Id": "audioMuted",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "503,873,13,14",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TogglePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.StatusBar",
+        "Id": "audioNotice",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "503,908,672,27",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "音量已套用",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "503,911,70,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入與角色",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "503,992,672,30",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "本機遊戲伺服器 · 請輸入帳號與密碼",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "503,1038,221,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Group",
+        "Id": "connectionOptions",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "503,1074,672,26",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "連線設定",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "503,1074,672,26",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "連線設定",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "517,1077,57,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "帳號",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "503,1102,28,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "帳號",
+        "Type": "ControlType.Edit",
+        "Id": "webLoginAccount",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,1133,672,42",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "密碼",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,1177,28,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "[PASSWORD]",
+        "Type": "ControlType.Edit",
+        "Id": "webLoginPassword",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,1207,672,42",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入",
+        "Type": "ControlType.Button",
+        "Id": "webLoginSubmit",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,1258,672,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.StatusBar",
+        "Id": "webLoginNotice",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,1313,672,51",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "請選擇角色 · 已解析角色 3/3\n登入請求已送出，請查看連線狀態。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,1316,224,44",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "角色",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,1380,28,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "角色",
+        "Type": "ControlType.ComboBox",
+        "Id": "webLoginCharacters",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,1408,672,36",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "進入世界",
+        "Type": "ControlType.Button",
+        "Id": "webEnterWorld",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,1465,672,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "取消／斷線",
+        "Type": "ControlType.Button",
+        "Id": "webCancelLogin",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,1516,332,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "離線預覽",
+        "Type": "ControlType.Button",
+        "Id": "webOfflinePreview",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "843,1516,332,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Group",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,1557,672,27",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "角色與連線詳細資料",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,1557,672,27",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "角色與連線詳細資料",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "517,1560,127,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "目前場景",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,1663,672,30",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "目前角色周圍的原場景",
+        "Type": "ControlType.Image",
+        "Id": "sceneImage",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,1696,672,421",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Error": "System.Management.Automation.RuntimeException: UIA property 'Name' is null"
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.StatusBar",
+        "Id": "incomingAttack",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "Empty",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "原服已學魔法",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,2249,672,31",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "等待原服 HP／MP",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,2290,115,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.ComboBox",
+        "Id": "magicSkills",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,2324,672,20",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.ComboBox",
+        "Id": "magicTargets",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,2351,672,20",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "手動單次施法 (M)",
+        "Type": "ControlType.Button",
+        "Id": "castMagic",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,2374,116,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "對象：尚未選擇技能\n等待原服 AC · 抗性：等待原服資料\n等待原服已學技能清單\n",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,2430,218,62",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "能力點分配",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,2574,672,31",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "請先選擇屬性，再確認提昇１點。目前能力值含裝備與效果，基礎值上限由原服檢查。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,2621,532,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "剩餘點數：原服未提供",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,2660,140,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "查詢可分配狀態",
+        "Type": "ControlType.Button",
+        "Id": "bonusRefresh",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,2696,106,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "選擇：力量 · 目前 未知",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,2737,148,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "選擇：敏捷 · 目前 未知",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "650,2737,149,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "選擇：體質 · 目前 未知",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "798,2737,148,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "選擇：智力 · 目前 未知",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "945,2737,149,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "選擇：精神 · 目前 未知",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,2778,148,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "選擇：魅力 · 目前 未知",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "650,2778,149,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "請先選擇屬性",
+        "Type": "ControlType.Button",
+        "Id": "bonusSubmit",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,2819,92,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.StatusBar",
+        "Id": "bonusNotice",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,2874,672,26",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "可手動查詢原服是否允許分配；剩餘點數未提供。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,2877,308,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "等級與經驗",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,2993,672,31",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "等待原服 EXP",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,3041,87,18",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "原背包變化",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,3084,672,30",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "本次尚無變化",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,3131,84,18",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "背包",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,3246,672,31",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "單次使用",
+        "Type": "ControlType.Button",
+        "Id": "useItem",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,3280,66,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "丟棄數量",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "568,3292,57,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "丟棄數量",
+        "Type": "ControlType.Spinner",
+        "Id": "dropCount",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,3329,672,42",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "RangeValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "手動丟棄",
+        "Type": "ControlType.Button",
+        "Id": "dropItem",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,3370,66,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "等待原服背包",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,3428,84,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "地面物品",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,3544,672,31",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "拾取數量",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,3581,56,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "拾取數量",
+        "Type": "ControlType.Spinner",
+        "Id": "pickupCount",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,3611,672,42",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "RangeValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "單次拾取",
+        "Type": "ControlType.Button",
+        "Id": "pickup",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,3652,66,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "等待原服地面物品",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,3710,112,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "選取目標",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,3826,672,30",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "未選取",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,3873,42,18",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "點擊遊戲中可見的物件像素；空白清除。按 G 或下方按鈕依原武器送出一次近戰或弓箭射擊；不自動追擊。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,3912,662,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "單次攻擊 (G)",
+        "Type": "ControlType.Button",
+        "Id": "attack",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,4006,89,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "選取可見目標後按 G：依原武器單次攻擊",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,4062,253,17",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "角色與地圖狀態",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,4140,672,30",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "尚未收到本次完整世界資料",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,4182,168,17",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "等待伺服器外觀",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,4266,91,15",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "目前位置：等待角色資料",
+        "Type": "ControlType.Text",
+        "Id": "position",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,4298,672,44",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "等待真實角色資料",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,4356,112,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "真實連線 · CharacterList",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,4381,152,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "CharacterList / 面板／其他焦點",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,4406,197,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "狀態版本 1 · 已確認 0",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,4433,110,16",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "轉向 D0–D7",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "484,4495,710,22",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "選擇角色面向。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "484,4530,84,16",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "D0",
+        "Type": "ControlType.Button",
+        "Id": "d0",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "484,4561,172,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "D1",
+        "Type": "ControlType.Button",
+        "Id": "d1",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "663,4561,172,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "D2",
+        "Type": "ControlType.Button",
+        "Id": "d2",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "843,4561,172,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "D3",
+        "Type": "ControlType.Button",
+        "Id": "d3",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "1022,4561,172,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "D4",
+        "Type": "ControlType.Button",
+        "Id": "d4",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "484,4606,172,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "D5",
+        "Type": "ControlType.Button",
+        "Id": "d5",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "663,4606,172,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "D6",
+        "Type": "ControlType.Button",
+        "Id": "d6",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "843,4606,172,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "D7",
+        "Type": "ControlType.Button",
+        "Id": "d7",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "1022,4606,172,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "在線單步移動",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "484,4665,710,22",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "走 D0",
+        "Type": "ControlType.Button",
+        "Id": "m0",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "484,4699,172,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "走 D1",
+        "Type": "ControlType.Button",
+        "Id": "m1",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "663,4699,172,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "走 D2",
+        "Type": "ControlType.Button",
+        "Id": "m2",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "843,4699,172,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "走 D3",
+        "Type": "ControlType.Button",
+        "Id": "m3",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "1022,4699,172,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "走 D4",
+        "Type": "ControlType.Button",
+        "Id": "m4",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "484,4748,172,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "走 D5",
+        "Type": "ControlType.Button",
+        "Id": "m5",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "663,4748,172,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "走 D6",
+        "Type": "ControlType.Button",
+        "Id": "m6",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "843,4748,172,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "走 D7",
+        "Type": "ControlType.Button",
+        "Id": "m7",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "1022,4748,172,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "停止輸入",
+        "Type": "ControlType.Button",
+        "Id": "stop",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "484,4811,66,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "0 北、1 東北、2 東、3 東南、4 南、5 西南、6 西、7 西北（世界座標）。每次按一下走一格；速度以角色狀態為準。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "484,4866,695,37",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "記事欄 (F11)",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "484,4916,79,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "記事欄 (F11)",
+        "Type": "ControlType.Edit",
+        "Id": "notes",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "484,4942,710,42",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "此欄位只留在頁面。方向鍵可移動文字游標，不控制角色。F10 回遊戲。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "484,4997,384,16",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "回到遊戲控制",
+        "Type": "ControlType.Button",
+        "Id": "game",
+        "Class": "wide",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "484,5027,710,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.StatusBar",
+        "Id": "reply",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "484,5082,710,16",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "#1 ready",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "484,5082,50,16",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "NPC 對話與商店",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,5148,672,45",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "可見互動目標",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,5216,84,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "可見互動目標",
+        "Type": "ControlType.ComboBox",
+        "Id": "npcTarget",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "587,5216,131,20",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "與選取目標對話",
+        "Type": "ControlType.Button",
+        "Id": "npcTalk",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "718,5204,106,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "關閉對話／取消未送出選擇",
+        "Type": "ControlType.Button",
+        "Id": "npcClose",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "823,5204,173,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.StatusBar",
+        "Id": "npcNotice",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,5259,672,26",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "世界已清除，舊對話已失效。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,5262,182,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "角色交易",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,5368,672,44",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "先選取面前角色，雙方站在相鄰格並面對面。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,5428,280,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "邀請面前角色交易",
+        "Type": "ControlType.Button",
+        "Id": "tradeInvite",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,5464,119,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.StatusBar",
+        "Id": "tradeNotice",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,5519,672,26",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "交易對象：尚未選取面前角色 世界已清除，舊交易已失效。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,5522,368,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "你提供的物品（原服回包）",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,5566,672,31",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.List",
+        "Id": "tradeMine",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "Empty",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "對方提供的物品（原服回包）",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,5618,672,30",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.List",
+        "Id": "tradeTheirs",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "Empty",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "背包物品",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,5664,56,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "背包物品",
+        "Type": "ControlType.ComboBox",
+        "Id": "tradeInventory",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "559,5664,117,20",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "加入數量",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "676,5664,56,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "加入數量",
+        "Type": "ControlType.Spinner",
+        "Id": "tradeQuantity",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,5694,672,42",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "RangeValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "加入一次",
+        "Type": "ControlType.Button",
+        "Id": "tradeAdd",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,5735,66,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "已核對兩側物品，確認交易",
+        "Type": "ControlType.Button",
+        "Id": "tradeConfirm",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "568,5735,173,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "取消交易",
+        "Type": "ControlType.Button",
+        "Id": "tradeCancel",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "740,5735,66,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "關閉結果",
+        "Type": "ControlType.Button",
+        "Id": "tradeDismiss",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "805,5735,66,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Group",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "484,5813,710,56",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "目前支援已封裝的地圖、部分角色與武器外觀，以及四種魔法。缺少素材時會停止移動並提示。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "484,5832,462,15",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "\n",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "Empty",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "穿卸、商店、倉庫與交易結果以伺服器回報為準。新版尚待實機操作驗收。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "484,5851,363,15",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "個人商店",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,5919,672,44",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "店主：未選店主",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,5979,98,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "查詢可買入商品",
+        "Type": "ControlType.Button",
+        "Id": "privateBuy",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,6015,106,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "查詢可售出商品",
+        "Type": "ControlType.Button",
+        "Id": "privateSell",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "608,6015,106,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "關閉舊清單",
+        "Type": "ControlType.Button",
+        "Id": "privateClose",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "713,6015,80,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "數量",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,6059,28,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "數量",
+        "Type": "ControlType.Spinner",
+        "Id": "privateQuantity",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,6089,672,42",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "RangeValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "選一筆商品，再輸入數量。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,6147,168,19",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "確認一次",
+        "Type": "ControlType.Button",
+        "Id": "privateSubmit",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": true,
+        "Rectangle": "503,6184,66,42",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "查詢前請站進原服允許擺攤的區域，再靠近並選取店主；只在店主附近不保證能查詢。 請明確選取可見的個人商店，再查詢買入或售出清單。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "503,6242,662,44",
+        "Patterns": [
+          "TextPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "EmbeddedBrowserDownloadView",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "Empty",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "TopContainerOverlayView",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,544,784,588",
+        "Patterns": [
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "WebView2 初始化中…",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,543,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "網頁面板",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "458,503,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "服務",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "566,503,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "644,503,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "控制",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "776,503,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "狀態列",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "854,503,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Button",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "938,503,90,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,454,800,45",
+        "Patterns": []
+      },
+      {
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,454,44,44",
+        "Patterns": []
+      },
+      {
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,454,44,44",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Minimize",
+        "Type": "ControlType.Button",
+        "Id": "Minimize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "975,442,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Maximize",
+        "Type": "ControlType.Button",
+        "Id": "Maximize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1069,442,92,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1161,442,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "g07-result.json": {
+      "service": {
+        "RequestedName": "服務",
+        "TabItem": {
+          "Name": "服務",
+          "IsSelected": true
+        },
+        "TabSelection": [
+          "服務"
+        ],
+        "TabItemError": null,
+        "TabSelectionError": null
+      },
+      "login": {
+        "RequestedName": "登入／選角",
+        "TabItem": {
+          "Name": "登入／選角",
+          "IsSelected": true
+        },
+        "TabSelection": [
+          "登入／選角"
+        ],
+        "TabItemError": null,
+        "TabSelectionError": null
+      }
+    },
+    "g07-service-tree.json": [
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "441,441,826,711",
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,499,800,640",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "服務",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,543,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "開發工具服務分頁",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "462,543,784,588",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "背包",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "470,623,768,500",
+        "Patterns": []
+      },
+      {
+        "Name": "背包",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "466,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "地面",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "544,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "魔法",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "622,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "角色",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "700,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "能力點",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "778,583,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "個人商店",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "862,583,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "NPC",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "970,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "交易",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1048,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "聲音",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1126,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "好友／封鎖",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "466,547,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "決鬥",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "598,547,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "求婚",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "676,547,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "寵物",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "754,547,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "血盟戰爭",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "832,547,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "稱號／表情",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "940,547,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "血盟",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1072,547,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "網頁面板",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "458,503,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "服務",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "566,503,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "644,503,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "控制",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "776,503,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "狀態列",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "854,503,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Button",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "938,503,90,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,454,800,45",
+        "Patterns": []
+      },
+      {
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,454,44,44",
+        "Patterns": []
+      },
+      {
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,454,44,44",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Minimize",
+        "Type": "ControlType.Button",
+        "Id": "Minimize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "975,442,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Maximize",
+        "Type": "ControlType.Button",
+        "Id": "Maximize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1069,442,92,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1161,442,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "g07-login-tree.json": [
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "441,441,826,711",
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,499,800,640",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,543,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,543,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "473,554,175,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "473,554,175,38",
+        "Patterns": []
+      },
+      {
+        "Name": "開啟",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "615,555,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "654,554,90,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "711,555,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "711,555,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "711,573,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "微調按鈕",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "656,556,54,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "750,554,95,38",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "[PASSWORD]",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "851,554,95,38",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "952,554,88,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "取消 / 斷線",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1046,554,98,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "離線預覽",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "473,598,90,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "資源法師",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "569,598,155,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "569,598,155,38",
+        "Patterns": []
+      },
+      {
+        "Name": "開啟",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "691,599,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "進入世界",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "730,598,95,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "建立角色",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "831,598,92,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "刪除角色",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "929,598,110,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "CharacterList • 已解析角色 3/3\n登入請求已送出，請查看連線狀態。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "473,639,480,52",
+        "Patterns": []
+      },
+      {
+        "Name": "網頁面板",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "458,503,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "服務",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "566,503,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "644,503,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "控制",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "776,503,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "狀態列",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "854,503,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Button",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "938,503,90,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,454,800,45",
+        "Patterns": []
+      },
+      {
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,454,44,44",
+        "Patterns": []
+      },
+      {
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,454,44,44",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Minimize",
+        "Type": "ControlType.Button",
+        "Id": "Minimize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "975,442,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Maximize",
+        "Type": "ControlType.Button",
+        "Id": "Maximize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1069,442,92,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1161,442,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "g07-service-outer-tabs.json": [
+      {
+        "Name": "網頁面板",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "458,503,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "服務",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "566,503,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "644,503,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "控制",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "776,503,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "狀態列",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "854,503,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Button",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "938,503,90,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "g07-login-outer-tabs.json": [
+      {
+        "Name": "網頁面板",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "458,503,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "服務",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "566,503,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "644,503,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "控制",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "776,503,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "狀態列",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "854,503,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Button",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "938,503,90,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "n01-outer-service.json": {
+      "RequestedName": "服務",
+      "TabItem": {
+        "Name": "服務",
+        "IsSelected": true
+      },
+      "TabSelection": [
+        "服務"
+      ],
+      "TabItemError": null,
+      "TabSelectionError": null
+    },
+    "n01-nested-tree.json": [
+      {
+        "Name": "開發工具服務分頁",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "462,543,784,588",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "背包",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "470,623,768,500",
+        "Patterns": []
+      },
+      {
+        "Name": "背包",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "466,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "地面",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "544,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "魔法",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "622,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "角色",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "700,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "能力點",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "778,583,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "個人商店",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "862,583,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "NPC",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "970,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "交易",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1048,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "聲音",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1126,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "好友／封鎖",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "466,547,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "決鬥",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "598,547,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "求婚",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "676,547,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "寵物",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "754,547,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "血盟戰爭",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "832,547,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "稱號／表情",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "940,547,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "血盟",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1072,547,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "n01-result.json": {
+      "sound": {
+        "Error": "System.Management.Automation.RuntimeException: Select-UiaTab verification failed: {\"RequestedName\":\"聲音\",\"TabItem\":{\"Name\":\"聲音\",\"IsSelected\":false},\"TabSelection\":[\"背包\"],\"TabItemError\":null,\"TabSelectionError\":null}"
+      },
+      "clan": {
+        "Error": "System.Management.Automation.RuntimeException: Select-UiaTab verification failed: {\"RequestedName\":\"血盟\",\"TabItem\":{\"Name\":\"血盟\",\"IsSelected\":false},\"TabSelection\":[\"背包\"],\"TabItemError\":null,\"TabSelectionError\":null}"
+      }
+    },
+    "n01-sound-tree.json": [
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "441,441,826,711",
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,499,800,640",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "服務",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,543,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "開發工具服務分頁",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "462,543,784,588",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "背包",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "470,623,768,500",
+        "Patterns": []
+      },
+      {
+        "Name": "背包",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "466,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "地面",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "544,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "魔法",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "622,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "角色",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "700,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "能力點",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "778,583,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "個人商店",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "862,583,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "NPC",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "970,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "交易",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1048,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "聲音",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1126,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "好友／封鎖",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "466,547,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "決鬥",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "598,547,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "求婚",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "676,547,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "寵物",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "754,547,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "血盟戰爭",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "832,547,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "稱號／表情",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "940,547,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "血盟",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1072,547,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "網頁面板",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "458,503,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "服務",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "566,503,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "644,503,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "控制",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "776,503,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "狀態列",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "854,503,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Button",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "938,503,90,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,454,800,45",
+        "Patterns": []
+      },
+      {
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,454,44,44",
+        "Patterns": []
+      },
+      {
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,454,44,44",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Minimize",
+        "Type": "ControlType.Button",
+        "Id": "Minimize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "975,442,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Maximize",
+        "Type": "ControlType.Button",
+        "Id": "Maximize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1069,442,92,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1161,442,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "n01-clan-tree.json": [
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "441,441,826,711",
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,499,800,640",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "服務",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,543,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "開發工具服務分頁",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "462,543,784,588",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "背包",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "470,623,768,500",
+        "Patterns": []
+      },
+      {
+        "Name": "背包",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "466,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "地面",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "544,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "魔法",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "622,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "角色",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "700,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "能力點",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "778,583,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "個人商店",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "862,583,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "NPC",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "970,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "交易",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1048,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "聲音",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1126,583,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "好友／封鎖",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "466,547,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "決鬥",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "598,547,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "求婚",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "676,547,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "寵物",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "754,547,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "血盟戰爭",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "832,547,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "稱號／表情",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "940,547,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "血盟",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1072,547,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "網頁面板",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "458,503,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "服務",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "566,503,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "644,503,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "控制",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "776,503,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "狀態列",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "854,503,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Button",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "938,503,90,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,454,800,45",
+        "Patterns": []
+      },
+      {
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,454,44,44",
+        "Patterns": []
+      },
+      {
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "454,454,44,44",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Minimize",
+        "Type": "ControlType.Button",
+        "Id": "Minimize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "975,442,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Maximize",
+        "Type": "ControlType.Button",
+        "Id": "Maximize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1069,442,92,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1161,442,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "snapshot.json": {
+      "utc": "2026-11-14T02:29:51.304032+00:00",
+      "files": 1722,
+      "bytes": 279502566,
+      "verified": true,
+      "source": "D:\\BinEngine\\environments\\p24\\db-data",
+      "runtime": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1173\\scratch\\issue-1173\\db-data",
+      "manifestSha256": "da7743d458bd0536766124694d034821da2e0d90f2033550fc78a2ca37c036db"
+    },
+    "original-db-final.json": {
+      "utc": "2026-11-14T02:31:58.480015+00:00",
+      "files": 1722,
+      "changed": [],
+      "added": [],
+      "unchanged": true,
+      "characterSelectEqual": true
+    },
+    "client-final-close.json": {
+      "Exited": true,
+      "Pid": 3592,
+      "CloseMainWindow": true,
+      "Utc": "2026-11-14T02:31:39.0267320Z"
+    },
+    "cleanup.json": {
+      "Listeners": [],
+      "Utc": "2026-11-14T02:31:56.5591106Z",
+      "RemainingOwned": [],
+      "RelatedProcesses": []
+    },
+    "owned-processes.json": [
+      {
+        "ProcessId": 19948,
+        "ParentProcessId": 1152,
+        "Name": "mysqld.exe",
+        "ExecutablePath": "D:\\BinEngine\\environments\\p24\\mysql\\bin\\mysqld.exe",
+        "CreationDate": "/Date(1794623399010)/"
+      },
+      {
+        "ProcessId": 6572,
+        "ParentProcessId": 19948,
+        "Name": "conhost.exe",
+        "ExecutablePath": "C:\\WINDOWS\\system32\\conhost.exe",
+        "CreationDate": "/Date(1794623399021)/"
+      },
+      {
+        "ProcessId": 16772,
+        "ParentProcessId": 19948,
+        "Name": "mysqld.exe",
+        "ExecutablePath": "D:\\BinEngine\\environments\\p24\\mysql\\bin\\mysqld.exe",
+        "CreationDate": "/Date(1794623399051)/"
+      },
+      {
+        "ProcessId": 12248,
+        "ParentProcessId": 18540,
+        "Name": "java.exe",
+        "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe",
+        "CreationDate": "/Date(1794623407505)/"
+      },
+      {
+        "ProcessId": 15464,
+        "ParentProcessId": 12248,
+        "Name": "conhost.exe",
+        "ExecutablePath": "C:\\WINDOWS\\system32\\conhost.exe",
+        "CreationDate": "/Date(1794623407516)/"
+      }
+    ]
+  },
+  "captures": {
+    "g05-capture.json": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1173\\scratch\\issue-1173\\g05-dev.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "CopyFromScreenError": null,
+      "Width": 826,
+      "Height": 711,
+      "SampleStride": 4,
+      "Samples": 36846,
+      "Mean": 73.96245634983508,
+      "NonzeroRatio": 0.9508766216142865,
+      "NonwhiteRatio": 0.9030559626553765,
+      "Nonblank": true,
+      "Sha256": "5129A2751ECA45F986EBED28C514491B5B83987877332894D1DED92AED7566AB",
+      "Foreground": null,
+      "Window": {
+        "Title": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "ProcessId": 3592,
+        "Handle": 18547580,
+        "Rectangle": "441,441,826,711",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 0
+      }
+    },
+    "g07-login-capture.json": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1173\\scratch\\issue-1173\\g07-login.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "CopyFromScreenError": null,
+      "Width": 826,
+      "Height": 711,
+      "SampleStride": 4,
+      "Samples": 36846,
+      "Mean": 78.96160596351648,
+      "NonzeroRatio": 0.9505780817456441,
+      "NonwhiteRatio": 0.8979807848884547,
+      "Nonblank": true,
+      "Sha256": "153D68FDD392213CDB118D971FBFD5E2E186873ABF8B59287DD083DAA5FB374C",
+      "Foreground": null,
+      "Window": {
+        "Title": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "ProcessId": 3592,
+        "Handle": 18547580,
+        "Rectangle": "441,441,826,711",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 0
+      }
+    },
+    "g07-service-capture.json": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1173\\scratch\\issue-1173\\g07-service.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "CopyFromScreenError": null,
+      "Width": 826,
+      "Height": 711,
+      "SampleStride": 4,
+      "Samples": 36846,
+      "Mean": 87.44692323002042,
+      "NonzeroRatio": 0.9480269228681539,
+      "NonwhiteRatio": 0.8784399934864029,
+      "Nonblank": true,
+      "Sha256": "FD23CC5111171FD28337C17827C407C20BE28BE01FC845CE7508A22EDAA04A32",
+      "Foreground": null,
+      "Window": {
+        "Title": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "ProcessId": 3592,
+        "Handle": 18547580,
+        "Rectangle": "441,441,826,711",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 0
+      }
+    },
+    "n01-clan-capture.json": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1173\\scratch\\issue-1173\\n01-clan.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "CopyFromScreenError": null,
+      "Width": 826,
+      "Height": 711,
+      "SampleStride": 4,
+      "Samples": 36846,
+      "Mean": 88.16842171922777,
+      "NonzeroRatio": 0.949438202247191,
+      "NonwhiteRatio": 0.8784399934864029,
+      "Nonblank": true,
+      "Sha256": "F363B2C37636F16948606E485DB81EDF311CDE9B3A834D5EEA989ECBF5796520",
+      "Foreground": null,
+      "Window": {
+        "Title": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "ProcessId": 3592,
+        "Handle": 18547580,
+        "Rectangle": "441,441,826,711",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 0
+      }
+    },
+    "n01-sound-capture.json": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1173\\scratch\\issue-1173\\n01-sound.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "CopyFromScreenError": null,
+      "Width": 826,
+      "Height": 711,
+      "SampleStride": 4,
+      "Samples": 36846,
+      "Mean": 88.16842171922777,
+      "NonzeroRatio": 0.949438202247191,
+      "NonwhiteRatio": 0.8784399934864029,
+      "Nonblank": true,
+      "Sha256": "F363B2C37636F16948606E485DB81EDF311CDE9B3A834D5EEA989ECBF5796520",
+      "Foreground": null,
+      "Window": {
+        "Title": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "ProcessId": 3592,
+        "Handle": 18547580,
+        "Rectangle": "441,441,826,711",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 0
+      }
+    },
+    "n01-tabs-capture.json": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1173\\scratch\\issue-1173\\n01-tabs.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "CopyFromScreenError": null,
+      "Width": 826,
+      "Height": 711,
+      "SampleStride": 4,
+      "Samples": 36846,
+      "Mean": 87.44692323002042,
+      "NonzeroRatio": 0.9480269228681539,
+      "NonwhiteRatio": 0.8784399934864029,
+      "Nonblank": true,
+      "Sha256": "FD23CC5111171FD28337C17827C407C20BE28BE01FC845CE7508A22EDAA04A32",
+      "Foreground": null,
+      "Window": {
+        "Title": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "ProcessId": 3592,
+        "Handle": 18547580,
+        "Rectangle": "441,441,826,711",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 0
+      }
+    }
+  },
+  "images": [
+    {
+      "path": "docs/reports/issue-1173-images/g05-dev.png",
+      "bytes": 28470,
+      "sha256": "5129a2751eca45f986ebed28c514491b5b83987877332894d1ded92aed7566ab"
+    },
+    {
+      "path": "docs/reports/issue-1173-images/g07-login.png",
+      "bytes": 25453,
+      "sha256": "153d68fdd392213cdb118d971fbfd5e2e186873abf8b59287dd083daa5fb374c"
+    },
+    {
+      "path": "docs/reports/issue-1173-images/g07-service.png",
+      "bytes": 24818,
+      "sha256": "fd23cc5111171fd28337c17827c407c20be28be01fc845ce7508a22edaa04a32"
+    },
+    {
+      "path": "docs/reports/issue-1173-images/n01-clan.png",
+      "bytes": 23042,
+      "sha256": "f363b2c37636f16948606e485db81edf311cde9b3a834d5eea989ecbf5796520"
+    },
+    {
+      "path": "docs/reports/issue-1173-images/n01-sound.png",
+      "bytes": 23042,
+      "sha256": "f363b2c37636f16948606e485db81edf311cde9b3a834d5eea989ecbf5796520"
+    },
+    {
+      "path": "docs/reports/issue-1173-images/n01-tabs.png",
+      "bytes": 24818,
+      "sha256": "fd23cc5111171fd28337c17827c407c20be28be01fc845ce7508a22edaa04a32"
+    }
+  ],
+  "charactersBefore": "@@port\t@@datadir\n43324\tD:\\BinEngine\\scratch\\wt\\task-1173\\scratch\\issue-1173\\db-data\\\naccount_name\tchar_name\tobjid\tType\tAccessLevel\tOnlineStatus\np242db6e\t資源王族\t10305\t0\t0\t0\np241db6e\t資源騎士\t10314\t1\t0\t0\np241db6e\t資源妖精\t10325\t2\t0\t0\np24svc01\t資源法師\t10334\t3\t0\t0\np241db6e\t資源暗妖\t10344\t4\t0\t0\np242db6e\t資源龍騎\t10356\t5\t0\t0\np242db6e\t資源幻術\t10365\t6\t0\t0\np241db6e\t透明王子\t1900240001\t0\t0\t0\np242db6e\t透明王子乙\t1900240002\t0\t0\t0\np243db6e\t驗收王子\t1900240003\t0\t0\t0\np244db6e\t驗收王子乙\t1900240004\t0\t0\t0\np245db6e\t透明觀察甲\t1900240005\t0\t0\t0\np246db6e\t透明觀察乙\t1900240006\t0\t0\t0\np247db6e\t驗收觀察甲\t1900240007\t0\t0\t0\np248db6e\t驗收觀察乙\t1900240008\t0\t0\t0\np24svc01\t服務驗證\t1900249001\t0\t0\t0\np24svc01\t服務交易\t1900249201\t0\t0\t0\n",
+  "charactersFinal": "@@port\t@@datadir\n43324\tD:\\BinEngine\\scratch\\wt\\task-1173\\scratch\\issue-1173\\db-data\\\naccount_name\tchar_name\tobjid\tType\tAccessLevel\tOnlineStatus\np242db6e\t資源王族\t10305\t0\t0\t0\np241db6e\t資源騎士\t10314\t1\t0\t0\np241db6e\t資源妖精\t10325\t2\t0\t0\np24svc01\t資源法師\t10334\t3\t0\t0\np241db6e\t資源暗妖\t10344\t4\t0\t0\np242db6e\t資源龍騎\t10356\t5\t0\t0\np242db6e\t資源幻術\t10365\t6\t0\t0\np241db6e\t透明王子\t1900240001\t0\t0\t0\np242db6e\t透明王子乙\t1900240002\t0\t0\t0\np243db6e\t驗收王子\t1900240003\t0\t0\t0\np244db6e\t驗收王子乙\t1900240004\t0\t0\t0\np245db6e\t透明觀察甲\t1900240005\t0\t0\t0\np246db6e\t透明觀察乙\t1900240006\t0\t0\t0\np247db6e\t驗收觀察甲\t1900240007\t0\t0\t0\np248db6e\t驗收觀察乙\t1900240008\t0\t0\t0\np24svc01\t服務驗證\t1900249001\t0\t0\t0\np24svc01\t服務交易\t1900249201\t0\t0\t0\n",
+  "results": {
+    "G01": "前置成功；不計入重測",
+    "G05": "通過",
+    "G06": "失敗",
+    "G07": "通過",
+    "N01": "失敗",
+    "P01": "通過"
+  }
+}

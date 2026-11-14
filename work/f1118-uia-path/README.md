@@ -1,6 +1,28 @@
 # UIA／GDI 操作工具（#1126／#1138）
 
-記事本前置改為 **UIA 聚焦＋SendInput Unicode 輸入＋TextPattern 讀回**。Windows 10 記事本編輯區是 `ControlType.Document`（Class `Edit`、AutomationId `15`），只提供 `TextPattern`／`ScrollPattern`，不支援 `ValuePattern`。不要把狀態列的五個 `ControlType.Edit` 當編輯區。#1138 實機結果見下方報告；記事本 #1149 已通過；客戶端最新實證見下方 **#1165**：七職業 GUI 建角完成，分頁 helper 有 API 呼叫錯誤；#1171 已修正 helper（見「分頁 helper 修正」節），實機待重測。
+記事本前置改為 **UIA 聚焦＋SendInput Unicode 輸入＋TextPattern 讀回**。Windows 10 記事本編輯區是 `ControlType.Document`（Class `Edit`、AutomationId `15`），只提供 `TextPattern`／`ScrollPattern`，不支援 `ValuePattern`。不要把狀態列的五個 `ControlType.Edit` 當編輯區。#1138 實機結果見下方報告；記事本 #1149 已通過；客戶端七職業 GUI 建角沿用 **#1165**；**#1173 已驗證外層切分頁用法通過**，巢狀服務分頁選取仍失敗，見下節。
+
+## 切分頁最新實證（#1173，P01）
+
+[報告與原始證據](../../docs/reports/issue-1173.md)。以 main `88e23cc0` 重建，Windows PowerShell 5.1 新 STA 行程；P01 只重測切分頁，其餘用法沿用 #1165，不再建角或操作服務功能。
+
+```powershell
+$dev = Get-UiaWindow -ProcessId $ownedProcessId -Title '開發工具（過渡操作介面） · Ctrl+Shift+F9' -IncludeOwned
+$tab = Find-UiaControl $dev -Type Tab -Scope Children
+Select-UiaTab $tab '服務'
+Get-UiaTree $dev
+Save-UiaGdiScreenshot $dev scratch/<任務>/tab-service.png
+$tab = Find-UiaControl $dev -Type Tab -Scope Children
+Select-UiaTab $tab '登入／選角'
+Get-UiaTree $dev  # 本輪讀到「建立角色」Button；沒有 Invoke。
+Save-UiaGdiScreenshot $dev scratch/<任務>/tab-login.png
+```
+
+兩次皆未拋例外，回傳 `TabItem.IsSelected=true`、`TabItem.Name` 與 `TabSelection` 分別為原文「服務」「登入／選角」，兩個 Error 欄皆 null；GDI 內容一致。服務頁有兩層 Tab，`-Scope Children` 能唯一取得外層。
+
+**巢狀切頁不可視為通過**：`Find-UiaControl $dev -Name '開發工具服務分頁' -Type Tab` 可找到巢狀 Tab；16 個 TabItem（含血盟）的名稱／矩形與 GDI 一致。但各呼叫一次 `Select-UiaTab $nested '聲音'`／`'血盟'`，均回報目標 `IsSelected=false`、`TabSelection=@('背包')`，畫面也停在背包。保留失敗，不改用鍵盤或座標。
+
+下方 #1165 與 #1171 的「尚未／待重測」描述保留當時狀態；外層切頁現況以本節為準。
 
 ## 客戶端最新實證（#1165）
 
@@ -61,7 +83,7 @@ Invoke-UiaButton (Find-UiaControl $dialog -Name '取消' -Type Button)
 
 本輪真正送出的 Aurora1165（騎士）已收到 S98／S127，DB objid=10293／Type=1／AccessLevel=0；之後 GUI 立即刪除。這是隔離副本結果，不代表原持久 DB 被修改。後續只需修正並重測 G07／P01，不需重做七職業建角。
 
-## 分頁 helper 修正（#1171，待 `f1165-retest` 實機重測）
+## 分頁 helper 修正（#1171；#1173 外層實機已通過）
 
 [報告](../../docs/reports/issue-1171.md)。只改 helper 與 fixture，**本輪沒有對任何視窗執行**，以下行為仍屬待驗證。
 
@@ -127,7 +149,7 @@ finally 留一張 GDI 圖並關閉自啟記事本；若出現儲存對話框，�
 | `Get-UiaTree $window` | 單一元素失效、null 屬性或列舉例外輸出 `{ Error = 原文 }`，繼續讀其他已取得元素；不把錯誤當空樹。provider 永不返回的 FindAll 不在這次逾時保護範圍。 |
 | `Find-UiaControl $window -Name $name -Type Button -ReadErrors ([ref]$errors)` | 忽略不可讀元素，錯誤以 `{ Error = 原文 }` 存入 `$errors`；仍只回傳唯一 element。也可立即用 `Get-UiaReadErrors` 讀最近一次 Find／Tree 的錯誤；找不到或多筆時仍丟錯並附原文。#1171 起可加 `-Scope Children` 只查直接子節點（預設 `Descendants`）；開發工具外層分頁用 `Find-UiaControl $dev -Type Tab -Scope Children`。 |
 | `Invoke-UiaButton $button -TimeoutSeconds 5` | 預設最多等待 5 秒，包含取得 InvokePattern。背景 MTA 呼叫無自動重試；逾時只停止等待，provider 可能仍在執行。**動作可能已生效，先截圖核對，不要重送**。 |
-| `Select-UiaTab $tab '登入／選角'` | 對 TabItem 呼叫 `SelectionItemPattern.Select()` 後雙向核對：TabItem 讀 `SelectionItemPattern.Current.IsSelected`＋名稱，Tab 讀 `SelectionPattern.Current.GetSelection()`（受控 API；#1171 修正，#1165 實機時誤呼叫不存在的 `GetCurrentSelection()` 而失敗）。`$tab` 須以 `-Scope Children` 取得 dev 外層 Tab。錯誤含兩邊原始觀察／例外；沒有鍵盤或座標退路。修正後實機待 `f1165-retest` 驗證。 |
+| `Select-UiaTab $tab '登入／選角'` | 對 TabItem 呼叫 `SelectionItemPattern.Select()` 後雙向核對：TabItem 讀 `SelectionItemPattern.Current.IsSelected`＋名稱，Tab 讀 `SelectionPattern.Current.GetSelection()`（受控 API；#1171 修正）。`$tab` 須以 `-Scope Children` 取得 dev 外層 Tab。錯誤含兩邊原始觀察／例外；沒有鍵盤或座標退路。#1173 已驗證外層「服務」↔「登入／選角」；巢狀「聲音」「血盟」仍讀回背包，列失敗。 |
 | `$sentUtc = Send-UiaEvidenceKey $window` | 前景核對同 PID 後送 **Ctrl+Shift+F12**，回傳送出前的 UTC DateTime；沿用 Send-ClientKey 的逐次原生 PID 保護與 JSONL。 |
 | `Get-UiaNewEvidence $directory $sentUtc` | 列出該目錄 `LastWriteTimeUtc` 嚴格晚於送鍵 UTC 的 `manual-*.png`；不遞迴、不等待，零筆不能算擷取成功。 |
 | `Send-UiaF12 $window` | 舊名只為相容保留，轉呼叫 Send-UiaEvidenceKey；現在送組合鍵，**單鍵 F12 不是證據鍵**。 |
