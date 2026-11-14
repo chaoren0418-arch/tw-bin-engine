@@ -1,0 +1,2871 @@
+{
+  "issue": 1222,
+  "observedUtc": "2026-11-14T10:25:15.291426+00:00",
+  "sourceFixtureCommit": "fadb1e4f090e353ecc1d89f53540a53001fdab71",
+  "jar": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\server\\Server_Game.jar",
+    "sha256": "d287bc4b3a38f237754accda9110dd6f894f461f3451b19a8f7c91e29de141cf"
+  },
+  "backupPreservation": {
+    "source": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1209\\environments\\p24\\backups\\issue-1209-before",
+    "destination": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\backups\\issue-1209-before",
+    "files": 1722,
+    "bytes": 279507053,
+    "manifestSha256": "cf27f301533e42568fabef9620fbe3f23dd8a57c98a4b29f28e5234178995928",
+    "copiedIncludingManifest": 1723,
+    "allHashesMatch": true,
+    "sourceInventoryExact": true
+  },
+  "database": {
+    "sql": "SELECT @@port port,@@datadir datadir,@@read_only read_only,@@super_read_only super_read_only",
+    "rows": [
+      {
+        "port": "43324",
+        "datadir": "D:\\BinEngine\\scratch\\wt\\task-1222\\scratch\\issue-1222\\runtime\\db-data\\",
+        "read_only": "1",
+        "super_read_only": "1"
+      }
+    ]
+  },
+  "queries": {
+    "npcDefinitions": {
+      "sql": "SELECT npcid,name,classname,note,impl,gfxid FROM p24_world.npc WHERE LOWER(impl) LIKE '%board%' OR LOWER(impl) LIKE '%auction%' OR LOWER(classname) LIKE '%board%' OR LOWER(classname) LIKE '%auction%' OR name LIKE '%公告%' OR name LIKE '%佈告%' OR name LIKE '%拍賣%'",
+      "rowCount": 18,
+      "rows": [
+        {
+          "npcid": "70535",
+          "name": "管理者^拍賣場",
+          "classname": "0",
+          "note": "拍賣系統-綁定NPC編號",
+          "impl": "L1Merchant",
+          "gfxid": "1766"
+        },
+        {
+          "npcid": "70577",
+          "name": "拍賣管理者",
+          "classname": "0",
+          "note": "",
+          "impl": "L1Merchant",
+          "gfxid": "1256"
+        },
+        {
+          "npcid": "80006",
+          "name": "佈告欄",
+          "classname": "other.Npc_Board",
+          "note": "揭示板（左向）",
+          "impl": "L1Merchant",
+          "gfxid": "1546"
+        },
+        {
+          "npcid": "80103",
+          "name": "拍賣管理者",
+          "classname": "0",
+          "note": "",
+          "impl": "L1Merchant",
+          "gfxid": "1256"
+        },
+        {
+          "npcid": "81126",
+          "name": "佈告欄",
+          "classname": "other.Npc_Board",
+          "note": "揭示板（右向）",
+          "impl": "L1Merchant",
+          "gfxid": "1544"
+        },
+        {
+          "npcid": "81127",
+          "name": "佈告欄",
+          "classname": "other.Npc_Board",
+          "note": "揭示板（右向）",
+          "impl": "L1Merchant",
+          "gfxid": "1557"
+        },
+        {
+          "npcid": "81128",
+          "name": "佈告欄",
+          "classname": "other.Npc_Board",
+          "note": "揭示板（左向）",
+          "impl": "L1Merchant",
+          "gfxid": "1559"
+        },
+        {
+          "npcid": "81129",
+          "name": "佈告欄",
+          "classname": "other.Npc_Board",
+          "note": "揭示板 (右向)",
+          "impl": "L1Merchant",
+          "gfxid": "2205"
+        },
+        {
+          "npcid": "81130",
+          "name": "佈告欄",
+          "classname": "other.Npc_Board",
+          "note": "揭示板 (左向)",
+          "impl": "L1Merchant",
+          "gfxid": "2207"
+        },
+        {
+          "npcid": "81161",
+          "name": "拍賣佈告欄",
+          "classname": "other.Npc_AuctionBoard",
+          "note": "",
+          "impl": "L1Merchant",
+          "gfxid": "1544"
+        },
+        {
+          "npcid": "81194",
+          "name": "古代物品商店『幸運之家』",
+          "classname": "0",
+          "note": "告示牌html",
+          "impl": "L1Signboard",
+          "gfxid": "843"
+        },
+        {
+          "npcid": "81195",
+          "name": "武器商店『奇跡之屋』",
+          "classname": "0",
+          "note": "告示牌html",
+          "impl": "L1Signboard",
+          "gfxid": "843"
+        },
+        {
+          "npcid": "81196",
+          "name": "道具商店『富有之夢』",
+          "classname": "0",
+          "note": "告示牌html",
+          "impl": "L1Signboard",
+          "gfxid": "841"
+        },
+        {
+          "npcid": "81197",
+          "name": "神秘商店『占星術師之家』",
+          "classname": "0",
+          "note": "告示牌html",
+          "impl": "L1Signboard",
+          "gfxid": "841"
+        },
+        {
+          "npcid": "81198",
+          "name": "家飾商店『美麗之家』",
+          "classname": "0",
+          "note": "告示牌html",
+          "impl": "L1Signboard",
+          "gfxid": "843"
+        },
+        {
+          "npcid": "81199",
+          "name": "花店『香氣之店』",
+          "classname": "0",
+          "note": "告示牌html",
+          "impl": "L1Signboard",
+          "gfxid": "841"
+        },
+        {
+          "npcid": "81201",
+          "name": "結婚式　揭示板",
+          "classname": "other.Npc_Board",
+          "note": "揭示板（左向）",
+          "impl": "L1Merchant",
+          "gfxid": "1546"
+        },
+        {
+          "npcid": "97117",
+          "name": "歐林佈告欄",
+          "classname": "0",
+          "note": "歐林海戰副本",
+          "impl": "L1Merchant",
+          "gfxid": "9224"
+        }
+      ]
+    },
+    "commands": {
+      "sql": "SELECT * FROM p24_world.commands WHERE name IN ('spawn','summon','npc','npcset','killnpc') OR class_name IN ('L1SpawnCmd','L1Summon','L1NpcSet','L1KillNpc')",
+      "rowCount": 4,
+      "rows": [
+        {
+          "name": "summon",
+          "access_level": "100",
+          "class_name": "L1Summon",
+          "note": "召喚寵物(參數:npcid))",
+          "system": "0"
+        },
+        {
+          "name": "2",
+          "access_level": "200",
+          "class_name": "L1SpawnCmd",
+          "note": "召喚NPC(參數:NPCID - 數量 - 範圍)",
+          "system": "0"
+        },
+        {
+          "name": "killnpc",
+          "access_level": "200",
+          "class_name": "L1KillNpc",
+          "note": "殺死畫面中 NPC",
+          "system": "0"
+        },
+        {
+          "name": "npc",
+          "access_level": "200",
+          "class_name": "L1NpcSet",
+          "note": "設置定點NPC(參數:NPC編號)",
+          "system": "0"
+        }
+      ]
+    },
+    "auctionEvents": {
+      "sql": "SELECT * FROM p24_world.server_event WHERE LOWER(eventclass) LIKE '%auction%' OR eventname LIKE '%盟屋%' OR eventname LIKE '%拍賣%'",
+      "rowCount": 1,
+      "rows": [
+        {
+          "id": "113",
+          "eventname": "拍賣系統",
+          "eventclass": "AuctionSet",
+          "eventstart": "1",
+          "eventother": "44070,20;4320",
+          "note": "0關閉1=開；貨幣道具ID,上架手續費;拍賣持續時間(分鐘)"
+        }
+      ]
+    },
+    "spawn:p24_accounts.server_boss出生": {
+      "sql": "SELECT * FROM `p24_accounts`.`server_boss出生` WHERE `npc_templateid` IN (70535,70577,80006,80103,81126,81127,81128,81129,81130,81161,81194,81195,81196,81197,81198,81199,81201,97117)",
+      "rowCount": 0,
+      "rows": []
+    },
+    "spawn:p24_cross.server_boss出生": {
+      "sql": "SELECT * FROM `p24_cross`.`server_boss出生` WHERE `npc_templateid` IN (70535,70577,80006,80103,81126,81127,81128,81129,81130,81161,81194,81195,81196,81197,81198,81199,81201,97117)",
+      "rowCount": 0,
+      "rows": []
+    },
+    "spawn:p24_lito.lito_battle_spawn": {
+      "sql": "SELECT * FROM `p24_lito`.`lito_battle_spawn` WHERE `npc_id` IN (70535,70577,80006,80103,81126,81127,81128,81129,81130,81161,81194,81195,81196,81197,81198,81199,81201,97117)",
+      "rowCount": 0,
+      "rows": []
+    },
+    "spawn:p24_world.npc_死亡召喚": {
+      "sql": "SELECT * FROM `p24_world`.`npc_死亡召喚` WHERE `npcid` IN (70535,70577,80006,80103,81126,81127,81128,81129,81130,81161,81194,81195,81196,81197,81198,81199,81201,97117)",
+      "rowCount": 0,
+      "rows": []
+    },
+    "spawn:p24_world.spawnlist": {
+      "sql": "SELECT * FROM `p24_world`.`spawnlist` WHERE `npc_templateid` IN (70535,70577,80006,80103,81126,81127,81128,81129,81130,81161,81194,81195,81196,81197,81198,81199,81201,97117)",
+      "rowCount": 0,
+      "rows": []
+    },
+    "scenery:p24_world.spawnlist_door": {
+      "sql": "SELECT * FROM `p24_world`.`spawnlist_door` WHERE gfxid IN (1544,2207,1766,1557,841,1559,2205,9224,843,1546,1256)",
+      "rowCount": 0,
+      "rows": []
+    },
+    "spawn:p24_world.spawnlist_light": {
+      "sql": "SELECT * FROM `p24_world`.`spawnlist_light` WHERE `npcid` IN (70535,70577,80006,80103,81126,81127,81128,81129,81130,81161,81194,81195,81196,81197,81198,81199,81201,97117)",
+      "rowCount": 0,
+      "rows": []
+    },
+    "spawn:p24_world.spawnlist_npc": {
+      "sql": "SELECT * FROM `p24_world`.`spawnlist_npc` WHERE `npc_templateid` IN (70535,70577,80006,80103,81126,81127,81128,81129,81130,81161,81194,81195,81196,81197,81198,81199,81201,97117)",
+      "rowCount": 7,
+      "rows": [
+        {
+          "id": "714",
+          "location": "拍賣管理者",
+          "count": "1",
+          "npc_templateid": "70577",
+          "locx": "33961",
+          "locy": "33253",
+          "randomx": "0",
+          "randomy": "0",
+          "heading": "4",
+          "respawn_delay": "0",
+          "mapid": "4",
+          "movement_distance": "0"
+        },
+        {
+          "id": "715",
+          "location": "拍賣管理者",
+          "count": "1",
+          "npc_templateid": "70577",
+          "locx": "33423",
+          "locy": "32823",
+          "randomx": "0",
+          "randomy": "0",
+          "heading": "4",
+          "respawn_delay": "0",
+          "mapid": "4",
+          "movement_distance": "0"
+        },
+        {
+          "id": "993",
+          "location": "拍賣管理者",
+          "count": "0",
+          "npc_templateid": "80103",
+          "locx": "32613",
+          "locy": "32775",
+          "randomx": "0",
+          "randomy": "0",
+          "heading": "4",
+          "respawn_delay": "0",
+          "mapid": "4",
+          "movement_distance": "0"
+        },
+        {
+          "id": "1016",
+          "location": "拍賣佈告欄",
+          "count": "0",
+          "npc_templateid": "81161",
+          "locx": "32611",
+          "locy": "32775",
+          "randomx": "0",
+          "randomy": "0",
+          "heading": "0",
+          "respawn_delay": "0",
+          "mapid": "4",
+          "movement_distance": "0"
+        },
+        {
+          "id": "1017",
+          "location": "拍賣佈告欄",
+          "count": "0",
+          "npc_templateid": "81161",
+          "locx": "33959",
+          "locy": "33253",
+          "randomx": "0",
+          "randomy": "0",
+          "heading": "0",
+          "respawn_delay": "0",
+          "mapid": "4",
+          "movement_distance": "0"
+        },
+        {
+          "id": "1018",
+          "location": "拍賣佈告欄",
+          "count": "0",
+          "npc_templateid": "81161",
+          "locx": "33585",
+          "locy": "33235",
+          "randomx": "0",
+          "randomy": "0",
+          "heading": "0",
+          "respawn_delay": "0",
+          "mapid": "4",
+          "movement_distance": "0"
+        },
+        {
+          "id": "1019",
+          "location": "拍賣佈告欄",
+          "count": "0",
+          "npc_templateid": "81161",
+          "locx": "33421",
+          "locy": "32823",
+          "randomx": "0",
+          "randomy": "0",
+          "heading": "0",
+          "respawn_delay": "0",
+          "mapid": "4",
+          "movement_distance": "0"
+        }
+      ]
+    },
+    "spawn:p24_world.spawnlist_npc_box": {
+      "sql": "SELECT * FROM `p24_world`.`spawnlist_npc_box` WHERE `npc_templateid` IN (70535,70577,80006,80103,81126,81127,81128,81129,81130,81161,81194,81195,81196,81197,81198,81199,81201,97117)",
+      "rowCount": 0,
+      "rows": []
+    },
+    "scenery:p24_world.spawnlist_scenery": {
+      "sql": "SELECT * FROM `p24_world`.`spawnlist_scenery` WHERE gfxid IN (1544,2207,1766,1557,841,1559,2205,9224,843,1546,1256)",
+      "rowCount": 0,
+      "rows": []
+    },
+    "spawn:p24_world.spawnlist_time": {
+      "sql": "SELECT * FROM `p24_world`.`spawnlist_time` WHERE `npc_id` IN (70535,70577,80006,80103,81126,81127,81128,81129,81130,81161,81194,81195,81196,81197,81198,81199,81201,97117)",
+      "rowCount": 0,
+      "rows": []
+    },
+    "spawn:p24_world.spawnlist_定時": {
+      "sql": "SELECT * FROM `p24_world`.`spawnlist_定時` WHERE `npcid` IN (70535,70577,80006,80103,81126,81127,81128,81129,81130,81161,81194,81195,81196,81197,81198,81199,81201,97117)",
+      "rowCount": 0,
+      "rows": []
+    },
+    "spawn:p24_world.道具_自訂怪物召喚": {
+      "sql": "SELECT * FROM `p24_world`.`道具_自訂怪物召喚` WHERE `npc_id` IN (70535,70577,80006,80103,81126,81127,81128,81129,81130,81161,81194,81195,81196,81197,81198,81199,81201,97117)",
+      "rowCount": 0,
+      "rows": []
+    },
+    "data:p24_accounts.server_盟屋_佈告": {
+      "sql": "SELECT * FROM `p24_accounts`.`server_盟屋_佈告`",
+      "rowCount": 0,
+      "rows": []
+    },
+    "data:p24_accounts.server_盟屋_拍賣": {
+      "sql": "SELECT * FROM `p24_accounts`.`server_盟屋_拍賣`",
+      "rowCount": 62,
+      "rows": [
+        {
+          "house_id": "262145",
+          "house_name": "$1242 1$1195",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  1",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262146",
+          "house_name": "$1242 2$1195",
+          "house_area": "45",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  2",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262149",
+          "house_name": "$1242 5$1195",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  5",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262151",
+          "house_name": "$1242 7$1195",
+          "house_area": "45",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  7",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262152",
+          "house_name": "$1242 8$1195",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  8",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262153",
+          "house_name": "$1242 9$1195",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  9",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262155",
+          "house_name": "$1242 11$1195",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  11",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262156",
+          "house_name": "$1242 12$1195",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  12",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262157",
+          "house_name": "$1242 13$1195",
+          "house_area": "120",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  13",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262158",
+          "house_name": "$1242 14$1195",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  14",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262159",
+          "house_name": "$1242 15$1195",
+          "house_area": "45",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  15",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262160",
+          "house_name": "$1242 16$1195",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  16",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262161",
+          "house_name": "$1242 17$1195",
+          "house_area": "45",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  17",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262162",
+          "house_name": "$1242 18$1195",
+          "house_area": "120",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  18",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262163",
+          "house_name": "$1242 19$1195",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  19",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262164",
+          "house_name": "$1242 20$1195",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  20",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262165",
+          "house_name": "$1242 21$1195",
+          "house_area": "45",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  21",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262147",
+          "house_name": "奇岩血盟小屋3",
+          "house_area": "120",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  3",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262167",
+          "house_name": "$1242 23$1195",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  23",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262168",
+          "house_name": "$1242 24$1195",
+          "house_area": "45",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  24",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262169",
+          "house_name": "$1242 25$1195",
+          "house_area": "45",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  25",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262170",
+          "house_name": "$1242 26$1195",
+          "house_area": "120",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  26",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262171",
+          "house_name": "$1242 27$1195",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  27",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262172",
+          "house_name": "$1242 28$1195",
+          "house_area": "45",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  28",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262173",
+          "house_name": "$1242 29$1195",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  29",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262175",
+          "house_name": "$1242 31$1195",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  31",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262176",
+          "house_name": "$1242 32$1195",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  32",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262177",
+          "house_name": "$1242 33$1195",
+          "house_area": "45",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  33",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262178",
+          "house_name": "$1242 34$1195",
+          "house_area": "45",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  34",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262180",
+          "house_name": "$1242 36$1195",
+          "house_area": "45",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  36",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262181",
+          "house_name": "$1242 37$1195",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  37",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262184",
+          "house_name": "$1242 40$1195",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  40",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262185",
+          "house_name": "$1242 41$1195",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  41",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262186",
+          "house_name": "$1242 42$1195",
+          "house_area": "45",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  42",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "327681",
+          "house_name": "海音血盟小屋1",
+          "house_area": "0",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1513  1",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262189",
+          "house_name": "$1242 45$1195",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  45",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "327682",
+          "house_name": "$1513 2$1195",
+          "house_area": "0",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1513  2",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "327683",
+          "house_name": "$1513 3$1195",
+          "house_area": "0",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1513  3",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262187",
+          "house_name": "奇岩血盟小屋43",
+          "house_area": "120",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  43",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "327687",
+          "house_name": "$1513 7$1195",
+          "house_area": "0",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1513  7",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "327688",
+          "house_name": "$1513 8$1195",
+          "house_area": "0",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1513  8",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "327689",
+          "house_name": "$1513 9$1195",
+          "house_area": "0",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1513  9",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "327690",
+          "house_name": "$1513 10$1195",
+          "house_area": "0",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1513  10",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "327691",
+          "house_name": "$1513 11$1195",
+          "house_area": "0",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1513  11",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "524289",
+          "house_name": "$381 1$1195",
+          "house_area": "48",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$381  1",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "524291",
+          "house_name": "$381 3$1195",
+          "house_area": "48",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$381  3",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "524292",
+          "house_name": "$381 4$1195",
+          "house_area": "48",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$381  4",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "524294",
+          "house_name": "$381 6$1195",
+          "house_area": "40",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$381  6",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262174",
+          "house_name": "$1242 29$1195",
+          "house_area": "45",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  30",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262183",
+          "house_name": "$1242 39$1195",
+          "house_area": "45",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  39",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262182",
+          "house_name": "奇岩血盟小屋38",
+          "house_area": "78",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  38",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "327685",
+          "house_name": "海音血盟小屋5",
+          "house_area": "0",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1513  5",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262179",
+          "house_name": "奇岩血盟小屋35",
+          "house_area": "120",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  35",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "524290",
+          "house_name": "",
+          "house_area": "71",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$381  2",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262150",
+          "house_name": "奇岩血盟小屋6",
+          "house_area": "120",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  6",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262154",
+          "house_name": "杀盟无敌",
+          "house_area": "120",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  10",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "327684",
+          "house_name": "海音血盟小屋4",
+          "house_area": "0",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1513  4",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262166",
+          "house_name": "奇岩血盟小屋22",
+          "house_area": "120",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  22",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "327686",
+          "house_name": "",
+          "house_area": "0",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1513  6",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262188",
+          "house_name": "奇岩血盟小屋44",
+          "house_area": "120",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  44",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "524293",
+          "house_name": "布丁家族",
+          "house_area": "82",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$381  5",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        },
+        {
+          "house_id": "262148",
+          "house_name": "123",
+          "house_area": "45",
+          "deadline": "2026-11-19 01:00:00",
+          "price": "100000",
+          "location": "$1242  4",
+          "old_owner": "",
+          "old_owner_id": "0",
+          "bidder": "",
+          "bidder_id": "0"
+        }
+      ]
+    },
+    "data:p24_accounts.server_盟屋_紀錄": {
+      "sql": "SELECT * FROM `p24_accounts`.`server_盟屋_紀錄`",
+      "rowCount": 0,
+      "rows": []
+    }
+  },
+  "supplement": {
+    "allNpcColumns": {
+      "sql": "SELECT TABLE_SCHEMA,TABLE_NAME,COLUMN_NAME,DATA_TYPE FROM information_schema.COLUMNS WHERE TABLE_SCHEMA IN ('p24_world','p24_accounts','p24_lito','p24_cross','p24_transit') AND (LOWER(COLUMN_NAME) LIKE '%npc%' OR COLUMN_NAME IN ('changeto','mob_id')) ORDER BY TABLE_SCHEMA,TABLE_NAME,ORDINAL_POSITION",
+      "rowCount": 46,
+      "rows": [
+        {
+          "TABLE_SCHEMA": "p24_accounts",
+          "TABLE_NAME": "character_pets",
+          "COLUMN_NAME": "npcid",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_accounts",
+          "TABLE_NAME": "server_boss出生",
+          "COLUMN_NAME": "npc_templateid",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_accounts",
+          "TABLE_NAME": "server_傢俱",
+          "COLUMN_NAME": "npcid",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_cross",
+          "TABLE_NAME": "character_pets",
+          "COLUMN_NAME": "npcid",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_cross",
+          "TABLE_NAME": "server_boss出生",
+          "COLUMN_NAME": "npc_templateid",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_cross",
+          "TABLE_NAME": "server_傢俱",
+          "COLUMN_NAME": "npcid",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_lito",
+          "TABLE_NAME": "lito_battle_spawn",
+          "COLUMN_NAME": "npc_id",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_transit",
+          "TABLE_NAME": "transit_character_pets",
+          "COLUMN_NAME": "npcid",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "npc",
+          "COLUMN_NAME": "npcid",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "npc_action_making",
+          "COLUMN_NAME": "npc_id",
+          "DATA_TYPE": "varchar"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "npc_action_teleport",
+          "COLUMN_NAME": "npc_id",
+          "DATA_TYPE": "varchar"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "npc_box",
+          "COLUMN_NAME": "npc_box_id",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "npc_box",
+          "COLUMN_NAME": "mob_id",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "npc_box_key",
+          "COLUMN_NAME": "npc_box_id",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "npc_box_key",
+          "COLUMN_NAME": "mob_id",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "npc_touch",
+          "COLUMN_NAME": "npc_id",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "npc_擊殺獎勵",
+          "COLUMN_NAME": "mob_id",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "npc_死亡傳送",
+          "COLUMN_NAME": "npc_id",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "npc_死亡召喚",
+          "COLUMN_NAME": "npcid",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "npc_死亡召喚",
+          "COLUMN_NAME": "changeto",
+          "DATA_TYPE": "varchar"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "npc_自訂合成",
+          "COLUMN_NAME": "npcid",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "npcaction",
+          "COLUMN_NAME": "npcid",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "npcchat",
+          "COLUMN_NAME": "npc_id",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "pettypes",
+          "COLUMN_NAME": "BaseNpcId",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "pettypes",
+          "COLUMN_NAME": "NpcIdForEvolving",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "shop",
+          "COLUMN_NAME": "npc_id",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "shop_cn",
+          "COLUMN_NAME": "npc_id",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "skills_相消怪物轉換",
+          "COLUMN_NAME": "npc_id",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "skills_相消怪物轉換",
+          "COLUMN_NAME": "npcname",
+          "DATA_TYPE": "varchar"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "spawnlist",
+          "COLUMN_NAME": "npc_templateid",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "spawnlist_light",
+          "COLUMN_NAME": "npcid",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "spawnlist_npc",
+          "COLUMN_NAME": "npc_templateid",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "spawnlist_npc_box",
+          "COLUMN_NAME": "npc_templateid",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "spawnlist_time",
+          "COLUMN_NAME": "npc_id",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "spawnlist_定時",
+          "COLUMN_NAME": "npcid",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "trap",
+          "COLUMN_NAME": "monsterNpcId",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "副本_怪物",
+          "COLUMN_NAME": "npc_id",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "活動_無限大賽怪物",
+          "COLUMN_NAME": "npc_templateid",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "活動_無限大賽設置",
+          "COLUMN_NAME": "ub_manager_npc_ids",
+          "DATA_TYPE": "varchar"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "系統_劇情任務",
+          "COLUMN_NAME": "npc_id",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "系統_自訂任務",
+          "COLUMN_NAME": "start_npc_id",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "系統_自訂任務",
+          "COLUMN_NAME": "end_npc_id",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "系統_自訂收藏",
+          "COLUMN_NAME": "npc",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "道具_創造怪物魔杖",
+          "COLUMN_NAME": "npc_id",
+          "DATA_TYPE": "int"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "道具_創造怪物魔杖",
+          "COLUMN_NAME": "npc_name",
+          "DATA_TYPE": "varchar"
+        },
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "道具_自訂怪物召喚",
+          "COLUMN_NAME": "npc_id",
+          "DATA_TYPE": "int"
+        }
+      ]
+    },
+    "npcReference:p24_world.npc.npcid": {
+      "rows": [
+        {
+          "npcid": "80006",
+          "row_count": "1"
+        },
+        {
+          "npcid": "81126",
+          "row_count": "1"
+        },
+        {
+          "npcid": "81127",
+          "row_count": "1"
+        },
+        {
+          "npcid": "81128",
+          "row_count": "1"
+        },
+        {
+          "npcid": "81129",
+          "row_count": "1"
+        },
+        {
+          "npcid": "81130",
+          "row_count": "1"
+        },
+        {
+          "npcid": "81161",
+          "row_count": "1"
+        },
+        {
+          "npcid": "81201",
+          "row_count": "1"
+        }
+      ]
+    },
+    "npcReference:p24_world.spawnlist_npc.npc_templateid": {
+      "rows": [
+        {
+          "npc_templateid": "81161",
+          "row_count": "4"
+        }
+      ]
+    },
+    "deathSpawn": {
+      "sql": "SELECT * FROM p24_world.`npc_死亡召喚` WHERE changeto IN (80006,81126,81127,81128,81129,81130,81161,81201)",
+      "rowCount": 0,
+      "rows": []
+    },
+    "allActiveBoards": {
+      "sql": "SELECT s.* ,n.classname FROM p24_world.spawnlist_npc s JOIN p24_world.npc n ON n.npcid=s.npc_templateid WHERE s.count>0 AND (LOWER(n.impl) LIKE '%board%' OR n.classname IN ('other.Npc_Board','other.Npc_AuctionBoard'))",
+      "rowCount": 0,
+      "rows": []
+    },
+    "auctionSummary": {
+      "sql": "SELECT COUNT(*) total,SUM(deadline>NOW()) unexpired,MIN(deadline) earliest,MAX(deadline) latest,MIN(price) min_price,MAX(price) max_price,SUM(bidder_id=0) no_bidder FROM p24_accounts.`server_盟屋_拍賣`",
+      "rowCount": 1,
+      "rows": [
+        {
+          "total": "62",
+          "unexpired": "62",
+          "earliest": "2026-11-19 01:00:00",
+          "latest": "2026-11-19 01:00:00",
+          "min_price": "100000",
+          "max_price": "100000",
+          "no_bidder": "62"
+        }
+      ]
+    },
+    "auctionRegions": {
+      "sql": "SELECT CASE WHEN house_id BETWEEN 262145 AND 262189 THEN '33421,32823' WHEN house_id BETWEEN 327681 AND 327691 THEN '33585,33235' WHEN house_id BETWEEN 458753 AND 458819 THEN '33959,33253' WHEN house_id BETWEEN 524289 AND 524294 THEN '32611,32775' ELSE 'other' END board_xy,COUNT(*) rows_count FROM p24_accounts.`server_盟屋_拍賣` GROUP BY board_xy",
+      "rowCount": 3,
+      "rows": [
+        {
+          "board_xy": "33421,32823",
+          "rows_count": "45"
+        },
+        {
+          "board_xy": "33585,33235",
+          "rows_count": "11"
+        },
+        {
+          "board_xy": "32611,32775",
+          "rows_count": "6"
+        }
+      ]
+    },
+    "clanColumns": {
+      "sql": "SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA='p24_accounts' AND TABLE_NAME='clan_data'",
+      "rowCount": 10,
+      "rows": [
+        {
+          "COLUMN_NAME": "clan_id"
+        },
+        {
+          "COLUMN_NAME": "clan_name"
+        },
+        {
+          "COLUMN_NAME": "leader_id"
+        },
+        {
+          "COLUMN_NAME": "leader_name"
+        },
+        {
+          "COLUMN_NAME": "hascastle"
+        },
+        {
+          "COLUMN_NAME": "hashouse"
+        },
+        {
+          "COLUMN_NAME": "max_online_user"
+        },
+        {
+          "COLUMN_NAME": "showEmblem"
+        },
+        {
+          "COLUMN_NAME": "Announcement"
+        },
+        {
+          "COLUMN_NAME": "ClanBirthDay"
+        }
+      ]
+    },
+    "npcActions": {
+      "sql": "SELECT * FROM p24_world.npcaction WHERE npcid IN (70577,80103,81161,80006)",
+      "rowCount": 2,
+      "rows": [
+        {
+          "npcid": "70577",
+          "normal_action": "auction1",
+          "caotic_action": "auction1",
+          "teleport_url": "auction3",
+          "teleport_urla": ""
+        },
+        {
+          "npcid": "80103",
+          "normal_action": "auction1",
+          "caotic_action": "auction1",
+          "teleport_url": "",
+          "teleport_urla": ""
+        }
+      ]
+    },
+    "gmLogCount": {
+      "sql": "SELECT COUNT(*) row_count FROM p24_accounts.`log_GM指令`",
+      "rowCount": 1,
+      "rows": [
+        {
+          "row_count": "9"
+        }
+      ]
+    },
+    "spawnIdCandidate": {
+      "sql": "SELECT COUNT(*) row_count FROM p24_world.spawnlist_npc WHERE id=1900251222",
+      "rowCount": 1,
+      "rows": [
+        {
+          "row_count": "0"
+        }
+      ]
+    }
+  },
+  "finalQueries": {
+    "bidderCandidates": {
+      "sql": "SELECT c.objid,c.char_name,c.Type,c.level,c.AccessLevel,c.OnlineStatus,c.MapID,c.LocX,c.LocY,d.clan_id,d.clan_name,d.hashouse,d.hascastle FROM p24_accounts.characters c JOIN p24_accounts.clan_data d ON d.leader_id=c.objid WHERE c.Type=0 AND c.level>=15 AND d.hashouse=0",
+      "rows": [
+        {
+          "objid": "1900249001",
+          "char_name": "服務驗證",
+          "Type": "0",
+          "level": "59",
+          "AccessLevel": "0",
+          "OnlineStatus": "0",
+          "MapID": "0",
+          "LocX": "32643",
+          "LocY": "32951",
+          "clan_id": "10171",
+          "clan_name": "資源血盟",
+          "hashouse": "0",
+          "hascastle": "0"
+        }
+      ]
+    },
+    "nextGap": {
+      "sql": "SELECT MIN(s.id+1) candidate FROM p24_world.spawnlist_npc s LEFT JOIN p24_world.spawnlist_npc n ON n.id=s.id+1 WHERE n.id IS NULL AND s.id+1<(SELECT MAX(id) FROM p24_world.spawnlist_npc)",
+      "rows": [
+        {
+          "candidate": "39"
+        }
+      ]
+    },
+    "tableEngine": {
+      "sql": "SELECT TABLE_SCHEMA,TABLE_NAME,ENGINE,AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA='p24_world' AND TABLE_NAME='spawnlist_npc'",
+      "rows": [
+        {
+          "TABLE_SCHEMA": "p24_world",
+          "TABLE_NAME": "spawnlist_npc",
+          "ENGINE": "MyISAM",
+          "AUTO_INCREMENT": "1346"
+        }
+      ]
+    },
+    "clock": {
+      "sql": "SELECT NOW() server_now,UTC_TIMESTAMP() utc_now,@@system_time_zone system_time_zone,@@time_zone session_time_zone",
+      "rows": [
+        {
+          "server_now": "2026-11-14 18:23:52",
+          "utc_now": "2026-11-14 10:23:52",
+          "system_time_zone": "?x?_?зǮɶ?",
+          "session_time_zone": "SYSTEM"
+        }
+      ]
+    },
+    "charactersFinal": {
+      "sql": "SELECT COUNT(*) total,SUM(AccessLevel<>0) gm,SUM(OnlineStatus<>0) online FROM p24_accounts.characters",
+      "rows": [
+        {
+          "total": "24",
+          "gm": "0",
+          "online": "0"
+        }
+      ]
+    }
+  },
+  "bidderGold": [
+    {
+      "char_id": "1900249001",
+      "item_id": "40308",
+      "amount": "100000"
+    }
+  ],
+  "constantScan": {
+    "classCount": 2740,
+    "hits": {
+      "com/lineage/data/npc/other/Npc_AuctionBoard.class": {
+        "npcIdConstants": [],
+        "boardClassReferences": [
+          "com/lineage/data/npc/other/Npc_AuctionBoard",
+          "Lcom/lineage/data/npc/other/Npc_AuctionBoard;",
+          "Npc_AuctionBoard.java"
+        ]
+      },
+      "com/lineage/data/npc/other/Npc_Board.class": {
+        "npcIdConstants": [],
+        "boardClassReferences": [
+          "com/lineage/data/npc/other/Npc_Board",
+          "(Lcom/lineage/data/npc/other/Npc_Board;Lcom/lineage/server/templates/L1Board;Ljava/util/function/BooleanSupplier;Lcom/lineage/server/model/Instance/L1NpcInstance;Lcom/lineage/server/model/Instance/L1PcInstance;)Ljava/util/function/Predicate;",
+          "(Lcom/lineage/data/npc/other/Npc_Board;Ljava/util/function/BooleanSupplier;Lcom/lineage/server/model/Instance/L1NpcInstance;Lcom/lineage/server/model/Instance/L1PcInstance;Lcom/lineage/server/model/L1PcInventory;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Runnable;",
+          "Lcom/lineage/data/npc/other/Npc_Board;",
+          "Npc_Board.java"
+        ]
+      },
+      "com/lineage/server/clientpackets/C_NPCAction.class": {
+        "npcIdConstants": [],
+        "boardClassReferences": [
+          "other.Npc_AuctionBoard",
+          "other.Npc_Board"
+        ]
+      }
+    },
+    "searchedNpcIds": [
+      80006,
+      81126,
+      81127,
+      81128,
+      81129,
+      81130,
+      81161,
+      81201
+    ]
+  },
+  "bytecode": {
+    "L1SpawnCmd": {
+      "className": "com/lineage/server/command/executor/L1SpawnCmd.class",
+      "classSha256": "6d742d42740e3d05f95b092607851b8c4161d3d7453afa85fe2cc2501bc1275b",
+      "javapSha256": "d1ddb4b8cda7c7849de93e85c93a94ec6d29bbcd1155555e737e1f62500ebc01"
+    },
+    "L1SpawnUtil": {
+      "className": "com/lineage/server/utils/L1SpawnUtil.class",
+      "classSha256": "dc7533c1c1efba5e238a5ebfa94f385825dc07795841f953e758cb7ed826248c",
+      "javapSha256": "8fcd48155d48b4d0d1a38f133847231665eaa2fc3c0e04c42b72fceba37e91b4"
+    },
+    "L1NpcSet": {
+      "className": "com/lineage/server/command/executor/L1NpcSet.class",
+      "classSha256": "fa61b639774ab51c51dc37e0be08ef47783f8ced87f4ccd5c8e00eb195b9183a",
+      "javapSha256": "4626c2f6214f7f0eaa928c758d61c6bbd18b2155e7c4be0658bfe2a9ddf5b1e6"
+    },
+    "L1Summon": {
+      "className": "com/lineage/server/command/executor/L1Summon.class",
+      "classSha256": "dfc6d2d138ce9f8e6788ef1a4dea9e880e9a9aa2ae175a4b140157ed84b0208b",
+      "javapSha256": "27e3fa861cb720c3b8c2d5b4f1c812b3b570555f5e80e744ae56d6265c71932f"
+    },
+    "GMCommands": {
+      "className": "com/lineage/server/command/GMCommands.class",
+      "classSha256": "fbd97ac36208b0e529699bd05598520a5b52801721e23bea585b7c78afc79720",
+      "javapSha256": "db210dffa9fef15fe2b27143ba930d4641146e3171b97f5b8b7f4738d4f747cd"
+    },
+    "ServerGmCommandTable": {
+      "className": "com/lineage/server/datatables/server/ServerGmCommandTable.class",
+      "classSha256": "6fecad238c4a7de9fdf2b5e20637aa3b9c1eca94ae3c3c7b4ace755d7f6ba773",
+      "javapSha256": "9a8a9c03b4eedc2d6338cd68661ac58a7f967afc3bbc4c0414b840ef501de297"
+    },
+    "AuditLogService": {
+      "className": "com/lineage/server/audit/AuditLogService.class",
+      "classSha256": "960a140eff821c2733c2e4b02276475878ebbb320bedb4646bf76b9a700466c3",
+      "javapSha256": "0dbb485d63396aadc88a8f9eda286f900be6852a8c0d6ffce6882521ec15b865"
+    },
+    "Npc_Board": {
+      "className": "com/lineage/data/npc/other/Npc_Board.class",
+      "classSha256": "4747005ea1d8e19f852883a5e8f93616ab067a650e39a7231df45858e196a34a",
+      "javapSha256": "f615aea50a36b11d27fc4707c8f8f3b54f8c2014dbab14788b664f0969cfa656"
+    },
+    "Npc_AuctionBoard": {
+      "className": "com/lineage/data/npc/other/Npc_AuctionBoard.class",
+      "classSha256": "a6374757b8f8fe388b89eb4d56367ad26605234810cfd3e00c87f8b072080978",
+      "javapSha256": "51b32f45c481b110b34b4d3c6f5add28fa62c15218ba36266fd857398c788872"
+    },
+    "S_AuctionBoard": {
+      "className": "com/lineage/server/serverpackets/S_AuctionBoard.class",
+      "classSha256": "c587ff764ee095d8ab2ee33b0892571193c6545de9b936ddf4f009277cdb5e63",
+      "javapSha256": "150cf163632ab5b5a94a5fc79522513fbd6d2a50868e99a697d37b01fa6c9b30"
+    },
+    "NpcSpawnService": {
+      "className": "com/lineage/server/model/spawn/NpcSpawnService.class",
+      "classSha256": "b2f660aee2e25f561a429530100fa0f6edca8faa46d2f702febfee952bd783d7",
+      "javapSha256": "ba32970ecc4315797881edf55d93806a7825ad8a95214a3265a3e5e43c80cad4"
+    },
+    "HouseTable": {
+      "className": "com/lineage/server/datatables/server/HouseTable.class",
+      "classSha256": "2230bd51045050155edc3d027abc9bef52ddc62bdababcbe1caa3a2ee81c3204",
+      "javapSha256": "5998f828c119443c0ed75a07752f54c6b644458ccde6beba38e09510ad63457b"
+    },
+    "ServerAuctionTimer": {
+      "className": "com/lineage/server/timecontroller/server/ServerAuctionTimer.class",
+      "classSha256": "1c4d5e8bb4401b7f35cd557e7230ce76e17b30199633b3c12ed0dfce1122e0d6",
+      "javapSha256": "4afb6b020d254e32202cbda1b8595368bf051f3e471ee617caf504d219d0b01b"
+    },
+    "StartTimer_Server": {
+      "className": "com/lineage/server/timecontroller/StartTimer_Server.class",
+      "classSha256": "ced4169977603bd8d084cf55a94fa9dbd1134bcd5c635a06b313bfb80a9c90c2",
+      "javapSha256": "563b87708cb9c677a7a17ca9891ec8473033ac3b586738844ef626c005c4dbde"
+    },
+    "GameServer": {
+      "className": "com/lineage/server/GameServer.class",
+      "classSha256": "fa4089643558b801eb0a376206c70026cf039f805bb2c4f690d109407b6a4d84",
+      "javapSha256": "a66b0989deb2a90102991ae85e0fe92a670693ef7d0159b85e6a51c62ca8113f"
+    },
+    "IdFactoryNpc": {
+      "className": "com/lineage/server/IdFactoryNpc.class",
+      "classSha256": "c731ccdb6ff6c05c3be843b6b6ef80400b2419076c316c4d9999a9a2552c2a9d",
+      "javapSha256": "7a84e8c466add5eb690f2e2c266872c21bb426ec1cf0b48ed6fa62f44cee8a23"
+    }
+  },
+  "nonSecretConfig": {
+    "path": "D:\\BinEngine\\environments\\p24\\server\\config\\altsettings.properties",
+    "sha256": "5cc73b4443f5bcbd2ea28a2ba0dbecf158320eed794a9333ec991814823fbb4a",
+    "settings": [
+      "HouseTaxInterval = 10",
+      "HouseTaxAdena = 2000"
+    ]
+  },
+  "shutdown": {
+    "pid": 19124,
+    "exitCode": 0,
+    "listeners": [],
+    "persistentFiles": 1722,
+    "persistentBytes": 279511437,
+    "persistentHashesUnchanged": true
+  },
+  "mysqlProcess": {
+    "pid": 19124,
+    "datadir": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1222\\scratch\\issue-1222\\runtime\\db-data",
+    "lease": [
+      {
+        "name": "p24lab",
+        "holder": "chaoren0418-arch/tw-bin-engine#1222",
+        "since": 1794651431.2398586,
+        "exp": 1794662231.2398586
+      }
+    ]
+  },
+  "startupAttempts": [
+    {
+      "pid": 10548,
+      "exitCode": 1,
+      "reason": "原生mysqld對Unicode可執行檔路徑解析失敗，未進入可查詢狀態"
+    },
+    {
+      "pid": 19124,
+      "exitCode": 0,
+      "reason": "使用既有D:\\BinEngine別名成功啟動，完成唯讀查詢後正常關閉"
+    }
+  ],
+  "persistentManifestHashes": {
+    "persistent-before.json": "275c45e3f0f0b736bb5c7e55bca09267f1b0ea3977565204ebd2506cc061dd3c",
+    "persistent-after.json": "275c45e3f0f0b736bb5c7e55bca09267f1b0ea3977565204ebd2506cc061dd3c"
+  },
+  "bytecodeExcerpts": {
+    "L1SpawnCmd:76": {
+      "signature": "private void spawnAndLog(com.lineage.server.model.Instance.L1PcInstance, int, int);",
+      "javapLineStart": 76,
+      "offsetKind": "JVM method bytecode PC，不是 File Offset／RVA／VA",
+      "lines": [
+        "  private void spawnAndLog(com.lineage.server.model.Instance.L1PcInstance, int, int);",
+        "    Code:",
+        "       0: aload_1",
+        "       1: invokevirtual #42                 // Method com/lineage/server/model/Instance/L1PcInstance.getLocation:()Lcom/lineage/server/model/L1Location;",
+        "       4: iload_2",
+        "       5: aload_1",
+        "       6: invokevirtual #46                 // Method com/lineage/server/model/Instance/L1PcInstance.get_showId:()I",
+        "       9: iload_3",
+        "      10: iconst_0",
+        "      11: invokestatic  #50                 // Method com/lineage/server/utils/L1SpawnUtil.spawnRx:(Lcom/lineage/server/model/L1Location;IIII)Lcom/lineage/server/model/Instance/L1NpcInstance;",
+        "      14: astore        4",
+        "      16: aload         4",
+        "      18: ifnull        81",
+        "      21: getstatic     #56                 // Field SYNC_SPAWN_COUNT:Ljava/util/concurrent/atomic/AtomicLong;",
+        "      24: invokevirtual #60                 // Method java/util/concurrent/atomic/AtomicLong.incrementAndGet:()J",
+        "      27: pop2",
+        "      28: getstatic     #66                 // Field _log:Lorg/apache/logging/log4j/Logger;",
+        "      31: ldc           #70                 // String [L1SpawnCmd] 創建 npcId={} objId={} 座標=({},{},mapId={}) GM={}",
+        "      33: iload_2",
+        "      34: invokestatic  #72                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;",
+        "      37: aload         4",
+        "      39: invokevirtual #76                 // Method com/lineage/server/model/Instance/L1NpcInstance.getId:()I",
+        "      42: invokestatic  #72                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;",
+        "      45: aload         4",
+        "      47: invokevirtual #81                 // Method com/lineage/server/model/Instance/L1NpcInstance.getX:()I",
+        "      50: invokestatic  #72                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;",
+        "      53: aload         4",
+        "      55: invokevirtual #84                 // Method com/lineage/server/model/Instance/L1NpcInstance.getY:()I",
+        "      58: invokestatic  #72                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;",
+        "      61: aload         4",
+        "      63: invokevirtual #87                 // Method com/lineage/server/model/Instance/L1NpcInstance.getMapId:()S",
+        "      66: invokestatic  #91                 // Method java/lang/Short.valueOf:(S)Ljava/lang/Short;",
+        "      69: aload_1",
+        "      70: invokevirtual #96                 // Method com/lineage/server/model/Instance/L1PcInstance.getName:()Ljava/lang/String;",
+        "      73: invokeinterface #100,  8          // InterfaceMethod org/apache/logging/log4j/Logger.info:(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V",
+        "      78: goto          127",
+        "      81: getstatic     #106                // Field SPAWN_FAIL_COUNT:Ljava/util/concurrent/atomic/AtomicLong;",
+        "      84: invokevirtual #60                 // Method java/util/concurrent/atomic/AtomicLong.incrementAndGet:()J",
+        "      87: pop2",
+        "      88: getstatic     #66                 // Field _log:Lorg/apache/logging/log4j/Logger;",
+        "      91: ldc           #109                // String [L1SpawnCmd] 創建失敗 npcId={} GM={} 中心座標=({},{},mapId={})",
+        "      93: iload_2",
+        "      94: invokestatic  #72                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;",
+        "      97: aload_1",
+        "      98: invokevirtual #96                 // Method com/lineage/server/model/Instance/L1PcInstance.getName:()Ljava/lang/String;",
+        "     101: aload_1",
+        "     102: invokevirtual #111                // Method com/lineage/server/model/Instance/L1PcInstance.getX:()I",
+        "     105: invokestatic  #72                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;",
+        "     108: aload_1",
+        "     109: invokevirtual #112                // Method com/lineage/server/model/Instance/L1PcInstance.getY:()I",
+        "     112: invokestatic  #72                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;",
+        "     115: aload_1",
+        "     116: invokevirtual #113                // Method com/lineage/server/model/Instance/L1PcInstance.getMapId:()S",
+        "     119: invokestatic  #91                 // Method java/lang/Short.valueOf:(S)Ljava/lang/Short;",
+        "     122: invokeinterface #114,  7          // InterfaceMethod org/apache/logging/log4j/Logger.warn:(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V",
+        "     127: return",
+        ""
+      ]
+    },
+    "L1SpawnCmd:275": {
+      "signature": "public void execute(com.lineage.server.model.Instance.L1PcInstance, java.lang.String, java.lang.String);",
+      "javapLineStart": 275,
+      "offsetKind": "JVM method bytecode PC，不是 File Offset／RVA／VA",
+      "lines": [
+        "  public void execute(com.lineage.server.model.Instance.L1PcInstance, java.lang.String, java.lang.String);",
+        "    Code:",
+        "       0: getstatic     #215                // Field EXECUTE_COUNT:Ljava/util/concurrent/atomic/AtomicLong;",
+        "       3: invokevirtual #60                 // Method java/util/concurrent/atomic/AtomicLong.incrementAndGet:()J",
+        "       6: pop2",
+        "       7: new           #218                // class java/util/StringTokenizer",
+        "      10: dup",
+        "      11: aload_3",
+        "      12: invokespecial #220                // Method java/util/StringTokenizer.\"<init>\":(Ljava/lang/String;)V",
+        "      15: astore        4",
+        "      17: aload         4",
+        "      19: invokevirtual #221                // Method java/util/StringTokenizer.nextToken:()Ljava/lang/String;",
+        "      22: astore        5",
+        "      24: iconst_1",
+        "      25: istore        6",
+        "      27: aload         4",
+        "      29: invokevirtual #224                // Method java/util/StringTokenizer.hasMoreTokens:()Z",
+        "      32: ifeq          45",
+        "      35: aload         4",
+        "      37: invokevirtual #221                // Method java/util/StringTokenizer.nextToken:()Ljava/lang/String;",
+        "      40: invokestatic  #25                 // Method java/lang/Integer.parseInt:(Ljava/lang/String;)I",
+        "      43: istore        6",
+        "      45: iconst_0",
+        "      46: istore        7",
+        "      48: aload         4",
+        "      50: invokevirtual #224                // Method java/util/StringTokenizer.hasMoreTokens:()Z",
+        "      53: ifeq          68",
+        "      56: aload         4",
+        "      58: invokevirtual #221                // Method java/util/StringTokenizer.nextToken:()Ljava/lang/String;",
+        "      61: bipush        10",
+        "      63: invokestatic  #227                // Method java/lang/Integer.parseInt:(Ljava/lang/String;I)I",
+        "      66: istore        7",
+        "      68: aload_0",
+        "      69: aload         5",
+        "      71: invokevirtual #230                // Method parseNpcId:(Ljava/lang/String;)I",
+        "      74: istore        8",
+        "      76: invokestatic  #33                 // Method com/lineage/server/datatables/NpcTable.get:()Lcom/lineage/server/datatables/NpcTable;",
+        "      79: iload         8",
+        "      81: invokevirtual #233                // Method com/lineage/server/datatables/NpcTable.getTemplate:(I)Lcom/lineage/server/templates/L1Npc;",
+        "      84: astore        9",
+        "      86: aload         9",
+        "      88: ifnonnull     112",
+        "      91: getstatic     #237                // Field REJECT_COUNT:Ljava/util/concurrent/atomic/AtomicLong;",
+        "      94: invokevirtual #60                 // Method java/util/concurrent/atomic/AtomicLong.incrementAndGet:()J",
+        "      97: pop2",
+        "      98: aload_1",
+        "      99: new           #14                 // class com/lineage/server/serverpackets/S_SystemMessage",
+        "     102: dup",
+        "     103: ldc           #240                // String 找不到該npc。",
+        "     105: invokespecial #16                 // Method com/lineage/server/serverpackets/S_SystemMessage.\"<init>\":(Ljava/lang/String;)V",
+        "     108: invokevirtual #19                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V",
+        "     111: return",
+        "     112: iload         6",
+        "     114: sipush        1000",
+        "     117: if_icmple     141",
+        "     120: getstatic     #237                // Field REJECT_COUNT:Ljava/util/concurrent/atomic/AtomicLong;",
+        "     123: invokevirtual #60                 // Method java/util/concurrent/atomic/AtomicLong.incrementAndGet:()J",
+        "     126: pop2",
+        "     127: aload_1",
+        "     128: new           #14                 // class com/lineage/server/serverpackets/S_SystemMessage",
+        "     131: dup",
+        "     132: ldc           #242                // String 一次召喚數量不能超過1000。",
+        "     134: invokespecial #16                 // Method com/lineage/server/serverpackets/S_SystemMessage.\"<init>\":(Ljava/lang/String;)V",
+        "     137: invokevirtual #19                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V",
+        "     140: return",
+        "     141: iload         6",
+        "     143: iconst_1",
+        "     144: if_icmple     181",
+        "     147: new           #151                // class com/lineage/server/command/executor/L1SpawnCmd$SpawnRunnable",
+        "     150: dup",
+        "     151: aload_0",
+        "     152: aload_1",
+        "     153: iload         8",
+        "     155: iload         7",
+        "     157: iload         6",
+        "     159: invokespecial #244                // Method com/lineage/server/command/executor/L1SpawnCmd$SpawnRunnable.\"<init>\":(Lcom/lineage/server/command/executor/L1SpawnCmd;Lcom/lineage/server/model/Instance/L1PcInstance;III)V",
+        "     162: astore        10",
+        "     164: getstatic     #247                // Field ASYNC_SUBMITTED_COUNT:Ljava/util/concurrent/atomic/AtomicLong;",
+        "     167: invokevirtual #60                 // Method java/util/concurrent/atomic/AtomicLong.incrementAndGet:()J",
+        "     170: pop2",
+        "     171: aload_0",
+        "     172: aload         10",
+        "     174: invokevirtual #250                // Method submitAsyncSpawn:(Lcom/lineage/server/command/executor/L1SpawnCmd$SpawnRunnable;)Z",
+        "     177: pop",
+        "     178: goto          206",
+        "     181: iconst_0",
+        "     182: istore        10",
+        "     184: iload         10",
+        "     186: iload         6",
+        "     188: if_icmpge     206",
+        "     191: aload_0",
+        "     192: aload_1",
+        "     193: iload         8",
+        "     195: iload         7",
+        "     197: invokevirtual #254                // Method spawnAndLog:(Lcom/lineage/server/model/Instance/L1PcInstance;II)V",
+        "     200: iinc          10, 1",
+        "     203: goto          184",
+        "     206: ldc_w         #258                // String %s(%d) (%d) 召喚。 (範圍:%d)",
+        "     209: iconst_4",
+        "     210: anewarray     #2                  // class java/lang/Object",
+        "     213: dup",
+        "     214: iconst_0",
+        "     215: aload         9",
+        "     217: invokevirtual #260                // Method com/lineage/server/templates/L1Npc.get_name:()Ljava/lang/String;",
+        "     220: aastore",
+        "     221: dup",
+        "     222: iconst_1",
+        "     223: iload         8",
+        "     225: invokestatic  #72                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;",
+        "     228: aastore",
+        "     229: dup",
+        "     230: iconst_2",
+        "     231: iload         6",
+        "     233: invokestatic  #72                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;",
+        "     236: aastore",
+        "     237: dup",
+        "     238: iconst_3",
+        "     239: iload         7",
+        "     241: invokestatic  #72                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;",
+        "     244: aastore",
+        "     245: invokestatic  #265                // Method java/lang/String.format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;",
+        "     248: astore        10",
+        "     250: aload_1",
+        "     251: new           #14                 // class com/lineage/server/serverpackets/S_SystemMessage",
+        "     254: dup",
+        "     255: aload         10",
+        "     257: invokespecial #16                 // Method com/lineage/server/serverpackets/S_SystemMessage.\"<init>\":(Ljava/lang/String;)V",
+        "     260: invokevirtual #19                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V",
+        "     263: goto          349",
+        "     266: astore        4",
+        "     268: getstatic     #237                // Field REJECT_COUNT:Ljava/util/concurrent/atomic/AtomicLong;",
+        "     271: invokevirtual #60                 // Method java/util/concurrent/atomic/AtomicLong.incrementAndGet:()J",
+        "     274: pop2",
+        "     275: aload_0",
+        "     276: aload_1",
+        "     277: aload_2",
+        "     278: invokevirtual #273                // Method sendErrorMessage:(Lcom/lineage/server/model/Instance/L1PcInstance;Ljava/lang/String;)V",
+        "     281: goto          349",
+        "     284: astore        4",
+        "     286: getstatic     #237                // Field REJECT_COUNT:Ljava/util/concurrent/atomic/AtomicLong;",
+        "     289: invokevirtual #60                 // Method java/util/concurrent/atomic/AtomicLong.incrementAndGet:()J",
+        "     292: pop2",
+        "     293: aload_0",
+        "     294: aload_1",
+        "     295: aload_2",
+        "     296: invokevirtual #273                // Method sendErrorMessage:(Lcom/lineage/server/model/Instance/L1PcInstance;Ljava/lang/String;)V",
+        "     299: goto          349",
+        "     302: astore        4",
+        "     304: getstatic     #145                // Field ERROR_COUNT:Ljava/util/concurrent/atomic/AtomicLong;",
+        "     307: invokevirtual #60                 // Method java/util/concurrent/atomic/AtomicLong.incrementAndGet:()J",
+        "     310: pop2",
+        "     311: getstatic     #66                 // Field _log:Lorg/apache/logging/log4j/Logger;",
+        "     314: aload_0",
+        "     315: invokevirtual #279                // Method java/lang/Object.getClass:()Ljava/lang/Class;",
+        "     318: invokevirtual #283                // Method java/lang/Class.getSimpleName:()Ljava/lang/String;",
+        "     321: aload_1",
+        "     322: invokevirtual #96                 // Method com/lineage/server/model/Instance/L1PcInstance.getName:()Ljava/lang/String;",
+        "     325: invokedynamic #288,  0            // InvokeDynamic #2:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+        "     330: invokeinterface #291,  2          // InterfaceMethod org/apache/logging/log4j/Logger.error:(Ljava/lang/String;)V",
+        "     335: aload_1",
+        "     336: new           #294                // class com/lineage/server/serverpackets/S_ServerMessage",
+        "     339: dup",
+        "     340: sipush        261",
+        "     343: invokespecial #296                // Method com/lineage/server/serverpackets/S_ServerMessage.\"<init>\":(I)V",
+        "     346: invokevirtual #19                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V",
+        "     349: return",
+        "    Exception table:",
+        "       from    to  target type",
+        "           7   111   266   Class java/util/NoSuchElementException",
+        "         112   140   266   Class java/util/NoSuchElementException",
+        "         141   263   266   Class java/util/NoSuchElementException",
+        "           7   111   284   Class java/lang/NumberFormatException",
+        "         112   140   284   Class java/lang/NumberFormatException",
+        "         141   263   284   Class java/lang/NumberFormatException",
+        "           7   111   302   Class java/lang/Exception",
+        "         112   140   302   Class java/lang/Exception",
+        "         141   263   302   Class java/lang/Exception",
+        ""
+      ]
+    },
+    "L1SpawnUtil:277": {
+      "signature": "public static com.lineage.server.model.Instance.L1NpcInstance spawnRx(com.lineage.server.model.L1Location, int, int, int, int);",
+      "javapLineStart": 277,
+      "offsetKind": "JVM method bytecode PC，不是 File Offset／RVA／VA",
+      "lines": [
+        "  public static com.lineage.server.model.Instance.L1NpcInstance spawnRx(com.lineage.server.model.L1Location, int, int, int, int);",
+        "    Code:",
+        "       0: invokestatic  #239                // Method com/lineage/server/datatables/NpcTable.get:()Lcom/lineage/server/datatables/NpcTable;",
+        "       3: iload_1",
+        "       4: invokevirtual #244                // Method com/lineage/server/datatables/NpcTable.newNpcInstance:(I)Lcom/lineage/server/model/Instance/L1NpcInstance;",
+        "       7: astore        5",
+        "       9: aload         5",
+        "      11: ifnonnull     16",
+        "      14: aconst_null",
+        "      15: areturn",
+        "      16: aload         5",
+        "      18: invokestatic  #248                // Method com/lineage/server/IdFactoryNpc.get:()Lcom/lineage/server/IdFactoryNpc;",
+        "      21: invokevirtual #253                // Method com/lineage/server/IdFactoryNpc.nextId:()I",
+        "      24: invokevirtual #256                // Method com/lineage/server/model/Instance/L1NpcInstance.setId:(I)V",
+        "      27: aload         5",
+        "      29: aload_0",
+        "      30: invokevirtual #260                // Method com/lineage/server/model/L1Location.getMap:()Lcom/lineage/server/model/map/L1Map;",
+        "      33: invokevirtual #263                // Method com/lineage/server/model/Instance/L1NpcInstance.setMap:(Lcom/lineage/server/model/map/L1Map;)V",
+        "      36: iload_3",
+        "      37: ifne          49",
+        "      40: aload         5",
+        "      42: aload_0",
+        "      43: invokevirtual #267                // Method com/lineage/server/model/Instance/L1NpcInstance.setLocation:(Lcom/lineage/server/model/L1Location;)V",
+        "      46: goto          169",
+        "      49: iconst_0",
+        "      50: istore        6",
+        "      52: iinc          6, 1",
+        "      55: aload         5",
+        "      57: aload_0",
+        "      58: invokevirtual #271                // Method com/lineage/server/model/L1Location.getX:()I",
+        "      61: invokestatic  #272                // Method java/lang/Math.random:()D",
+        "      64: iload_3",
+        "      65: i2d",
+        "      66: dmul",
+        "      67: d2i",
+        "      68: iadd",
+        "      69: invokestatic  #272                // Method java/lang/Math.random:()D",
+        "      72: iload_3",
+        "      73: i2d",
+        "      74: dmul",
+        "      75: d2i",
+        "      76: isub",
+        "      77: aload_0",
+        "      78: invokevirtual #278                // Method com/lineage/server/model/L1Location.getY:()I",
+        "      81: invokestatic  #272                // Method java/lang/Math.random:()D",
+        "      84: iload_3",
+        "      85: i2d",
+        "      86: dmul",
+        "      87: d2i",
+        "      88: iadd",
+        "      89: invokestatic  #272                // Method java/lang/Math.random:()D",
+        "      92: iload_3",
+        "      93: i2d",
+        "      94: dmul",
+        "      95: d2i",
+        "      96: isub",
+        "      97: invokevirtual #279                // Method com/lineage/server/model/Instance/L1NpcInstance.setXY:(II)V",
+        "     100: aload         5",
+        "     102: invokestatic  #283                // Method isRandomSpawnTileOk:(Lcom/lineage/server/model/Instance/L1NpcInstance;)Z",
+        "     105: ifeq          111",
+        "     108: goto          118",
+        "     111: iload         6",
+        "     113: bipush        50",
+        "     115: if_icmplt     52",
+        "     118: aload         5",
+        "     120: invokestatic  #283                // Method isRandomSpawnTileOk:(Lcom/lineage/server/model/Instance/L1NpcInstance;)Z",
+        "     123: ifne          169",
+        "     126: getstatic     #40                 // Field _log:Lorg/apache/logging/log4j/Logger;",
+        "     129: ldc_w         #287                // String spawnRx: npcId={} 隨機落點失敗（{} 次內無有效格），取消召喚 center=({},{},mapId={})",
+        "     132: iload_1",
+        "     133: invokestatic  #162                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;",
+        "     136: iload         6",
+        "     138: invokestatic  #162                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;",
+        "     141: aload_0",
+        "     142: invokevirtual #271                // Method com/lineage/server/model/L1Location.getX:()I",
+        "     145: invokestatic  #162                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;",
+        "     148: aload_0",
+        "     149: invokevirtual #278                // Method com/lineage/server/model/L1Location.getY:()I",
+        "     152: invokestatic  #162                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;",
+        "     155: aload_0",
+        "     156: invokevirtual #289                // Method com/lineage/server/model/L1Location.getMapId:()I",
+        "     159: invokestatic  #162                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;",
+        "     162: invokeinterface #291,  7          // InterfaceMethod org/apache/logging/log4j/Logger.warn:(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V",
+        "     167: aconst_null",
+        "     168: areturn",
+        "     169: aload         5",
+        "     171: aload         5",
+        "     173: invokevirtual #205                // Method com/lineage/server/model/Instance/L1NpcInstance.getX:()I",
+        "     176: invokevirtual #294                // Method com/lineage/server/model/Instance/L1NpcInstance.setHomeX:(I)V",
+        "     179: aload         5",
+        "     181: aload         5",
+        "     183: invokevirtual #206                // Method com/lineage/server/model/Instance/L1NpcInstance.getY:()I",
+        "     186: invokevirtual #297                // Method com/lineage/server/model/Instance/L1NpcInstance.setHomeY:(I)V",
+        "     189: aload         5",
+        "     191: iconst_5",
+        "     192: invokevirtual #300                // Method com/lineage/server/model/Instance/L1NpcInstance.setHeading:(I)V",
+        "     195: aload         5",
+        "     197: iload_2",
+        "     198: invokevirtual #303                // Method com/lineage/server/model/Instance/L1NpcInstance.set_showId:(I)V",
+        "     201: invokestatic  #306                // Method com/lineage/server/world/WorldQuest.get:()Lcom/lineage/server/world/WorldQuest;",
+        "     204: iload_2",
+        "     205: invokevirtual #311                // Method com/lineage/server/world/WorldQuest.get:(I)Lcom/lineage/server/templates/L1QuestUser;",
+        "     208: astore        6",
+        "     210: aload         6",
+        "     212: ifnull        222",
+        "     215: aload         6",
+        "     217: aload         5",
+        "     219: invokevirtual #314                // Method com/lineage/server/templates/L1QuestUser.addNpc:(Lcom/lineage/server/model/Instance/L1NpcInstance;)V",
+        "     222: aload         5",
+        "     224: instanceof    #124                // class com/lineage/server/model/Instance/L1DeInstance",
+        "     227: ifeq          274",
+        "     230: getstatic     #40                 // Field _log:Lorg/apache/logging/log4j/Logger;",
+        "     233: aload         5",
+        "     235: invokevirtual #320                // Method com/lineage/server/model/Instance/L1NpcInstance.getName:()Ljava/lang/String;",
+        "     238: aload         5",
+        "     240: invokevirtual #205                // Method com/lineage/server/model/Instance/L1NpcInstance.getX:()I",
+        "     243: aload         5",
+        "     245: invokevirtual #206                // Method com/lineage/server/model/Instance/L1NpcInstance.getY:()I",
+        "     248: aload         5",
+        "     250: invokevirtual #323                // Method com/lineage/server/model/Instance/L1NpcInstance.getMapId:()S",
+        "     253: invokedynamic #324,  0            // InvokeDynamic #4:makeConcatWithConstants:(Ljava/lang/String;IIS)Ljava/lang/String;",
+        "     258: invokeinterface #327,  2          // InterfaceMethod org/apache/logging/log4j/Logger.info:(Ljava/lang/String;)V",
+        "     263: aload         5",
+        "     265: checkcast     #124                // class com/lineage/server/model/Instance/L1DeInstance",
+        "     268: invokestatic  #330                // Method com/lineage/server/model/Instance/deai/DeInitializer.initDoll:(Lcom/lineage/server/model/Instance/L1DeInstance;)V",
+        "     271: goto          296",
+        "     274: getstatic     #40                 // Field _log:Lorg/apache/logging/log4j/Logger;",
+        "     277: iload_1",
+        "     278: aload         5",
+        "     280: invokevirtual #73                 // Method java/lang/Object.getClass:()Ljava/lang/Class;",
+        "     283: invokevirtual #77                 // Method java/lang/Class.getSimpleName:()Ljava/lang/String;",
+        "     286: invokedynamic #336,  0            // InvokeDynamic #5:makeConcatWithConstants:(ILjava/lang/String;)Ljava/lang/String;",
+        "     291: invokeinterface #337,  2          // InterfaceMethod org/apache/logging/log4j/Logger.debug:(Ljava/lang/String;)V",
+        "     296: invokestatic  #56                 // Method com/lineage/server/world/World.get:()Lcom/lineage/server/world/World;",
+        "     299: aload         5",
+        "     301: invokevirtual #340                // Method com/lineage/server/world/World.storeObject:(Lcom/lineage/server/model/L1Object;)V",
+        "     304: aload         5",
+        "     306: invokestatic  #344                // Method requireVisibleRegistration:(Lcom/lineage/server/model/L1Object;)V",
+        "     309: aload         5",
+        "     311: invokevirtual #347                // Method com/lineage/server/model/Instance/L1NpcInstance.turnOnOffLight:()V",
+        "     314: aload         5",
+        "     316: iconst_0",
+        "     317: invokevirtual #350                // Method com/lineage/server/model/Instance/L1NpcInstance.startChat:(I)V",
+        "     320: iconst_0",
+        "     321: iload         4",
+        "     323: if_icmpge     333",
+        "     326: aload         5",
+        "     328: iload         4",
+        "     330: invokevirtual #353                // Method com/lineage/server/model/Instance/L1NpcInstance.set_spawnTime:(I)V",
+        "     333: aload         5",
+        "     335: areturn",
+        "     336: astore        5",
+        "     338: getstatic     #40                 // Field _log:Lorg/apache/logging/log4j/Logger;",
+        "     341: iload_1",
+        "     342: invokedynamic #358,  0            // InvokeDynamic #6:makeConcatWithConstants:(I)Ljava/lang/String;",
+        "     347: aload         5",
+        "     349: invokeinterface #359,  3          // InterfaceMethod org/apache/logging/log4j/Logger.error:(Ljava/lang/String;Ljava/lang/Throwable;)V",
+        "     354: aconst_null",
+        "     355: areturn",
+        "    Exception table:",
+        "       from    to  target type",
+        "           0    15   336   Class java/lang/Exception",
+        "          16   168   336   Class java/lang/Exception",
+        "         169   335   336   Class java/lang/Exception",
+        ""
+      ]
+    },
+    "GMCommands:453": {
+      "signature": "private boolean executeDatabaseCommand(com.lineage.server.model.Instance.L1PcInstance, java.lang.String, java.lang.String);",
+      "javapLineStart": 453,
+      "offsetKind": "JVM method bytecode PC，不是 File Offset／RVA／VA",
+      "lines": [
+        "  private boolean executeDatabaseCommand(com.lineage.server.model.Instance.L1PcInstance, java.lang.String, java.lang.String);",
+        "    Code:",
+        "       0: aload_2",
+        "       1: invokestatic  #173                // Method cmdKey:(Ljava/lang/String;)Ljava/lang/String;",
+        "       4: astore        4",
+        "       6: invokestatic  #176                // Method com/lineage/server/datatables/CommandsTable.get:()Lcom/lineage/server/datatables/CommandsTable;",
+        "       9: aload         4",
+        "      11: invokevirtual #181                // Method com/lineage/server/datatables/CommandsTable.get:(Ljava/lang/String;)Lcom/lineage/server/templates/L1Command;",
+        "      14: astore        5",
+        "      16: aload         5",
+        "      18: ifnonnull     23",
+        "      21: iconst_0",
+        "      22: ireturn",
+        "      23: aload_1",
+        "      24: invokevirtual #296                // Method com/lineage/server/model/Instance/L1PcInstance.getAccessLevel:()S",
+        "      27: aload         5",
+        "      29: invokevirtual #302                // Method com/lineage/server/templates/L1Command.getLevel:()I",
+        "      32: if_icmpge     56",
+        "      35: aload_1",
+        "      36: new           #305                // class com/lineage/server/serverpackets/S_ServerMessage",
+        "      39: dup",
+        "      40: bipush        74",
+        "      42: aload_2",
+        "      43: invokedynamic #307,  0            // InvokeDynamic #5:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;",
+        "      48: invokespecial #308                // Method com/lineage/server/serverpackets/S_ServerMessage.\"<init>\":(ILjava/lang/String;)V",
+        "      51: invokevirtual #311                // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V",
+        "      54: iconst_1",
+        "      55: ireturn",
+        "      56: aload_0",
+        "      57: aload         5",
+        "      59: invokevirtual #209                // Method com/lineage/server/templates/L1Command.getExecutorClassName:()Ljava/lang/String;",
+        "      62: invokevirtual #212                // Method complementClassName:(Ljava/lang/String;)Ljava/lang/String;",
+        "      65: invokestatic  #215                // Method java/lang/Class.forName:(Ljava/lang/String;)Ljava/lang/Class;",
+        "      68: astore        6",
+        "      70: aload         6",
+        "      72: ldc           #221                // String getInstance",
+        "      74: iconst_0",
+        "      75: anewarray     #216                // class java/lang/Class",
+        "      78: invokevirtual #223                // Method java/lang/Class.getMethod:(Ljava/lang/String;[Ljava/lang/Class;)Ljava/lang/reflect/Method;",
+        "      81: aconst_null",
+        "      82: iconst_0",
+        "      83: anewarray     #2                  // class java/lang/Object",
+        "      86: invokevirtual #227                // Method java/lang/reflect/Method.invoke:(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;",
+        "      89: checkcast     #233                // class com/lineage/server/command/executor/L1CommandExecutor",
+        "      92: astore        7",
+        "      94: aload         7",
+        "      96: aload_1",
+        "      97: aload         4",
+        "      99: aload_3",
+        "     100: getstatic     #68                 // Field java/util/Locale.ROOT:Ljava/util/Locale;",
+        "     103: invokevirtual #74                 // Method java/lang/String.toLowerCase:(Ljava/util/Locale;)Ljava/lang/String;",
+        "     106: invokeinterface #235,  4          // InterfaceMethod com/lineage/server/command/executor/L1CommandExecutor.execute:(Lcom/lineage/server/model/Instance/L1PcInstance;Ljava/lang/String;Ljava/lang/String;)V",
+        "     111: aload_1",
+        "     112: invokevirtual #296                // Method com/lineage/server/model/Instance/L1PcInstance.getAccessLevel:()S",
+        "     115: ifle          161",
+        "     118: aload_1",
+        "     119: invokevirtual #296                // Method com/lineage/server/model/Instance/L1PcInstance.getAccessLevel:()S",
+        "     122: sipush        30000",
+        "     125: if_icmpge     161",
+        "     128: getstatic     #119                // Field _log:Lorg/apache/logging/log4j/Logger;",
+        "     131: aload_1",
+        "     132: invokevirtual #314                // Method com/lineage/server/model/Instance/L1PcInstance.getName:()Ljava/lang/String;",
+        "     135: aload_2",
+        "     136: aload_3",
+        "     137: invokedynamic #317,  0            // InvokeDynamic #6:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+        "     142: invokeinterface #125,  2          // InterfaceMethod org/apache/logging/log4j/Logger.info:(Ljava/lang/String;)V",
+        "     147: invokestatic  #155                // Method com/lineage/server/datatables/server/ServerGmCommandTable.get:()Lcom/lineage/server/datatables/server/ServerGmCommandTable;",
+        "     150: aload_1",
+        "     151: aload_2",
+        "     152: aload_3",
+        "     153: invokedynamic #131,  0            // InvokeDynamic #2:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+        "     158: invokevirtual #160                // Method com/lineage/server/datatables/server/ServerGmCommandTable.create:(Lcom/lineage/server/model/Instance/L1PcInstance;Ljava/lang/String;)V",
+        "     161: iconst_1",
+        "     162: ireturn",
+        "     163: astore        4",
+        "     165: getstatic     #119                // Field _log:Lorg/apache/logging/log4j/Logger;",
+        "     168: ldc           #241                // String 管理者指令異常!",
+        "     170: aload         4",
+        "     172: invokeinterface #243,  3          // InterfaceMethod org/apache/logging/log4j/Logger.error:(Ljava/lang/String;Ljava/lang/Throwable;)V",
+        "     177: iconst_0",
+        "     178: ireturn",
+        "    Exception table:",
+        "       from    to  target type",
+        "           0    22   163   Class java/lang/Exception",
+        "          23    55   163   Class java/lang/Exception",
+        "          56   162   163   Class java/lang/Exception",
+        ""
+      ]
+    },
+    "ServerGmCommandTable:24": {
+      "signature": "public void create(com.lineage.server.model.Instance.L1PcInstance, java.lang.String);",
+      "javapLineStart": 24,
+      "offsetKind": "JVM method bytecode PC，不是 File Offset／RVA／VA",
+      "lines": [
+        "  public void create(com.lineage.server.model.Instance.L1PcInstance, java.lang.String);",
+        "    Code:",
+        "       0: new           #14                 // class java/sql/Timestamp",
+        "       3: dup",
+        "       4: invokestatic  #16                 // Method java/lang/System.currentTimeMillis:()J",
+        "       7: invokespecial #22                 // Method java/sql/Timestamp.\"<init>\":(J)V",
+        "      10: astore_3",
+        "      11: aload_1",
+        "      12: ifnonnull     31",
+        "      15: new           #25                 // class com/lineage/server/audit/AuditLogService$GmCommandLogEntry",
+        "      18: dup",
+        "      19: iconst_0",
+        "      20: ldc           #27                 // String --視窗命令--",
+        "      22: aload_2",
+        "      23: aload_3",
+        "      24: invokespecial #29                 // Method com/lineage/server/audit/AuditLogService$GmCommandLogEntry.\"<init>\":(ILjava/lang/String;Ljava/lang/String;Ljava/sql/Timestamp;)V",
+        "      27: invokestatic  #32                 // Method com/lineage/server/audit/AuditLogService.logGmCommand:(Lcom/lineage/server/audit/AuditLogService$GmCommandLogEntry;)V",
+        "      30: return",
+        "      31: new           #25                 // class com/lineage/server/audit/AuditLogService$GmCommandLogEntry",
+        "      34: dup",
+        "      35: aload_1",
+        "      36: invokevirtual #38                 // Method com/lineage/server/model/Instance/L1PcInstance.getId:()I",
+        "      39: aload_1",
+        "      40: invokevirtual #44                 // Method com/lineage/server/model/Instance/L1PcInstance.getName:()Ljava/lang/String;",
+        "      43: aload_2",
+        "      44: aload_3",
+        "      45: invokespecial #29                 // Method com/lineage/server/audit/AuditLogService$GmCommandLogEntry.\"<init>\":(ILjava/lang/String;Ljava/lang/String;Ljava/sql/Timestamp;)V",
+        "      48: invokestatic  #32                 // Method com/lineage/server/audit/AuditLogService.logGmCommand:(Lcom/lineage/server/audit/AuditLogService$GmCommandLogEntry;)V",
+        "      51: getstatic     #48                 // Field _log:Lorg/apache/logging/log4j/Logger;",
+        "      54: ldc           #52                 // String 建立GM指令使用紀錄: {} {}",
+        "      56: aload_1",
+        "      57: invokevirtual #44                 // Method com/lineage/server/model/Instance/L1PcInstance.getName:()Ljava/lang/String;",
+        "      60: aload_2",
+        "      61: invokeinterface #54,  4           // InterfaceMethod org/apache/logging/log4j/Logger.debug:(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)V",
+        "      66: return",
+        "",
+        "  static {};",
+        "    Code:",
+        "       0: ldc           #8                  // class com/lineage/server/datatables/server/ServerGmCommandTable",
+        "       2: invokestatic  #60                 // Method org/apache/logging/log4j/LogManager.getLogger:(Ljava/lang/Class;)Lorg/apache/logging/log4j/Logger;",
+        "       5: putstatic     #48                 // Field _log:Lorg/apache/logging/log4j/Logger;",
+        "       8: return",
+        "}"
+      ]
+    },
+    "AuditLogService:139": {
+      "signature": "public static void logGmCommand(com.lineage.server.audit.AuditLogService$GmCommandLogEntry);",
+      "javapLineStart": 139,
+      "offsetKind": "JVM method bytecode PC，不是 File Offset／RVA／VA",
+      "lines": [
+        "  public static void logGmCommand(com.lineage.server.audit.AuditLogService$GmCommandLogEntry);",
+        "    Code:",
+        "       0: aload_0",
+        "       1: ifnonnull     5",
+        "       4: return",
+        "       5: ldc           #66                 // String gm-command",
+        "       7: aload_0",
+        "       8: invokedynamic #68,  0             // InvokeDynamic #6:run:(Lcom/lineage/server/audit/AuditLogService$GmCommandLogEntry;)Lcom/lineage/server/audit/AuditLogService$SqlTask;",
+        "      13: invokestatic  #50                 // Method submitCritical:(Ljava/lang/String;Lcom/lineage/server/audit/AuditLogService$SqlTask;)Z",
+        "      16: pop",
+        "      17: return",
+        ""
+      ]
+    },
+    "AuditLogService:1723": {
+      "signature": "private static void insertGmCommand(com.lineage.server.audit.AuditLogService$GmCommandLogEntry) throws java.sql.SQLException;",
+      "javapLineStart": 1723,
+      "offsetKind": "JVM method bytecode PC，不是 File Offset／RVA／VA",
+      "lines": [
+        "  private static void insertGmCommand(com.lineage.server.audit.AuditLogService$GmCommandLogEntry) throws java.sql.SQLException;",
+        "    Code:",
+        "       0: invokestatic  #466                // Method com/lineage/DatabaseFactoryLogin.get:()Lcom/lineage/DatabaseFactoryLogin;",
+        "       3: invokevirtual #471                // Method com/lineage/DatabaseFactoryLogin.getConnection:()Ljava/sql/Connection;",
+        "       6: astore_1",
+        "       7: aload_1",
+        "       8: ldc_w         #670                // String INSERT INTO `log_GM指令` SET `gmobjid`=?,`gmname`=?,`cmd`=?,`time`=?",
+        "      11: invokeinterface #477,  2          // InterfaceMethod java/sql/Connection.prepareStatement:(Ljava/lang/String;)Ljava/sql/PreparedStatement;",
+        "      16: astore_2",
+        "      17: iconst_0",
+        "      18: istore_3",
+        "      19: aload_2",
+        "      20: iinc          3, 1",
+        "      23: iload_3",
+        "      24: aload_0",
+        "      25: getfield      #672                // Field com/lineage/server/audit/AuditLogService$GmCommandLogEntry.gmObjId:I",
+        "      28: invokeinterface #493,  3          // InterfaceMethod java/sql/PreparedStatement.setInt:(II)V",
+        "      33: aload_2",
+        "      34: iinc          3, 1",
+        "      37: iload_3",
+        "      38: aload_0",
+        "      39: getfield      #677                // Field com/lineage/server/audit/AuditLogService$GmCommandLogEntry.gmName:Ljava/lang/String;",
+        "      42: invokeinterface #502,  3          // InterfaceMethod java/sql/PreparedStatement.setString:(ILjava/lang/String;)V",
+        "      47: aload_2",
+        "      48: iinc          3, 1",
+        "      51: iload_3",
+        "      52: aload_0",
+        "      53: getfield      #680                // Field com/lineage/server/audit/AuditLogService$GmCommandLogEntry.cmd:Ljava/lang/String;",
+        "      56: invokeinterface #502,  3          // InterfaceMethod java/sql/PreparedStatement.setString:(ILjava/lang/String;)V",
+        "      61: aload_2",
+        "      62: iinc          3, 1",
+        "      65: iload_3",
+        "      66: aload_0",
+        "      67: getfield      #683                // Field com/lineage/server/audit/AuditLogService$GmCommandLogEntry.time:Ljava/sql/Timestamp;",
+        "      70: invokeinterface #556,  3          // InterfaceMethod java/sql/PreparedStatement.setTimestamp:(ILjava/sql/Timestamp;)V",
+        "      75: aload_2",
+        "      76: invokeinterface #506,  1          // InterfaceMethod java/sql/PreparedStatement.execute:()Z",
+        "      81: pop",
+        "      82: aload_2",
+        "      83: ifnull        119",
+        "      86: aload_2",
+        "      87: invokeinterface #508,  1          // InterfaceMethod java/sql/PreparedStatement.close:()V",
+        "      92: goto          119",
+        "      95: astore_3",
+        "      96: aload_2",
+        "      97: ifnull        117",
+        "     100: aload_2",
+        "     101: invokeinterface #508,  1          // InterfaceMethod java/sql/PreparedStatement.close:()V",
+        "     106: goto          117",
+        "     109: astore        4",
+        "     111: aload_3",
+        "     112: aload         4",
+        "     114: invokevirtual #511                // Method java/lang/Throwable.addSuppressed:(Ljava/lang/Throwable;)V",
+        "     117: aload_3",
+        "     118: athrow",
+        "     119: aload_1",
+        "     120: ifnull        154",
+        "     123: aload_1",
+        "     124: invokeinterface #515,  1          // InterfaceMethod java/sql/Connection.close:()V",
+        "     129: goto          154",
+        "     132: astore_2",
+        "     133: aload_1",
+        "     134: ifnull        152",
+        "     137: aload_1",
+        "     138: invokeinterface #515,  1          // InterfaceMethod java/sql/Connection.close:()V",
+        "     143: goto          152",
+        "     146: astore_3",
+        "     147: aload_2",
+        "     148: aload_3",
+        "     149: invokevirtual #511                // Method java/lang/Throwable.addSuppressed:(Ljava/lang/Throwable;)V",
+        "     152: aload_2",
+        "     153: athrow",
+        "     154: return",
+        "    Exception table:",
+        "       from    to  target type",
+        "          17    82    95   Class java/lang/Throwable",
+        "         100   106   109   Class java/lang/Throwable",
+        "           7   119   132   Class java/lang/Throwable",
+        "         137   143   146   Class java/lang/Throwable",
+        ""
+      ]
+    },
+    "S_AuctionBoard:32": {
+      "signature": "private void buildPacket(com.lineage.server.model.Instance.L1NpcInstance);",
+      "javapLineStart": 32,
+      "offsetKind": "JVM method bytecode PC，不是 File Offset／RVA／VA",
+      "lines": [
+        "  private void buildPacket(com.lineage.server.model.Instance.L1NpcInstance);",
+        "    Code:",
+        "       0: new           #36                 // class java/util/ArrayList",
+        "       3: dup",
+        "       4: invokespecial #38                 // Method java/util/ArrayList.\"<init>\":()V",
+        "       7: astore_2",
+        "       8: invokestatic  #39                 // Method com/lineage/server/datatables/server/AuctionBoardTable.get:()Lcom/lineage/server/datatables/server/AuctionBoardTable;",
+        "      11: invokevirtual #45                 // Method com/lineage/server/datatables/server/AuctionBoardTable.getAuctionBoardTableList:()Ljava/util/Map;",
+        "      14: invokeinterface #49,  1           // InterfaceMethod java/util/Map.values:()Ljava/util/Collection;",
+        "      19: astore_3",
+        "      20: aload_3",
+        "      21: invokeinterface #55,  1           // InterfaceMethod java/util/Collection.iterator:()Ljava/util/Iterator;",
+        "      26: astore        4",
+        "      28: aload         4",
+        "      30: invokeinterface #61,  1           // InterfaceMethod java/util/Iterator.hasNext:()Z",
+        "      35: ifeq          226",
+        "      38: aload         4",
+        "      40: invokeinterface #67,  1           // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;",
+        "      45: checkcast     #71                 // class com/lineage/server/templates/L1AuctionBoardTmp",
+        "      48: astore        5",
+        "      50: aload         5",
+        "      52: invokevirtual #73                 // Method com/lineage/server/templates/L1AuctionBoardTmp.getHouseId:()I",
+        "      55: istore        6",
+        "      57: aload_1",
+        "      58: invokevirtual #76                 // Method com/lineage/server/model/Instance/L1NpcInstance.getX:()I",
+        "      61: ldc           #79                 // int 33421",
+        "      63: if_icmpne     99",
+        "      66: aload_1",
+        "      67: invokevirtual #80                 // Method com/lineage/server/model/Instance/L1NpcInstance.getY:()I",
+        "      70: ldc           #83                 // int 32823",
+        "      72: if_icmpne     99",
+        "      75: iload         6",
+        "      77: ldc           #84                 // int 262145",
+        "      79: if_icmplt     223",
+        "      82: iload         6",
+        "      84: ldc           #85                 // int 262189",
+        "      86: if_icmpgt     223",
+        "      89: aload_2",
+        "      90: aload         5",
+        "      92: invokevirtual #86                 // Method java/util/ArrayList.add:(Ljava/lang/Object;)Z",
+        "      95: pop",
+        "      96: goto          223",
+        "      99: aload_1",
+        "     100: invokevirtual #76                 // Method com/lineage/server/model/Instance/L1NpcInstance.getX:()I",
+        "     103: ldc           #90                 // int 33585",
+        "     105: if_icmpne     141",
+        "     108: aload_1",
+        "     109: invokevirtual #80                 // Method com/lineage/server/model/Instance/L1NpcInstance.getY:()I",
+        "     112: ldc           #91                 // int 33235",
+        "     114: if_icmpne     141",
+        "     117: iload         6",
+        "     119: ldc           #92                 // int 327681",
+        "     121: if_icmplt     223",
+        "     124: iload         6",
+        "     126: ldc           #93                 // int 327691",
+        "     128: if_icmpgt     223",
+        "     131: aload_2",
+        "     132: aload         5",
+        "     134: invokevirtual #86                 // Method java/util/ArrayList.add:(Ljava/lang/Object;)Z",
+        "     137: pop",
+        "     138: goto          223",
+        "     141: aload_1",
+        "     142: invokevirtual #76                 // Method com/lineage/server/model/Instance/L1NpcInstance.getX:()I",
+        "     145: ldc           #94                 // int 33959",
+        "     147: if_icmpne     183",
+        "     150: aload_1",
+        "     151: invokevirtual #80                 // Method com/lineage/server/model/Instance/L1NpcInstance.getY:()I",
+        "     154: ldc           #95                 // int 33253",
+        "     156: if_icmpne     183",
+        "     159: iload         6",
+        "     161: ldc           #96                 // int 458753",
+        "     163: if_icmplt     223",
+        "     166: iload         6",
+        "     168: ldc           #97                 // int 458819",
+        "     170: if_icmpgt     223",
+        "     173: aload_2",
+        "     174: aload         5",
+        "     176: invokevirtual #86                 // Method java/util/ArrayList.add:(Ljava/lang/Object;)Z",
+        "     179: pop",
+        "     180: goto          223",
+        "     183: aload_1",
+        "     184: invokevirtual #76                 // Method com/lineage/server/model/Instance/L1NpcInstance.getX:()I",
+        "     187: sipush        32611",
+        "     190: if_icmpne     223",
+        "     193: aload_1",
+        "     194: invokevirtual #80                 // Method com/lineage/server/model/Instance/L1NpcInstance.getY:()I",
+        "     197: ldc           #98                 // int 32775",
+        "     199: if_icmpne     223",
+        "     202: iload         6",
+        "     204: ldc           #99                 // int 524289",
+        "     206: if_icmplt     223",
+        "     209: iload         6",
+        "     211: ldc           #100                // int 524294",
+        "     213: if_icmpgt     223",
+        "     216: aload_2",
+        "     217: aload         5",
+        "     219: invokevirtual #86                 // Method java/util/ArrayList.add:(Ljava/lang/Object;)Z",
+        "     222: pop",
+        "     223: goto          28",
+        "     226: aload_0",
+        "     227: sipush        156",
+        "     230: invokevirtual #103                // Method writeC:(I)V",
+        "     233: aload_0",
+        "     234: aload_1",
+        "     235: invokevirtual #17                 // Method com/lineage/server/model/Instance/L1NpcInstance.getId:()I",
+        "     238: invokevirtual #107                // Method writeD:(I)V",
+        "     241: aload_0",
+        "     242: aload_2",
+        "     243: invokevirtual #110                // Method java/util/ArrayList.size:()I",
+        "     246: invokevirtual #113                // Method writeH:(I)V",
+        "     249: aload_2",
+        "     250: invokevirtual #116                // Method java/util/ArrayList.iterator:()Ljava/util/Iterator;",
+        "     253: astore        4",
+        "     255: aload         4",
+        "     257: invokeinterface #61,  1           // InterfaceMethod java/util/Iterator.hasNext:()Z",
+        "     262: ifeq          346",
+        "     265: aload         4",
+        "     267: invokeinterface #67,  1           // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;",
+        "     272: checkcast     #71                 // class com/lineage/server/templates/L1AuctionBoardTmp",
+        "     275: astore        5",
+        "     277: aload_0",
+        "     278: aload         5",
+        "     280: invokevirtual #73                 // Method com/lineage/server/templates/L1AuctionBoardTmp.getHouseId:()I",
+        "     283: invokevirtual #107                // Method writeD:(I)V",
+        "     286: aload_0",
+        "     287: aload         5",
+        "     289: invokevirtual #117                // Method com/lineage/server/templates/L1AuctionBoardTmp.getHouseName:()Ljava/lang/String;",
+        "     292: invokevirtual #121                // Method writeS:(Ljava/lang/String;)V",
+        "     295: aload_0",
+        "     296: aload         5",
+        "     298: invokevirtual #125                // Method com/lineage/server/templates/L1AuctionBoardTmp.getHouseArea:()I",
+        "     301: invokevirtual #113                // Method writeH:(I)V",
+        "     304: aload         5",
+        "     306: invokevirtual #128                // Method com/lineage/server/templates/L1AuctionBoardTmp.getDeadline:()Ljava/util/Calendar;",
+        "     309: astore        6",
+        "     311: aload_0",
+        "     312: aload         6",
+        "     314: iconst_2",
+        "     315: invokevirtual #134                // Method java/util/Calendar.get:(I)I",
+        "     318: iconst_1",
+        "     319: iadd",
+        "     320: invokevirtual #103                // Method writeC:(I)V",
+        "     323: aload_0",
+        "     324: aload         6",
+        "     326: iconst_5",
+        "     327: invokevirtual #134                // Method java/util/Calendar.get:(I)I",
+        "     330: invokevirtual #103                // Method writeC:(I)V",
+        "     333: aload_0",
+        "     334: aload         5",
+        "     336: invokevirtual #137                // Method com/lineage/server/templates/L1AuctionBoardTmp.getPrice:()J",
+        "     339: l2i",
+        "     340: invokevirtual #107                // Method writeD:(I)V",
+        "     343: goto          255",
+        "     346: return",
+        ""
+      ]
+    },
+    "Npc_AuctionBoard:28": {
+      "signature": "public void talk(com.lineage.server.model.Instance.L1PcInstance, com.lineage.server.model.Instance.L1NpcInstance);",
+      "javapLineStart": 28,
+      "offsetKind": "JVM method bytecode PC，不是 File Offset／RVA／VA",
+      "lines": [
+        "  public void talk(com.lineage.server.model.Instance.L1PcInstance, com.lineage.server.model.Instance.L1NpcInstance);",
+        "    Code:",
+        "       0: aload_1",
+        "       1: new           #10                 // class com/lineage/server/serverpackets/S_AuctionBoard",
+        "       4: dup",
+        "       5: aload_2",
+        "       6: invokespecial #12                 // Method com/lineage/server/serverpackets/S_AuctionBoard.\"<init>\":(Lcom/lineage/server/model/Instance/L1NpcInstance;)V",
+        "       9: invokevirtual #15                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V",
+        "      12: goto          29",
+        "      15: astore_3",
+        "      16: getstatic     #23                 // Field _log:Lorg/apache/logging/log4j/Logger;",
+        "      19: aload_3",
+        "      20: invokevirtual #27                 // Method java/lang/Exception.getLocalizedMessage:()Ljava/lang/String;",
+        "      23: aload_3",
+        "      24: invokeinterface #31,  3           // InterfaceMethod org/apache/logging/log4j/Logger.error:(Ljava/lang/String;Ljava/lang/Throwable;)V",
+        "      29: return",
+        "    Exception table:",
+        "       from    to  target type",
+        "           0    12    15   Class java/lang/Exception",
+        ""
+      ]
+    },
+    "Npc_AuctionBoard:48": {
+      "signature": "public void action(com.lineage.server.model.Instance.L1PcInstance, com.lineage.server.model.Instance.L1NpcInstance, java.lang.String, long);",
+      "javapLineStart": 48,
+      "offsetKind": "JVM method bytecode PC，不是 File Offset／RVA／VA",
+      "lines": [
+        "  public void action(com.lineage.server.model.Instance.L1PcInstance, com.lineage.server.model.Instance.L1NpcInstance, java.lang.String, long);",
+        "    Code:",
+        "       0: iconst_0",
+        "       1: istore        6",
+        "       3: aload_3",
+        "       4: ldc           #37                 // String ,",
+        "       6: invokevirtual #39                 // Method java/lang/String.split:(Ljava/lang/String;)[Ljava/lang/String;",
+        "       9: astore        7",
+        "      11: aload_2",
+        "      12: invokevirtual #45                 // Method com/lineage/server/model/Instance/L1NpcInstance.getId:()I",
+        "      15: istore        8",
+        "      17: aload         7",
+        "      19: iconst_0",
+        "      20: aaload",
+        "      21: ldc           #51                 // String select",
+        "      23: invokevirtual #53                 // Method java/lang/String.equalsIgnoreCase:(Ljava/lang/String;)Z",
+        "      26: ifeq          49",
+        "      29: aload_1",
+        "      30: new           #57                 // class com/lineage/server/serverpackets/S_AuctionBoardRead",
+        "      33: dup",
+        "      34: iload         8",
+        "      36: aload         7",
+        "      38: iconst_1",
+        "      39: aaload",
+        "      40: invokespecial #59                 // Method com/lineage/server/serverpackets/S_AuctionBoardRead.\"<init>\":(ILjava/lang/String;)V",
+        "      43: invokevirtual #15                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V",
+        "      46: goto          243",
+        "      49: aload         7",
+        "      51: iconst_0",
+        "      52: aaload",
+        "      53: ldc           #62                 // String map",
+        "      55: invokevirtual #53                 // Method java/lang/String.equalsIgnoreCase:(Ljava/lang/String;)Z",
+        "      58: ifeq          81",
+        "      61: aload_1",
+        "      62: new           #64                 // class com/lineage/server/serverpackets/S_HouseMap",
+        "      65: dup",
+        "      66: iload         8",
+        "      68: aload         7",
+        "      70: iconst_1",
+        "      71: aaload",
+        "      72: invokespecial #66                 // Method com/lineage/server/serverpackets/S_HouseMap.\"<init>\":(ILjava/lang/String;)V",
+        "      75: invokevirtual #15                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V",
+        "      78: goto          243",
+        "      81: aload         7",
+        "      83: iconst_0",
+        "      84: aaload",
+        "      85: ldc           #67                 // String apply",
+        "      87: invokevirtual #53                 // Method java/lang/String.equalsIgnoreCase:(Ljava/lang/String;)Z",
+        "      90: ifeq          243",
+        "      93: invokestatic  #69                 // Method com/lineage/server/world/WorldClan.get:()Lcom/lineage/server/world/WorldClan;",
+        "      96: aload_1",
+        "      97: invokevirtual #75                 // Method com/lineage/server/model/Instance/L1PcInstance.getClanname:()Ljava/lang/String;",
+        "     100: invokevirtual #78                 // Method com/lineage/server/world/WorldClan.getClan:(Ljava/lang/String;)Lcom/lineage/server/model/L1Clan;",
+        "     103: astore        9",
+        "     105: aload         9",
+        "     107: ifnull        226",
+        "     110: aload_1",
+        "     111: invokevirtual #82                 // Method com/lineage/server/model/Instance/L1PcInstance.isCrown:()Z",
+        "     114: ifeq          206",
+        "     117: aload_1",
+        "     118: invokevirtual #86                 // Method com/lineage/server/model/Instance/L1PcInstance.getId:()I",
+        "     121: aload         9",
+        "     123: invokevirtual #87                 // Method com/lineage/server/model/L1Clan.getLeaderId:()I",
+        "     126: if_icmpne     206",
+        "     129: aload_1",
+        "     130: invokevirtual #92                 // Method com/lineage/server/model/Instance/L1PcInstance.getLevel:()I",
+        "     133: bipush        15",
+        "     135: if_icmplt     186",
+        "     138: aload         9",
+        "     140: invokevirtual #95                 // Method com/lineage/server/model/L1Clan.getHouseId:()I",
+        "     143: ifne          166",
+        "     146: aload_1",
+        "     147: new           #98                 // class com/lineage/server/serverpackets/S_ApplyAuction",
+        "     150: dup",
+        "     151: iload         8",
+        "     153: aload         7",
+        "     155: iconst_1",
+        "     156: aaload",
+        "     157: invokespecial #100                // Method com/lineage/server/serverpackets/S_ApplyAuction.\"<init>\":(ILjava/lang/String;)V",
+        "     160: invokevirtual #15                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V",
+        "     163: goto          243",
+        "     166: aload_1",
+        "     167: new           #101                // class com/lineage/server/serverpackets/S_ServerMessage",
+        "     170: dup",
+        "     171: sipush        521",
+        "     174: invokespecial #103                // Method com/lineage/server/serverpackets/S_ServerMessage.\"<init>\":(I)V",
+        "     177: invokevirtual #15                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V",
+        "     180: iconst_1",
+        "     181: istore        6",
+        "     183: goto          243",
+        "     186: aload_1",
+        "     187: new           #101                // class com/lineage/server/serverpackets/S_ServerMessage",
+        "     190: dup",
+        "     191: sipush        519",
+        "     194: invokespecial #103                // Method com/lineage/server/serverpackets/S_ServerMessage.\"<init>\":(I)V",
+        "     197: invokevirtual #15                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V",
+        "     200: iconst_1",
+        "     201: istore        6",
+        "     203: goto          243",
+        "     206: aload_1",
+        "     207: new           #101                // class com/lineage/server/serverpackets/S_ServerMessage",
+        "     210: dup",
+        "     211: sipush        518",
+        "     214: invokespecial #103                // Method com/lineage/server/serverpackets/S_ServerMessage.\"<init>\":(I)V",
+        "     217: invokevirtual #15                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V",
+        "     220: iconst_1",
+        "     221: istore        6",
+        "     223: goto          243",
+        "     226: aload_1",
+        "     227: new           #101                // class com/lineage/server/serverpackets/S_ServerMessage",
+        "     230: dup",
+        "     231: sipush        518",
+        "     234: invokespecial #103                // Method com/lineage/server/serverpackets/S_ServerMessage.\"<init>\":(I)V",
+        "     237: invokevirtual #15                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V",
+        "     240: iconst_1",
+        "     241: istore        6",
+        "     243: iload         6",
+        "     245: ifeq          263",
+        "     248: aload_1",
+        "     249: new           #106                // class com/lineage/server/serverpackets/S_CloseList",
+        "     252: dup",
+        "     253: aload_1",
+        "     254: invokevirtual #86                 // Method com/lineage/server/model/Instance/L1PcInstance.getId:()I",
+        "     257: invokespecial #108                // Method com/lineage/server/serverpackets/S_CloseList.\"<init>\":(I)V",
+        "     260: invokevirtual #15                 // Method com/lineage/server/model/Instance/L1PcInstance.sendPackets:(Lcom/lineage/server/serverpackets/ServerBasePacket;)V",
+        "     263: goto          283",
+        "     266: astore        6",
+        "     268: getstatic     #23                 // Field _log:Lorg/apache/logging/log4j/Logger;",
+        "     271: aload         6",
+        "     273: invokevirtual #27                 // Method java/lang/Exception.getLocalizedMessage:()Ljava/lang/String;",
+        "     276: aload         6",
+        "     278: invokeinterface #31,  3           // InterfaceMethod org/apache/logging/log4j/Logger.error:(Ljava/lang/String;Ljava/lang/Throwable;)V",
+        "     283: return",
+        "    Exception table:",
+        "       from    to  target type",
+        "           0   263   266   Class java/lang/Exception",
+        "",
+        "  static {};",
+        "    Code:",
+        "       0: ldc           #7                  // class com/lineage/data/npc/other/Npc_AuctionBoard",
+        "       2: invokestatic  #109                // Method org/apache/logging/log4j/LogManager.getLogger:(Ljava/lang/Class;)Lorg/apache/logging/log4j/Logger;",
+        "       5: putstatic     #23                 // Field _log:Lorg/apache/logging/log4j/Logger;",
+        "       8: return",
+        "}"
+      ]
+    }
+  },
+  "validation": {
+    "jsonParsed": true,
+    "unrelatedFixtureFieldsUnchanged": true,
+    "stoppedAtAuthorizationGate": true,
+    "build": {
+      "status": "pass-dev-build",
+      "lock": "temporary",
+      "GUI": false,
+      "network": false,
+      "database": false,
+      "productDllSha256": "19f47bd075df9539968a9890195b94992306693ffa98fb1786d3195bef5fa0f6",
+      "audioDllSha256": "4c4aa97837e7c4e610d3e0b75eb2b619faf41508096435e37c635c2cec456473",
+      "launcherDllSha256": "dc3e2cf52c60a62b9ccab2fa0174d89f9acdd65091025f80561b627ae87c7554"
+    },
+    "buildResultSha256": "9accf5878fb8ceb995965a48785426bf8f8fcdf397c1fa06f91b790c294ef8b2",
+    "buildCommand": "python -B -X utf8 engine/_integration/dev/rebuild.py --build --configfile .github/nuget.ci.config --output scratch/issue-1222/build-check",
+    "baseCommit": "90ae30dda0cf5b9ae9e9fa9bcd3432eb14f64b8c",
+    "assetGate": {
+      "status": "pass",
+      "errors": 0,
+      "trackedFiles": 4874
+    },
+    "gitWhitespace": "pass"
+  }
+}
