@@ -1,0 +1,659 @@
+{
+  "issue": 1155,
+  "conclusion": "部分通過",
+  "counts": {
+    "passed": 3,
+    "failed": 1,
+    "skipped": 0
+  },
+  "sourceCommit": "6f7051fb27f60b32b2cd3eca7b008d6e5fcf9e64",
+  "preflight": {
+    "At": "2026-11-14T07:49:39.4295039+08:00",
+    "Session": [
+      " SESSIONNAME       USERNAME                 ID  STATE   TYPE        DEVICE ",
+      " services                                    0  Disc                        ",
+      ">console           CHAOREN                   6  Active                      "
+    ],
+    "QueryExit": 1,
+    "Foreground": {
+      "Handle": 132132,
+      "ProcessId": 4716,
+      "ThreadId": 17092,
+      "ProcessName": "claude"
+    },
+    "Source": "6f7051fb27f60b32b2cd3eca7b008d6e5fcf9e64",
+    "Lease": [
+      {
+        "name": "p24lab",
+        "holder": "chaoren0418-arch/tw-bin-engine#1155",
+        "since": 1794613647.5155306,
+        "exp": 1794619047.5155306
+      }
+    ],
+    "ExistingClients": []
+  },
+  "execution": {
+    "StartedAt": "2026-11-14T07:49:41.7394652+08:00",
+    "CompletedAt": "2026-11-14T07:50:00.3124450+08:00",
+    "ActualExitCode": 1,
+    "Runs": 1
+  },
+  "build": {
+    "status": "pass-dev-build",
+    "sourceFiles": 555,
+    "lock": "temporary",
+    "lockDrift": {
+      "reason": "RuntimeError: input inventory drift; run --update-lock after reviewing source additions/removals",
+      "addedCount": 211,
+      "removedCount": 3,
+      "changedCount": 181,
+      "fullEvidence": "scratch/issue-1155-prep/rebuild/result.json"
+    },
+    "GUI": false,
+    "network": false,
+    "database": false,
+    "productDllSha256": "1642ea357d5300fcdac8f5b40e6595ba3504c17aa10b830d8fd6816041726e93",
+    "audioDllSha256": "4c4aa97837e7c4e610d3e0b75eb2b619faf41508096435e37c635c2cec456473",
+    "productManifestSha256": "8ecd5c05fecb0a9802bfad603ea34b910349957d08a5ae352bd1604f38895070",
+    "launcherDllSha256": "328d48685f12e45a94c84bfc2031575e4847ec649d0cde51e4bf81e520ae2435"
+  },
+  "checks": {
+    "RootExit": 2,
+    "DevExit": 0
+  },
+  "client": {
+    "ClientProcessId": 1660,
+    "ClientStartTime": "2026-11-14T07:49:43.4326839+08:00",
+    "ClientPath": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1155\\engine\\build\\client-product-dev\\P11.ClientEngine.exe",
+    "Hwnd": 2296378,
+    "WindowTitle": "P24 客戶端",
+    "ProcessDpiAwarenessContextSet": true,
+    "ProcessDpiAwarenessContextError": 0
+  },
+  "N01": {
+    "Passed": true,
+    "VerifyingToActiveMs": 5021,
+    "ActiveChangedRatio": 0.95659375,
+    "Frames": 11,
+    "LastCaptureError": null,
+    "Verifying": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1155\\scratch\\issue-1155\\n01-verifying.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "BitBltError": null,
+      "Width": 800,
+      "Height": 600,
+      "ClientWidth": 800,
+      "ClientHeight": 600,
+      "SizeMatchesClient": true,
+      "Dpi": 192,
+      "Scale": 1,
+      "RatioNote": null,
+      "ClientScreenLeft": 1520,
+      "ClientScreenTop": 762,
+      "Pixels": 480000,
+      "Mean": 113.44583541670521,
+      "NonBlackRatio": 0.9997645833333333,
+      "NonWhiteRatio": 0.9997895833333333,
+      "Nonblank": true,
+      "Sha256": "C1AE3F16CC7405E2E178D477C551A6943FA7864D1B7F2FE541692CAE20996947",
+      "Foreground": null,
+      "Hwnd": 2296378,
+      "ProcessId": 1660
+    },
+    "Active": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1155\\scratch\\issue-1155\\n01-active.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "BitBltError": null,
+      "Width": 800,
+      "Height": 600,
+      "ClientWidth": 800,
+      "ClientHeight": 600,
+      "SizeMatchesClient": true,
+      "Dpi": 192,
+      "Scale": 1,
+      "RatioNote": null,
+      "ClientScreenLeft": 1520,
+      "ClientScreenTop": 762,
+      "Pixels": 480000,
+      "Mean": 82.59539027775689,
+      "NonBlackRatio": 0.9771333333333333,
+      "NonWhiteRatio": 0.9824458333333334,
+      "Nonblank": true,
+      "Sha256": "42D9C5853943BF4C63D787626A92A2B39532E8F62264216835C5F2CEA2378816",
+      "Foreground": null,
+      "Hwnd": 2296378,
+      "ProcessId": 1660
+    },
+    "WindowEventsVerifyingThenActive": true
+  },
+  "N02": {
+    "Passed": true,
+    "Before": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1155\\scratch\\issue-1155\\n02-before.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "BitBltError": null,
+      "Width": 800,
+      "Height": 600,
+      "ClientWidth": 800,
+      "ClientHeight": 600,
+      "SizeMatchesClient": true,
+      "Dpi": 192,
+      "Scale": 1,
+      "RatioNote": null,
+      "ClientScreenLeft": 1520,
+      "ClientScreenTop": 762,
+      "Pixels": 480000,
+      "Mean": 84.16517430553516,
+      "NonBlackRatio": 0.9770791666666667,
+      "NonWhiteRatio": 0.9824458333333334,
+      "Nonblank": true,
+      "Sha256": "705BD9547CD8E8915CC8597E8E64D0F9B3C6B0FD6A9F7A292B84DD7CAFC92600",
+      "Foreground": null,
+      "Hwnd": 2296378,
+      "ProcessId": 1660
+    },
+    "Click": {
+      "Action": "click-left",
+      "LogicalX": 375,
+      "LogicalY": 374,
+      "ClientX": 375,
+      "ClientY": 374,
+      "ScreenX": 1895,
+      "ScreenY": 1136,
+      "NormalizedX": 32349,
+      "NormalizedY": 34483,
+      "Scale": 1,
+      "Mapping": "integer",
+      "RatioX": 1,
+      "RatioY": 1,
+      "RatioNote": null,
+      "ClientWidth": 800,
+      "ClientHeight": 600,
+      "Dpi": 192,
+      "VirtualDesk": [
+        0,
+        0,
+        3840,
+        2160
+      ],
+      "HitHwnd": 2296378,
+      "HitRootHwnd": 2296378,
+      "ForegroundAcquired": false,
+      "Utc": "2026-11-13T23:49:55.0423765Z",
+      "Hwnd": 2296378,
+      "ProcessId": 1660,
+      "ForegroundHwnd": 14943838,
+      "ForegroundProcessId": 1660,
+      "InputCount": 3,
+      "SendInputReturned": 3,
+      "LastError": 0,
+      "InputSize": 40
+    },
+    "ClickSent": true,
+    "ClickError": null,
+    "TextSent": true,
+    "TextError": null,
+    "After": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1155\\scratch\\issue-1155\\n02-after.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "BitBltError": null,
+      "Width": 800,
+      "Height": 600,
+      "ClientWidth": 800,
+      "ClientHeight": 600,
+      "SizeMatchesClient": true,
+      "Dpi": 192,
+      "Scale": 1,
+      "RatioNote": null,
+      "ClientScreenLeft": 1520,
+      "ClientScreenTop": 762,
+      "Pixels": 480000,
+      "Mean": 84.41115277775515,
+      "NonBlackRatio": 0.9771291666666667,
+      "NonWhiteRatio": 0.9822416666666667,
+      "Nonblank": true,
+      "Sha256": "12B084265AD43E304D24FFA17D6BE8217DFF6AC6F777C354DA7682190ABC1B68",
+      "Foreground": null,
+      "Hwnd": 2296378,
+      "ProcessId": 1660
+    },
+    "AccountRectClient": {
+      "X": 320,
+      "Y": 364,
+      "Width": 110,
+      "Height": 20
+    },
+    "Diff": {
+      "Threshold": 48,
+      "ChangedTotal": 1626,
+      "ChangedInsideAccountRect": 108,
+      "AccountRectArea": 2200,
+      "BoundingBox": [
+        3,
+        103,
+        743,
+        599
+      ]
+    },
+    "RequiredInside": 30
+  },
+  "N03": {
+    "Passed": false,
+    "Key": {
+      "Action": "key",
+      "Keys": "Ctrl+P",
+      "VirtualKey": "0x50",
+      "Modifiers": [
+        "0x11"
+      ],
+      "ForegroundAcquired": false
+    },
+    "KeySentUtc": "2026-11-13T23:49:55.9631974Z",
+    "NewFiles": [],
+    "ExpectedOnLoginScreen": "no file: MenuButtonsPanel.Key ignores hotkeys outside the world (MenuButtonsPanel.cs:276)"
+  },
+  "N04": {
+    "Passed": true,
+    "Key": {
+      "Action": "key",
+      "Keys": "Alt+F4",
+      "VirtualKey": "0x73",
+      "Modifiers": [
+        "0x12"
+      ],
+      "ForegroundAcquired": false
+    },
+    "ExitedAfterAltF4": true,
+    "ClientExited": true,
+    "WindowEventsClosed": true,
+    "ForcedClose": false,
+    "RemainingOwned": [],
+    "ListenersOnTestPorts": [],
+    "OwnedListeners": 0
+  },
+  "visualReview": {
+    "N01Verifying": "離線場景預覽，與關窗後事件 verifying→active 相符；未顯示登入表單。",
+    "N01Active": "原生 Lineage 登入畫面，Account／Password／Login／Exit 清楚可見。",
+    "N02Click": "工作區 (375,374) 落在畫面 Account 輸入框與指定矩形內，HitRootHwnd 等於目標。",
+    "N02Text": "before 帳號空白，after 清楚可見 abc，密碼欄空白。"
+  },
+  "inputLogSummary": {
+    "lines": 10,
+    "allInputCountsMatch": true,
+    "allLastErrorsZero": true,
+    "foregroundPids": [
+      1660
+    ],
+    "inputSizes": [
+      40
+    ],
+    "records": [
+      {
+        "Action": "click-left",
+        "LogicalX": 375,
+        "LogicalY": 374,
+        "ClientX": 375,
+        "ClientY": 374,
+        "ScreenX": 1895,
+        "ScreenY": 1136,
+        "NormalizedX": 32349,
+        "NormalizedY": 34483,
+        "Scale": 1,
+        "Mapping": "integer",
+        "RatioX": 1,
+        "RatioY": 1,
+        "RatioNote": null,
+        "ClientWidth": 800,
+        "ClientHeight": 600,
+        "Dpi": 192,
+        "VirtualDesk": [
+          0,
+          0,
+          3840,
+          2160
+        ],
+        "HitHwnd": 2296378,
+        "HitRootHwnd": 2296378,
+        "ForegroundAcquired": false,
+        "Utc": "2026-11-13T23:49:55.0423765Z",
+        "Hwnd": 2296378,
+        "ProcessId": 1660,
+        "ForegroundHwnd": 14943838,
+        "ForegroundProcessId": 1660,
+        "InputCount": 3,
+        "SendInputReturned": 3,
+        "LastError": 0,
+        "InputSize": 40
+      },
+      {
+        "Action": "text-virtualkey",
+        "Index": 0,
+        "CodeUnit": "U+0061",
+        "ForegroundAcquired": false,
+        "VirtualKey": "0x41",
+        "Shift": false,
+        "Utc": "2026-11-13T23:49:55.3094116Z",
+        "Hwnd": 2296378,
+        "ProcessId": 1660,
+        "ForegroundHwnd": 2296378,
+        "ForegroundProcessId": 1660,
+        "InputCount": 2,
+        "SendInputReturned": 2,
+        "LastError": 0,
+        "InputSize": 40
+      },
+      {
+        "Action": "text-virtualkey",
+        "Index": 1,
+        "CodeUnit": "U+0062",
+        "ForegroundAcquired": false,
+        "VirtualKey": "0x42",
+        "Shift": false,
+        "Utc": "2026-11-13T23:49:55.3124088Z",
+        "Hwnd": 2296378,
+        "ProcessId": 1660,
+        "ForegroundHwnd": 2296378,
+        "ForegroundProcessId": 1660,
+        "InputCount": 2,
+        "SendInputReturned": 2,
+        "LastError": 0,
+        "InputSize": 40
+      },
+      {
+        "Action": "text-virtualkey",
+        "Index": 2,
+        "CodeUnit": "U+0063",
+        "ForegroundAcquired": false,
+        "VirtualKey": "0x43",
+        "Shift": false,
+        "Utc": "2026-11-13T23:49:55.3143969Z",
+        "Hwnd": 2296378,
+        "ProcessId": 1660,
+        "ForegroundHwnd": 2296378,
+        "ForegroundProcessId": 1660,
+        "InputCount": 2,
+        "SendInputReturned": 2,
+        "LastError": 0,
+        "InputSize": 40
+      },
+      {
+        "Ctrl+P": null,
+        "Action": "key-down 0x11",
+        "Utc": "2026-11-13T23:49:55.9951117Z",
+        "Hwnd": 2296378,
+        "ProcessId": 1660,
+        "ForegroundHwnd": 2296378,
+        "ForegroundProcessId": 1660,
+        "InputCount": 1,
+        "SendInputReturned": 1,
+        "LastError": 0,
+        "InputSize": 40
+      },
+      {
+        "Ctrl+P": null,
+        "Action": "key-press 0x50",
+        "Utc": "2026-11-13T23:49:55.9990747Z",
+        "Hwnd": 2296378,
+        "ProcessId": 1660,
+        "ForegroundHwnd": 2296378,
+        "ForegroundProcessId": 1660,
+        "InputCount": 2,
+        "SendInputReturned": 2,
+        "LastError": 0,
+        "InputSize": 40
+      },
+      {
+        "Ctrl+P": null,
+        "Action": "key-up 0x11",
+        "Utc": "2026-11-13T23:49:56.0040887Z",
+        "Hwnd": 2296378,
+        "ProcessId": 1660,
+        "ForegroundHwnd": 2296378,
+        "ForegroundProcessId": 1660,
+        "InputCount": 1,
+        "SendInputReturned": 1,
+        "LastError": 0,
+        "InputSize": 40
+      },
+      {
+        "Alt+F4": null,
+        "Action": "key-down 0x12",
+        "Utc": "2026-11-13T23:49:59.1158904Z",
+        "Hwnd": 2296378,
+        "ProcessId": 1660,
+        "ForegroundHwnd": 2296378,
+        "ForegroundProcessId": 1660,
+        "InputCount": 1,
+        "SendInputReturned": 1,
+        "LastError": 0,
+        "InputSize": 40
+      },
+      {
+        "Alt+F4": null,
+        "Action": "key-press 0x73",
+        "Utc": "2026-11-13T23:49:59.1168882Z",
+        "Hwnd": 2296378,
+        "ProcessId": 1660,
+        "ForegroundHwnd": 2296378,
+        "ForegroundProcessId": 1660,
+        "InputCount": 2,
+        "SendInputReturned": 2,
+        "LastError": 0,
+        "InputSize": 40
+      },
+      {
+        "Alt+F4": null,
+        "Action": "key-up 0x12",
+        "Utc": "2026-11-13T23:49:59.1188827Z",
+        "Hwnd": 2296378,
+        "ProcessId": 1660,
+        "ForegroundHwnd": 2296378,
+        "ForegroundProcessId": 1660,
+        "InputCount": 1,
+        "SendInputReturned": 1,
+        "LastError": 0,
+        "InputSize": 40
+      }
+    ]
+  },
+  "windowEvents": {
+    "NativeUiStates": [
+      "verifying",
+      "active"
+    ],
+    "Closed": true,
+    "Captures": []
+  },
+  "errors": [
+    "N03: no new file under D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1155\\engine\\runtime\\Capture within 3 s after Ctrl+P; key error: "
+  ],
+  "ownedProcesses": [
+    {
+      "ProcessId": 13956,
+      "ParentProcessId": 0,
+      "Name": "cmd",
+      "StartTime": "2026-11-14T07:49:42.3485920+08:00",
+      "StartTimeValue": "/Date(1794613782348)/"
+    },
+    {
+      "ProcessId": 17104,
+      "ParentProcessId": 13956,
+      "Name": "conhost.exe",
+      "StartTime": "2026-11-14T07:49:42.3572160+08:00",
+      "StartTimeValue": "/Date(1794613782357)/"
+    },
+    {
+      "ProcessId": 7368,
+      "ParentProcessId": 13956,
+      "Name": "P24.Launcher.exe",
+      "StartTime": "2026-11-14T07:49:42.4191270+08:00",
+      "StartTimeValue": "/Date(1794613782419)/"
+    },
+    {
+      "ProcessId": 1660,
+      "ParentProcessId": 7368,
+      "Name": "P11.ClientEngine.exe",
+      "StartTime": "2026-11-14T07:49:43.4326830+08:00",
+      "StartTimeValue": "/Date(1794613783432)/"
+    }
+  ],
+  "postflight": {
+    "At": "2026-11-14T07:50:31.4845858+08:00",
+    "OwnedProcesses": [
+      {
+        "ProcessId": 13956,
+        "Name": "cmd",
+        "Present": false
+      },
+      {
+        "ProcessId": 17104,
+        "Name": "conhost.exe",
+        "Present": false
+      },
+      {
+        "ProcessId": 7368,
+        "Name": "P24.Launcher.exe",
+        "Present": false
+      },
+      {
+        "ProcessId": 1660,
+        "Name": "P11.ClientEngine.exe",
+        "Present": false
+      }
+    ],
+    "WorktreeClientOrWebView": [],
+    "TestPortListeners": [],
+    "CaptureDirectoryExists": false,
+    "ClientNetworkLogBytes": 297
+  },
+  "networkEvents": [
+    {
+      "kind": "status",
+      "utc": "2026-11-13T23:49:59.5230579+00:00",
+      "monotonic": 2153222285396,
+      "pid": 1660,
+      "data": {
+        "state": "Disconnected",
+        "detail": "form closing",
+        "epoch": 1
+      }
+    },
+    {
+      "kind": "form-closed",
+      "utc": "2026-11-13T23:49:59.5259703+00:00",
+      "monotonic": 2153222314503,
+      "pid": 1660,
+      "data": {
+        "timerEnabled": false
+      }
+    }
+  ],
+  "loginSummary": {
+    "state": "Cancelled",
+    "profile": "none",
+    "appliedPacketSequence": 0,
+    "worldEntered": false,
+    "worldRenderable": false
+  },
+  "limitations": [
+    "本輪 N03 失敗，實測退出碼為 1；全部成功回 0 的分支僅靜態確認，未重跑。",
+    "VerifyingToActiveMs 為輪詢與存圖時間差，非精確引擎接手時間。"
+  ],
+  "sourceSha256": {
+    "work/f1118-uia-path/Test-NativeClient.ps1": "c1d4ac6bd14ea432e7ce800c0f566389916c059653e090ffd5d52e1d7b98d8d9",
+    "work/f1118-uia-path/UiaGdi.ps1": "2920e19f811d1053173e035b27e9150ded716f8ba544f1d99eec1db82e686233",
+    "engine/source/NativeUi/MenuButtonsPanel.cs": "2d1bbf39bf1e0bc9e213d732b43bfb17777996bcab7726a5dc07d0cba0e3174d",
+    "engine/_integration/dev/rebuild-lock.json": "ecccc3992730a54b6be2e53cd01aa55dbbe0c81c60c557f3e0dc829f61e2ce73"
+  },
+  "evidence": [
+    {
+      "path": "scratch/issue-1155/n01-verifying.png",
+      "bytes": 390350,
+      "sha256": "c1ae3f16cc7405e2e178d477c551a6943fa7864d1b7f2fe541692cae20996947"
+    },
+    {
+      "path": "scratch/issue-1155/n01-active.png",
+      "bytes": 896108,
+      "sha256": "42d9c5853943bf4c63d787626a92a2b39532e8f62264216835c5f2cea2378816"
+    },
+    {
+      "path": "scratch/issue-1155/n02-before.png",
+      "bytes": 976450,
+      "sha256": "705bd9547cd8e8915cc8597e8e64d0f9b3c6b0fd6a9f7a292b84dd7cafc92600"
+    },
+    {
+      "path": "scratch/issue-1155/n02-after.png",
+      "bytes": 957554,
+      "sha256": "12b084265ad43e304d24ffa17d6be8217dff6ac6f777c354da7682190abc1b68"
+    },
+    {
+      "path": "scratch/issue-1155/native-result.json",
+      "bytes": 18092,
+      "sha256": "8422d80e9bb4cf3a12a39be400db42ccd0ea1d67dff527042da33a8b7a2d6ab5"
+    },
+    {
+      "path": "scratch/issue-1155/client-input.jsonl",
+      "bytes": 2840,
+      "sha256": "2c67201739f327b9a132cd94d09f6bb11f3b06f153ec23672743b095e7c00ffa"
+    },
+    {
+      "path": "scratch/issue-1155/window-events.json",
+      "bytes": 7933,
+      "sha256": "8c52442987790866f4b81fea2e85f207c3f4acdba99ce0089a702a13606f5f4f"
+    },
+    {
+      "path": "scratch/issue-1155/native-ui.log",
+      "bytes": 74110,
+      "sha256": "224a90a9d98480e8571fb94bc5a980ce1403330ce09bb2c132c15ebd51ba71ad"
+    },
+    {
+      "path": "scratch/issue-1155/client-network.jsonl",
+      "bytes": 297,
+      "sha256": "3fef37fc0d8f4a9b378026b0d27f556e21d5b5b26b39135037dd55439fc7249d"
+    },
+    {
+      "path": "scratch/issue-1155/login-state.json",
+      "bytes": 12603,
+      "sha256": "6ad808941b31ca03d13a18747d660c6ec0360ec35c46585f7e1e08739f171488"
+    },
+    {
+      "path": "scratch/issue-1155-prep/preflight.json",
+      "bytes": 1061,
+      "sha256": "07f640d7bece6c1b69b15fb6c9ed747294f74a43819697d372cb9a14ad0d6e0c"
+    },
+    {
+      "path": "scratch/issue-1155-prep/postflight.json",
+      "bytes": 1202,
+      "sha256": "dd4a9c1520bbe1292d64b08c08f236d85e3e25d7d07a30fccfee5bc5bcfa08f2"
+    },
+    {
+      "path": "scratch/issue-1155-prep/execution.json",
+      "bytes": 166,
+      "sha256": "95a4a399dc9c5a7a4fd583b7d3978cf82f08ebc1c680ffddf93ddd400b1ea432"
+    },
+    {
+      "path": "scratch/issue-1155-prep/build.log",
+      "bytes": 28498,
+      "sha256": "8adf0d6cd4acb56baa2416a284b50080a16cebc691e09342809f58651971cde3"
+    },
+    {
+      "path": "scratch/issue-1155-prep/dev-check.log",
+      "bytes": 2472,
+      "sha256": "bd666957596f23e3792fd90ef8bd96e913f67927cd1a1fe7e802bbb33d0e8f4a"
+    },
+    {
+      "path": "scratch/issue-1155-prep/root-check.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "scratch/issue-1155-prep/run-once.ps1",
+      "bytes": 1508,
+      "sha256": "13bdd2fa86dc0cefd7b76527ce22919356ee00090e291167758cace1343bfd31"
+    }
+  ]
+}
