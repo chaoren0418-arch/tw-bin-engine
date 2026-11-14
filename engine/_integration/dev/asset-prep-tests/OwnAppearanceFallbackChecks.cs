@@ -91,7 +91,10 @@ partial class Checks {
             Check(od.Attempts==attempts,"OAF ready and unavailable lenient items are remembered, never rebuilt");
 
             // --- 7. WorldSession：自己變成 138／1062 時外觀可用（不再「移動與戰鬥已停止」）；1395 照實告知資料未到。
-            try{
+            // WorldSession 經 PlayerProfiles.Own 讀行程共用的 players/manifest.json（engine/assets）；CI 沒有 assets 時略過這段
+            // （上面 1–6 段的 Resolve 規則不依賴 assets）。
+            if(!File.Exists(Path.Combine(ActionTiming.AssetsRoot,"integrity.json"))){Check(true,"OAF WorldSession wiring skipped: no engine/assets here ("+ActionTiming.AssetsRoot+")");}
+            else try{
                 RuntimeAppearances.Active=od;
                 var w=new WorldSession();w.CacheEnabled=false;
                 Set(w,"Status",new OwnStatus(123,1,0,0,0,0,0,0,0,100,100,100,100,0,0,0,0,0,0,0,0,0,0));
