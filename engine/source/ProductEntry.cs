@@ -59,6 +59,9 @@ public sealed partial class ClientForm {
     TabControl? normalPanels;
     void InitNormalPanels(){
         normalPanels=new TabControl{Dock=DockStyle.Fill,Multiline=true,AccessibleName="開發工具服務分頁"};
+        // #1172：這裡與各功能檔（BookmarkUi、BuddyUi、ClanUi、ClanWar、ClientEffect6016、DuelUi、Marriage、ObjectRendering、PetUi、
+        // RingWindows、TitleAndEmote）加進來的一般 TabPage，對跨執行緒 WM_GETTEXT 回空字串（同 #1163 DevToolsPage），免得 UIA 代理接手錯位。
+        CrossThreadTabText.Apply(normalPanels);
         foreach(var (title,body,button) in new (string,Control,Control?)[]{("背包",inventoryPanel,null),("地面",groundPanel,null),("魔法",magicPanel,null),("角色",rewardsLabel,null),("能力點",bonusStatsPanel,null),("個人商店",privateShopPanel,null),("NPC",npcPanel,npcTalk),("交易",tradePanel,tradeInvite)}){
             var page=new TabPage(title){BackColor=Color.FromArgb(23,38,41),AutoScroll=true};body.Parent=null;body.Dock=DockStyle.Fill;page.Controls.Add(body);
             if(button!=null){button.Parent=null;button.Dock=DockStyle.Top;page.Controls.Add(button);button.BringToFront();}normalPanels.TabPages.Add(page);
