@@ -2,6 +2,9 @@
 #   powershell.exe -NoProfile -ExecutionPolicy Bypass -STA -File work/f1118-uia-path/Test-NativeClient.ps1 -EvidenceDirectory scratch/<task>/native
 # Starts engine\<launcher>.cmd --evidence <dir> (no diagnostic / auto-login arguments), waits for the native UI,
 # clicks the account box and types 'abc' (no password, no login, no server), sends Ctrl+P, closes with Alt+F4.
+# N03 is a login-screen NEGATIVE check (#1184): the original client does not take screenshots before the world
+# (CLoginUI installs WM_CHAR handler sub_8CA5E0, no Ctrl+P branch), and neither does the engine, so N03 passes when
+# Ctrl+P creates no capture file, the client stays up and the account box is unchanged. In-world Ctrl+P = smoke-m7 SM15.
 # Only processes this script started (PID + start time) are ever terminated. Exit 0 = every check passed.
 param(
     [Parameter(Mandatory)][string]$EvidenceDirectory,
@@ -72,7 +75,7 @@ function Get-NativeUiFailureLine {
     return $null
 }
 
-$verifying=$null;$active=$null
+$verifying=$null;$active=$null;$n02After=$null
 try {
     if(-not (Test-Path -LiteralPath $ClientCmd)){throw "Client launcher not found: $ClientCmd"}
     foreach($stale in 'window-events.json','native-ui.log'){
@@ -186,31 +189,66 @@ try {
             $result.N02.RequiredInside=$need
             $result.N02.Passed=($result.N02.ClickSent -and $result.N02.TextSent -and $d[1] -ge $need)
             if(-not $result.N02.Passed){$failures.Add("N02: click=$($result.N02.ClickSent) text=$($result.N02.TextSent) changedInside=$($d[1]) (need $need); click error: $clickError; text error: $textError")}
+            # Kept for N03: the account box after Ctrl+P is compared against this frame.
+            $n02After=$after.Bitmap.Clone()
         } finally {$after.Bitmap.Dispose()}
     } finally {$before.Bitmap.Dispose()}
 
-    # --- N03: Ctrl+P -> new file under <stage>/runtime/Capture ---
-    # Static expectation: MenuButtonsPanel.Key returns false outside the world (MenuButtonsPanel.cs:276), so on the
-    # login screen no file is expected; the check is still run and reported as observed.
+    # --- N03 (login-negative, #1184): Ctrl+P on the login screen must NOT capture ---
+    # Original TW16: CLoginUI show (sub_EE8E00 -> sub_EE2360, VA 0xEE2360) installs WM_CHAR handler sub_8CA5E0
+    # (VA 0x8CA5E0), which only routes keys to XML windows; the Ctrl+P(16) -> sub_4FE4F0 "Saved current screen" branch
+    # is in sub_8C14F0, reached only through the in-world handler sub_8CA740. The engine matches this
+    # (MenuButtonsPanel.cs:276 / DevToolsForm.cs inWorld). Pass = Ctrl+P sent, no new file under Capture for the full
+    # 3 s, client still running, and the account box in n03-after.png equals n02-after.png (no character typed).
+    # In-world Ctrl+P producing a file is checked by smoke-m7 SM15 (f1125-retest-3), not here.
+    $result.N03.Mode='login-negative'
+    $result.N03.OriginalBasis='TW16 CLoginUI WM_CHAR handler sub_8CA5E0 (VA 0x8CA5E0) has no Ctrl+P branch; screenshot sub_4FE4F0 only via in-world sub_8CA740 -> sub_8C14F0 (docs/reports/issue-1184.md)'
+    $result.N03.EngineBasis='MenuButtonsPanel.Key returns false outside the world (MenuButtonsPanel.cs:276); classic ClassicMenuHotkey requires inWorld (DevToolsForm.cs)'
     $beforeFiles=@{}
     foreach($dir in $captureDirs){if(Test-Path -LiteralPath $dir){Get-ChildItem -LiteralPath $dir -File | ForEach-Object {$beforeFiles[$_.FullName]=$_.LastWriteTimeUtc}}}
     $sentAt=[DateTime]::UtcNow
-    try {$result.N03.Key=Send-ClientKey $hwnd 'Ctrl+P'} catch {$result.N03.KeyError=$_.Exception.Message}
+    $keyError=$null
+    try {$result.N03.Key=Send-ClientKey $hwnd 'Ctrl+P'} catch {$keyError=$_.Exception.Message}
+    $result.N03.KeyError=$keyError
+    # Wait the whole 3 s (a negative check must not stop early) and record anything that appears.
     $newFiles=@();$deadline=[DateTime]::UtcNow.AddSeconds(3)
-    while([DateTime]::UtcNow -lt $deadline -and $newFiles.Count -eq 0){
+    while([DateTime]::UtcNow -lt $deadline){
         Start-Sleep -Milliseconds 250
         $newFiles=@(foreach($dir in $captureDirs){if(Test-Path -LiteralPath $dir){Get-ChildItem -LiteralPath $dir -File | Where-Object {-not $beforeFiles.ContainsKey($_.FullName) -or $beforeFiles[$_.FullName] -ne $_.LastWriteTimeUtc}}})
     }
     $result.N03.KeySentUtc=$sentAt.ToString('o')
     $result.N03.NewFiles=@($newFiles | ForEach-Object {[ordered]@{Path=$_.FullName;LastWriteTime=$_.LastWriteTime.ToString('o');Length=$_.Length;Sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath $_.FullName).Hash}})
-    $result.N03.ExpectedOnLoginScreen='no file: MenuButtonsPanel.Key ignores hotkeys outside the world (MenuButtonsPanel.cs:276)'
-    $result.N03.Passed=($newFiles.Count -gt 0)
-    if(-not $result.N03.Passed){$failures.Add("N03: no new file under $($captureDirs -join '; ') within 3 s after Ctrl+P; key error: $($result.N03['KeyError'])")}
+    $result.N03.ExpectedOnLoginScreen='no file (original and engine ignore Ctrl+P before the world)'
+    $client.Refresh()
+    $result.N03.ClientRunning=(-not $client.HasExited)
+    $unchanged=$false
+    if($result.N03.ClientRunning -and $null -ne $n02After){
+        $n03=Get-GdiClientBitmap $hwnd
+        try {
+            $result.N03.After=Save-GdiClientBitmap $n03 (Join-Path $ev 'n03-after.png')
+            $g3=Get-ClientWindowGeometry $hwnd -Fill:$Fill
+            $r3=Convert-ClientLogicalRect $g3 $AccountRect
+            $result.N03.AccountRectClient=$r3
+            if($n03.Bitmap.Width -ne $n02After.Width -or $n03.Bitmap.Height -ne $n02After.Height){
+                $result.N03.CompareError='client size changed between n02-after and n03-after'
+            } else {
+                $d3=[ClientInputNative]::Diff($n02After,$n03.Bitmap,48,$r3.X,$r3.Y,$r3.Width,$r3.Height)
+                # Same heuristic unit as N02: one drawn glyph is >= 30 px per scale^2; a blinking caret (~14 px) is below it.
+                $allow=[int](30*$g3.Scale*$g3.Scale)
+                $result.N03.Diff=[ordered]@{Threshold=48;ChangedTotal=$d3[0];ChangedInsideAccountRect=$d3[1];AccountRectArea=$d3[2];BoundingBox=@($d3[3],$d3[4],$d3[5],$d3[6]);AllowedInside=$allow}
+                $unchanged=($d3[1] -lt $allow)
+            }
+        } finally {$n03.Bitmap.Dispose()}
+    } elseif($null -eq $n02After) {$result.N03.CompareError='n02-after frame not available'}
+    $result.N03.AccountBoxUnchanged=$unchanged
+    $result.N03.Passed=($null -eq $keyError -and $newFiles.Count -eq 0 -and $result.N03.ClientRunning -and $unchanged)
+    if(-not $result.N03.Passed){$failures.Add("N03 (login-negative): keyError=$keyError newFiles=$($newFiles.Count) under $($captureDirs -join '; ') clientRunning=$($result.N03.ClientRunning) accountBoxUnchanged=$unchanged compareError=$($result.N03['CompareError'])")}
 } catch {
     $failures.Add($_.Exception.ToString())
     $result.ForegroundAtFailure=Get-UiaForegroundInfo
     $result.ForegroundDiagnostic=Get-UiaLastForegroundDiagnostic
 } finally {
+    if($null -ne $n02After){$n02After.Dispose()}
     # --- N04: Alt+F4, client exits, window-events.json has closed; clean up only our own processes ---
     try {
         if($null -ne $client -and -not $client.HasExited){
