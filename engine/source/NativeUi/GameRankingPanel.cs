@@ -157,10 +157,47 @@ public sealed class GameRankingPanel(UiResources? resources=null):IUiMovablePane
         UiLayout layout;
         try{layout=resources.Xml.Load(LayoutName);}
         catch(IOException ex){Unavailable=ex.Message;UiResourceLog.Write($"ranking-ui 無法載入 {LayoutName}，排名窗停用（查詢頁照舊）：{ex.Message}");return;}
-        try{Load(layout,surfs.Get);}
+        // #1245：主客戶端沒有這份版面 → 版面來自參考客戶端，surf 編號也只在參考客戶端有意義（見 SurfSource）。
+        bool fromReference=!MainClientHas(resources.Xml,LayoutName);
+        var surf=SurfSource(fromReference,surfs.Get,surfs.Reference is {} r?ReferenceSurfs(surfs,r):null);
+        try{Load(layout,surf);}
         catch(IOException ex){Clear();Unavailable=ex.Message;UiResourceLog.Write($"ranking-ui {layout.FileName} 版面不符，排名窗停用：{ex.Message}");return;}
         if(Missing.Count>0)UiResourceLog.Write($"ranking-ui 缺圖不畫：{string.Join("、",Missing)}");
+        // #1245 診斷：一行記下視窗範圍與底圖實際來源（retest 用來確認不是 32×32 的本機同號圖）。
+        UiResourceLog.Write($"ranking-ui 版面與 surf 取自{(fromReference?"參考客戶端":"主客戶端")}；視窗 {Origin.X},{Origin.Y} {Size.Width}x{Size.Height}，"
+            +$"底圖 {Background?.BaseSurface?.Archive??"-"}/{Background?.BaseSurface?.FileName??"-"}");
         if(Available)Attach();else UiResourceLog.Write($"ranking-ui 停用：{Unavailable}");
+    }
+
+    /// <summary>主客戶端 Tile.pak 有沒有這份版面（"-c" 或原名；與 UiXmlSource.TryReadPlain 的順序相同）。</summary>
+    static bool MainClientHas(UiXmlSource xml,string baseName){
+        string name=baseName+".xml";
+        return xml.Archive.Find(UiXmlSource.LocalizedName(name))!=null||xml.Archive.Find(name)!=null;
+    }
+
+    /// <summary>
+    /// #1245（f1211 SM31）：參考客戶端的版面只用參考客戶端的 surf，不先查主客戶端。已驗證（PakViewer 唯讀比對）：0-客戶端的
+    /// Sprite*.pak 對 GameRankingUI 用到的 39 個 surf 編號都有同號 .img，但全是 2,056 B 的 32×32 小圖（4645／4646 是 136 B），
+    /// 參考客戶端 kor25 才是真正的視窗圖（例：底圖 5558c.img 305,536 B＝422×362）。先查本機時視窗被裁成 32×32，
+    /// 開了卻幾乎看不到（#1211 m7-SM31-rank*-after.png (189,48) 的小圖）。參考客戶端沒有的 surf → null（不畫、不改用本機同號圖）。
+    /// 版面在主客戶端時照舊用 SurfCatalog.Get。
+    /// </summary>
+    internal static Func<int,UiSurface?> SurfSource(bool fromReference,Func<int,UiSurface?> main,Func<int,UiSurface?>? reference)
+        =>!fromReference?main:reference??(_=>null);
+
+    /// <summary>參考客戶端的 surf（檔名照 SurfList.xml 的 file，沒有這列就用編號；同 RefClientSurfFallback.Serve），這次載入內快取。</summary>
+    static Func<int,UiSurface?> ReferenceSurfs(SurfCatalog surfs,RefClientSurfFallback reference){
+        var memo=new Dictionary<int,UiSurface?>();
+        return id=>{
+            if(memo.TryGetValue(id,out var hit))return hit;
+            string file=surfs.Files.TryGetValue(id,out var f)?f:id.ToString(CultureInfo.InvariantCulture);
+            UiSurface? s=null;
+            if(reference.TryRead(file) is {} found){
+                try{s=new UiSurface(id,found.Name,"ref:"+found.Archive,UiImage.Decode(found.Data,$"{reference.Root}\\{found.Archive}.pak:{found.Name}"));}
+                catch(UiResourceException ex){UiResourceLog.Write($"ranking-ui surf {id} {found.Archive}/{found.Name} 不是可解的 .img：{ex.Message}");}
+            }
+            return memo[id]=s;
+        };
     }
 
     void Clear(){
@@ -197,7 +234,12 @@ public sealed class GameRankingPanel(UiResources? resources=null):IUiMovablePane
         Background=baseRef==null?null:new(GameRankingPieceKind.Image,window.Path,window.Attr("Name"),Point.Empty,Size.Empty,baseRef,baseSurface,null,null,null,"left");
         Size=baseSurface==null?Size.Empty:new(baseSurface.Width,baseSurface.Height);
         WindowPieces=pieces;Pages=pages;Missing=missing;Skipped=skipped;
-        Unavailable=Size.IsEmpty?$"{layout.FileName}: 視窗底圖 BaseSurf 缺，無法定出視窗範圍（不用替代圖）":null;
+        // #1245：視窗範圍＝底圖大小，繪製會裁在範圍內。底圖小到連視窗自己的鈕／標題都落在外面，表示底圖不是這份版面的圖
+        // （例：本機同號的 32×32 小圖）；這時停用，讓 /rank 回到查詢頁，不開一個看不見的窗。
+        Unavailable=Size.IsEmpty?$"{layout.FileName}: 視窗底圖 BaseSurf 缺，無法定出視窗範圍（不用替代圖）"
+            :pieces.FirstOrDefault(p=>p.Offset.X<0||p.Offset.Y<0||p.Offset.X>=Size.Width||p.Offset.Y>=Size.Height) is {} outside
+            ?$"{layout.FileName}: 視窗底圖 surf {baseRef!.Id} 只有 {Size.Width}x{Size.Height}，{outside.Name??outside.Path} ({outside.Offset.X},{outside.Offset.Y}) 落在底圖外（底圖與版面不是同一個客戶端？）"
+            :null;
     }
 
     /// <summary>Images first, then the rest, each in XML order (see the file header).</summary>
@@ -269,7 +311,10 @@ public sealed class GameRankingPanel(UiResources? resources=null):IUiMovablePane
         if(!state.InWorld){if(open)Close();data.Clear();lock(gate)pending=null;return;}
         GameRankingData? page;
         lock(gate){page=pending;pending=null;}
-        if(page!=null&&Available){data[page.Tab]=page;Open(page.Tab);}
+        if(page!=null&&Available){
+            data[page.Tab]=page;Open(page.Tab);
+            UiResourceLog.Write($"ranking-ui 開窗 {page.Html} → {ActiveTab} 分頁，{page.Entries.Count} 列；範圍 {Bounds.X},{Bounds.Y} {Bounds.Width}x{Bounds.Height}");   // #1245 診斷
+        }
     }
 
     /// <summary>Opens on a tab (default: the tab of the latest data, else Level). false when unavailable.</summary>

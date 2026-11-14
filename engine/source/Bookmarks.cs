@@ -50,6 +50,7 @@ public sealed class Bookmarks {
         }
         r.Finish();
         lock(gate){entries=next;capacity=max;notice="已收到伺服器書籤清單。";revision++;}
+        NativeUi.UiResourceLog.Write($"bookmark S64 整份清單 {next.Count}/{max} 筆");   // #1245 診斷
     }
     internal void ReceiveOne(LoginReader r){
         string name=r.S();ushort map=r.H(),x=r.H(),y=r.H();uint id=r.D();r.Finish();
@@ -59,6 +60,8 @@ public sealed class Bookmarks {
             bool pending=entries.TryGetValue(id,out var old)&&old.DeletePending;
             entries[id]=new(id,name,map,x,y,pending);notice="已收到伺服器書籤資料。";revision++;
         }
+        // #1245 診斷：C165（/bookmark、/qbookmark 名稱）的回包是 S92 單筆書籤；retest 以這行核對新增讀回。
+        NativeUi.UiResourceLog.Write($"bookmark S92 單筆 id={id} 名稱={name} 地圖 {map} ({x},{y})；清單 {Items.Length} 筆");
     }
     internal bool CanAdd(string name){lock(gate)return entries.Count<capacity&&!entries.Values.Any(b=>string.Equals(b.Name,name,StringComparison.OrdinalIgnoreCase));}
     internal void Sent(uint? deleted){lock(gate){
