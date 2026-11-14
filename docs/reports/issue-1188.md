@@ -6,19 +6,32 @@
 
 ## 已驗證：逐項結果
 
-下列 JSON／log 路徑相對本 worktree 的 `scratch/issue-1188/`，原始內容已封裝在 [Git 證據](issue-1188-evidence.json)；截圖已收進 [圖片目錄](issue-1188-images/)。
+下列 JSON／log 路徑相對本 worktree 的 `scratch/issue-1188/`，原始內容已封裝在 [Git 證據](issue-1188-evidence.json)；截圖保留於本機 scratch，路徑、尺寸、SHA-256 與沿用的目視結論見下表。
 
 | 編號 | 結果 | 實際觀察 | 重現步驟 | 證據路徑 |
 |---|---|---|---|---|
-| G01（前置） | ✅ 通過 | p24svc01 到 CharacterList，已解析 3/3 角色，三角色 Gm=0 | 以既有 private 帳密環境變數啟動 real-interactive；讀狀態、登入頁 UIA／GDI | `g01-login-state.json`、`g01-login-tree.json`、[登入圖](issue-1188-images/g01-login.png) |
-| N01-1 | ✅ 通過 | CharacterList 的「開發工具服務分頁」Enabled=false，符合對照預期 | 外層服務頁 → Find-UiaControl 精確名稱／Type Tab → 讀 Enabled 一次；未選停用子頁 | `n01-disabled.json`、`n01-disabled-tree.json`、[對照圖](issue-1188-images/n01-disabled.png) |
-| N01-2 | ✅ 通過 | 既有資源法師，InWorld、world.ready/coreComplete/entered=true、decodeFailure=null | 登入頁讀回 ComboBox=資源法師 → UIA Invoke「進入世界」一次 → 讀狀態 | `n01-enter.json`、`n01-world-login-state.json`、`n01-world-tree.json`、[世界狀態圖](issue-1188-images/n01-world.png) |
-| N01-3 | ✅ 通過 | 巢狀 Tab 與 16 個 TabItem 全為 Enabled=true；名稱、矩形對上標籤，含血盟 | InWorld → 外層服務 → Find-UiaControl $dev -Name 開發工具服務分頁 -Type Tab → 列全樹與 GDI 逐一核對 | `n01-enabled.json`、`n01-nested-tree.json`、[標籤圖](issue-1188-images/n01-tabs.png) |
-| N01-4a | ✅ 通過 | RequestedName/TabItem.Name=聲音、IsSelected=true、TabSelection=[聲音]；GDI 顯示音量頁 | Select-UiaTab 聲音一次 → 讀回 → GDI | `n01-sound-result.json`、`n01-sound-tree.json`、[聲音圖](issue-1188-images/n01-sound.png) |
-| N01-4b | ✅ 通過 | RequestedName/TabItem.Name=血盟、IsSelected=true、TabSelection=[血盟]；GDI 顯示血盟頁 | 重新 Find 巢狀 Tab → Select-UiaTab 血盟一次 → 讀回 → GDI | `n01-clan-result.json`、`n01-clan-tree.json`、[血盟圖](issue-1188-images/n01-clan.png) |
+| G01（前置） | ✅ 通過 | p24svc01 到 CharacterList，已解析 3/3 角色，三角色 Gm=0 | 以既有 private 帳密環境變數啟動 real-interactive；讀狀態、登入頁 UIA／GDI | `g01-login-state.json`、`g01-login-tree.json`、`scratch/issue-1188/g01-login.png` |
+| N01-1 | ✅ 通過 | CharacterList 的「開發工具服務分頁」Enabled=false，符合對照預期 | 外層服務頁 → Find-UiaControl 精確名稱／Type Tab → 讀 Enabled 一次；未選停用子頁 | `n01-disabled.json`、`n01-disabled-tree.json`、`scratch/issue-1188/n01-disabled.png` |
+| N01-2 | ✅ 通過 | 既有資源法師，InWorld、world.ready/coreComplete/entered=true、decodeFailure=null | 登入頁讀回 ComboBox=資源法師 → UIA Invoke「進入世界」一次 → 讀狀態 | `n01-enter.json`、`n01-world-login-state.json`、`n01-world-tree.json`、`scratch/issue-1188/n01-world.png` |
+| N01-3 | ✅ 通過 | 巢狀 Tab 與 16 個 TabItem 全為 Enabled=true；名稱、矩形對上標籤，含血盟 | InWorld → 外層服務 → Find-UiaControl $dev -Name 開發工具服務分頁 -Type Tab → 列全樹與 GDI 逐一核對 | `n01-enabled.json`、`n01-nested-tree.json`、`scratch/issue-1188/n01-tabs.png` |
+| N01-4a | ✅ 通過 | RequestedName/TabItem.Name=聲音、IsSelected=true、TabSelection=[聲音]；GDI 顯示音量頁 | Select-UiaTab 聲音一次 → 讀回 → GDI | `n01-sound-result.json`、`n01-sound-tree.json`、`scratch/issue-1188/n01-sound.png` |
+| N01-4b | ✅ 通過 | RequestedName/TabItem.Name=血盟、IsSelected=true、TabSelection=[血盟]；GDI 顯示血盟頁 | 重新 Find 巢狀 Tab → Select-UiaTab 血盟一次 → 讀回 → GDI | `n01-clan-result.json`、`n01-clan-tree.json`、`scratch/issue-1188/n01-clan.png` |
 | 收尾 | ✅ 通過 | 自啟 PID 全退出、兩埠無監聽；17 角色皆 AccessLevel=0／OnlineStatus=0；原持久 DB SHA 不變 | 客戶端 CloseMainWindow → SELECT → 停 Java → mysqladmin shutdown → 核 PID／埠／SHA | `client-final-close.json`、`characters-final.tsv`、`cleanup.json`、`original-db-final.json` |
 
 兩次 Select 的 TabItemError／TabSelectionError 均 null；巢狀、聲音、血盟 UIA 樹均無 Error。選血盟後多列標籤上下換列屬實際視窗行為，選取標籤和頁面一致。只切分頁，未操作頁內任何按鈕。
+
+### 截圖證據索引（#1196 調整引用方式）
+
+本機根目錄：`D:\lineage開發\TW1608262200研究\scratch\wt\task-1188`。下列路徑相對該 worktree；PNG 不追蹤進 git。六張原檔逐 byte 比對原提交 `b25ae7b5` 相同；目視結論沿用本報告原實測，不代表重新執行實機。
+
+| 檔名 | 本機路徑（scratch） | 尺寸 | SHA-256 | 目視結論 |
+|---|---|---|---|---|
+| `g01-login.png` | `scratch/issue-1188/g01-login.png` | 826×711 | `153d68fdd392213cdb118d971fbfd5e2e186873abf8b59287dd083daa5fb374c` | 沿用 G01：登入／選角畫面與 CharacterList 證據一致。 |
+| `n01-disabled.png` | `scratch/issue-1188/n01-disabled.png` | 826×711 | `fd23cc5111171fd28337c17827c407c20be28be01fc845ce7508a22edaa04a32` | 沿用 N01-1：CharacterList 的服務巢狀分頁停用。 |
+| `n01-world.png` | `scratch/issue-1188/n01-world.png` | 826×711 | `b1171c98d11303b03a77dce527e422c73e8555d0c76a497f0d1421a4c2ae3d96` | 沿用 N01-2：世界狀態證據；地圖載入提示仍屬原報告額外觀察。 |
+| `n01-tabs.png` | `scratch/issue-1188/n01-tabs.png` | 826×711 | `59fc5f764e9e86df9d1ad8db2bfc89dd7ded04911a37514061273538cb519467` | 沿用 N01-3：16 個標籤文字及位置一致，包含血盟。 |
+| `n01-sound.png` | `scratch/issue-1188/n01-sound.png` | 826×711 | `a715f2f07e191177abd86d1ac92ea0ddf4cd642b87b7a1ad9a7ee80f2f47e943` | 沿用 N01-4a：選取聲音，GDI 顯示音量頁。 |
+| `n01-clan.png` | `scratch/issue-1188/n01-clan.png` | 826×711 | `16bab92ed8d678b8bda1780257d36e6b09a2a426bdb259c83fa47502e0459e06` | 沿用 N01-4b：選取血盟，GDI 顯示血盟頁。 |
 
 ### N01-3 全部可見標籤
 
@@ -117,4 +130,4 @@ FROM p24_accounts.characters ORDER BY objid;
 - 推測：地圖提示與 SEG／壓縮格式支援有關；本張只保存原文，未追查其根因或影響範圍。
 - 待驗證／未執行：地圖實際顯示、SM08／SM09／SM48、服務子頁功能、移動、戰鬥、交易、對話；均不在本張範圍。
 - 下一棒：調度器／Claude 審閱本報告與證據、依流程合併；地圖載入提示交既有地圖任務判讀，不回退本張已通過的分頁結果。
-- 產出：本報告、`docs/reports/issue-1188-evidence.json`、六張 `docs/reports/issue-1188-images/*.png`。完整 log／一次性腳本／冷備份／隔離副本留本 worktree 的 `scratch/issue-1188/`；未遞迴刪除或移除 worktree。
+- 產出：本報告、`docs/reports/issue-1188-evidence.json`、六張本機 `scratch/issue-1188/*.png`（不追蹤，見上方 SHA-256 表）。完整 log／一次性腳本／冷備份／隔離副本留本 worktree 的 `scratch/issue-1188/`；未遞迴刪除或移除 worktree。
