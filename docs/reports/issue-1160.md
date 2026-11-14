@@ -48,6 +48,16 @@
 - `python -B -X utf8 scratch/make_plan_1160.py`：輸出 3 項，id／stage／depends_on 跟上表一致；腳本會先 assert #1156 原文的每個替換點都存在，才進行替換。
 - 引用的行號都在本分支（= main `6f7051fb`）讀過：`MenuButtonsPanel.cs:270,276`、`MenuHotkeyTests.cs:107–109`、`DevToolsForm.cs:63–67`、`UiClientBridge.cs:267–278`、`README.md:110,155`、`Test-NativeClient.ps1:206–208,261`。
 
+## 第 2 次嘗試（2026-11-14）的複核
+
+- 第 1 次的產出（commit `87411335`）已經推送，但調度器把結果標成 failed，沒有寫原因；log 只有 RESULT 摘要。
+- 這次重新核對以下各點，結果都沒變，計畫內容不改：
+  - `docs/plans/issue-1160.json` 是 3 項的陣列，欄位和 `issue-1143.json` 一致。
+  - #1156 已關閉（NOT_PLANNED）。
+  - 開啟中的 Issue 內文都沒有提到 1155，沒有漏改的依賴。
+  - `task/1160` 和 `origin/main`（`6f7051fb`）同步，沒有衝突。
+- 推測：failed 可能是因為上次的 RESULT 包在程式碼區塊裡，不是以 `=== RESULT ===` 開頭。這次會直接印出。
+
 ## 未驗證／推測
 
 - 推測：原版 3.81 在登入畫面也不處理 Ctrl+P（WM_CHAR 分派在遊戲世界的處理函式裡）。**沒有查證**，交給 `f1155-capture-n03` 第 1 步。
