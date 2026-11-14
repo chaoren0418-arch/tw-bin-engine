@@ -8,7 +8,7 @@
 
 ## 已驗證：靜態追查
 
-- 基線：`origin/main`／`c7a655e2`。main 未含 #1186 報告，故讀取 `origin/task/1186` 的 `issue-1186.md` 與 `issue-1186-evidence.json`；分流沿用 main 的 `issue-1201.md`。
+- 起始基線：`origin/main`／`c7a655e2`；收尾已同步至 `897510da`（只新增 #1204 分流文件，無衝突）。main 未含 #1186 報告，故讀取 `origin/task/1186` 的 `issue-1186.md` 與 `issue-1186-evidence.json`；分流沿用 main 的 `issue-1201.md`。
 - 唯讀查看 `environments/p24/backups/issue-1186-evidence/smoke-A3/normal-mage-ready.png`，SHA-256 `cf8dae9f825641985d0a7a85888634323b3b8183e1a2a7378b53f6b405270aa8`。PNG 未複製或加入 git。
 - `Renderer.ComposeObjects` 以最終 `Draw.Px/Py` 的 actor tiles 建立 `ActorBounds`；`NameTargets()` 讀相同外框。站立與走路都應追隨這個顯示影格，而非另以腳下內插點推導特殊原點。
 - 身體繪製：`PaintScene` 設定 `Camera.View/ViewOffset = viewport.Size/Location`，用 `Camera.ToView` 投影場景，再依 Zoom 畫 body patch。
@@ -32,10 +32,12 @@ dotnet build engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --c
 
 - 產品：0 errors、4 warnings，位於未修改的 `HtmlActionTests.cs`、`MagicUi.cs`、`MapResources.cs`。
 - DemoChecks：0 errors、3 warnings，位於未修改的 `DisplayNoticeChecks.cs`、`MacroChecks.cs`。
+- 同步 main 後，兩項以 `--no-restore` 再編譯成功；產品增量建置 0 warnings、DemoChecks 3 warnings。
 - 本機編譯 log：`scratch/build-product.log`、`scratch/build-checks.log`（不進 git）。CLI home、NuGet packages、TEMP/TMP 都指定本 worktree 的 scratch；同時設定 `DOTNET_ADD_GLOBAL_TOOLS_TO_PATH=false`、`DOTNET_NOLOGO=1`。
 - `git -c core.whitespace=cr-at-eol diff --check` 通過（保留既有來源 CRLF）。
 - 新增 `[CheckGroup("headbar-coordinates")]`，同時掛在既有 CI 會執行的 `native-ui-canvas` 群組；無需修改 workflow、Program.cs、DemoChecks.csproj 或註冊表。CI 結果以本 PR 最新 commit 的 checks／RESULT 為準。
 - 第一輪 CI（run `43569385441`）指出新測試放大鏡頭後把合成量表設到畫面外（舊中心 Y=946.5，Zoom 1.5× 步行外框 top=744 時，量表 y=−16），導致 `Plan().Single()` 無資料。已修正測試鏡頭中心，並在取量表前明確檢查整條在 WorldRect 內；產品程式不因這個 fixture 錯誤而改動。
+- 修正後 `6aaa4161` 的 [build CI](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/43569678141) 全綠（含新增頭上條檢查的 native-ui-canvas），[npc-offline](https://github.com/chaoren0418-arch/tw-bin-engine/actions/runs/43569678129) 也通過。同步 main 後仍須以 [PR #1214](https://github.com/chaoren0418-arch/tw-bin-engine/pull/1214) 最新 commit 的結果作合併閘門。
 
 新檢查以合成 actor tiles 與 surf 驗證以下內容，合成畫面只用於回歸，不能代替真機證據：
 
