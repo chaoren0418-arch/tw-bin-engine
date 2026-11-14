@@ -27,7 +27,7 @@
 聊天列（SM12）：列距 `ChatRules.LineHeight=12`（`State/ChatState.cs:38`）沒有寫死成別的值，字高回到 12 px 後與列距一致；逐字量寬（`ChatPanel.cs:147`）在 MingLiU 下就是 6／12 px，與 `UiText.Measure` 相加一致。不需另改列距。
 
 ## DPI 96／192 量測表
-本機規定不執行編譯出的程式，下表是**依字型度量推算**（推測，CI 會實測並以 `[native-ui-text-dpi]` 字樣印在 CI log）：
+修改前的值是**依字型度量推算**（推測；本機不執行編譯出的程式）；修改後的值見下方 CI 實測表：
 
 | 字串 | 修改前 DPI 96 | 修改前 DPI 192 | 修改後 DPI 96 | 修改後 DPI 192 |
 |---|---|---|---|---|
@@ -37,6 +37,24 @@
 | `32767/32767` 寬 | ≈ 66 | ≈ 132（超過 HP 條 85） | 66 | 66 |
 | `光箭` 寬 | 24 | 48 | 24 | 24 |
 | `99999` 寬 | ≈ 30 | ≈ 60（超過背包格 33） | 30 | 30 |
+
+**CI 實測（已驗證，PR #1213 run 43569360781 `map-continuity` job，windows-latest，face used: MingLiU）**——修改後 `UiText.Measure`（寬×高）與實際墨點框：
+
+| 字串 | Measure DPI 96 | Measure DPI 192 | 墨點 DPI 96 | 墨點 DPI 192 |
+|---|---|---|---|---|
+| 天堂 | 24×15 | 24×15 | 23×11 | 23×11 |
+| 國 | 12×15 | 12×15 | 11×11 | 11×11 |
+| A | 6×12 | 6×12 | 5×9 | 5×9 |
+| 1234/1234 | 54×12 | 54×12 | 52×10 | 52×10 |
+| 32767/32767 | 66×12 | 66×12 | 65×10 | 65×10 |
+| 100% | 24×12 | 24×12 | 23×10 | 23×10 |
+| 99% | 18×12 | 18×12 | 18×10 | 18×10 |
+| 光箭 | 24×15 | 24×15 | 23×11 | 23×11 |
+| 99999 | 30×12 | 30×12 | 29×9 | 29×9 |
+| [測試者] 你好，這是一行聊天訊息。 | 198×15 | 198×15 | 191×12 | 191×12 |
+| 說明：Ctrl+H 文字 | 102×15 | 102×15 | 101×11 | 101×11 |
+
+註：含中文的字串 `Measure` 高是 15（GDI+ 行距含 MingLiU 的 lineGap 204/1024），墨點都 ≤ 12；面板的行距一律用 `ChatRules.LineHeight`／`UiText.PixelHeight`＝12，不用 Measure 高。
 
 格子寬度來源（檢查裡用的數字）：
 - HUD：`HpMpLayout.For` V1 表（`HpMpPanel.cs:20-51`，docs/reference/ui-layout.md §2 V1）；最窄：橫式一般 status 0 HP 85×20、MP 80×20；粗條高 14、直式高 15。
@@ -53,12 +71,13 @@
 
 ## 怎麼驗證
 - 已驗證：本機 `dotnet build source/OfflineClient.csproj -c Release`、`dotnet build _integration/dev/demo-tests/DemoChecks.csproj -c Release` 皆 0 錯誤（設了 `DOTNET_CLI_HOME`＋`DOTNET_ADD_GLOBAL_TOOLS_TO_PATH=false`＋`DOTNET_NOLOGO=1`）。根因鏈（PerMonitorV2 → Bitmap DPI → 點數字型）為靜態讀碼確認。MingLiU 度量以 fontTools 唯讀讀 `C:\Windows\Fonts\mingliu.ttc`。
-- 待 CI：`native-ui-canvas`（含新檢查）與 `--module-tests` 綠燈。
+- CI（PR #1213）：`dotnet`、`map-continuity`（含 `native-ui-canvas` 群組與新檢查、`--module-tests`）、`npc-offline` 全部 pass；CI 機器有 MingLiU，MingLiU 專屬斷言（半形 6／全形 12／逐字相加）也有跑到。
 - 未做：沒有執行任何編譯出的程式、沒有看真機畫面（依 claude-local 限制）。
 
 ## 已驗證／推測／待驗證
 - **已驗證**：根因位置（`Program.cs:15`、`UiCanvas.cs:14`、舊 `UiText.cs:12`）；原版字型參數（既有 `NativeNameFont` 註解與測試）；MingLiU 度量；編譯通過。
-- **推測**：上表數值（由字型度量推算，CI 會實測）；GDI+ 畫 MingLiU 12 px 與原版 GDI TextOut 的像素是否逐點相同（只保證大小一致，未比對點陣）；`Font.Height` 改 `PixelHeight` 後背包數量、倉庫數量、交易數量、登入提示行距與原版一致（原版 cell 高 12）。
+- **已驗證（CI）**：修改後 DPI 96／192 量測與墨點完全相同、墨點高 ≤ 12、各格子放得下（CI 實測表）。
+- **推測**：修改前的數值（由字型度量推算）；GDI+ 畫 MingLiU 12 px 與原版 GDI TextOut 的像素是否逐點相同（只保證大小一致，未比對點陣）；`Font.Height` 改 `PixelHeight` 後背包數量、倉庫數量、交易數量、登入提示行距與原版一致（原版 cell 高 12）。
 - **待驗證（交 `f1186-retest`，DPI 192、800×600）**：SM10 底列 HP／MP 數值、百分比、左側狀態字不重疊（注意：HP 條 status 1 時「百分比在左 +7」與「數值置中」在大數值下可能本來就靠很近，請截圖確認）；SM12 聊天列不裁切；SM16／SM33 Ctrl+H 說明頁不重疊；SM18 背包數量不重疊；SM20 魔法窗「光箭」不超格；SM04 登入框文字（提示行距、游標高度）回歸。
 
 ## 產出
