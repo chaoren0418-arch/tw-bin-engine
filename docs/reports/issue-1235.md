@@ -1,6 +1,6 @@
 # Issue #1235：持久 map4 fixture 的 F07／M01 重測
 
-**結論：通過（本輪 ✅ 4／❌ 0／⚠️ 0；含 G01 前置與本輪收尾，沿用列不計數）。** 資源法師在地圖 4（33071,32800）進世界，快取明確載入 `80048001`，地圖資源 ready，PrintWindow 可見地面。沒有修改產品程式、helper、DB 資料或角色位置。
+**結論：通過（本輪 ✅ 4／❌ 0／⚠️ 0；含 G01 前置與本輪收尾，沿用列不計數）。** 資源法師在地圖 4（33071,32800）進世界，快取明確載入 `80048001`，地圖資源 ready，PrintWindow 可見地面。沒有修改產品程式或 helper，沒有手動寫 DB 或改角色位置；登入自動寫入只在隔離副本。
 
 2026-11-14 18:32–18:38（台北）執行；分支 `task/1235`，建置來源 main `8514a9f1`。已閱讀 AGENTS.md、docs/REPORT.md、UIA README 與指定來源；main 沒有 #1197／#1215 報告及 fixture.json，從 `origin/task/1197`／`origin/task/1215` 唯讀取得，實際 fixture 只用 main 的 `fixture-persist.json` 指定持久路徑。開始記一次 `query session`：console／CHAOREN／6／Active。
 
