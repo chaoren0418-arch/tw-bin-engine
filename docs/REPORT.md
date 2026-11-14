@@ -475,3 +475,4 @@
 - 2026-11-14 — #1148 f1138-foreground: f1138-foreground: UIA 工具的前景取得改為 AttachThreadInput 多步驟並附診斷，GDI 截圖改 PrintWindow 優先（#1138 S02／S02-GDI）（code，claude-local，PR 已合併）→ [報告](reports/issue-1148.md)
 - 2026-11-14 — #1149 f1138-retest: f1138-retest: 記事本前置重測 #1138 的 S02、S02-GDI、P01（附帶回歸 S02-CLOSE）（test，codex-local，PR #1157 已合併）→ [報告](reports/issue-1149.md)
 - 2026-11-14 — #1154 f1145-native-input: f1145-native-input: 原生 UI 客戶端的 GDI 工作區截圖＋客戶端座標 SendInput 點擊／按鍵工具與 Test-NativeClient.ps1（靜態實作，#1145 N01–N04 的工具）（code，claude-local，PR 已合併）→ [報告](reports/issue-1154.md)
+- 2026-11-14 — #1159 分流：tw-bin-engine#1150 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1161 已合併）→ [報告](reports/issue-1159.md)
