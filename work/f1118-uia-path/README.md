@@ -359,7 +359,7 @@ $r | Select-Object Status,SendConfirmed,ResponseObserved,Error
 # /loc <角色>：ExpectedOpcode 254；S71 是錯誤提示之一，收件者端才看 S250/111。
 ```
 
-`Clear-SmokeChat` 點輸入列**中央**（左端與頻道按鈕重疊），送 106 次 Backspace。原生 `ChatInputLine` 的上限是 106，沒有 Ctrl+A/Delete；Esc 只關閉、不清草稿。清除後拍 GDI，檢查文字區沒有白色字形（只排除起點兩像素的游標），輸入 `W` 作正向確認，再 Backspace 並重拍。`W` 必須出現在文字起點、刪除後必須恢復空白，否則拋錯，**不送指令**。這是目前白字／像素字型的視覺檢查，非 OCR；矩形、字型、文字色或背景變更時需重新校準，不能關掉檢查硬送。`-Fill` 要和 native-ui.json 的 fill 設定一致。
+`Clear-SmokeChat` 先確認主視窗 HWND 在前景，Esc→點輸入列**中央**（左端與頻道按鈕重疊）→106 次 Backspace，每 16 次稍等繪圖。原生 `ChatInputLine` 的上限是 106，沒有 Ctrl+A/Delete；Esc 只關閉、不清草稿。清除後以目標 DPI context 的 PrintWindow 拍 GDI，檢查文字區沒有白色字形（只排除起點兩像素的游標），輸入 `W` 作正向確認，再 Backspace 並重拍。`W` 必須出現在文字起點、刪除後必須恢復空白；失敗預設最多重試 3 次，仍失敗就拋錯，**不送指令**。每次圖與錯誤均保留，詳見下方 f1211-retest。這是目前白字／像素字型的視覺檢查，非 OCR；矩形、字型、文字色或背景變更時需重新校準，不能關掉檢查硬送。`-Fill` 要和 native-ui.json 的 fill 設定一致。
 
 `Send-SmokeCommand` 自行先清除，保存輸入後與送出後的 PNG、狀態快照及 `*-send.json`。它只讀 `TW_PACKET_TRACE` 的 `{utc,dir,op,len,seq}` 格式，採送 Enter 前的完整內容作分界，忽略舊列與未完成列；遇到截斷／替換視為未知。不可把其他格式的 client-network.jsonl 直接傳入。
 
@@ -452,3 +452,86 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File work/f1118-uia-path/Test
 ```
 
 測試包含共享讀取與同時截斷寫入、有效快照、JSONL 舊列／半列／截斷拒絕、物件不存在拒絕、座標向量、錄音 interop 編譯、錄音 session 判定（自家有聲／他人靜音 active／他人有聲／無 meter／跨程序／-RequireExclusive）與 JSON 欄位，以及送鍵日誌保留 `Keys`／VirtualKey／Modifiers。這些是工具契約測試，不能替代真機自測或任何 SM 判定。
+
+## f1211-retest：有效 DPI 96、清空重試、IME 限制（#1247）
+
+以下只補工具取證，**不代表任何 SM 通過**。先依上方前置建置、啟動 P24Lab 測試角色；只 dot-source `UiaGdi.ps1` 和 `SmokeTools.ps1` 即可，後者會載入同目錄的 `SmokeRetest.ps1`。所有輸出放目前 worktree 的 `scratch/`，TEMP／TMP 亦指向其子目錄。完整自測與 SHA 見 [issue-1247.md](../../docs/reports/issue-1247.md)。
+
+### DPI 96 採用的方法
+
+**登入、選角、建角、世界均用 `Get-SmokeDpiCapture`**；世界可另存 `Save-SmokeCanvasCapture` 的 Ctrl+P 原生畫布。前者在一次同步 C# 呼叫內讀目標視窗 DPI context，暫切換**擷取執行緒**，以該座標系取得完整視窗、PrintWindow(flags=2)、裁 client 區，finally 還原 context；不縮圖、不補黑邊、不用桌面截圖替代失敗結果。
+
+```powershell
+# 沿用前置的 $ev、TW_PACKET_TRACE；只對新啟動的客戶端套用相容層。
+$previousCompat=$env:__COMPAT_LAYER
+try {
+    $env:__COMPAT_LAYER='DPIUNAWARE'
+    $p=Start-Process ./engine/build/client-product-dev/P11.ClientEngine.exe `
+        -ArgumentList @('--normal-product','--evidence',('"'+$ev+'"')) `
+        -WorkingDirectory ./engine -PassThru
+} finally { $env:__COMPAT_LAYER=$previousCompat }
+# 依前置範例記錄 PID／StartTime、等待主窗並取得 $hwnd，不認領既有程序。
+# 保持預設視窗大小；正常 192 客戶端 client=800x600，DPIUNAWARE 實體 client=1600x1200。
+$shot=Get-SmokeDpiCapture $hwnd "$ev/dpi96-selection.png"
+$shot | Select-Object WindowDpi,CallerSystemDpi,Width,Height,ContextRestored,Sha256
+
+# 只有 InWorld 才能按 Ctrl+P；登入／選角／建角不能用它當取證方法。
+$canvas=Save-SmokeCanvasCapture $hwnd "$ev/login-state.json" `
+    ([IO.Path]::GetFullPath('engine/runtime/Capture')) "$ev/dpi96-world"
+$canvas | Select-Object Captured,WindowDpi,Width,Height,Error
+```
+
+`Get-SmokeDpiCapture` 同時寫 `<png>.json`：尺寸、裁切原點、WindowDpi、CallerSystemDpi、Awareness、ContextRestored、SHA。**有效 DPI 96**的判據是目標 `WindowDpi=96`、800×600 畫面四邊完整；本機 `CallerSystemDpi=192` 是正常的。這證明相容程序的有效畫布，**不代表實體桌面改成 96 DPI**。實體桌面驗收仍需另行裁定，本工具不改登錄檔或顯示縮放。
+
+#1247 同角色選角的 192／96 圖為逐像素相同；建角能力頁與世界也已比對尺寸和四邊。世界動畫、光線、HP 回復會隨時間變化，不能要求兩次世界 PNG SHA 相同。Ctrl+P 兩個 DPI 均為 800×600，適合補世界 HUD／背包／技能等原生畫布證據，**不含獨立 WinForms 對話框或 IME 候選窗**。
+
+舊 `Get-GdiClientCapture` 對 DPIUNAWARE 的 1600×1200 實體裁切仍不可用於判定 DPI 96；保留它供舊用途。`Send-ClientClick` 的座標映射仍使用實體螢幕尺度，不要把新擷取圖的 800×600 像素當螢幕座標。若有自家開發工具遮住目標，先明確關閉該 owned 視窗；工具拒點的結果不能當產品失敗。不要在同一流程高速連續送 Enter；轉頁後先等待並確認畫面。
+
+### 聊天重試與 send.json
+
+```powershell
+$inputRect=@(143,586,338,12)
+$clear=Clear-SmokeChat $hwnd $statePath "$ev/pre-command" $inputRect -MaxAttempts 3
+$r=Send-SmokeCommand $hwnd $statePath "$ev/packet-trace.jsonl" '/focus' 129 `
+    -InputRect $inputRect -EvidencePrefix "$ev/focus" -MaxClearAttempts 3
+$r.Clear.Attempts | Select-Object Number,Empty,Error,EvidencePrefix
+$r | Select-Object SendConfirmed,Status,Error
+```
+
+兩參數皆允許 1–5，預設 3。每次獨立執行 Esc→重取焦點→點輸入列→分批 Backspace→空白檢查→`W` 正向控制→刪除確認；**重試只處理清空，不會重送指令**。`-try1`／`-try2`／`-try3` 保存三張圖與統計，外層 `-clear.json` 每次更新；即使全部失敗，`-send.json` 仍包含 `Clear.Attempts[]`、時間、原因，SendConfirmed 保持 false。前置 packet-trace 無法讀取時不碰草稿。指令送出仍以新產生的 `out/op` 紀錄確認，未見指定 opcode 不等於伺服器不支援。
+
+清空與送出圖均使用新 DPI capture。若視窗縮放造成實體輸入座標與目標 viewport 比例不同，清空會在點擊前拒絕，請恢復預設大小；不得略過檢查。這仍是目前白字的像素正向控制，不是通用 OCR。
+
+### 真正 IME：目前仍需使用者驗收
+
+```powershell
+$ime=Get-SmokeImeDiagnostic $hwnd "$ev/ime-diagnostic.json"
+$ime | Select-Object TargetThread,LoadedLayouts,TargetOpenStatus,CompositionVerified
+```
+
+`Get-SmokeImeDiagnostic` 只診斷：列出已載入 HKL，於**呼叫工具的同一執行緒**以 `ActivateKeyboardLayout(flags=0)` 嘗試啟用目標 HKL，finally 還原；記錄目標執行緒前後 HKL、default IME HWND 和唯讀 open status。沒有載入／安裝輸入法、沒有更改系統預設、沒有使用會寫設定的 flags。此機只有 `0x04040404`；Activated=true 但 DidChange=false、TargetOpenStatus=0，**不能當成 IME 成功**。
+
+#1247 在聊天及建角欄以實際 VK（S、U、3、Down）試組字，另試 Ctrl+Space、Shift；聊天只得到 `su3`，建角未取得組字／候選；對 default IME 的 open 請求亦未改變讀回。未取得候選選字證據，所以不提供會宣稱成功的自動 IME 輸入函式，`CompositionVerified` 固定 false。Unicode SendInput、一般文字成功、或 HKL=zh-TW 都不能替代真正組字。
+
+原因界線：工具的 ActivateKeyboardLayout 不會替客戶端執行緒啟用 IME；Microsoft 的 [IMM 多執行緒規則](https://learn.microsoft.com/en-us/windows/win32/intl/developing-ime-aware-multiple-thread-applications) 禁止執行緒存取別人建立的輸入 context，因此不能拿外部客戶端的 HIMC 呼叫 ImmSetOpenStatus。此輪沒有用注入或修改產品突破這個界線，也沒有證明引擎本身無法支援 IME。API 範圍見 [ActivateKeyboardLayout](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-activatekeyboardlayout) 與 [GetWindowDpiAwarenessContext](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getwindowdpiawarenesscontext)。
+
+`f1211-retest` 的 SM08／SM12 IME 子項交使用者：在 P24Lab 測試角色、既有輸入法下，按注音鍵→開候選→選字，保留「未提交的組字、候選窗、選字後」三個狀態；聊天另核 C136。候選窗須獨立取證，不能只交 Ctrl+P。若無法完成，維持 ⚠️，由使用者裁定是否列已知限制；其他 DPI／聊天子項可繼續。
+
+### 新函式與離線驗證
+
+| 函式 | 用法／範圍 |
+|---|---|
+| `Get-SmokeDpiCapture` | 見 DPI 範例；失敗拋錯，不自動改用實體裁切。 |
+| `Save-SmokeCanvasCapture` | 見 Ctrl+P 範例；預設等 5 秒（可設 1–15），只接受唯一新產生的完整 800×600 PNG；原圖複製到 evidence，不覆寫既有目的檔；失敗仍寫 `-canvas.json`。 |
+| `Get-SmokeImeDiagnostic` | 見 IME 範例；診斷不代表組字通過。 |
+| `Assert-SmokeMainForeground` | `Assert-SmokeMainForeground $hwnd` 嘗試聚焦指定主窗；`-CheckOnly` 只核對、不切焦點。 |
+| `Clear-SmokeChatAttempt` | 內部單次清除，參數沿用 `Clear-SmokeChat`；直接呼叫不會重試，應使用外層。 |
+| `Get-SmokeChatBitmap` | 內部 `Get-SmokeChatBitmap $hwnd -Fill:$fill`，回 Bitmap／Geometry／Stats；Bitmap 由呼叫者 Dispose，Geometry 只供擷取圖像素分析。 |
+| `Import-SmokeRetestNative` | 內部惰性編譯 C# interop；不需 NuGet，不改產品。 |
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -STA -File work/f1118-uia-path/Test-SmokeRetest.ps1 `
+    -EvidenceDirectory scratch/f1211-retest/contracts
+```
+
+此測試明確使用 mock 驗證重試恢復、耗盡後不輸入／不按 Enter、失敗紀錄保留、trace 前置與參數上限；不把 mock 當真機結果。既有 `Test-SmokeTools.ps1` 仍須通過。

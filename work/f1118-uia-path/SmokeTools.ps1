@@ -1,6 +1,7 @@
 # f1186-retest helpers. Dot-source after UiaGdi.ps1. Windows PowerShell 5.1.
 # No product reflection, packet injection, UIA setters, database access or process discovery.
 Set-StrictMode -Version Latest
+. "$PSScriptRoot/SmokeRetest.ps1"
 
 function Read-SmokeText {
     param([Parameter(Mandatory)][string]$Path)
@@ -82,36 +83,51 @@ function Measure-SmokeInputInk {
     [pscustomobject]@{WhitePixels=$ink;ProbePixels=$probe;Rect=$r}
 }
 
-function Clear-SmokeChat {
+function Clear-SmokeChatAttempt {
     param([Parameter(Mandatory)][IntPtr]$Hwnd,[Parameter(Mandatory)][string]$StatePath,
         [Parameter(Mandatory)][string]$EvidencePrefix,[Parameter(Mandatory)][int[]]$InputRect,[switch]$Fill)
     $state=Read-SmokeJson $StatePath
     if($state.state -ne 'InWorld' -or -not $state.world.renderable){throw 'Chat requires a renderable InWorld client'}
+    # Validate DPI/input mapping before any click or key, including unsupported resized DPI-unaware windows.
+    $geometryProbe=Get-SmokeChatBitmap $Hwnd -Fill:$Fill
+    $geometryProbe.Bitmap.Dispose()
+    Assert-SmokeMainForeground $Hwnd
+    # Esc cancels composition / closes the draft; clicking reopens it without submitting anything.
+    $null=Send-ClientKey $Hwnd 'Escape'
+    Start-Sleep -Milliseconds 120
     # The channel tabs overlap the left end of CHAT_BAR; click its centre, not the text origin.
     $null=Send-ClientClick $Hwnd ($InputRect[0]+$InputRect[2]/2) ($InputRect[1]+$InputRect[3]/2) -Fill:$Fill
     # Native ChatInputLine does not implement Ctrl+A/Delete. Esc preserves its draft.
-    for($i=0;$i -lt 106;$i++){ $null=Send-ClientKey $Hwnd 'Backspace' }
-    Start-Sleep -Milliseconds 180
-    $g=Get-ClientWindowGeometry $Hwnd -Fill:$Fill
-    $before=Get-GdiClientBitmap $Hwnd
+    Start-Sleep -Milliseconds 120
+    for($i=0;$i -lt 106;$i++){
+        Assert-SmokeMainForeground $Hwnd -CheckOnly
+        $null=Send-ClientKey $Hwnd 'Backspace'
+        if(($i+1)%16 -eq 0){Start-Sleep -Milliseconds 40}
+    }
+    Start-Sleep -Milliseconds 300
+    $before=Get-SmokeChatBitmap $Hwnd -Fill:$Fill
+    $g=$before.Geometry
     try {
         $blank=Measure-SmokeInputInk $before.Bitmap $g $InputRect
         $blankCapture=Save-GdiClientBitmap $before ($EvidencePrefix+'-empty.png')
     } finally {$before.Bitmap.Dispose()}
     if($blank.WhitePixels -ne 0){throw "Input not visually empty ($($blank.WhitePixels) white pixels); no command sent"}
     # Positive control: verifies that the bar is open and this rectangle actually contains its input origin.
+    Assert-SmokeMainForeground $Hwnd -CheckOnly
     Send-ClientText $Hwnd 'W'
-    Start-Sleep -Milliseconds 150
+    Start-Sleep -Milliseconds 300
     try {
-        $probe=Get-GdiClientBitmap $Hwnd
+        $probe=Get-SmokeChatBitmap $Hwnd -Fill:$Fill
         try {
+            if($probe.Geometry.ClientWidth -ne $g.ClientWidth -or $probe.Geometry.ClientHeight -ne $g.ClientHeight){throw 'Client resized during clear'}
             $probeInk=Measure-SmokeInputInk $probe.Bitmap $g $InputRect
             $probeCapture=Save-GdiClientBitmap $probe ($EvidencePrefix+'-probe.png')
         } finally {$probe.Bitmap.Dispose()}
-    } finally { $null=Send-ClientKey $Hwnd 'Backspace' }
-    Start-Sleep -Milliseconds 150
-    $after=Get-GdiClientBitmap $Hwnd
+    } finally { Assert-SmokeMainForeground $Hwnd -CheckOnly; $null=Send-ClientKey $Hwnd 'Backspace' }
+    Start-Sleep -Milliseconds 300
+    $after=Get-SmokeChatBitmap $Hwnd -Fill:$Fill
     try {
+        if($after.Geometry.ClientWidth -ne $g.ClientWidth -or $after.Geometry.ClientHeight -ne $g.ClientHeight){throw 'Client resized during clear'}
         $afterInk=Measure-SmokeInputInk $after.Bitmap $g $InputRect
         $afterCapture=Save-GdiClientBitmap $after ($EvidencePrefix+'-verified-empty.png')
     } finally {$after.Bitmap.Dispose()}
@@ -121,23 +137,60 @@ function Clear-SmokeChat {
     $result
 }
 
+function Assert-SmokeMainForeground {
+    # PID alone is insufficient: a dev-tools or modal window can share the client PID.
+    param([Parameter(Mandatory)][IntPtr]$Hwnd,[switch]$CheckOnly)
+    if((Get-UiaForegroundInfo).Handle -ne $Hwnd.ToInt64() -and -not $CheckOnly){
+        $null=Set-UiaForeground ([Windows.Automation.AutomationElement]::FromHandle($Hwnd))
+    }
+    if((Get-UiaForegroundInfo).Handle -ne $Hwnd.ToInt64()){throw 'Exact client HWND is not foreground; no input sent'}
+}
+
+function Clear-SmokeChat {
+    param([Parameter(Mandatory)][IntPtr]$Hwnd,[Parameter(Mandatory)][string]$StatePath,
+        [Parameter(Mandatory)][string]$EvidencePrefix,[Parameter(Mandatory)][int[]]$InputRect,[switch]$Fill,
+        [ValidateRange(1,5)][int]$MaxAttempts=3)
+    $attempts=[Collections.Generic.List[object]]::new()
+    $null=[IO.Directory]::CreateDirectory([IO.Path]::GetDirectoryName([IO.Path]::GetFullPath($EvidencePrefix)))
+    $result=[ordered]@{Empty=$false;MaxAttempts=$MaxAttempts;Attempts=@();Error=$null}
+    for($i=1;$i -le $MaxAttempts;$i++){
+        $attempt=[ordered]@{Number=$i;StartedUtc=[DateTime]::UtcNow.ToString('o');Empty=$false;Error=$null;EvidencePrefix=($EvidencePrefix+'-try'+$i)}
+        try {
+            $attempt.Verification=Clear-SmokeChatAttempt $Hwnd $StatePath $attempt.EvidencePrefix $InputRect -Fill:$Fill
+            $attempt.Empty=$true;$result.Empty=$true
+        } catch {$attempt.Error=$_.Exception.Message}
+        $attempt.CompletedUtc=[DateTime]::UtcNow.ToString('o');$attempts.Add([pscustomobject]$attempt)
+        $result.Attempts=@($attempts.ToArray())
+        $result.Error=if($result.Empty){$null}else{$attempt.Error}
+        Save-SmokeJson ($EvidencePrefix+'-clear.json') $result
+        if($result.Empty){return [pscustomobject]$result}
+        if($i -lt $MaxAttempts){Start-Sleep -Milliseconds 350}
+    }
+    $errorRecord=[InvalidOperationException]::new("Chat clear failed after $MaxAttempts attempts; no command sent: $($result.Error)")
+    $errorRecord.Data['SmokeClear']=[pscustomobject]$result
+    throw $errorRecord
+}
+
 function Send-SmokeCommand {
     param([Parameter(Mandatory)][IntPtr]$Hwnd,[Parameter(Mandatory)][string]$StatePath,
         [Parameter(Mandatory)][string]$TracePath,[Parameter(Mandatory)][string]$Command,
         [Parameter(Mandatory)][ValidateRange(0,255)][int]$ExpectedOpcode,
         [int[]]$ResponseOpcodes=@(),[ValidateRange(1,30)][int]$TimeoutSeconds=4,
-        [Parameter(Mandatory)][string]$EvidencePrefix,[Parameter(Mandatory)][int[]]$InputRect,[switch]$Fill)
+        [Parameter(Mandatory)][string]$EvidencePrefix,[Parameter(Mandatory)][int[]]$InputRect,[switch]$Fill,
+        [ValidateRange(1,5)][int]$MaxClearAttempts=3)
     if($Command.Length -eq 0 -or $Command.Length -gt 106 -or $Command -match '[\r\n\x00-\x1f]'){throw 'Command must be one nonempty line within the native 106-character limit'}
     $result=[ordered]@{Command=$Command;ExpectedOpcode=$ExpectedOpcode;ResponseOpcodes=$ResponseOpcodes;SendConfirmed=$false;ResponseObserved=$false;Status='not-attempted';Error=$null}
     try {
         # Require a working trace before touching the draft; TW_PACKET_TRACE must be set before launching the client.
         $null=Get-SmokeTraceMark $TracePath
-        $result.Clear=Clear-SmokeChat $Hwnd $StatePath $EvidencePrefix $InputRect -Fill:$Fill
+        $result.Clear=Clear-SmokeChat $Hwnd $StatePath $EvidencePrefix $InputRect -Fill:$Fill -MaxAttempts $MaxClearAttempts
+        Assert-SmokeMainForeground $Hwnd -CheckOnly
         Send-ClientText $Hwnd $Command
         Start-Sleep -Milliseconds 150
-        $result.Typed=Get-GdiClientCapture $Hwnd ($EvidencePrefix+'-typed.png')
+        $result.Typed=Get-SmokeDpiCapture $Hwnd ($EvidencePrefix+'-typed.png')
         $mark=Get-SmokeTraceMark $TracePath
         $result.SubmitUtc=[DateTime]::UtcNow.ToString('o')
+        Assert-SmokeMainForeground $Hwnd -CheckOnly
         $null=Send-ClientKey $Hwnd 'Enter'
         $deadline=[DateTime]::UtcNow.AddSeconds($TimeoutSeconds);$rows=@()
         do {
@@ -153,9 +206,12 @@ function Send-SmokeCommand {
         } while([DateTime]::UtcNow -lt $deadline)
         $result.TraceRows=$rows
         $result.Status=if(-not $result.SendConfirmed){'send-not-observed'}elseif($ResponseOpcodes.Count -eq 0){'sent-response-not-specified'}elseif($result.ResponseObserved){'sent-expected-response-observed'}else{'sent-no-expected-response-in-window'}
-        $result.After=Get-GdiClientCapture $Hwnd ($EvidencePrefix+'-after.png')
+        $result.After=Get-SmokeDpiCapture $Hwnd ($EvidencePrefix+'-after.png')
         $result.State=Copy-SmokeState $StatePath ($EvidencePrefix+'-state.json')
-    } catch { $result.Error=$_.Exception.Message;$result.Status='unknown-or-precondition-failed' }
+    } catch {
+        if($_.Exception.Data.Contains('SmokeClear')){$result.Clear=$_.Exception.Data['SmokeClear']}
+        $result.Error=$_.Exception.Message;$result.Status='unknown-or-precondition-failed'
+    }
     Save-SmokeJson ($EvidencePrefix+'-send.json') $result
     [pscustomobject]$result
 }
