@@ -60,10 +60,19 @@ public static class ActionTiming {
         return file.Sequences.TryGetValue(action,out var seq)?Read(seq):throw new InvalidDataException($"profile has no {action} sequence");
     }
     /// <summary>R1：某 profile 某動作的伺服器間隔。</summary>
-    public static int ServerMs(PlayerProfile profile,string action)=>ServerMs(StepsOf(profile.Path,profile.Sha256,action));
+    public static int ServerMs(PlayerProfile profile,string action)=>ServerMs(StepsOf(profile,action));
     /// <summary>R2：施法放出點（spellDir／spellNoDir）。</summary>
-    public static int? CastReleaseMs(PlayerProfile profile,string action="spellDir")=>ReleaseMs(StepsOf(profile.Path,profile.Sha256,action));
+    public static int? CastReleaseMs(PlayerProfile profile,string action="spellDir")=>ReleaseMs(StepsOf(profile,action));
     /// <summary>R2：弓的箭矢放出點（動作 21＝20+1）。只有弓的 profile 有；其他姿勢的攻擊雖然也帶 '!'，不是放箭點。</summary>
-    public static int? ProjectileReleaseMs(PlayerProfile profile)=>profile.Weapon==20?ReleaseMs(StepsOf(profile.Path,profile.Sha256,"attack")):null;
+    public static int? ProjectileReleaseMs(PlayerProfile profile)=>profile.Weapon==20?ReleaseMs(StepsOf(profile,"attack")):null;
+    /// <summary>
+    /// 某 profile 某動作方向 0 的影格。#1243：按需建出的 profile（T478 的玩家規則、#1243 的寬鬆建置）沒有檔案，影格取自它帶的
+    /// 外觀（同一段 list.spz ticks／事件）；沒有那個動作時與檔案一樣丟 InvalidDataException。
+    /// </summary>
+    public static ActionStep[] StepsOf(PlayerProfile profile,string action)=>profile.Runtime is {} runtime
+        ?runtime.Sequences.TryGetValue((action,0),out var seq)?seq.Select(s=>new ActionStep(s.Ticks,s.Events)).ToArray():throw new InvalidDataException($"profile has no {action} sequence")
+        :StepsOf(profile.Path,profile.Sha256,action);
+    /// <summary>#1243：profile 有沒有某動作（準備好的 profile 一定有七個動作；寬鬆建置只有 gfx 本身有的）。</summary>
+    public static bool Has(PlayerProfile profile,string action)=>profile.Runtime is {} runtime?runtime.Supports(action,0):true;
     /// <summary>不經 manifest 的外觀檔（objects/0.json 等）：只讀 sequences 的 ticks，不比 SHA（呼叫端原本的讀法也不比）。</summary>
     public static ActionStep[] StepsOfObject(string relative,string action)=>Steps(Json.Read(Path.Combine(AssetsRoot,relative)),action);}

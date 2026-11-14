@@ -7,11 +7,14 @@ namespace P06;
 // （預熱清單決定先解哪些，docs/design/asset-recipe.md 第 5 節），不是職業表；按需準備由 T477／T478 處理。
 public sealed record PlayerProfile(int Gfx,int Weapon,string Path,string Sha256,int StepMs,Dictionary<string,int> ServerActionMs,Dictionary<string,int> CastReleaseMs,int? ProjectileReleaseMs){
     /// <summary>T478 (#1074): the appearance of a profile built on demand (memory only; Path is then the recipe's virtual path).</summary>
-    public ObjectAppearance? Runtime {get;init;}
+    [System.Text.Json.Serialization.JsonIgnore] public ObjectAppearance? Runtime {get;init;}
+    /// <summary>#1243: true for a lenient build (RuntimeAppearances.Lenient): only the actions the gfx has, no recorded times.</summary>
+    public bool Lenient=>Runtime!=null&&Path.StartsWith("runtime/players-lenient/",StringComparison.Ordinal);
 }
 public static class PlayerProfiles {
     // TW16 sub_A3EF40 第 3 點（AN§3.4）：他人的 sprite 檔不存在時改畫 gfx 1120、動作 0。只用於他人
-    // （ObjectRendering 的 ObjectDrawFallback）；自己沒有這條退回，仍由 AppearanceNotice 告知。
+    // （ObjectRendering 的 ObjectDrawFallback）；自己沒有這條退回：#1243 起自己改走 Resolve 的寬鬆建置（gfx 有的動作都畫），
+    // 連寬鬆建置都做不出來（例如 1395 這種沒有任何動作的靜態外型）時，仍由 AppearanceNotice 告知（資料未到，原因寫進 native-ui.log）。
     public const int MissingSpriteGfx=1120;
     static readonly Lazy<Dictionary<(int,int),PlayerProfile>> profiles=new(()=>LoadManifest(System.IO.Path.GetFullPath(System.IO.Path.Combine(AppContext.BaseDirectory,"../../assets"))));
     /// <summary>players/manifest.json of an assets tree, checked against that tree's integrity.json (T455: the preparer's tests load prepared trees with this same reader).</summary>
@@ -58,6 +61,12 @@ public static class PlayerProfiles {
     /// synthetic set, so they never touch the process-wide manifest). <paramref name="onDemandFor"/> says which gfx may be built
     /// with the player rule on demand.
     /// </summary>
+    //
+    // #1243 (f1211-player-appearance): when the player rule is unavailable for both the stance and stance 0 (not pending), an
+    // on-demand gfx is built leniently (RuntimeAppearances.Lenient: the actions the list.spz entry has, no bounds refusal) —
+    // stance first, then stance 0. Before this the own character of gfx 138 (elf male, L7) and of polymorph forms without all
+    // seven actions (1062, 1461) had no profile, and WorldSession.Renderable stopped the whole world (#1211 SM20 / SM58).
+    // Prepared profiles and the existing fallbacks keep their order; only what used to end in null reaches the lenient build.
     public static PlayerProfile? Resolve(IReadOnlyDictionary<(int,int),PlayerProfile> prepared,RuntimeAppearances? od,Func<int,bool> onDemandFor,int gfx,int weapon,out bool pending){
         pending=false;
         if(prepared.GetValueOrDefault((gfx,weapon)) is {} exact)return exact;
@@ -67,13 +76,28 @@ public static class PlayerProfiles {
             if(od!.Player(gfx,weapon) is {} built)return built.Profile;
             if(od.Pending(RuntimeAppearances.PlayerKey(gfx,weapon))){pending=true;return null;}
         }
-        if(weapon==0||!legal)return null;
-        if(prepared.GetValueOrDefault((gfx,0)) is {} bare)return bare;
-        if(onDemand){
-            if(od!.Player(gfx,0) is {} built)return built.Profile;
-            pending=od.Pending(RuntimeAppearances.PlayerKey(gfx,0));
+        if(!legal)return null;
+        if(weapon!=0){
+            if(prepared.GetValueOrDefault((gfx,0)) is {} bare)return bare;
+            if(onDemand){
+                if(od!.Player(gfx,0) is {} built)return built.Profile;
+                if(od.Pending(RuntimeAppearances.PlayerKey(gfx,0))){pending=true;return null;}
+            }
         }
+        if(!onDemand)return null;
+        if(od!.Lenient(gfx,weapon) is {} lenient)return lenient.Profile;
+        if(od.Pending(RuntimeAppearances.LenientKey(gfx,weapon))){pending=true;return null;}
+        if(weapon==0)return null;
+        if(od.Lenient(gfx,0) is {} lenientBare)return lenientBare.Profile;
+        pending=od.Pending(RuntimeAppearances.LenientKey(gfx,0));
         return null;
+    }
+    /// <summary>#1243: why the own (gfx, stance) has no profile (the last refusal of the on-demand chain), or null.</summary>
+    public static string? UnavailableReason(int gfx,int weapon){
+        if(RuntimeAppearances.Active is not {} od)return null;
+        foreach(string key in new[]{RuntimeAppearances.LenientKey(gfx,0),RuntimeAppearances.LenientKey(gfx,weapon),RuntimeAppearances.PlayerKey(gfx,weapon)})
+            if(od.Reason(key) is {} why)return why;
+        return od.EnvironmentFailure;
     }
     /// <summary>A gfx with prepared player profiles (the preheat list). Not a class table; see the T478 note above.</summary>
     public static bool IsCharacter(int gfx)=>profiles.Value.Keys.Any(k=>k.Item1==gfx);

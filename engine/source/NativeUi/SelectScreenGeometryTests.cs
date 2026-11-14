@@ -29,7 +29,7 @@ static class SelectScreenGeometryTests {
             </Control>
 """;
     static string Info(string n)=>$"""<Label Name="{n}" Align="left" Width="150" Height="26" FontSize="12"/>""";
-    static string Xml=>$"""
+    internal static string Xml=>$"""
 <?xml version="1.0" encoding="UTF-8"?>
 <SelectUI>
     <Window Name="Message_Window" X="171" Y="153" Modal="1" Top="1" DarkBack="1" Activate="0" BaseSurf="6488;3">

@@ -24,7 +24,9 @@ public sealed partial class WorldSession {
     // S87 serializes status8 instead of currentWeapon for a dead player.
     public PlayerProfile? AppearanceProfile=>Actor is {} actor?OwnProfile(actor,out _):null;
     public bool SupportedAppearance=>AppearanceProfile!=null&&!SelfAppearancePending;
-    public string AppearanceNotice=>Actor==null?"等待角色資料":SelfAppearancePending?"角色外觀正在更新；可取消連線":SupportedAppearance?"角色外觀已載入":$"尚未支援此外觀（角色 {Actor.Gfx}／武器 {Actor.Weapon}）；移動與戰鬥已停止，仍可從背包卸下裝備或取消連線。";
+    public string AppearanceNotice=>Actor==null?"等待角色資料":SelfAppearancePending?"角色外觀正在更新；可取消連線":SupportedAppearance?"角色外觀已載入":$"尚未支援此外觀（角色 {Actor.Gfx}／武器 {Actor.Weapon}）{(PlayerProfiles.UnavailableReason(Actor.Gfx,Actor.Weapon==8?0:Actor.Weapon) is {} why?$"：外觀資料未到（{why}）":"")}；移動與戰鬥已停止，仍可從背包卸下裝備或取消連線。";
+    // #1243：AppearanceProfile 現在也包含寬鬆建置（PlayerProfiles.Resolve），gfx 138 與缺動作的變身外型不再讓世界停擺；
+    // 連寬鬆建置都不可用（沒有任何玩家動作的靜態外型、SPR 讀不到）時仍維持原本的停擺，見 docs/reports/issue-1243.md 的待裁定。
     public bool Renderable=>Ready&&!TeleportPending&&SupportedMap&&SupportedAppearance;
     readonly System.Collections.Concurrent.ConcurrentDictionary<byte,int> unhandled=new();
     public void Reset(){Clear6016(SceneClock());ResetClanEmblems();ResetPlayerChat();ResetBuddies();ResetPrivateShop();ResetShip();ResetSpeedStatus();ResetBonusStats();ResetBookmarks();ResetHitReactionSuppress();AppearanceRevision++;ResetTeleport();Entered=false;MapId=null;Status=null;Actor=null;SelfAppearancePending=false;Underwater=false;KeepalivesSent=TimeReplies=0;ServerTime=null;ProbeSent=false;unhandled.Clear();ResetMovement();ResetCombat();ResetMagic();ResetInventory();ResetEquipment();ResetRewards();ClearObjects();ResetExtensions();}
