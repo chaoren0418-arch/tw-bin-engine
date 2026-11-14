@@ -11,8 +11,10 @@ namespace P06.NativeUi;
 // host and the existing WinForms path (dev-tools 「登入／選角」 page and the creation dialog) stays as it is. --classic-ui
 // never routes here.
 //
-// Images. Surfs go through SurfCatalog.Get (local first; the T322/#760 reference fallback for ids the pinned local Sprite
-// archives do not have). Every surf of Character_Select_Window and Message_Window is in the pinned local archives; the 15
+// Images. #1242: surfs go through CharScreenSurfs (art client ly first; then SurfCatalog.Get / the kor25 reference, with
+// the legacy 60×80 portraits "<id>.img" 6400–6529 of 0-客戶端 and kor25 rejected — they drew class cards in place of the
+// background and buttons, #1211 SM07). Before #1242 the text below held ("in the pinned local archives") but those local
+// files are the wrong pictures. The 15
 // surfs PAK§4.1 lists as missing (6988, 6989, 7033–7038, 7232–7238) belong only to the name change / merge windows, which are
 // not built (3.81 has no packets for them), so they are never looked up. Missing images are not drawn (no substitute).
 //
@@ -366,7 +368,7 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
         UiLayout layout;
         try{layout=resources.Xml.Load(LayoutName);}
         catch(IOException ex){Unavailable=ex.Message;UiResourceLog.Write($"select-char-ui 無法載入 {LayoutName}，選角畫面停用（WinForms 選角照舊）：{ex.Message}");return;}
-        try{Load(layout,surfs.Get);}
+        try{Load(layout,CharScreenSurfs.For(resources,surfs).Get);}   // #1242: art client first, legacy 64xx/65xx portraits rejected
         catch(IOException ex){Clear();Unavailable=ex.Message;UiResourceLog.Write($"select-char-ui {layout.FileName} 版面不符，選角畫面停用：{ex.Message}");return;}
         if(Missing.Count>0)UiResourceLog.Write($"select-char-ui 缺圖不畫：{string.Join("、",Missing)}");
         if(Unavailable!=null)UiResourceLog.Write($"select-char-ui {Unavailable}");
@@ -416,6 +418,8 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
     // without a declared size the window now covers the logical canvas from its origin. Message_Window (BaseSurf 6488, also
     // a 60×80 .img) is widened to hold its own pieces (Message_Label 394×190, Ok/Cancel at Y 237), so the delete confirm and the
     // result notice can be read and clicked. Whether TW16 draws 6421 / 6488 at all is 待驗證; they are drawn as the XML says.
+// #1242: with CharScreenSurfs, 6421 is the art client's 800×600 select background and 6488 its 459×295 message back (the
+// 60×80 portraits above are rejected), so the window size and the drawn base agree; FullScreen / CoverPieces stay.
 
     /// <summary>#1206: a window without a declared Width/Height covers the logical canvas from its origin.</summary>
     internal static CharUiWindow FullScreen(CharUiWindow w,bool declared){
