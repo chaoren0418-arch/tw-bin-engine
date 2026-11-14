@@ -490,3 +490,4 @@
 - 2026-11-14 — #1184 f1155-capture-n03: f1155-capture-n03: 登入畫面 Ctrl+P 截圖（#1155 N03 ❌）——查原版行為，引擎或測試工具二選一修正，讓 N03 判定與設計一致、成功可回 0（code，claude-local，PR 已合併）→ [報告](reports/issue-1184.md)
 - 2026-11-14 — #1185 f1155-retest: f1155-retest: 只重測 #1155 的 N03（登入畫面 Ctrl+P）與 N04（成功回 0）；採 A 時附帶回歸 N02（test，codex-local，PR #1193 已合併）→ [報告](reports/issue-1185.md)
 - 2026-11-14 — #1192 分流：tw-bin-engine#1188 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1194 已合併）→ [報告](reports/issue-1192.md)
+- 2026-11-14 — #1196 f1188-evidence-png: f1188-evidence-png: #1188 把 6 張 PNG 提交到 docs/reports，被 check-no-game-assets 擋下，PR #1191 CI 紅燈——證據改放 scratch 並記 SHA，讓 PR 綠燈合併（resource，codex-local，PR #1198 已合併）→ [報告](reports/issue-1196.md)
