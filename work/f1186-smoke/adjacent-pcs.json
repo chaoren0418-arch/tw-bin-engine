@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "issue": 1249,
+  "method": "A",
+  "confirmedUtc": "2026-11-14T11:53:24.516625+00:00",
+  "chebyshevDistance": 1,
+  "characters": [
+    {
+      "account": "p24svc01",
+      "character": "資源法師",
+      "objid": 10334,
+      "map": 0,
+      "x": 32579,
+      "y": 32974,
+      "direction": 0,
+      "accessLevel": 0
+    },
+    {
+      "account": "p241db6e",
+      "character": "透明王子",
+      "objid": 1900240001,
+      "map": 0,
+      "x": 32580,
+      "y": 32974,
+      "direction": 5,
+      "accessLevel": 0
+    }
+  ],
+  "fixturePath": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\backups\\issue-1249-adjacent-fixture\\db-data",
+  "fixtureManifestPath": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\backups\\issue-1249-adjacent-fixture\\manifest.json",
+  "fixtureManifestSha256": "4c4e40886102e9165294f2d28e0f0af8349ecbd36db1587612106395171d080c",
+  "fileCount": 1722,
+  "bytes": 279512787,
+  "storageScope": "durable",
+  "finalAllCharactersAccessLevelZero": true,
+  "finalAllCharactersOnlineStatusZero": true,
+  "evidencePath": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\backups\\issue-1249-adjacent-fixture\\evidence",
+  "persistentSourceManifestSha256": "f94bf98347b9789f368dc9863a28ab09132ad613cb86373f87bd7283d0f19668"
+}
