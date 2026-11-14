@@ -9,7 +9,9 @@ namespace P06.NativeUi;
 // Loading. Same as SelectCharPanel: host layout "uistatus86", Load reads CreateUI itself; unusable → Unavailable and the
 // select screen's Create_Button opens the existing WinForms CharacterCreationDialog (ICharSelectHost.CreateFallback).
 //
-// Images. Surfs go through SurfCatalog.Get (local first, then the T322/#760 reference fallback). Not in the pinned local
+// Images. #1242: surfs go through CharScreenSurfs (art client ly first; local / kor25 legacy 60×80 portraits "<id>.img"
+// 6400–6529 rejected: Prev/Next 6415–6420, sex 6495–6501, stat Up/Down 6504–6507, Exit 6502/6503 and gauge 6509 were drawn as
+// class cards, #1211 SM08). Not in the pinned local
 // Sprite archives (PakViewer lists, see docs/reports/issue-765.md): 7099, 7100, 7128–7143, 7156, 7170, 7171, 7224, 7225,
 // 7707, 7708; kor25 has all of them ("<id>c.img" / "<id>.img"). 7707/7708 (Warrior) are never looked up: 3.81 has no
 // Warrior class. Missing images are not drawn (no substitute) and listed in Missing.
@@ -276,7 +278,7 @@ public sealed class CreateCharPanel(UiResources? resources=null):IUiClosablePane
         try{layout=resources.Xml.Load(LayoutName);}
         catch(IOException ex){Unavailable=ex.Message;UiResourceLog.Write($"create-char-ui 無法載入 {LayoutName}，建角畫面停用（WinForms 建角對話框照舊）：{ex.Message}");return;}
         LoadTables(resources.Root,resources.Text?.Root);
-        try{Load(layout,surfs.Get);}
+        try{Load(layout,CharScreenSurfs.For(resources,surfs).Get);}   // #1242: art client first, legacy 64xx/65xx portraits rejected
         catch(IOException ex){Clear();Unavailable=ex.Message;UiResourceLog.Write($"create-char-ui {layout.FileName} 版面不符，建角畫面停用：{ex.Message}");return;}
         PngLookup=new OptionPngSource(resources.Sprites,resources.Xml.Reference).Get;   // R10-N class scene pngs
         if(Missing.Count>0)UiResourceLog.Write($"create-char-ui 缺圖不畫：{string.Join("、",Missing)}");
