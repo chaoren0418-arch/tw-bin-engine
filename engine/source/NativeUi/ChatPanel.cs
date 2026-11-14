@@ -22,7 +22,11 @@ public sealed record ChatDraw(string Element,int? Surf,Rectangle Rect,string? Te
 ///   - 推測（真機再確認）：提示出現時輸入列不會自動打開；按 Enter 或打字（字母、數字）時才打開，同一個 Enter 就答覆。
 ///     提示字色、提示與輸入之間的空白、提示過長時只畫尾端（游標在尾端）。
 /// </summary>
-public sealed class ChatPanel:IUiPanel,IUiTextInput {
+public sealed class ChatPanel:IUiPanel,IUiTextInput,IUiImeCaret {
+    /// <summary>#1271: caret of the open input line for the IME (last painted position; before the first paint, the bar's text start).</summary>
+    public Rectangle? ImeCaret=>inWorld&&input.Open?inputCaret??BarCaret():null;
+    Rectangle? inputCaret;
+    Rectangle? BarCaret(){if(!parts.ContainsKey(Bar))return null;var (x,y,_)=BarRoom();return new(x,y,1,ChatRules.LineHeight);}
     [UiPanel(20)] internal static UiPanelRegistration Registration=>new("CENTER_WINDOW","uistatus86",root=>new ChatPanel());   // ui-chat-window #468
     public const string WindowName="CENTER_WINDOW";
     public string Id=>WindowName;
@@ -250,6 +254,7 @@ public sealed class ChatPanel:IUiPanel,IUiTextInput {
             canvas.DrawText(typed,x+hw,y,InputColor);drawn.Add(new("INPUT",null,new(x+hw,y,width-hw,ChatRules.LineHeight),typed));
         }
         else{canvas.DrawText(shown,x,y,InputColor);drawn.Add(new("INPUT",null,new(x,y,width,ChatRules.LineHeight),shown));}
+        inputCaret=new(x+width,y,1,ChatRules.LineHeight);   // #1271: IME composition / candidate anchor (blink-independent)
         if(now/ChatRules.CaretBlinkMs%2==0){
             using var pen=new Pen(InputColor);canvas.Graphics.DrawLine(pen,x+width,y,x+width,y+ChatRules.LineHeight-2);
             drawn.Add(new("CARET",null,new(x+width,y,1,ChatRules.LineHeight-1),null));
