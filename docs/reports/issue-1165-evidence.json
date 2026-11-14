@@ -1,0 +1,4770 @@
+{
+  "issue": 1165,
+  "conclusion": "部分通過",
+  "counts": {
+    "pass": 5,
+    "fail": 2,
+    "unknown": 0
+  },
+  "testedSourceCommit": "1f756d0966a35874f2cbdc93e0e77bf4f81c637f",
+  "branch": "task/1165",
+  "results": [
+    {
+      "id": "G04",
+      "status": "pass",
+      "observation": "Ctrl+Shift+F12 產生三張新 manual PNG，時間晚於送鍵。"
+    },
+    {
+      "id": "G05",
+      "status": "pass",
+      "observation": "開發工具 PrintWindow 826×711，目視可讀分頁與 CharacterList。"
+    },
+    {
+      "id": "G06",
+      "status": "pass",
+      "observation": "開發工具當前分頁樹可讀，沒有 Error 節點。"
+    },
+    {
+      "id": "G07",
+      "status": "fail",
+      "observation": "分頁實際正確切換；Select-UiaTab 驗證呼叫不存在的 GetCurrentSelection 而拋錯。"
+    },
+    {
+      "id": "F01",
+      "status": "pass",
+      "observation": "Invoke 17.1958 ms 返回，modal 樹完整可讀，切騎士後 Invoke 取消。"
+    },
+    {
+      "id": "P01",
+      "status": "fail",
+      "observation": "找窗、Invoke、職業、配點、GDI、快捷鍵可用；Select-UiaTab 未通過。"
+    },
+    {
+      "id": "R07",
+      "status": "pass",
+      "observation": "七職業可建立圖 7/7；GUI 建立一次被接受，讀回後 GUI 立即刪除。"
+    }
+  ],
+  "evidenceRoot": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1165\\scratch\\issue-1165",
+  "sourceHashes": {
+    "engine/source/DevToolsForm.cs": "1b2d745c3f550b5fdb4047e56d1d6e700e5c2cce993842f6995dc46d976f5cdf",
+    "engine/source/CharacterManagementUi.cs": "901a546d4350c87f486fb45ce883622b717cff5ec6456d19f6acbabb40d5c444",
+    "engine/source/CharacterManagement.cs": "15dd02cf9fb83413d7152971f615ee28c00362d87d415b97836dcfe4df364f3d",
+    "work/f1118-uia-path/UiaGdi.ps1": "6ea84a5a09395ffa1ae0337e4e0b8afb90252d122b2aef8af90d345e3dab0d76"
+  },
+  "product": {
+    "Algorithm": "SHA256",
+    "Hash": "8756A951C9386349678B51C6D7E52313A86E3F21EAB7F58DBF68761DD156647F",
+    "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1165\\engine\\build\\client-product-dev\\P11.ClientEngine.dll"
+  },
+  "buildLogSha256": "ef8f5a7c3e99cba4ac46ea18ea4ea79540732eed380c08ae54629c32c84e8ac6",
+  "session": " SESSIONNAME       USERNAME                 ID  STATE   TYPE        DEVICE \n services                                    0  Disc                        \n>console           CHAOREN                   6  Active                      \n",
+  "lease": {
+    "name": "p24lab",
+    "holder": "chaoren0418-arch/tw-bin-engine#1165",
+    "since": 1794620261.4167619,
+    "exp": 1794625661.4167619
+  },
+  "snapshot": {
+    "utc": "2026-11-14T01:39:28.449091+00:00",
+    "files": 1722,
+    "bytes": 279502566,
+    "verified": true,
+    "source": "D:\\BinEngine\\environments\\p24\\db-data",
+    "runtime": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1165\\scratch\\issue-1165\\db-data",
+    "manifestSha256": "da7743d458bd0536766124694d034821da2e0d90f2033550fc78a2ca37c036db"
+  },
+  "originalDatabaseFinal": {
+    "utc": "2026-11-14T01:47:39.131968+00:00",
+    "files": 1722,
+    "changed": [],
+    "added": [],
+    "unchanged": true,
+    "characterSelectEqual": true
+  },
+  "cleanup": {
+    "OwnedPids": [
+      16352,
+      15024,
+      18328,
+      18420,
+      16064,
+      19632,
+      18864,
+      4468,
+      18528
+    ],
+    "Listeners": [],
+    "Utc": "2026-11-14T01:47:58.1303024Z",
+    "RemainingOwned": [],
+    "RelatedProcesses": []
+  },
+  "ownedProcesses": [
+    {
+      "ProcessId": 16352,
+      "ParentProcessId": 13088,
+      "Name": "mysqld.exe",
+      "CreationDate": "/Date(1794620392131)/",
+      "ExecutablePath": "D:\\BinEngine\\environments\\p24\\mysql\\bin\\mysqld.exe"
+    },
+    {
+      "ProcessId": 15024,
+      "ParentProcessId": 16352,
+      "Name": "conhost.exe",
+      "CreationDate": "/Date(1794620392144)/",
+      "ExecutablePath": "C:\\WINDOWS\\system32\\conhost.exe"
+    },
+    {
+      "ProcessId": 18328,
+      "ParentProcessId": 16352,
+      "Name": "mysqld.exe",
+      "CreationDate": "/Date(1794620392182)/",
+      "ExecutablePath": "D:\\BinEngine\\environments\\p24\\mysql\\bin\\mysqld.exe"
+    },
+    {
+      "ProcessId": 18420,
+      "ParentProcessId": 19524,
+      "Name": "java.exe",
+      "CreationDate": "/Date(1794620399054)/",
+      "ExecutablePath": "C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot\\bin\\java.exe"
+    },
+    {
+      "ProcessId": 16064,
+      "ParentProcessId": 18420,
+      "Name": "conhost.exe",
+      "CreationDate": "/Date(1794620399061)/",
+      "ExecutablePath": "C:\\WINDOWS\\system32\\conhost.exe"
+    },
+    {
+      "ProcessId": 19632,
+      "ParentProcessId": 5432,
+      "Name": "P11.ClientEngine.exe",
+      "CreationDate": "/Date(1794620409432)/",
+      "ExecutablePath": "D:\\BinEngine\\scratch\\wt\\task-1165\\engine\\build\\client-product-dev\\P11.ClientEngine.exe"
+    },
+    {
+      "ProcessId": 18864,
+      "ParentProcessId": 19632,
+      "Name": "msedgewebview2.exe",
+      "CreationDate": "/Date(1794620426594)/",
+      "ExecutablePath": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\157.0.4341.46\\msedgewebview2.exe"
+    }
+  ],
+  "submitOwnedProcesses": [
+    {
+      "ProcessId": 4468,
+      "ParentProcessId": 18860,
+      "Name": "P11.ClientEngine.exe",
+      "CreationDate": "/Date(1794620711674)/",
+      "ExecutablePath": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1165\\engine\\build\\client-product-dev\\P11.ClientEngine.exe"
+    },
+    {
+      "ProcessId": 18528,
+      "ParentProcessId": 4468,
+      "Name": "msedgewebview2.exe",
+      "CreationDate": "/Date(1794620716669)/",
+      "ExecutablePath": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\157.0.4341.46\\msedgewebview2.exe"
+    }
+  ],
+  "clientFirstClose": {
+    "Exited": true,
+    "Pid": 19632,
+    "CloseMainWindow": true,
+    "Utc": "2026-11-14T01:45:11.3881162Z"
+  },
+  "clientFinalClose": {
+    "Exited": true,
+    "Pid": 4468,
+    "CloseMainWindow": true,
+    "Utc": "2026-11-14T01:47:11.7469828Z"
+  },
+  "g04": {
+    "files": [
+      {
+        "Name": "manual-client.png",
+        "Length": 15722,
+        "LastWriteUtc": "2026-11-14T01:41:14.9954388Z"
+      },
+      {
+        "Name": "manual-logical.png",
+        "Length": 5361,
+        "LastWriteUtc": "2026-11-14T01:41:14.9785095Z"
+      },
+      {
+        "Name": "manual-screen.png",
+        "Length": 15768,
+        "LastWriteUtc": "2026-11-14T01:41:15.0269341Z"
+      }
+    ],
+    "keyboardInputs": [
+      {
+        "Ctrl+Shift+F12": null,
+        "Action": "key-down 0x11",
+        "Utc": "2026-11-14T01:41:14.9186420Z",
+        "Hwnd": 6883048,
+        "ProcessId": 19632,
+        "ForegroundHwnd": 6883048,
+        "ForegroundProcessId": 19632,
+        "InputCount": 1,
+        "SendInputReturned": 1,
+        "LastError": 0,
+        "InputSize": 40
+      },
+      {
+        "Ctrl+Shift+F12": null,
+        "Action": "key-down 0x10",
+        "Utc": "2026-11-14T01:41:14.9635249Z",
+        "Hwnd": 6883048,
+        "ProcessId": 19632,
+        "ForegroundHwnd": 6883048,
+        "ForegroundProcessId": 19632,
+        "InputCount": 1,
+        "SendInputReturned": 1,
+        "LastError": 0,
+        "InputSize": 40
+      },
+      {
+        "Ctrl+Shift+F12": null,
+        "Action": "key-press 0x7B",
+        "Utc": "2026-11-14T01:41:14.9665164Z",
+        "Hwnd": 6883048,
+        "ProcessId": 19632,
+        "ForegroundHwnd": 6883048,
+        "ForegroundProcessId": 19632,
+        "InputCount": 2,
+        "SendInputReturned": 2,
+        "LastError": 0,
+        "InputSize": 40
+      },
+      {
+        "Ctrl+Shift+F12": null,
+        "Action": "key-up 0x10",
+        "Utc": "2026-11-14T01:41:14.9705453Z",
+        "Hwnd": 6883048,
+        "ProcessId": 19632,
+        "ForegroundHwnd": 6883048,
+        "ForegroundProcessId": 19632,
+        "InputCount": 1,
+        "SendInputReturned": 1,
+        "LastError": 0,
+        "InputSize": 40
+      },
+      {
+        "Ctrl+Shift+F12": null,
+        "Action": "key-up 0x11",
+        "Utc": "2026-11-14T01:41:14.9735258Z",
+        "Hwnd": 6883048,
+        "ProcessId": 19632,
+        "ForegroundHwnd": 6883048,
+        "ForegroundProcessId": 19632,
+        "InputCount": 1,
+        "SendInputReturned": 1,
+        "LastError": 0,
+        "InputSize": 40
+      }
+    ],
+    "timestampLimitation": "初次腳本後段因多個 Tab 中斷，未落盤 sentUtc；新檔已再以最後一筆送鍵 JSONL UTC 篩選，三圖均更晚。沒有重送快捷鍵。"
+  },
+  "g05": {
+    "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1165\\scratch\\issue-1165\\g05-dev.png",
+    "Method": "PrintWindow",
+    "PrintWindowError": null,
+    "CopyFromScreenError": null,
+    "Width": 826,
+    "Height": 711,
+    "SampleStride": 4,
+    "Samples": 36846,
+    "Mean": 79.93713474094581,
+    "NonzeroRatio": 0.9519893611246811,
+    "NonwhiteRatio": 0.8969223253541768,
+    "Nonblank": true,
+    "Sha256": "B515272D018A62F85265A68B0A1102B869A6D959015ECEE58EB86E430DC3F5BF",
+    "Foreground": null,
+    "Window": {
+      "Title": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+      "ProcessId": 19632,
+      "Handle": 25430170,
+      "Rectangle": "392,392,826,711",
+      "Minimized": false,
+      "Dpi": 192,
+      "ProcessDpiSet": true,
+      "ProcessDpiError": 0
+    }
+  },
+  "g06Tree": [
+    {
+      "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+      "Type": "ControlType.Window",
+      "Id": "",
+      "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "392,392,826,711",
+      "Patterns": [
+        "WindowPatternIdentifiers.Pattern",
+        "TransformPatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "",
+      "Type": "ControlType.Tab",
+      "Id": "",
+      "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "405,450,800,640",
+      "Patterns": [
+        "SelectionPatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "登入／選角",
+      "Type": "ControlType.Pane",
+      "Id": "",
+      "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "413,494,784,588",
+      "Patterns": []
+    },
+    {
+      "Name": "請重新選取稱號／表情頁面。",
+      "Type": "ControlType.Pane",
+      "Id": "",
+      "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "413,494,784,588",
+      "Patterns": []
+    },
+    {
+      "Name": "請重新選取稱號／表情頁面。",
+      "Type": "ControlType.ComboBox",
+      "Id": "",
+      "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+      "Enabled": false,
+      "Offscreen": false,
+      "Rectangle": "424,505,175,38",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern",
+        "ValuePatternIdentifiers.Pattern",
+        "ExpandCollapsePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "請重新選取稱號／表情頁面。",
+      "Type": "ControlType.Text",
+      "Id": "",
+      "Class": "",
+      "Enabled": false,
+      "Offscreen": false,
+      "Rectangle": "424,505,175,38",
+      "Patterns": []
+    },
+    {
+      "Name": "開啟",
+      "Type": "ControlType.Button",
+      "Id": "",
+      "Class": "",
+      "Enabled": false,
+      "Offscreen": false,
+      "Rectangle": "566,506,32,36",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "",
+      "Type": "ControlType.Spinner",
+      "Id": "",
+      "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+      "Enabled": false,
+      "Offscreen": false,
+      "Rectangle": "605,505,90,38",
+      "Patterns": []
+    },
+    {
+      "Name": "上下按鈕",
+      "Type": "ControlType.Spinner",
+      "Id": "",
+      "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+      "Enabled": false,
+      "Offscreen": false,
+      "Rectangle": "662,506,32,36",
+      "Patterns": []
+    },
+    {
+      "Name": "向上鍵",
+      "Type": "ControlType.Button",
+      "Id": "",
+      "Class": "",
+      "Enabled": false,
+      "Offscreen": false,
+      "Rectangle": "662,506,32,18",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "向下鍵",
+      "Type": "ControlType.Button",
+      "Id": "",
+      "Class": "",
+      "Enabled": false,
+      "Offscreen": false,
+      "Rectangle": "662,524,32,18",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "微調按鈕",
+      "Type": "ControlType.Edit",
+      "Id": "",
+      "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+      "Enabled": false,
+      "Offscreen": false,
+      "Rectangle": "607,507,54,34",
+      "Patterns": [
+        "ValuePatternIdentifiers.Pattern",
+        "TextPatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "",
+      "Type": "ControlType.Edit",
+      "Id": "",
+      "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+      "Enabled": false,
+      "Offscreen": false,
+      "Rectangle": "701,505,95,38",
+      "Patterns": [
+        "ValuePatternIdentifiers.Pattern",
+        "TextPatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "[PASSWORD]",
+      "Type": "ControlType.Edit",
+      "Id": "",
+      "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+      "Enabled": false,
+      "Offscreen": false,
+      "Rectangle": "802,505,95,38",
+      "Patterns": [
+        "ValuePatternIdentifiers.Pattern",
+        "TextPatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "登入",
+      "Type": "ControlType.Button",
+      "Id": "",
+      "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+      "Enabled": false,
+      "Offscreen": false,
+      "Rectangle": "903,505,88,23",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "取消 / 斷線",
+      "Type": "ControlType.Button",
+      "Id": "",
+      "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "997,505,98,23",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "離線預覽",
+      "Type": "ControlType.Button",
+      "Id": "",
+      "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "424,549,90,23",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "資源法師",
+      "Type": "ControlType.ComboBox",
+      "Id": "",
+      "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "520,549,155,38",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern",
+        "ValuePatternIdentifiers.Pattern",
+        "ExpandCollapsePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "",
+      "Type": "ControlType.Text",
+      "Id": "",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "520,549,155,38",
+      "Patterns": []
+    },
+    {
+      "Name": "開啟",
+      "Type": "ControlType.Button",
+      "Id": "",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "642,550,32,36",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "進入世界",
+      "Type": "ControlType.Button",
+      "Id": "",
+      "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "681,549,95,23",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "建立角色",
+      "Type": "ControlType.Button",
+      "Id": "",
+      "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "782,549,92,23",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "刪除角色",
+      "Type": "ControlType.Button",
+      "Id": "",
+      "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "880,549,110,23",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "CharacterList • 已解析角色 3/3\n登入請求已送出，請查看連線狀態。",
+      "Type": "ControlType.Text",
+      "Id": "",
+      "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "424,590,480,52",
+      "Patterns": []
+    },
+    {
+      "Name": "網頁面板",
+      "Type": "ControlType.TabItem",
+      "Id": "",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "409,454,108,36",
+      "Patterns": [
+        "SelectionItemPatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "服務",
+      "Type": "ControlType.TabItem",
+      "Id": "",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "517,454,78,36",
+      "Patterns": [
+        "SelectionItemPatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "登入／選角",
+      "Type": "ControlType.TabItem",
+      "Id": "",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "595,454,132,36",
+      "Patterns": [
+        "SelectionItemPatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "控制",
+      "Type": "ControlType.TabItem",
+      "Id": "",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "727,454,78,36",
+      "Patterns": [
+        "SelectionItemPatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "狀態列",
+      "Type": "ControlType.TabItem",
+      "Id": "",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "805,454,84,36",
+      "Patterns": [
+        "SelectionItemPatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "Button",
+      "Type": "ControlType.TabItem",
+      "Id": "",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "889,454,90,36",
+      "Patterns": [
+        "SelectionItemPatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+      "Type": "ControlType.TitleBar",
+      "Id": "TitleBar",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "405,405,800,45",
+      "Patterns": []
+    },
+    {
+      "Name": "System Menu Bar",
+      "Type": "ControlType.MenuBar",
+      "Id": "",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "405,405,44,44",
+      "Patterns": []
+    },
+    {
+      "Name": "System",
+      "Type": "ControlType.MenuItem",
+      "Id": "Item 1",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "405,405,44,44",
+      "Patterns": [
+        "ExpandCollapsePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "Minimize",
+      "Type": "ControlType.Button",
+      "Id": "Minimize",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "926,393,94,57",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "Maximize",
+      "Type": "ControlType.Button",
+      "Id": "Maximize",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "1020,393,92,57",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    },
+    {
+      "Name": "Close",
+      "Type": "ControlType.Button",
+      "Id": "Close",
+      "Class": "",
+      "Enabled": true,
+      "Offscreen": false,
+      "Rectangle": "1112,393,94,57",
+      "Patterns": [
+        "InvokePatternIdentifiers.Pattern"
+      ]
+    }
+  ],
+  "g07": {
+    "loginError": "System.Management.Automation.RuntimeException: Select-UiaTab verification failed: {\"RequestedName\":\"登入／選角\",\"TabItem\":{\"Name\":\"登入／選角\",\"IsSelected\":true},\"TabSelection\":null,\"TabItemError\":null,\"TabSelectionError\":\"System.Management.Automation.RuntimeException: Method invocation failed because [System.Windows.Automation.SelectionPattern] does not contain a method named \\u0027GetCurrentSelection\\u0027.\\r\\n   at System.Management.Automation.ExceptionHandlingOps.CheckActionPreference(FunctionContext funcContext, Exception exception)\\r\\n   at System.Management.Automation.Interpreter.ActionCallInstruction`2.Run(InterpretedFrame frame)\\r\\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\\r\\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\"}\n",
+    "serviceTree": [
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "392,392,826,711",
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "405,450,800,640",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "服務",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "413,494,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "開發工具服務分頁",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "413,494,784,588",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "背包",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "495,534,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "地面",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "573,534,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "魔法",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "651,534,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "角色",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "729,534,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "能力點",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "813,534,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "個人商店",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "921,534,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "NPC",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "999,534,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "交易",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1077,534,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "聲音",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "417,498,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "好友／封鎖",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "549,498,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "決鬥",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "627,498,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "求婚",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "705,498,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "寵物",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "783,498,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "血盟戰爭",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "891,498,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "稱號／表情",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1023,498,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "網頁面板",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "409,454,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "服務",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "517,454,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "595,454,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "控制",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "727,454,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "狀態列",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "805,454,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Button",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "889,454,90,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "405,405,800,45",
+        "Patterns": []
+      },
+      {
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "405,405,44,44",
+        "Patterns": []
+      },
+      {
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "405,405,44,44",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Minimize",
+        "Type": "ControlType.Button",
+        "Id": "Minimize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "926,393,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Maximize",
+        "Type": "ControlType.Button",
+        "Id": "Maximize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1020,393,92,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1112,393,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "loginTree": [
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "392,392,826,711",
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "405,450,800,640",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "413,494,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "413,494,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "424,505,175,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "424,505,175,38",
+        "Patterns": []
+      },
+      {
+        "Name": "開啟",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "566,506,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "605,505,90,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "662,506,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "662,506,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "662,524,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "微調按鈕",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "607,507,54,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "701,505,95,38",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "[PASSWORD]",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "802,505,95,38",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "903,505,88,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "取消 / 斷線",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "997,505,98,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "離線預覽",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "424,549,90,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "資源法師",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "520,549,155,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "520,549,155,38",
+        "Patterns": []
+      },
+      {
+        "Name": "開啟",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "642,550,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "進入世界",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "681,549,95,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "建立角色",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "782,549,92,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "刪除角色",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "880,549,110,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "CharacterList • 已解析角色 3/3\n登入請求已送出，請查看連線狀態。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "424,590,480,52",
+        "Patterns": []
+      },
+      {
+        "Name": "網頁面板",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "409,454,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "服務",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "517,454,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "595,454,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "控制",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "727,454,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "狀態列",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "805,454,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Button",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "889,454,90,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "405,405,800,45",
+        "Patterns": []
+      },
+      {
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "405,405,44,44",
+        "Patterns": []
+      },
+      {
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "405,405,44,44",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Minimize",
+        "Type": "ControlType.Button",
+        "Id": "Minimize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "926,393,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Maximize",
+        "Type": "ControlType.Button",
+        "Id": "Maximize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1020,393,92,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1112,393,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "serviceCapture": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1165\\scratch\\issue-1165\\g07-service.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "CopyFromScreenError": null,
+      "Width": 826,
+      "Height": 711,
+      "SampleStride": 4,
+      "Samples": 36846,
+      "Mean": 87.44692323002042,
+      "NonzeroRatio": 0.9480269228681539,
+      "NonwhiteRatio": 0.8784399934864029,
+      "Nonblank": true,
+      "Sha256": "FD23CC5111171FD28337C17827C407C20BE28BE01FC845CE7508A22EDAA04A32",
+      "Foreground": null,
+      "Window": {
+        "Title": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "ProcessId": 19632,
+        "Handle": 25430170,
+        "Rectangle": "392,392,826,711",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 0
+      }
+    },
+    "loginCapture": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1165\\scratch\\issue-1165\\g07-login.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "CopyFromScreenError": null,
+      "Width": 826,
+      "Height": 711,
+      "SampleStride": 4,
+      "Samples": 36846,
+      "Mean": 78.96160596351648,
+      "NonzeroRatio": 0.9505780817456441,
+      "NonwhiteRatio": 0.8979807848884547,
+      "Nonblank": true,
+      "Sha256": "153D68FDD392213CDB118D971FBFD5E2E186873ABF8B59287DD083DAA5FB374C",
+      "Foreground": null,
+      "Window": {
+        "Title": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "ProcessId": 19632,
+        "Handle": 25430170,
+        "Rectangle": "392,392,826,711",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 0
+      }
+    },
+    "apiReflection": {
+      "SelectionPatternMethods": [
+        "Equals",
+        "get_Cached",
+        "get_Current",
+        "GetHashCode",
+        "GetType",
+        "ToString"
+      ],
+      "SelectionPatternInformationMethods": [
+        "Equals",
+        "get_CanSelectMultiple",
+        "get_IsSelectionRequired",
+        "GetHashCode",
+        "GetSelection",
+        "GetType",
+        "ToString"
+      ]
+    },
+    "runnerObservation": "服務頁存在外層與巢狀兩個 Tab；Find-UiaControl -Type Tab 原文：Expected one control name='' id='' type='Tab'; found 2; read errors: 。後續使用 dev 的唯一 Children Tab。"
+  },
+  "f01": {
+    "invoke": {
+      "Returned": true,
+      "ElapsedMs": 17.195800000000002
+    },
+    "dialogTree": [
+      {
+        "Name": "建立角色",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1687,709,466,661",
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1700,767,440,590",
+        "Patterns": []
+      },
+      {
+        "Name": "角色名稱",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,783,85,65",
+        "Patterns": []
+      },
+      {
+        "Name": "角色名稱",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,786,200,38",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "職業",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,848,61,35",
+        "Patterns": []
+      },
+      {
+        "Name": "職業",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,851,200,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "職業",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,851,200,38",
+        "Patterns": []
+      },
+      {
+        "Name": "開啟",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1986,852,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "性別",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,892,61,35",
+        "Patterns": []
+      },
+      {
+        "Name": "性別",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,895,200,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "性別",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,895,200,38",
+        "Patterns": []
+      },
+      {
+        "Name": "開啟",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1986,896,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "力量",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,936,61,35",
+        "Patterns": []
+      },
+      {
+        "Name": "力量",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,939,100,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1886,940,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,940,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,958,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "力量",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1821,941,64,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "敏捷",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,980,61,35",
+        "Patterns": []
+      },
+      {
+        "Name": "敏捷",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,983,100,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1886,984,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,984,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,1002,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "敏捷",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1821,985,64,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "體質",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,1024,61,35",
+        "Patterns": []
+      },
+      {
+        "Name": "體質",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,1027,100,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1886,1028,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,1028,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,1046,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "體質",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1821,1029,64,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "精神",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,1068,61,35",
+        "Patterns": []
+      },
+      {
+        "Name": "精神",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,1071,100,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1886,1072,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,1072,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,1090,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "精神",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1821,1073,64,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "魅力",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,1112,61,35",
+        "Patterns": []
+      },
+      {
+        "Name": "魅力",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,1115,100,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1886,1116,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,1116,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,1134,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "魅力",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1821,1117,64,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "智力",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,1156,61,35",
+        "Patterns": []
+      },
+      {
+        "Name": "智力",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,1159,100,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1886,1160,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,1160,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,1178,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "智力",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1821,1161,64,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "本機檢查",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,1200,380,70",
+        "Patterns": []
+      },
+      {
+        "Name": "名稱最多 12 個 Big5 位元組／5 個雙位元組字。\n職業開放、禁用名稱與重名由伺服器最後檢查。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,1270,390,48",
+        "Patterns": []
+      },
+      {
+        "Name": "名稱最多 12 個 Big5 位元組／5 個雙位元組字。\n職業開放、禁用名稱與重名由伺服器最後檢查。",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,1321,206,46",
+        "Patterns": []
+      },
+      {
+        "Name": "建立角色",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1722,1324,119,40",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "取消",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1847,1324,75,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "建立角色",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1700,722,440,45",
+        "Patterns": []
+      },
+      {
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "Empty",
+        "Patterns": []
+      },
+      {
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "Empty",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "2072,710,69,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "expandedTree": [
+      {
+        "Name": "建立角色",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1687,709,466,661",
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1700,767,440,590",
+        "Patterns": []
+      },
+      {
+        "Name": "角色名稱",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,783,85,65",
+        "Patterns": []
+      },
+      {
+        "Name": "角色名稱",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,786,200,38",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "職業",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,848,61,35",
+        "Patterns": []
+      },
+      {
+        "Name": "職業",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,851,200,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "職業",
+        "Type": "ControlType.List",
+        "Id": "1000",
+        "Class": "ComboLBox",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,889,200,212",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "王族",
+        "Type": "ControlType.ListItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1820,890,198,30",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "騎士",
+        "Type": "ControlType.ListItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1820,920,198,30",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "精靈",
+        "Type": "ControlType.ListItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1820,950,198,30",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "法師",
+        "Type": "ControlType.ListItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1820,980,198,30",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "黑暗精靈",
+        "Type": "ControlType.ListItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1820,1010,198,30",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "龍騎士",
+        "Type": "ControlType.ListItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1820,1040,198,30",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "幻術師",
+        "Type": "ControlType.ListItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1820,1070,198,30",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "職業",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,851,200,38",
+        "Patterns": []
+      },
+      {
+        "Name": "關閉",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1986,852,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "性別",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,892,61,35",
+        "Patterns": []
+      },
+      {
+        "Name": "性別",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,895,200,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "性別",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,895,200,38",
+        "Patterns": []
+      },
+      {
+        "Name": "開啟",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1986,896,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "力量",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,936,61,35",
+        "Patterns": []
+      },
+      {
+        "Name": "力量",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,939,100,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1886,940,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,940,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,958,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "力量",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1821,941,64,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "敏捷",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,980,61,35",
+        "Patterns": []
+      },
+      {
+        "Name": "敏捷",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,983,100,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1886,984,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,984,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,1002,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "敏捷",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1821,985,64,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "體質",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,1024,61,35",
+        "Patterns": []
+      },
+      {
+        "Name": "體質",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,1027,100,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1886,1028,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,1028,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,1046,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "體質",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1821,1029,64,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "精神",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,1068,61,35",
+        "Patterns": []
+      },
+      {
+        "Name": "精神",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,1071,100,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1886,1072,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,1072,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,1090,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "精神",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1821,1073,64,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "魅力",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,1112,61,35",
+        "Patterns": []
+      },
+      {
+        "Name": "魅力",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,1115,100,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1886,1116,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,1116,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,1134,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "魅力",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1821,1117,64,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "智力",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,1156,61,35",
+        "Patterns": []
+      },
+      {
+        "Name": "智力",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1819,1159,100,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1886,1160,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,1160,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1886,1178,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "智力",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1821,1161,64,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "本機檢查",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,1200,380,70",
+        "Patterns": []
+      },
+      {
+        "Name": "名稱最多 12 個 Big5 位元組／5 個雙位元組字。\n職業開放、禁用名稱與重名由伺服器最後檢查。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,1270,390,48",
+        "Patterns": []
+      },
+      {
+        "Name": "名稱最多 12 個 Big5 位元組／5 個雙位元組字。\n職業開放、禁用名稱與重名由伺服器最後檢查。",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1719,1321,206,46",
+        "Patterns": []
+      },
+      {
+        "Name": "建立角色",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "1722,1324,119,40",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "取消",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1847,1324,75,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "建立角色",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1700,722,440,45",
+        "Patterns": []
+      },
+      {
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "Empty",
+        "Patterns": []
+      },
+      {
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "Empty",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "2072,710,69,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "capture": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1165\\scratch\\issue-1165\\f01-dialog.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "CopyFromScreenError": null,
+      "Width": 466,
+      "Height": 661,
+      "SampleStride": 4,
+      "Samples": 19422,
+      "Mean": 212.74379569560222,
+      "NonzeroRatio": 0.9200906188857996,
+      "NonwhiteRatio": 0.8590258469776542,
+      "Nonblank": true,
+      "Sha256": "F4162C5254DBD72B246385BA19EE13B9881F04095862189190DE0BF2EA25E252",
+      "Foreground": null,
+      "Window": {
+        "Title": "建立角色",
+        "ProcessId": 19632,
+        "Handle": 920352,
+        "Rectangle": "1687,709,466,661",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 0
+      }
+    },
+    "result": {
+      "ClassReadback": "騎士",
+      "Utc": "2026-11-14T01:42:31.1125251Z",
+      "Cancel": "Invoke-UiaButton 取消"
+    },
+    "afterCancelTree": [
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "392,392,826,711",
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "405,450,800,640",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "413,494,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "413,494,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "424,505,175,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "424,505,175,38",
+        "Patterns": []
+      },
+      {
+        "Name": "開啟",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "566,506,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "605,505,90,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "662,506,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "662,506,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "662,524,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "微調按鈕",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "607,507,54,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "701,505,95,38",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "[PASSWORD]",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "802,505,95,38",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "903,505,88,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "取消 / 斷線",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "997,505,98,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "離線預覽",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "424,549,90,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "資源法師",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "520,549,155,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "520,549,155,38",
+        "Patterns": []
+      },
+      {
+        "Name": "開啟",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "642,550,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "進入世界",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "681,549,95,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "建立角色",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "782,549,92,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "刪除角色",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "880,549,110,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "CharacterList • 已解析角色 3/3\n登入請求已送出，請查看連線狀態。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "424,590,480,52",
+        "Patterns": []
+      },
+      {
+        "Name": "網頁面板",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "409,454,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "服務",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "517,454,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "595,454,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "控制",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "727,454,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "狀態列",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "805,454,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Button",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "889,454,90,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "405,405,800,45",
+        "Patterns": []
+      },
+      {
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "405,405,44,44",
+        "Patterns": []
+      },
+      {
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "405,405,44,44",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Minimize",
+        "Type": "ControlType.Button",
+        "Id": "Minimize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "926,393,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Maximize",
+        "Type": "ControlType.Button",
+        "Id": "Maximize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1020,393,92,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1112,393,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      }
+    ]
+  },
+  "r07": {
+    "classes": [
+      {
+        "CreateEnabled": true,
+        "Name": "Aurora1165",
+        "Stats": [
+          "18",
+          "10",
+          "13",
+          "11",
+          "13",
+          "10"
+        ],
+        "Class": "王族",
+        "Capture": {
+          "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1165\\scratch\\issue-1165\\r07-0.png",
+          "Method": "PrintWindow",
+          "PrintWindowError": null,
+          "CopyFromScreenError": null,
+          "Width": 466,
+          "Height": 661,
+          "SampleStride": 4,
+          "Samples": 19422,
+          "Mean": 210.77542649229252,
+          "NonzeroRatio": 0.9196787148594378,
+          "NonwhiteRatio": 0.8724127278344146,
+          "Nonblank": true,
+          "Sha256": "0BFB16398CF7315EB982BC1A80A15A9C991B0860DA98E0B489F7E93F330FB7BE",
+          "Foreground": null,
+          "Window": {
+            "Title": "建立角色",
+            "ProcessId": 19632,
+            "Handle": 5114472,
+            "Rectangle": "1687,709,466,661",
+            "Minimized": false,
+            "Dpi": 192,
+            "ProcessDpiSet": true,
+            "ProcessDpiError": 0
+          }
+        },
+        "cancel": {
+          "Cancelled": true,
+          "Utc": "2026-11-14T01:43:32.6043985Z",
+          "Method": "UIA Invoke"
+        }
+      },
+      {
+        "CreateEnabled": true,
+        "Name": "Aurora1165",
+        "Stats": [
+          "18",
+          "12",
+          "16",
+          "9",
+          "12",
+          "8"
+        ],
+        "Class": "騎士",
+        "Capture": {
+          "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1165\\scratch\\issue-1165\\r07-1.png",
+          "Method": "PrintWindow",
+          "PrintWindowError": null,
+          "CopyFromScreenError": null,
+          "Width": 466,
+          "Height": 661,
+          "SampleStride": 4,
+          "Samples": 19422,
+          "Mean": 210.8128239453527,
+          "NonzeroRatio": 0.9196272268561425,
+          "NonwhiteRatio": 0.8722582638245289,
+          "Nonblank": true,
+          "Sha256": "5A8245B3D3521ADBED8D15D0E5CCD3FB0821FA2AB0DE5ECC205EFB9D1A80EEE7",
+          "Foreground": null,
+          "Window": {
+            "Title": "建立角色",
+            "ProcessId": 19632,
+            "Handle": 5180008,
+            "Rectangle": "1687,709,466,661",
+            "Minimized": false,
+            "Dpi": 192,
+            "ProcessDpiSet": true,
+            "ProcessDpiError": 0
+          }
+        },
+        "cancel": {
+          "Cancelled": true,
+          "Utc": "2026-11-14T01:43:43.8404463Z",
+          "Method": "UIA Invoke"
+        }
+      },
+      {
+        "CreateEnabled": true,
+        "Name": "Aurora1165",
+        "Stats": [
+          "18",
+          "12",
+          "12",
+          "12",
+          "9",
+          "12"
+        ],
+        "Class": "精靈",
+        "Capture": {
+          "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1165\\scratch\\issue-1165\\r07-2.png",
+          "Method": "PrintWindow",
+          "PrintWindowError": null,
+          "CopyFromScreenError": null,
+          "Width": 466,
+          "Height": 661,
+          "SampleStride": 4,
+          "Samples": 19422,
+          "Mean": 210.70725637592966,
+          "NonzeroRatio": 0.9191638348264854,
+          "NonwhiteRatio": 0.8722067758212336,
+          "Nonblank": true,
+          "Sha256": "AF3112CC33693A728215B56A68DEFAA6A8FB8B519724F670CDBCC48DB584DA16",
+          "Foreground": null,
+          "Window": {
+            "Title": "建立角色",
+            "ProcessId": 19632,
+            "Handle": 5245544,
+            "Rectangle": "1687,709,466,661",
+            "Minimized": false,
+            "Dpi": 192,
+            "ProcessDpiSet": true,
+            "ProcessDpiError": 0
+          }
+        },
+        "cancel": {
+          "Cancelled": true,
+          "Utc": "2026-11-14T01:43:54.7186350Z",
+          "Method": "UIA Invoke"
+        }
+      },
+      {
+        "CreateEnabled": true,
+        "Name": "Aurora1165",
+        "Stats": [
+          "8",
+          "7",
+          "16",
+          "18",
+          "8",
+          "18"
+        ],
+        "Class": "法師",
+        "Capture": {
+          "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1165\\scratch\\issue-1165\\r07-3.png",
+          "Method": "PrintWindow",
+          "PrintWindowError": null,
+          "CopyFromScreenError": null,
+          "Width": 466,
+          "Height": 661,
+          "SampleStride": 4,
+          "Samples": 19422,
+          "Mean": 210.71000240277212,
+          "NonzeroRatio": 0.9194212748429615,
+          "NonwhiteRatio": 0.8721037998146431,
+          "Nonblank": true,
+          "Sha256": "69B9B24C683F9B10F96F5C5498FEE186614052638168C1007A971E9E19E3A054",
+          "Foreground": null,
+          "Window": {
+            "Title": "建立角色",
+            "ProcessId": 19632,
+            "Handle": 5311080,
+            "Rectangle": "1687,709,466,661",
+            "Minimized": false,
+            "Dpi": 192,
+            "ProcessDpiSet": true,
+            "ProcessDpiError": 0
+          }
+        },
+        "cancel": {
+          "Cancelled": true,
+          "Utc": "2026-11-14T01:44:05.5613881Z",
+          "Method": "UIA Invoke"
+        }
+      },
+      {
+        "CreateEnabled": true,
+        "Name": "Aurora1165",
+        "Stats": [
+          "18",
+          "15",
+          "12",
+          "10",
+          "9",
+          "11"
+        ],
+        "Class": "黑暗精靈",
+        "Capture": {
+          "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1165\\scratch\\issue-1165\\r07-4.png",
+          "Method": "PrintWindow",
+          "PrintWindowError": null,
+          "CopyFromScreenError": null,
+          "Width": 466,
+          "Height": 661,
+          "SampleStride": 4,
+          "Samples": 19422,
+          "Mean": 210.46198469089893,
+          "NonzeroRatio": 0.9188034188034188,
+          "NonwhiteRatio": 0.8722067758212336,
+          "Nonblank": true,
+          "Sha256": "B30363409BF3C5D82C9801B575FCDFC9C56D326AB904050297DCBA200540E784",
+          "Foreground": null,
+          "Window": {
+            "Title": "建立角色",
+            "ProcessId": 19632,
+            "Handle": 5376616,
+            "Rectangle": "1687,709,466,661",
+            "Minimized": false,
+            "Dpi": 192,
+            "ProcessDpiSet": true,
+            "ProcessDpiError": 0
+          }
+        },
+        "cancel": {
+          "Cancelled": true,
+          "Utc": "2026-11-14T01:44:16.2430577Z",
+          "Method": "UIA Invoke"
+        }
+      },
+      {
+        "CreateEnabled": true,
+        "Name": "Aurora1165",
+        "Stats": [
+          "18",
+          "11",
+          "15",
+          "12",
+          "8",
+          "11"
+        ],
+        "Class": "龍騎士",
+        "Capture": {
+          "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1165\\scratch\\issue-1165\\r07-5.png",
+          "Method": "PrintWindow",
+          "PrintWindowError": null,
+          "CopyFromScreenError": null,
+          "Width": 466,
+          "Height": 661,
+          "SampleStride": 4,
+          "Samples": 19422,
+          "Mean": 210.71056877080835,
+          "NonzeroRatio": 0.919524250849552,
+          "NonwhiteRatio": 0.8721552878179384,
+          "Nonblank": true,
+          "Sha256": "4A184D6B1EA40E5BBC92B4A40BDD5DB6C7CF6502C68559599EDBE49E8063D258",
+          "Foreground": null,
+          "Window": {
+            "Title": "建立角色",
+            "ProcessId": 19632,
+            "Handle": 5442152,
+            "Rectangle": "1687,709,466,661",
+            "Minimized": false,
+            "Dpi": 192,
+            "ProcessDpiSet": true,
+            "ProcessDpiError": 0
+          }
+        },
+        "cancel": {
+          "Cancelled": true,
+          "Utc": "2026-11-14T01:44:27.3882448Z",
+          "Method": "UIA Invoke"
+        }
+      },
+      {
+        "CreateEnabled": true,
+        "Name": "Aurora1165",
+        "Stats": [
+          "11",
+          "10",
+          "16",
+          "12",
+          "8",
+          "18"
+        ],
+        "Class": "幻術師",
+        "Capture": {
+          "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1165\\scratch\\issue-1165\\r07-6.png",
+          "Method": "PrintWindow",
+          "PrintWindowError": null,
+          "CopyFromScreenError": null,
+          "Width": 466,
+          "Height": 661,
+          "SampleStride": 4,
+          "Samples": 19422,
+          "Mean": 210.58280987196517,
+          "NonzeroRatio": 0.9194212748429615,
+          "NonwhiteRatio": 0.8724642158377098,
+          "Nonblank": true,
+          "Sha256": "023F17C0CF6686B18FBE271ED4782D65E0DE9E1ED362F24919E2D264E5257A1F",
+          "Foreground": null,
+          "Window": {
+            "Title": "建立角色",
+            "ProcessId": 19632,
+            "Handle": 5507688,
+            "Rectangle": "1687,709,466,661",
+            "Minimized": false,
+            "Dpi": 192,
+            "ProcessDpiSet": true,
+            "ProcessDpiError": 0
+          }
+        },
+        "cancel": {
+          "Cancelled": true,
+          "Utc": "2026-11-14T01:44:38.1587716Z",
+          "Method": "UIA Invoke"
+        }
+      }
+    ],
+    "submitInvoke": {
+      "Returned": true,
+      "Utc": "2026-11-14T01:46:08.5718931Z",
+      "ElapsedMs": 472.4759
+    },
+    "deleteInvoke": {
+      "Target": "Aurora1165",
+      "ElapsedMs": 248.42880000000002
+    },
+    "deleteConfirmed": {
+      "Utc": "2026-11-14T01:46:52.2781829Z",
+      "Target": "Aurora1165",
+      "Confirmed": true
+    },
+    "characterListTree": [
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "392,392,826,711",
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "405,450,800,640",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "413,494,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "413,494,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "424,505,175,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "424,505,175,38",
+        "Patterns": []
+      },
+      {
+        "Name": "開啟",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "566,506,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "605,505,90,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "662,506,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "662,506,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "662,524,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "微調按鈕",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "607,507,54,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "701,505,95,38",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "[PASSWORD]",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "802,505,95,38",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "903,505,88,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "取消 / 斷線",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "997,505,98,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "離線預覽",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "424,549,90,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "資源法師",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "520,549,155,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.List",
+        "Id": "1000",
+        "Class": "ComboLBox",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "520,587,155,122",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "資源法師",
+        "Type": "ControlType.ListItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "521,588,153,30",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "服務驗證",
+        "Type": "ControlType.ListItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "521,618,153,30",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "服務交易",
+        "Type": "ControlType.ListItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "521,648,153,30",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Aurora1165",
+        "Type": "ControlType.ListItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "521,678,153,30",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "SelectionItemPatternIdentifiers.Pattern",
+          "ScrollItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "520,549,155,38",
+        "Patterns": []
+      },
+      {
+        "Name": "關閉",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "642,550,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "進入世界",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "681,549,95,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "建立角色",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "782,549,92,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "刪除角色",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "880,549,110,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "CharacterList • 角色已建立，可從清單選擇進入世界。\n登入請求已送出，請查看連線狀態。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "424,590,480,52",
+        "Patterns": []
+      },
+      {
+        "Name": "網頁面板",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "409,454,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "服務",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "517,454,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "595,454,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "控制",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "727,454,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "狀態列",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "805,454,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Button",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "889,454,90,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "405,405,800,45",
+        "Patterns": []
+      },
+      {
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "405,405,44,44",
+        "Patterns": []
+      },
+      {
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "405,405,44,44",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Minimize",
+        "Type": "ControlType.Button",
+        "Id": "Minimize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "926,393,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Maximize",
+        "Type": "ControlType.Button",
+        "Id": "Maximize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1020,393,92,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1112,393,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "deleteConfirmationTree": [
+      {
+        "Name": "確認角色刪除",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Class": "#32770",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1554,932,758,332",
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "是(Y)",
+        "Type": "ControlType.Button",
+        "Id": "6",
+        "Class": "Button",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1889,1171,175,51",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "否(N)",
+        "Type": "ControlType.Button",
+        "Id": "7",
+        "Class": "Button",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "2082,1171,175,51",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Image",
+        "Id": "20",
+        "Class": "Static",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1616,1041,64,64",
+        "Patterns": []
+      },
+      {
+        "Name": "確定刪除「Aurora1165」嗎？\n伺服器可能立即刪除，或依等級設定七日刪除排程。",
+        "Type": "ControlType.Text",
+        "Id": "65535",
+        "Class": "Static",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1697,1044,532,62",
+        "Patterns": []
+      },
+      {
+        "Name": "確認角色刪除",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "1567,945,732,45",
+        "Patterns": []
+      },
+      {
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "SystemMenuBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": true,
+        "Rectangle": "Empty",
+        "Patterns": []
+      },
+      {
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "Empty",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "2231,933,69,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "afterSubmit": {
+      "state": "CharacterList",
+      "detail": "角色已建立，可從清單選擇進入世界。",
+      "expected": 4,
+      "slots": 4,
+      "characters": [
+        {
+          "Name": "資源法師",
+          "Clan": "",
+          "Class": 3,
+          "Sex": 0,
+          "Lawful": -10,
+          "Hp": 270,
+          "Mp": 276,
+          "Ac": 4,
+          "Level": 52,
+          "Strength": 8,
+          "Dexterity": 7,
+          "Constitution": 12,
+          "Wisdom": 12,
+          "Charisma": 8,
+          "Intelligence": 28,
+          "Gm": 0,
+          "CreateTime": 20261114,
+          "CheckCode": 47
+        },
+        {
+          "Name": "服務驗證",
+          "Clan": "資源血盟",
+          "Class": 0,
+          "Sex": 0,
+          "Lawful": 26,
+          "Hp": 236,
+          "Mp": 117,
+          "Ac": -4,
+          "Level": 59,
+          "Strength": 22,
+          "Dexterity": 13,
+          "Constitution": 16,
+          "Wisdom": 12,
+          "Charisma": 10,
+          "Intelligence": 11,
+          "Gm": 0,
+          "CreateTime": 20261026,
+          "CheckCode": 61
+        },
+        {
+          "Name": "服務交易",
+          "Clan": "",
+          "Class": 0,
+          "Sex": 0,
+          "Lawful": 0,
+          "Hp": 686,
+          "Mp": 117,
+          "Ac": 10,
+          "Level": 59,
+          "Strength": 22,
+          "Dexterity": 13,
+          "Constitution": 16,
+          "Wisdom": 12,
+          "Charisma": 10,
+          "Intelligence": 11,
+          "Gm": 0,
+          "CreateTime": 20261106,
+          "CheckCode": 61
+        },
+        {
+          "Name": "Aurora1165",
+          "Clan": "",
+          "Class": 1,
+          "Sex": 0,
+          "Lawful": 0,
+          "Hp": 16,
+          "Mp": 1,
+          "Ac": 0,
+          "Level": 1,
+          "Strength": 18,
+          "Dexterity": 12,
+          "Constitution": 16,
+          "Wisdom": 9,
+          "Charisma": 12,
+          "Intelligence": 8,
+          "Gm": 0,
+          "CreateTime": 20261114,
+          "CheckCode": 2
+        }
+      ],
+      "appliedPacketSequence": 7
+    },
+    "afterDelete": {
+      "state": "CharacterList",
+      "detail": "角色清單已更新；標示七日待刪除的角色可再次按刪除以取消排程。",
+      "expected": 3,
+      "slots": 4,
+      "characters": [
+        {
+          "Name": "資源法師",
+          "Clan": "",
+          "Class": 3,
+          "Sex": 0,
+          "Lawful": -10,
+          "Hp": 270,
+          "Mp": 276,
+          "Ac": 4,
+          "Level": 52,
+          "Strength": 8,
+          "Dexterity": 7,
+          "Constitution": 12,
+          "Wisdom": 12,
+          "Charisma": 8,
+          "Intelligence": 28,
+          "Gm": 0,
+          "CreateTime": 20261114,
+          "CheckCode": 47
+        },
+        {
+          "Name": "服務驗證",
+          "Clan": "資源血盟",
+          "Class": 0,
+          "Sex": 0,
+          "Lawful": 26,
+          "Hp": 236,
+          "Mp": 117,
+          "Ac": -4,
+          "Level": 59,
+          "Strength": 22,
+          "Dexterity": 13,
+          "Constitution": 16,
+          "Wisdom": 12,
+          "Charisma": 10,
+          "Intelligence": 11,
+          "Gm": 0,
+          "CreateTime": 20261026,
+          "CheckCode": 61
+        },
+        {
+          "Name": "服務交易",
+          "Clan": "",
+          "Class": 0,
+          "Sex": 0,
+          "Lawful": 0,
+          "Hp": 686,
+          "Mp": 117,
+          "Ac": 10,
+          "Level": 59,
+          "Strength": 22,
+          "Dexterity": 13,
+          "Constitution": 16,
+          "Wisdom": 12,
+          "Charisma": 10,
+          "Intelligence": 11,
+          "Gm": 0,
+          "CreateTime": 20261106,
+          "CheckCode": 61
+        }
+      ],
+      "appliedPacketSequence": 12
+    },
+    "selectBefore": "@@port\t@@datadir\n43324\tD:\\BinEngine\\scratch\\wt\\task-1165\\scratch\\issue-1165\\db-data\\\naccount_name\tchar_name\tobjid\tType\tAccessLevel\tOnlineStatus\np242db6e\t資源王族\t10305\t0\t0\t0\np241db6e\t資源騎士\t10314\t1\t0\t0\np241db6e\t資源妖精\t10325\t2\t0\t0\np24svc01\t資源法師\t10334\t3\t0\t0\np241db6e\t資源暗妖\t10344\t4\t0\t0\np242db6e\t資源龍騎\t10356\t5\t0\t0\np242db6e\t資源幻術\t10365\t6\t0\t0\np241db6e\t透明王子\t1900240001\t0\t0\t0\np242db6e\t透明王子乙\t1900240002\t0\t0\t0\np243db6e\t驗收王子\t1900240003\t0\t0\t0\np244db6e\t驗收王子乙\t1900240004\t0\t0\t0\np245db6e\t透明觀察甲\t1900240005\t0\t0\t0\np246db6e\t透明觀察乙\t1900240006\t0\t0\t0\np247db6e\t驗收觀察甲\t1900240007\t0\t0\t0\np248db6e\t驗收觀察乙\t1900240008\t0\t0\t0\np24svc01\t服務驗證\t1900249001\t0\t0\t0\np24svc01\t服務交易\t1900249201\t0\t0\t0\n",
+    "selectAfterSubmit": "@@port\t@@datadir\n43324\tD:\\BinEngine\\scratch\\wt\\task-1165\\scratch\\issue-1165\\db-data\\\naccount_name\tchar_name\tobjid\tType\tAccessLevel\tOnlineStatus\np24svc01\tAurora1165\t10293\t1\t0\t0\np242db6e\t資源王族\t10305\t0\t0\t0\np241db6e\t資源騎士\t10314\t1\t0\t0\np241db6e\t資源妖精\t10325\t2\t0\t0\np24svc01\t資源法師\t10334\t3\t0\t0\np241db6e\t資源暗妖\t10344\t4\t0\t0\np242db6e\t資源龍騎\t10356\t5\t0\t0\np242db6e\t資源幻術\t10365\t6\t0\t0\np241db6e\t透明王子\t1900240001\t0\t0\t0\np242db6e\t透明王子乙\t1900240002\t0\t0\t0\np243db6e\t驗收王子\t1900240003\t0\t0\t0\np244db6e\t驗收王子乙\t1900240004\t0\t0\t0\np245db6e\t透明觀察甲\t1900240005\t0\t0\t0\np246db6e\t透明觀察乙\t1900240006\t0\t0\t0\np247db6e\t驗收觀察甲\t1900240007\t0\t0\t0\np248db6e\t驗收觀察乙\t1900240008\t0\t0\t0\np24svc01\t服務驗證\t1900249001\t0\t0\t0\np24svc01\t服務交易\t1900249201\t0\t0\t0\n",
+    "selectFinal": "@@port\t@@datadir\n43324\tD:\\BinEngine\\scratch\\wt\\task-1165\\scratch\\issue-1165\\db-data\\\naccount_name\tchar_name\tobjid\tType\tAccessLevel\tOnlineStatus\np242db6e\t資源王族\t10305\t0\t0\t0\np241db6e\t資源騎士\t10314\t1\t0\t0\np241db6e\t資源妖精\t10325\t2\t0\t0\np24svc01\t資源法師\t10334\t3\t0\t0\np241db6e\t資源暗妖\t10344\t4\t0\t0\np242db6e\t資源龍騎\t10356\t5\t0\t0\np242db6e\t資源幻術\t10365\t6\t0\t0\np241db6e\t透明王子\t1900240001\t0\t0\t0\np242db6e\t透明王子乙\t1900240002\t0\t0\t0\np243db6e\t驗收王子\t1900240003\t0\t0\t0\np244db6e\t驗收王子乙\t1900240004\t0\t0\t0\np245db6e\t透明觀察甲\t1900240005\t0\t0\t0\np246db6e\t透明觀察乙\t1900240006\t0\t0\t0\np247db6e\t驗收觀察甲\t1900240007\t0\t0\t0\np248db6e\t驗收觀察乙\t1900240008\t0\t0\t0\np24svc01\t服務驗證\t1900249001\t0\t0\t0\np24svc01\t服務交易\t1900249201\t0\t0\t0\n",
+    "packets": [
+      {
+        "utc": "2026-11-14T01:45:17.459Z",
+        "dir": "out",
+        "op": 14,
+        "len": 24,
+        "seq": null
+      },
+      {
+        "utc": "2026-11-14T01:45:17.460Z",
+        "dir": "out",
+        "op": 119,
+        "len": 24,
+        "seq": null
+      },
+      {
+        "utc": "2026-11-14T01:45:17.500Z",
+        "dir": "in",
+        "op": 139,
+        "len": 40,
+        "seq": 1
+      },
+      {
+        "utc": "2026-11-14T01:45:17.502Z",
+        "dir": "in",
+        "op": 233,
+        "len": 16,
+        "seq": 2
+      },
+      {
+        "utc": "2026-11-14T01:45:17.515Z",
+        "dir": "in",
+        "op": 178,
+        "len": 8,
+        "seq": 3
+      },
+      {
+        "utc": "2026-11-14T01:45:17.535Z",
+        "dir": "in",
+        "op": 93,
+        "len": 40,
+        "seq": 4
+      },
+      {
+        "utc": "2026-11-14T01:45:17.586Z",
+        "dir": "in",
+        "op": 93,
+        "len": 48,
+        "seq": 5
+      },
+      {
+        "utc": "2026-11-14T01:45:17.593Z",
+        "dir": "in",
+        "op": 93,
+        "len": 40,
+        "seq": 6
+      },
+      {
+        "utc": "2026-11-14T01:46:09.184Z",
+        "dir": "out",
+        "op": 84,
+        "len": 24,
+        "seq": null
+      },
+      {
+        "utc": "2026-11-14T01:46:09.245Z",
+        "dir": "in",
+        "op": 98,
+        "len": 8,
+        "seq": 7
+      },
+      {
+        "utc": "2026-11-14T01:46:09.254Z",
+        "dir": "in",
+        "op": 127,
+        "len": 40,
+        "seq": 8
+      },
+      {
+        "utc": "2026-11-14T01:46:52.343Z",
+        "dir": "out",
+        "op": 162,
+        "len": 16,
+        "seq": null
+      },
+      {
+        "utc": "2026-11-14T01:46:52.393Z",
+        "dir": "in",
+        "op": 6,
+        "len": 8,
+        "seq": 9
+      },
+      {
+        "utc": "2026-11-14T01:46:52.400Z",
+        "dir": "out",
+        "op": 16,
+        "len": 8,
+        "seq": null
+      },
+      {
+        "utc": "2026-11-14T01:46:52.403Z",
+        "dir": "in",
+        "op": 178,
+        "len": 8,
+        "seq": 10
+      },
+      {
+        "utc": "2026-11-14T01:46:52.403Z",
+        "dir": "in",
+        "op": 93,
+        "len": 40,
+        "seq": 11
+      },
+      {
+        "utc": "2026-11-14T01:46:52.403Z",
+        "dir": "in",
+        "op": 93,
+        "len": 48,
+        "seq": 12
+      },
+      {
+        "utc": "2026-11-14T01:46:52.408Z",
+        "dir": "in",
+        "op": 93,
+        "len": 40,
+        "seq": 13
+      }
+    ],
+    "packetLimitation": "既有 PacketTrace 只記 opcode／length／sequence；S98 reason=2 是依成功狀態與來源路徑推論，不是原始 payload 讀值。"
+  },
+  "screenshots": [
+    {
+      "path": "client/manual-client.png",
+      "bytes": 15722,
+      "sha256": "d749eccb2d906d41df2060cb9ccc61bbf4bd4b5d18ee7cd60b46a0ea08adb8b4"
+    },
+    {
+      "path": "client/manual-logical.png",
+      "bytes": 5361,
+      "sha256": "fc24474c24c28cbcf8b8bcd2cdc020e45b13aa3106cfe741c99996acc9353a2f"
+    },
+    {
+      "path": "client/manual-screen.png",
+      "bytes": 15768,
+      "sha256": "7bb80281cc48466b4515e0285b0621c69a3d14d389994bb50de756e81e7f2835"
+    },
+    {
+      "path": "f01-dialog.png",
+      "bytes": 22165,
+      "sha256": "f4162c5254dbd72b246385ba19ee13b9881f04095862189190de0bf2ea25e252"
+    },
+    {
+      "path": "f01-knight.png",
+      "bytes": 22236,
+      "sha256": "36f18c9403b8df1eb831fb16e205e603ac18010f04232aeee3fad2b8843dc617"
+    },
+    {
+      "path": "g05-dev.png",
+      "bytes": 24441,
+      "sha256": "b515272d018a62f85265a68b0a1102b869a6d959015ecee58eb86e430dc3f5bf"
+    },
+    {
+      "path": "g07-login.png",
+      "bytes": 25453,
+      "sha256": "153d68fdd392213cdb118d971fbfd5e2e186873abf8b59287dd083daa5fb374c"
+    },
+    {
+      "path": "g07-service.png",
+      "bytes": 24818,
+      "sha256": "fd23cc5111171fd28337c17827c407c20be28be01fc845ce7508a22edaa04a32"
+    },
+    {
+      "path": "r07-0.png",
+      "bytes": 23412,
+      "sha256": "0bfb16398cf7315eb982bc1a80a15a9c991b0860da98e0b489f7e93f330fb7be"
+    },
+    {
+      "path": "r07-1.png",
+      "bytes": 23489,
+      "sha256": "5a8245b3d3521adbed8d15d0e5ccd3fb0821fa2ab0de5ecc205efb9d1a80eee7"
+    },
+    {
+      "path": "r07-2.png",
+      "bytes": 23593,
+      "sha256": "af3112cc33693a728215b56a68defaa6a8fb8b519724f670cdbcc48db584da16"
+    },
+    {
+      "path": "r07-3.png",
+      "bytes": 23538,
+      "sha256": "69b9b24c683f9b10f96f5c5498fee186614052638168c1007a971e9e19e3a054"
+    },
+    {
+      "path": "r07-4.png",
+      "bytes": 23821,
+      "sha256": "b30363409bf3c5d82c9801b575fcdfc9c56d326ab904050297dcba200540e784"
+    },
+    {
+      "path": "r07-5.png",
+      "bytes": 23432,
+      "sha256": "4a184d6b1ea40e5bbc92b4a40bdd5db6c7cf6502c68559599edbe49e8063d258"
+    },
+    {
+      "path": "r07-6.png",
+      "bytes": 23688,
+      "sha256": "023f17c0cf6686b18fbe271ed4782d65e0de9e1ed362f24919e2d264e5257a1f"
+    },
+    {
+      "path": "r07-after-delete.png",
+      "bytes": 24091,
+      "sha256": "a20ae65c6df3eb089c7ec29e77f09441bd018171885c72724f8f2a2753fd901f"
+    },
+    {
+      "path": "r07-after-submit.png",
+      "bytes": 24320,
+      "sha256": "5b911c27fda9ab3987d38666e3b46b68e6975931abb46dcc91e4aed9f7af0d31"
+    },
+    {
+      "path": "r07-character-list.png",
+      "bytes": 24192,
+      "sha256": "52ee8959336154f259f86f77abfb1704f376c6185c69a80f87fb25762f8ed416"
+    },
+    {
+      "path": "r07-delete-confirm.png",
+      "bytes": 12784,
+      "sha256": "d068869f4a2b90893536cff839cb7de6a38323136bba3e330e9fd50f7b589635"
+    },
+    {
+      "path": "r07-submit-ready.png",
+      "bytes": 23489,
+      "sha256": "5a8245b3d3521adbed8d15d0e5ccd3fb0821fa2ab0de5ecc205efb9d1a80eee7"
+    }
+  ],
+  "visualReview": {
+    "sevenClassImages": "r07-0.png 至 r07-6.png 均目視確認職業、六值、剩餘 0、可以建立。",
+    "tabs": "服務及登入／選角截圖與外層選取標籤一致。",
+    "limitations": "PrintWindow 不包含 ComboBox 的獨立 popup；選角四筆以 UIA ListItem 與 login-state／DB 證明。"
+  }
+}

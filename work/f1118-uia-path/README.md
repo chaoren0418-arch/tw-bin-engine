@@ -1,6 +1,65 @@
 # UIA／GDI 操作工具（#1126／#1138）
 
-記事本前置改為 **UIA 聚焦＋SendInput Unicode 輸入＋TextPattern 讀回**。Windows 10 記事本編輯區是 `ControlType.Document`（Class `Edit`、AutomationId `15`），只提供 `TextPattern`／`ScrollPattern`，不支援 `ValuePattern`。不要把狀態列的五個 `ControlType.Edit` 當編輯區。#1138 實機結果見下方報告；記事本 #1149 已通過；客戶端 #1150 部分通過，實證與限制見下方客戶端章節。
+記事本前置改為 **UIA 聚焦＋SendInput Unicode 輸入＋TextPattern 讀回**。Windows 10 記事本編輯區是 `ControlType.Document`（Class `Edit`、AutomationId `15`），只提供 `TextPattern`／`ScrollPattern`，不支援 `ValuePattern`。不要把狀態列的五個 `ControlType.Edit` 當編輯區。#1138 實機結果見下方報告；記事本 #1149 已通過；客戶端最新實證見下方 **#1165**：七職業 GUI 建角完成，分頁 helper 仍有 API 呼叫錯誤。
+
+## 客戶端最新實證（#1165）
+
+[完整報告](../../docs/reports/issue-1165.md)／[精簡原始證據](../../docs/reports/issue-1165-evidence.json)。Windows PowerShell 5.1 新 STA 行程，main `1f756d09` 建置；下方 #1150 表格保留歷史結果，不代表修正後現況。此節只回寫實證，沒有修改 helper 程式。
+
+| 客戶端用法 | #1165 結果與限制 |
+|---|---|
+| 找窗含 `-IncludeOwned` | ✅ 依自啟 PID＋精確標題取得主窗、開發工具、建立角色與確認刪除視窗。 |
+| `Get-UiaTree` | ✅ modal 開啟期間可讀到「職業」「性別」ComboBox、「力量／敏捷／體質／精神／魅力／智力」Spinner 與 Edit、「本機檢查」Text。後者 Name 是固定 AccessibleName，動態檢查文案須以 GDI 圖確認。 |
+| `Select-UiaTab` | ❌ SelectionItemPattern.Select 實際切到正確頁，但其後呼叫不存在的 GetCurrentSelection 拋錯，不能當整個 helper 成功。服務頁有兩個 Tab，找外層要限定 dev 的直接 Children，不能無條件 `Find-UiaControl $dev -Type Tab`。 |
+| `Invoke-UiaButton` | ✅ 建立角色約 17.20 ms 返回；modal 不再阻塞讀樹。取消鈕、真正建立、刪除角色入口、確認「是(Y)」均可 Invoke。逾時時仍不得盲目重送。 |
+| 職業切換 | ✅ `Expand-UiaCombo` → 依當次樹找到精確名稱的 ListItem → `Select-UiaItem` → `Get-UiaValue` 讀回 → ExpandCollapsePattern.Collapse；七職業都完成。 |
+| 能力值設定 | ✅ 對具名稱的 **Edit** 用 Set-UiaValue；SetFocus 到欄位後寫值，再把焦點移到角色名稱以提交 NumericUpDown 編輯，最後 Get-UiaValue 讀回。不是對沒有 ValuePattern 的外層 Spinner 寫值。 |
+| `Save-UiaGdiScreenshot` | ✅ PrintWindow 可擷取開發工具、modal、確認框；七職業各一張「剩餘 0／可以建立」。ComboBox popup 不在父視窗 PrintWindow 內，清單另以 UIA ListItem 讀回。 |
+| `Send-UiaEvidenceKey`／`Get-UiaNewEvidence` | ✅ 主窗 Ctrl+Shift+F12 產生三張新 manual PNG，時間皆晚於送鍵；單鍵 F12 不是此契約。詳細 UTC 保存於報告。 |
+
+`Select-UiaTab` 錯誤原文（完整例外見 Git 證據）：
+
+```text
+Method invocation failed because [System.Windows.Automation.SelectionPattern] does not contain a method named 'GetCurrentSelection'.
+```
+
+本機反射確認 `GetSelection` 在 `SelectionPatternInformation`，讀回形狀為 `pattern.Current.GetSelection()`；**尚未修正 helper／重測雙向驗證**。外層六個 TabItem（網頁面板、服務、登入／選角、控制、狀態列、Button）已完整列出且與 GDI 一致。服務巢狀 Tab 仍觀察到名稱／矩形偏移，本輪沒有切服務子頁，不宣稱其通過。
+
+以下是本輪已成功的建角操作片段；每次從當前視窗／樹重新找唯一控制項，不能套用舊 index 或座標。示範只取消，不送出角色。
+
+```powershell
+$dev = Get-UiaWindow -ProcessId $ownedProcessId -Title '開發工具（過渡操作介面） · Ctrl+Shift+F9' -IncludeOwned
+# 前置：當前樹已確認登入／選角頁有「建立角色」按鈕。
+Invoke-UiaButton (Find-UiaControl $dev -Name '建立角色' -Type Button)
+$dialog = Get-UiaWindow -ProcessId $ownedProcessId -Title '建立角色' -IncludeOwned
+Get-UiaTree $dialog
+$class = Find-UiaControl $dialog -Name '職業' -Type ComboBox
+Expand-UiaCombo $class
+Get-UiaTree $dialog  # 先觀察本次 ListItem 名稱，再執行下一段。
+```
+
+```powershell
+Select-UiaItem (Find-UiaControl $dialog -Name '騎士' -Type ListItem)
+Get-UiaValue $class  # #1165 讀回「騎士」
+($class.GetCurrentPattern([Windows.Automation.ExpandCollapsePattern]::Pattern)).Collapse()
+$name = Find-UiaControl $dialog -Name '角色名稱' -Type Edit
+Set-UiaValue $name 'Aurora1165'  # 本輪已取消的示例；實際送出必須使用本輪唯一名稱。
+$names = @('力量','敏捷','體質','精神','魅力','智力')
+$values = @(18,12,16,9,12,8)
+foreach ($i in 0..5) {
+    $edit = Find-UiaControl $dialog -Name $names[$i] -Type Edit
+    $edit.SetFocus()
+    Set-UiaValue $edit ([string]$values[$i])
+    $name.SetFocus()
+    Get-UiaValue $edit
+}
+(Find-UiaControl $dialog -Name '建立角色' -Type Button).Current.IsEnabled
+Save-UiaGdiScreenshot $dialog scratch/create-ready.png
+# 必須目視剩餘 0 與「資料符合本機檢查，可以建立。」
+Invoke-UiaButton (Find-UiaControl $dialog -Name '取消' -Type Button)
+```
+
+本輪真正送出的 Aurora1165（騎士）已收到 S98／S127，DB objid=10293／Type=1／AccessLevel=0；之後 GUI 立即刪除。這是隔離副本結果，不代表原持久 DB 被修改。後續只需修正並重測 G07／P01，不需重做七職業建角。
 
 **#1138 單次實跑尚未通過**：輸入前 `Set-UiaForeground` 回報 `Foreground window does not match target`，未執行 SendInput／讀回，GDI 也被前景檢查擋下。根因是舊版只呼叫一次 `SetForegroundWindow`，而背景 shell 受 Windows 前景鎖限制（前景是使用者正在用的程式）。**#1148 已改為多步驟取得前景並附診斷、截圖改 PrintWindow 優先**（見下節）；記事本實機效果已由 [#1149](../../docs/reports/issue-1149.md) 驗證通過。
 
@@ -48,7 +107,7 @@ finally 留一張 GDI 圖並關閉自啟記事本；若出現儲存對話框，�
 | `Get-UiaTree $window` | 單一元素失效、null 屬性或列舉例外輸出 `{ Error = 原文 }`，繼續讀其他已取得元素；不把錯誤當空樹。provider 永不返回的 FindAll 不在這次逾時保護範圍。 |
 | `Find-UiaControl $window -Name $name -Type Button -ReadErrors ([ref]$errors)` | 忽略不可讀元素，錯誤以 `{ Error = 原文 }` 存入 `$errors`；仍只回傳唯一 element。也可立即用 `Get-UiaReadErrors` 讀最近一次 Find／Tree 的錯誤；找不到或多筆時仍丟錯並附原文。 |
 | `Invoke-UiaButton $button -TimeoutSeconds 5` | 預設最多等待 5 秒，包含取得 InvokePattern。背景 MTA 呼叫無自動重試；逾時只停止等待，provider 可能仍在執行。**動作可能已生效，先截圖核對，不要重送**。 |
-| `Select-UiaTab $tab '登入／選角'` | 只用 SelectionItemPattern.Select；之後重新讀 TabItem 名稱／IsSelected 與 Tab 的 SelectionPattern.GetCurrentSelection()（.NET UIA 的 GetSelection 對應方法），兩者必須唯一符合目標。錯誤含兩邊原始觀察／例外；沒有鍵盤或座標退路。 |
+| `Select-UiaTab $tab '登入／選角'` | 契約是 SelectionItemPattern.Select 後雙向核對；**#1165 實機發現實作的 SelectionPattern.GetCurrentSelection() 不存在而失敗**，見本頁最新實證。錯誤含兩邊原始觀察／例外；沒有鍵盤或座標退路。 |
 | `$sentUtc = Send-UiaEvidenceKey $window` | 前景核對同 PID 後送 **Ctrl+Shift+F12**，回傳送出前的 UTC DateTime；沿用 Send-ClientKey 的逐次原生 PID 保護與 JSONL。 |
 | `Get-UiaNewEvidence $directory $sentUtc` | 列出該目錄 `LastWriteTimeUtc` 嚴格晚於送鍵 UTC 的 `manual-*.png`；不遞迴、不等待，零筆不能算擷取成功。 |
 | `Send-UiaF12 $window` | 舊名只為相容保留，轉呼叫 Send-UiaEvidenceKey；現在送組合鍵，**單鍵 F12 不是證據鍵**。 |
@@ -140,7 +199,7 @@ Save-UiaGdiScreenshot $dialog scratch/create-dialog.png
 Send-ClientKey ([IntPtr]$fg.Handle) 'Escape'
 ```
 
-職業清單與能力值仍待可及性問題修復後實證。不要沿用舊 element index、猜 AutomationId、把不支援的 pattern 當成驗證成功，也不要改用座標硬點。F12 類的內建證據只保存主窗，不能替代獨立建角對話框 GDI 圖。
+上述 #1150 當時未完成職業與能力值實證；**#1165 已完成，操作方式見本頁開頭**。不要沿用舊 element index、猜 AutomationId、把不支援的 pattern 當成驗證成功，也不要改用座標硬點。F12 類的內建證據只保存主窗，不能替代獨立建角對話框 GDI 圖。
 
 ## 原生 UI 客戶端（#1154；給 #1145 N01–N04 用，**全部待真機驗證**）
 
