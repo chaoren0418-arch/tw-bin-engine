@@ -48,6 +48,7 @@ TW16 是 VA＝映像基底 `0x400000`＋RVA；`.text` 段 FO＝VA−`0x400C00`�
 - `git grep -i -E "WGC|GraphicsCapture|password|passwd"`（`Test-NativeClient.ps1`）：只命中第 4 行原有說明「no password」，沒有 WGC 也沒有帳密字串。
 - 腳本位元組檢查：非 ASCII 位元組 0。
 - 依本機執行限制，沒有啟動客戶端、遊戲、伺服器、DemoChecks；也沒有執行修改後的腳本。CI 交給 PR。
+- PR #1189 第一個 commit（`85914a3f`）的 CI：`dotnet`、`map-continuity`、`npc-offline` 全部通過。
 
 ## 未驗證（待驗證，交 `f1155-retest`）
 - 實機：在登入畫面跑新版腳本，N03 應為 `Passed=true`、`NewFiles=[]`、`AccountBoxUnchanged=true`，整支回 0。
