@@ -220,8 +220,8 @@ public sealed class PledgePanel:IUiMovablePanel,IUiClosablePanel,IUiTextInput {
     public const string PanelId="PledgeUI",LayoutName="PledgeUI";
     public const string PlainWindowName="Nonoticeuserinfo_Window",NoticeWindowName="Noticeuserinfo_Window";
     // ---- 推測（查證後只改這裡）----
-    /// <summary>文字高度：UiText 暫定 新細明體 9pt ≈ 12 px（V4 (f) 待驗證）；用於 VAlign="middle" 置中。</summary>
-    public const int TextHeight=12;
+    /// <summary>文字高度：UiText 依原版 CreateFontA(12,…,"MingLiU") 是 12 px（#1205）；用於 VAlign="middle" 置中。</summary>
+    public const int TextHeight=UiText.PixelHeight;
     /// <summary>字色：XML 沒寫 FontColor 的 Label 用白色（推測）。</summary>
     public static readonly Color TextColor=Color.FromArgb(255,255,255,255);
     /// <summary>KeyboardEvent="CloseUI" 的實體按鍵：Esc（推測）。</summary>
