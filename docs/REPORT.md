@@ -485,3 +485,4 @@
 - 2026-11-14 — #1176 分流：tw-bin-engine#1173 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1177 已合併）→ [報告](reports/issue-1176.md)
 - 2026-11-14 — #1178 f1173-g06-web-tree: f1173-g06-web-tree: 網頁面板 UIA 樹 Name=null（sceneStatus 位置）——panel.js 文字值不同才寫；UiaGdi helper 保留壞節點身分、Select-UiaTab 先查 IsEnabled（#1173 G06，附 N01 診斷）（code，claude-local，PR #1180 已合併）→ [報告](reports/issue-1178.md)
 - 2026-11-14 — #1160 分流：tw-bin-engine#1155 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR 已合併）→ [報告](reports/issue-1160.md)
+- 2026-11-14 — #1181 分流：tw-bin-engine#1179 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1183 已合併）→ [報告](reports/issue-1181.md)
