@@ -40,6 +40,43 @@ finally 留一張 GDI 圖並關閉自啟記事本；若出現儲存對話框，�
 
 ## 找窗、樹與截圖（記事本已驗證）
 
+### #1164 工具用法
+
+| 函式 | 用法與判定 |
+|---|---|
+| `Get-UiaWindow -ProcessId $ownedProcessId -Title $title -IncludeOwned` | 查同 PID 頂層與其 descendants 的 Window，標題採 ordinal 完全相符、RuntimeId 去重，仍必須唯一。省略 IncludeOwned 保留頂層搜尋。 |
+| `Get-UiaTree $window` | 單一元素失效、null 屬性或列舉例外輸出 `{ Error = 原文 }`，繼續讀其他已取得元素；不把錯誤當空樹。provider 永不返回的 FindAll 不在這次逾時保護範圍。 |
+| `Find-UiaControl $window -Name $name -Type Button -ReadErrors ([ref]$errors)` | 忽略不可讀元素，錯誤以 `{ Error = 原文 }` 存入 `$errors`；仍只回傳唯一 element。也可立即用 `Get-UiaReadErrors` 讀最近一次 Find／Tree 的錯誤；找不到或多筆時仍丟錯並附原文。 |
+| `Invoke-UiaButton $button -TimeoutSeconds 5` | 預設最多等待 5 秒，包含取得 InvokePattern。背景 MTA 呼叫無自動重試；逾時只停止等待，provider 可能仍在執行。**動作可能已生效，先截圖核對，不要重送**。 |
+| `Select-UiaTab $tab '登入／選角'` | 只用 SelectionItemPattern.Select；之後重新讀 TabItem 名稱／IsSelected 與 Tab 的 SelectionPattern.GetCurrentSelection()（.NET UIA 的 GetSelection 對應方法），兩者必須唯一符合目標。錯誤含兩邊原始觀察／例外；沒有鍵盤或座標退路。 |
+| `$sentUtc = Send-UiaEvidenceKey $window` | 前景核對同 PID 後送 **Ctrl+Shift+F12**，回傳送出前的 UTC DateTime；沿用 Send-ClientKey 的逐次原生 PID 保護與 JSONL。 |
+| `Get-UiaNewEvidence $directory $sentUtc` | 列出該目錄 `LastWriteTimeUtc` 嚴格晚於送鍵 UTC 的 `manual-*.png`；不遞迴、不等待，零筆不能算擷取成功。 |
+| `Send-UiaF12 $window` | 舊名只為相容保留，轉呼叫 Send-UiaEvidenceKey；現在送組合鍵，**單鍵 F12 不是證據鍵**。 |
+
+錯誤容錯只保留可讀證據，不能證明完整樹或唯一目標不存在於已失效節點中。對機敏輸入不要使用不完整樹繼續操作。
+
+G04 重測步驟（客戶端實證交 `f1150-retest`）：
+
+```powershell
+$sentUtc = Send-UiaEvidenceKey $main
+# 等這次截圖完成後，列出新證據並逐張檢視；送鍵成功不等於擷取成功。
+$newEvidence = @(Get-UiaNewEvidence $evidenceDirectory $sentUtc)
+$newEvidence | Select-Object Name, LastWriteTimeUtc
+```
+
+以下 #1150 的成功／失敗紀錄是歷史實證，保留原結果；當時 Send-UiaF12 仍送單鍵。
+
+#1164 本機驗證見 [報告](../../docs/reports/issue-1164.md)：記事本回歸退出 0、owned「另存新檔」找窗／關閉瞬間讀樹通過、組合鍵 JSONL 符合六個鍵盤事件。兩個新增測試入口：
+
+```powershell
+# 只開記事本，另存新檔對話框直接取消，結束時關閉自啟 PID；使用新的證據目錄。
+powershell.exe -NoProfile -ExecutionPolicy Bypass -STA -File work/f1118-uia-path/Test-UiaHelpers.ps1 -EvidenceDirectory scratch/uia-helpers
+# 純單元 fixture：錯誤保留、分頁雙向核對、逾時不重試、檔案時間篩選，不算客戶端實證。
+powershell.exe -NoProfile -ExecutionPolicy Bypass -STA -File work/f1118-uia-path/Test-UiaContracts.ps1 -EvidenceDirectory scratch/uia-contracts
+```
+
+`Test-UiaHelpers.ps1 -SkipEvidenceKey` 可在送鍵項已通過時只補驗對話框兩項；完整 JSON 與 PNG 都寫到指定目錄。`Test-UiaContracts.ps1` 的 `filter-fixtures/*.png` 是有明確標記的文字測試檔，僅測檔名／時間，不是截圖。
+
 以下片段放在自己的 `scratch/` 腳本，以新 PowerShell 行程執行。視窗 PID 必須來自本張自己啟動的程序記錄；同 PID 有多個頂層視窗時，傳入本輪樹觀察到的精確標題。
 
 ```powershell
@@ -86,10 +123,9 @@ if (-not $tab.Current.HasKeyboardFocus) { throw 'Tab control has no keyboard foc
 Send-ClientKey ([IntPtr]$dev.Current.NativeWindowHandle) 'Left'
 Get-UiaTree $dev  # 必須確認出現 CharacterList 與建立角色按鈕。
 
-# 已實證的新證據快捷鍵；單獨 F12 在 #1150 沒有輸出。
-Set-UiaForeground $main
-Send-ClientKey ([IntPtr]$main.Current.NativeWindowHandle) 'Ctrl+Shift+F12'
-Get-ChildItem <本張evidence路徑>/manual-*.png | Select Name,LastWriteTimeUtc
+# #1150 已實證 Ctrl+Shift+F12；#1164 將它包成下列函式，單鍵 F12 不是證據鍵。
+$sentUtc = Send-UiaEvidenceKey $main
+Get-UiaNewEvidence $evidenceDirectory $sentUtc | Select-Object Name,LastWriteTimeUtc
 ```
 
 本輪觀察到 owned 建角對話框可由前景 HWND 取得，不必掃描整個主窗；對話框開啟後掃主窗或對話框子樹可能阻塞。以下只說明 #1150 已完成的截圖／取消，不代表已解決 UIA 樹問題：

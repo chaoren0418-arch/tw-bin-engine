@@ -1,0 +1,609 @@
+﻿{
+    "Issue":  1164,
+    "Scope":  "UIA helper only; native UI: Notepad only; contracts use explicit unit fixtures",
+    "LocalRoot":  "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1164\\scratch\\issue-1164",
+    "Parse":  [
+                  {
+                      "Path":  "work\\f1118-uia-path\\Test-NativeClient.ps1",
+                      "Errors":  [
+
+                                 ],
+                      "Sha256":  "C1D4AC6BD14EA432E7CE800C0F566389916C059653E090FFD5D52E1D7B98D8D9"
+                  },
+                  {
+                      "Path":  "work\\f1118-uia-path\\Test-Notepad.ps1",
+                      "Errors":  [
+
+                                 ],
+                      "Sha256":  "0098171CE27CF408C86637F0259D6CDF623BBA3E58948B294DCA8CCED0767A2F"
+                  },
+                  {
+                      "Path":  "work\\f1118-uia-path\\Test-UiaContracts.ps1",
+                      "Errors":  [
+
+                                 ],
+                      "Sha256":  "4D1F063B99EF7A7EB8150BF2BCD7ECDD2D1D47DB99FA3EEF5BC8AF7DE2821A83"
+                  },
+                  {
+                      "Path":  "work\\f1118-uia-path\\Test-UiaHelpers.ps1",
+                      "Errors":  [
+
+                                 ],
+                      "Sha256":  "65426AC90D241A4C87A148FE8A023A21D0C94299D092AB9575F13260D2A34BEC"
+                  },
+                  {
+                      "Path":  "work\\f1118-uia-path\\UiaGdi.ps1",
+                      "Errors":  [
+
+                                 ],
+                      "Sha256":  "6EA84A5A09395FFA1AE0337E4E0B8AFB90252D122B2AEF8AF90D345E3DAB0D76"
+                  }
+              ],
+    "Baseline":  {
+                     "StartedAt":  "2026-11-14T08:35:45.3826473+08:00",
+                     "ExpectedText":  "uia-1138 測試輸入 OK",
+                     "Readback":  "uia-1138 測試輸入 OK",
+                     "TextPassed":  true,
+                     "Closed":  true,
+                     "DontSaveInvoked":  true,
+                     "ForcedClose":  false,
+                     "ExitCode":  0,
+                     "ForegroundBefore":  {
+                                              "Handle":  132132,
+                                              "ProcessId":  4716,
+                                              "ThreadId":  17092,
+                                              "ProcessName":  "claude"
+                                          },
+                     "ProcessId":  15020,
+                     "StartTime":  "2026-11-14T08:35:45.4667875+08:00",
+                     "Window":  {
+                                    "Title":  "未命名 - 記事本",
+                                    "ProcessId":  15020,
+                                    "Handle":  4655246,
+                                    "Rectangle":  "1782,112,1812,1600",
+                                    "Minimized":  false,
+                                    "Dpi":  192,
+                                    "ProcessDpiSet":  true,
+                                    "ProcessDpiError":  0
+                                },
+                     "EditorDescription":  "ControlType=ControlType.Document; ClassName=Edit; AutomationId=15; SupportedPatterns=[ScrollPatternIdentifiers.Pattern, TextPatternIdentifiers.Pattern]",
+                     "EditorPatterns":  [
+                                            "ScrollPatternIdentifiers.Pattern",
+                                            "TextPatternIdentifiers.Pattern"
+                                        ],
+                     "ForegroundDiagnostic":  {
+                                                  "TargetHandle":  4655246,
+                                                  "TargetProcessId":  15020,
+                                                  "TargetThreadId":  19752,
+                                                  "CallerThreadId":  13224,
+                                                  "ForegroundBefore":  {
+                                                                           "Handle":  132132,
+                                                                           "ProcessId":  4716,
+                                                                           "ThreadId":  17092,
+                                                                           "ProcessName":  "claude"
+                                                                       },
+                                                  "ForegroundLockTimeout":  {
+                                                                                "Ok":  true,
+                                                                                "Milliseconds":  200000,
+                                                                                "LastError":  0
+                                                                            },
+                                                  "Steps":  [
+                                                                {
+                                                                    "Round":  1,
+                                                                    "Step":  "SetForegroundWindow",
+                                                                    "Returned":  false,
+                                                                    "LastError":  0,
+                                                                    "ForegroundAfterMs":  -1
+                                                                },
+                                                                {
+                                                                    "Round":  1,
+                                                                    "Step":  "AttachThreadInput(attach)",
+                                                                    "Returned":  true,
+                                                                    "LastError":  0,
+                                                                    "FromThread":  13224,
+                                                                    "ToThread":  17092,
+                                                                    "Foreground":  {
+                                                                                       "Handle":  132132,
+                                                                                       "ProcessId":  4716,
+                                                                                       "ThreadId":  17092,
+                                                                                       "ProcessName":  "claude"
+                                                                                   }
+                                                                },
+                                                                {
+                                                                    "Round":  1,
+                                                                    "Step":  "BringWindowToTop",
+                                                                    "Returned":  true,
+                                                                    "LastError":  0,
+                                                                    "ForegroundAfterMs":  0
+                                                                },
+                                                                {
+                                                                    "Round":  1,
+                                                                    "Step":  "AttachThreadInput(detach)",
+                                                                    "Returned":  true,
+                                                                    "LastError":  0,
+                                                                    "FromThread":  13224,
+                                                                    "ToThread":  17092
+                                                                }
+                                                            ],
+                                                  "Succeeded":  true,
+                                                  "Rounds":  1,
+                                                  "ForegroundAtEnd":  {
+                                                                          "Handle":  4655246,
+                                                                          "ProcessId":  15020,
+                                                                          "ThreadId":  19752,
+                                                                          "ProcessName":  "notepad"
+                                                                      },
+                                                  "Error":  null
+                                              },
+                     "ForegroundAfterInput":  {
+                                                  "Handle":  4655246,
+                                                  "ProcessId":  15020,
+                                                  "ThreadId":  19752,
+                                                  "ProcessName":  "notepad"
+                                              },
+                     "ReadPattern":  "TextPattern",
+                     "NormalizedExpected":  "uia-1138 測試輸入 OK",
+                     "NormalizedReadback":  "uia-1138 測試輸入 OK",
+                     "Screenshot":  {
+                                        "Path":  "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1164\\scratch\\issue-1164\\baseline\\notepad.png",
+                                        "Method":  "PrintWindow",
+                                        "PrintWindowError":  null,
+                                        "CopyFromScreenError":  null,
+                                        "Width":  1812,
+                                        "Height":  1600,
+                                        "SampleStride":  4,
+                                        "Samples":  181200,
+                                        "Mean":  247.20491905813057,
+                                        "NonzeroRatio":  0.98296357615894037,
+                                        "NonwhiteRatio":  0.090805739514348782,
+                                        "Nonblank":  true,
+                                        "Sha256":  "8E381001CB08B717F5E4AA539203270A7B92FFBF76670886095FE57AF33B3871",
+                                        "Foreground":  null,
+                                        "Window":  {
+                                                       "Title":  "*未命名 - 記事本",
+                                                       "ProcessId":  15020,
+                                                       "Handle":  4655246,
+                                                       "Rectangle":  "1782,112,1812,1600",
+                                                       "Minimized":  false,
+                                                       "Dpi":  192,
+                                                       "ProcessDpiSet":  true,
+                                                       "ProcessDpiError":  0
+                                                   }
+                                    },
+                     "DontSaveButton":  {
+                                            "Name":  "不要儲存(N)",
+                                            "AutomationId":  "CommandButton_7",
+                                            "ProcessId":  15020
+                                        },
+                     "CompletedAt":  "2026-11-14T08:35:48.3269246+08:00",
+                     "Errors":  [
+
+                                ]
+                 },
+    "EvidenceKey":  {
+                        "Name":  "G04-evidence-key",
+                        "Passed":  true,
+                        "Detail":  {
+                                       "SentUtc":  "2026-11-14T00:36:56.6824105Z",
+                                       "Sequence":  [
+                                                        {
+                                                            "Ctrl+Shift+F12":  null,
+                                                            "Action":  "key-down 0x11",
+                                                            "Utc":  "2026-11-14T00:36:56.8032855Z",
+                                                            "Hwnd":  9766918,
+                                                            "ProcessId":  20312,
+                                                            "ForegroundHwnd":  9766918,
+                                                            "ForegroundProcessId":  20312,
+                                                            "InputCount":  1,
+                                                            "SendInputReturned":  1,
+                                                            "LastError":  0,
+                                                            "InputSize":  40
+                                                        },
+                                                        {
+                                                            "Ctrl+Shift+F12":  null,
+                                                            "Action":  "key-down 0x10",
+                                                            "Utc":  "2026-11-14T00:36:56.8526666Z",
+                                                            "Hwnd":  9766918,
+                                                            "ProcessId":  20312,
+                                                            "ForegroundHwnd":  9766918,
+                                                            "ForegroundProcessId":  20312,
+                                                            "InputCount":  1,
+                                                            "SendInputReturned":  1,
+                                                            "LastError":  0,
+                                                            "InputSize":  40
+                                                        },
+                                                        {
+                                                            "Ctrl+Shift+F12":  null,
+                                                            "Action":  "key-press 0x7B",
+                                                            "Utc":  "2026-11-14T00:36:56.8559642Z",
+                                                            "Hwnd":  9766918,
+                                                            "ProcessId":  20312,
+                                                            "ForegroundHwnd":  9766918,
+                                                            "ForegroundProcessId":  20312,
+                                                            "InputCount":  2,
+                                                            "SendInputReturned":  2,
+                                                            "LastError":  0,
+                                                            "InputSize":  40
+                                                        },
+                                                        {
+                                                            "Ctrl+Shift+F12":  null,
+                                                            "Action":  "key-up 0x10",
+                                                            "Utc":  "2026-11-14T00:36:56.8599536Z",
+                                                            "Hwnd":  9766918,
+                                                            "ProcessId":  20312,
+                                                            "ForegroundHwnd":  9766918,
+                                                            "ForegroundProcessId":  20312,
+                                                            "InputCount":  1,
+                                                            "SendInputReturned":  1,
+                                                            "LastError":  0,
+                                                            "InputSize":  40
+                                                        },
+                                                        {
+                                                            "Ctrl+Shift+F12":  null,
+                                                            "Action":  "key-up 0x11",
+                                                            "Utc":  "2026-11-14T00:36:56.8619483Z",
+                                                            "Hwnd":  9766918,
+                                                            "ProcessId":  20312,
+                                                            "ForegroundHwnd":  9766918,
+                                                            "ForegroundProcessId":  20312,
+                                                            "InputCount":  1,
+                                                            "SendInputReturned":  1,
+                                                            "LastError":  0,
+                                                            "InputSize":  40
+                                                        }
+                                                    ],
+                                       "Screenshot":  {
+                                                          "Path":  "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1164\\scratch\\issue-1164\\helpers\\evidence-key.png",
+                                                          "Method":  "PrintWindow",
+                                                          "PrintWindowError":  null,
+                                                          "CopyFromScreenError":  null,
+                                                          "Width":  1812,
+                                                          "Height":  1600,
+                                                          "SampleStride":  4,
+                                                          "Samples":  181200,
+                                                          "Mean":  247.36035688005865,
+                                                          "NonzeroRatio":  0.983112582781457,
+                                                          "NonwhiteRatio":  0.089801324503311256,
+                                                          "Nonblank":  true,
+                                                          "Sha256":  "97B565FD56BB2291CA4CB822DD7FE983073DFAF8385D0772308729653218BD66",
+                                                          "Foreground":  null,
+                                                          "Window":  {
+                                                                         "Title":  "未命名 - 記事本",
+                                                                         "ProcessId":  20312,
+                                                                         "Handle":  9766918,
+                                                                         "Rectangle":  "1782,112,1812,1600",
+                                                                         "Minimized":  false,
+                                                                         "Dpi":  192,
+                                                                         "ProcessDpiSet":  true,
+                                                                         "ProcessDpiError":  0
+                                                                     }
+                                                      },
+                                       "NewEvidence":  0
+                                   }
+                    },
+    "InitialOwnedDiscoveryError":  [
+                                       "System.Management.Automation.MethodInvocationException: Exception calling \"FindAll\" with \"2\" argument(s): \"\" ---\u003e System.Windows.Automation.ElementNotAvailableException\r\n   at MS.Internal.Automation.UiaCoreApi.CheckError(Int32 hr)\r\n   at MS.Internal.Automation.UiaCoreApi.UiaFind(SafeNodeHandle hnode, UiaFindParams findParams, Condition findCondition, UiaCacheRequest request)\r\n   at System.Windows.Automation.AutomationElement.Find(TreeScope scope, Condition condition, UiaCacheRequest request, Boolean findFirst, BackgroundWorker worker)\r\n   at System.Windows.Automation.AutomationElement.FindAll(TreeScope scope, Condition condition)\r\n   at CallSite.Target(Closure , CallSite , Object , TreeScope , Object )\r\n   --- End of inner exception stack trace ---\r\n   at System.Management.Automation.ExceptionHandlingOps.CheckActionPreference(FunctionContext funcContext, Exception exception)\r\n   at System.Management.Automation.Interpreter.ActionCallInstruction`2.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.Interpreter.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.LightLambda.RunVoid1[T0](T0 arg0)\r\n   at System.Management.Automation.PSScriptCmdlet.RunClause(Action`1 clause, Object dollarUnderbar, Object inputToProcess)\r\n   at System.Management.Automation.PSScriptCmdlet.DoEndProcessing()\r\n   at System.Management.Automation.CommandProcessorBase.Complete()"
+                                   ],
+    "InitialOwnedDiscoveryResolution":  "Window-type predicate plus per-candidate stale-element recording; dialog startup stabilization; only the unfinished dialog checks rerun",
+    "OwnedWindowAndClosingTree":  {
+                                      "StartedUtc":  "2026-11-14T00:38:05.6047589Z",
+                                      "ProcessId":  19124,
+                                      "Closed":  true,
+                                      "ForcedClose":  false,
+                                      "Checks":  [
+                                                     {
+                                                         "Name":  "P01-owned-window",
+                                                         "Passed":  true,
+                                                         "Detail":  {
+                                                                        "Window":  {
+                                                                                       "Title":  "另存新檔",
+                                                                                       "ProcessId":  19124,
+                                                                                       "Handle":  13895864,
+                                                                                       "Rectangle":  "1796,210,1250,900",
+                                                                                       "Minimized":  false,
+                                                                                       "Dpi":  192,
+                                                                                       "ProcessDpiSet":  true,
+                                                                                       "ProcessDpiError":  0
+                                                                                   },
+                                                                        "DesktopOnlyError":  "System.Management.Automation.RuntimeException: Expected one window for PID 19124 title \u0027另存新檔\u0027; found 0; read errors: ",
+                                                                        "Screenshot":  {
+                                                                                           "Path":  "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1164\\scratch\\issue-1164\\owned\\dialog.png",
+                                                                                           "Method":  "PrintWindow",
+                                                                                           "PrintWindowError":  null,
+                                                                                           "CopyFromScreenError":  null,
+                                                                                           "Width":  1250,
+                                                                                           "Height":  900,
+                                                                                           "SampleStride":  4,
+                                                                                           "Samples":  70425,
+                                                                                           "Mean":  42.771818719678436,
+                                                                                           "NonzeroRatio":  0.91277245296414622,
+                                                                                           "NonwhiteRatio":  0.99419240326588565,
+                                                                                           "Nonblank":  true,
+                                                                                           "Sha256":  "74D51528F247CB50470A76DFB8424F3FD9473AD04378FF888D414D4EA93A1CDA",
+                                                                                           "Foreground":  null,
+                                                                                           "Window":  {
+                                                                                                          "Title":  "另存新檔",
+                                                                                                          "ProcessId":  19124,
+                                                                                                          "Handle":  13895864,
+                                                                                                          "Rectangle":  "1796,210,1250,900",
+                                                                                                          "Minimized":  false,
+                                                                                                          "Dpi":  192,
+                                                                                                          "ProcessDpiSet":  true,
+                                                                                                          "ProcessDpiError":  0
+                                                                                                      }
+                                                                                       }
+                                                                    }
+                                                     },
+                                                     {
+                                                         "Name":  "P01-closing-tree",
+                                                         "Passed":  true,
+                                                         "Detail":  {
+                                                                        "ClosingRows":  5,
+                                                                        "StaleErrors":  [
+                                                                                            {
+                                                                                                "Error":  "System.Management.Automation.RuntimeException: UIA property \u0027Name\u0027 is null"
+                                                                                            }
+                                                                                        ],
+                                                                        "LiveRows":  27,
+                                                                        "Screenshot":  {
+                                                                                           "Path":  "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1164\\scratch\\issue-1164\\owned\\after-cancel.png",
+                                                                                           "Method":  "PrintWindow",
+                                                                                           "PrintWindowError":  null,
+                                                                                           "CopyFromScreenError":  null,
+                                                                                           "Width":  1812,
+                                                                                           "Height":  1600,
+                                                                                           "SampleStride":  4,
+                                                                                           "Samples":  181200,
+                                                                                           "Mean":  247.36035688005865,
+                                                                                           "NonzeroRatio":  0.983112582781457,
+                                                                                           "NonwhiteRatio":  0.089801324503311256,
+                                                                                           "Nonblank":  true,
+                                                                                           "Sha256":  "97B565FD56BB2291CA4CB822DD7FE983073DFAF8385D0772308729653218BD66",
+                                                                                           "Foreground":  null,
+                                                                                           "Window":  {
+                                                                                                          "Title":  "未命名 - 記事本",
+                                                                                                          "ProcessId":  19124,
+                                                                                                          "Handle":  11994210,
+                                                                                                          "Rectangle":  "1782,112,1812,1600",
+                                                                                                          "Minimized":  false,
+                                                                                                          "Dpi":  192,
+                                                                                                          "ProcessDpiSet":  true,
+                                                                                                          "ProcessDpiError":  0
+                                                                                                      }
+                                                                                       }
+                                                                    }
+                                                     }
+                                                 ],
+                                      "Errors":  [
+
+                                                 ],
+                                      "StartTime":  "2026-11-14T08:38:05.6513326+08:00",
+                                      "Window":  {
+                                                     "Title":  "未命名 - 記事本",
+                                                     "ProcessId":  19124,
+                                                     "Handle":  11994210,
+                                                     "Rectangle":  "1782,112,1812,1600",
+                                                     "Minimized":  false,
+                                                     "Dpi":  192,
+                                                     "ProcessDpiSet":  true,
+                                                     "ProcessDpiError":  0
+                                                 },
+                                      "CompletedUtc":  "2026-11-14T00:38:09.8530835Z",
+                                      "ExitCode":  0
+                                  },
+    "ClosingTree":  {
+                        "value":  [
+                                      {
+                                          "Name":  "另存新檔",
+                                          "Type":  "ControlType.Window",
+                                          "Id":  "",
+                                          "Class":  "#32770",
+                                          "Enabled":  true,
+                                          "Offscreen":  true,
+                                          "Rectangle":  "1796,210,1250,900",
+                                          "Patterns":  [
+                                                           "WindowPatternIdentifiers.Pattern",
+                                                           "TransformPatternIdentifiers.Pattern"
+                                                       ]
+                                      },
+                                      {
+                                          "Name":  "另存新檔",
+                                          "Type":  "ControlType.TitleBar",
+                                          "Id":  "TitleBar",
+                                          "Class":  "",
+                                          "Enabled":  true,
+                                          "Offscreen":  true,
+                                          "Rectangle":  "1809,223,1224,45",
+                                          "Patterns":  [
+
+                                                       ]
+                                      },
+                                      {
+                                          "Name":  "System Menu Bar",
+                                          "Type":  "ControlType.MenuBar",
+                                          "Id":  "SystemMenuBar",
+                                          "Class":  "",
+                                          "Enabled":  true,
+                                          "Offscreen":  true,
+                                          "Rectangle":  "Empty",
+                                          "Patterns":  [
+
+                                                       ]
+                                      },
+                                      {
+                                          "Name":  "System",
+                                          "Type":  "ControlType.MenuItem",
+                                          "Id":  "Item 1",
+                                          "Class":  "",
+                                          "Enabled":  true,
+                                          "Offscreen":  false,
+                                          "Rectangle":  "Empty",
+                                          "Patterns":  [
+
+                                                       ]
+                                      },
+                                      {
+                                          "Error":  "System.Management.Automation.RuntimeException: You cannot call a method on a null-valued expression.\r\n   at System.Management.Automation.ExceptionHandlingOps.CheckActionPreference(FunctionContext funcContext, Exception exception)\r\n   at Read-UiaElement(Closure , FunctionContext )"
+                                      }
+                                  ],
+                        "Count":  5
+                    },
+    "Contracts":  {
+                      "Kind":  "unit fixtures, not native UI verification",
+                      "Checks":  [
+                                     {
+                                         "Name":  "read-errors-and-live-sibling",
+                                         "Passed":  true,
+                                         "Detail":  {
+                                                        "Tree":  [
+                                                                     {
+                                                                         "Name":  "root",
+                                                                         "Type":  "ControlType.Window",
+                                                                         "Id":  "fixture",
+                                                                         "Class":  "Fixture",
+                                                                         "Enabled":  true,
+                                                                         "Offscreen":  false,
+                                                                         "Rectangle":  "0,0,1,1",
+                                                                         "Patterns":  [
+
+                                                                                      ]
+                                                                     },
+                                                                     {
+                                                                         "Error":  "System.Management.Automation.MethodInvocationException: Exception calling \"GetSupportedPatterns\" with \"0\" argument(s): \"fixture original vanished text\" ---\u003e System.Management.Automation.RuntimeException: fixture original vanished text ---\u003e System.Windows.Automation.ElementNotAvailableException: fixture original vanished text\r\n   --- End of inner exception stack trace ---\r\n   at System.Management.Automation.ExceptionHandlingOps.CheckActionPreference(FunctionContext funcContext, Exception exception)\r\n   at System.Management.Automation.Interpreter.ActionCallInstruction`2.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.Interpreter.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.LightLambda.RunVoid1[T0](T0 arg0)\r\n   at System.Management.Automation.ScriptBlock.InvokeWithPipeImpl(ScriptBlockClauseToInvoke clauseToInvoke, Boolean createLocalScope, Dictionary`2 functionsToDefine, List`1 variablesToDefine, ErrorHandlingBehavior errorHandlingBehavior, Object dollarUnder, Object input, Object scriptThis, Pipe outputPipe, InvocationInfo invocationInfo, Object[] args)\r\n   at System.Management.Automation.ScriptBlock.\u003c\u003ec__DisplayClass57_0.\u003cInvokeWithPipe\u003eb__0()\r\n   at System.Management.Automation.Runspaces.RunspaceBase.RunActionIfNoRunningPipelinesWithThreadCheck(Action action)\r\n   at System.Management.Automation.ScriptBlock.InvokeWithPipe(Boolean useLocalScope, ErrorHandlingBehavior errorHandlingBehavior, Object dollarUnder, Object input, Object scriptThis, Pipe outputPipe, InvocationInfo invocationInfo, Boolean propagateAllExceptionsToTop, List`1 variablesToDefine, Dictionary`2 functionsToDefine, Object[] args)\r\n   at System.Management.Automation.ScriptBlock.DoInvokeReturnAsIs(Boolean useLocalScope, ErrorHandlingBehavior errorHandlingBehavior, Object dollarUnder, Object input, Object scriptThis, Object[] args)\r\n   at System.Management.Automation.PSScriptMethod.InvokeScript(String methodName, ScriptBlock script, Object this, Object[] arguments)\r\n   --- End of inner exception stack trace ---\r\n   at System.Management.Automation.ExceptionHandlingOps.CheckActionPreference(FunctionContext funcContext, Exception exception)\r\n   at System.Management.Automation.Interpreter.ActionCallInstruction`2.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)"
+                                                                     },
+                                                                     {
+                                                                         "Error":  "System.Management.Automation.RuntimeException: UIA property \u0027ControlType\u0027 is null"
+                                                                     },
+                                                                     {
+                                                                         "Name":  "target",
+                                                                         "Type":  "ControlType.Button",
+                                                                         "Id":  "fixture",
+                                                                         "Class":  "Fixture",
+                                                                         "Enabled":  true,
+                                                                         "Offscreen":  false,
+                                                                         "Rectangle":  "0,0,1,1",
+                                                                         "Patterns":  [
+
+                                                                                      ]
+                                                                     }
+                                                                 ],
+                                                        "FindErrors":  [
+                                                                           {
+                                                                               "Error":  "System.Management.Automation.MethodInvocationException: Exception calling \"GetSupportedPatterns\" with \"0\" argument(s): \"fixture original vanished text\" ---\u003e System.Management.Automation.RuntimeException: fixture original vanished text ---\u003e System.Windows.Automation.ElementNotAvailableException: fixture original vanished text\r\n   --- End of inner exception stack trace ---\r\n   at System.Management.Automation.ExceptionHandlingOps.CheckActionPreference(FunctionContext funcContext, Exception exception)\r\n   at System.Management.Automation.Interpreter.ActionCallInstruction`2.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.Interpreter.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.LightLambda.RunVoid1[T0](T0 arg0)\r\n   at System.Management.Automation.ScriptBlock.InvokeWithPipeImpl(ScriptBlockClauseToInvoke clauseToInvoke, Boolean createLocalScope, Dictionary`2 functionsToDefine, List`1 variablesToDefine, ErrorHandlingBehavior errorHandlingBehavior, Object dollarUnder, Object input, Object scriptThis, Pipe outputPipe, InvocationInfo invocationInfo, Object[] args)\r\n   at System.Management.Automation.ScriptBlock.\u003c\u003ec__DisplayClass57_0.\u003cInvokeWithPipe\u003eb__0()\r\n   at System.Management.Automation.Runspaces.RunspaceBase.RunActionIfNoRunningPipelinesWithThreadCheck(Action action)\r\n   at System.Management.Automation.ScriptBlock.InvokeWithPipe(Boolean useLocalScope, ErrorHandlingBehavior errorHandlingBehavior, Object dollarUnder, Object input, Object scriptThis, Pipe outputPipe, InvocationInfo invocationInfo, Boolean propagateAllExceptionsToTop, List`1 variablesToDefine, Dictionary`2 functionsToDefine, Object[] args)\r\n   at System.Management.Automation.ScriptBlock.DoInvokeReturnAsIs(Boolean useLocalScope, ErrorHandlingBehavior errorHandlingBehavior, Object dollarUnder, Object input, Object scriptThis, Object[] args)\r\n   at System.Management.Automation.PSScriptMethod.InvokeScript(String methodName, ScriptBlock script, Object this, Object[] arguments)\r\n   --- End of inner exception stack trace ---\r\n   at System.Management.Automation.ExceptionHandlingOps.CheckActionPreference(FunctionContext funcContext, Exception exception)\r\n   at System.Management.Automation.Interpreter.ActionCallInstruction`2.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)"
+                                                                           },
+                                                                           {
+                                                                               "Error":  "System.Management.Automation.RuntimeException: UIA property \u0027ControlType\u0027 is null"
+                                                                           }
+                                                                       ],
+                                                        "Missing":  "System.Management.Automation.RuntimeException: Expected one control name=\u0027absent\u0027 id=\u0027\u0027 type=\u0027\u0027; found 0; read errors: System.Management.Automation.MethodInvocationException: Exception calling \"GetSupportedPatterns\" with \"0\" argument(s): \"fixture original vanished text\" ---\u003e System.Management.Automation.RuntimeException: fixture original vanished text ---\u003e System.Windows.Automation.ElementNotAvailableException: fixture original vanished text\r\n   --- End of inner exception stack trace ---\r\n   at System.Management.Automation.ExceptionHandlingOps.CheckActionPreference(FunctionContext funcContext, Exception exception)\r\n   at System.Management.Automation.Interpreter.ActionCallInstruction`2.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.Interpreter.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.LightLambda.RunVoid1[T0](T0 arg0)\r\n   at System.Management.Automation.ScriptBlock.InvokeWithPipeImpl(ScriptBlockClauseToInvoke clauseToInvoke, Boolean createLocalScope, Dictionary`2 functionsToDefine, List`1 variablesToDefine, ErrorHandlingBehavior errorHandlingBehavior, Object dollarUnder, Object input, Object scriptThis, Pipe outputPipe, InvocationInfo invocationInfo, Object[] args)\r\n   at System.Management.Automation.ScriptBlock.\u003c\u003ec__DisplayClass57_0.\u003cInvokeWithPipe\u003eb__0()\r\n   at System.Management.Automation.Runspaces.RunspaceBase.RunActionIfNoRunningPipelinesWithThreadCheck(Action action)\r\n   at System.Management.Automation.ScriptBlock.InvokeWithPipe(Boolean useLocalScope, ErrorHandlingBehavior errorHandlingBehavior, Object dollarUnder, Object input, Object scriptThis, Pipe outputPipe, InvocationInfo invocationInfo, Boolean propagateAllExceptionsToTop, List`1 variablesToDefine, Dictionary`2 functionsToDefine, Object[] args)\r\n   at System.Management.Automation.ScriptBlock.DoInvokeReturnAsIs(Boolean useLocalScope, ErrorHandlingBehavior errorHandlingBehavior, Object dollarUnder, Object input, Object scriptThis, Object[] args)\r\n   at System.Management.Automation.PSScriptMethod.InvokeScript(String methodName, ScriptBlock script, Object this, Object[] arguments)\r\n   --- End of inner exception stack trace ---\r\n   at System.Management.Automation.ExceptionHandlingOps.CheckActionPreference(FunctionContext funcContext, Exception exception)\r\n   at System.Management.Automation.Interpreter.ActionCallInstruction`2.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame) | System.Management.Automation.RuntimeException: UIA property \u0027ControlType\u0027 is null"
+                                                    }
+                                     },
+                                     {
+                                         "Name":  "tab-selection-dual-readback",
+                                         "Passed":  true,
+                                         "Detail":  {
+                                                        "Accepted":  {
+                                                                         "RequestedName":  "target",
+                                                                         "TabItem":  {
+                                                                                         "Name":  "target",
+                                                                                         "IsSelected":  true
+                                                                                     },
+                                                                         "TabSelection":  [
+                                                                                              "target"
+                                                                                          ],
+                                                                         "TabItemError":  null,
+                                                                         "TabSelectionError":  null
+                                                                     },
+                                                        "Rejections":  [
+                                                                           {
+                                                                               "Scenario":  "wrong-name",
+                                                                               "Error":  "System.Management.Automation.RuntimeException: Select-UiaTab verification failed: {\"RequestedName\":\"target\",\"TabItem\":{\"Name\":\"target\",\"IsSelected\":true},\"TabSelection\":[\"wrong\"],\"TabItemError\":null,\"TabSelectionError\":null}"
+                                                                           },
+                                                                           {
+                                                                               "Scenario":  "not-selected",
+                                                                               "Error":  "System.Management.Automation.RuntimeException: Select-UiaTab verification failed: {\"RequestedName\":\"target\",\"TabItem\":{\"Name\":\"target\",\"IsSelected\":false},\"TabSelection\":[\"target\"],\"TabItemError\":null,\"TabSelectionError\":null}"
+                                                                           },
+                                                                           {
+                                                                               "Scenario":  "multiple",
+                                                                               "Error":  "System.Management.Automation.RuntimeException: Select-UiaTab verification failed: {\"RequestedName\":\"target\",\"TabItem\":{\"Name\":\"target\",\"IsSelected\":true},\"TabSelection\":[\"target\",\"target\"],\"TabItemError\":null,\"TabSelectionError\":null}"
+                                                                           },
+                                                                           {
+                                                                               "Scenario":  "provider-error",
+                                                                               "Error":  "System.Management.Automation.RuntimeException: Select-UiaTab verification failed: {\"RequestedName\":\"target\",\"TabItem\":{\"Name\":\"target\",\"IsSelected\":true},\"TabSelection\":null,\"TabItemError\":null,\"TabSelectionError\":\"System.Management.Automation.MethodInvocationException: Exception calling \\\"GetCurrentSelection\\\" with \\\"0\\\" argument(s): \\\"fixture selection provider original text\\\" ---\\u003e System.Management.Automation.RuntimeException: fixture selection provider original text ---\\u003e System.Management.Automation.RuntimeException: fixture selection provider original text\\r\\n   --- End of inner exception stack trace ---\\r\\n   at System.Management.Automation.ExceptionHandlingOps.CheckActionPreference(FunctionContext funcContext, Exception exception)\\r\\n   at System.Management.Automation.Interpreter.ActionCallInstruction`2.Run(InterpretedFrame frame)\\r\\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\\r\\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\\r\\n   at System.Management.Automation.Interpreter.Interpreter.Run(InterpretedFrame frame)\\r\\n   at System.Management.Automation.Interpreter.LightLambda.RunVoid1[T0](T0 arg0)\\r\\n   at System.Management.Automation.ScriptBlock.InvokeWithPipeImpl(ScriptBlockClauseToInvoke clauseToInvoke, Boolean createLocalScope, Dictionary`2 functionsToDefine, List`1 variablesToDefine, ErrorHandlingBehavior errorHandlingBehavior, Object dollarUnder, Object input, Object scriptThis, Pipe outputPipe, InvocationInfo invocationInfo, Object[] args)\\r\\n   at System.Management.Automation.ScriptBlock.\\u003c\\u003ec__DisplayClass57_0.\\u003cInvokeWithPipe\\u003eb__0()\\r\\n   at System.Management.Automation.Runspaces.RunspaceBase.RunActionIfNoRunningPipelinesWithThreadCheck(Action action)\\r\\n   at System.Management.Automation.ScriptBlock.InvokeWithPipe(Boolean useLocalScope, ErrorHandlingBehavior errorHandlingBehavior, Object dollarUnder, Object input, Object scriptThis, Pipe outputPipe, InvocationInfo invocationInfo, Boolean propagateAllExceptionsToTop, List`1 variablesToDefine, Dictionary`2 functionsToDefine, Object[] args)\\r\\n   at System.Management.Automation.ScriptBlock.DoInvokeReturnAsIs(Boolean useLocalScope, ErrorHandlingBehavior errorHandlingBehavior, Object dollarUnder, Object input, Object scriptThis, Object[] args)\\r\\n   at System.Management.Automation.PSScriptMethod.InvokeScript(String methodName, ScriptBlock script, Object this, Object[] arguments)\\r\\n   --- End of inner exception stack trace ---\\r\\n   at System.Management.Automation.ExceptionHandlingOps.CheckActionPreference(FunctionContext funcContext, Exception exception)\\r\\n   at System.Management.Automation.Interpreter.ActionCallInstruction`2.Run(InterpretedFrame frame)\\r\\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\\r\\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\"}"
+                                                                           }
+                                                                       ],
+                                                        "SelectCalls":  5,
+                                                        "ReadCalls":  5
+                                                    }
+                                     },
+                                     {
+                                         "Name":  "invoke-deadline-no-retry",
+                                         "Passed":  true,
+                                         "Detail":  {
+                                                        "TimeoutMs":  25,
+                                                        "ElapsedMs":  29,
+                                                        "Calls":  1,
+                                                        "CompletedAfterTimeout":  true,
+                                                        "Error":  "System.Management.Automation.MethodInvocationException: Exception calling \"Invoke\" with \"2\" argument(s): \"UIA Invoke exceeded 25 ms\" ---\u003e System.TimeoutException: UIA Invoke exceeded 25 ms\r\n   at UiaBoundedInvoke.Run(Action action, Int32 milliseconds)\r\n   --- End of inner exception stack trace ---\r\n   at System.Management.Automation.ExceptionHandlingOps.CheckActionPreference(FunctionContext funcContext, Exception exception)\r\n   at System.Management.Automation.Interpreter.ActionCallInstruction`2.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)"
+                                                    }
+                                     },
+                                     {
+                                         "Name":  "evidence-time-filter",
+                                         "Passed":  true,
+                                         "Detail":  {
+                                                        "SinceUtc":  "2026-11-14T00:42:09.5333844Z",
+                                                        "Matched":  [
+                                                                        "manual-new.png"
+                                                                    ],
+                                                        "FixtureOnly":  true
+                                                    }
+                                     }
+                                 ],
+                      "ExitCode":  0
+                  },
+    "ProcessCleanup":  [
+                           {
+                               "ProcessId":  15020,
+                               "StartTime":  "2026-11-14T08:35:45.4667875+08:00",
+                               "Closed":  true,
+                               "ForcedClose":  false,
+                               "StillRunning":  false
+                           },
+                           {
+                               "ProcessId":  20312,
+                               "StartTime":  "2026-11-14T08:36:55.3362075+08:00",
+                               "Closed":  true,
+                               "ForcedClose":  false,
+                               "StillRunning":  false
+                           },
+                           {
+                               "ProcessId":  19124,
+                               "StartTime":  "2026-11-14T08:38:05.6513326+08:00",
+                               "Closed":  true,
+                               "ForcedClose":  false,
+                               "StillRunning":  false
+                           }
+                       ],
+    "Screenshots":  [
+                        {
+                            "Path":  "baseline/notepad.png",
+                            "Sha256":  "8E381001CB08B717F5E4AA539203270A7B92FFBF76670886095FE57AF33B3871",
+                            "VisuallyReviewed":  true
+                        },
+                        {
+                            "Path":  "helpers/evidence-key.png",
+                            "Sha256":  "97B565FD56BB2291CA4CB822DD7FE983073DFAF8385D0772308729653218BD66",
+                            "VisuallyReviewed":  true
+                        },
+                        {
+                            "Path":  "owned/dialog.png",
+                            "Sha256":  "74D51528F247CB50470A76DFB8424F3FD9473AD04378FF888D414D4EA93A1CDA",
+                            "VisuallyReviewed":  true
+                        },
+                        {
+                            "Path":  "owned/after-cancel.png",
+                            "Sha256":  "97B565FD56BB2291CA4CB822DD7FE983073DFAF8385D0772308729653218BD66",
+                            "VisuallyReviewed":  true
+                        }
+                    ]
+}
