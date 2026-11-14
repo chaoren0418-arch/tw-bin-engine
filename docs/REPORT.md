@@ -498,3 +498,4 @@
 - 2026-11-14 — #1207 f1186-headbar-offset: f1186-headbar-offset: 世界中自己的頭上 HP／MP 條與角色身體明顯分離（#1186 SM11 ❌）（code，codex-local，PR 已合併）→ [報告](reports/issue-1207.md)
 - 2026-11-14 — #1208 f1186-option-labels: f1186-option-labels: Ctrl+V 選項窗「常用選項」只有勾選框、沒有項目名稱（#1186 SM57 ❌）（code，claude-local，PR 已合併）→ [報告](reports/issue-1208.md)
 - 2026-11-14 — #1206 f1186-native-select: f1186-native-select: 原生 UI 開啟時 CharacterList 有三角色卻停在黑底「等待真實世界初始化」，沒有原生選角畫面（#1186 SM07 ❌，阻塞 SM08、SM09）（code，claude-local，PR 已合併）→ [報告](reports/issue-1206.md)
+- 2026-11-14 — #1220 分流：tw-bin-engine#1209 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1221 已合併）→ [報告](reports/issue-1220.md)
