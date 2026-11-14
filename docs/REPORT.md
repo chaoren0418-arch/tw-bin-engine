@@ -510,3 +510,4 @@
 - 2026-11-14 — #1255 分流：tw-bin-engine#1246 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1257 已合併）→ [報告](reports/issue-1255.md)
 - 2026-11-14 — #1243 f1211-player-appearance: f1211-player-appearance: 自己的外觀沒有 profile 就整個世界黑畫面並停止移動／戰鬥——男妖精 gfx 138、變身 1062 都中（#1211 SM58 ❌、SM20 妖精、阻塞 SM43／SM48）（code，claude-local，PR 已合併）→ [報告](reports/issue-1243.md)
 - 2026-11-14 — #1259 分流：tw-bin-engine#1222 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1260 已合併）→ [報告](reports/issue-1259.md)
+- 2026-11-14 — #1235 f1215-retest: f1215-retest: 用持久 map4 fixture 只重測 #1215 F07 與 #1188／#1197 M01（資源法師進世界後地圖 4／80048001 可載入；取代 #1216）（test，codex-local，PR 已合併）→ [報告](reports/issue-1235.md)

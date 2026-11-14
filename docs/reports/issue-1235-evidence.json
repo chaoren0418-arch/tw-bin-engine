@@ -1,0 +1,536 @@
+{
+  "issue": 1235,
+  "baseMain": "8514a9f11252a363554c618130e26d55515e286b",
+  "build": {
+    "productSha256": "3c95a5c708f72bbbae4c600e8f43bbcd5cfe5ed3b64a166c90afd0321c586f4c",
+    "previousProductSha256": "d42e933fe2e762c815c99fe6288d71e8b6fa879b1500463cbf33e36857aa9223",
+    "previousMain": "e783ff08de9c8b5be20da73077dbf5026029636b",
+    "nonMergeCommitsSincePreviousMain": [
+      "8514a9f1 report: index #1255 [skip ci]",
+      "7c047f57 report: index #1242 [skip ci]",
+      "1b482fd3 task #1255: 分流 #1246 三項 ⚠️ 為已知限制，更新 #1248 重測範圍",
+      "90ae30dd report: index #1244 [skip ci]",
+      "086a33e3 task #1242: 選角／建角 surf 改由美術客戶端（雷雨天堂）解析，舊版 60×80 頭像不再畫在背景與按鈕上",
+      "acf93457 task #1244: 龍騎士／幻術士魔法窗依 3.81 退回一般等級組（原版無職業 5/6 規則，needs:claude）",
+      "22d8a86b report: index #1234 [skip ci]",
+      "6e29bfb9 report: index #1238 [skip ci]",
+      "6cbe4592 report: index #1237 [skip ci]",
+      "1ce8c5ee task #1238: 分流 #1229 失敗項目 → 持久相鄰 fixture 資源任務＋重測（取代 #1231）",
+      "3d058bcb task #1234: persist verified map4 fixture and record SHA validation",
+      "1f1918ba task #1237: 分流 #1211 失敗項目——4 張修正、2 張資源、1 張重測計畫與報告",
+      "1ef9039d report: index #1230 [skip ci]",
+      "7b7cc405 task #1230: SmokeLoopback C# 內嵌進 SmokeTools.ps1，移除被 .gitignore 排除的 SmokeLoopback.cs（閘門退回修正）",
+      "8822116b report: index #1228 [skip ci]",
+      "8ca9312d task #1230: loopback 以 session 音量表區分他人靜音 active 與有聲，不再見 active 就拒錄；-RequireExclusive 保留舊行為",
+      "b632167b report: index #1225 [skip ci]",
+      "8bc322f3 task #1228: 分流 #1215 F07（fixture 持久保存 resource＋只重測 F07／M01，取代 #1216）",
+      "9b009d58 task #1225: 分流 #1210 的 R06／R07（相鄰角色 resource、loopback 靜音 session code、只重測兩列）",
+      "22e33ad4 task #1210: record successful CI and final cleanup evidence",
+      "7d47abfd task #1210: harden native smoke tooling and record self-tests",
+      "51c11852 report: index #1220 [skip ci]",
+      "9fb28dce report: index #1206 [skip ci]",
+      "6d17be9a task #1220: 分流 #1209 的 SM27／SM29 測試條件缺口（resource＋只重測兩列）",
+      "b3888c8e report: index #1208 [skip ci]",
+      "bf43acb4 report: index #1207 [skip ci]",
+      "81b36e89 report: index #1205 [skip ci]",
+      "6d234ace task #1206: 原生選角畫面全畫面（6421 為 60×80 肖像造成 Bounds 裁切）、訊息框包住元件、選角時不畫等待字樣、診斷 log 與 select-char-geometry 測試",
+      "68cfdccf task #1208: 選項窗名稱：kor25 dummy 佔位字改由對齊的第二客戶端 desc-c.tbl 補（SM57）",
+      "4e67ecd4 task #1205: 報告補 CI 實測 DPI 96/192 量測表",
+      "897510da report: index #1204 [skip ci]",
+      "6aaa4161 task #1207: keep headbar coordinate fixtures visible at every zoom",
+      "f0601dab task #1207: align head bars with rendered actor bounds and native viewport",
+      "1138840d task #1205: 原生 UI 文字改以像素定字高（MingLiU 12px、字元集 136），修 DPI 192 字變兩倍大",
+      "63f5fd81 task #1204: 分流 #1197 M01 ⚠️（地圖 4 fixture＋只重測 M01）",
+      "c7a655e2 report: index #1201 [skip ci]",
+      "0b3cd118 task #1201: 分流 #1186 M7 smoke 失敗項目（4 code＋2 resource＋1 重測）"
+    ],
+    "productCommits": [
+      "086a33e3 task #1242: 選角／建角 surf 改由美術客戶端（雷雨天堂）解析，舊版 60×80 頭像不再畫在背景與按鈕上",
+      "acf93457 task #1244: 龍騎士／幻術士魔法窗依 3.81 退回一般等級組（原版無職業 5/6 規則，needs:claude）",
+      "6d234ace task #1206: 原生選角畫面全畫面（6421 為 60×80 肖像造成 Bounds 裁切）、訊息框包住元件、選角時不畫等待字樣、診斷 log 與 select-char-geometry 測試",
+      "68cfdccf task #1208: 選項窗名稱：kor25 dummy 佔位字改由對齊的第二客戶端 desc-c.tbl 補（SM57）",
+      "f0601dab task #1207: align head bars with rendered actor bounds and native viewport",
+      "1138840d task #1205: 原生 UI 文字改以像素定字高（MingLiU 12px、字元集 136），修 DPI 192 字變兩倍大"
+    ]
+  },
+  "lease": {
+    "utc": "2026-11-14T10:34:50.116215+00:00",
+    "leases": [
+      {
+        "name": "p24lab",
+        "holder": "chaoren0418-arch/tw-bin-engine#1235",
+        "since": 1794652371.302706,
+        "exp": 1794663171.302706
+      }
+    ],
+    "stateKeys": [
+      "ts",
+      "config",
+      "tasks",
+      "prs",
+      "running",
+      "leases",
+      "usage",
+      "log",
+      "paused",
+      "progress",
+      "stale",
+      "merge_heads",
+      "gh_paused_until",
+      "ui_mtime"
+    ]
+  },
+  "fixture": {
+    "files": 1722,
+    "bytes": 279503832,
+    "allHashesMatch": true,
+    "fixture": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\backups\\issue-1215-map4-fixture\\db-data",
+    "manifestSha256": "996a39971570b7a2d8ab2547fea02e737a24c898f02b5f7f740135e6b3caf06b",
+    "segment": {
+      "path": "D:\\lineage開發\\0-客戶端\\map\\4\\80048001.seg",
+      "bytes": 90398,
+      "sha256": "e2dd9928bfcdf46874de18e875543c7378e66170594a1828937a12daf360ba12"
+    },
+    "mapsManifestSha256": "0fe3a61444180c90abdca0cc94c1cfb9ea19adc67812a43f624d806b51f96ee7"
+  },
+  "selectBefore": {
+    "valid": true,
+    "character": {
+      "account_name": "p24svc01",
+      "char_name": "資源法師",
+      "objid": "10334",
+      "Type": "3",
+      "AccessLevel": "0",
+      "OnlineStatus": "0",
+      "MapID": "4",
+      "LocX": "33071",
+      "LocY": "32800"
+    },
+    "characterCount": 17,
+    "allGm0Offline": true
+  },
+  "selectFinal": {
+    "valid": true,
+    "character": {
+      "account_name": "p24svc01",
+      "char_name": "資源法師",
+      "objid": "10334",
+      "Type": "3",
+      "AccessLevel": "0",
+      "OnlineStatus": "0",
+      "MapID": "4",
+      "LocX": "33071",
+      "LocY": "32800"
+    },
+    "characterCount": 17,
+    "allGm0Offline": true
+  },
+  "g01": {
+    "state": "CharacterList",
+    "detail": "已解析角色 3/3",
+    "characters": [
+      {
+        "Name": "資源法師",
+        "Clan": "",
+        "Class": 3,
+        "Sex": 0,
+        "Lawful": -10,
+        "Hp": 270,
+        "Mp": 276,
+        "Ac": 4,
+        "Level": 52,
+        "Strength": 8,
+        "Dexterity": 7,
+        "Constitution": 12,
+        "Wisdom": 12,
+        "Charisma": 8,
+        "Intelligence": 28,
+        "Gm": 0,
+        "CreateTime": 20261114,
+        "CheckCode": 47
+      },
+      {
+        "Name": "服務驗證",
+        "Clan": "資源血盟",
+        "Class": 0,
+        "Sex": 0,
+        "Lawful": 26,
+        "Hp": 236,
+        "Mp": 117,
+        "Ac": -4,
+        "Level": 59,
+        "Strength": 22,
+        "Dexterity": 13,
+        "Constitution": 16,
+        "Wisdom": 12,
+        "Charisma": 10,
+        "Intelligence": 11,
+        "Gm": 0,
+        "CreateTime": 20261026,
+        "CheckCode": 61
+      },
+      {
+        "Name": "服務交易",
+        "Clan": "",
+        "Class": 0,
+        "Sex": 0,
+        "Lawful": 0,
+        "Hp": 686,
+        "Mp": 117,
+        "Ac": 10,
+        "Level": 59,
+        "Strength": 22,
+        "Dexterity": 13,
+        "Constitution": 16,
+        "Wisdom": 12,
+        "Charisma": 10,
+        "Intelligence": 11,
+        "Gm": 0,
+        "CreateTime": 20261106,
+        "CheckCode": 61
+      }
+    ]
+  },
+  "m01": {
+    "state": "InWorld",
+    "detail": "地圖 4 已載入原始區塊。",
+    "decodeFailure": null,
+    "entryFailure": null,
+    "world": {
+      "mapId": 4,
+      "actor": {
+        "X": 33071,
+        "Y": 32800,
+        "ObjectId": 10334,
+        "Gfx": 734,
+        "Weapon": 0,
+        "Direction": 2,
+        "Light": 5,
+        "Speed": 0,
+        "Exp": 127941146,
+        "Lawful": -10,
+        "Name": "資源法師",
+        "Title": "",
+        "Flags": 4,
+        "ClanId": 0,
+        "Clan": "",
+        "Owner": "",
+        "Rank": 176,
+        "HpPercent": 255,
+        "Brave": 0,
+        "Level": 0,
+        "Unknown": 0,
+        "Tail1": 255,
+        "Tail2": 255
+      },
+      "loadedRegion": {
+        "minX": 33024,
+        "minY": 32768,
+        "maxX": 33151,
+        "maxY": 32895,
+        "mode": "original moving 2x2 cache"
+      },
+      "mapResourceState": "ready",
+      "mapResourceNotice": "地圖 4 已載入原始區塊。",
+      "ready": true,
+      "coreComplete": true,
+      "entered": true,
+      "cache": {
+        "mapId": 4,
+        "bounds": {
+          "MinX": 32448,
+          "MinY": 32064,
+          "MaxX": 34303,
+          "MaxY": 33599,
+          "Width": 1856,
+          "Height": 1536
+        },
+        "origin": [
+          33280,
+          32768
+        ],
+        "revision": 1,
+        "lastDirection": null,
+        "slots": [
+          {
+            "slot": 0,
+            "block": "80048000",
+            "sha256": "fbe1211f4008013a90dd1b0aba6639f658b4847bf47729301df8b51458ec8425",
+            "generation": 4,
+            "effects": [],
+            "effectsAt": 254145890
+          },
+          {
+            "slot": 1,
+            "block": "80058000",
+            "sha256": "a4a1c82357ba17bf005d87c0ba2fe4e045a981c47d63abafa2a7857dd39afc84",
+            "generation": 3,
+            "effects": [],
+            "effectsAt": 254145890
+          },
+          {
+            "slot": 2,
+            "block": "80048001",
+            "sha256": "e2dd9928bfcdf46874de18e875543c7378e66170594a1828937a12daf360ba12",
+            "generation": 2,
+            "effects": [],
+            "effectsAt": 254145890
+          },
+          {
+            "slot": 3,
+            "block": "80058001",
+            "sha256": "a4fc9f3316f150fecd6cb2ed68d11a22e2379a25561861395d371a7548874484",
+            "generation": 1,
+            "effects": [],
+            "effectsAt": 254145890
+          }
+        ],
+        "nodes": 76293,
+        "loads": 4,
+        "tileDecodes": 14683,
+        "events": [
+          {
+            "kind": "load",
+            "slot": 3,
+            "block": "80058001",
+            "source": "a4fc9f3316f150fecd6cb2ed68d11a22e2379a25561861395d371a7548874484",
+            "generation": 1
+          },
+          {
+            "kind": "load",
+            "slot": 2,
+            "block": "80048001",
+            "source": "e2dd9928bfcdf46874de18e875543c7378e66170594a1828937a12daf360ba12",
+            "generation": 2
+          },
+          {
+            "kind": "load",
+            "slot": 1,
+            "block": "80058000",
+            "source": "a4a1c82357ba17bf005d87c0ba2fe4e045a981c47d63abafa2a7857dd39afc84",
+            "generation": 3
+          },
+          {
+            "kind": "load",
+            "slot": 0,
+            "block": "80048000",
+            "source": "fbe1211f4008013a90dd1b0aba6639f658b4847bf47729301df8b51458ec8425",
+            "generation": 4
+          },
+          {
+            "kind": "cold",
+            "x": 33071,
+            "y": 32800,
+            "origin": [
+              33280,
+              32768
+            ],
+            "order": [
+              3,
+              2,
+              1,
+              0
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "finalState": {
+    "state": "InWorld",
+    "detail": "地圖 4 已載入原始區塊。",
+    "decodeFailure": null,
+    "actor": {
+      "X": 33071,
+      "Y": 32800,
+      "ObjectId": 10334,
+      "Gfx": 734,
+      "Weapon": 0,
+      "Direction": 2,
+      "Light": 5,
+      "Speed": 0,
+      "Exp": 127941146,
+      "Lawful": -10,
+      "Name": "資源法師",
+      "Title": "",
+      "Flags": 4,
+      "ClanId": 0,
+      "Clan": "",
+      "Owner": "",
+      "Rank": 176,
+      "HpPercent": 255,
+      "Brave": 0,
+      "Level": 0,
+      "Unknown": 0,
+      "Tail1": 255,
+      "Tail2": 255
+    }
+  },
+  "enter": {
+    "Utc": "2026-11-14T10:36:59.9702159Z",
+    "Action": "Invoke 進入世界",
+    "Character": "資源法師"
+  },
+  "captures": {
+    "g01-capture.json": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1235\\scratch\\issue-1235\\g01-login.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "CopyFromScreenError": null,
+      "Width": 826,
+      "Height": 711,
+      "SampleStride": 4,
+      "Samples": 36846,
+      "Mean": 79.21563625174186,
+      "NonzeroRatio": 0.9505780817456441,
+      "NonwhiteRatio": 0.8969223253541768,
+      "Nonblank": true,
+      "Sha256": "A00052A640F30ED78BB77B6A378B4EF615E3BE919884AF223110DD8BE59FEBE9",
+      "Foreground": null,
+      "Window": {
+        "Title": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "ProcessId": 8876,
+        "Handle": 852994,
+        "Rectangle": "441,441,826,711",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 0
+      }
+    },
+    "m01-main-capture.json": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1235\\scratch\\issue-1235\\m01-main.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "CopyFromScreenError": null,
+      "Width": 1206,
+      "Height": 871,
+      "SampleStride": 4,
+      "Samples": 65836,
+      "Mean": 95.08999635457396,
+      "NonzeroRatio": 0.9584118111671426,
+      "NonwhiteRatio": 0.9390303177592806,
+      "Nonblank": true,
+      "Sha256": "39671EB31C59D49A2320722DE348E1450814C1E3F36B8007FAABA62DFBA8B217",
+      "Foreground": null,
+      "Window": {
+        "Title": "P24 診斷客戶端",
+        "ProcessId": 8876,
+        "Handle": 16779226,
+        "Rectangle": "1317,604,1206,871",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 0
+      }
+    },
+    "n01-world-capture.json": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1235\\scratch\\issue-1235\\n01-world.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "CopyFromScreenError": null,
+      "Width": 826,
+      "Height": 711,
+      "SampleStride": 4,
+      "Samples": 36846,
+      "Mean": 79.08819591448301,
+      "NonzeroRatio": 0.9508766216142865,
+      "NonwhiteRatio": 0.8972208652228193,
+      "Nonblank": true,
+      "Sha256": "B6EEFD9902E0913A954954B9DEACDE1988A65FB9A4E06716233D42E76D6C96FD",
+      "Foreground": null,
+      "Window": {
+        "Title": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "ProcessId": 8876,
+        "Handle": 852994,
+        "Rectangle": "441,441,826,711",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 0
+      }
+    }
+  },
+  "close": {
+    "Exited": true,
+    "Pid": 8876,
+    "CloseMainWindow": true,
+    "Utc": "2026-11-14T10:37:44.8773305Z"
+  },
+  "cleanup": {
+    "utc": "2026-11-14T10:38:31.5915719Z",
+    "ownedIds": [
+      8876,
+      19076,
+      4172,
+      3436
+    ],
+    "remainingOwned": [],
+    "listeners": [],
+    "mysqlShutdownExitCode": 0
+  },
+  "finalVerification": {
+    "utc": "2026-11-14T10:38:34.007914+00:00",
+    "fixtureUnchanged": true,
+    "persistentUnchanged": true,
+    "fixtureFiles": 1736,
+    "persistentFiles": 1722,
+    "persistentBytes": 279511437,
+    "fixtureManifestSha256": "996a39971570b7a2d8ab2547fea02e737a24c898f02b5f7f740135e6b3caf06b",
+    "fixtureBeforeSha256": "5081244dceccdb5cbc1c68ccf5f36d2303a05494a9d9e885c06c10f86cec3293",
+    "fixtureAfterSha256": "5081244dceccdb5cbc1c68ccf5f36d2303a05494a9d9e885c06c10f86cec3293",
+    "persistentBeforeSha256": "f94bf98347b9789f368dc9863a28ab09132ad613cb86373f87bd7283d0f19668",
+    "persistentAfterSha256": "f94bf98347b9789f368dc9863a28ab09132ad613cb86373f87bd7283d0f19668"
+  },
+  "sql": {
+    "before": "account_name\tchar_name\tobjid\tType\tAccessLevel\tOnlineStatus\tMapID\tLocX\tLocY\np242db6e\t資源王族\t10305\t0\t0\t0\t4\t33083\t33393\np241db6e\t資源騎士\t10314\t1\t0\t0\t4\t33083\t33393\np241db6e\t資源妖精\t10325\t2\t0\t0\t4\t33083\t33393\np24svc01\t資源法師\t10334\t3\t0\t0\t4\t33071\t32800\np241db6e\t資源暗妖\t10344\t4\t0\t0\t4\t33083\t33393\np242db6e\t資源龍騎\t10356\t5\t0\t0\t4\t33083\t33393\np242db6e\t資源幻術\t10365\t6\t0\t0\t4\t33083\t33393\np241db6e\t透明王子\t1900240001\t0\t0\t0\t4\t33072\t32800\np242db6e\t透明王子乙\t1900240002\t0\t0\t0\t0\t32477\t32853\np243db6e\t驗收王子\t1900240003\t0\t0\t0\t0\t32588\t32981\np244db6e\t驗收王子乙\t1900240004\t0\t0\t0\t0\t32588\t32981\np245db6e\t透明觀察甲\t1900240005\t0\t0\t0\t0\t32648\t33068\np246db6e\t透明觀察乙\t1900240006\t0\t0\t0\t0\t32598\t32932\np247db6e\t驗收觀察甲\t1900240007\t0\t0\t0\t0\t32587\t32998\np248db6e\t驗收觀察乙\t1900240008\t0\t0\t0\t0\t32587\t32998\np24svc01\t服務驗證\t1900249001\t0\t0\t0\t4\t33072\t32799\np24svc01\t服務交易\t1900249201\t0\t0\t0\t0\t32558\t32975\n",
+    "final": "account_name\tchar_name\tobjid\tType\tAccessLevel\tOnlineStatus\tMapID\tLocX\tLocY\np242db6e\t資源王族\t10305\t0\t0\t0\t4\t33083\t33393\np241db6e\t資源騎士\t10314\t1\t0\t0\t4\t33083\t33393\np241db6e\t資源妖精\t10325\t2\t0\t0\t4\t33083\t33393\np24svc01\t資源法師\t10334\t3\t0\t0\t4\t33071\t32800\np241db6e\t資源暗妖\t10344\t4\t0\t0\t4\t33083\t33393\np242db6e\t資源龍騎\t10356\t5\t0\t0\t4\t33083\t33393\np242db6e\t資源幻術\t10365\t6\t0\t0\t4\t33083\t33393\np241db6e\t透明王子\t1900240001\t0\t0\t0\t4\t33072\t32800\np242db6e\t透明王子乙\t1900240002\t0\t0\t0\t0\t32477\t32853\np243db6e\t驗收王子\t1900240003\t0\t0\t0\t0\t32588\t32981\np244db6e\t驗收王子乙\t1900240004\t0\t0\t0\t0\t32588\t32981\np245db6e\t透明觀察甲\t1900240005\t0\t0\t0\t0\t32648\t33068\np246db6e\t透明觀察乙\t1900240006\t0\t0\t0\t0\t32598\t32932\np247db6e\t驗收觀察甲\t1900240007\t0\t0\t0\t0\t32587\t32998\np248db6e\t驗收觀察乙\t1900240008\t0\t0\t0\t0\t32587\t32998\np24svc01\t服務驗證\t1900249001\t0\t0\t0\t4\t33072\t32799\np24svc01\t服務交易\t1900249201\t0\t0\t0\t0\t32558\t32975\n"
+  },
+  "rawFiles": [
+    {
+      "path": "scratch\\issue-1235\\g01-login-state.json",
+      "bytes": 14239,
+      "sha256": "f85226e95e178439eac0fa8b90ef508e08f355b377adcccd60bc614a06d88662"
+    },
+    {
+      "path": "scratch\\issue-1235\\m01-login-state.json",
+      "bytes": 41933,
+      "sha256": "b363db28524df020b98f244454f8687a5dea18754af5759e6aacecede33f439f"
+    },
+    {
+      "path": "scratch\\issue-1235\\m01-final-login-state.json",
+      "bytes": 41933,
+      "sha256": "ea6add8ace266bb1626d713e8bb2dc5977b16ff8f751dc9366c37c08ed766a05"
+    },
+    {
+      "path": "scratch\\issue-1235\\copy-manifest.json",
+      "bytes": 297046,
+      "sha256": "df321bcb42e99dad8ab124fb47b79532e4dcd0297b35e6bb1f50d5a812f8537d"
+    },
+    {
+      "path": "scratch\\issue-1235\\fixture-before.json",
+      "bytes": 312872,
+      "sha256": "5081244dceccdb5cbc1c68ccf5f36d2303a05494a9d9e885c06c10f86cec3293"
+    },
+    {
+      "path": "scratch\\issue-1235\\fixture-after.json",
+      "bytes": 312872,
+      "sha256": "5081244dceccdb5cbc1c68ccf5f36d2303a05494a9d9e885c06c10f86cec3293"
+    },
+    {
+      "path": "scratch\\issue-1235\\persistent-before.json",
+      "bytes": 297049,
+      "sha256": "f94bf98347b9789f368dc9863a28ab09132ad613cb86373f87bd7283d0f19668"
+    },
+    {
+      "path": "scratch\\issue-1235\\persistent-after.json",
+      "bytes": 297049,
+      "sha256": "f94bf98347b9789f368dc9863a28ab09132ad613cb86373f87bd7283d0f19668"
+    },
+    {
+      "path": "scratch\\issue-1235\\build.log",
+      "bytes": 29224,
+      "sha256": "f272a7e2bf7923eea3cfcba2b048c7bbae7f4466f00db46ca59a428173b50649"
+    }
+  ]
+}
