@@ -13,12 +13,14 @@ public sealed class OriginalMapBlock {
 public sealed class OriginalMapStore {
     CancellationToken loadToken;readonly string root;readonly Dictionary<string,JsonElement> maps;readonly Dictionary<int,JsonElement> tileManifest;readonly HashSet<string> knownMissing;
     readonly byte[] terrain;readonly bool packagedMaps;readonly MapRawSource source;MapEffectCatalog? effectCatalog;readonly HashSet<string> unsupportedBlocks=[];public int MapId {get;} public MapBounds Bounds {get;} public int DiskLoads {get;private set;}public int TileDecodes {get;private set;}
-    public OriginalMapStore(string assetsRoot,int? mapId=null,CancellationToken token=default,string? clientRoot=null){loadToken=token;loadToken.ThrowIfCancellationRequested();source=MapRawSource.Open(assetsRoot,clientRoot);
+    // T1195 (#1195): .seg-only blocks the r29 manifest still lists as unsupportedBlocks with sources[].sha256 (stem → SHA-256); read from TW_CLIENT_ROOT.
+    readonly Dictionary<string,string> legacySeg=new(StringComparer.Ordinal);readonly string? clientRoot;
+    public OriginalMapStore(string assetsRoot,int? mapId=null,CancellationToken token=default,string? clientRoot=null){loadToken=token;loadToken.ThrowIfCancellationRequested();source=MapRawSource.Open(assetsRoot,clientRoot);this.clientRoot=clientRoot??source.ClientRoot;
         MapId=mapId??0;Bounds=new(32256,32768,32767,33279);
         if(mapId.HasValue){
             packagedMaps=true;root=Path.Combine(assetsRoot,"maps");var integrity=Json.Read(Path.Combine(assetsRoot,"integrity.json"));var pins=integrity.GetProperty("files").EnumerateArray().Where(f=>f.S("path")=="maps/manifest.json").ToArray();if(pins.Length!=1)throw new InvalidDataException("map manifest integrity entry missing");var manifestBytes=Verified(Path.Combine(root,"manifest.json"),pins[0].S("sha256"));using var document=JsonDocument.Parse(manifestBytes);var all=document.RootElement.Clone();if(all.S("schema")!="p24-map-provider-v1")throw new InvalidDataException("map provider schema");
             var available=all.GetProperty("maps").EnumerateArray().Where(m=>m.I("mapId")==MapId).ToArray();if(available.Length!=1)throw new NotSupportedException("未封裝直接地圖與地形來源: "+MapId);
-            var metadata=available[0];unsupportedBlocks=metadata.GetProperty("unsupportedBlocks").EnumerateArray().Select(v=>v.S("name")).ToHashSet();Bounds=new(metadata.I("minX"),metadata.I("minY"),metadata.I("maxX"),metadata.I("maxY"));
+            var metadata=available[0];foreach(var row in metadata.GetProperty("unsupportedBlocks").EnumerateArray()){string blockName=row.S("name");if(SegBlocks.LegacySha256(MapId,row) is string legacySha)legacySeg[blockName]=legacySha;else unsupportedBlocks.Add(blockName);}Bounds=new(metadata.I("minX"),metadata.I("minY"),metadata.I("maxX"),metadata.I("maxY"));
             maps=all.GetProperty("blocks").EnumerateArray().Where(m=>m.I("mapId")==MapId).ToDictionary(m=>m.S("name"));tileManifest=all.GetProperty("tiles").EnumerateArray().ToDictionary(t=>t.I("tile"));
             knownMissing=metadata.GetProperty("verifiedAbsent").EnumerateArray().Select(v=>v.GetString()!).ToHashSet();var source=metadata.GetProperty("terrain");terrain=Verified(Path.Combine(root,source.S("path")),source.S("sha256"));if(terrain.Length!=(long)Bounds.Width*Bounds.Height)throw new InvalidDataException("map terrain dimensions");return;
         }
@@ -34,9 +36,13 @@ public sealed class OriginalMapStore {
     public bool Available(int bx,int by)=>maps.ContainsKey($"{bx:x4}{by:x4}.s32");
     public byte Terrain(int x,int y)=>Bounds.Contains(x,y)?terrain[(y-Bounds.MinY)*Bounds.Width+x-Bounds.MinX]:(byte)0;
     public OriginalMapBlock Load(int bx,int by,int generation){loadToken.ThrowIfCancellationRequested();
-        string name=$"{bx:x4}{by:x4}";if(unsupportedBlocks.Contains(name))throw new NotSupportedException("原始區塊只有尚未支援的 SEG／壓縮格式: "+MapId+"/"+name);if(knownMissing.Contains(name))return Missing(bx,by,generation);if(!maps.TryGetValue(name+".s32",out var entry)&&!maps.TryGetValue(name+".seg",out entry))throw new NotSupportedException("Original block outside packaged verified coverage: "+name);
-        bool seg=entry.TryGetProperty("format",out var format)&&format.GetString()=="classic-seg";if(seg&&(MapId!=6||name!="7fff8000"||entry.S("sha256")!="aad5ff598f9daeb6574fcef8fdaa1b3b2963d6c0d60d8840057ef48d39101a45"))throw new NotSupportedException("Unverified SEG profile");
-        var bytes=Raw(()=>packagedMaps?source.Block(entry.S("path"),entry.S("sha256")):source.CacheBlock(name+".s32",entry.S("sha256")));using var r=new BinaryReader(new MemoryStream(bytes));
+        string name=$"{bx:x4}{by:x4}";if(unsupportedBlocks.Contains(name))throw new NotSupportedException("原始區塊只有尚未支援的 SEG／壓縮格式: "+MapId+"/"+name);if(knownMissing.Contains(name))return Missing(bx,by,generation);
+        // T1195: blocks[] first (the .s32 wins over a .seg, as sub_F0B570 opens .s32 before .seg); then a legacy .seg-only row of the r29 manifest.
+        JsonElement entry=default;bool legacy=false;string? legacySha=null;
+        if(!maps.TryGetValue(name+".s32",out entry)&&!maps.TryGetValue(name+".seg",out entry)&&!(legacy=legacySeg.TryGetValue(name,out legacySha)))throw new NotSupportedException("Original block outside packaged verified coverage: "+name);
+        bool seg=legacy||entry.TryGetProperty("format",out var format)&&format.GetString()=="classic-seg";string sha=legacy?legacySha!:entry.S("sha256");
+        if(seg)SegBlocks.CheckAnchor(MapId,name,sha);
+        var bytes=Raw(()=>legacy?SegBlocks.ReadLegacy(clientRoot,MapId,name,sha):packagedMaps?source.Block(entry.S("path"),sha):source.CacheBlock(name+".s32",sha));using var r=new BinaryReader(new MemoryStream(bytes));
         int Count(int size,bool shortCount=false){int n=shortCount?r.ReadUInt16():r.ReadInt32();if(n<0||n>65536||r.BaseStream.Position+(long)n*size>bytes.Length)throw new InvalidDataException("S32 count");return n;}
         MapTile ReadTile(int x,int y,int z,string layer,int index,int group,int offset){uint v=seg?r.ReadUInt16():r.ReadUInt32();if(v==uint.MaxValue&&layer=="ground")return new(x,y,z,140,187+(x&1),offset,layer,index,group);if((v>>24)!=0)throw new NotSupportedException("S32 tile high byte");return new(x,y,z,(int)(v>>8),(int)(v&255),offset,layer,index,group);}
         var ground=new List<MapTile>();var cover=new List<MapTile>();var groups=new List<MapGroup>();var triggers=new List<MapTrigger>();
@@ -45,9 +51,11 @@ public sealed class OriginalMapStore {
         var attrs=Enumerable.Range(0,8192).Select(_=>seg?(ushort)r.ReadByte():r.ReadUInt16()).ToArray();int ng=Count(4);
         for(int g=0;g<ng;g++){int id=r.ReadUInt16(),n=Count(seg?5:7,true);var objs=new List<MapTile>();for(int i=0;i<n;i++){int off=(int)r.BaseStream.Position,x=r.ReadByte(),y=r.ReadByte(),z=r.ReadByte();var obj=ReadTile(x,y,z,"objects",i,g,off);if(x!=205||y!=205)objs.Add(obj);}groups.Add(new(g,id,objs.ToArray()));}
         int nt=Count(5);for(int i=0;i<nt;i++){int off=(int)r.BaseStream.Position,x=r.ReadByte(),y=r.ReadByte(),g=r.ReadUInt16(),kind=r.ReadByte();if(g>=ng)throw new InvalidDataException("trigger group");triggers.Add(new(x,y,g,1<<(kind==0?0:1),off));}
-        int refs=seg?r.ReadByte():Count(4);r.BaseStream.Position+=(seg?1:4)*refs;int portals=Count(9,true);for(int i=0;i<portals;i++){int len=r.ReadByte();if(r.BaseStream.Position+len+8>bytes.Length)throw new InvalidDataException("S32 truncated portal");if(seg){r.BaseStream.Position+=len;int px=r.ReadByte(),py=r.ReadByte();if(px>=128||py>=64)throw new InvalidDataException("SEG portal coordinates");attrs[py*128+px]|=2;r.BaseStream.Position+=6;}else r.BaseStream.Position+=len+8;}
-        bool noTail=packagedMaps&&entry.GetProperty("noEffectTail").GetBoolean();if(noTail&&r.BaseStream.Position!=bytes.Length)throw new InvalidDataException("S32 pinned absent-L8 profile mismatch");int effects=noTail?0:r.ReadUInt16();var localEffects=new List<MapLocalEffect>();
-        if(seg&&effects!=0)throw new NotSupportedException("SEG effects need separate native profile");
+        // T1195: sub_F0B570's SEG branch reads the portal section and the effects word only while data remains (VA 0xF0D10C portal count, 0xF0D71E effects word; docs/reports/issue-1195.md).
+        int refs=seg?r.ReadByte():Count(4);r.BaseStream.Position+=(seg?1:4)*refs;int portals=seg&&r.BaseStream.Position==bytes.Length?0:Count(9,true);for(int i=0;i<portals;i++){int len=r.ReadByte();if(r.BaseStream.Position+len+8>bytes.Length)throw new InvalidDataException("S32 truncated portal");if(seg){r.BaseStream.Position+=len;int px=r.ReadByte(),py=r.ReadByte();if(px>=128||py>=64)throw new InvalidDataException("SEG portal coordinates");attrs[py*128+px]|=2;r.BaseStream.Position+=6;}else r.BaseStream.Position+=len+8;}
+        bool noTail=packagedMaps&&!legacy&&entry.GetProperty("noEffectTail").GetBoolean();if(noTail&&r.BaseStream.Position!=bytes.Length)throw new InvalidDataException("S32 pinned absent-L8 profile mismatch");int effects=noTail||seg&&r.BaseStream.Position==bytes.Length?0:r.ReadUInt16();var localEffects=new List<MapLocalEffect>();
+        // The SEG tail has the S32 layout, but the SEG branch maps effect ids to light radii with its own table (not MapEffectLightTable); none of the 46 real .seg-only blocks has one.
+        if(seg&&effects!=0)throw new NotSupportedException($"SEG 區塊 {MapId}/{name} 有 effects 尾段 0x{effects:X4}（{effects&32767} 筆），SEG 的光源表與 S32 不同，尚未支援");
         if((effects&32767)!=0){if(!packagedMaps)throw new NotSupportedException("Nonzero map-local effects require map provider: "+name);effectCatalog??=new(root);for(int i=0;i<(effects&32767);i++){int offset=(int)r.BaseStream.Position,id=r.ReadUInt16(),x=r.ReadUInt16(),y=r.ReadUInt16();int extension=(effects&32768)!=0?r.ReadInt32():0;if(extension!=0)throw new NotSupportedException("Unresolved extended map effect field: "+extension);if(x<(bx-0x7e00)*64||x>=(bx-0x7e00+1)*64||y<(by-0x7e00)*64||y>=(by-0x7e00+1)*64)throw new InvalidDataException("map effect outside owning block");localEffects.Add(new(id,x,y,offset,effectCatalog.Get(id)));}}
         if(r.BaseStream.Position!=bytes.Length)throw new NotSupportedException("Unknown S32 trailing format: "+name);
         var tiles=new Dictionary<(int,int),Tile>();foreach(var set in ground.Concat(cover).Concat(groups.SelectMany(g=>g.Objects)).GroupBy(t=>t.Tile)){
@@ -60,12 +68,50 @@ public sealed class OriginalMapStore {
                 int end=offsets.Where(o=>o>offsets[idx]).Min();if(tr.BaseStream.Position!=start+end)throw new InvalidDataException("TIL block tail");tiles[(set.Key,idx)]=new(typ,pixels.ToArray());TileDecodes++;
             }
         }
-        DiskLoads++;return new(){Name=name,Sha256=entry.S("sha256"),X=(bx-32512)*128,Y=(by-32256)*64,Ground=ground.ToArray(),Cover=cover.ToArray(),Groups=groups.ToArray(),Triggers=triggers.ToArray(),Attributes=attrs,Tiles=tiles,Generation=generation,Effects=localEffects.ToArray()};
+        DiskLoads++;return new(){Name=name,Sha256=sha,X=(bx-32512)*128,Y=(by-32256)*64,Ground=ground.ToArray(),Cover=cover.ToArray(),Groups=groups.ToArray(),Triggers=triggers.ToArray(),Attributes=attrs,Tiles=tiles,Generation=generation,Effects=localEffects.ToArray()};
     }
     OriginalMapBlock Missing(int bx,int by,int generation){
         var raw=Raw(()=>source.Tile(140,tileManifest[140].S("sha256"),!packagedMaps));using var r=new BinaryReader(new MemoryStream(raw));int n=r.ReadInt32();var offsets=Enumerable.Range(0,n+1).Select(_=>r.ReadInt32()).ToArray();long start=r.BaseStream.Position;var tiles=new Dictionary<(int,int),Tile>();
         foreach(int index in new[]{187,188}){r.BaseStream.Position=start+offsets[index];int typ=r.ReadByte();if(typ!=index-187)throw new InvalidDataException("Original missing tile type");var pixels=new List<Pixel>();for(int y=0;y<24;y++){int count=y<12?2*(y+1):2*(23-y),x=typ==1?0:24-count;for(int j=0;j<count;j++)pixels.Add(new(x+j,y,r.ReadUInt16()));}tiles[(140,index)]=new(typ,pixels.ToArray());TileDecodes++;}
         DiskLoads++;return new(){Name=$"{bx:x4}{by:x4}",Sha256="verified-absent-original-four-paths",X=(bx-32512)*128,Y=(by-32256)*64,Ground=Enumerable.Range(0,8192).Select(i=>new MapTile(i%128,i/128,0,140,187+(i&1),-1,"ground",i)).ToArray(),Cover=[],Groups=[],Triggers=[],Attributes=Enumerable.Repeat((ushort)1,8192).ToArray(),Tiles=tiles,Generation=generation};
+    }
+}
+// T1195 (#1195): SEG blocks in general, not only the map 6 anchor.
+// Original BIN TW1608262200.bin (SHA-256 e12949cf…09641a2, image base 0x400000): sub_F0B570 (VA 0xF0B570, RVA 0xB0B570, FO 0xB0A970)
+// formats map\%d\%04x%04x.seg (VA 0x1180E24, FO 0xD7FA24) and map\%d\%04x%04x.s32 (VA 0x1180E38, FO 0xD7FA38), opens <s32>.gz / <s32> first and
+// only when both are missing <seg>.gz / <seg>. The SEG branch has no map or name check: every .seg uses one layout (u16 ground tiles, u16 cover
+// count + 4-byte records, u8 attributes, i32 groups with 5-byte members, i32 × 5-byte triggers, u8 refs count + u8 refs, then the portal and effects
+// sections while data remains). Identity is the SHA-256 from the manifest; the anchor pin is kept as an extra check.
+public static class SegBlocks {
+    /// <summary>
+    /// The r29 maps/manifest.json (read-only) lists .seg-only blocks in maps[].unsupportedBlocks as {name, sources:[{path:"…\map\&lt;id&gt;\&lt;name&gt;.seg", sha256}]}.
+    /// Returns that SHA-256 (lower case) when the row has exactly one source and it is the block's own .seg in this map directory; null otherwise
+    /// (rows without sources, such as the ones MapsRecipe wrote before version 3, or a .s32.gz source stay unsupported).
+    /// </summary>
+    public static string? LegacySha256(int mapId,JsonElement row){
+        if(row.ValueKind!=JsonValueKind.Object||!row.TryGetProperty("name",out var n)||n.ValueKind!=JsonValueKind.String)return null;
+        string name=n.GetString()!;if(name.Length!=8||!name.All(char.IsAsciiHexDigit))return null;
+        if(!row.TryGetProperty("sources",out var sources)||sources.ValueKind!=JsonValueKind.Array||sources.GetArrayLength()!=1)return null;
+        var source=sources[0];
+        if(source.ValueKind!=JsonValueKind.Object||!source.TryGetProperty("path",out var p)||p.ValueKind!=JsonValueKind.String||!source.TryGetProperty("sha256",out var h)||h.ValueKind!=JsonValueKind.String)return null;
+        var parts=p.GetString()!.Replace('\\','/').Split('/');string sha=h.GetString()!;
+        if(parts.Length<3||!parts[^1].Equals(name+".seg",StringComparison.OrdinalIgnoreCase)||parts[^2]!=mapId.ToString(System.Globalization.CultureInfo.InvariantCulture)||!parts[^3].Equals("map",StringComparison.OrdinalIgnoreCase))return null;
+        if(sha.Length!=64||!sha.All(char.IsAsciiHexDigit))return null;
+        return sha.ToLowerInvariant();
+    }
+    /// <summary>TW_CLIENT_ROOT/map/&lt;mapId&gt;/&lt;name&gt;.seg (file name case-insensitive), refused unless its SHA-256 equals <paramref name="sha256"/>. Null root → TW_CLIENT_ROOT.</summary>
+    public static byte[] ReadLegacy(string? clientRoot,int mapId,string name,string sha256){
+        string root=clientRoot??NativeUi.UiResourcePins.ClientRoot;
+        if(string.IsNullOrWhiteSpace(root)||!Path.IsPathFullyQualified(root))throw new DirectoryNotFoundException("SEG 區塊需要原客戶端目錄（TW_CLIENT_ROOT，絕對路徑）");
+        if(!Directory.Exists(root))throw new DirectoryNotFoundException("原客戶端目錄不存在："+root);
+        if(name.Length!=8||!name.All(char.IsAsciiHexDigit))throw new InvalidDataException("SEG 區塊名稱不合法："+name);
+        string dir=mapId.ToString(System.Globalization.CultureInfo.InvariantCulture),relative=$"map/{dir}/{name}.seg";
+        string file=MapRawSource.FindClientFile(Path.Combine(root,"map",dir),name+".seg")??throw new FileNotFoundException("原客戶端缺少 SEG 區塊 "+relative,relative);
+        return MapRawSource.Verify(File.ReadAllBytes(file),sha256,"TW_CLIENT_ROOT/"+relative);
+    }
+    /// <summary>The map 6 anchor (asset-recipe.md §1.2) must keep its pinned SHA-256; other SEG blocks are identified by the manifest SHA alone.</summary>
+    public static void CheckAnchor(int mapId,string name,string sha256){
+        if(mapId==AssetPrep.MapScan.SegAnchorMap&&name==AssetPrep.MapScan.SegAnchorStem&&!sha256.Equals(AssetPrep.MapScan.SegAnchorSha256,StringComparison.OrdinalIgnoreCase))throw new NotSupportedException("Unverified SEG profile");
     }
 }
 public sealed class OriginalMapCache {

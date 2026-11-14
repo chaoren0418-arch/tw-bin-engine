@@ -22,14 +22,21 @@ internal sealed class PortalCatalog {
     readonly string root;
     readonly MapRawSource source;
     readonly Dictionary<string,JsonElement> entries;
+    // T1195 (#1195): legacy .seg-only rows of the r29 manifest (maps[].unsupportedBlocks with sources[].sha256), read from TW_CLIENT_ROOT like OriginalMapStore.
+    readonly Dictionary<string,string> legacySeg=new(StringComparer.Ordinal);
+    readonly int map;readonly string? clientRoot;
     readonly ConditionalWeakTable<OriginalMapBlock,HashSet<(int,int)>> cells=new();
     internal PortalCatalog(string assetsRoot,int map,string? clientRoot=null){
-        root=Path.Combine(assetsRoot,"maps");source=MapRawSource.Open(assetsRoot,clientRoot);
+        root=Path.Combine(assetsRoot,"maps");source=MapRawSource.Open(assetsRoot,clientRoot);this.map=map;this.clientRoot=clientRoot??source.ClientRoot;
         using var integrity=JsonDocument.Parse(File.ReadAllBytes(Path.Combine(assetsRoot,"integrity.json")));
         var pin=integrity.RootElement.GetProperty("files").EnumerateArray().Single(p=>p.S("path")=="maps/manifest.json");
         using var manifest=JsonDocument.Parse(Verified(Path.Combine(root,"manifest.json"),pin.S("sha256")));
         if(manifest.RootElement.S("schema")!="p24-map-provider-v1")throw new InvalidDataException("portal map schema");
         entries=manifest.RootElement.GetProperty("blocks").EnumerateArray().Where(p=>p.I("mapId")==map).ToDictionary(p=>p.S("name"),p=>p.Clone());
+        if(manifest.RootElement.TryGetProperty("maps",out var maps)&&maps.ValueKind==JsonValueKind.Array)
+            foreach(var m in maps.EnumerateArray().Where(m=>m.I("mapId")==map))
+                if(m.TryGetProperty("unsupportedBlocks",out var rows)&&rows.ValueKind==JsonValueKind.Array)
+                    foreach(var row in rows.EnumerateArray())if(SegBlocks.LegacySha256(map,row) is string sha)legacySeg[row.GetProperty("name").GetString()!]=sha;
     }
     static byte[] Verified(string path,string hash){
         var bytes=File.ReadAllBytes(path);
@@ -47,12 +54,14 @@ internal sealed class PortalCatalog {
     }
     HashSet<(int,int)> ReadBlock(OriginalMapBlock block){
         if(block.Sha256=="verified-absent-original-four-paths")return [];
-        if(!entries.TryGetValue(block.Name+".s32",out var entry)&&!entries.TryGetValue(block.Name+".seg",out entry))throw new InvalidDataException("portal block missing");
-        if(!entry.S("sha256").Equals(block.Sha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("portal block identity changed");
-        bool seg=entry.TryGetProperty("format",out var format)&&format.GetString()=="classic-seg";
-        if(seg&&(block.Name!="7fff8000"||block.Sha256!="aad5ff598f9daeb6574fcef8fdaa1b3b2963d6c0d60d8840057ef48d39101a45"))throw new NotSupportedException("unverified portal SEG profile");
+        JsonElement entry=default;bool legacy=false;string? legacySha=null;
+        if(!entries.TryGetValue(block.Name+".s32",out entry)&&!entries.TryGetValue(block.Name+".seg",out entry)&&!(legacy=legacySeg.TryGetValue(block.Name,out legacySha)))throw new InvalidDataException("portal block missing");
+        if(!(legacy?legacySha!:entry.S("sha256")).Equals(block.Sha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("portal block identity changed");
+        bool seg=legacy||entry.TryGetProperty("format",out var format)&&format.GetString()=="classic-seg";
+        // T1195: any SEG identified by the manifest SHA-256 (sub_F0B570's SEG branch has no name check); the map 6 anchor keeps its pin.
+        if(seg)try{SegBlocks.CheckAnchor(map,block.Name,block.Sha256);}catch(NotSupportedException ex){throw new NotSupportedException("unverified portal SEG profile",ex);}
         byte[] bytes;
-        try{bytes=source.Block(entry.S("path"),block.Sha256);}
+        try{bytes=legacy?SegBlocks.ReadLegacy(clientRoot,map,block.Name,block.Sha256):source.Block(entry.S("path"),block.Sha256);}
         catch(InvalidDataException ex) when(ex.Message.StartsWith("Original cache source hash",StringComparison.Ordinal)){throw new InvalidDataException("portal source hash mismatch",ex);}
         return ReadCells(bytes,seg);
     }
@@ -63,6 +72,8 @@ internal sealed class PortalCatalog {
         Skip(8192*(seg?2:4));Skip(Count(true)*(seg?4L:6L));Skip(8192*(seg?1:2));
         int groups=Count();for(int i=0;i<groups;i++){Skip(2);Skip(Count(true)*(seg?5L:7L));}
         Skip(Count()*5L);Skip(seg?reader.ReadByte():Count()*4L);
+        // T1195: the SEG branch of sub_F0B570 reads the portal section only while data remains (VA 0xF0D10C).
+        if(seg&&reader.BaseStream.Position==reader.BaseStream.Length)return [];
         int portals=Count(true);var result=new HashSet<(int,int)>();
         for(int i=0;i<portals;i++){
             Skip(reader.ReadByte());int x=reader.ReadByte(),y=reader.ReadByte();Skip(6);

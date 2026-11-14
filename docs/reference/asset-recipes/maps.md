@@ -63,6 +63,17 @@
 
 各欄 `offset` 一律是該筆資料在檔案內的 File Offset。
 
+SEG 區段順序（T1195／#1195；原 BIN `TW1608262200.bin` SHA `e12949cf…09641a2` 的 `sub_F0B570` SEG 分支，VA `0xF0B570`／RVA `0xB0B570`／FO `0xB0A970`；同一區塊先開 `.s32.gz`、`.s32`，兩者都沒有才開 `.seg.gz`、`.seg`，SEG 分支**沒有地圖或檔名檢查**）：
+
+1. ground：8192 × u16，`tile = v >> 8`、`index = v & 0xFF`（沒有 S32 的 `0xFFFFFFFF` 特例）。
+2. cover：`u16 n`，n × 4 bytes（`x:u8, y:u8, v:u16`）。
+3. attributes：8192 × u8。
+4. groups：`i32 n`；每組 `id:u16`（原 BIN 跳過不存）、`count:u16`，count × 5 bytes（`x:u8, y:u8, z:u8, v:u16`；`x = y = 205` 是佔位，跳過）。
+5. opacity triggers：`i32 n`，n × 5 bytes（同 S32）。
+6. tile refs：`u8 n`，n × u8。
+7. portals：**還有資料時**才讀，`u16 n`，格式同 S32；每筆把該格 attribute `|= 2`（VA `0xF0D10C`）。
+8. effects tail：**還有資料時**才讀，格式同 S32（VA `0xF0D71E`、`cmp 0x8000`）；但 id → 光源半徑的對照表與 S32 不同，產品尚未支援，非 0 時拒絕並在錯誤訊息帶區塊名與值。客戶端 46 個 `.seg`-only 區塊全部沒有這一段。
+
 ### `maps/manifest.json`（schema `p24-map-provider-v1`）
 
 基線格式：`json.dumps(indent=2, ensure_ascii=False)`，換行 CRLF，檔尾有一個換行，UTF-8 無 BOM。
@@ -70,13 +81,13 @@
 | 欄位 | 產品是否讀 | 規則 | 比對 |
 |---|---|---|---|
 | `blocks[]`：`mapId`、`name`（小寫）、`path`（`map/<目錄>/<原檔名>`）、`sha256`、`noEffectTail` | 讀 | 列出每個地圖目錄下副檔名是 `.s32`（不分大小寫）的檔；`noEffectTail` = 檔案在 portals 段之後剛好結束。排序：目錄名當字串、再檔名。 | 7,197／7,197 列的 sha、path、noEffectTail 相同；排序相同 |
-| `blocks[]` 最後一列（map 6 的 `7fff8000.seg`）：另有 `format: "classic-seg"`、`nativeVa`、`nativeImageBase`、`originalSource` | 讀 `format`、`sha256`、`path` | 產品只接受這一個 SEG（SHA 寫死 `aad5ff59…101a45`）。`originalSource` 是絕對路徑，新檔要拿掉。 | SHA 相同 |
+| `blocks[]` 最後一列（map 6 的 `7fff8000.seg`）：另有 `format: "classic-seg"`、`nativeVa`、`nativeImageBase`、`originalSource` | 讀 `format`、`sha256`、`path` | 基線只收這一個 SEG。`originalSource` 是絕對路徑，新檔要拿掉。**T1195（recipe `maps` 版本 3）起：每個只有 `.seg`、沒有 `.s32` 的區塊都列成 `blocks[]`（`format: "classic-seg"`、`sha256`、`path`、`noEffectTail`）**；產品依 manifest 的 SHA 讀，錨點 map 6 `7fff8000` 另外仍須等於寫死的 `aad5ff59…101a45`。 | SHA 相同 |
 | `maps[]`：`mapId`、`minX/maxX/minY/maxY`、`width`、`height` | 讀 bounds | 見 `terrain.md`「座標與 bounds」 | 713／713（T445） |
 | `maps[].terrain.path`、`.sha256` | 讀 | terrain 檔的相對路徑與產出檔的 SHA | 713 筆與 integrity 相符 |
 | `maps[].terrain.sourcePath`、`.sourceSha256` | 不讀 | 伺服器 `maps/<id>.txt` 的絕對路徑與 SHA。**新檔要拿掉。** | — |
 | `maps[].verifiedAbsent[]` | 讀 | 對 `bx` 從 `minX/64 + 0x7E00 − 2` 到 `maxX/64 + 0x7E00 + 2`、`by` 同理（bx 在外層）：`<bx:04x><by:04x>` 的 `.s32.gz`、`.s32`、`.seg.gz`、`.seg` 四種檔都不存在就列入。 | 713／713 張相同，共 30,470 個名稱 |
-| `maps[].unsupportedBlocks[]`：`name`、`sources[].{path,sha256}` | 讀 `name` | 同一個迴圈裡，沒有 `.s32` 但四種檔有任一存在的列入（實際全是 `.seg`）。`sources[].path` 是絕對路徑，新檔改成相對路徑或拿掉。 | 713／713 張相同，共 46 個（map 3：1、map 4：43、map 10：2） |
-| `tiles[]`：`tile`、`sha256`、`path` | 讀 `tile`、`sha256` | 所有列入的 `.s32` 的 ground、cover、objects 用到的 tile id 聯集，加上 140，去掉 65535；在 `Tile.idx` 找得到 `<id>.til` 的依 id 排序列出。 | 5,053 個 id 與基線（5,052＋1 個 missing）完全相同 |
+| `maps[].unsupportedBlocks[]`：`name`、`sources[].{path,sha256}` | 讀 `name`；T1195 起也讀 `sources` | 基線：同一個迴圈裡，沒有 `.s32` 但四種檔有任一存在的列入（實際全是 `.seg`）。**T1195 起新檔只列「只有 `.s32.gz`／`.seg.gz`」的名稱**（`.seg`-only 已改列 `blocks[]`），不寫 `sources`。**舊檔（r29）相容**：某列恰有一個 source、檔名是 `<name>.seg`、在 `map/<mapId>/` 下、`sha256` 是 64 位十六進位時，產品（`OriginalMapStore`、`PortalCatalog`）改從 `TW_CLIENT_ROOT/map/<mapId>/<name>.seg` 讀並核這個 SHA；`sources[].path` 的絕對路徑本身不使用。 | 713／713 張相同，共 46 個（map 3：1、map 4：43、map 10：2）；46 個的 SHA 與現在客戶端相同（#1195） |
+| `tiles[]`：`tile`、`sha256`、`path` | 讀 `tile`、`sha256` | 所有列入的 `.s32`（T1195 起含 `.seg`）的 ground、cover、objects 用到的 tile id 聯集，加上 140，去掉 65535；在 `Tile.idx` 找得到 `<id>.til` 的依 id 排序列出。 | 5,053 個 id 與基線（5,052＋1 個 missing）完全相同 |
 | `tiles[].record` | 不讀 | 舊 Tile.idx 的 record 序號、位置、hex、offset。**5,047／5,052 筆已經與現在的 Tile.idx 不符**，新檔要拿掉或重算。 | 不相同（已過時） |
 | `missingTileIds` | 不讀 | 上面的 id 裡 `Tile.idx` 沒有的 | `[4094]`，相同 |
 | `maps[].name` | 不讀 | 來自 SQL 的地圖名稱（14 張是 `unknow map`）。 | **blocked**：客戶端沒有對應來源，本張沒有找替代 |
@@ -194,11 +205,11 @@
 | `SceneOpacity.cs` 7、13–17 | `scene/opacity.json`、`tile-pixels.json`、`draw-commands.json`（路徑是 `AppContext.BaseDirectory/../../assets`） | schema `p23-original-opacity-v1`；沒有 SHA | 不用改程式。產品不讀 `maps[]`，拿掉 `path` 沒有影響 |
 | `OriginalMapCache.cs` 19 | `maps/manifest.json` | SHA 取自 `integrity.json` 的 `maps/manifest.json` 那一列；schema `p24-map-provider-v1` | integrity 重產即可。新 manifest 少了幾個欄位不影響（見上表「產品是否讀」） |
 | `OriginalMapCache.cs` 23 | `maps/<terrain.path>` | SHA 取自 manifest；長度 = 寬 × 高 | manifest 寫新檔的 SHA 即可 |
-| `OriginalMapCache.cs` 36–37 | `maps/<blocks[].path>`，或 cache 模式的 `cache/map/0/<name>.s32` | SHA 取自 manifest；SEG 另外寫死 `aad5ff59…101a45` | 改成 provider 直讀時，這裡的根目錄要從 `assets/maps` 換成 `TW_CLIENT_ROOT`，SHA 檢查照舊 |
+| `OriginalMapCache.cs` 36–37 | `maps/<blocks[].path>`，或 cache 模式的 `cache/map/0/<name>.s32` | SHA 取自 manifest；SEG 另外寫死 `aad5ff59…101a45` | 改成 provider 直讀時，這裡的根目錄要從 `assets/maps` 換成 `TW_CLIENT_ROOT`，SHA 檢查照舊。**T1195**：任何 `classic-seg` 區塊依 manifest SHA 讀（`SegBlocks.CheckAnchor` 只對 map 6 `7fff8000` 保留 pin）；舊 manifest 的 `.seg` `unsupportedBlocks` 列走 `SegBlocks.ReadLegacy`（`TW_CLIENT_ROOT`，封裝樹也一樣） |
 | `OriginalMapCache.cs` 52、64 | `tiles/<id>.til` | SHA 取自 manifest 的 `tiles[]` | 改成直讀時換成從 Tile.pak 取 entry，SHA 檢查照舊 |
 | `OriginalMapCache.cs` 25–28 | `cache/manifest.json`、`cache/original-map0.txt` | schema `p24-original-cache-v1`；terrain 的 SHA 取自 manifest | manifest 寫新 txt 的 SHA。這條路徑（不帶 mapId）在產品原始碼只有 `CacheTests.cs` 使用，連線時走 `maps/` |
 | `Portals.cs` 27–30 | `maps/manifest.json` | 同樣取 integrity 的 SHA；schema 相同 | 同 `OriginalMapCache` |
-| `Portals.cs` 49–53 | `maps/<blocks[].path>` | manifest 的 SHA 要等於已載入區塊的 SHA；SEG 寫死同一個值 | 改成直讀時根目錄要換 |
+| `Portals.cs` 49–53 | `maps/<blocks[].path>` | manifest 的 SHA 要等於已載入區塊的 SHA；SEG 寫死同一個值 | 改成直讀時根目錄要換。**T1195**：SEG 同 `OriginalMapCache`（manifest SHA＋錨點 pin、舊 `.seg` 列從 `TW_CLIENT_ROOT` 讀） |
 | `MapEffects.cs` 23–24 | `maps/effects/manifest.json` | SHA 取自 integrity；schema `p24-map-effects-v1` | integrity 重產即可；`source` 欄位產品不讀 |
 | `MapEffects.cs` 27 | `maps/effects/<id>.json` | SHA 取自 effects manifest | 不用 |
 | `MapEffects.cs` 158–165 | `objects/magic-<gfx>.json` | SHA 取自 integrity | 屬 T449 |
@@ -252,7 +263,7 @@
 ## 推測
 
 - 基線區塊清單排除 12000、12004 是因為研究清冊以 SQL 的地圖表為準；沒有讀清冊的產生程式確認。
-- `tiles` 清單沒有另外加入 SEG 區塊（map 6 的 `7fff8000.seg`）用到的 tile id，基線能運作應該是因為那些 id 已經被其他 `.s32` 涵蓋；沒有逐一核對。
+- `tiles` 清單沒有另外加入 SEG 區塊（map 6 的 `7fff8000.seg`）用到的 tile id，基線能運作應該是因為那些 id 已經被其他 `.s32` 涵蓋；沒有逐一核對。（#1195 已核對 46 個 `.seg`-only 區塊：用到的 tile id 全部在 r29 `tiles[]`，`maps/tiles/<id>.til` 的 SHA 也相符。）
 - 141 個沒有 metadata 的特效在原版客戶端怎麼處理（不畫，或用別的規則）沒有查。
 
 ## 待驗證
