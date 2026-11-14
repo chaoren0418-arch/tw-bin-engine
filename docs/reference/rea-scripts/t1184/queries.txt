@@ -1,0 +1,107 @@
+# q1
+dec 8CA740
+dec 8C14F0
+dec 8C2290
+dec AC22D0
+xref 8CA740
+xref 8C14F0
+xref 8C2290
+# q2
+dec 4FE4F0
+dec 7466F0
+dec 9CF250
+dec A51920
+dec EBDCC0
+dec EC5440
+dec EC7560
+dis 746700 12
+dis 9CF280 8
+dis A51B20 8
+dis EBDD10 8
+dis EC5460 6
+dis EC75B0 6
+# q3
+gstores 136EB78
+xref 136EB78
+dwords 136EB78 3
+dec 8C5675
+dec 8CA1F7
+dec F4159A
+dec F42453
+dec AC1335
+dec 8B2A40
+dec 7467F0
+dis 8C5650 14
+dis 8CA1D0 14
+dis F41570 16
+dis F42430 14
+# q4
+dec 8B2A40
+dec 8B2A30
+dec AC1170
+dec AC8E20
+dec 8C5380
+dec 74680C
+dec 94E4A7
+dec 94EBDA
+dec EC9510
+dec 8C7C80
+dec 8BD990
+dec 81B740
+dec A35B70
+dis EBE040 30
+xref AC1170
+xref AC8E20
+# q5
+dec 8CB5D0
+dec EE2360
+dec EBDB10
+dec 7467F0
+xref 8CB5D0
+xref EE2360
+xref 9CF250
+xref EC5440
+xref A51920
+xref EBDCC0
+xref EC7560
+xref EBE050
+# q6
+dec 8CA5E0
+dec ECA370
+dec 8CA630
+dwords 11E2DF0 6
+dwords 116ED80 6
+xref 8CA5E0
+xref ECA370
+xref 7467F0
+# q7
+dec ECB0F0
+xref ECB0F0
+dwords 11E2DB0 20
+dwords 116ED60 12
+dec B557C0
+dec 8C51A0
+findstr LoginUI
+findstr Saved current screen to %s
+# q8
+dis B57CF0 30
+dwords 12462F8 5
+dwords 116ED40 10
+dec 947530
+# q9
+str 1378974
+dec EE8260
+dec EE8E00
+dec 9CFAC0
+dec EE3AE0
+dec EED170
+dec 8C51A0
+dec 8B0620
+# q10
+dec AC2260
+xref AC2260
+dwords 11E3AC0 24
+nameea ??_7CLoginUI@@6B@
+dwords 119F000 16
+dwords 119F0F0 16
+xref AC8E10
