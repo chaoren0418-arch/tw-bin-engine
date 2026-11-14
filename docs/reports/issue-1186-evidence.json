@@ -1,0 +1,721 @@
+{
+  "issue": 1186,
+  "sourceCommit": "6db34a4aa66bde0eba965946dda3decb08cbc3d6",
+  "branch": "task/1186",
+  "conclusion": "部分通過",
+  "counts": {
+    "⚠️": 42,
+    "✅": 7,
+    "❌": 10
+  },
+  "scope": "SM01–SM59；SM02/15/55/56/59 依任務限定補測子項，其餘已取得部分沿用 #475。R 系列不重判。",
+  "evidenceRoot": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\backups\\issue-1186-evidence",
+  "productSha256": "58a017171ccd02a63a5003bc6b1a8fc8d21d47e4dad7f287f062420de9fddd24",
+  "rows": [
+    {
+      "id": "SM01",
+      "status": "⚠️",
+      "category": "環境／判定未完",
+      "observation": "兩次取得核對中／接手後圖，6565／10137 ms；核對中只有離線場景，未見舊 HUD；耗時是否可接受待裁定。",
+      "steps": "正常入口啟動兩次，GDI 輪詢。",
+      "evidence": [
+        "smoke-A/m7-SM01-1.png",
+        "smoke-A/m7-SM01-2.png",
+        "smoke-A2/startup.json"
+      ]
+    },
+    {
+      "id": "SM02",
+      "status": "✅",
+      "category": "本次指定子項",
+      "observation": "參考 XML 載入成立，含 WidgetSlot、LoginUI、OptionUI 的明文 SHA；未把載入成功當作所有視窗外觀通過。",
+      "steps": "查本輪 ui-xml-ref／ui-text-ref／surf-ref 日誌。",
+      "evidence": [
+        "smoke-A/native-ui.log"
+      ]
+    },
+    {
+      "id": "SM03",
+      "status": "⚠️",
+      "category": "環境／覆蓋不足",
+      "observation": "取得 800×600 與 1600×1200 工作區；黑邊點擊及原版並排對照未完成。",
+      "steps": "UIA Resize 後 GDI 截圖。",
+      "evidence": [
+        "smoke-A/m7-SM03-1.png",
+        "smoke-A/m7-SM03-2.png"
+      ]
+    },
+    {
+      "id": "SM04",
+      "status": "✅",
+      "category": "引擎",
+      "observation": "帳號可輸入、錯密碼出拒絕框、正確登入成功；HKL=0x4040404；登入頁 Exit 正常退出並寫 closed。",
+      "steps": "輸入測試帳號→錯密碼→正確登入→登出→Exit。",
+      "evidence": [
+        "smoke-A/m7-SM04-2.png",
+        "smoke-A3/SM04-keyboard-layout.json",
+        "smoke-A3/window-events.json"
+      ]
+    },
+    {
+      "id": "SM05",
+      "status": "✅",
+      "category": "引擎",
+      "observation": "兩張背景有不同火光／粒子幀，動畫持續；未量測每一幀的精確週期。",
+      "steps": "登入頁停留並間隔約 400 ms 連拍。",
+      "evidence": [
+        "smoke-A/m7-SM05-1.png",
+        "smoke-A/m7-SM05-2.png"
+      ]
+    },
+    {
+      "id": "SM06",
+      "status": "⚠️",
+      "category": "環境／未觸發",
+      "observation": "本次 news 空、newsPending=false，未收到可驗收的登入公告。",
+      "steps": "正常登入後讀回狀態。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM07",
+      "status": "❌",
+      "category": "引擎",
+      "observation": "CharacterList 已有三角色，原生畫布仍黑底「等待真實世界初始化」，沒有選角列；開發工具可列出並進世界。",
+      "steps": "正常登入 p24svc01→等待選角→按上下鍵；開發工具對照。",
+      "evidence": [
+        "smoke-A/m7-SM07-1.png",
+        "smoke-A/m7-SM07-2.png",
+        "smoke-A/m7-SM07-3.png"
+      ]
+    },
+    {
+      "id": "SM08",
+      "status": "⚠️",
+      "category": "引擎前置阻塞",
+      "observation": "SM07 沒有原生選角／Create 入口；職業頁、能力頁、IME 建角未執行。",
+      "steps": "由 SM07 進建角的入口缺失。",
+      "evidence": [
+        "smoke-A/m7-SM07-1.png"
+      ]
+    },
+    {
+      "id": "SM09",
+      "status": "⚠️",
+      "category": "引擎前置阻塞",
+      "observation": "開發工具可切既有角色；未完成原生建立→刪除→切換全鏈，沒有新建角色。",
+      "steps": "以既有角色繼續其他測試，不把替代入口算通過。",
+      "evidence": [
+        "smoke-A2/prepare-character-list.png",
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM10",
+      "status": "❌",
+      "category": "引擎",
+      "observation": "map0 世界 HUD 可畫，但 HP／MP 數值、百分比、左狀態文字重疊；Y/N 框未取得。",
+      "steps": "普通角色進 map0，800×600 工作區、DPI 192。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready.png"
+      ]
+    },
+    {
+      "id": "SM11",
+      "status": "❌",
+      "category": "引擎",
+      "observation": "角色站立／移動時，頭上量表與角色身體明顯分離；非整數倍及低 HP 閃爍未完成。",
+      "steps": "map0 進世界→站立→走一步。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready.png",
+        "smoke-A/m7-SM11-1.png"
+      ]
+    },
+    {
+      "id": "SM12",
+      "status": "❌",
+      "category": "引擎",
+      "observation": "一般聊天有伺服器回送，但聊天列字高超出列距且底部裁切；八分頁、五過濾、IME 與所有頻道未完成。",
+      "steps": "一般頻道送 SM1186 map0 test 後看聊天欄。",
+      "evidence": [
+        "smoke-A/m7-SM12-3.png",
+        "smoke-A3/m7-SM31-4.png"
+      ]
+    },
+    {
+      "id": "SM13",
+      "status": "⚠️",
+      "category": "環境／覆蓋不足",
+      "observation": "已有紫／綠圖示；未施放指定 buff、未取得 6400／82／470 觸發，不能判定對應及時間。",
+      "steps": "讀回普通角色狀態與圖示列。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready.png",
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM14",
+      "status": "⚠️",
+      "category": "環境／未建立條件",
+      "observation": "未取得空血盟倉庫紀錄、鑑定與中央訊息所需回包；未改血盟資料。",
+      "steps": "本輪未執行指定觸發。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM15",
+      "status": "✅",
+      "category": "本次指定子項",
+      "observation": "WidgetSlot.xml 載入；世界內 Ctrl+P 新增 PNG，檔名、時間與 SHA 已記；Alt+R 日誌出現模式 1→0。",
+      "steps": "世界內實按 Ctrl+P，再核對 Capture 新檔。",
+      "evidence": [
+        "smoke-A/SM15-capture.json",
+        "Capture/20261114-135835-970.png",
+        "smoke-A/native-ui.log"
+      ]
+    },
+    {
+      "id": "SM16",
+      "status": "❌",
+      "category": "引擎",
+      "observation": "Ctrl+H 說明頁開啟但文字互相覆蓋，妨礙連結辨識；巨集八鍵、寄刪信及完整選項連結未完成。",
+      "steps": "進世界按 Ctrl+H。",
+      "evidence": [
+        "smoke-A/m7-SM16-help-1.png",
+        "smoke-A/m7-SM16-option-1.png"
+      ]
+    },
+    {
+      "id": "SM17",
+      "status": "⚠️",
+      "category": "環境／覆蓋不足",
+      "observation": "已按 Ctrl+M 取圖；未完成方向箭頭與組隊隊友點核對。",
+      "steps": "map0 Ctrl+M 開關。",
+      "evidence": [
+        "smoke-A3/m7-SM17-1.png"
+      ]
+    },
+    {
+      "id": "SM18",
+      "status": "❌",
+      "category": "引擎",
+      "observation": "Tab 可開背包，但圖示名稱／數量文字重疊；藥水雙擊、三入口、分類與刪除取消未全部完成。",
+      "steps": "普通法師 Tab 開背包。",
+      "evidence": [
+        "smoke-A3/m7-SM18-2.png"
+      ]
+    },
+    {
+      "id": "SM19",
+      "status": "⚠️",
+      "category": "引擎前置阻塞／覆蓋不足",
+      "observation": "原法師 map4 區塊 4/80048001 不支援 SEG／壓縮格式；移至 map0 繼續，未到凱倫完成存領。",
+      "steps": "map4 載圖錯誤後，未執行倉庫存領。",
+      "evidence": [
+        "smoke-A/m7-SM10-1.png"
+      ]
+    },
+    {
+      "id": "SM20",
+      "status": "❌",
+      "category": "引擎",
+      "observation": "法師 Ctrl+S 可開魔法窗，但「光箭」等字超出格子；七職與 map509 拒開未完成。",
+      "steps": "普通法師 Ctrl+S。",
+      "evidence": [
+        "smoke-A3/m7-SM45-1.png",
+        "smoke-A3/m7-SM45-2.png"
+      ]
+    },
+    {
+      "id": "SM21",
+      "status": "⚠️",
+      "category": "環境／操作未完成",
+      "observation": "曾選到潘朵拉，但未取得商店買賣頁；取證鎖衝突另記，不當成商店引擎失敗；修理／學法未執行。",
+      "steps": "map0 選 NPC、嘗試對話；未成交。",
+      "evidence": [
+        "smoke-A3/m7-SM21-3.png",
+        "smoke-A3/004-pandora-result.json",
+        "smoke-A3/npc-service-tree.json"
+      ]
+    },
+    {
+      "id": "SM22",
+      "status": "⚠️",
+      "category": "環境／操作未完成",
+      "observation": "雙帳號兩角色同時在世界，但未取得雙方交易窗，未移轉物品或金幣。",
+      "steps": "A、B 同 map0 相鄰；交易流程未完成。",
+      "evidence": [
+        "smoke-B/m7-SM22-B-1.png",
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM23",
+      "status": "⚠️",
+      "category": "環境／未建立條件",
+      "observation": "沒有成功開店與報價，不具備私商買賣／>99999／>8筆條件。",
+      "steps": "本輪未完成開店。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM24",
+      "status": "⚠️",
+      "category": "環境／未觸發",
+      "observation": "未收到血盟窗、階級與戰爭流程所需回包；遵守不改血盟資料。",
+      "steps": "本輪未執行備註／宣戰等操作。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM25",
+      "status": "⚠️",
+      "category": "環境／未建立條件",
+      "observation": "背包有既有寵物項圈，但未取出寵物、召喚控制戒指／技能51及盟屋頁條件未成立。",
+      "steps": "只讀現有背包，未改寵物資料。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM26",
+      "status": "⚠️",
+      "category": "環境／未建立條件",
+      "observation": "已登入法師背包沒有料理書，未收到 S250/52；未重放補物品。",
+      "steps": "檢查實際背包後未執行製作。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM27",
+      "status": "⚠️",
+      "category": "環境／未建立條件",
+      "observation": "未到公告板並取得文章；發文、刪文、等待期間防重入未執行。",
+      "steps": "本輪未觸發公告板。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM28",
+      "status": "⚠️",
+      "category": "環境／未觸發",
+      "observation": "未收到 S43 kind1，未執行能力重置；不以合成封包驗收。",
+      "steps": "本輪沒有重置回包。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM29",
+      "status": "⚠️",
+      "category": "環境／未觸發",
+      "observation": "未取得 S156 清單與拍賣出價頁，價格／關窗／4381 未驗。",
+      "steps": "本輪未到拍賣公告板。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM30",
+      "status": "⚠️",
+      "category": "環境／未建立條件",
+      "observation": "未建立釣竿、餌與釣魚地點條件，未收到動作71。",
+      "steps": "未開始釣魚。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM31",
+      "status": "⚠️",
+      "category": "環境／回應未確證",
+      "observation": "原生輸入列可見 /rank，但送出後未取得排名窗；尚未分清指令送出與伺服器回應，不能判不支援。",
+      "steps": "點輸入列→輸入 /rank→Enter。",
+      "evidence": [
+        "smoke-A3/m7-SM31-before.png",
+        "smoke-A3/m7-SM31-4.png"
+      ]
+    },
+    {
+      "id": "SM32",
+      "status": "⚠️",
+      "category": "環境／覆蓋不足",
+      "observation": "Ctrl+D 動作窗可開、可觸發邀請選目標提示；未逐一驗完有路線動作。",
+      "steps": "Ctrl+D→動作圖示雙擊。",
+      "evidence": [
+        "smoke-A3/m7-SM32-open.png",
+        "smoke-A3/m7-SM35-selection.png"
+      ]
+    },
+    {
+      "id": "SM33",
+      "status": "❌",
+      "category": "引擎",
+      "observation": "本機 HyperText 說明頁文字嚴重重疊；尚未取得指定 NPC 頁滑入前後色值與日期。",
+      "steps": "Ctrl+H 開 help HyperText。",
+      "evidence": [
+        "smoke-A/m7-SM16-help-1.png"
+      ]
+    },
+    {
+      "id": "SM34",
+      "status": "⚠️",
+      "category": "環境／操作未完成",
+      "observation": "未取得 buddy 頁與封鎖／解除回包，不能以輸入過指令判成功。",
+      "steps": "先前 /buddy 嘗試後未完成名單操作。",
+      "evidence": [
+        "smoke-A/m7-SM34-1.png"
+      ]
+    },
+    {
+      "id": "SM35",
+      "status": "⚠️",
+      "category": "環境／操作未完成",
+      "observation": "動作窗已提示選組隊對象，但沒有取得 B 的 Y/N 框或建立隊伍；離開／踢除／委任未驗。",
+      "steps": "動作窗邀請→嘗試選 B。",
+      "evidence": [
+        "smoke-A3/m7-SM35-selection.png",
+        "smoke-B/m7-SM35-B-1.png"
+      ]
+    },
+    {
+      "id": "SM36",
+      "status": "⚠️",
+      "category": "環境／前置未成立",
+      "observation": "SM25 召喚窗未開，無高等級停用格可驗。",
+      "steps": "未執行停用格點／拖／提示。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM37",
+      "status": "⚠️",
+      "category": "環境／未觸發",
+      "observation": "沒有 S_EVENT117 血盟倉庫紀錄窗，9183 真機畫面未驗。",
+      "steps": "不改血盟資料，未觸發紀錄。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM38",
+      "status": "⚠️",
+      "category": "環境／操作未完成",
+      "observation": "未完成書籤新增刪除、IME、19區域與拖曳；不能用 XML 載入代替操作驗收。",
+      "steps": "原生輸入指令嘗試後未完成窗流程。",
+      "evidence": [
+        "smoke-A/m7-SM38-1.png"
+      ]
+    },
+    {
+      "id": "SM39",
+      "status": "⚠️",
+      "category": "環境／未建立條件",
+      "observation": "未完成普通角色近戰擊殺，沒有前後 EXP／掉落證據。",
+      "steps": "未執行有效擊殺。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM40",
+      "status": "⚠️",
+      "category": "環境／未建立條件",
+      "observation": "法師有銀箭但沒有可驗弓裝備；未重放補物品，弓箭全鏈未執行。",
+      "steps": "只讀現有背包。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM41",
+      "status": "⚠️",
+      "category": "環境／未建立條件",
+      "observation": "移動已發生，但攻速、動作競合、表情保留等指定時序未完成。",
+      "steps": "未做所需連續動作計時。",
+      "evidence": [
+        "smoke-A/m7-SM11-1.png"
+      ]
+    },
+    {
+      "id": "SM42",
+      "status": "⚠️",
+      "category": "環境／未建立條件",
+      "observation": "沒有指定攻擊／座標／範圍特效的完整施放與回包證據。",
+      "steps": "未以假特效替代實機。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM43",
+      "status": "⚠️",
+      "category": "環境／未觸發",
+      "observation": "未觸發盲目狀態與光圈，無法判定。",
+      "steps": "本輪沒有盲目效果。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM44",
+      "status": "⚠️",
+      "category": "環境／未觸發",
+      "observation": "沒有實際死亡、321／322 或復活；不得拿一般 Quit 窗代替。",
+      "steps": "本輪角色未死亡。",
+      "evidence": [
+        "smoke-A3/m7-SM56-2.png"
+      ]
+    },
+    {
+      "id": "SM45",
+      "status": "⚠️",
+      "category": "環境／操作未完成",
+      "observation": "魔法窗雙擊嘗試後，未取得可確證的目標游標、選中及取消全流程。",
+      "steps": "Ctrl+S→雙擊技能→Escape。",
+      "evidence": [
+        "smoke-A3/m7-SM45-1.png",
+        "smoke-A3/m7-SM45-2.png"
+      ]
+    },
+    {
+      "id": "SM46",
+      "status": "⚠️",
+      "category": "環境／未建立條件",
+      "observation": "未完成物品丟撿與關門遮擋測試，無前後數量核對。",
+      "steps": "本輪未執行丟棄／拾取。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM47",
+      "status": "⚠️",
+      "category": "環境／未建立條件",
+      "observation": "有溶解劑但未完成指定目標道具及緩速施放／恢復。",
+      "steps": "未消耗現有道具。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM48",
+      "status": "⚠️",
+      "category": "環境／未建立條件",
+      "observation": "只登入既有法師與王族；未準備所有職業、基本技能與範圍法術。",
+      "steps": "未建新同名角色，未重放補物品。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json",
+        "smoke-B/m7-SM35-B-1-state.json"
+      ]
+    },
+    {
+      "id": "SM49",
+      "status": "⚠️",
+      "category": "環境／未建立條件",
+      "observation": "已登入法師沒有傳送控制戒指；隨機／記憶傳送選單未驗。",
+      "steps": "檢查背包後未操作。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM50",
+      "status": "❌",
+      "category": "引擎",
+      "observation": "實際登入 map4(33071,32800) 時區塊 4/80048001 報尚未支援 SEG／壓縮格式、世界不 renderable；洞穴、船運與失敗恢復未完成。",
+      "steps": "既有法師在原 map4 位置登入。GM 瞬移只作後續準備、不算本列通過。",
+      "evidence": [
+        "smoke-A/m7-SM10-1.png"
+      ]
+    },
+    {
+      "id": "SM51",
+      "status": "⚠️",
+      "category": "環境／覆蓋不足",
+      "observation": "音訊快照 ready、串流 Failed=0，但未做 loopback 錄音／實聽／6016 對照，不能據此判有聲。",
+      "steps": "只讀世界音訊狀態。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM52",
+      "status": "⚠️",
+      "category": "環境／覆蓋不足",
+      "observation": "看見 NPC 本體，未核對具指定衣物層 NPC、逐格層順序與缺檔行為。",
+      "steps": "map0 普通場景觀察。",
+      "evidence": [
+        "smoke-A3/m7-SM21-3.png"
+      ]
+    },
+    {
+      "id": "SM53",
+      "status": "⚠️",
+      "category": "環境／操作未完成",
+      "observation": "部分指令輸入曾串接成普通聊天；未完成各指令、位置分享、決鬥及踢除回包判定，不宣稱伺服器不支援。",
+      "steps": "原生聊天列輸入；先前工具草稿清除不可靠。",
+      "evidence": [
+        "smoke-A/m7-SM53-receive-2.png",
+        "smoke-A3/m7-SM31-before.png"
+      ]
+    },
+    {
+      "id": "SM54",
+      "status": "⚠️",
+      "category": "環境／未觸發",
+      "observation": "classic 啟動可見舊介面，未讓角色實際死亡及等候 501264 ms，死亡備援未驗。",
+      "steps": "只執行本張 classic 入口補測。",
+      "evidence": [
+        "smoke-C3/m7-SM55-classic-1.png"
+      ]
+    },
+    {
+      "id": "SM55",
+      "status": "✅",
+      "category": "本次指定子項",
+      "observation": "--classic-ui 舊介面、nativeUi:false 舊介面、刪單一設定後恢復原生登入頁三者成立；既有基本操作依任務沿用。",
+      "steps": "C3→D→E，設定只寫 worktree。",
+      "evidence": [
+        "smoke-C3/m7-SM55-classic-1.png",
+        "smoke-D/m7-SM55-config-off-1.png",
+        "smoke-E/m7-SM55-restored-1.png"
+      ]
+    },
+    {
+      "id": "SM56",
+      "status": "✅",
+      "category": "本次指定子項",
+      "observation": "A／A3／B／C3／D／E 六次正常 closed；A3 原生 Quit 的離開回登入，再按 Exit 關閉。兩次包裝失敗不算 closed。",
+      "steps": "正常關各測試窗，核對 window-events 的 closed。",
+      "evidence": [
+        "session-summary.json",
+        "smoke-A3/m7-SM56-2.png",
+        "smoke-A3/m7-SM56-exit-confirm.png"
+      ]
+    },
+    {
+      "id": "SM57",
+      "status": "❌",
+      "category": "引擎",
+      "observation": "Ctrl+V 選項窗可開，但常用選項只畫勾選框，多個項目沒有名稱；音量獨立性與重啟保存未驗。",
+      "steps": "進世界 Ctrl+V，環境設定頁。",
+      "evidence": [
+        "smoke-A/m7-SM57-1.png"
+      ]
+    },
+    {
+      "id": "SM58",
+      "status": "⚠️",
+      "category": "環境／未建立條件",
+      "observation": "未取得 1062／1461 stride 與 1395→1410 靜態外型條件；不能用普通走路當成此列通過。",
+      "steps": "本輪未準備指定外型。",
+      "evidence": [
+        "smoke-A3/normal-mage-ready-state.json"
+      ]
+    },
+    {
+      "id": "SM59",
+      "status": "✅",
+      "category": "本次指定子項",
+      "observation": "classic 啟動自動選「登入／選角」；D 的前景屬自家客戶端、鍵盤焦點在該 Tab，沒有手動選頁。其餘 #475 已得子項依任務沿用。",
+      "steps": "啟動 C3／D，直接讀 UIA SelectionPattern 與焦點。",
+      "evidence": [
+        "smoke-C3/m7-SM59-1.png",
+        "smoke-D/m7-SM59-2.png",
+        "smoke-D/SM59-focus.json"
+      ]
+    }
+  ],
+  "deliveryBaseCommit": "e783ff08",
+  "postSync": {
+    "build": "pass",
+    "checkOnly": "checked-only/dev",
+    "productSha256": "d42e933fe2e762c815c99fe6288d71e8b6fa879b1500463cbf33e36857aa9223",
+    "realMachineRetested": false,
+    "mapFollowup": "#1195 已合併；保留原 SM19／SM50 失敗證據，承接既有修正重測"
+  },
+  "characters-final-summary.json": {
+    "utc": "2026-11-14T06:27:27.485955+00:00",
+    "characters": 17,
+    "allAccessLevelZero": true,
+    "allOnlineStatusZero": true
+  },
+  "protected-comparison.json": {
+    "equal": true,
+    "files": 24,
+    "evidence": "protected-comparison.json"
+  },
+  "session-summary.json": {
+    "closedCount": 6,
+    "closedSessions": [
+      "smoke-A",
+      "smoke-A3",
+      "smoke-B",
+      "smoke-C3",
+      "smoke-D",
+      "smoke-E"
+    ],
+    "evidence": "session-summary.json"
+  },
+  "final-processes.json": {
+    "Utc": "2026-11-14T06:29:14.6048618Z",
+    "checkedProcesses": 29,
+    "sameProcessStillRunning": [],
+    "Listeners": [],
+    "evidence": "final-processes.json"
+  },
+  "C02": {
+    "result": "fail",
+    "counts": {
+      "outside": 3,
+      "jar-log-temp": 3,
+      "mysql-runtime": 55,
+      "task-evidence-backup": 89
+    },
+    "knownHistoricalErrors": [
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-authority-rebind-review-r1\\\\synthetic-independent-fgjl3e7f'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-pickup-integration-review-r1\\\\synthetic-hecff5h6'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-pickup-integration-review-r1\\\\synthetic-tj11g_rj'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-pickup-integration-review-r1\\\\synthetic-zhurl291'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r1\\\\synthetic-contract-fmak1edg'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r1\\\\synthetic-new-tools-_uw75d3y'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r1\\\\synthetic-new-tools-d4j_sxsa'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r1\\\\synthetic-new-tools-w7ao7rf2'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r2\\\\synthetic-independent-gifbyfat'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P26-release-review-r2\\\\synthetic-independent-q1wqqc0p'",
+      "[WinError 5] 存取被拒。: 'D:\\\\lineage開發\\\\TW1608262200研究\\\\work\\\\P35-release-generator-rg2-review-r1\\\\synthetic-wi9s08by'"
+    ],
+    "unknownErrors": [],
+    "limitations": "mtime 時窗無法識別刪除與保留時間的寫入；本張未刪主環境檔案。依 #1133 K1 排除 scratch/wt、.git 與 #1124 的 11 個拒讀歷史目錄。",
+    "outside": [
+      {
+        "path": "scratch\\nuget-packages\\microsoft.web.webview2\\1.0.4258.31\\.nupkg.metadata",
+        "mtimeNs": 1794636393315257700,
+        "bytes": 182,
+        "scope": "outside"
+      },
+      {
+        "path": "scratch\\nuget-packages\\microsoft.web.webview2\\1.0.4258.31\\microsoft.web.webview2.1.0.4258.31.nupkg",
+        "mtimeNs": 1794636391835332100,
+        "bytes": 9801922,
+        "scope": "outside"
+      },
+      {
+        "path": "scratch\\nuget-packages\\microsoft.web.webview2\\1.0.4258.31\\microsoft.web.webview2.1.0.4258.31.nupkg.sha512",
+        "mtimeNs": 1794636393274790700,
+        "bytes": 88,
+        "scope": "outside"
+      }
+    ],
+    "attribution": "歸屬未知；未排除這三個主專案 NuGet 快取檔"
+  },
+  "evidenceManifestSha256": "9ca0dcbce0a87d569f301cbaeb2ef2cbd606f85d85801fe54bca3cb776fe1e70"
+}
