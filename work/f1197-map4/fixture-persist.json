@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "issue": 1234,
+  "status": "validated",
+  "startedAtUtc": "2026-11-14T09:38:33.616521+00:00",
+  "verifiedAtUtc": "2026-11-14T09:39:26.554741+00:00",
+  "source": {
+    "choice": "a",
+    "path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1215\\environments\\p24\\backups\\issue-1215-map4-fixture\\db-data",
+    "manifestPath": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1215\\environments\\p24\\backups\\issue-1215-map4-fixture\\manifest.json",
+    "manifestSha256Before": "996a39971570b7a2d8ab2547fea02e737a24c898f02b5f7f740135e6b3caf06b",
+    "manifestSha256After": "996a39971570b7a2d8ab2547fea02e737a24c898f02b5f7f740135e6b3caf06b",
+    "attempts": [
+      {
+        "choice": "a",
+        "path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1215\\environments\\p24\\backups\\issue-1215-map4-fixture",
+        "result": "verified"
+      }
+    ]
+  },
+  "fixture": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\backups\\issue-1215-map4-fixture\\db-data",
+    "manifestPath": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\backups\\issue-1215-map4-fixture\\manifest.json",
+    "manifestSha256": "996a39971570b7a2d8ab2547fea02e737a24c898f02b5f7f740135e6b3caf06b",
+    "fileCount": 1722,
+    "totalBytes": 279503832,
+    "storageScope": "durable",
+    "durableStoragePending": false,
+    "startedByThisTask": false
+  },
+  "verification": {
+    "sourceMatchesManifestBefore": true,
+    "sourceMatchesManifestAfter": true,
+    "destinationMatchesManifest": true,
+    "exactFileSet": true,
+    "mismatches": [],
+    "reparsePointsFound": 0,
+    "hardlinksFound": 0,
+    "destinationExisted": false,
+    "copyMode": "exclusive-create",
+    "filesCopiedIncludingManifestAndEvidence": 1736,
+    "filesOverwritten": 0,
+    "evidenceFileCount": 13,
+    "evidenceFiles": [
+      {
+        "path": "account-exists.tsv",
+        "bytes": 20,
+        "sha256": "62f194858defd684b11414d16020259e45610298c0e762243cd670c5e247b1ac"
+      },
+      {
+        "path": "characters.tsv",
+        "bytes": 977,
+        "sha256": "9c56f858ab6d7746e37cc022c607d80d9f4071bcca6305aee09fcbc29ab3b993"
+      },
+      {
+        "path": "cleanup.json",
+        "bytes": 165,
+        "sha256": "1858037d7e61bbcc21ae2b3bc8e4e1f088f1af6f0c00d7715924ed25700e2aa5"
+      },
+      {
+        "path": "final-verification.json",
+        "bytes": 582,
+        "sha256": "dc0d11ce6f016ec13dfa05258b31d75c833caabbd5f9d1d657b103fd3fb466f1"
+      },
+      {
+        "path": "identity.tsv",
+        "bytes": 87,
+        "sha256": "c41bedb8db7b4095c5ce4e21fe6816d9bbf7131af99a321c0f07321672cf8be5"
+      },
+      {
+        "path": "lease.json",
+        "bytes": 234,
+        "sha256": "b220e724cf34979a67e55cd7a99721af60f62dd83cc9a4e55973ca2b84a38ec4"
+      },
+      {
+        "path": "mysql-owned.json",
+        "bytes": 159,
+        "sha256": "bb1505dae781176f553bc976a0b85a2917ae73ac0ce827890e621666500063a5"
+      },
+      {
+        "path": "mysql-process.json",
+        "bytes": 760,
+        "sha256": "888c31c9466f5faa59d3e3e7b8dc5198b744fa17040415abf3e626bf54a0adc9"
+      },
+      {
+        "path": "persistent-after.json",
+        "bytes": 297049,
+        "sha256": "f94bf98347b9789f368dc9863a28ab09132ad613cb86373f87bd7283d0f19668"
+      },
+      {
+        "path": "persistent-before.json",
+        "bytes": 297049,
+        "sha256": "f94bf98347b9789f368dc9863a28ab09132ad613cb86373f87bd7283d0f19668"
+      },
+      {
+        "path": "preparation.json",
+        "bytes": 1173,
+        "sha256": "7acc9b16d946dad6a34a0e00a5d60fb7682819e38c0bc0b384347d74020cad48"
+      },
+      {
+        "path": "select-result.json",
+        "bytes": 319,
+        "sha256": "954435695d5385db5c0ced50639b4051bbb108f7c56522ce6a1a124043f9e977"
+      },
+      {
+        "path": "source-manifest.json",
+        "bytes": 297046,
+        "sha256": "df321bcb42e99dad8ab124fb47b79532e4dcd0297b35e6bb1f50d5a812f8537d"
+      }
+    ]
+  },
+  "persistentDb": {
+    "path": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\db-data",
+    "fileCount": 1722,
+    "totalBytes": 279511437,
+    "beforeManifestSha256": "f94bf98347b9789f368dc9863a28ab09132ad613cb86373f87bd7283d0f19668",
+    "afterManifestSha256": "f94bf98347b9789f368dc9863a28ab09132ad613cb86373f87bd7283d0f19668",
+    "serialization": "JSON array sorted by POSIX relative path; keys path,bytes,sha256; ensure_ascii=false; indent=2; CRLF; final newline; UTF-8 without BOM",
+    "beforeEvidencePath": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1234\\scratch\\issue-1234\\persistent-before.json",
+    "afterEvidencePath": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1234\\scratch\\issue-1234\\persistent-after.json",
+    "exactFileSetAndHashesUnchanged": true
+  },
+  "lease": {
+    "before": {
+      "checkedAtUtc": "2026-11-14T09:38:45.849046+00:00",
+      "name": "p24lab",
+      "holder": "chaoren0418-arch/tw-bin-engine#1234",
+      "since": 1794648981.039294,
+      "exp": 1794654381.039294
+    },
+    "beforeCopy": {
+      "checkedAtUtc": "2026-11-14T09:39:04.909142+00:00",
+      "name": "p24lab",
+      "holder": "chaoren0418-arch/tw-bin-engine#1234",
+      "since": 1794648981.039294,
+      "exp": 1794654381.039294
+    },
+    "after": {
+      "checkedAtUtc": "2026-11-14T09:39:26.554741+00:00",
+      "name": "p24lab",
+      "holder": "chaoren0418-arch/tw-bin-engine#1234",
+      "since": 1794648981.039294,
+      "exp": 1794654381.039294
+    }
+  },
+  "fixtureJsonUpdate": {
+    "updated": false,
+    "reason": "PR #1227 尚未合併，origin/main 無 fixture.json；未從 task/1215 帶入。"
+  },
+  "scope": {
+    "mysqlStarted": false,
+    "sqlExecuted": false,
+    "dbWritten": false,
+    "clientStarted": false,
+    "gameServerStarted": false,
+    "directoriesDeleted": false
+  },
+  "handoff": {
+    "authority": "本檔為 fixture 持久位置的權威記錄。",
+    "retest": "從持久 fixture 複製隔離 datadir；fixture 本身不得開服。下一棒只重測 F07、M01（G01 當前置）；沿用 #1215 F03 角色資料驗證。"
+  }
+}
