@@ -509,3 +509,4 @@
 - 2026-11-14 — #1242 f1211-select-art: f1211-select-art: 原生選角／建角畫面背景與按鈕位置畫成人物卡片圖（#1211 SM07、SM08 ❌）（code，claude-local，PR 已合併）→ [報告](reports/issue-1242.md)
 - 2026-11-14 — #1255 分流：tw-bin-engine#1246 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1257 已合併）→ [報告](reports/issue-1255.md)
 - 2026-11-14 — #1243 f1211-player-appearance: f1211-player-appearance: 自己的外觀沒有 profile 就整個世界黑畫面並停止移動／戰鬥——男妖精 gfx 138、變身 1062 都中（#1211 SM58 ❌、SM20 妖精、阻塞 SM43／SM48）（code，claude-local，PR 已合併）→ [報告](reports/issue-1243.md)
+- 2026-11-14 — #1259 分流：tw-bin-engine#1222 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1260 已合併）→ [報告](reports/issue-1259.md)
