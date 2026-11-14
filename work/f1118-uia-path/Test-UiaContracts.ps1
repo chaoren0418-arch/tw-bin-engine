@@ -15,7 +15,12 @@ function Assert($condition,$message){if(-not $condition){throw $message}}
 function New-FixtureElement($name,$type='Button'){
     $e=[pscustomobject]@{Current=[pscustomobject]@{Name=$name;ControlType=[pscustomobject]@{ProgrammaticName="ControlType.$type"};AutomationId='fixture';ClassName='Fixture';BoundingRectangle='0,0,1,1';IsPassword=$false;IsEnabled=$true;IsOffscreen=$false};Children=@()}
     $e | Add-Member ScriptMethod GetSupportedPatterns { @() }
-    $e | Add-Member ScriptMethod FindAll { param($scope,$condition) $this.Children }
+    # Honour TreeScope like the managed API: Children = direct children only, Descendants = whole subtree.
+    $e | Add-Member ScriptMethod FindAll {
+        param($scope,$condition)
+        if($scope -eq [Windows.Automation.TreeScope]::Children){return $this.Children}
+        foreach($child in $this.Children){$child;$child.FindAll($scope,$condition)}
+    }
     $e
 }
 Check 'read-errors-and-live-sibling' {
@@ -48,23 +53,38 @@ Check 'tab-selection-dual-readback' {
     $item | Add-Member NoteProperty Pattern $itemPattern
     $item | Add-Member ScriptMethod GetCurrentPattern {param($pattern) $this.Pattern}
     $tab=New-FixtureElement 'tabs' 'Tab';$tab.Children=@($item)
-    $tabPattern=[pscustomobject]@{Selected=@($item);Reads=0;FailRead=$false}
-    $tabPattern | Add-Member ScriptMethod GetCurrentSelection {
+    # Real managed shape (#1165 selection-api.json): SelectionPattern exposes only Current/Cached;
+    # the selection is read via SelectionPattern.SelectionPatternInformation.GetSelection().
+    # GetCurrentSelection is the COM IUIAutomationSelectionPattern name and must NOT exist here.
+    $realPattern=[Windows.Automation.SelectionPattern]
+    $realInfo=[Windows.Automation.SelectionPattern+SelectionPatternInformation]
+    Assert ($null -eq $realPattern.GetMethod('GetCurrentSelection')) 'Managed SelectionPattern unexpectedly has GetCurrentSelection; fixture shape must be revisited'
+    Assert ($null -ne $realPattern.GetProperty('Current') -and $null -ne $realInfo.GetMethod('GetSelection',[type[]]@())) 'Managed SelectionPattern.Current.GetSelection() not found'
+    $tabSelection=[pscustomobject]@{Selected=@($item);Reads=0;FailRead=$false;CanSelectMultiple=$false;IsSelectionRequired=$true}
+    $tabSelection | Add-Member ScriptMethod GetSelection {
         $this.Reads++
         if($this.FailRead){throw 'fixture selection provider original text'}
         $this.Selected
     }
+    $tabPattern=[pscustomobject]@{Current=$tabSelection;Cached=$null}
     $tab | Add-Member NoteProperty Pattern $tabPattern
     $tab | Add-Member ScriptMethod GetCurrentPattern {param($pattern) $this.Pattern}
+    # Regression guard: calling GetCurrentSelection on the pattern must fail, exactly like the real type.
+    Assert ($null -eq $tabPattern.PSObject.Methods['GetCurrentSelection']) 'Fixture pattern must not provide GetCurrentSelection'
+    $legacyError=$null
+    try {$null=$tabPattern.GetCurrentSelection()} catch {$legacyError=$_.Exception.Message}
+    Assert ($null -ne $legacyError -and $legacyError.Contains('GetCurrentSelection')) 'Pattern-level GetCurrentSelection must fail'
+    $helperSource=(Get-Command Select-UiaTab).Definition
+    Assert (-not $helperSource.Contains('GetCurrentSelection') -and $helperSource.Contains('.Current.GetSelection()')) 'Select-UiaTab must read SelectionPattern.Current.GetSelection()'
     $accepted=Select-UiaTab $tab 'target'
     $cases=[Collections.Generic.List[object]]::new()
     foreach($scenario in @('wrong-name','not-selected','multiple','provider-error')){
-        $itemPattern.Current.IsSelected=$true;$tabPattern.Selected=@($item);$tabPattern.FailRead=$false
+        $itemPattern.Current.IsSelected=$true;$tabSelection.Selected=@($item);$tabSelection.FailRead=$false
         switch($scenario){
-            'wrong-name' {$tabPattern.Selected=@(New-FixtureElement 'wrong' 'TabItem')}
+            'wrong-name' {$tabSelection.Selected=@(New-FixtureElement 'wrong' 'TabItem')}
             'not-selected' {$itemPattern.Current.IsSelected=$false}
-            'multiple' {$tabPattern.Selected=@($item,$item)}
-            'provider-error' {$tabPattern.FailRead=$true}
+            'multiple' {$tabSelection.Selected=@($item,$item)}
+            'provider-error' {$tabSelection.FailRead=$true}
         }
         $failure=$null
         try {$null=Select-UiaTab $tab 'target'} catch {$failure=$_.Exception.ToString()}
@@ -72,8 +92,27 @@ Check 'tab-selection-dual-readback' {
         if($scenario -eq 'provider-error'){Assert ($failure.Contains('fixture selection provider original text')) 'Provider error text lost'}
         $cases.Add([pscustomobject]@{Scenario=$scenario;Error=$failure})
     }
-    Assert ($itemPattern.SelectCalls -eq 5 -and $tabPattern.Reads -eq 5) 'Selection must execute once and read both sides per call'
-    [pscustomobject]@{Accepted=$accepted;Rejections=$cases.ToArray();SelectCalls=$itemPattern.SelectCalls;ReadCalls=$tabPattern.Reads}
+    Assert ($itemPattern.SelectCalls -eq 5 -and $tabSelection.Reads -eq 5) 'Selection must execute once and read both sides per call'
+    [pscustomobject]@{Accepted=$accepted;Rejections=$cases.ToArray();SelectCalls=$itemPattern.SelectCalls;ReadCalls=$tabSelection.Reads;LegacyCallError=$legacyError}
+}
+Check 'find-scope-children-outer-tab' {
+    # Service page shape (#1165): dev window -> outer Tab -> TabItem -> nested service Tab.
+    $inner=New-FixtureElement 'inner tabs' 'Tab'
+    $page=New-FixtureElement 'service' 'TabItem';$page.Children=@($inner)
+    $outer=New-FixtureElement 'outer tabs' 'Tab';$outer.Children=@($page)
+    $dev=New-FixtureElement 'dev' 'Window';$dev.Children=@($outer)
+    $ambiguous=$null
+    try {$null=Find-UiaControl $dev -Type Tab} catch {$ambiguous=$_.Exception.Message}
+    Assert ($null -ne $ambiguous -and $ambiguous.Contains('found 2')) 'Default Descendants scope must still see both Tabs'
+    $explicit=$null
+    try {$null=Find-UiaControl $dev -Type Tab -Scope Descendants} catch {$explicit=$_.Exception.Message}
+    Assert ($null -ne $explicit -and $explicit.Contains('found 2')) 'Explicit Descendants must match the default'
+    $found=Find-UiaControl $dev -Type Tab -Scope Children
+    Assert ([object]::ReferenceEquals($found,$outer)) 'Children scope must return only the outer Tab'
+    $badScope=$null
+    try {$null=Find-UiaControl $dev -Type Tab -Scope Subtree} catch {$badScope=$_.Exception.Message}
+    Assert ($null -ne $badScope) 'Unknown scope must be rejected'
+    [pscustomobject]@{DescendantsError=$ambiguous;ChildrenFound=$found.Current.Name;BadScopeError=$badScope}
 }
 Check 'invoke-deadline-no-retry' {
     Add-Type -TypeDefinition @'

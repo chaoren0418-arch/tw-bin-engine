@@ -116,10 +116,14 @@ function Read-UiaElement {
     } catch { [pscustomobject]@{Error=$_.Exception.ToString()} }
 }
 function Find-UiaControl {
-    param([Parameter(Mandatory)]$Root,[string]$Name,[string]$AutomationId,[string]$Type,[ref]$ReadErrors)
+    # -Scope Children limits the search to direct children (e.g. the dev window's outer Tab
+    # when a nested Tab is also visible, #1165); default Descendants keeps existing callers unchanged.
+    param([Parameter(Mandatory)]$Root,[string]$Name,[string]$AutomationId,[string]$Type,[ref]$ReadErrors,
+          [ValidateSet('Children','Descendants')][string]$Scope='Descendants')
     $script:UiaReadErrors=@()
     $all=@()
-    try {$all=@($Root.FindAll([Windows.Automation.TreeScope]::Descendants,[Windows.Automation.Condition]::TrueCondition))}
+    $treeScope=if($Scope -ceq 'Children'){[Windows.Automation.TreeScope]::Children}else{[Windows.Automation.TreeScope]::Descendants}
+    try {$all=@($Root.FindAll($treeScope,[Windows.Automation.Condition]::TrueCondition))}
     catch {$script:UiaReadErrors+= [pscustomobject]@{Error=$_.Exception.ToString()}}
     $found = @(foreach($element in $all){
         $c=Read-UiaElement $element
@@ -129,7 +133,7 @@ function Find-UiaControl {
            (-not $Type -or $c.Type -ceq "ControlType.$Type")){$element}
     })
     if($null -ne $ReadErrors){$ReadErrors.Value=@($script:UiaReadErrors)}
-    if ($found.Count -ne 1) { throw "Expected one control name='$Name' id='$AutomationId' type='$Type'; found $($found.Count); read errors: $(@($script:UiaReadErrors | ForEach-Object {$_.Error}) -join ' | ')" }
+    if ($found.Count -ne 1) { throw "Expected one control name='$Name' id='$AutomationId' type='$Type' scope='$Scope'; found $($found.Count); read errors: $(@($script:UiaReadErrors | ForEach-Object {$_.Error}) -join ' | ')" }
     return $found[0]
 }
 function Get-UiaTree {
@@ -185,7 +189,9 @@ function Select-UiaTab {
         $itemState=[pscustomobject]@{Name=$item.Current.Name;IsSelected=($item.GetCurrentPattern([Windows.Automation.SelectionItemPattern]::Pattern)).Current.IsSelected}
     } catch {$itemError=$_.Exception.ToString()}
     try {
-        $selection=($Tab.GetCurrentPattern([Windows.Automation.SelectionPattern]::Pattern)).GetCurrentSelection()
+        # Managed System.Windows.Automation API: SelectionPattern.Current.GetSelection()
+        # (GetCurrentSelection is the COM IUIAutomationSelectionPattern name and does not exist here, #1165).
+        $selection=($Tab.GetCurrentPattern([Windows.Automation.SelectionPattern]::Pattern)).Current.GetSelection()
         $tabState=@($selection | ForEach-Object {$_.Current.Name})
     } catch {$tabError=$_.Exception.ToString()}
     $observation=[pscustomobject]@{RequestedName=$Name;TabItem=$itemState;TabSelection=$tabState;TabItemError=$itemError;TabSelectionError=$tabError}
