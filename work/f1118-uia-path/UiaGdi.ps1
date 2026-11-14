@@ -1,4 +1,4 @@
-# Windows PowerShell 5.1; dot-source in a fresh powershell.exe -NoProfile -STA process.
+﻿# Windows PowerShell 5.1; dot-source in a fresh powershell.exe -NoProfile -STA process.
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 if (-not ('UiaGdiNative' -as [type])) {
@@ -72,28 +72,130 @@ $null = [UiaGdiNative]::SetThreadDpiAwarenessContext([IntPtr](-4))
 Add-Type -AssemblyName UIAutomationClient,UIAutomationTypes,System.Drawing,System.Windows.Forms
 
 function Get-UiaWindow {
-    param([Parameter(Mandatory)][int]$ProcessId, [string]$Title)
+    param([Parameter(Mandatory)][int]$ProcessId, [string]$Title, [switch]$IncludeOwned)
     $condition = [Windows.Automation.PropertyCondition]::new([Windows.Automation.AutomationElement]::ProcessIdProperty,$ProcessId)
-    $found = @([Windows.Automation.AutomationElement]::RootElement.FindAll([Windows.Automation.TreeScope]::Children,$condition) | Where-Object { -not $Title -or $_.Current.Name -eq $Title })
-    if ($found.Count -ne 1) { throw "Expected one window for PID $ProcessId title '$Title'; found $($found.Count)" }
+    $windowCondition=[Windows.Automation.AndCondition]::new($condition,[Windows.Automation.PropertyCondition]::new([Windows.Automation.AutomationElement]::ControlTypeProperty,[Windows.Automation.ControlType]::Window))
+    $script:UiaReadErrors=@()
+    $roots = @([Windows.Automation.AutomationElement]::RootElement.FindAll([Windows.Automation.TreeScope]::Children,$windowCondition))
+    $candidates = @($roots)
+    if($IncludeOwned){
+        foreach($root in $roots){
+            try {$candidates += @($root.FindAll([Windows.Automation.TreeScope]::Descendants,$windowCondition))}
+            catch {$script:UiaReadErrors+= [pscustomobject]@{Error=$_.Exception.ToString()}}
+        }
+    }
+    $seen=@{}
+    $found = @(foreach($element in $candidates){
+        try {
+            $c=$element.Current
+            if($c.ProcessId -ne $ProcessId -or $c.ControlType -ne [Windows.Automation.ControlType]::Window){continue}
+            if($PSBoundParameters.ContainsKey('Title') -and -not [string]::Equals($c.Name,$Title,[StringComparison]::Ordinal)){continue}
+            $identity=$element.GetRuntimeId() -join ','
+            if(-not $seen.ContainsKey($identity)){$seen[$identity]=$true;$element}
+        } catch {$script:UiaReadErrors+= [pscustomobject]@{Error=$_.Exception.ToString()}}
+    })
+    if ($found.Count -ne 1) { throw "Expected one window for PID $ProcessId title '$Title'; found $($found.Count); read errors: $(@($script:UiaReadErrors | ForEach-Object {$_.Error}) -join ' | ')" }
     return $found[0]
 }
+$script:UiaReadErrors=@()
+function Get-UiaReadErrors { $script:UiaReadErrors }
+function Read-UiaElement {
+    # A disappearing element is evidence, not a reason to discard the other nodes.
+    param($Element,[switch]$MaskPassword)
+    try {
+        $c=$Element.Current
+        foreach($property in @('Name','ControlType','AutomationId','ClassName','BoundingRectangle')){
+            if($null -eq $c.$property){throw "UIA property '$property' is null"}
+        }
+        if($null -eq $c.ControlType.ProgrammaticName){throw "UIA ControlType.ProgrammaticName is null"}
+        $patterns=@(foreach($pattern in $Element.GetSupportedPatterns()){
+            if($null -eq $pattern -or $null -eq $pattern.ProgrammaticName){throw 'UIA pattern ProgrammaticName is null'}
+            $pattern.ProgrammaticName
+        })
+        [pscustomobject]@{Name=$(if($MaskPassword -and $c.IsPassword){'[PASSWORD]'}else{$c.Name});Type=$c.ControlType.ProgrammaticName;Id=$c.AutomationId;Class=$c.ClassName;Enabled=$c.IsEnabled;Offscreen=$c.IsOffscreen;Rectangle=$c.BoundingRectangle.ToString();Patterns=$patterns}
+    } catch { [pscustomobject]@{Error=$_.Exception.ToString()} }
+}
 function Find-UiaControl {
-    param([Parameter(Mandatory)]$Root,[string]$Name,[string]$AutomationId,[string]$Type)
-    $all = $Root.FindAll([Windows.Automation.TreeScope]::Descendants,[Windows.Automation.Condition]::TrueCondition)
-    $found = @($all | Where-Object { (-not $Name -or $_.Current.Name -eq $Name) -and (-not $AutomationId -or $_.Current.AutomationId -eq $AutomationId) -and (-not $Type -or $_.Current.ControlType.ProgrammaticName -eq "ControlType.$Type") })
-    if ($found.Count -ne 1) { throw "Expected one control name='$Name' id='$AutomationId' type='$Type'; found $($found.Count)" }
+    param([Parameter(Mandatory)]$Root,[string]$Name,[string]$AutomationId,[string]$Type,[ref]$ReadErrors)
+    $script:UiaReadErrors=@()
+    $all=@()
+    try {$all=@($Root.FindAll([Windows.Automation.TreeScope]::Descendants,[Windows.Automation.Condition]::TrueCondition))}
+    catch {$script:UiaReadErrors+= [pscustomobject]@{Error=$_.Exception.ToString()}}
+    $found = @(foreach($element in $all){
+        $c=Read-UiaElement $element
+        if($c.PSObject.Properties['Error']){$script:UiaReadErrors+=$c;continue}
+        if((-not $Name -or [string]::Equals($c.Name,$Name,[StringComparison]::Ordinal)) -and
+           (-not $AutomationId -or [string]::Equals($c.Id,$AutomationId,[StringComparison]::Ordinal)) -and
+           (-not $Type -or $c.Type -ceq "ControlType.$Type")){$element}
+    })
+    if($null -ne $ReadErrors){$ReadErrors.Value=@($script:UiaReadErrors)}
+    if ($found.Count -ne 1) { throw "Expected one control name='$Name' id='$AutomationId' type='$Type'; found $($found.Count); read errors: $(@($script:UiaReadErrors | ForEach-Object {$_.Error}) -join ' | ')" }
     return $found[0]
 }
 function Get-UiaTree {
     param([Parameter(Mandatory)]$Root)
-    $all = @($Root) + @($Root.FindAll([Windows.Automation.TreeScope]::Descendants,[Windows.Automation.Condition]::TrueCondition))
+    $script:UiaReadErrors=@()
+    $all=@($Root)
+    try {$all+=@($Root.FindAll([Windows.Automation.TreeScope]::Descendants,[Windows.Automation.Condition]::TrueCondition))}
+    catch {$errorNode=[pscustomobject]@{Error=$_.Exception.ToString()};$script:UiaReadErrors+=$errorNode;$errorNode}
     foreach ($element in $all) {
-        $c = $element.Current
-        [pscustomobject]@{ Name= $(if($c.IsPassword){'[PASSWORD]'}else{$c.Name}); Type=$c.ControlType.ProgrammaticName; Id=$c.AutomationId; Class=$c.ClassName; Enabled=$c.IsEnabled; Offscreen=$c.IsOffscreen; Rectangle=$c.BoundingRectangle.ToString(); Patterns=@($element.GetSupportedPatterns() | ForEach-Object {$_.ProgrammaticName}) }
+        $node=Read-UiaElement $element -MaskPassword
+        if($node.PSObject.Properties['Error']){$script:UiaReadErrors+=$node}
+        $node
     }
 }
-function Invoke-UiaButton { param($Element) ($Element.GetCurrentPattern([Windows.Automation.InvokePattern]::Pattern)).Invoke() }
+if(-not ('UiaBoundedInvoke' -as [type])){
+    Add-Type -ReferencedAssemblies UIAutomationClient,UIAutomationTypes -TypeDefinition @'
+using System;
+using System.Threading;
+using System.Windows.Automation;
+public static class UiaBoundedInvoke {
+ public static void Invoke(AutomationElement element, int milliseconds) {
+  Run(() => ((InvokePattern)element.GetCurrentPattern(InvokePattern.Pattern)).Invoke(), milliseconds);
+ }
+ static void Run(Action action, int milliseconds) {
+  Exception error = null;
+  // Background MTA: a blocked provider must not block the caller or process exit.
+  // No Abort, synchronous Dispose/Stop, or automatic retry after the deadline.
+  Thread worker = new Thread(() => {
+   try { action(); }
+   catch(Exception ex) { error = ex; }
+  });
+  worker.IsBackground = true;
+  worker.SetApartmentState(ApartmentState.MTA);
+  worker.Start();
+  if(!worker.Join(milliseconds)) throw new TimeoutException("UIA Invoke exceeded " + milliseconds + " ms");
+  if(error != null) throw new InvalidOperationException("UIA Invoke provider error: " + error.ToString(), error);
+ }
+}
+'@
+}
+function Invoke-UiaButton {
+    param([Parameter(Mandatory)]$Element,[ValidateRange(0.001,300)][double]$TimeoutSeconds=5)
+    try {[UiaBoundedInvoke]::Invoke($Element,[int]($TimeoutSeconds*1000))}
+    catch {throw "Invoke-UiaButton failed (TimeoutSeconds=$TimeoutSeconds): $($_.Exception.ToString())`n動作可能已生效，先截圖核對，不要重送"}
+}
+function Select-UiaTab {
+    param([Parameter(Mandatory)]$Tab,[Parameter(Mandatory)][string]$Name)
+    $item=Find-UiaControl $Tab -Name $Name -Type TabItem
+    ($item.GetCurrentPattern([Windows.Automation.SelectionItemPattern]::Pattern)).Select()
+    # Read both sides independently, even if one side fails, preserving provider text.
+    $itemState=$null;$tabState=$null;$itemError=$null;$tabError=$null
+    try {
+        $itemState=[pscustomobject]@{Name=$item.Current.Name;IsSelected=($item.GetCurrentPattern([Windows.Automation.SelectionItemPattern]::Pattern)).Current.IsSelected}
+    } catch {$itemError=$_.Exception.ToString()}
+    try {
+        $selection=($Tab.GetCurrentPattern([Windows.Automation.SelectionPattern]::Pattern)).GetCurrentSelection()
+        $tabState=@($selection | ForEach-Object {$_.Current.Name})
+    } catch {$tabError=$_.Exception.ToString()}
+    $observation=[pscustomobject]@{RequestedName=$Name;TabItem=$itemState;TabSelection=$tabState;TabItemError=$itemError;TabSelectionError=$tabError}
+    if($null -ne $itemError -or $null -ne $tabError -or -not $itemState.IsSelected -or
+       -not [string]::Equals($itemState.Name,$Name,[StringComparison]::Ordinal) -or $tabState.Count -ne 1 -or
+       -not [string]::Equals($tabState[0],$Name,[StringComparison]::Ordinal)){
+        throw "Select-UiaTab verification failed: $($observation | ConvertTo-Json -Depth 5 -Compress)"
+    }
+    $observation
+}
 function Select-UiaItem { param($Element) ($Element.GetCurrentPattern([Windows.Automation.SelectionItemPattern]::Pattern)).Select() }
 function Expand-UiaCombo { param($Element) ($Element.GetCurrentPattern([Windows.Automation.ExpandCollapsePattern]::Pattern)).Expand() }
 function Get-UiaPatternDescription {
@@ -237,10 +339,25 @@ function Set-UiaForeground {
     }
     return [pscustomobject]$diag
 }
-function Send-UiaF12 {
-    param($Window)
+function Send-UiaEvidenceKey {
+    param([Parameter(Mandatory)]$Window)
     $null=Set-UiaForeground $Window
-    [UiaGdiNative]::Key(0x7B)
+    $foreground=Get-UiaForegroundInfo
+    if($foreground.ProcessId -ne $Window.Current.ProcessId){throw 'Foreground PID differs from evidence target'}
+    # Timestamp precedes injection, so evidence written during SendInput is included.
+    $sentUtc=[DateTime]::UtcNow
+    $null=Send-ClientKey ([IntPtr]$Window.Current.NativeWindowHandle) 'Ctrl+Shift+F12'
+    return $sentUtc
+}
+function Get-UiaNewEvidence {
+    param([Parameter(Mandatory)][string]$Directory,[Parameter(Mandatory)][DateTime]$SinceUtc)
+    Get-ChildItem -LiteralPath $Directory -Filter 'manual-*.png' -File -ErrorAction Stop |
+        Where-Object {$_.LastWriteTimeUtc -gt $SinceUtc.ToUniversalTime()} | Sort-Object Name
+}
+function Send-UiaF12 {
+    # 舊名只為相容保留；現在送 Ctrl+Shift+F12，不再送單鍵 F12。
+    param([Parameter(Mandatory)]$Window)
+    Send-UiaEvidenceKey $Window
 }
 function Measure-UiaBitmap {
     param([Parameter(Mandatory)][Drawing.Bitmap]$Bitmap)
