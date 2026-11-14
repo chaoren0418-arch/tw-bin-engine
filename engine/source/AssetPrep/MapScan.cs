@@ -9,9 +9,11 @@ namespace P06.AssetPrep;
 //   - a map directory is a decimal directory name with at least one block file <8 hex>.s32 (extension case-insensitive);
 //   - block files are <8 hex>.s32 / <8 hex>.seg only (tempseg.s32, 800F7FF3E.s32 … are never read: the product looks blocks
 //     up as <bx><by>.s32 and cannot reach them);
-//   - when a block has both, the .s32 is used; a .seg-only block is supported only for the one pinned SEG (map 6 7fff8000);
+//   - when a block has both, the .s32 is used (sub_F0B570 opens .s32 before .seg); since T1195 (#1195) every .seg-only block is a block of
+//     the plan (format classic-seg), identified by its SHA-256; the map 6 anchor 7fff8000 additionally keeps its pinned SHA-256;
 //   - bounds come from every selected block name (.s32 and .seg together).
-// Parse is the product reader's section layout (OriginalMapStore.Load), structural only: it never decodes pixels.
+// Parse is the product reader's section layout (OriginalMapStore.Load), structural only: it never decodes pixels. For a SEG, as in the
+// SEG branch of sub_F0B570, the portal section and the effects word are read only while data remains.
 
 /// <summary>A block file name: &lt;bx:x4&gt;&lt;by:x4&gt;.s32 or .seg (case-insensitive). Stem is lower-case.</summary>
 public sealed record MapBlockName(string Stem,int Bx,int By,bool Seg){
@@ -22,12 +24,13 @@ public sealed record MapBlockName(string Stem,int Bx,int By,bool Seg){
 /// <summary>Structural facts of one S32/SEG block.</summary>
 public sealed record MapBlockScan(bool Seg,long Size,IReadOnlySet<int> TileIds,int PortalCount,bool NoEffectTail,bool ExtendedEffects,IReadOnlyList<int> EffectIds);
 
-/// <summary>One selected map directory. Blocks = the files the product reads (stem → original file name); SegOnly = .seg files without an .s32.</summary>
+/// <summary>One selected map directory. Blocks = the files the product reads (stem → original file name), .seg-only blocks included since T1195;
+/// SegOnly = .seg files without an .s32 that are not blocks (always empty since T1195; kept for the terrain read).</summary>
 public sealed record MapDirectoryPlan(int MapId,string Directory,IReadOnlyDictionary<string,string> Blocks,IReadOnlyDictionary<string,string> SegOnly,
     MapBounds Bounds,IReadOnlySet<string> LowerFileNames);
 
 public static class MapScan {
-    /// <summary>The one supported SEG (asset-recipe.md §1.2 anchor; same value as OriginalMapCache.cs and Portals.cs).</summary>
+    /// <summary>The SEG anchor (asset-recipe.md §1.2; also checked by SegBlocks.CheckAnchor in OriginalMapCache.cs / Portals.cs). Other SEG blocks are supported by SHA-256 since T1195.</summary>
     public const int SegAnchorMap=6;
     public const string SegAnchorStem="7fff8000",SegAnchorSha256="aad5ff598f9daeb6574fcef8fdaa1b3b2963d6c0d60d8840057ef48d39101a45";
     /// <summary>The four names a block could have; none present → verified absent (maps.md「verifiedAbsent」).</summary>
@@ -71,7 +74,7 @@ public static class MapScan {
         var blocks=new SortedDictionary<string,string>(s32,StringComparer.Ordinal);var segOnly=new SortedDictionary<string,string>(StringComparer.Ordinal);
         foreach(var (stem,file) in seg){
             if(s32.ContainsKey(stem))continue;
-            if(mapId==SegAnchorMap&&stem==SegAnchorStem)blocks[stem]=file;else segOnly[stem]=file;
+            blocks[stem]=file;   // T1195: .seg-only → classic-seg block (was segOnly / unsupportedBlocks except the map 6 anchor)
         }
         return new(mapId,directory,blocks,segOnly,Bounds(names),files.Select(f=>f.ToLowerInvariant()).ToHashSet(StringComparer.Ordinal));
     }
@@ -109,7 +112,7 @@ public static class MapScan {
         for(int g=0;g<groups;g++){U16();int n=U16();Need((long)n*(seg?5:7));for(int i=0;i<n;i++){p+=3;Tile(seg?(uint)U16():U32());}}
         int triggers=Count("opacity triggers");Need(5L*triggers);p+=5*triggers;
         int refs=seg?U8():Count("tile refs");Need((long)refs*(seg?1:4));p+=refs*(seg?1:4);
-        int portals=U16();
+        int portals=seg&&p==data.Length?0:U16();
         for(int i=0;i<portals;i++){int len=U8();Need(len+8);p+=len+8;}
         bool noTail=p==data.Length;bool extended=false;var effects=new List<int>();
         if(!noTail){

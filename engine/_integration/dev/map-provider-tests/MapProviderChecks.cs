@@ -25,6 +25,23 @@ partial class Checks {
         for(int i=0;i<trailing;i++)b.Write((byte)0xEE);
         return s.ToArray();
     }
+    /// <summary>
+    /// T1195：合成完整 SEG（原 BIN sub_F0B570 SEG 分支的版面）：ground 8192 × u16、u16 cover 筆數＋(x, y, u16)、attribute 8192 × u8、
+    /// attribute 全部 1、i32 groups（id u16、u16 筆數、成員 x, y, z, u16；第一筆是 205,205 佔位）、i32 triggers、u8 refs＋1 筆、portal 區段（portalSection=false 時省略）、
+    /// effects 尾段（-1 = 沒有）。純合成，不含任何真實 .seg 的內容。
+    /// </summary>
+    static byte[] MpSeg(ushort ground=256,int coverTile=-1,int objectTile=-1,(byte X,byte Y)? portal=null,bool portalSection=true,int effects=-1){
+        using var s=new MemoryStream();using var b=new BinaryWriter(s);
+        for(int i=0;i<8192;i++)b.Write(ground);
+        if(coverTile>=0){b.Write((ushort)1);b.Write((byte)3);b.Write((byte)4);b.Write((ushort)(coverTile<<8));}else b.Write((ushort)0);
+        for(int i=0;i<8192;i++)b.Write((byte)1);
+        if(objectTile>=0){b.Write(1);b.Write((ushort)7);b.Write((ushort)2);b.Write((byte)205);b.Write((byte)205);b.Write((byte)0);b.Write((ushort)256);b.Write((byte)5);b.Write((byte)6);b.Write((byte)1);b.Write((ushort)(objectTile<<8));}else b.Write(0);
+        b.Write(0);
+        b.Write((byte)1);b.Write((byte)0);
+        if(portalSection){if(portal is var (px,py)){b.Write((ushort)1);b.Write((byte)3);b.Write("ABC"u8);b.Write(px);b.Write(py);b.Write((ushort)0);b.Write(1);}else b.Write((ushort)0);}
+        if(effects>=0){b.Write((ushort)effects);for(int i=0;i<effects;i++){b.Write((ushort)(100+i));b.Write((ushort)0);b.Write((ushort)0);}}
+        return s.ToArray();
+    }
     /// <summary>合成 TIL：每塊都是 type 2 的 1×1 像素；diamonds 時 187／188 是 type 0／1 的完整菱形（verified-absent 區塊用）。</summary>
     static byte[] MpTil(int count,ushort color,bool diamonds=false){
         var blocks=new List<byte[]>();
@@ -55,7 +72,7 @@ partial class Checks {
         }
         files["map/4/7e007e00.S32"]=MpS32();
         files["map/4/7e017e00.s32"]=MpS32(objectTile:9999);
-        files["map/4/7e027e00.seg"]=TrSeg();
+        files["map/4/7e027e00.seg"]=MpSeg(coverTile:2,objectTile:2,portal:(12,34));   // T1195: .seg-only → classic-seg block
         files["map/4/7e007e01.s32.gz"]=[4,5,6];
         files["map/4/tempseg.s32"]=MpS32();
         files["map/4/800F7FF3E.s32"]=MpS32();
@@ -93,7 +110,7 @@ partial class Checks {
         string Out(string engine,string relative)=>Path.Combine(engine,"assets",MapsRecipe.RecipeId,relative.Replace('/',Path.DirectorySeparatorChar));
 
         // --- 0. 自動發現與純函式。
-        Check(AssetRecipeDiscovery.Product.Errors.Count==0&&AssetRecipeDiscovery.Product.Recipes.Any(r=>r is MapsRecipe{Coverage:AssetRecipeCoverage.Complete,Version:2}),"MP maps recipe discovered, coverage complete (terrain fields since T458)");
+        Check(AssetRecipeDiscovery.Product.Errors.Count==0&&AssetRecipeDiscovery.Product.Recipes.Any(r=>r is MapsRecipe{Coverage:AssetRecipeCoverage.Complete,Version:3}),"MP maps recipe discovered, coverage complete (terrain fields since T458, .seg-only blocks since T1195)");
         Check(new MapsRecipe().Normalize(["maps","cache","maps"]).SequenceEqual(["cache","maps"]),"MP items normalised to cache, maps");
         Check(MapScan.BlockName("7FFD8002.S32") is {Stem:"7ffd8002",Bx:0x7ffd,By:0x8002,Seg:false}&&MapScan.BlockName("7fff8000.seg") is {Seg:true},"MP block names: 8 hex digits, extension case-insensitive");
         foreach(string bad in new[]{"tempseg.s32","800F7FF3E.s32","7ffd8002.s32.gz","7ffd800g.s32","7ffd8002.scc","7ffd8002s32"})Check(MapScan.BlockName(bad)==null,"MP not a block file: "+bad);
@@ -120,14 +137,16 @@ partial class Checks {
         Check(maps["schema"]!.GetValue<string>()==MapsRecipe.MapsSchema,"MP maps schema p24-map-provider-v1");
         Check(maps.AsObject().Select(p=>p.Key).SequenceEqual(["schema","blocks","maps","tiles","missingTileIds","unsupportedMaps"]),"MP maps manifest top-level keys: "+string.Join(",",maps.AsObject().Select(p=>p.Key)));
         var blocks=maps["blocks"]!.AsArray();
-        var expectedNames=Enumerable.Range(0x7ffb,4).SelectMany(bx=>Enumerable.Range(0x8001,5).Select(by=>(0,MpStem(bx,by)+".s32"))).Order().Concat(new[]{(4,"7e007e00.s32"),(4,"7e017e00.s32")}).ToArray();
-        Check(blocks.Select(x=>(x!["mapId"]!.GetValue<int>(),x["name"]!.GetValue<string>())).SequenceEqual(expectedNames),"MP blocks: map 0 (20) and map 4 (2) in directory / name order; tempseg, 9-digit, .gz, non-decimal and seg-only directories left out");
+        var expectedNames=Enumerable.Range(0x7ffb,4).SelectMany(bx=>Enumerable.Range(0x8001,5).Select(by=>(0,MpStem(bx,by)+".s32"))).Order().Concat(new[]{(4,"7e007e00.s32"),(4,"7e017e00.s32"),(4,"7e027e00.seg")}).ToArray();
+        Check(blocks.Select(x=>(x!["mapId"]!.GetValue<int>(),x["name"]!.GetValue<string>())).SequenceEqual(expectedNames),"MP blocks: map 0 (20) and map 4 (2 .s32 + the .seg-only block, T1195) in directory / name order; tempseg, 9-digit, .gz, non-decimal and seg-only directories left out");
         foreach(var x in blocks){
             int map=x!["mapId"]!.GetValue<int>();string name=x["name"]!.GetValue<string>(),path=x["path"]!.GetValue<string>();
             string source=client.Files.Keys.Single(k=>k.StartsWith($"map/{map}/",StringComparison.Ordinal)&&k.EndsWith("/"+name,StringComparison.OrdinalIgnoreCase));
             Check(path==source&&x["sha256"]!.GetValue<string>()==Sha(client.Files[source]),$"MP block {map}/{name}: path keeps the client's case ({path}) and SHA-256 is the file's");
-            Check(x.AsObject().Select(p=>p.Key).SequenceEqual(["mapId","name","path","sha256","noEffectTail"]),$"MP block {map}/{name}: only product fields");
-            Check(x["noEffectTail"]!.GetValue<bool>()==(name=="7ffe8005.s32"),$"MP block {map}/{name}: noEffectTail");
+            bool segRow=name.EndsWith(".seg",StringComparison.Ordinal);
+            Check(x.AsObject().Select(p=>p.Key).SequenceEqual(segRow?["mapId","name","path","sha256","noEffectTail","format"]:["mapId","name","path","sha256","noEffectTail"]),$"MP block {map}/{name}: only product fields");
+            Check(!segRow||x["format"]!.GetValue<string>()=="classic-seg",$"MP block {map}/{name}: .seg-only block has format classic-seg (T1195)");
+            Check(x["noEffectTail"]!.GetValue<bool>()==(name is "7ffe8005.s32" or "7e027e00.seg"),$"MP block {map}/{name}: noEffectTail");
         }
         var mapRows=maps["maps"]!.AsArray();
         Check(mapRows.Select(m=>m!["mapId"]!.GetValue<int>()).SequenceEqual([0,4]),"MP maps[]: 0 and 4 (7 has a broken block, 18 has only .seg, abc is not decimal)");
@@ -138,7 +157,7 @@ partial class Checks {
         var va0=m0["verifiedAbsent"]!.AsArray().Select(v=>v!.GetValue<string>()).ToList();
         Check(va0.Count==52&&va0[0]=="7ff97fff"&&va0[1]=="7ff98000"&&va0[^1]=="80008007"&&!va0.Contains("7ffd8002"),"MP map 0 verifiedAbsent: bounds ± 2 blocks minus the 20 blocks = 52, bx outer: "+va0.Count);
         var va4=m4["verifiedAbsent"]!.AsArray().Select(v=>v!.GetValue<string>()).ToList();var ub4=m4["unsupportedBlocks"]!.AsArray().Select(v=>v!["name"]!.GetValue<string>()).ToList();
-        Check(ub4.SequenceEqual(["7e007e01","7e027e00"])&&va4.Count==31&&!va4.Intersect(ub4).Any(),$"MP map 4: .seg-only and .s32.gz blocks unsupported, 31 verified absent ({string.Join(",",ub4)} / {va4.Count})");
+        Check(ub4.SequenceEqual(["7e007e01"])&&va4.Count==31&&!va4.Intersect(ub4).Any(),$"MP map 4: only the .s32.gz block unsupported (the .seg-only block is a block since T1195), 31 verified absent ({string.Join(",",ub4)} / {va4.Count})");
         Check(m0["unsupportedBlocks"]!.AsArray().Count==0,"MP map 0 has no unsupported block");
         var tiles=maps["tiles"]!.AsArray();
         Check(tiles.Select(t=>t!["tile"]!.GetValue<int>()).SequenceEqual([1,2,140])&&tiles.All(t=>t!["sha256"]!.GetValue<string>()==Sha(client.Tile[t["tile"]!.GetValue<int>()+".til"])&&t["path"]!.GetValue<string>()==$"tiles/{t["tile"]!.GetValue<int>()}.til"),"MP tiles[]: ground, cover and object ids + 140, 65535 dropped, SHA-256 of the Tile entry; map 7's tile 5 not listed");

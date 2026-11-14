@@ -29,6 +29,8 @@ partial class Checks {
         b.Write(attr);
         return s.ToArray();
     }
+    /// <summary>T1195：完整的合成 SEG（TrSeg 之後補 groups 0、triggers 0、refs 0、portals 0；沒有 effects 尾段）。.seg-only 區塊要能完整讀完。</summary>
+    static byte[] TrSegFull(Action<byte[]>? set=null)=>[..TrSeg(set),0,0,0,0,0,0,0,0,0,0,0];
     // attribute 陣列 64 列 × 128 欄：L(lx,ly) 在偶數欄、R 在奇數欄。
     static void TrL<T>(T[] a,int lx,int ly,T v)=>a[ly*128+2*lx]=v;
     static void TrR<T>(T[] a,int lx,int ly,T v)=>a[ly*128+2*lx+1]=v;
@@ -46,7 +48,7 @@ partial class Checks {
         // map 9：bounds x 0–191、y 0–127。
         //   7e007e00.s32  (x 0–63,    y 0–63)    規則用的格子
         //   7e017e00.S32  (x 64–127,  y 0–63)    大寫副檔名；跨區塊的 A
-        //   7e007e01.seg  (x 0–63,    y 64–127)  只有 .seg：要讀（跨區塊的 D）
+        //   7e007e01.seg  (x 0–63,    y 64–127)  只有 .seg：要讀（跨區塊的 D）；T1195 起是完整 SEG（classic-seg 區塊）
         //   7e017e01      (x 64–127,  y 64–127)  沒有檔案：L = R = 1
         //   7e027e00.s32 ＋ .seg (x 128–191, y 0–63)  兩種都有：用 .s32（全部阻擋），.seg 全部可走
         // map 0：bx 7ffc–7ffe × by 8001–8004，全部可走，7ffd8002 的 (5,7) 是 0x40。
@@ -64,7 +66,7 @@ partial class Checks {
         var files=new Dictionary<string,byte[]>(StringComparer.Ordinal){
             ["map/9/7e007e00.s32"]=p,
             ["map/9/7e017e00.S32"]=TrS32(a=>TrR(a,0,30,(ushort)1),cover:0),
-            ["map/9/7e007e01.seg"]=TrSeg(a=>TrL(a,5,0,(byte)1)),
+            ["map/9/7e007e01.seg"]=TrSegFull(a=>TrL(a,5,0,(byte)1)),
             ["map/9/7e027e00.s32"]=TrS32(a=>Array.Fill(a,(ushort)1)),
             ["map/9/7e027e00.seg"]=TrSeg(),
             ["map/9/tempseg.s32"]=[1],

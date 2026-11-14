@@ -17,6 +17,8 @@ namespace P06.AssetPrep;
 // Left out on purpose (§3.3): maps[].name (L4), copyTerrainMapId, clientMapDirectoryPresent, directTerrainFilePresent,
 // terrain.sourcePath/sourceSha256, tiles[].record, originalSource, unsupportedBlocks[].sources, provenance, scope, nativeVa,
 // nativeImageBase; cache: record, pixelModes, sourceArchives, scope. No absolute path, time or machine name is written.
+// T1195 (#1195): every .seg-only block is a blocks[] row with format "classic-seg" (MapScan.Plan); unsupportedBlocks keeps only names that
+// exist only as .s32.gz / .seg.gz; an unreadable .seg makes the whole map unsupported (D3), like an unreadable .s32.
 [AssetRecipe]
 public sealed class MapsRecipe:IAssetRecipe,IAssetRecipeSources {
     public const string RecipeId="maps",MapsItem="maps",CacheItem="cache";
@@ -29,7 +31,7 @@ public sealed class MapsRecipe:IAssetRecipe,IAssetRecipeSources {
     public static readonly IReadOnlyList<string> CacheVerifiedMissing=["7e007e00","7e017e00","7e007e01","7e017e01"];
 
     public string Id=>RecipeId;
-    public int Version=>2;   // 2 (T458): terrain fields; .seg-only blocks must be readable
+    public int Version=>3;   // 2 (T458): terrain fields; .seg-only blocks must be readable. 3 (T1195): .seg-only blocks in blocks[] (classic-seg)
     public AssetRecipeCoverage Coverage=>AssetRecipeCoverage.Complete;
     public AssetPrepSources Sources=>AssetPrepSources.Tile|AssetPrepSources.MapFiles;
 

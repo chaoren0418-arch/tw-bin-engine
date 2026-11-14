@@ -120,8 +120,8 @@ public sealed record MapTerrainRead(MapDirectoryPlan Plan,IReadOnlyList<MapBlock
 public static class MapTerrain {
     /// <summary>
     /// Reads every block of the plan (full section walk, SEG anchor check) and every .seg-only block (attribute layer only:
-    /// terrain.md「選檔」 uses them), then derives the terrain when nothing failed. A SEG in plan.Blocks other than the
-    /// pinned one stops the recipe (ContainerMismatch), as before T458.
+    /// terrain.md「選檔」 uses them), then derives the terrain when nothing failed. Since T1195 .seg-only blocks are in plan.Blocks
+    /// (full walk); a map 6 7fff8000.seg whose SHA-256 is not the pinned one stops the recipe (ContainerMismatch), as before T458.
     /// </summary>
     public static MapTerrainRead Read(AssetRecipeItemContext context,MapDirectoryPlan plan){
         var blocks=new List<MapBlockRead>();var failures=new List<string>();var attrs=new Dictionary<(int,int),ushort[]>();
@@ -129,7 +129,8 @@ public static class MapTerrain {
             context.Cancel.ThrowIfCancellationRequested();
             bool seg=file.EndsWith(".seg",StringComparison.OrdinalIgnoreCase);
             byte[] data=context.ReadMapFile(plan.Directory,file);string sha=AssetPrepPaths.Sha256(data);
-            if(seg&&sha!=MapScan.SegAnchorSha256)
+            // T1195: any .seg block is read by SHA-256; only the map 6 anchor stem keeps its pinned SHA-256.
+            if(seg&&plan.MapId==MapScan.SegAnchorMap&&stem==MapScan.SegAnchorStem&&sha!=MapScan.SegAnchorSha256)
                 throw new AssetPrepException(AssetPrepFailure.ContainerMismatch,$"map/{plan.Directory} 的 {file} 與支援版本不符（SHA-256 {sha}）",$"{AssetPrepInput.MapContainer}/{plan.Directory}");
             try{
                 var scan=MapScan.Parse(data,seg);
@@ -184,7 +185,7 @@ public sealed class TerrainRecipe:IAssetRecipe,IAssetRecipeSources {
     public static string MapTerrainPath(int mapId)=>"maps/"+MapTerrain.TerrainPath(mapId);
 
     public string Id=>RecipeId;
-    public int Version=>1;
+    public int Version=>2;   // 2 (T1195): a .seg-only block is fully walked (an unreadable one makes the map unsupported)
     public AssetRecipeCoverage Coverage=>AssetRecipeCoverage.Complete;
     public AssetPrepSources Sources=>AssetPrepSources.MapFiles;
 
