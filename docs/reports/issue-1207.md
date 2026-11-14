@@ -35,6 +35,7 @@ dotnet build engine/_integration/dev/demo-tests/DemoChecks.csproj -c Release --c
 - 本機編譯 log：`scratch/build-product.log`、`scratch/build-checks.log`（不進 git）。CLI home、NuGet packages、TEMP/TMP 都指定本 worktree 的 scratch；同時設定 `DOTNET_ADD_GLOBAL_TOOLS_TO_PATH=false`、`DOTNET_NOLOGO=1`。
 - `git -c core.whitespace=cr-at-eol diff --check` 通過（保留既有來源 CRLF）。
 - 新增 `[CheckGroup("headbar-coordinates")]`，同時掛在既有 CI 會執行的 `native-ui-canvas` 群組；無需修改 workflow、Program.cs、DemoChecks.csproj 或註冊表。CI 結果以本 PR 最新 commit 的 checks／RESULT 為準。
+- 第一輪 CI（run `43569385441`）指出新測試放大鏡頭後把合成量表設到畫面外（舊中心 Y=946.5，Zoom 1.5× 步行外框 top=744 時，量表 y=−16），導致 `Plan().Single()` 無資料。已修正測試鏡頭中心，並在取量表前明確檢查整條在 WorldRect 內；產品程式不因這個 fixture 錯誤而改動。
 
 新檢查以合成 actor tiles 與 surf 驗證以下內容，合成畫面只用於回歸，不能代替真機證據：
 

@@ -11,7 +11,7 @@ partial class Checks {
         foreach(float zoom in new[]{1f,1.5f,2f})
         foreach(var world in new[]{UiRoot.WorldRect,new Rectangle(37,29,700,520)})
         foreach(bool self in new[]{true,false}){
-            var camera=new Camera();camera.SetCenter(new(560.25f,946.5f));camera.Scale(zoom/camera.Zoom,PointF.Empty);
+            var camera=new Camera();camera.SetCenter(new(560.25f,806.5f));camera.Scale(zoom/camera.Zoom,PointF.Empty);
             Point? previous=null;Rectangle? previousBox=null;
             // 三個顯示影格：站立／步行中／下一格；外框直接來自 body Draw，而不是另算的腳下插值。
             foreach(int step in new[]{0,1,2}){
@@ -31,9 +31,10 @@ partial class Checks {
                 Check(target.Box==rendered,$"body/head viewport agrees: zoom={zoom}, world={world}, self={self}, frame={step}");
                 var heads=new HpMpHeadBarPanel();heads.Load(null!,resources.Surfs);
                 UiHpMpGameState State(long now)=>new(new UiStaticGameState(true,"fixture",1,10,100,50,100,now),[target]);
-                heads.Update(State(0));var plan=heads.Plan().Single();
                 var bodyOrigin=new Point(rendered.Left+rendered.Width/2,rendered.Top);
                 var expected=new Point(bodyOrigin.X-24,bodyOrigin.Y-12);
+                Check(world.Contains(expected)&&world.Contains(new Point(expected.X+44,expected.Y+9)),"fixture keeps the complete headbar inside the world at every zoom");
+                heads.Update(State(0));var plan=heads.Plan().Single();
                 Check(plan.At==expected,"original bbox offset remains (-24,-12) logical pixels at every camera zoom");
                 Check(plan.Hp==(self?10:50)&&plan.Mp==(self?50:null),"own HP/MP and other HP-only rules preserved");
                 if(previous is Point old&&previousBox is Rectangle oldBox){
