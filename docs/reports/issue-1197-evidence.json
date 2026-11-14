@@ -1,0 +1,5750 @@
+{
+  "sourceMain": "e783ff08de9c8b5be20da73077dbf5026029636b",
+  "result": {
+    "G01": "pass",
+    "M01": "inconclusive-wrong-map",
+    "N01-2": "pass",
+    "cleanup": "pass"
+  },
+  "raw": {
+    "source-hashes.json": [
+      {
+        "path": "engine/build/client-product-dev/P11.ClientEngine.dll",
+        "bytes": 8802304,
+        "sha256": "d42e933fe2e762c815c99fe6288d71e8b6fa879b1500463cbf33e36857aa9223"
+      },
+      {
+        "path": "engine/source/OriginalMapCache.cs",
+        "bytes": 26395,
+        "sha256": "979b9dcc606693f560379077a18e5722afc98f9b239b21bd0b1ed11e2c07f29f"
+      },
+      {
+        "path": "engine/source/Portals.cs",
+        "bytes": 8200,
+        "sha256": "96abaab04c35f8b7b809e7ba5d76d3b19de40b9855ae923b0530607656aacd45"
+      },
+      {
+        "path": "engine/assets/maps/manifest.json",
+        "bytes": 4954075,
+        "sha256": "0fe3a61444180c90abdca0cc94c1cfb9ea19adc67812a43f624d806b51f96ee7"
+      },
+      {
+        "path": "engine/assets/integrity.json",
+        "bytes": 1729333,
+        "sha256": "07dd19f4407ec3f2bf61da9c00cca827cbbe206866863a87a77f17fce7a18b98"
+      },
+      {
+        "path": "D:\\lineage開發\\0-客戶端\\map\\4\\80048001.seg",
+        "bytes": 90398,
+        "sha256": "e2dd9928bfcdf46874de18e875543c7378e66170594a1828937a12daf360ba12"
+      }
+    ],
+    "snapshot.json": {
+      "utc": "2026-11-14T06:41:58.542357+00:00",
+      "files": 1722,
+      "bytes": 279505799,
+      "verified": true,
+      "source": "D:\\BinEngine\\environments\\p24\\db-data",
+      "runtime": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1197\\scratch\\issue-1197\\db-data",
+      "manifestSha256": "5fc8f2ad7a3c909a0f97d626c3adc83d659de898076b626b4309c3f78f45f5fe"
+    },
+    "lease.json": {
+      "name": "p24lab",
+      "holder": "chaoren0418-arch/tw-bin-engine#1197",
+      "since": 1794638396.3366518,
+      "exp": 1794643796.3366518
+    },
+    "g01-login-state.json": {
+      "state": "CharacterList",
+      "detail": "已解析角色 3/3",
+      "profile": "p24-real-jar-d287-client2",
+      "news": "",
+      "newsPending": false,
+      "expected": 3,
+      "slots": 4,
+      "characters": [
+        {
+          "Name": "資源法師",
+          "Clan": "",
+          "Class": 3,
+          "Sex": 0,
+          "Lawful": -10,
+          "Hp": 300,
+          "Mp": 300,
+          "Ac": 4,
+          "Level": 52,
+          "Strength": 8,
+          "Dexterity": 7,
+          "Constitution": 12,
+          "Wisdom": 12,
+          "Charisma": 8,
+          "Intelligence": 28,
+          "Gm": 0,
+          "CreateTime": 20261114,
+          "CheckCode": 47
+        },
+        {
+          "Name": "服務驗證",
+          "Clan": "資源血盟",
+          "Class": 0,
+          "Sex": 0,
+          "Lawful": 26,
+          "Hp": 236,
+          "Mp": 117,
+          "Ac": -4,
+          "Level": 59,
+          "Strength": 22,
+          "Dexterity": 13,
+          "Constitution": 16,
+          "Wisdom": 12,
+          "Charisma": 10,
+          "Intelligence": 11,
+          "Gm": 0,
+          "CreateTime": 20261026,
+          "CheckCode": 61
+        },
+        {
+          "Name": "服務交易",
+          "Clan": "",
+          "Class": 0,
+          "Sex": 0,
+          "Lawful": 0,
+          "Hp": 686,
+          "Mp": 117,
+          "Ac": 0,
+          "Level": 59,
+          "Strength": 22,
+          "Dexterity": 13,
+          "Constitution": 16,
+          "Wisdom": 12,
+          "Charisma": 10,
+          "Intelligence": 11,
+          "Gm": 0,
+          "CreateTime": 20261106,
+          "CheckCode": 61
+        }
+      ],
+      "revision": 9,
+      "appliedPacketSequence": 0,
+      "world": {
+        "playerChat": [],
+        "sustenance": "等待原服飽食／負重",
+        "basicSupplyNotice": "",
+        "privateShop": {
+          "phase": "idle",
+          "revision": 1,
+          "ownerId": 0,
+          "sell": false,
+          "selectedRow": null,
+          "rows": [],
+          "notice": "請明確選取可見的個人商店，再查詢買入或售出清單。",
+          "serverText": ""
+        },
+        "announcement": "",
+        "bonusStatsNotice": "",
+        "bonusStats": {
+          "phase": "idle",
+          "revision": 1,
+          "selected": null,
+          "remaining": null
+        },
+        "ready": false,
+        "coreComplete": false,
+        "entered": false,
+        "mapId": null,
+        "underwater": false,
+        "status": null,
+        "actor": null,
+        "supportedMap": false,
+        "mapResourceState": "waiting",
+        "mapResourceNotice": "等待地圖與角色位置；可取消連線或回離線預覽。",
+        "loadedRegion": {
+          "minX": 32576,
+          "minY": 32896,
+          "maxX": 32639,
+          "maxY": 33023,
+          "mode": "resident original dual blocks"
+        },
+        "supportedAppearance": false,
+        "appearanceNotice": "等待角色資料",
+        "appearanceRevision": 1,
+        "appearanceProfile": null,
+        "renderable": false,
+        "keepalivesSent": 0,
+        "timeReplies": 0,
+        "serverTime": null,
+        "unhandled": {},
+        "ship": {
+          "state": "idle",
+          "notice": "",
+          "pending": false,
+          "clockFresh": false,
+          "serverSeconds": null,
+          "clockRevision": 1,
+          "passage": null,
+          "ticketConfirmed": false
+        },
+        "teleport": {
+          "generation": 1,
+          "state": "idle",
+          "notice": "",
+          "marker": null,
+          "portal": null,
+          "pending": false,
+          "actionLocked": true,
+          "paralysis": ""
+        },
+        "movement": {
+          "predictedSteps": 0,
+          "predictedTurns": 0,
+          "corrections": 0,
+          "authoritativeActor": null,
+          "authoritativePosition": {
+            "map": null,
+            "x": null,
+            "y": null,
+            "opcode": null,
+            "revision": 0,
+            "predictedSince": false,
+            "text": "原服座標：等待位置回包",
+            "displayText": "目前位置：等待角色資料"
+          },
+          "notice": "等待世界",
+          "stepMs": null,
+          "animationMs": null,
+          "speedRevision": 1,
+          "speedNotice": "",
+          "successAck": false
+        },
+        "combat": {
+          "reports": 0,
+          "lastAttack": null,
+          "lastProjectile": null,
+          "projectiles": [],
+          "ownAnimation": null,
+          "ownDead": false,
+          "restartRequested": false,
+          "arrowCount": 0,
+          "notice": "選取可見目標後按 G：依原武器單次攻擊",
+          "damageMeaning": "ClientLogin=2 original attack damage word, not independently established HP loss; zero does not distinguish miss from zero damage"
+        },
+        "inventory": {
+          "loaded": false,
+          "emptyInventoryFromWorldSync": false,
+          "revision": 1,
+          "items": [],
+          "selectedId": null,
+          "selectionRevision": 1,
+          "unknownUpdates": 0,
+          "notice": "等待原服背包",
+          "effectNumber": 0,
+          "lastEffect": null,
+          "serverMessage": null,
+          "serverReply": null
+        },
+        "equipment": {
+          "replyPending": false,
+          "listReceived": false,
+          "revision": 1,
+          "slots": []
+        },
+        "rewards": {
+          "experience": null,
+          "lastExperienceChange": null,
+          "experienceChanges": 0,
+          "inventoryChanges": [],
+          "notice": "原回包狀態差值；背包增加的來源需由實際戰鬥證據核對"
+        },
+        "ground": {
+          "presentation": {
+            "policyId": "OWN-BASE-15-001-SUPERVISOR-R1",
+            "sourceEligibility": "native-unproven",
+            "runtimeTimingCertified": false,
+            "active": null,
+            "last": null
+          },
+          "items": [],
+          "selectedId": null,
+          "revision": 1,
+          "selectionRevision": 1,
+          "notice": "等待原服地面物品",
+          "pickupActions": 0,
+          "lastPickupActor": null,
+          "lastPickupHeading": null,
+          "awaitingPickupAction": false,
+          "pickupOutcomeTimedOut": false,
+          "pickupAll": false,
+          "pickupPrompt": null
+        },
+        "magic": {
+          "received": false,
+          "learned": [],
+          "selectedId": null,
+          "targetSelf": true,
+          "effectiveTargetSelf": false,
+          "targetName": "尚未選擇技能",
+          "buffs": [],
+          "buffNotice": "",
+          "ac": null,
+          "acNotice": "等待原服 AC",
+          "partialAcByte": null,
+          "revision": 1,
+          "effectCount": 0,
+          "effects": [],
+          "notice": "等待原服已學技能清單"
+        },
+        "objects": [],
+        "target": null,
+        "targetId": null,
+        "opacity": null,
+        "cache": null,
+        "objectRevision": 1,
+        "worldEpoch": 1,
+        "unknownObjectUpdates": 0,
+        "unhandledSubtypes": {},
+        "extensions": {
+          "ability": {
+            "flags": [],
+            "active": [],
+            "updates": 0,
+            "spMr": null,
+            "teleportDestination": null
+          },
+          "agitAuctionWindow": null,
+          "agit": {
+            "houseListPackets": 0,
+            "houseMapPackets": 0,
+            "houseList": null,
+            "houseMap": null,
+            "ui": "AgitAuctionUI: native panels Agitmap_Window / AuctionInfo_Window / Bid_Window from the reference client XML (#761, #805; data only with --classic-ui or when the XML is unavailable); AgitMapWindow: native panel AgitMap_Window (#550)",
+            "mapWindowRevision": null
+          },
+          "amountPrompt": {
+            "revision": 1,
+            "received": 0,
+            "ignored": 0,
+            "sent": 0,
+            "notice": "",
+            "last": null,
+            "current": null
+          },
+          "castle": {
+            "revision": 1,
+            "notice": "",
+            "offer": null,
+            "page": null,
+            "masters": [],
+            "lostNotice": 0
+          },
+          "chatChannels": {
+            "world": true,
+            "whisper": true,
+            "trade": true,
+            "stored": false
+          },
+          "clanEmblemStatus": {
+            "packets": 0,
+            "showEmblem": null,
+            "notice": null,
+            "ui": "R4-E: native clan window side box and the WinForms clan window show the check box (C254 0x2E); names still draw emblems"
+          },
+          "clanMatching": {
+            "revision": 1,
+            "notice": "",
+            "recommended": null,
+            "applied": null,
+            "detail": null,
+            "lastResult": null
+          },
+          "clanWarehouseHistory": {
+            "packets": 0,
+            "records": null,
+            "notice": null,
+            "ui": "native window sub_A559D0 on HYPER_TEXT_WINDOW (NativeUi/ClanWarehouseHistoryPanel.cs, T288 #689) when native UI is on, otherwise the WinForms list; type 0 = deposit, 1 = withdraw (FU4§5); surf 9183 missing locally (FU5§5), close button not drawn"
+          },
+          "cooking": {
+            "open": false,
+            "value": 0,
+            "level": 0,
+            "bookItemId": 0,
+            "levelSurf": null,
+            "magic": "0x00000000",
+            "magicMatches381": false,
+            "revision": 1,
+            "bookObjectId": 0,
+            "ui": "native COOK_BOOK_WINDOW (NativeUi/CookBookPanel.cs) when native UI is on, WinForms list (CookBookFallbackUi.cs) otherwise; recipes from client recipe.tbl (R4-D #707)"
+          },
+          "death": {
+            "phase": "alive",
+            "map": null,
+            "diedAt": null,
+            "windowAt": null,
+            "quitAt": null,
+            "remainingMs": null,
+            "windowOpen": false,
+            "dismissed": false,
+            "quitSent": false,
+            "restartRequested": false
+          },
+          "fishObtain": {
+            "revision": 1,
+            "count": 0,
+            "ids": []
+          },
+          "kick": null,
+          "own-action": null,
+          "packetBoxMessages": {
+            "packets": {},
+            "lines": [],
+            "dropped": 0,
+            "rank": null,
+            "lastavard": null,
+            "warOverClans": null,
+            "feelGood": 0,
+            "feelGoodTarget": 0,
+            "feelGoodEffectPending": false,
+            "feelGoodEffects": 0,
+            "table": "string-c.tbl"
+          },
+          "packetBoxScreen": {
+            "packets": {},
+            "centerMessages": [],
+            "flash": {
+              "level": 0,
+              "count": 0,
+              "surf": 1473,
+              "drawn": false
+            },
+            "sway": {
+              "active": false,
+              "toggles": 0,
+              "offset": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            "fireworks": 0,
+            "other": {
+              "count": 0,
+              "last": 0
+            }
+          },
+          "packetBoxStatus": {
+            "packets": {},
+            "dkLevel": null,
+            "leaves": null,
+            "karma": null,
+            "evasion": null,
+            "weaponRange": null,
+            "cooking": null,
+            "mapTimes": null,
+            "protections": [],
+            "unknownProtections": 0,
+            "noneTimeIcons": [],
+            "delIcons": 0,
+            "leavesMapBase": null,
+            "leavesPcCafe": false,
+            "startMessages": [],
+            "startMessagesDropped": 0,
+            "leavesShown": [],
+            "statusIcons": [],
+            "ui": "data only: timed states feed MagicBuffs; 75/82/180 effect ids in statusIcons; icon drawing belongs to native UI buff-icons"
+          },
+          "packetSoundLevels": null,
+          "petEquipment": {
+            "revision": 1,
+            "ignored": 0,
+            "pets": [],
+            "reply": "none: TW16 sends C_CHECK_INVENTORY (3.81 C99) here, but the 3.81 server never answers it; engine sends nothing"
+          },
+          "petTarget": {
+            "revision": 1,
+            "notice": "",
+            "ignored": 0,
+            "pending": null
+          },
+          "pledgeWindow": {
+            "openRevision": 0,
+            "revision": 0,
+            "clan": "",
+            "online": null,
+            "notice": null,
+            "memos": {}
+          },
+          "productSound": {
+            "status": "已接上（ready；音樂有、環境音有、^ 有）",
+            "armed": true,
+            "clientRoot": "D:\\lineage開發\\0-客戶端",
+            "music": 1,
+            "env": 0,
+            "ambient": 0,
+            "ambientScale": 1,
+            "oneShot": 0,
+            "midi": false,
+            "midiSilenced": 0,
+            "midiKept": 0,
+            "stream": {
+              "Live": 1,
+              "Started": 1,
+              "Rejected": 0,
+              "Looped": 0,
+              "Ended": 0,
+              "Failed": 0,
+              "LastError": ""
+            }
+          },
+          "serverFeatures": null,
+          "skillCastQueue": {
+            "queued": [],
+            "total": 0
+          },
+          "spellExchange": {
+            "revision": 1,
+            "phase": "closed",
+            "notice": "",
+            "offer": null,
+            "pending": [],
+            "learned": 0
+          },
+          "statusEffects": [],
+          "stride": {
+            "own": {
+              "counter": 0,
+              "step": 0
+            },
+            "others": []
+          },
+          "summon": {
+            "revision": 1,
+            "notice": "",
+            "request": null
+          },
+          "userPlayStats": {
+            "expGain": null,
+            "adenaGain": null,
+            "kills": 0,
+            "newItems": 0,
+            "baseline": false,
+            "baseLevel": null,
+            "baseExp": null,
+            "baseAdena": 0,
+            "newItemIds": []
+          }
+        }
+      },
+      "worldEntry": {
+        "startedAt": null,
+        "transition": null,
+        "probeAt": null,
+        "pendingMap": null,
+        "coreTimeoutMs": 12000,
+        "probeTimeoutMs": 8000,
+        "localTimeoutMs": 30000,
+        "totalTimeoutMs": 60000
+      },
+      "decodeFailure": null,
+      "entryFailure": null,
+      "serverFeatures": {
+        "c14Sent": true,
+        "c14Error": null,
+        "s139Count": 1,
+        "error": null,
+        "features": {
+          "status": 0,
+          "accepted": true,
+          "serverNo": 1,
+          "language": 3,
+          "codePage": 950,
+          "codePageMismatch": false,
+          "flags": "0x77D82",
+          "fastPickup": true,
+          "pickupThrottleMs": 600,
+          "continuousAttack": false,
+          "uptime": 1794638581,
+          "trailingBytes": 6
+        }
+      },
+      "scope": "P24 independent real JAR + MySQL world initialization"
+    },
+    "g01-login-tab.json": {
+      "RequestedName": "登入／選角",
+      "TabItem": {
+        "Name": "登入／選角",
+        "IsSelected": true
+      },
+      "TabSelection": [
+        "登入／選角"
+      ],
+      "TabItemError": null,
+      "TabSelectionError": null
+    },
+    "g01-login-tree.json": [
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "49,49,826,711",
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "62,107,800,640",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "70,151,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "70,151,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "81,162,175,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "81,162,175,38",
+        "Patterns": []
+      },
+      {
+        "Name": "開啟",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "223,163,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "262,162,90,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "319,163,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "319,163,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "319,181,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "微調按鈕",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "264,164,54,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "358,162,95,38",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "[PASSWORD]",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "459,162,95,38",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "560,162,88,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "取消 / 斷線",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "654,162,98,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "離線預覽",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "81,206,90,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "資源法師",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "177,206,155,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "177,206,155,38",
+        "Patterns": []
+      },
+      {
+        "Name": "開啟",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "299,207,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "進入世界",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "338,206,95,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "建立角色",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "439,206,92,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "刪除角色",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "537,206,110,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "CharacterList • 已解析角色 3/3\n登入請求已送出，請查看連線狀態。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "81,247,480,52",
+        "Patterns": []
+      },
+      {
+        "Name": "網頁面板",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "66,111,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "服務",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "174,111,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "252,111,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "控制",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "384,111,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "狀態列",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,111,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Button",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "546,111,90,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "62,62,800,45",
+        "Patterns": []
+      },
+      {
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "62,62,44,44",
+        "Patterns": []
+      },
+      {
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "62,62,44,44",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Minimize",
+        "Type": "ControlType.Button",
+        "Id": "Minimize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "583,50,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Maximize",
+        "Type": "ControlType.Button",
+        "Id": "Maximize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "677,50,92,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "769,50,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "g01-capture.json": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1197\\scratch\\issue-1197\\g01-login.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "CopyFromScreenError": null,
+      "Width": 826,
+      "Height": 711,
+      "SampleStride": 4,
+      "Samples": 36846,
+      "Mean": 79.21563625174186,
+      "NonzeroRatio": 0.9505780817456441,
+      "NonwhiteRatio": 0.8969223253541768,
+      "Nonblank": true,
+      "Sha256": "A00052A640F30ED78BB77B6A378B4EF615E3BE919884AF223110DD8BE59FEBE9",
+      "Foreground": null,
+      "Window": {
+        "Title": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "ProcessId": 5552,
+        "Handle": 7538658,
+        "Rectangle": "49,49,826,711",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 0
+      }
+    },
+    "n01-enter.json": {
+      "Utc": "2026-11-14T06:43:22.0769565Z",
+      "Action": "Invoke 進入世界",
+      "Character": "資源法師"
+    },
+    "n01-world-login-state.json": {
+      "state": "InWorld",
+      "detail": "地圖 0 已載入原始區塊。",
+      "profile": "p24-real-jar-d287-client2",
+      "news": "",
+      "newsPending": false,
+      "expected": 3,
+      "slots": 4,
+      "characters": [
+        {
+          "Name": "資源法師",
+          "Clan": "",
+          "Class": 3,
+          "Sex": 0,
+          "Lawful": -10,
+          "Hp": 300,
+          "Mp": 300,
+          "Ac": 4,
+          "Level": 52,
+          "Strength": 8,
+          "Dexterity": 7,
+          "Constitution": 12,
+          "Wisdom": 12,
+          "Charisma": 8,
+          "Intelligence": 28,
+          "Gm": 0,
+          "CreateTime": 20261114,
+          "CheckCode": 47
+        },
+        {
+          "Name": "服務驗證",
+          "Clan": "資源血盟",
+          "Class": 0,
+          "Sex": 0,
+          "Lawful": 26,
+          "Hp": 236,
+          "Mp": 117,
+          "Ac": -4,
+          "Level": 59,
+          "Strength": 22,
+          "Dexterity": 13,
+          "Constitution": 16,
+          "Wisdom": 12,
+          "Charisma": 10,
+          "Intelligence": 11,
+          "Gm": 0,
+          "CreateTime": 20261026,
+          "CheckCode": 61
+        },
+        {
+          "Name": "服務交易",
+          "Clan": "",
+          "Class": 0,
+          "Sex": 0,
+          "Lawful": 0,
+          "Hp": 686,
+          "Mp": 117,
+          "Ac": 0,
+          "Level": 59,
+          "Strength": 22,
+          "Dexterity": 13,
+          "Constitution": 16,
+          "Wisdom": 12,
+          "Charisma": 10,
+          "Intelligence": 11,
+          "Gm": 0,
+          "CreateTime": 20261106,
+          "CheckCode": 61
+        }
+      ],
+      "revision": 68,
+      "appliedPacketSequence": 63,
+      "world": {
+        "playerChat": [
+          {
+            "Sequence": 1,
+            "Speaker": 0,
+            "Text": "伺服器經驗加倍。",
+            "Channel": 0,
+            "Location": null,
+            "ColorIndex": 24,
+            "Code": false
+          }
+        ],
+        "sustenance": "飽食 40/255 · 負重 0/240（原服刻度）",
+        "basicSupplyNotice": "",
+        "privateShop": {
+          "phase": "idle",
+          "revision": 2,
+          "ownerId": 0,
+          "sell": false,
+          "selectedRow": null,
+          "rows": [],
+          "notice": "請明確選取可見的個人商店，再查詢買入或售出清單。",
+          "serverText": ""
+        },
+        "announcement": "",
+        "bonusStatsNotice": "請選擇您所要提昇的屬性。您所選擇的屬性將提昇１點。剩餘點數：原服未提供。",
+        "bonusStats": {
+          "phase": "offered",
+          "revision": 3,
+          "selected": null,
+          "remaining": null
+        },
+        "ready": true,
+        "coreComplete": true,
+        "entered": true,
+        "mapId": 0,
+        "underwater": false,
+        "status": {
+          "ObjectId": 10334,
+          "Level": 52,
+          "Exp": 127941146,
+          "Strength": 8,
+          "Intelligence": 28,
+          "Wisdom": 12,
+          "Dexterity": 7,
+          "Constitution": 12,
+          "Charisma": 8,
+          "Hp": 300,
+          "MaxHp": 300,
+          "Mp": 300,
+          "MaxMp": 300,
+          "Ac": 4,
+          "Time": 353694000,
+          "Food": 40,
+          "Weight": 0,
+          "Lawful": -10,
+          "Fire": 0,
+          "Water": 0,
+          "Wind": 0,
+          "Earth": 0,
+          "Kills": 0
+        },
+        "actor": {
+          "X": 32648,
+          "Y": 32948,
+          "ObjectId": 10334,
+          "Gfx": 734,
+          "Weapon": 0,
+          "Direction": 0,
+          "Light": 5,
+          "Speed": 0,
+          "Exp": 127941146,
+          "Lawful": -10,
+          "Name": "資源法師",
+          "Title": "",
+          "Flags": 4,
+          "ClanId": 0,
+          "Clan": "",
+          "Owner": "",
+          "Rank": 176,
+          "HpPercent": 255,
+          "Brave": 0,
+          "Level": 0,
+          "Unknown": 0,
+          "Tail1": 255,
+          "Tail2": 255
+        },
+        "supportedMap": true,
+        "mapResourceState": "ready",
+        "mapResourceNotice": "地圖 0 已載入原始區塊。",
+        "loadedRegion": {
+          "minX": 32576,
+          "minY": 32896,
+          "maxX": 32703,
+          "maxY": 33023,
+          "mode": "original moving 2x2 cache"
+        },
+        "supportedAppearance": true,
+        "appearanceNotice": "角色外觀已載入",
+        "appearanceRevision": 4,
+        "appearanceProfile": {
+          "Gfx": 734,
+          "Weapon": 0,
+          "Path": "players/734-0.json",
+          "Sha256": "1a48881ab41af22a58e52102a3ef940e0b6f2a71473b0b2012a6ad0b1d3f0e3b",
+          "StepMs": 640,
+          "ServerActionMs": {
+            "walk": 640,
+            "attack": 880,
+            "spellDir": 960,
+            "spellNoDir": 1120
+          },
+          "CastReleaseMs": {
+            "spellDir": 664,
+            "spellNoDir": 703
+          },
+          "ProjectileReleaseMs": null,
+          "Runtime": null
+        },
+        "renderable": true,
+        "keepalivesSent": 1,
+        "timeReplies": 1,
+        "serverTime": 353694015,
+        "unhandled": {
+          "0xFA": 1
+        },
+        "ship": {
+          "state": "idle",
+          "notice": "",
+          "pending": false,
+          "clockFresh": false,
+          "serverSeconds": 353694015,
+          "clockRevision": 3,
+          "passage": null,
+          "ticketConfirmed": false
+        },
+        "teleport": {
+          "generation": 3,
+          "state": "arrived",
+          "notice": "已收到原服角色位置並載入地圖。",
+          "marker": null,
+          "portal": null,
+          "pending": false,
+          "actionLocked": false,
+          "paralysis": ""
+        },
+        "movement": {
+          "predictedSteps": 0,
+          "predictedTurns": 0,
+          "corrections": 0,
+          "authoritativeActor": {
+            "X": 32648,
+            "Y": 32948,
+            "ObjectId": 10334,
+            "Gfx": 734,
+            "Weapon": 0,
+            "Direction": 0,
+            "Light": 0,
+            "Speed": 0,
+            "Exp": 127941146,
+            "Lawful": -10,
+            "Name": "資源法師",
+            "Title": "",
+            "Flags": 4,
+            "ClanId": 0,
+            "Clan": "",
+            "Owner": "",
+            "Rank": 176,
+            "HpPercent": 255,
+            "Brave": 0,
+            "Level": 0,
+            "Unknown": 0,
+            "Tail1": 255,
+            "Tail2": 255
+          },
+          "authoritativePosition": {
+            "map": 0,
+            "x": 32648,
+            "y": 32948,
+            "opcode": 87,
+            "revision": 1,
+            "predictedSince": false,
+            "text": "原服座標 map 0 / x 32648 / y 32948 · S87 #1",
+            "displayText": "目前位置 map 0 / x 32648 / y 32948（原服回報） · 原服座標 map 0 / x 32648 / y 32948 · S87 #1"
+          },
+          "notice": "已初始化；移動使用本地預測",
+          "stepMs": 640,
+          "animationMs": 640,
+          "speedRevision": 4,
+          "speedNotice": "",
+          "successAck": false
+        },
+        "combat": {
+          "reports": 0,
+          "lastAttack": null,
+          "lastProjectile": null,
+          "projectiles": [],
+          "ownAnimation": null,
+          "ownDead": false,
+          "restartRequested": false,
+          "arrowCount": 0,
+          "notice": "選取可見目標後按 G：依原武器單次攻擊",
+          "damageMeaning": "ClientLogin=2 original attack damage word, not independently established HP loss; zero does not distinguish miss from zero damage"
+        },
+        "inventory": {
+          "loaded": true,
+          "emptyInventoryFromWorldSync": false,
+          "revision": 4,
+          "items": [
+            {
+              "ObjectId": 10336,
+              "DescriptionId": 0,
+              "UseType": 14,
+              "Charges": 0,
+              "IconId": 2608,
+              "Bless": 1,
+              "Count": 1,
+              "Flags": 0,
+              "Name": "$5239",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "",
+              "Status": {
+                "Attributes": [],
+                "HasDetails": false,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": false,
+              "Tradable": true,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": true,
+              "SupportedUse": true,
+              "UseAction": "選擇使用目標",
+              "UseState": "請選擇背包內的目標物品"
+            },
+            {
+              "ObjectId": 10337,
+              "DescriptionId": 0,
+              "UseType": 0,
+              "Charges": 0,
+              "IconId": 957,
+              "Bless": 1,
+              "Count": 1,
+              "Flags": 2,
+              "Name": "新手武器箱",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "",
+              "Status": {
+                "Attributes": [],
+                "HasDetails": false,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": false,
+              "Tradable": false,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            },
+            {
+              "ObjectId": 10338,
+              "DescriptionId": 1338,
+              "UseType": 9,
+              "Charges": 0,
+              "IconId": 474,
+              "Bless": 1,
+              "Count": 20,
+              "Flags": 0,
+              "Name": "$505 (20)",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "",
+              "Status": {
+                "Attributes": [],
+                "HasDetails": false,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": false,
+              "Tradable": true,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            },
+            {
+              "ObjectId": 10339,
+              "DescriptionId": 0,
+              "UseType": 255,
+              "Charges": 0,
+              "IconId": 5,
+              "Bless": 1,
+              "Count": 8000,
+              "Flags": 0,
+              "Name": "$4 (8000)",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "",
+              "Status": {
+                "Attributes": [],
+                "HasDetails": false,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": false,
+              "Tradable": true,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            },
+            {
+              "ObjectId": 10340,
+              "DescriptionId": 0,
+              "UseType": 0,
+              "Charges": 0,
+              "IconId": 957,
+              "Bless": 1,
+              "Count": 1,
+              "Flags": 2,
+              "Name": "新手裝備箱",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "",
+              "Status": {
+                "Attributes": [],
+                "HasDetails": false,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": false,
+              "Tradable": false,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            },
+            {
+              "ObjectId": 10341,
+              "DescriptionId": 68,
+              "UseType": 254,
+              "Charges": 0,
+              "IconId": 96,
+              "Bless": 1,
+              "Count": 3000,
+              "Flags": 8,
+              "Name": "$93 (3000)",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "",
+              "Status": {
+                "Attributes": [],
+                "HasDetails": false,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": false,
+              "Tradable": true,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            },
+            {
+              "ObjectId": 10342,
+              "DescriptionId": 0,
+              "UseType": 0,
+              "Charges": 0,
+              "IconId": 6101,
+              "Bless": 1,
+              "Count": 1,
+              "Flags": 2,
+              "Name": "主城傳送",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "",
+              "Status": {
+                "Attributes": [],
+                "HasDetails": false,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": false,
+              "Tradable": false,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            },
+            {
+              "ObjectId": 10343,
+              "DescriptionId": 0,
+              "UseType": 0,
+              "Charges": 0,
+              "IconId": 957,
+              "Bless": 1,
+              "Count": 1,
+              "Flags": 2,
+              "Name": "新手補給箱",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "",
+              "Status": {
+                "Attributes": [],
+                "HasDetails": false,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": false,
+              "Tradable": false,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            },
+            {
+              "ObjectId": 1900251101,
+              "DescriptionId": 361,
+              "UseType": 252,
+              "Charges": 0,
+              "IconId": 487,
+              "Bless": 1,
+              "Count": 1,
+              "Flags": 5,
+              "Name": "$1173 [Lv.5] 資源牧羊 HP30",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "170B05000000",
+              "Status": {
+                "Attributes": [
+                  {
+                    "Tag": 23,
+                    "Key": "material",
+                    "Label": "材質代碼",
+                    "Value": 11,
+                    "Text": null
+                  },
+                  {
+                    "Tag": 23,
+                    "Key": "weight",
+                    "Label": "重量",
+                    "Value": 5,
+                    "Text": null
+                  }
+                ],
+                "HasDetails": true,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": true,
+              "Tradable": true,
+              "Deletable": false,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            },
+            {
+              "ObjectId": 1900251102,
+              "DescriptionId": 2045,
+              "UseType": 0,
+              "Charges": 0,
+              "IconId": 477,
+              "Bless": 1,
+              "Count": 9,
+              "Flags": 1,
+              "Name": "$4288 (9)",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "170800000000",
+              "Status": {
+                "Attributes": [
+                  {
+                    "Tag": 23,
+                    "Key": "material",
+                    "Label": "材質代碼",
+                    "Value": 8,
+                    "Text": null
+                  },
+                  {
+                    "Tag": 23,
+                    "Key": "weight",
+                    "Label": "重量",
+                    "Value": 0,
+                    "Text": null
+                  }
+                ],
+                "HasDetails": true,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": true,
+              "Tradable": true,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            },
+            {
+              "ObjectId": 1900251103,
+              "DescriptionId": 166,
+              "UseType": 255,
+              "Charges": 0,
+              "IconId": 235,
+              "Bless": 1,
+              "Count": 57,
+              "Flags": 1,
+              "Name": "$508 (57)",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "171472000000",
+              "Status": {
+                "Attributes": [
+                  {
+                    "Tag": 23,
+                    "Key": "material",
+                    "Label": "材質代碼",
+                    "Value": 20,
+                    "Text": null
+                  },
+                  {
+                    "Tag": 23,
+                    "Key": "weight",
+                    "Label": "重量",
+                    "Value": 114,
+                    "Text": null
+                  }
+                ],
+                "HasDetails": true,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": true,
+              "Tradable": true,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            }
+          ],
+          "selectedId": null,
+          "selectionRevision": 3,
+          "unknownUpdates": 0,
+          "notice": "原服背包已同步",
+          "effectNumber": 0,
+          "lastEffect": null,
+          "serverMessage": null,
+          "serverReply": null
+        },
+        "equipment": {
+          "replyPending": false,
+          "listReceived": true,
+          "revision": 5,
+          "slots": []
+        },
+        "rewards": {
+          "experience": {
+            "Level": 52,
+            "WireLow32": 127941146,
+            "Total": 127941146,
+            "LevelStart": 127941146,
+            "NextLevel": 164006238,
+            "Percent": 0,
+            "Source": "S8",
+            "Limitation": ""
+          },
+          "lastExperienceChange": null,
+          "experienceChanges": 0,
+          "inventoryChanges": [],
+          "notice": "原回包狀態差值；背包增加的來源需由實際戰鬥證據核對"
+        },
+        "ground": {
+          "presentation": {
+            "policyId": "OWN-BASE-15-001-SUPERVISOR-R1",
+            "sourceEligibility": "native-unproven",
+            "runtimeTimingCertified": false,
+            "active": null,
+            "last": null
+          },
+          "items": [],
+          "selectedId": null,
+          "revision": 3,
+          "selectionRevision": 3,
+          "notice": "等待原服地面物品",
+          "pickupActions": 0,
+          "lastPickupActor": null,
+          "lastPickupHeading": null,
+          "awaitingPickupAction": false,
+          "pickupOutcomeTimedOut": false,
+          "pickupAll": false,
+          "pickupPrompt": null
+        },
+        "magic": {
+          "received": true,
+          "learned": [
+            {
+              "Id": 4,
+              "Name": "光箭",
+              "Supported": true,
+              "Target": "指定對象",
+              "NominalMp": 3
+            },
+            {
+              "Id": 51,
+              "Name": "召喚術",
+              "Supported": true,
+              "Target": "自己／指定對象",
+              "NominalMp": 30
+            }
+          ],
+          "selectedId": null,
+          "targetSelf": true,
+          "effectiveTargetSelf": false,
+          "targetName": "尚未選擇技能",
+          "buffs": [],
+          "buffNotice": "",
+          "ac": null,
+          "acNotice": "AC：等待伺服器完整更新",
+          "partialAcByte": 4,
+          "revision": 10,
+          "effectCount": 0,
+          "effects": [],
+          "notice": "原服已學技能已更新"
+        },
+        "objects": [
+          {
+            "X": 32647,
+            "Y": 32941,
+            "ObjectId": 2000035928,
+            "Gfx": 31,
+            "Action": 0,
+            "Direction": 2,
+            "Light": 0,
+            "Speed": 0,
+            "WireExp": 37,
+            "Lawful": -6,
+            "Name": "$8",
+            "Title": "",
+            "Flags": 0,
+            "ClanId": 0,
+            "Clan": "",
+            "Owner": "",
+            "Rank": 0,
+            "HpByte": 255,
+            "Brave": 0,
+            "Level": 6,
+            "Unknown": 0,
+            "Tail1": 255,
+            "Tail2": 255,
+            "DoorAction": null,
+            "Combat": null,
+            "Dead": false,
+            "HpPercent": null,
+            "Classification": "non-PC flag",
+            "SourceX": 32646,
+            "SourceY": 32941,
+            "MotionAt": 240129203,
+            "MotionSpeed": 0,
+            "MotionBrave": 0,
+            "UpdatedAt": 240129203,
+            "ReceivedAction": null,
+            "AppearancePending": false,
+            "ShopActive": false,
+            "ShopText": "",
+            "ShopAt": 0,
+            "StrideCounter": 0,
+            "StrideStep": 0
+          },
+          {
+            "X": 32652,
+            "Y": 32947,
+            "ObjectId": 2000035929,
+            "Gfx": 31,
+            "Action": 0,
+            "Direction": 2,
+            "Light": 0,
+            "Speed": 0,
+            "WireExp": 37,
+            "Lawful": -6,
+            "Name": "$8",
+            "Title": "",
+            "Flags": 0,
+            "ClanId": 0,
+            "Clan": "",
+            "Owner": "",
+            "Rank": 0,
+            "HpByte": 255,
+            "Brave": 0,
+            "Level": 6,
+            "Unknown": 0,
+            "Tail1": 255,
+            "Tail2": 255,
+            "DoorAction": null,
+            "Combat": null,
+            "Dead": false,
+            "HpPercent": null,
+            "Classification": "non-PC flag",
+            "SourceX": 32651,
+            "SourceY": 32947,
+            "MotionAt": 240131218,
+            "MotionSpeed": 0,
+            "MotionBrave": 0,
+            "UpdatedAt": 240131218,
+            "ReceivedAction": null,
+            "AppearancePending": false,
+            "ShopActive": false,
+            "ShopText": "",
+            "ShopAt": 0,
+            "StrideCounter": 0,
+            "StrideStep": 0
+          },
+          {
+            "X": 32639,
+            "Y": 32956,
+            "ObjectId": 2000035931,
+            "Gfx": 31,
+            "Action": 0,
+            "Direction": 3,
+            "Light": 0,
+            "Speed": 0,
+            "WireExp": 37,
+            "Lawful": -6,
+            "Name": "$8",
+            "Title": "",
+            "Flags": 0,
+            "ClanId": 0,
+            "Clan": "",
+            "Owner": "",
+            "Rank": 0,
+            "HpByte": 255,
+            "Brave": 0,
+            "Level": 6,
+            "Unknown": 0,
+            "Tail1": 255,
+            "Tail2": 255,
+            "DoorAction": null,
+            "Combat": null,
+            "Dead": false,
+            "HpPercent": null,
+            "Classification": "non-PC flag",
+            "SourceX": 32638,
+            "SourceY": 32955,
+            "MotionAt": 240133562,
+            "MotionSpeed": 0,
+            "MotionBrave": 0,
+            "UpdatedAt": 240133562,
+            "ReceivedAction": null,
+            "AppearancePending": false,
+            "ShopActive": false,
+            "ShopText": "",
+            "ShopAt": 0,
+            "StrideCounter": 0,
+            "StrideStep": 0
+          },
+          {
+            "X": 32645,
+            "Y": 32942,
+            "ObjectId": 2000035932,
+            "Gfx": 31,
+            "Action": 0,
+            "Direction": 7,
+            "Light": 0,
+            "Speed": 0,
+            "WireExp": 37,
+            "Lawful": -6,
+            "Name": "$8",
+            "Title": "",
+            "Flags": 0,
+            "ClanId": 0,
+            "Clan": "",
+            "Owner": "",
+            "Rank": 0,
+            "HpByte": 255,
+            "Brave": 0,
+            "Level": 6,
+            "Unknown": 0,
+            "Tail1": 255,
+            "Tail2": 255,
+            "DoorAction": null,
+            "Combat": null,
+            "Dead": false,
+            "HpPercent": null,
+            "Classification": "non-PC flag",
+            "SourceX": 32646,
+            "SourceY": 32943,
+            "MotionAt": 240135109,
+            "MotionSpeed": 0,
+            "MotionBrave": 0,
+            "UpdatedAt": 240135109,
+            "ReceivedAction": null,
+            "AppearancePending": false,
+            "ShopActive": false,
+            "ShopText": "",
+            "ShopAt": 0,
+            "StrideCounter": 0,
+            "StrideStep": 0
+          },
+          {
+            "X": 32645,
+            "Y": 32951,
+            "ObjectId": 2000039445,
+            "Gfx": 98,
+            "Action": 0,
+            "Direction": 5,
+            "Light": 14,
+            "Speed": 0,
+            "WireExp": 0,
+            "Lawful": 0,
+            "Name": "$269",
+            "Title": "",
+            "Flags": 0,
+            "ClanId": 0,
+            "Clan": "",
+            "Owner": "",
+            "Rank": 0,
+            "HpByte": 255,
+            "Brave": 0,
+            "Level": 0,
+            "Unknown": 0,
+            "Tail1": 255,
+            "Tail2": 255,
+            "DoorAction": null,
+            "Combat": null,
+            "Dead": false,
+            "HpPercent": null,
+            "Classification": "non-PC flag",
+            "SourceX": 32645,
+            "SourceY": 32951,
+            "MotionAt": 0,
+            "MotionSpeed": 0,
+            "MotionBrave": 0,
+            "UpdatedAt": 240125718,
+            "ReceivedAction": null,
+            "AppearancePending": false,
+            "ShopActive": false,
+            "ShopText": "",
+            "ShopAt": 0,
+            "StrideCounter": 0,
+            "StrideStep": 0
+          }
+        ],
+        "target": null,
+        "targetId": null,
+        "opacity": {
+          "revision": 9,
+          "time": 240135062,
+          "position": [
+            32648,
+            32948
+          ],
+          "groups": [
+            "7ffe8002@3:22",
+            "7ffe8002@3:23"
+          ],
+          "states": [
+            [
+              "objects",
+              30267,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30268,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30269,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30270,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30271,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30272,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30291,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30273,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30274,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30292,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30275,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30293,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30276,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30294,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30277,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30295,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30278,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30296,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30279,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30306,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30307,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30297,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30280,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30298,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30281,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30308,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30282,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30309,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30310,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30333,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30299,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30311,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30283,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30334,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30300,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30284,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30312,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30285,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30313,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30314,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30315,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30335,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30301,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30316,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30286,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30336,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30302,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30287,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30317,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30337,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30303,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30288,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30318,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30319,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30320,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30338,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30304,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30321,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30289,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30339,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30305,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30322,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30290,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30340,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30323,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30341,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30324,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30325,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30342,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30326,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30343,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30327,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30344,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30328,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30345,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30329,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30346,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30330,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30347,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30331,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30348,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30332,
+              1,
+              0,
+              1
+            ]
+          ],
+          "timers": []
+        },
+        "cache": {
+          "mapId": 0,
+          "bounds": {
+            "MinX": 32256,
+            "MinY": 32768,
+            "MaxX": 32767,
+            "MaxY": 33279,
+            "Width": 512,
+            "Height": 512
+          },
+          "origin": [
+            32384,
+            32896
+          ],
+          "revision": 1,
+          "lastDirection": null,
+          "slots": [
+            {
+              "slot": 0,
+              "block": "7ffd8002",
+              "sha256": "a7e3e584202ddb9221fe6cd5042190486651f4a71db7e056b5e161bf31b30239",
+              "generation": 4,
+              "effects": [],
+              "effectsAt": 240126515
+            },
+            {
+              "slot": 1,
+              "block": "7ffe8002",
+              "sha256": "b15c05883cfe65a1e2c11f6b2af18e51f086b8d6dfcc185c93c655c3490eed1d",
+              "generation": 3,
+              "effects": [],
+              "effectsAt": 240126515
+            },
+            {
+              "slot": 2,
+              "block": "7ffd8003",
+              "sha256": "23ad0e1ef9001c6e331a3425e5a1faa410d3cf4a8e5d9425f38daa85c22e7e3a",
+              "generation": 2,
+              "effects": [],
+              "effectsAt": 240126515
+            },
+            {
+              "slot": 3,
+              "block": "7ffe8003",
+              "sha256": "325c1c59b36be74fec48bb69703f09ef26a68ebe7226f720aa3be6db32abb289",
+              "generation": 1,
+              "effects": [],
+              "effectsAt": 240126515
+            }
+          ],
+          "nodes": 45837,
+          "loads": 4,
+          "tileDecodes": 18214,
+          "events": [
+            {
+              "kind": "load",
+              "slot": 3,
+              "block": "7ffe8003",
+              "source": "325c1c59b36be74fec48bb69703f09ef26a68ebe7226f720aa3be6db32abb289",
+              "generation": 1
+            },
+            {
+              "kind": "load",
+              "slot": 2,
+              "block": "7ffd8003",
+              "source": "23ad0e1ef9001c6e331a3425e5a1faa410d3cf4a8e5d9425f38daa85c22e7e3a",
+              "generation": 2
+            },
+            {
+              "kind": "load",
+              "slot": 1,
+              "block": "7ffe8002",
+              "source": "b15c05883cfe65a1e2c11f6b2af18e51f086b8d6dfcc185c93c655c3490eed1d",
+              "generation": 3
+            },
+            {
+              "kind": "load",
+              "slot": 0,
+              "block": "7ffd8002",
+              "source": "a7e3e584202ddb9221fe6cd5042190486651f4a71db7e056b5e161bf31b30239",
+              "generation": 4
+            },
+            {
+              "kind": "cold",
+              "x": 32648,
+              "y": 32948,
+              "origin": [
+                32384,
+                32896
+              ],
+              "order": [
+                3,
+                2,
+                1,
+                0
+              ]
+            }
+          ]
+        },
+        "objectRevision": 26,
+        "worldEpoch": 3,
+        "unknownObjectUpdates": 0,
+        "unhandledSubtypes": {
+          "0xFA/0x58": 1
+        },
+        "extensions": {
+          "ability": {
+            "flags": [],
+            "active": [],
+            "updates": 0,
+            "spMr": {
+              "sp": 1,
+              "mr": 0,
+              "form": "dword",
+              "updates": 3
+            },
+            "teleportDestination": null
+          },
+          "agitAuctionWindow": null,
+          "agit": {
+            "houseListPackets": 0,
+            "houseMapPackets": 0,
+            "houseList": null,
+            "houseMap": null,
+            "ui": "AgitAuctionUI: native panels Agitmap_Window / AuctionInfo_Window / Bid_Window from the reference client XML (#761, #805; data only with --classic-ui or when the XML is unavailable); AgitMapWindow: native panel AgitMap_Window (#550)",
+            "mapWindowRevision": null
+          },
+          "amountPrompt": {
+            "revision": 2,
+            "received": 0,
+            "ignored": 0,
+            "sent": 0,
+            "notice": "",
+            "last": null,
+            "current": null
+          },
+          "castle": {
+            "revision": 2,
+            "notice": "",
+            "offer": null,
+            "page": null,
+            "masters": [],
+            "lostNotice": 0
+          },
+          "chatChannels": {
+            "world": true,
+            "whisper": true,
+            "trade": true,
+            "stored": false
+          },
+          "clanEmblemStatus": {
+            "packets": 0,
+            "showEmblem": null,
+            "notice": null,
+            "ui": "R4-E: native clan window side box and the WinForms clan window show the check box (C254 0x2E); names still draw emblems"
+          },
+          "clanMatching": {
+            "revision": 2,
+            "notice": "",
+            "recommended": null,
+            "applied": null,
+            "detail": null,
+            "lastResult": null
+          },
+          "clanWarehouseHistory": {
+            "packets": 0,
+            "records": null,
+            "notice": null,
+            "ui": "native window sub_A559D0 on HYPER_TEXT_WINDOW (NativeUi/ClanWarehouseHistoryPanel.cs, T288 #689) when native UI is on, otherwise the WinForms list; type 0 = deposit, 1 = withdraw (FU4§5); surf 9183 missing locally (FU5§5), close button not drawn"
+          },
+          "cooking": {
+            "open": false,
+            "value": 0,
+            "level": 0,
+            "bookItemId": 0,
+            "levelSurf": null,
+            "magic": "0x00000000",
+            "magicMatches381": false,
+            "revision": 2,
+            "bookObjectId": 0,
+            "ui": "native COOK_BOOK_WINDOW (NativeUi/CookBookPanel.cs) when native UI is on, WinForms list (CookBookFallbackUi.cs) otherwise; recipes from client recipe.tbl (R4-D #707)"
+          },
+          "death": {
+            "phase": "alive",
+            "map": null,
+            "diedAt": null,
+            "windowAt": null,
+            "quitAt": null,
+            "remainingMs": null,
+            "windowOpen": false,
+            "dismissed": false,
+            "quitSent": false,
+            "restartRequested": false
+          },
+          "fishObtain": {
+            "revision": 2,
+            "count": 0,
+            "ids": []
+          },
+          "kick": null,
+          "own-action": null,
+          "packetBoxMessages": {
+            "packets": {},
+            "lines": [],
+            "dropped": 0,
+            "rank": null,
+            "lastavard": null,
+            "warOverClans": null,
+            "feelGood": 0,
+            "feelGoodTarget": 0,
+            "feelGoodEffectPending": false,
+            "feelGoodEffects": 0,
+            "table": "string-c.tbl"
+          },
+          "packetBoxScreen": {
+            "packets": {},
+            "centerMessages": [],
+            "flash": {
+              "level": 0,
+              "count": 0,
+              "surf": 1473,
+              "drawn": false
+            },
+            "sway": {
+              "active": false,
+              "toggles": 0,
+              "offset": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            "fireworks": 0,
+            "other": {
+              "count": 0,
+              "last": 0
+            }
+          },
+          "packetBoxStatus": {
+            "packets": {
+              "82": 1,
+              "87": 1,
+              "132": 2,
+              "180": 1
+            },
+            "dkLevel": null,
+            "leaves": 22,
+            "karma": 0,
+            "evasion": 4,
+            "weaponRange": null,
+            "cooking": null,
+            "mapTimes": null,
+            "protections": [],
+            "unknownProtections": 0,
+            "noneTimeIcons": [
+              {
+                "iconId": 502,
+                "stringId": 0
+              }
+            ],
+            "delIcons": 0,
+            "leavesMapBase": 0,
+            "leavesPcCafe": false,
+            "startMessages": [
+              {
+                "stringId": 3406,
+                "text": "伺服器經驗加倍。"
+              }
+            ],
+            "startMessagesDropped": 0,
+            "leavesShown": [
+              175
+            ],
+            "statusIcons": [
+              {
+                "effect": 175,
+                "mode": 1,
+                "value": 22,
+                "defaultDuration": false,
+                "iconOverride": null,
+                "origin": "leaves:22",
+                "boost": false,
+                "boostText": null
+              },
+              {
+                "effect": 502,
+                "mode": 0,
+                "value": -1,
+                "defaultDuration": false,
+                "iconOverride": null,
+                "origin": "none-time:502",
+                "boost": false,
+                "boostText": null
+              }
+            ],
+            "ui": "data only: timed states feed MagicBuffs; 75/82/180 effect ids in statusIcons; icon drawing belongs to native UI buff-icons"
+          },
+          "packetSoundLevels": null,
+          "petEquipment": {
+            "revision": 2,
+            "ignored": 0,
+            "pets": [],
+            "reply": "none: TW16 sends C_CHECK_INVENTORY (3.81 C99) here, but the 3.81 server never answers it; engine sends nothing"
+          },
+          "petTarget": {
+            "revision": 2,
+            "notice": "",
+            "ignored": 0,
+            "pending": null
+          },
+          "pledgeWindow": {
+            "openRevision": 0,
+            "revision": 0,
+            "clan": "",
+            "online": null,
+            "notice": null,
+            "memos": {}
+          },
+          "productSound": {
+            "status": "已接上（ready；音樂有、環境音有、^ 有）",
+            "armed": true,
+            "clientRoot": "D:\\lineage開發\\0-客戶端",
+            "music": 1,
+            "env": 2,
+            "ambient": 0,
+            "ambientScale": 1,
+            "oneShot": 0,
+            "midi": false,
+            "midiSilenced": 0,
+            "midiKept": 0,
+            "stream": {
+              "Live": 2,
+              "Started": 5,
+              "Rejected": 0,
+              "Looped": 1,
+              "Ended": 1,
+              "Failed": 0,
+              "LastError": ""
+            }
+          },
+          "serverFeatures": null,
+          "skillCastQueue": {
+            "queued": [],
+            "total": 0
+          },
+          "spellExchange": {
+            "revision": 2,
+            "phase": "closed",
+            "notice": "",
+            "offer": null,
+            "pending": [],
+            "learned": 0
+          },
+          "statusEffects": [],
+          "stride": {
+            "own": {
+              "counter": 0,
+              "step": 0
+            },
+            "others": []
+          },
+          "summon": {
+            "revision": 2,
+            "notice": "",
+            "request": null
+          },
+          "userPlayStats": {
+            "expGain": 0,
+            "adenaGain": 0,
+            "kills": 0,
+            "newItems": 0,
+            "baseline": true,
+            "baseLevel": 52,
+            "baseExp": 0,
+            "baseAdena": 8000,
+            "newItemIds": []
+          }
+        }
+      },
+      "worldEntry": {
+        "startedAt": null,
+        "transition": null,
+        "probeAt": null,
+        "pendingMap": null,
+        "coreTimeoutMs": 12000,
+        "probeTimeoutMs": 8000,
+        "localTimeoutMs": 30000,
+        "totalTimeoutMs": 60000
+      },
+      "decodeFailure": null,
+      "entryFailure": null,
+      "serverFeatures": {
+        "c14Sent": true,
+        "c14Error": null,
+        "s139Count": 1,
+        "error": null,
+        "features": {
+          "status": 0,
+          "accepted": true,
+          "serverNo": 1,
+          "language": 3,
+          "codePage": 950,
+          "codePageMismatch": false,
+          "flags": "0x77D82",
+          "fastPickup": true,
+          "pickupThrottleMs": 600,
+          "continuousAttack": false,
+          "uptime": 1794638581,
+          "trailingBytes": 6
+        }
+      },
+      "scope": "P24 independent real JAR + MySQL world initialization"
+    },
+    "n01-final-login-state.json": {
+      "state": "InWorld",
+      "detail": "地圖 0 已載入原始區塊。",
+      "profile": "p24-real-jar-d287-client2",
+      "news": "",
+      "newsPending": false,
+      "expected": 3,
+      "slots": 4,
+      "characters": [
+        {
+          "Name": "資源法師",
+          "Clan": "",
+          "Class": 3,
+          "Sex": 0,
+          "Lawful": -10,
+          "Hp": 300,
+          "Mp": 300,
+          "Ac": 4,
+          "Level": 52,
+          "Strength": 8,
+          "Dexterity": 7,
+          "Constitution": 12,
+          "Wisdom": 12,
+          "Charisma": 8,
+          "Intelligence": 28,
+          "Gm": 0,
+          "CreateTime": 20261114,
+          "CheckCode": 47
+        },
+        {
+          "Name": "服務驗證",
+          "Clan": "資源血盟",
+          "Class": 0,
+          "Sex": 0,
+          "Lawful": 26,
+          "Hp": 236,
+          "Mp": 117,
+          "Ac": -4,
+          "Level": 59,
+          "Strength": 22,
+          "Dexterity": 13,
+          "Constitution": 16,
+          "Wisdom": 12,
+          "Charisma": 10,
+          "Intelligence": 11,
+          "Gm": 0,
+          "CreateTime": 20261026,
+          "CheckCode": 61
+        },
+        {
+          "Name": "服務交易",
+          "Clan": "",
+          "Class": 0,
+          "Sex": 0,
+          "Lawful": 0,
+          "Hp": 686,
+          "Mp": 117,
+          "Ac": 0,
+          "Level": 59,
+          "Strength": 22,
+          "Dexterity": 13,
+          "Constitution": 16,
+          "Wisdom": 12,
+          "Charisma": 10,
+          "Intelligence": 11,
+          "Gm": 0,
+          "CreateTime": 20261106,
+          "CheckCode": 61
+        }
+      ],
+      "revision": 127,
+      "appliedPacketSequence": 122,
+      "world": {
+        "playerChat": [
+          {
+            "Sequence": 1,
+            "Speaker": 0,
+            "Text": "伺服器經驗加倍。",
+            "Channel": 0,
+            "Location": null,
+            "ColorIndex": 24,
+            "Code": false
+          },
+          {
+            "Sequence": 2,
+            "Speaker": 0,
+            "Text": "\\fU[永遠的天堂] \\fI從 \\fY[食人妖精] \\fT獲得 \\fW[黑暗精靈水晶(燃燒鬥志)]",
+            "Channel": 0,
+            "Location": null,
+            "ColorIndex": 2,
+            "Code": false
+          }
+        ],
+        "sustenance": "飽食 40/255 · 負重 0/240（原服刻度）",
+        "basicSupplyNotice": "",
+        "privateShop": {
+          "phase": "idle",
+          "revision": 2,
+          "ownerId": 0,
+          "sell": false,
+          "selectedRow": null,
+          "rows": [],
+          "notice": "請明確選取可見的個人商店，再查詢買入或售出清單。",
+          "serverText": ""
+        },
+        "announcement": "",
+        "bonusStatsNotice": "請選擇您所要提昇的屬性。您所選擇的屬性將提昇１點。剩餘點數：原服未提供。",
+        "bonusStats": {
+          "phase": "offered",
+          "revision": 3,
+          "selected": null,
+          "remaining": null
+        },
+        "ready": true,
+        "coreComplete": true,
+        "entered": true,
+        "mapId": 0,
+        "underwater": false,
+        "status": {
+          "ObjectId": 10334,
+          "Level": 52,
+          "Exp": 127941146,
+          "Strength": 8,
+          "Intelligence": 28,
+          "Wisdom": 12,
+          "Dexterity": 7,
+          "Constitution": 12,
+          "Charisma": 8,
+          "Hp": 300,
+          "MaxHp": 300,
+          "Mp": 300,
+          "MaxMp": 300,
+          "Ac": 4,
+          "Time": 353694000,
+          "Food": 40,
+          "Weight": 0,
+          "Lawful": -10,
+          "Fire": 0,
+          "Water": 0,
+          "Wind": 0,
+          "Earth": 0,
+          "Kills": 0
+        },
+        "actor": {
+          "X": 32648,
+          "Y": 32948,
+          "ObjectId": 10334,
+          "Gfx": 734,
+          "Weapon": 0,
+          "Direction": 0,
+          "Light": 5,
+          "Speed": 0,
+          "Exp": 127941146,
+          "Lawful": -10,
+          "Name": "資源法師",
+          "Title": "",
+          "Flags": 4,
+          "ClanId": 0,
+          "Clan": "",
+          "Owner": "",
+          "Rank": 176,
+          "HpPercent": 255,
+          "Brave": 0,
+          "Level": 0,
+          "Unknown": 0,
+          "Tail1": 255,
+          "Tail2": 255
+        },
+        "supportedMap": true,
+        "mapResourceState": "ready",
+        "mapResourceNotice": "地圖 0 已載入原始區塊。",
+        "loadedRegion": {
+          "minX": 32576,
+          "minY": 32896,
+          "maxX": 32703,
+          "maxY": 33023,
+          "mode": "original moving 2x2 cache"
+        },
+        "supportedAppearance": true,
+        "appearanceNotice": "角色外觀已載入",
+        "appearanceRevision": 4,
+        "appearanceProfile": {
+          "Gfx": 734,
+          "Weapon": 0,
+          "Path": "players/734-0.json",
+          "Sha256": "1a48881ab41af22a58e52102a3ef940e0b6f2a71473b0b2012a6ad0b1d3f0e3b",
+          "StepMs": 640,
+          "ServerActionMs": {
+            "walk": 640,
+            "attack": 880,
+            "spellDir": 960,
+            "spellNoDir": 1120
+          },
+          "CastReleaseMs": {
+            "spellDir": 664,
+            "spellNoDir": 703
+          },
+          "ProjectileReleaseMs": null,
+          "Runtime": null
+        },
+        "renderable": true,
+        "keepalivesSent": 3,
+        "timeReplies": 3,
+        "serverTime": 353694195,
+        "unhandled": {
+          "0xFA": 1
+        },
+        "ship": {
+          "state": "idle",
+          "notice": "",
+          "pending": false,
+          "clockFresh": false,
+          "serverSeconds": 353694195,
+          "clockRevision": 5,
+          "passage": null,
+          "ticketConfirmed": false
+        },
+        "teleport": {
+          "generation": 3,
+          "state": "arrived",
+          "notice": "已收到原服角色位置並載入地圖。",
+          "marker": null,
+          "portal": null,
+          "pending": false,
+          "actionLocked": false,
+          "paralysis": ""
+        },
+        "movement": {
+          "predictedSteps": 0,
+          "predictedTurns": 0,
+          "corrections": 0,
+          "authoritativeActor": {
+            "X": 32648,
+            "Y": 32948,
+            "ObjectId": 10334,
+            "Gfx": 734,
+            "Weapon": 0,
+            "Direction": 0,
+            "Light": 0,
+            "Speed": 0,
+            "Exp": 127941146,
+            "Lawful": -10,
+            "Name": "資源法師",
+            "Title": "",
+            "Flags": 4,
+            "ClanId": 0,
+            "Clan": "",
+            "Owner": "",
+            "Rank": 176,
+            "HpPercent": 255,
+            "Brave": 0,
+            "Level": 0,
+            "Unknown": 0,
+            "Tail1": 255,
+            "Tail2": 255
+          },
+          "authoritativePosition": {
+            "map": 0,
+            "x": 32648,
+            "y": 32948,
+            "opcode": 87,
+            "revision": 1,
+            "predictedSince": false,
+            "text": "原服座標 map 0 / x 32648 / y 32948 · S87 #1",
+            "displayText": "目前位置 map 0 / x 32648 / y 32948（原服回報） · 原服座標 map 0 / x 32648 / y 32948 · S87 #1"
+          },
+          "notice": "已初始化；移動使用本地預測",
+          "stepMs": 640,
+          "animationMs": 640,
+          "speedRevision": 4,
+          "speedNotice": "",
+          "successAck": false
+        },
+        "combat": {
+          "reports": 0,
+          "lastAttack": null,
+          "lastProjectile": null,
+          "projectiles": [],
+          "ownAnimation": null,
+          "ownDead": false,
+          "restartRequested": false,
+          "arrowCount": 0,
+          "notice": "選取可見目標後按 G：依原武器單次攻擊",
+          "damageMeaning": "ClientLogin=2 original attack damage word, not independently established HP loss; zero does not distinguish miss from zero damage"
+        },
+        "inventory": {
+          "loaded": true,
+          "emptyInventoryFromWorldSync": false,
+          "revision": 4,
+          "items": [
+            {
+              "ObjectId": 10336,
+              "DescriptionId": 0,
+              "UseType": 14,
+              "Charges": 0,
+              "IconId": 2608,
+              "Bless": 1,
+              "Count": 1,
+              "Flags": 0,
+              "Name": "$5239",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "",
+              "Status": {
+                "Attributes": [],
+                "HasDetails": false,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": false,
+              "Tradable": true,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": true,
+              "SupportedUse": true,
+              "UseAction": "選擇使用目標",
+              "UseState": "請選擇背包內的目標物品"
+            },
+            {
+              "ObjectId": 10337,
+              "DescriptionId": 0,
+              "UseType": 0,
+              "Charges": 0,
+              "IconId": 957,
+              "Bless": 1,
+              "Count": 1,
+              "Flags": 2,
+              "Name": "新手武器箱",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "",
+              "Status": {
+                "Attributes": [],
+                "HasDetails": false,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": false,
+              "Tradable": false,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            },
+            {
+              "ObjectId": 10338,
+              "DescriptionId": 1338,
+              "UseType": 9,
+              "Charges": 0,
+              "IconId": 474,
+              "Bless": 1,
+              "Count": 20,
+              "Flags": 0,
+              "Name": "$505 (20)",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "",
+              "Status": {
+                "Attributes": [],
+                "HasDetails": false,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": false,
+              "Tradable": true,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            },
+            {
+              "ObjectId": 10339,
+              "DescriptionId": 0,
+              "UseType": 255,
+              "Charges": 0,
+              "IconId": 5,
+              "Bless": 1,
+              "Count": 8000,
+              "Flags": 0,
+              "Name": "$4 (8000)",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "",
+              "Status": {
+                "Attributes": [],
+                "HasDetails": false,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": false,
+              "Tradable": true,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            },
+            {
+              "ObjectId": 10340,
+              "DescriptionId": 0,
+              "UseType": 0,
+              "Charges": 0,
+              "IconId": 957,
+              "Bless": 1,
+              "Count": 1,
+              "Flags": 2,
+              "Name": "新手裝備箱",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "",
+              "Status": {
+                "Attributes": [],
+                "HasDetails": false,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": false,
+              "Tradable": false,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            },
+            {
+              "ObjectId": 10341,
+              "DescriptionId": 68,
+              "UseType": 254,
+              "Charges": 0,
+              "IconId": 96,
+              "Bless": 1,
+              "Count": 3000,
+              "Flags": 8,
+              "Name": "$93 (3000)",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "",
+              "Status": {
+                "Attributes": [],
+                "HasDetails": false,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": false,
+              "Tradable": true,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            },
+            {
+              "ObjectId": 10342,
+              "DescriptionId": 0,
+              "UseType": 0,
+              "Charges": 0,
+              "IconId": 6101,
+              "Bless": 1,
+              "Count": 1,
+              "Flags": 2,
+              "Name": "主城傳送",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "",
+              "Status": {
+                "Attributes": [],
+                "HasDetails": false,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": false,
+              "Tradable": false,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            },
+            {
+              "ObjectId": 10343,
+              "DescriptionId": 0,
+              "UseType": 0,
+              "Charges": 0,
+              "IconId": 957,
+              "Bless": 1,
+              "Count": 1,
+              "Flags": 2,
+              "Name": "新手補給箱",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "",
+              "Status": {
+                "Attributes": [],
+                "HasDetails": false,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": false,
+              "Tradable": false,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            },
+            {
+              "ObjectId": 1900251101,
+              "DescriptionId": 361,
+              "UseType": 252,
+              "Charges": 0,
+              "IconId": 487,
+              "Bless": 1,
+              "Count": 1,
+              "Flags": 5,
+              "Name": "$1173 [Lv.5] 資源牧羊 HP30",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "170B05000000",
+              "Status": {
+                "Attributes": [
+                  {
+                    "Tag": 23,
+                    "Key": "material",
+                    "Label": "材質代碼",
+                    "Value": 11,
+                    "Text": null
+                  },
+                  {
+                    "Tag": 23,
+                    "Key": "weight",
+                    "Label": "重量",
+                    "Value": 5,
+                    "Text": null
+                  }
+                ],
+                "HasDetails": true,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": true,
+              "Tradable": true,
+              "Deletable": false,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            },
+            {
+              "ObjectId": 1900251102,
+              "DescriptionId": 2045,
+              "UseType": 0,
+              "Charges": 0,
+              "IconId": 477,
+              "Bless": 1,
+              "Count": 9,
+              "Flags": 1,
+              "Name": "$4288 (9)",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "170800000000",
+              "Status": {
+                "Attributes": [
+                  {
+                    "Tag": 23,
+                    "Key": "material",
+                    "Label": "材質代碼",
+                    "Value": 8,
+                    "Text": null
+                  },
+                  {
+                    "Tag": 23,
+                    "Key": "weight",
+                    "Label": "重量",
+                    "Value": 0,
+                    "Text": null
+                  }
+                ],
+                "HasDetails": true,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": true,
+              "Tradable": true,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            },
+            {
+              "ObjectId": 1900251103,
+              "DescriptionId": 166,
+              "UseType": 255,
+              "Charges": 0,
+              "IconId": 235,
+              "Bless": 1,
+              "Count": 57,
+              "Flags": 1,
+              "Name": "$508 (57)",
+              "TailHex": "0A00000000000000000000",
+              "Equipped": null,
+              "StatusHex": "171472000000",
+              "Status": {
+                "Attributes": [
+                  {
+                    "Tag": 23,
+                    "Key": "material",
+                    "Label": "材質代碼",
+                    "Value": 20,
+                    "Text": null
+                  },
+                  {
+                    "Tag": 23,
+                    "Key": "weight",
+                    "Label": "重量",
+                    "Value": 114,
+                    "Text": null
+                  }
+                ],
+                "HasDetails": true,
+                "Complete": true,
+                "ErrorOffset": null,
+                "Error": null,
+                "UnparsedHex": "",
+                "Enchantment": null,
+                "Damage": null
+              },
+              "FishObtainFlag": false,
+              "Identified": true,
+              "Tradable": true,
+              "Deletable": true,
+              "Sealed": false,
+              "SupportedHealingPotion": false,
+              "SupportedHastePotion": false,
+              "SupportedMeat": false,
+              "SupportedHomeScroll": false,
+              "SupportedBasicSupply": false,
+              "UseDelayMs": 1000,
+              "SupportedPotion": false,
+              "SupportedEquipment": false,
+              "SupportedArrow": false,
+              "SupportedArguments": false,
+              "SupportedUse": false,
+              "UseAction": "單次使用",
+              "UseState": "此道具的使用尚未支援"
+            }
+          ],
+          "selectedId": null,
+          "selectionRevision": 3,
+          "unknownUpdates": 0,
+          "notice": "原服背包已同步",
+          "effectNumber": 0,
+          "lastEffect": null,
+          "serverMessage": null,
+          "serverReply": null
+        },
+        "equipment": {
+          "replyPending": false,
+          "listReceived": true,
+          "revision": 5,
+          "slots": []
+        },
+        "rewards": {
+          "experience": {
+            "Level": 52,
+            "WireLow32": 127941146,
+            "Total": 127941146,
+            "LevelStart": 127941146,
+            "NextLevel": 164006238,
+            "Percent": 0,
+            "Source": "S8",
+            "Limitation": ""
+          },
+          "lastExperienceChange": null,
+          "experienceChanges": 0,
+          "inventoryChanges": [],
+          "notice": "原回包狀態差值；背包增加的來源需由實際戰鬥證據核對"
+        },
+        "ground": {
+          "presentation": {
+            "policyId": "OWN-BASE-15-001-SUPERVISOR-R1",
+            "sourceEligibility": "native-unproven",
+            "runtimeTimingCertified": false,
+            "active": null,
+            "last": null
+          },
+          "items": [],
+          "selectedId": null,
+          "revision": 3,
+          "selectionRevision": 3,
+          "notice": "等待原服地面物品",
+          "pickupActions": 0,
+          "lastPickupActor": null,
+          "lastPickupHeading": null,
+          "awaitingPickupAction": false,
+          "pickupOutcomeTimedOut": false,
+          "pickupAll": false,
+          "pickupPrompt": null
+        },
+        "magic": {
+          "received": true,
+          "learned": [
+            {
+              "Id": 4,
+              "Name": "光箭",
+              "Supported": true,
+              "Target": "指定對象",
+              "NominalMp": 3
+            },
+            {
+              "Id": 51,
+              "Name": "召喚術",
+              "Supported": true,
+              "Target": "自己／指定對象",
+              "NominalMp": 30
+            }
+          ],
+          "selectedId": null,
+          "targetSelf": true,
+          "effectiveTargetSelf": false,
+          "targetName": "尚未選擇技能",
+          "buffs": [],
+          "buffNotice": "",
+          "ac": null,
+          "acNotice": "AC：等待伺服器完整更新",
+          "partialAcByte": 4,
+          "revision": 10,
+          "effectCount": 0,
+          "effects": [],
+          "notice": "原服已學技能已更新"
+        },
+        "objects": [
+          {
+            "X": 32644,
+            "Y": 32942,
+            "ObjectId": 2000035928,
+            "Gfx": 31,
+            "Action": 0,
+            "Direction": 5,
+            "Light": 0,
+            "Speed": 0,
+            "WireExp": 37,
+            "Lawful": -6,
+            "Name": "$8",
+            "Title": "",
+            "Flags": 0,
+            "ClanId": 0,
+            "Clan": "",
+            "Owner": "",
+            "Rank": 0,
+            "HpByte": 255,
+            "Brave": 0,
+            "Level": 6,
+            "Unknown": 0,
+            "Tail1": 255,
+            "Tail2": 255,
+            "DoorAction": null,
+            "Combat": null,
+            "Dead": false,
+            "HpPercent": null,
+            "Classification": "non-PC flag",
+            "SourceX": 32645,
+            "SourceY": 32941,
+            "MotionAt": 240158171,
+            "MotionSpeed": 0,
+            "MotionBrave": 0,
+            "UpdatedAt": 240158171,
+            "ReceivedAction": null,
+            "AppearancePending": false,
+            "ShopActive": false,
+            "ShopText": "",
+            "ShopAt": 0,
+            "StrideCounter": 0,
+            "StrideStep": 0
+          },
+          {
+            "X": 32648,
+            "Y": 32950,
+            "ObjectId": 2000035929,
+            "Gfx": 31,
+            "Action": 0,
+            "Direction": 4,
+            "Light": 0,
+            "Speed": 0,
+            "WireExp": 37,
+            "Lawful": -6,
+            "Name": "$8",
+            "Title": "",
+            "Flags": 0,
+            "ClanId": 0,
+            "Clan": "",
+            "Owner": "",
+            "Rank": 0,
+            "HpByte": 255,
+            "Brave": 0,
+            "Level": 6,
+            "Unknown": 0,
+            "Tail1": 255,
+            "Tail2": 255,
+            "DoorAction": null,
+            "Combat": null,
+            "Dead": false,
+            "HpPercent": null,
+            "Classification": "non-PC flag",
+            "SourceX": 32648,
+            "SourceY": 32949,
+            "MotionAt": 240160078,
+            "MotionSpeed": 0,
+            "MotionBrave": 0,
+            "UpdatedAt": 240160078,
+            "ReceivedAction": null,
+            "AppearancePending": false,
+            "ShopActive": false,
+            "ShopText": "",
+            "ShopAt": 0,
+            "StrideCounter": 0,
+            "StrideStep": 0
+          },
+          {
+            "X": 32636,
+            "Y": 32953,
+            "ObjectId": 2000035931,
+            "Gfx": 31,
+            "Action": 0,
+            "Direction": 3,
+            "Light": 0,
+            "Speed": 0,
+            "WireExp": 37,
+            "Lawful": -6,
+            "Name": "$8",
+            "Title": "",
+            "Flags": 0,
+            "ClanId": 0,
+            "Clan": "",
+            "Owner": "",
+            "Rank": 0,
+            "HpByte": 255,
+            "Brave": 0,
+            "Level": 6,
+            "Unknown": 0,
+            "Tail1": 255,
+            "Tail2": 255,
+            "DoorAction": null,
+            "Combat": null,
+            "Dead": false,
+            "HpPercent": null,
+            "Classification": "non-PC flag",
+            "SourceX": 32635,
+            "SourceY": 32952,
+            "MotionAt": 240159328,
+            "MotionSpeed": 0,
+            "MotionBrave": 0,
+            "UpdatedAt": 240159328,
+            "ReceivedAction": null,
+            "AppearancePending": false,
+            "ShopActive": false,
+            "ShopText": "",
+            "ShopAt": 0,
+            "StrideCounter": 0,
+            "StrideStep": 0
+          },
+          {
+            "X": 32646,
+            "Y": 32940,
+            "ObjectId": 2000035932,
+            "Gfx": 31,
+            "Action": 0,
+            "Direction": 1,
+            "Light": 0,
+            "Speed": 0,
+            "WireExp": 37,
+            "Lawful": -6,
+            "Name": "$8",
+            "Title": "",
+            "Flags": 0,
+            "ClanId": 0,
+            "Clan": "",
+            "Owner": "",
+            "Rank": 0,
+            "HpByte": 255,
+            "Brave": 0,
+            "Level": 6,
+            "Unknown": 0,
+            "Tail1": 255,
+            "Tail2": 255,
+            "DoorAction": null,
+            "Combat": null,
+            "Dead": false,
+            "HpPercent": null,
+            "Classification": "non-PC flag",
+            "SourceX": 32645,
+            "SourceY": 32941,
+            "MotionAt": 240159578,
+            "MotionSpeed": 0,
+            "MotionBrave": 0,
+            "UpdatedAt": 240159578,
+            "ReceivedAction": null,
+            "AppearancePending": false,
+            "ShopActive": false,
+            "ShopText": "",
+            "ShopAt": 0,
+            "StrideCounter": 0,
+            "StrideStep": 0
+          },
+          {
+            "X": 32645,
+            "Y": 32951,
+            "ObjectId": 2000039445,
+            "Gfx": 98,
+            "Action": 0,
+            "Direction": 5,
+            "Light": 14,
+            "Speed": 0,
+            "WireExp": 0,
+            "Lawful": 0,
+            "Name": "$269",
+            "Title": "",
+            "Flags": 0,
+            "ClanId": 0,
+            "Clan": "",
+            "Owner": "",
+            "Rank": 0,
+            "HpByte": 255,
+            "Brave": 0,
+            "Level": 0,
+            "Unknown": 0,
+            "Tail1": 255,
+            "Tail2": 255,
+            "DoorAction": null,
+            "Combat": null,
+            "Dead": false,
+            "HpPercent": null,
+            "Classification": "non-PC flag",
+            "SourceX": 32645,
+            "SourceY": 32951,
+            "MotionAt": 0,
+            "MotionSpeed": 0,
+            "MotionBrave": 0,
+            "UpdatedAt": 240125718,
+            "ReceivedAction": null,
+            "AppearancePending": false,
+            "ShopActive": false,
+            "ShopText": "",
+            "ShopAt": 0,
+            "StrideCounter": 0,
+            "StrideStep": 0
+          }
+        ],
+        "target": null,
+        "targetId": null,
+        "opacity": {
+          "revision": 9,
+          "time": 240160078,
+          "position": [
+            32648,
+            32948
+          ],
+          "groups": [
+            "7ffe8002@3:22",
+            "7ffe8002@3:23"
+          ],
+          "states": [
+            [
+              "objects",
+              30267,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30268,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30269,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30270,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30271,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30272,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30291,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30273,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30274,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30292,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30275,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30293,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30276,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30294,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30277,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30295,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30278,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30296,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30279,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30306,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30307,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30297,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30280,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30298,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30281,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30308,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30282,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30309,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30310,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30333,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30299,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30311,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30283,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30334,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30300,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30284,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30312,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30285,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30313,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30314,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30315,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30335,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30301,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30316,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30286,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30336,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30302,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30287,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30317,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30337,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30303,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30288,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30318,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30319,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30320,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30338,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30304,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30321,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30289,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30339,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30305,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30322,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30290,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30340,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30323,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30341,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30324,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30325,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30342,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30326,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30343,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30327,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30344,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30328,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30345,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30329,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30346,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30330,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30347,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30331,
+              1,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30348,
+              257,
+              0,
+              1
+            ],
+            [
+              "objects",
+              30332,
+              1,
+              0,
+              1
+            ]
+          ],
+          "timers": []
+        },
+        "cache": {
+          "mapId": 0,
+          "bounds": {
+            "MinX": 32256,
+            "MinY": 32768,
+            "MaxX": 32767,
+            "MaxY": 33279,
+            "Width": 512,
+            "Height": 512
+          },
+          "origin": [
+            32384,
+            32896
+          ],
+          "revision": 1,
+          "lastDirection": null,
+          "slots": [
+            {
+              "slot": 0,
+              "block": "7ffd8002",
+              "sha256": "a7e3e584202ddb9221fe6cd5042190486651f4a71db7e056b5e161bf31b30239",
+              "generation": 4,
+              "effects": [],
+              "effectsAt": 240126515
+            },
+            {
+              "slot": 1,
+              "block": "7ffe8002",
+              "sha256": "b15c05883cfe65a1e2c11f6b2af18e51f086b8d6dfcc185c93c655c3490eed1d",
+              "generation": 3,
+              "effects": [],
+              "effectsAt": 240126515
+            },
+            {
+              "slot": 2,
+              "block": "7ffd8003",
+              "sha256": "23ad0e1ef9001c6e331a3425e5a1faa410d3cf4a8e5d9425f38daa85c22e7e3a",
+              "generation": 2,
+              "effects": [],
+              "effectsAt": 240126515
+            },
+            {
+              "slot": 3,
+              "block": "7ffe8003",
+              "sha256": "325c1c59b36be74fec48bb69703f09ef26a68ebe7226f720aa3be6db32abb289",
+              "generation": 1,
+              "effects": [],
+              "effectsAt": 240126515
+            }
+          ],
+          "nodes": 45837,
+          "loads": 4,
+          "tileDecodes": 18214,
+          "events": [
+            {
+              "kind": "load",
+              "slot": 3,
+              "block": "7ffe8003",
+              "source": "325c1c59b36be74fec48bb69703f09ef26a68ebe7226f720aa3be6db32abb289",
+              "generation": 1
+            },
+            {
+              "kind": "load",
+              "slot": 2,
+              "block": "7ffd8003",
+              "source": "23ad0e1ef9001c6e331a3425e5a1faa410d3cf4a8e5d9425f38daa85c22e7e3a",
+              "generation": 2
+            },
+            {
+              "kind": "load",
+              "slot": 1,
+              "block": "7ffe8002",
+              "source": "b15c05883cfe65a1e2c11f6b2af18e51f086b8d6dfcc185c93c655c3490eed1d",
+              "generation": 3
+            },
+            {
+              "kind": "load",
+              "slot": 0,
+              "block": "7ffd8002",
+              "source": "a7e3e584202ddb9221fe6cd5042190486651f4a71db7e056b5e161bf31b30239",
+              "generation": 4
+            },
+            {
+              "kind": "cold",
+              "x": 32648,
+              "y": 32948,
+              "origin": [
+                32384,
+                32896
+              ],
+              "order": [
+                3,
+                2,
+                1,
+                0
+              ]
+            }
+          ]
+        },
+        "objectRevision": 82,
+        "worldEpoch": 3,
+        "unknownObjectUpdates": 0,
+        "unhandledSubtypes": {
+          "0xFA/0x58": 1
+        },
+        "extensions": {
+          "ability": {
+            "flags": [],
+            "active": [],
+            "updates": 0,
+            "spMr": {
+              "sp": 1,
+              "mr": 0,
+              "form": "dword",
+              "updates": 3
+            },
+            "teleportDestination": null
+          },
+          "agitAuctionWindow": null,
+          "agit": {
+            "houseListPackets": 0,
+            "houseMapPackets": 0,
+            "houseList": null,
+            "houseMap": null,
+            "ui": "AgitAuctionUI: native panels Agitmap_Window / AuctionInfo_Window / Bid_Window from the reference client XML (#761, #805; data only with --classic-ui or when the XML is unavailable); AgitMapWindow: native panel AgitMap_Window (#550)",
+            "mapWindowRevision": null
+          },
+          "amountPrompt": {
+            "revision": 2,
+            "received": 0,
+            "ignored": 0,
+            "sent": 0,
+            "notice": "",
+            "last": null,
+            "current": null
+          },
+          "castle": {
+            "revision": 2,
+            "notice": "",
+            "offer": null,
+            "page": null,
+            "masters": [],
+            "lostNotice": 0
+          },
+          "chatChannels": {
+            "world": true,
+            "whisper": true,
+            "trade": true,
+            "stored": false
+          },
+          "clanEmblemStatus": {
+            "packets": 0,
+            "showEmblem": null,
+            "notice": null,
+            "ui": "R4-E: native clan window side box and the WinForms clan window show the check box (C254 0x2E); names still draw emblems"
+          },
+          "clanMatching": {
+            "revision": 2,
+            "notice": "",
+            "recommended": null,
+            "applied": null,
+            "detail": null,
+            "lastResult": null
+          },
+          "clanWarehouseHistory": {
+            "packets": 0,
+            "records": null,
+            "notice": null,
+            "ui": "native window sub_A559D0 on HYPER_TEXT_WINDOW (NativeUi/ClanWarehouseHistoryPanel.cs, T288 #689) when native UI is on, otherwise the WinForms list; type 0 = deposit, 1 = withdraw (FU4§5); surf 9183 missing locally (FU5§5), close button not drawn"
+          },
+          "cooking": {
+            "open": false,
+            "value": 0,
+            "level": 0,
+            "bookItemId": 0,
+            "levelSurf": null,
+            "magic": "0x00000000",
+            "magicMatches381": false,
+            "revision": 2,
+            "bookObjectId": 0,
+            "ui": "native COOK_BOOK_WINDOW (NativeUi/CookBookPanel.cs) when native UI is on, WinForms list (CookBookFallbackUi.cs) otherwise; recipes from client recipe.tbl (R4-D #707)"
+          },
+          "death": {
+            "phase": "alive",
+            "map": null,
+            "diedAt": null,
+            "windowAt": null,
+            "quitAt": null,
+            "remainingMs": null,
+            "windowOpen": false,
+            "dismissed": false,
+            "quitSent": false,
+            "restartRequested": false
+          },
+          "fishObtain": {
+            "revision": 2,
+            "count": 0,
+            "ids": []
+          },
+          "kick": null,
+          "own-action": null,
+          "packetBoxMessages": {
+            "packets": {},
+            "lines": [],
+            "dropped": 0,
+            "rank": null,
+            "lastavard": null,
+            "warOverClans": null,
+            "feelGood": 0,
+            "feelGoodTarget": 0,
+            "feelGoodEffectPending": false,
+            "feelGoodEffects": 0,
+            "table": "string-c.tbl"
+          },
+          "packetBoxScreen": {
+            "packets": {
+              "84/2": 1
+            },
+            "centerMessages": [
+              {
+                "sequence": 1,
+                "type": 2,
+                "raw": "\\fU[永遠的天堂] \\fI從 \\fY[食人妖精] \\fT獲得 \\fW[黑暗精靈水晶(燃燒鬥志)]",
+                "at": 240149468,
+                "durationMs": 7000,
+                "colorIndex": 2,
+                "outlineIndex": 0,
+                "flag": true,
+                "shown": false
+              }
+            ],
+            "flash": {
+              "level": 0,
+              "count": 0,
+              "surf": 1473,
+              "drawn": false
+            },
+            "sway": {
+              "active": false,
+              "toggles": 0,
+              "offset": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            "fireworks": 0,
+            "other": {
+              "count": 0,
+              "last": 0
+            }
+          },
+          "packetBoxStatus": {
+            "packets": {
+              "82": 1,
+              "87": 1,
+              "132": 2,
+              "180": 1
+            },
+            "dkLevel": null,
+            "leaves": 22,
+            "karma": 0,
+            "evasion": 4,
+            "weaponRange": null,
+            "cooking": null,
+            "mapTimes": null,
+            "protections": [],
+            "unknownProtections": 0,
+            "noneTimeIcons": [
+              {
+                "iconId": 502,
+                "stringId": 0
+              }
+            ],
+            "delIcons": 0,
+            "leavesMapBase": 0,
+            "leavesPcCafe": false,
+            "startMessages": [
+              {
+                "stringId": 3406,
+                "text": "伺服器經驗加倍。"
+              }
+            ],
+            "startMessagesDropped": 0,
+            "leavesShown": [
+              175
+            ],
+            "statusIcons": [
+              {
+                "effect": 175,
+                "mode": 1,
+                "value": 22,
+                "defaultDuration": false,
+                "iconOverride": null,
+                "origin": "leaves:22",
+                "boost": false,
+                "boostText": null
+              },
+              {
+                "effect": 502,
+                "mode": 0,
+                "value": -1,
+                "defaultDuration": false,
+                "iconOverride": null,
+                "origin": "none-time:502",
+                "boost": false,
+                "boostText": null
+              }
+            ],
+            "ui": "data only: timed states feed MagicBuffs; 75/82/180 effect ids in statusIcons; icon drawing belongs to native UI buff-icons"
+          },
+          "packetSoundLevels": null,
+          "petEquipment": {
+            "revision": 2,
+            "ignored": 0,
+            "pets": [],
+            "reply": "none: TW16 sends C_CHECK_INVENTORY (3.81 C99) here, but the 3.81 server never answers it; engine sends nothing"
+          },
+          "petTarget": {
+            "revision": 2,
+            "notice": "",
+            "ignored": 0,
+            "pending": null
+          },
+          "pledgeWindow": {
+            "openRevision": 0,
+            "revision": 0,
+            "clan": "",
+            "online": null,
+            "notice": null,
+            "memos": {}
+          },
+          "productSound": {
+            "status": "已接上（ready；音樂有、環境音有、^ 有）",
+            "armed": true,
+            "clientRoot": "D:\\lineage開發\\0-客戶端",
+            "music": 1,
+            "env": 2,
+            "ambient": 0,
+            "ambientScale": 1,
+            "oneShot": 0,
+            "midi": false,
+            "midiSilenced": 0,
+            "midiKept": 0,
+            "stream": {
+              "Live": 2,
+              "Started": 5,
+              "Rejected": 0,
+              "Looped": 5,
+              "Ended": 1,
+              "Failed": 0,
+              "LastError": ""
+            }
+          },
+          "serverFeatures": null,
+          "skillCastQueue": {
+            "queued": [],
+            "total": 0
+          },
+          "spellExchange": {
+            "revision": 2,
+            "phase": "closed",
+            "notice": "",
+            "offer": null,
+            "pending": [],
+            "learned": 0
+          },
+          "statusEffects": [],
+          "stride": {
+            "own": {
+              "counter": 0,
+              "step": 0
+            },
+            "others": []
+          },
+          "summon": {
+            "revision": 2,
+            "notice": "",
+            "request": null
+          },
+          "userPlayStats": {
+            "expGain": 0,
+            "adenaGain": 0,
+            "kills": 0,
+            "newItems": 0,
+            "baseline": true,
+            "baseLevel": 52,
+            "baseExp": 0,
+            "baseAdena": 8000,
+            "newItemIds": []
+          }
+        }
+      },
+      "worldEntry": {
+        "startedAt": null,
+        "transition": null,
+        "probeAt": null,
+        "pendingMap": null,
+        "coreTimeoutMs": 12000,
+        "probeTimeoutMs": 8000,
+        "localTimeoutMs": 30000,
+        "totalTimeoutMs": 60000
+      },
+      "decodeFailure": null,
+      "entryFailure": null,
+      "serverFeatures": {
+        "c14Sent": true,
+        "c14Error": null,
+        "s139Count": 1,
+        "error": null,
+        "features": {
+          "status": 0,
+          "accepted": true,
+          "serverNo": 1,
+          "language": 3,
+          "codePage": 950,
+          "codePageMismatch": false,
+          "flags": "0x77D82",
+          "fastPickup": true,
+          "pickupThrottleMs": 600,
+          "continuousAttack": false,
+          "uptime": 1794638581,
+          "trailingBytes": 6
+        }
+      },
+      "scope": "P24 independent real JAR + MySQL world initialization"
+    },
+    "m01-main-capture.json": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1197\\scratch\\issue-1197\\m01-main.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "CopyFromScreenError": null,
+      "Width": 1206,
+      "Height": 871,
+      "SampleStride": 4,
+      "Samples": 65836,
+      "Mean": 112.64211576239329,
+      "NonzeroRatio": 0.9658849261802054,
+      "NonwhiteRatio": 0.9395163740202929,
+      "Nonblank": true,
+      "Sha256": "A4A76EBF660ACD55DC9FE7D833B7643652E4B607354B69B7A2FC7243F4CF3777",
+      "Foreground": null,
+      "Window": {
+        "Title": "P24 診斷客戶端",
+        "ProcessId": 5552,
+        "Handle": 16058552,
+        "Rectangle": "1317,604,1206,871",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 0
+      }
+    },
+    "n01-world-capture.json": {
+      "Path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1197\\scratch\\issue-1197\\n01-world.png",
+      "Method": "PrintWindow",
+      "PrintWindowError": null,
+      "CopyFromScreenError": null,
+      "Width": 826,
+      "Height": 711,
+      "SampleStride": 4,
+      "Samples": 36846,
+      "Mean": 79.10311386125235,
+      "NonzeroRatio": 0.9508766216142865,
+      "NonwhiteRatio": 0.8971937252347609,
+      "Nonblank": true,
+      "Sha256": "F4A0F9B1212056F5D60C06B45B47229405FF8F17BC2FBF85696CB808A773B1A4",
+      "Foreground": null,
+      "Window": {
+        "Title": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "ProcessId": 5552,
+        "Handle": 7538658,
+        "Rectangle": "49,49,826,711",
+        "Minimized": false,
+        "Dpi": 192,
+        "ProcessDpiSet": true,
+        "ProcessDpiError": 0
+      }
+    },
+    "m01-world-tree.json": [
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.Window",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "49,49,826,711",
+        "Patterns": [
+          "WindowPatternIdentifiers.Pattern",
+          "TransformPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Tab",
+        "Id": "",
+        "Class": "WindowsForms10.SysTabControl32.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "62,107,800,640",
+        "Patterns": [
+          "SelectionPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "70,151,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.Pane",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "70,151,784,588",
+        "Patterns": []
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "81,162,175,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "請重新選取稱號／表情頁面。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "81,162,175,38",
+        "Patterns": []
+      },
+      {
+        "Name": "開啟",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "223,163,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "262,162,90,38",
+        "Patterns": []
+      },
+      {
+        "Name": "上下按鈕",
+        "Type": "ControlType.Spinner",
+        "Id": "",
+        "Class": "WindowsForms10.Window.8.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "319,163,32,36",
+        "Patterns": []
+      },
+      {
+        "Name": "向上鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "319,163,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "向下鍵",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "319,181,32,18",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "微調按鈕",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "264,164,54,34",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "358,162,95,38",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "[PASSWORD]",
+        "Type": "ControlType.Edit",
+        "Id": "",
+        "Class": "WindowsForms10.Edit.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "459,162,95,38",
+        "Patterns": [
+          "ValuePatternIdentifiers.Pattern",
+          "TextPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "560,162,88,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "取消 / 斷線",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "654,162,98,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "離線預覽",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "81,206,90,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "資源法師",
+        "Type": "ControlType.ComboBox",
+        "Id": "",
+        "Class": "WindowsForms10.ComboBox.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "177,206,155,38",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern",
+          "ValuePatternIdentifiers.Pattern",
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "177,206,155,38",
+        "Patterns": []
+      },
+      {
+        "Name": "開啟",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "299,207,32,36",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "進入世界",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "338,206,95,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "建立角色",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "439,206,92,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "刪除角色",
+        "Type": "ControlType.Button",
+        "Id": "",
+        "Class": "WindowsForms10.Button.app.0.237a13c_r3_ad1",
+        "Enabled": false,
+        "Offscreen": false,
+        "Rectangle": "537,206,110,23",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "InWorld • 地圖 0 已載入原始區塊。\n已要求進入世界，請查看連線狀態。",
+        "Type": "ControlType.Text",
+        "Id": "",
+        "Class": "WindowsForms10.Static.app.0.237a13c_r3_ad1",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "81,247,480,52",
+        "Patterns": []
+      },
+      {
+        "Name": "網頁面板",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "66,111,108,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "服務",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "174,111,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "登入／選角",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "252,111,132,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "控制",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "384,111,78,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "狀態列",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "462,111,84,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Button",
+        "Type": "ControlType.TabItem",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "546,111,90,36",
+        "Patterns": [
+          "SelectionItemPatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "開發工具（過渡操作介面） · Ctrl+Shift+F9",
+        "Type": "ControlType.TitleBar",
+        "Id": "TitleBar",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "62,62,800,45",
+        "Patterns": []
+      },
+      {
+        "Name": "System Menu Bar",
+        "Type": "ControlType.MenuBar",
+        "Id": "",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "62,62,44,44",
+        "Patterns": []
+      },
+      {
+        "Name": "System",
+        "Type": "ControlType.MenuItem",
+        "Id": "Item 1",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "62,62,44,44",
+        "Patterns": [
+          "ExpandCollapsePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Minimize",
+        "Type": "ControlType.Button",
+        "Id": "Minimize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "583,50,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Maximize",
+        "Type": "ControlType.Button",
+        "Id": "Maximize",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "677,50,92,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      },
+      {
+        "Name": "Close",
+        "Type": "ControlType.Button",
+        "Id": "Close",
+        "Class": "",
+        "Enabled": true,
+        "Offscreen": false,
+        "Rectangle": "769,50,94,57",
+        "Patterns": [
+          "InvokePatternIdentifiers.Pattern"
+        ]
+      }
+    ],
+    "client-final-close.json": {
+      "Exited": true,
+      "Pid": 5552,
+      "CloseMainWindow": true,
+      "Utc": "2026-11-14T06:43:59.1479766Z"
+    },
+    "cleanup.json": {
+      "OwnedPids": [
+        5552,
+        8748,
+        8016,
+        19112
+      ],
+      "MysqlAdminExit": 0,
+      "Utc": "2026-11-14T06:44:23.9379959Z",
+      "RemainingOwned": [],
+      "Listeners": []
+    },
+    "original-db-final.json": {
+      "utc": "2026-11-14T06:44:16.550496+00:00",
+      "files": 1722,
+      "changed": [],
+      "added": [],
+      "unchanged": true,
+      "characterSelectEqual": true
+    }
+  },
+  "selectBefore": "@@port\t@@datadir\n43324\tD:\\BinEngine\\scratch\\wt\\task-1197\\scratch\\issue-1197\\db-data\\\naccount_name\tchar_name\tobjid\tType\tAccessLevel\tOnlineStatus\np242db6e\t資源王族\t10305\t0\t0\t0\np241db6e\t資源騎士\t10314\t1\t0\t0\np241db6e\t資源妖精\t10325\t2\t0\t0\np24svc01\t資源法師\t10334\t3\t0\t0\np241db6e\t資源暗妖\t10344\t4\t0\t0\np242db6e\t資源龍騎\t10356\t5\t0\t0\np242db6e\t資源幻術\t10365\t6\t0\t0\np241db6e\t透明王子\t1900240001\t0\t0\t0\np242db6e\t透明王子乙\t1900240002\t0\t0\t0\np243db6e\t驗收王子\t1900240003\t0\t0\t0\np244db6e\t驗收王子乙\t1900240004\t0\t0\t0\np245db6e\t透明觀察甲\t1900240005\t0\t0\t0\np246db6e\t透明觀察乙\t1900240006\t0\t0\t0\np247db6e\t驗收觀察甲\t1900240007\t0\t0\t0\np248db6e\t驗收觀察乙\t1900240008\t0\t0\t0\np24svc01\t服務驗證\t1900249001\t0\t0\t0\np24svc01\t服務交易\t1900249201\t0\t0\t0\n",
+  "selectFinal": "@@port\t@@datadir\n43324\tD:\\BinEngine\\scratch\\wt\\task-1197\\scratch\\issue-1197\\db-data\\\naccount_name\tchar_name\tobjid\tType\tAccessLevel\tOnlineStatus\np242db6e\t資源王族\t10305\t0\t0\t0\np241db6e\t資源騎士\t10314\t1\t0\t0\np241db6e\t資源妖精\t10325\t2\t0\t0\np24svc01\t資源法師\t10334\t3\t0\t0\np241db6e\t資源暗妖\t10344\t4\t0\t0\np242db6e\t資源龍騎\t10356\t5\t0\t0\np242db6e\t資源幻術\t10365\t6\t0\t0\np241db6e\t透明王子\t1900240001\t0\t0\t0\np242db6e\t透明王子乙\t1900240002\t0\t0\t0\np243db6e\t驗收王子\t1900240003\t0\t0\t0\np244db6e\t驗收王子乙\t1900240004\t0\t0\t0\np245db6e\t透明觀察甲\t1900240005\t0\t0\t0\np246db6e\t透明觀察乙\t1900240006\t0\t0\t0\np247db6e\t驗收觀察甲\t1900240007\t0\t0\t0\np248db6e\t驗收觀察乙\t1900240008\t0\t0\t0\np24svc01\t服務驗證\t1900249001\t0\t0\t0\np24svc01\t服務交易\t1900249201\t0\t0\t0\n"
+}
