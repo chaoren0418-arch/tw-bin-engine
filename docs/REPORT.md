@@ -506,3 +506,4 @@
 - 2026-11-14 — #1238 分流：tw-bin-engine#1229 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1241 已合併）→ [報告](reports/issue-1238.md)
 - 2026-11-14 — #1234 f1215-fixture-persist: f1215-fixture-persist: 把 #1215 驗證過的 map4 DB fixture 從 task-1215 worktree 保存到 environments/p24/backups/issue-1215-map4-fixture（#1215 F07 ⚠️；worktree 已清理則從 #1186 冷備份逐 byte 重建），逐檔 SHA 核對並寫 fixture-persist.json（resource，codex-local，PR 已合併）→ [報告](reports/issue-1234.md)
 - 2026-11-14 — #1244 f1211-spell-class56: f1211-spell-class56: 龍騎士（class 5）、幻術士（class 6）已學技能但 Ctrl+S 魔法窗空白（#1211 SM20 ❌）（code，claude-local，PR #1251 已合併）→ [報告](reports/issue-1244.md)
+- 2026-11-14 — #1242 f1211-select-art: f1211-select-art: 原生選角／建角畫面背景與按鈕位置畫成人物卡片圖（#1211 SM07、SM08 ❌）（code，claude-local，PR 已合併）→ [報告](reports/issue-1242.md)
