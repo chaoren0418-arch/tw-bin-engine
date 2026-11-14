@@ -1,0 +1,819 @@
+{
+  "schemaVersion": 1,
+  "issue": 1246,
+  "environment": "P24Lab",
+  "databasePort": 43324,
+  "gamePort": 42061,
+  "status": "partial",
+  "readyForRetest": false,
+  "smokeExecuted": false,
+  "reason": "7項資源條件備妥；6400/PC咖啡、470、潘朵拉收購仍缺。修理物品須下次開服載入；這不是SM判定。",
+  "credentialSource": "沿用P24Lab private-service-test-role.json / private-tests.json；本檔不含密碼。",
+  "characters": [
+    {
+      "account": "p24svc01",
+      "name": "資源法師",
+      "objid": 10334,
+      "type": 3,
+      "classId": 734,
+      "level": 52,
+      "hp": 300,
+      "maxHp": 300,
+      "mp": 300,
+      "lawful": -10,
+      "gm": 0,
+      "online": 0,
+      "position": {
+        "map": 0,
+        "x": 32648,
+        "y": 32948
+      },
+      "skills": [],
+      "items": [],
+      "inventoryRecorded": false
+    },
+    {
+      "account": "p243db6e",
+      "name": "煙王甲",
+      "objid": 1900252001,
+      "type": 0,
+      "classId": 0,
+      "level": 52,
+      "hp": 1,
+      "maxHp": 500,
+      "mp": 300,
+      "lawful": 0,
+      "gm": 0,
+      "online": 0,
+      "position": {
+        "map": 0,
+        "x": 32557,
+        "y": 32975
+      },
+      "skills": [
+        {
+          "id": 1,
+          "name": "初級治癒術"
+        },
+        {
+          "id": 4,
+          "name": "光箭"
+        },
+        {
+          "id": 114,
+          "name": "激勵士氣"
+        }
+      ],
+      "items": [
+        {
+          "objid": 1900252101,
+          "itemId": 40308,
+          "name": "金幣",
+          "count": 100000,
+          "durability": 0
+        },
+        {
+          "objid": 1900252102,
+          "itemId": 40010,
+          "name": "治癒藥水",
+          "count": 30,
+          "durability": 0
+        },
+        {
+          "objid": 1900252103,
+          "itemId": 40013,
+          "name": "自我加速藥水",
+          "count": 5,
+          "durability": 0
+        },
+        {
+          "objid": 1900252104,
+          "itemId": 40056,
+          "name": "肉",
+          "count": 10,
+          "durability": 0
+        },
+        {
+          "objid": 1900252105,
+          "itemId": 40079,
+          "name": "傳送回家的卷軸",
+          "count": 5,
+          "durability": 0
+        },
+        {
+          "objid": 1900252136,
+          "itemId": 31,
+          "name": "長劍",
+          "count": 1,
+          "durability": 0
+        }
+      ],
+      "inventoryRecorded": true
+    },
+    {
+      "account": "p243db6e",
+      "name": "煙騎甲",
+      "objid": 1900252002,
+      "type": 1,
+      "classId": 61,
+      "level": 52,
+      "hp": 500,
+      "maxHp": 500,
+      "mp": 300,
+      "lawful": 0,
+      "gm": 0,
+      "online": 0,
+      "position": {
+        "map": 0,
+        "x": 32560,
+        "y": 33087
+      },
+      "skills": [
+        {
+          "id": 1,
+          "name": "初級治癒術"
+        },
+        {
+          "id": 87,
+          "name": "衝擊之暈"
+        },
+        {
+          "id": 88,
+          "name": "增幅防禦"
+        }
+      ],
+      "items": [
+        {
+          "objid": 1900252106,
+          "itemId": 40308,
+          "name": "金幣",
+          "count": 100000,
+          "durability": 0
+        },
+        {
+          "objid": 1900252107,
+          "itemId": 40010,
+          "name": "治癒藥水",
+          "count": 30,
+          "durability": 0
+        },
+        {
+          "objid": 1900252108,
+          "itemId": 40013,
+          "name": "自我加速藥水",
+          "count": 5,
+          "durability": 0
+        },
+        {
+          "objid": 1900252109,
+          "itemId": 40056,
+          "name": "肉",
+          "count": 10,
+          "durability": 0
+        },
+        {
+          "objid": 1900252110,
+          "itemId": 40079,
+          "name": "傳送回家的卷軸",
+          "count": 5,
+          "durability": 0
+        },
+        {
+          "objid": 1900252137,
+          "itemId": 52,
+          "name": "雙手劍",
+          "count": 1,
+          "durability": 0
+        }
+      ],
+      "inventoryRecorded": true
+    },
+    {
+      "account": "p243db6e",
+      "name": "煙妖甲",
+      "objid": 1900252003,
+      "type": 2,
+      "classId": 138,
+      "level": 52,
+      "hp": 500,
+      "maxHp": 500,
+      "mp": 300,
+      "lawful": 0,
+      "gm": 0,
+      "online": 0,
+      "position": {
+        "map": 0,
+        "x": 32642,
+        "y": 32955
+      },
+      "skills": [
+        {
+          "id": 1,
+          "name": "初級治癒術"
+        },
+        {
+          "id": 4,
+          "name": "光箭"
+        },
+        {
+          "id": 25,
+          "name": "燃燒的火球"
+        },
+        {
+          "id": 130,
+          "name": "心靈轉換"
+        },
+        {
+          "id": 132,
+          "name": "三重矢"
+        }
+      ],
+      "items": [
+        {
+          "objid": 1900252111,
+          "itemId": 40308,
+          "name": "金幣",
+          "count": 100000,
+          "durability": 0
+        },
+        {
+          "objid": 1900252112,
+          "itemId": 40010,
+          "name": "治癒藥水",
+          "count": 30,
+          "durability": 0
+        },
+        {
+          "objid": 1900252113,
+          "itemId": 40013,
+          "name": "自我加速藥水",
+          "count": 5,
+          "durability": 0
+        },
+        {
+          "objid": 1900252114,
+          "itemId": 40056,
+          "name": "肉",
+          "count": 10,
+          "durability": 0
+        },
+        {
+          "objid": 1900252115,
+          "itemId": 40079,
+          "name": "傳送回家的卷軸",
+          "count": 5,
+          "durability": 0
+        },
+        {
+          "objid": 1900252138,
+          "itemId": 173,
+          "name": "短弓",
+          "count": 1,
+          "durability": 0
+        },
+        {
+          "objid": 1900252143,
+          "itemId": 40743,
+          "name": "箭",
+          "count": 200,
+          "durability": 0
+        },
+        {
+          "objid": 1900252144,
+          "itemId": 40744,
+          "name": "銀箭",
+          "count": 200,
+          "durability": 0
+        },
+        {
+          "objid": 1900252145,
+          "itemId": 40319,
+          "name": "精靈玉",
+          "count": 30,
+          "durability": 0
+        }
+      ],
+      "inventoryRecorded": true
+    },
+    {
+      "account": "p244db6e",
+      "name": "煙法甲",
+      "objid": 1900252004,
+      "type": 3,
+      "classId": 734,
+      "level": 52,
+      "hp": 1,
+      "maxHp": 500,
+      "mp": 300,
+      "lawful": -10,
+      "gm": 0,
+      "online": 0,
+      "position": {
+        "map": 0,
+        "x": 32600,
+        "y": 32942
+      },
+      "skills": [
+        {
+          "id": 1,
+          "name": "初級治癒術"
+        },
+        {
+          "id": 3,
+          "name": "保護罩"
+        },
+        {
+          "id": 4,
+          "name": "光箭"
+        },
+        {
+          "id": 25,
+          "name": "燃燒的火球"
+        },
+        {
+          "id": 29,
+          "name": "緩速術"
+        },
+        {
+          "id": 51,
+          "name": "召喚術"
+        }
+      ],
+      "items": [
+        {
+          "objid": 10304,
+          "itemId": 49553,
+          "name": "殷海薩能量碎片",
+          "count": 2,
+          "durability": 0
+        },
+        {
+          "objid": 1900252116,
+          "itemId": 40308,
+          "name": "金幣",
+          "count": 100000,
+          "durability": 0
+        },
+        {
+          "objid": 1900252117,
+          "itemId": 40010,
+          "name": "治癒藥水",
+          "count": 30,
+          "durability": 0
+        },
+        {
+          "objid": 1900252118,
+          "itemId": 40013,
+          "name": "自我加速藥水",
+          "count": 5,
+          "durability": 0
+        },
+        {
+          "objid": 1900252119,
+          "itemId": 40056,
+          "name": "肉",
+          "count": 10,
+          "durability": 0
+        },
+        {
+          "objid": 1900252120,
+          "itemId": 40079,
+          "name": "傳送回家的卷軸",
+          "count": 5,
+          "durability": 0
+        },
+        {
+          "objid": 1900252139,
+          "itemId": 125,
+          "name": "巫術魔法杖",
+          "count": 1,
+          "durability": 0
+        },
+        {
+          "objid": 1900252146,
+          "itemId": 20284,
+          "name": "召喚控制戒指",
+          "count": 1,
+          "durability": 0
+        },
+        {
+          "objid": 1900252147,
+          "itemId": 40318,
+          "name": "魔法寶石",
+          "count": 60,
+          "durability": 0
+        },
+        {
+          "objid": 1900252148,
+          "itemId": 20288,
+          "name": "傳送控制戒指",
+          "count": 1,
+          "durability": 0
+        },
+        {
+          "objid": 1900252149,
+          "itemId": 40100,
+          "name": "瞬間移動卷軸",
+          "count": 20,
+          "durability": 0
+        },
+        {
+          "objid": 1900252150,
+          "itemId": 41255,
+          "name": "料理書：1階段",
+          "count": 1,
+          "durability": 0
+        },
+        {
+          "objid": 1900252151,
+          "itemId": 40057,
+          "name": "漂浮之眼肉",
+          "count": 10,
+          "durability": 0
+        },
+        {
+          "objid": 1900252152,
+          "itemId": 41260,
+          "name": "柴火",
+          "count": 5,
+          "durability": 0
+        },
+        {
+          "objid": 1900252153,
+          "itemId": 41294,
+          "name": "短釣竿",
+          "count": 1,
+          "durability": 0
+        },
+        {
+          "objid": 1900252154,
+          "itemId": 41295,
+          "name": "餌",
+          "count": 30,
+          "durability": 0
+        },
+        {
+          "objid": 1900252155,
+          "itemId": 41245,
+          "name": "溶解劑",
+          "count": 5,
+          "durability": 0
+        },
+        {
+          "objid": 1900252156,
+          "itemId": 20114,
+          "name": "綿質長袍",
+          "count": 1,
+          "durability": 0
+        },
+        {
+          "objid": 1900252157,
+          "itemId": 40887,
+          "name": "魔法卷軸 (緩速術)",
+          "count": 5,
+          "durability": 0
+        },
+        {
+          "objid": 1900264601,
+          "itemId": 49553,
+          "name": "殷海薩能量碎片",
+          "count": 10,
+          "durability": 0
+        },
+        {
+          "objid": 1900264602,
+          "itemId": 4,
+          "name": "匕首",
+          "count": 1,
+          "durability": 1
+        }
+      ],
+      "inventoryRecorded": true
+    }
+  ],
+  "conditions": [
+    {
+      "id": "SM13-82",
+      "status": "ready",
+      "character": 1900252004,
+      "itemId": 49553,
+      "minimumLevel": 49,
+      "objects": [
+        {
+          "objid": 10304,
+          "count": 2,
+          "loadedAndUsed": true
+        },
+        {
+          "objid": 1900264601,
+          "count": 10,
+          "requiresNextServerStart": true
+        }
+      ],
+      "observedPacket": "fa52050000000000",
+      "observedValue": 5,
+      "steps": "使用殷海薩能量碎片；伺服器 LeavesSet 已啟用，event.EinhasadGem 5 增加5%。圖示呈現留待SM13。",
+      "evidence": [
+        "fragment-use.json",
+        "after.json"
+      ]
+    },
+    {
+      "id": "SM13-6400-PC-cafe",
+      "status": "unavailable",
+      "reason": "6400是地圖ID，82是S250子類型；mapids與maps/6400.txt均無6400，未找到PC咖啡effect293的正常觸發物。",
+      "evidence": [
+        "catalog3.txt",
+        "source-hashes.json",
+        "icons.tsv",
+        "none-time-callers.json"
+      ]
+    },
+    {
+      "id": "SM13-470",
+      "status": "unavailable",
+      "reason": "未查得skills、藥水status_icon/buff_id、娃娃icon對470的設定；VIP物品沒有確認到effect470發送路徑。不用PacketProbe代替正常條件。",
+      "evidence": [
+        "icons.tsv",
+        "VIP.javap.txt",
+        "none-time-callers.json"
+      ]
+    },
+    {
+      "id": "SM20-map509",
+      "status": "ready",
+      "character": 1900252004,
+      "gmHelper": 10334,
+      "requiredGm": 200,
+      "helperLanding": {
+        "map": 509,
+        "x": 32736,
+        "y": 32800
+      },
+      "ordinaryPlayerLanding": {
+        "map": 509,
+        "x": 32734,
+        "y": 32802
+      },
+      "commands": [
+        ".3 509",
+        ".recall 煙法甲"
+      ],
+      "steps": "先讓GM及GM0目標同時在線；GM .3 509；雙方收到S149必須正常回C52；GM再召回目標。目標留在線上做拒開檢查，GM結束後改回0。",
+      "reloginAllowed": false,
+      "reloginRedirect": {
+        "map": 4,
+        "x": 33439,
+        "y": 32811,
+        "source": "getback_restart.area=509"
+      },
+      "evidence": [
+        "map509-landed.json",
+        "gm-map-helper-packets.jsonl",
+        "ordinary-fixture-packets.jsonl",
+        "pre-cleanup.tsv"
+      ]
+    },
+    {
+      "id": "SM21-sell",
+      "status": "unavailable",
+      "npcId": 70014,
+      "npcName": "潘朵拉",
+      "shopRows": 34,
+      "purchasingRows": 0,
+      "reason": "ShopTable只把purchasing_price>=0加入NPC收購清單；潘朵拉全為-1，發物無法成立。不改shop。",
+      "evidence": [
+        "catalog2.txt",
+        "catalog5.txt",
+        "ShopTable.javap.txt",
+        "L1Shop.javap.txt"
+      ]
+    },
+    {
+      "id": "SM21-repair",
+      "status": "prepared-persistent",
+      "character": 1900252004,
+      "item": {
+        "objid": 1900264602,
+        "itemId": 4,
+        "count": 1,
+        "durability": 1
+      },
+      "requiredMoney": {
+        "itemId": 40308,
+        "count": 200
+      },
+      "npc": {
+        "npcId": 70802,
+        "name": "亞南",
+        "spawnId": 1273,
+        "map": 4,
+        "x": 33068,
+        "y": 33382,
+        "html": "aanon1",
+        "action": "fix"
+      },
+      "requiresNextServerStart": true,
+      "nativeVerified": false,
+      "steps": "以ready DB重新開服載入新增匕首，再靠近亞南選fix。開服後直接SQL加物不更新背包快取；本輪清單空不作SM失敗。",
+      "evidence": [
+        "items-after.tsv",
+        "after.json",
+        "repair-npcs.tsv",
+        "conditions-gm0-summary.json",
+        "S_FixWeaponList.javap.txt"
+      ]
+    },
+    {
+      "id": "SM21-learn",
+      "status": "ready",
+      "character": 1900252002,
+      "account": "p243db6e",
+      "characterName": "煙騎甲",
+      "classType": 1,
+      "minimumLevel": 50,
+      "actualLevel": 52,
+      "minimumLawful": 0,
+      "actualLawful": 0,
+      "npc": {
+        "npcId": 70009,
+        "name": "吉倫",
+        "spawnId": 1275,
+        "map": 0,
+        "x": 32560,
+        "y": 33086,
+        "observedObjectId": 2000039419,
+        "objectIdStableAcrossRestarts": false
+      },
+      "stand": {
+        "map": 0,
+        "x": 32560,
+        "y": 33087
+      },
+      "skill": {
+        "id": 2,
+        "name": "日光術",
+        "learned": false,
+        "wireIndex": 1
+      },
+      "requiredMoney": {
+        "itemId": 40308,
+        "count": 6000
+      },
+      "otherItems": [],
+      "offeredWireIndices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "observedBasePrice": 6000,
+      "steps": "煙騎甲GM0登入，靠近吉倫交談→學習魔法。不要用Lawful=-10的煙法甲或資源法師。未提前買技能。",
+      "evidence": [
+        "learning-offer.json",
+        "learning-db.tsv",
+        "PcLvSkillList.javap.txt",
+        "C_SkillBuyOK.javap.txt"
+      ]
+    },
+    {
+      "id": "SM58-1461",
+      "status": "ready",
+      "character": 1900252004,
+      "command": ".poly 煙法甲 1461",
+      "requiredGm": 200,
+      "targetMustBeOnline": true,
+      "polymorphTableRowExists": false,
+      "observedDb": {
+        "skillId": 67,
+        "polyId": 1461,
+        "remainingSeconds": 7196
+      },
+      "restoredGfx": 734,
+      "evidence": [
+        "poly-1461-db.tsv",
+        "poly-1461-packets.jsonl",
+        "after.json"
+      ]
+    },
+    {
+      "id": "SM58-1395",
+      "status": "ready",
+      "character": 1900252004,
+      "command": ".poly 煙法甲 1395",
+      "requiredGm": 200,
+      "targetMustBeOnline": true,
+      "polymorphTableRowExists": false,
+      "observedDb": {
+        "skillId": 67,
+        "polyId": 1395,
+        "remainingSeconds": 7196
+      },
+      "restoredGfx": 734,
+      "evidence": [
+        "poly-1395-db.tsv",
+        "poly-734-db.tsv",
+        "after.json"
+      ]
+    },
+    {
+      "id": "SM40",
+      "status": "ready",
+      "character": 1900252003,
+      "bow": {
+        "objid": 1900252138,
+        "itemId": 173,
+        "count": 1
+      },
+      "arrows": [
+        {
+          "objid": 1900252143,
+          "itemId": 40743,
+          "count": 200
+        },
+        {
+          "objid": 1900252144,
+          "itemId": 40744,
+          "count": 200
+        }
+      ],
+      "addedItems": false,
+      "evidence": [
+        "before.json",
+        "after.json"
+      ]
+    }
+  ],
+  "blockedFixtures": [
+    {
+      "sm": [
+        "SM13-6400-PC-cafe"
+      ],
+      "reason": "6400是地圖ID，82是S250子類型；mapids與maps/6400.txt均無6400，未找到PC咖啡effect293的正常觸發物。"
+    },
+    {
+      "sm": [
+        "SM13-470"
+      ],
+      "reason": "未查得skills、藥水status_icon/buff_id、娃娃icon對470的設定；VIP物品沒有確認到effect470發送路徑。不用PacketProbe代替正常條件。"
+    },
+    {
+      "sm": [
+        "SM21-sell"
+      ],
+      "reason": "ShopTable只把purchasing_price>=0加入NPC收購清單；潘朵拉全為-1，發物無法成立。不改shop。"
+    }
+  ],
+  "warnings": [
+    "煙法甲與煙王甲準備期間受怪物攻擊，最終HP1，先在安全處正常治癒；本張未直接改HP。",
+    "主專案DB未變；下一棒須使用本張ready快照，否則新增物品不存在。",
+    "map509不得靠登出重登入完成GM還原；使用另一GM召回在線的GM0目標。",
+    "修理物品當輪未進伺服器快取；prepared-persistent只代表持久資料已備好。"
+  ],
+  "backup": {
+    "utc": "2026-11-14T09:51:40.209359+00:00",
+    "files": 1722,
+    "bytes": 279511437,
+    "verified": true,
+    "source": "D:\\BinEngine\\environments\\p24\\db-data",
+    "runtime": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1246\\scratch\\issue-1246\\db-data",
+    "manifestSha256": "1fb267532c07870f087ce58d91fd820a855c189cfa74c0378e681c7609d224b4",
+    "backup": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1246\\environments\\p24\\backups\\issue-1246-before",
+    "lease": {
+      "name": "p24lab",
+      "holder": "chaoren0418-arch/tw-bin-engine#1246",
+      "since": 1794649785.091041,
+      "exp": 1794660585.091041
+    }
+  },
+  "preparedDatabase": {
+    "utc": "2026-11-14T10:04:51.235562+00:00",
+    "files": 1722,
+    "bytes": 279513857,
+    "path": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1246\\environments\\p24\\backups\\issue-1246-ready\\db-data",
+    "manifestSha256": "18536bab3158a3e1adfd6b83a5575323febff204b17b60ae59b8f5ca103526f4",
+    "verified": true,
+    "originalDatabaseUnchanged": true,
+    "listeners": [],
+    "gmCount": 0,
+    "onlineCount": 0
+  },
+  "evidenceRoot": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1246\\environments\\p24\\backups\\issue-1246-evidence",
+  "restoreSql": "docs/reports/issue-1246-restore.sql",
+  "dataDiff": {
+    "before": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1246\\environments\\p24\\backups\\issue-1246-evidence\\before.json",
+    "after": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1246\\environments\\p24\\backups\\issue-1246-evidence\\after.json"
+  },
+  "finalState": {
+    "characterCount": 24,
+    "gmCount": 0,
+    "onlineCount": 0,
+    "listeners": [],
+    "ownProcessesStopped": true,
+    "polymorphBuffRows": 0,
+    "originalDatabaseUnchanged": true
+  }
+}
