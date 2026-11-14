@@ -22,6 +22,7 @@ $ev=[IO.Path]::GetFullPath($EvidenceDirectory)
 New-Item -ItemType Directory -Force $ev,(Join-Path $ev 'tmp') | Out-Null
 $env:TEMP=Join-Path $ev 'tmp';$env:TMP=$env:TEMP
 . "$PSScriptRoot/UiaGdi.ps1"
+. "$PSScriptRoot/SmokeTools.ps1"
 Set-ClientInputLog (Join-Path $ev 'client-input.jsonl')
 
 $repo=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
@@ -70,7 +71,7 @@ function Test-OwnedIdentity {
 function Get-NativeUiFailureLine {
     $log=Join-Path $ev 'native-ui.log'
     if(-not (Test-Path -LiteralPath $log)){return $null}
-    $hit=@(Get-Content -LiteralPath $log -Encoding UTF8 | Where-Object {$_ -like '*native-ui fallback*'})
+    $hit=@((Read-SmokeText $log) -split "`n" | Where-Object {$_ -like '*native-ui fallback*'})
     if($hit.Count -gt 0){return $hit[0]}
     return $null
 }
@@ -252,8 +253,8 @@ try {
     # --- N04: Alt+F4, client exits, window-events.json has closed; clean up only our own processes ---
     try {
         if($null -ne $client -and -not $client.HasExited){
-            try {$result.N04.Key=Send-ClientKey $hwnd 'Alt+F4'} catch {$result.N04.KeyError=$_.Exception.Message}
-            $result.N04.ExitedAfterAltF4=$client.WaitForExit(10000)
+            $result.N04.Close=Close-SmokeClient -Process $client -Hwnd $hwnd -EventsPath (Join-Path $ev 'window-events.json')
+            $result.N04.ExitedAfterAltF4=$result.N04.Close.Exited
         }
     } catch {$failures.Add($_.Exception.ToString())}
     try {Update-OwnedProcesses $since} catch {}
@@ -263,7 +264,11 @@ try {
         $p=Test-OwnedIdentity $o.ProcessId
         if($null -eq $p -or $p.HasExited){continue}
         # Leftover from this run only (PID + start time verified); never by name.
-        try {$p.Kill();$null=$p.WaitForExit(5000);$forced+=[ordered]@{ProcessId=$o.ProcessId;Name=$o.Name;Exited=$p.HasExited}} catch {$failures.Add("Kill $($o.ProcessId) failed: $($_.Exception.Message)")}
+        try {
+            # Wrappers may exit just after FormClosed; give them time to drain, then recheck the same Process handle.
+            if($p.WaitForExit(3000)){continue}
+            if(-not $p.HasExited){$p.Kill();$null=$p.WaitForExit(5000);$forced+=[ordered]@{ProcessId=$o.ProcessId;Name=$o.Name;Exited=$p.HasExited}}
+        } catch {if(-not $p.HasExited){$failures.Add("Kill $($o.ProcessId) failed: $($_.Exception.Message)")}}
     }
     $result.ForcedClose=$forced
     $events=Join-Path $ev 'window-events.json'
@@ -271,7 +276,7 @@ try {
     if(Test-Path -LiteralPath $events){
         try {
             # PS 5.1 ConvertFrom-Json emits a JSON array as one object; assign first so @() does not nest it.
-            $parsed=Get-Content -LiteralPath $events -Raw -Encoding UTF8 | ConvertFrom-Json
+            $parsed=Read-SmokeJson $events
             $list=@($parsed)
             $states=@($list | Where-Object {$_.PSObject.Properties['kind'] -and $_.kind -eq 'native-ui'} | ForEach-Object {$_.state})
             $kinds=@($list | Where-Object {$_.PSObject.Properties['kind']} | ForEach-Object {$_.kind})
