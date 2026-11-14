@@ -48,10 +48,17 @@ public sealed class SpellWindowPanel:LegacyWindowPanel {
     IReadOnlyList<LearnedMagic>? learned;
 
     /// <summary>
-    /// 3.81 class type → level-button group: 0 royal → PRINCE, 2 elf → ELF, 4 dark elf → DARKELF, 3 wizard → plain LEVEL.
-    /// Knight (1) → plain LEVEL is 推測 (no knight group exists in the XML). Other values → null.
+    /// 3.81 class type → level-button group: 0 royal → PRINCE, 2 elf → ELF, 4 dark elf → DARKELF, everything else → plain LEVEL.
+    /// 已驗證 (#1244, 3.81 OEP snapshot 4271d92f…, FO = VA − 0x400000): on entering the world <c>sub_4928C0</c> reads the class
+    /// byte (character record +45 → <c>byte_75F694</c>, VA 0x492AD4) and picks the spell-slot table: 2 → elf <c>0x8345E8</c>,
+    /// 4 → dark elf <c>0x834548</c>, 0 → royal <c>0x834774</c>, any other value → the general table <c>0x834408</c> (ids 1–80,
+    /// filled by <c>sub_43F6C0</c>); knight (1) only overrides five icons in it with its own skills 87–91. So knight (1), dragon
+    /// knight (5) and illusionist (6) all use the general
+    /// group. 3.81 has no own layout for 5 and 6: <c>sub_4C8BD0</c> (magic level by class) also ends in <c>default: 0</c> for
+    /// them, and the icon table <c>word_508648</c> only covers ids 1–180 — their skills (181–, 201–) have no slot (#1244 report).
+    /// Negative values (class not known) → null.
     /// </summary>
-    public static LegacySpellClass? ClassOf(int classType)=>classType switch{0=>LegacySpellClass.Prince,1 or 3=>LegacySpellClass.General,2=>LegacySpellClass.Elf,4=>LegacySpellClass.DarkElf,_=>null};
+    public static LegacySpellClass? ClassOf(int classType)=>classType switch{0=>LegacySpellClass.Prince,1 or 3 or 5 or 6=>LegacySpellClass.General,2=>LegacySpellClass.Elf,4=>LegacySpellClass.DarkElf,_=>null};
 
     IUiSpellWindowState? source;int? localSelection;
     public LegacySpellClass? Class{get;private set;}
@@ -215,7 +222,20 @@ public sealed class SpellWindowPanel:LegacyWindowPanel {
         t.Check(p.LevelCount(LegacySpellClass.Prince)==7&&p.LevelCount(LegacySpellClass.General)==10&&p.LevelCount(LegacySpellClass.Elf)==11&&p.LevelCount(LegacySpellClass.DarkElf)==5,"level groups 7/10/11/5 read from the XML");
         t.Check(p.Class==null&&p.LevelRect.IsEmpty&&p.PaintedParts.Select(x=>x.Surf).SequenceEqual(new int?[]{2056,2057,2037,2039,2040,2042}),"no class → chrome only, no level image");
 
-        t.Check(ClassOf(0)==LegacySpellClass.Prince&&ClassOf(1)==LegacySpellClass.General&&ClassOf(2)==LegacySpellClass.Elf&&ClassOf(3)==LegacySpellClass.General&&ClassOf(4)==LegacySpellClass.DarkElf&&ClassOf(5)==null&&ClassOf(-1)==null,"3.81 class type → group");
+        t.Check(ClassOf(0)==LegacySpellClass.Prince&&ClassOf(1)==LegacySpellClass.General&&ClassOf(2)==LegacySpellClass.Elf&&ClassOf(3)==LegacySpellClass.General&&ClassOf(4)==LegacySpellClass.DarkElf&&ClassOf(-1)==null,"3.81 class type → group");
+        // #1244: 3.81 sub_4928C0 sends every class other than 0/2/4 to the general slot table → dragon knight 5 and illusionist 6
+        // get the general group (no longer null → the level strip is drawn). Their own skills 181–/201– have no 3.81 slot.
+        t.Check(ClassOf(5)==LegacySpellClass.General&&ClassOf(6)==LegacySpellClass.General,"dragon knight 5 / illusionist 6 → general group (3.81 fallback)");
+        {
+            var q=new SpellWindowPanel();q.Load(layout,surf.Get);q.Open();
+            var dk=new[]{new LearnedMagic(181,"龍之護鎧",true,"自己",0),new LearnedMagic(182,"燃燒擊砍",true,"自己",0)};
+            q.Update(new UiSpellWindowGameState(new UiStaticGameState(InWorld:true),new UiSpellWindowData(ClassOf(5),dk)));
+            t.Check(q.Class==LegacySpellClass.General&&q.Learned?.Count==2&&!q.LevelRect.IsEmpty,"class 5 with 181/182: general strip drawn, both skills kept in the data");
+            t.Check(PageOf(181)==22&&PageOf(182)==22&&PageOf(201)==25&&PageOf(202)==25&&q.LevelCount(LegacySpellClass.General)==10,"181/182 (row 22) and 201/202 (row 25) are past the 10 general pages — no 3.81 slot (needs:claude, #1244)");
+            var il=new[]{new LearnedMagic(1,"初級治癒術",true,"自己",4),new LearnedMagic(201,"合成技能 201",true,"自己",0)};
+            q.Update(new UiSpellWindowGameState(new UiStaticGameState(InWorld:true),new UiSpellWindowData(ClassOf(6),il)));
+            t.Check(q.Class==LegacySpellClass.General&&q.PageSpells.Select(m=>m.Id).SequenceEqual(new[]{1}),"class 6: a general spell (id 1) lists on level 1 like 3.81's general table");
+        }
 
         var basic=new UiStaticGameState(InWorld:true);
         var spells=new[]{new LearnedMagic(1,"合成技能 1",true,"自己",4),new LearnedMagic(2,"合成技能 2",true,"自己",4),new LearnedMagic(5,"合成技能 5",false,"指定對象",8)};
