@@ -1,0 +1,430 @@
+{
+  "issue": 1211,
+  "sourceMain": "51c11852",
+  "branch": "task/1211",
+  "counts": {
+    "⚠️": 41,
+    "✅": 2,
+    "❌": 4
+  },
+  "rows": [
+    {
+      "id": "SM03",
+      "status": "⚠️",
+      "observation": "環境／覆蓋：未執行（時間）；沒有功能判定。",
+      "steps": "未執行",
+      "evidence": "execution-window.json",
+      "pending": "黑邊點擊與原版 800×600 並排；本張沒有啟動原 BIN。"
+    },
+    {
+      "id": "SM04",
+      "status": "✅",
+      "observation": "登入框帳號與遮蔽密碼文字大小、位置可讀，未見重疊。",
+      "steps": "原生登入頁輸入測試帳號及密碼。",
+      "evidence": "client-A/m7-SM04-1.png",
+      "pending": "無；輸入、錯密碼與 Exit 沿用 #1186。"
+    },
+    {
+      "id": "SM07",
+      "status": "❌",
+      "observation": "引擎呈現：原生選角已掛載且上下鍵有效，但黑底中按鈕／背景位置出現人物卡片，資訊與圖卡交疊。",
+      "steps": "登入 p24svc01，在原生選角按 Up／Down。",
+      "evidence": "client-A/m7-SM07-1.png; client-A/m7-SM07-empty.png; client-D/m7-SM07-dpi96.png",
+      "pending": "修復圖像呈現；DPI 96 只能取得相容模式圖。"
+    },
+    {
+      "id": "SM08",
+      "status": "❌",
+      "observation": "引擎呈現：七職頁與能力頁可進入，Unicode 名稱可輸入；部分按鈕仍被人物卡片取代。",
+      "steps": "空欄 Enter→職業頁逐職點選→Enter 能力頁→輸入煙測甲。",
+      "evidence": "client-A/m7-SM08-class-0.png; client-A/m7-SM08-stat-2.png; client-A/m7-SM08-name-focused.png; client-D/m7-SM08-stat-dpi96.png",
+      "pending": "修復按鈕圖像；真正 IME 候選組字未驗（Unicode SendInput 不算 IME）。"
+    },
+    {
+      "id": "SM09",
+      "status": "⚠️",
+      "observation": "已在空欄建立煙測甲（3→4）、確認刪除本人新角（4→3），同客戶端登出後切換其他角色；環境：DPI 96 建刪圖未補齊。",
+      "steps": "建角→選新角→刪除確認 Enter→登出登入選另一角。",
+      "evidence": "client-A/m7-SM09-created-final.png; client-A/m7-SM09-delete-confirm.png; client-A/m7-SM09-deleted-state.json",
+      "pending": "只補 DPI 96 證據；沒有刪除原有角色。"
+    },
+    {
+      "id": "SM10",
+      "status": "⚠️",
+      "observation": "世界 HUD 文字較 #1186 可讀；環境：未完整核對 Y/N 框及全部數值區。",
+      "steps": "進世界觀察 HUD；另取得原生死亡選單。",
+      "evidence": "client-A/m7-SM10-world.png; client-D/m7-SM10-dpi96.png; client-A/m7-SM44-death.png",
+      "pending": "Y/N 框及完整 DPI 對照。"
+    },
+    {
+      "id": "SM11",
+      "status": "⚠️",
+      "observation": "取得站立、移動、1.725 縮放及低 HP 圖；環境：未完成條座標逐像素與連續閃爍核對。",
+      "steps": "普通移動、滾輪縮放；低 HP 時連續截圖。",
+      "evidence": "client-A/m7-SM11-standing.png; client-A/m7-SM11-noninteger.png; client-A/m7-SM11-lowhp-1.png; client-A/m7-SM11-lowhp-2.png",
+      "pending": "低 HP 閃爍時序、非整數縮放座標及有效 DPI 96 對照。"
+    },
+    {
+      "id": "SM12",
+      "status": "⚠️",
+      "observation": "一般聊天 C136 已送且有本人文字回送；八分頁、五過濾與擴高已點核；環境：IME、各頻道未全做。",
+      "steps": "Send-SmokeCommand 一般訊息→八分頁→五個過濾按鈕。",
+      "evidence": "client-A/m7-SM12-general-send.json; client-A/m7-SM12-expanded.png; client-A/m7-SM12-tab-585.png; client-A/m7-SM12-filter-316.png",
+      "pending": "真正 IME、全部頻道與 DPI 96。"
+    },
+    {
+      "id": "SM13",
+      "status": "⚠️",
+      "observation": "保護罩實際施放後出現盾牌圖示，讀回 Skill=3、Seconds=1800；環境：指定 6400／82／470 未觸發。",
+      "steps": "技能窗選保護罩→M。",
+      "evidence": "client-A/m7-SM13-shield-cast.png; client-A/m7-SM13-shield-cast-state.json",
+      "pending": "其餘指定圖示與時間核對。"
+    },
+    {
+      "id": "SM14",
+      "status": "⚠️",
+      "observation": "環境／覆蓋：未執行（時間）；沒有功能判定。",
+      "steps": "未執行",
+      "evidence": "execution-window.json",
+      "pending": "空盟倉紅字、鑑定與中央訊息。"
+    },
+    {
+      "id": "SM16",
+      "status": "⚠️",
+      "observation": "說明窗文字可讀；自寄煙法甲信件後扣 50 金幣，刪信後清單空且出現已取消刪除字樣（需另核文字）；巨集拖入未綁定。",
+      "steps": "Ctrl+H；信件填寫→寄出→選信刪除；道具拖巨集。",
+      "evidence": "client-A/m7-SM16-open.png; client-A/m7-SM16-mail-compose.png; client-A/m7-SM16-mail-sent.png; client-A/m7-SM16-mail-deleted.png; client-A/m7-SM16-macro-bind.png",
+      "pending": "巨集八鍵／分頁、選項連結與信件提示字串；不要重寄刪已完成的流程。"
+    },
+    {
+      "id": "SM17",
+      "status": "⚠️",
+      "observation": "新增 Up／Right 移動圖及方向讀回；環境：未完成小地圖箭頭逐項比對與隊友點。",
+      "steps": "世界按 Up、Right。",
+      "evidence": "client-A/m7-SM17-heading-up.png; client-A/m7-SM17-heading-right.png",
+      "pending": "箭頭核對；隊友條件仍受相鄰 PC 工具缺口影響。"
+    },
+    {
+      "id": "SM18",
+      "status": "⚠️",
+      "observation": "藥水雙擊 20→19、Tab／Ctrl+I／選單入口、分類及刪除取消已操作；環境：DPI 96 相容截圖邊界不完整。",
+      "steps": "背包雙擊藥水；三入口；分類；Delete→Escape。",
+      "evidence": "client-A/m7-SM18-potion-state.json; client-A/m7-SM18-delete-confirm-2.png; client-D/m7-SM18-dpi96.png",
+      "pending": "只補有效 DPI 96 呈現證據及分類逐頁核對。"
+    },
+    {
+      "id": "SM19",
+      "status": "⚠️",
+      "observation": "map4 凱倫右鍵交談、存入銀箭 1、領回銀箭 1 完成；環境：DPI 96 圖未補。",
+      "steps": "4(32608,32788)→右鍵凱倫→存銀箭1→領銀箭1。",
+      "evidence": "client-A/m7-SM19-talk.png; client-A/m7-SM19-deposit-one.png; client-A/m7-SM19-withdraw-page2.png; client-A/m7-SM19-withdrawn-state.json",
+      "pending": "只補 DPI 96；存領功能與 SEG 載入成功不必原樣重跑。"
+    },
+    {
+      "id": "SM20",
+      "status": "❌",
+      "observation": "引擎：龍騎士已學 181／182、幻術士已學 201／202，技能窗仍空白；妖精另有外型未支援遮斷世界。",
+      "steps": "登入煙龍甲、煙幻甲，各按 Ctrl+S，對照 learned 清單。",
+      "evidence": "client-A/m7-SM20-class-5.png; client-A/m7-SM20-class-5-state.json; client-A/m7-SM20-class-6.png; client-A/m7-SM20-class-6-state.json",
+      "pending": "補 5／6 職業技能頁；map509 GM 瞬移未落地，拒開條件未測。"
+    },
+    {
+      "id": "SM21",
+      "status": "⚠️",
+      "observation": "潘朵拉買箭及弓成交（金幣 99950→99893）；賣頁回覆目前沒有要買的道具；環境：修理、學法未做。",
+      "steps": "靠近潘朵拉→右鍵→買→數量+1→Buy；再右鍵→賣。",
+      "evidence": "client-A/m7-SM21-talk.png; client-A/m7-SM21-buy-confirm.png; client-A/m7-SM21-bought-state.json; client-A/m7-SM21-sell-page.png",
+      "pending": "可出售物品、修理及吉倫學法；不能由單次空賣頁推論伺服器不支援。"
+    },
+    {
+      "id": "SM23",
+      "status": "⚠️",
+      "observation": "環境／覆蓋：未執行（時間）；沒有功能判定。",
+      "steps": "未執行",
+      "evidence": "execution-window.json",
+      "pending": "雙人私商買賣、價額確認與兩行訊息。"
+    },
+    {
+      "id": "SM24",
+      "status": "⚠️",
+      "observation": "/war 嘗試未觀察 C227，/focus 清空正向控制失敗而未送；環境：未開血盟備註／階級流程。",
+      "steps": "新指令工具執行 /focus、/war SM1211。",
+      "evidence": "client-A/m7-SM24-focus-send.json; client-A/m7-SM24-war-send.json",
+      "pending": "血盟窗與指定階級、備註、城門及指令回包；不判伺服器不支援。"
+    },
+    {
+      "id": "SM25",
+      "status": "⚠️",
+      "observation": "環境／覆蓋：未執行（時間）；沒有功能判定。",
+      "steps": "未執行",
+      "evidence": "execution-window.json",
+      "pending": "寵物取出、召喚控制戒指／技能51及盟屋頁。"
+    },
+    {
+      "id": "SM26",
+      "status": "⚠️",
+      "observation": "料理書雙擊後有獨立 WinForms 參數窗；確認使用後收到真實料理回包並開原生八格料理窗；環境：移走料理書測1167未做。",
+      "steps": "雙擊料理書→確認使用→原生 COOK_BOOK_WINDOW。",
+      "evidence": "client-A/m7-SM26-input-dialog.png; client-A/m7-SM26-native-book.png; client-A/m7-SM26-native-book-state.json",
+      "pending": "捲動提示、移走書後製作與1167；先前只截主窗漏拍參數窗，不算引擎失敗。"
+    },
+    {
+      "id": "SM28",
+      "status": "⚠️",
+      "observation": "環境／覆蓋：未執行（時間）；沒有功能判定。",
+      "steps": "未執行",
+      "evidence": "execution-window.json",
+      "pending": "真實 S43 kind1 重置與51級以上 Up／Esc。"
+    },
+    {
+      "id": "SM30",
+      "status": "⚠️",
+      "observation": "map5300 在32792,32784對32792,32781用短釣竿，真實動作71／fishing=true及原生釣魚窗；收竿後窗關閉；環境：線條與換圖殘留未核完。",
+      "steps": "雙擊釣竿→點水面→獨立窗確認使用→收竿。",
+      "evidence": "client-A/m7-SM30-target-dialog.png; client-A/m7-SM30-fishing.png; client-A/m7-SM30-fishing-state.json; client-A/m7-SM30-stopped.png",
+      "pending": "逐格釣魚線、1516文字與換圖不殘留。"
+    },
+    {
+      "id": "SM31",
+      "status": "⚠️",
+      "observation": "C125 送出、S39 回包均確認；環境／待定位：截圖仍是世界，未取得可見排名窗，不能判伺服器未回。",
+      "steps": "工具清空後輸入 /rank，延遲後再截圖。",
+      "evidence": "client-A/m7-SM31-rank2-send.json; client-A/m7-SM31-delayed.png",
+      "pending": "定位排名窗開關時序並完成可見排名頁。"
+    },
+    {
+      "id": "SM32",
+      "status": "⚠️",
+      "observation": "動作四分頁可見，另點行動頁第一格；環境：沒有逐一核對所有有路線動作。",
+      "steps": "動作按鈕→社群／行動／管理→第一行動格雙擊。",
+      "evidence": "client-A/m7-SM32-actions.png; client-A/m7-SM32-tab-425.png; client-A/m7-SM32-action-first.png",
+      "pending": "只補尚未驗證的各動作路線。"
+    },
+    {
+      "id": "SM33",
+      "status": "⚠️",
+      "observation": "說明頁與潘朵拉頁取得滑入前後圖；環境：未取指定日期頁及 RGB 像素核對。",
+      "steps": "右鍵潘朵拉→滑入「知道夏洛伯嗎」。",
+      "evidence": "client-A/m7-SM33-npc-before.png; client-A/m7-SM33-npc-hover.png",
+      "pending": "指定 NPC 日期、遊戲時間與色值；不是以本機說明頁代替指定頁。"
+    },
+    {
+      "id": "SM34",
+      "status": "⚠️",
+      "observation": "/buddy 重試 C4／S39 後出現空好友名單；封鎖／解除 C171 已送；環境：未核對名單回包最終狀態。",
+      "steps": "/buddy→/exclude 煙王甲→/include 煙王甲。",
+      "evidence": "client-A/m7-SM34-buddy2-send.json; client-A/m7-SM34-delayed.png; client-A/m7-SM34-exclude-send.json; client-A/m7-SM34-include-send.json",
+      "pending": "名單新增刪除與封鎖解除讀回；首次清空失敗已保留，不當成送出。"
+    },
+    {
+      "id": "SM36",
+      "status": "⚠️",
+      "observation": "環境／覆蓋：未執行（時間）；沒有功能判定。",
+      "steps": "未執行",
+      "evidence": "execution-window.json",
+      "pending": "召喚高等頁停用格滑入、點選與拖曳。"
+    },
+    {
+      "id": "SM37",
+      "status": "⚠️",
+      "observation": "環境／覆蓋：未執行（時間）；沒有功能判定。",
+      "steps": "未執行",
+      "evidence": "execution-window.json",
+      "pending": "S_EVENT117 血盟倉庫紀錄窗。"
+    },
+    {
+      "id": "SM38",
+      "status": "⚠️",
+      "observation": "/bookmark SM1211、/qbookmark SM1211Q 的 C165 已送；未核得預期回包及可見書籤窗。",
+      "steps": "新工具逐條輸入新增與開窗指令。",
+      "evidence": "client-A/m7-SM38-add-send.json; client-A/m7-SM38-quick-send.json; client-A/m7-SM38-list.png",
+      "pending": "新增讀回、刪除、19區域、IME與拖曳；預期 opcode 設定未另核，不能把工具未命中當成完全無回包。"
+    },
+    {
+      "id": "SM39",
+      "status": "⚠️",
+      "observation": "環境／覆蓋：未執行（時間）；沒有功能判定。",
+      "steps": "未執行",
+      "evidence": "execution-window.json",
+      "pending": "普通近戰擊殺、EXP與掉落。"
+    },
+    {
+      "id": "SM40",
+      "status": "⚠️",
+      "observation": "環境／覆蓋：未執行（時間）；沒有功能判定。",
+      "steps": "未執行",
+      "evidence": "execution-window.json",
+      "pending": "弓箭裝備／射擊／耗箭／其他箭矢；本次只從NPC買到弓箭。"
+    },
+    {
+      "id": "SM41",
+      "status": "⚠️",
+      "observation": "環境／覆蓋：未執行（時間）；沒有功能判定。",
+      "steps": "未執行",
+      "evidence": "execution-window.json",
+      "pending": "攻速、動作競合及表情保留指定時序。"
+    },
+    {
+      "id": "SM42",
+      "status": "⚠️",
+      "observation": "環境／覆蓋：未執行（時間）；沒有功能判定。",
+      "steps": "未執行",
+      "evidence": "execution-window.json",
+      "pending": "指定攻擊／座標／範圍特效；保護罩施法不替代本列。"
+    },
+    {
+      "id": "SM43",
+      "status": "⚠️",
+      "observation": "環境／覆蓋：未執行（時間）；沒有功能判定。",
+      "steps": "未執行",
+      "evidence": "execution-window.json",
+      "pending": "妖精與黑妖各中盲目2的光圈。"
+    },
+    {
+      "id": "SM44",
+      "status": "⚠️",
+      "observation": "普通煙法甲被骷髏斧手擊殺，原生死亡窗取消、Ctrl+Q重開及重新開始回村均完成；環境：復活Y/N與Esc優先序未做。",
+      "steps": "map2普通角色受怪攻擊→死亡→取消→Ctrl+Q→重新開始。",
+      "evidence": "client-A/m7-SM44-death.png; client-A/m7-SM44-cancel.png; client-A/m7-SM44-reopen.png; client-A/m7-SM44-restart.png",
+      "pending": "復活321／322、背包開啟時Esc優先序。"
+    },
+    {
+      "id": "SM45",
+      "status": "⚠️",
+      "observation": "光箭選取後 M 讀回「請選擇對象」，點地面取消已操作；環境：尚未完成對有效目標施放與游標形狀逐格核對。",
+      "steps": "選光箭→M→點地面。",
+      "evidence": "client-A/m7-SM45-picking-confirmed.png; client-A/m7-SM45-picking-confirmed-state.json; client-A/m7-SM45-cancel-confirmed.png",
+      "pending": "有效目標施放與游標形狀、取消讀回。"
+    },
+    {
+      "id": "SM46",
+      "status": "⚠️",
+      "observation": "環境／覆蓋：未執行（時間）；沒有功能判定。",
+      "steps": "未執行",
+      "evidence": "execution-window.json",
+      "pending": "肉丟1撿1／丟10撿10、錯誤數量更正及門遮擋。"
+    },
+    {
+      "id": "SM47",
+      "status": "⚠️",
+      "observation": "環境／覆蓋：未執行（時間）；沒有功能判定。",
+      "steps": "未執行",
+      "evidence": "execution-window.json",
+      "pending": "指定目標道具、緩速時用物品／拾取／交談。"
+    },
+    {
+      "id": "SM48",
+      "status": "⚠️",
+      "observation": "環境／覆蓋：未執行（時間）；沒有功能判定。",
+      "steps": "未執行",
+      "evidence": "execution-window.json",
+      "pending": "七職各施放基本技能、非1／3／4／8及範圍法術；只完成七職登入與技能清單。"
+    },
+    {
+      "id": "SM49",
+      "status": "⚠️",
+      "observation": "環境／覆蓋：未執行（時間）；沒有功能判定。",
+      "steps": "未執行",
+      "evidence": "execution-window.json",
+      "pending": "傳送控制戒指、書籤選取及限制地圖。"
+    },
+    {
+      "id": "SM50",
+      "status": "⚠️",
+      "observation": "原 map4(33071,32800) 登入成功、renderable=true、原始區塊載入，未出現 SEG／壓縮錯誤；環境：洞穴步行、船運、失敗恢復未做。",
+      "steps": "GM僅準備位置並改回0，普通客戶端登入指定map4位置。",
+      "evidence": "client-A/m7-SM50-map4.png; client-A/m7-SM50-map4-state.json",
+      "pending": "只補洞穴步行、船運、傳送失敗恢復；GM瞬移不算這些子項通過。"
+    },
+    {
+      "id": "SM52",
+      "status": "⚠️",
+      "observation": "環境／覆蓋：未執行（時間）；沒有功能判定。",
+      "steps": "未執行",
+      "evidence": "execution-window.json",
+      "pending": "指定衣物層NPC、逐格順序與缺檔行為。"
+    },
+    {
+      "id": "SM53",
+      "status": "⚠️",
+      "observation": "checkpk／divorce／duel 已確認送出與回包，whisper off/on 已送；其他指令有前置清空失敗或未送出，未完成位置接收與踢除。",
+      "steps": "依 README 用工具逐條清空、送出、核對 trace。",
+      "evidence": "client-A/jobs/41-commands.ps1.result.json; client-A/m7-SM53-checkpk-send.json; client-A/m7-SM53-duel-send.json",
+      "pending": "只補失敗或未核對子步驟；不把輸入文字等同C封包送出。"
+    },
+    {
+      "id": "SM54",
+      "status": "⚠️",
+      "observation": "普通煙王甲被怪擊殺，classic中央死亡窗出現；等待502763ms後Disconnected；環境：取消後死亡選單鈕／重新開始未操作。",
+      "steps": "classic登入map2→一般玩家受怪攻擊死亡→等501264ms。",
+      "evidence": "client-C/m7-SM54-dead.png; client-C/m7-SM54-after501264.png; client-C/m7-SM54-end-time.json",
+      "pending": "只補classic取消後死亡選單鈕與重新開始；死亡及逾時已取得。"
+    },
+    {
+      "id": "SM55",
+      "status": "✅",
+      "observation": "--classic-ui 啟動並登入後，角色選單、建立／刪除與進入世界均維持WinForms控制項。",
+      "steps": "classic登入→UIA讀回與截圖角色選單。",
+      "evidence": "client-C/m7-SM55-selection.png; client-C/roles-tree.json",
+      "pending": "無；另兩種切換沿用 #1186。"
+    },
+    {
+      "id": "SM57",
+      "status": "⚠️",
+      "observation": "常用選項有文字；三音量各自設定24／48／74，新客戶端讀回相同值；環境：DPI96只取得相容模式，實際聽感未驗。",
+      "steps": "選項環境頁分別改三滑桿→另開客戶端讀回。",
+      "evidence": "client-A/m7-SM57-volumes.png; client-A/m7-SM57-volume-file.json; client-D/m7-SM57-restart-dpi96.png; client-D/m7-SM57-restart-config.json",
+      "pending": "有效DPI96呈現；聲音輸出工具依 #1225 分流，不在本張補錄。"
+    },
+    {
+      "id": "SM58",
+      "status": "❌",
+      "observation": "引擎：GM準備1062後普通客戶端顯示「尚未支援此外觀」，黑畫面且停止移動／戰鬥，stride無法驗；後續1461／1395指令未取得相應gfx讀回。",
+      "steps": "準備 .poly 煙法甲 1062→GM還原0→普通客戶端點地行走。",
+      "evidence": "client-A/m7-SM58-1062-walking.png; client-A/m7-SM58-1062-standing-state.json; client-A/m7-SM58-1395-state.json; prep-poly-1062-after.tsv",
+      "pending": "修復1062可操作性；1461／1395條件未成立，不能把檔名當成變身成功。"
+    }
+  ],
+  "evidenceRoot": "environments/p24/backups/issue-1211-evidence",
+  "native96": "process DPIUNAWARE compatibility only; physical display remains DPI192",
+  "cleanup": {
+    "gmZero": true,
+    "onlineZero": true,
+    "listeners": [],
+    "ownedPids": [
+      20036,
+      19732,
+      19964,
+      20032,
+      10300,
+      2280
+    ],
+    "method": "clients Close-SmokeClient; Java identity-checked Stop-Process; mysqladmin TCP 43324 shutdown",
+    "remainingOwned": [],
+    "utc": "2026-11-14T09:21:09.5900464Z"
+  },
+  "evidenceManifest": {
+    "files": 657,
+    "bytes": 188386524,
+    "sha256": "04fcec308d38adcb51008ca1383f04b8067a8e03959b477c0948c51d5baf2bc9"
+  },
+  "audit": {
+    "result": "pass-with-stated-boundaries",
+    "filesScanned": 987441,
+    "changed": 0,
+    "knownHistoricalErrors": 11,
+    "unknownErrors": 0,
+    "reparseEntriesNotTraversed": 75,
+    "originalDatabaseCompared": 1722,
+    "originalDatabaseDifferences": 0
+  },
+  "syncedMain": "1ef9039d6b6ef87151859457bdbd35b18d64724d",
+  "syncedBuild": {
+    "buildExitCode": 0,
+    "checkExitCode": 0,
+    "productShaUnchanged": true,
+    "audioShaUnchanged": true,
+    "launcherShaUnchanged": true,
+    "manifestShaUnchanged": true
+  }
+}
