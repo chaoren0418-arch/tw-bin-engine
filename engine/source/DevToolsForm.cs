@@ -55,17 +55,62 @@ public sealed class DevToolsForm : Form {
 /// 選取頁 Pane 之後依序是每一個分頁的 TabItem，名稱＝分頁標題、矩形＝原生標籤、Select 選到同一頁。
 /// </summary>
 sealed class DevToolsPage:TabPage {
-    const int WM_GETTEXT=0x000D,WM_GETTEXTLENGTH=0x000E;
     public DevToolsPage(string title):base(title){AccessibleName=title;}
     /// <summary>InSendMessageEx 的結果非 ISMEX_NOSEND(0)＝訊息由其他執行緒送來，視窗文字不對外公開。</summary>
-    internal static bool HidesWindowText(uint inSendMessageEx)=>inSendMessageEx!=0;
+    internal static bool HidesWindowText(uint inSendMessageEx)=>CrossThreadTabText.HidesWindowText(inSendMessageEx);
     protected override void WndProc(ref Message m){
-        if((m.Msg is WM_GETTEXT or WM_GETTEXTLENGTH)&&HidesWindowText(InSendMessageEx(IntPtr.Zero))){
-            if(m.Msg==WM_GETTEXT&&m.WParam!=IntPtr.Zero&&m.LParam!=IntPtr.Zero)System.Runtime.InteropServices.Marshal.WriteInt16(m.LParam,0);
-            m.Result=IntPtr.Zero;
-            return;
-        }
+        if(CrossThreadTabText.TryHide(ref m))return;
         base.WndProc(ref m);
+    }
+}
+
+/// <summary>
+/// #1172（#1165 服務頁巢狀分頁）：把 <see cref="DevToolsPage"/> 的「跨執行緒 WM_GETTEXT／WM_GETTEXTLENGTH 回空字串」抽成共用 helper，
+/// 讓不是 DevToolsPage 的一般 TabPage（例如「開發工具服務分頁」normalPanels 裡由各功能檔建立的分頁）也套到同一個修正，
+/// 不必逐檔改分頁類別。做法：對 TabControl 訂 ControlAdded，新加入的一般 TabPage 掛一個 NativeWindow 子類別；
+/// handle 重建時（HandleCreated）重新掛上；同一頁移除後再加回（RingWindows「盟屋拍賣」）不會重複掛。
+/// 分頁的順序、標題、內容、AccessibleName 都不動；本執行緒讀 Text、畫標籤照舊。
+/// </summary>
+static class CrossThreadTabText {
+    const int WM_GETTEXT=0x000D,WM_GETTEXTLENGTH=0x000E;
+    /// <summary>InSendMessageEx 的結果非 ISMEX_NOSEND(0)＝訊息由其他執行緒送來，視窗文字不對外公開。</summary>
+    internal static bool HidesWindowText(uint inSendMessageEx)=>inSendMessageEx!=0;
+    /// <summary>需要另外掛子類別的控制項：一般 TabPage（DevToolsPage 自己的 WndProc 已處理，不重複掛；其他控制項不是分頁）。</summary>
+    internal static bool NeedsSubclass(Control? control)=>control is TabPage and not DevToolsPage;
+    /// <summary>其他執行緒送來的 WM_GETTEXT／WM_GETTEXTLENGTH：回長度 0、寫入空字串，回傳 true（已處理）；其餘訊息回 false。</summary>
+    internal static bool TryHide(ref Message m){
+        if(m.Msg is not (WM_GETTEXT or WM_GETTEXTLENGTH)||!HidesWindowText(InSendMessageEx(IntPtr.Zero)))return false;
+        if(m.Msg==WM_GETTEXT&&m.WParam!=IntPtr.Zero&&m.LParam!=IntPtr.Zero)System.Runtime.InteropServices.Marshal.WriteInt16(m.LParam,0);
+        m.Result=IntPtr.Zero;
+        return true;
+    }
+    static readonly System.Runtime.CompilerServices.ConditionalWeakTable<TabPage,PageWindow> attached=new();
+    /// <summary>這一頁是否已掛上子類別（離線檢查用；不需要 handle）。</summary>
+    internal static bool IsAttached(TabPage page)=>attached.TryGetValue(page,out _);
+    /// <summary>對 <paramref name="tabs"/> 現有與之後加入的每一個一般 TabPage 掛上子類別。</summary>
+    internal static void Apply(TabControl tabs){
+        foreach(TabPage page in tabs.TabPages)Attach(page);
+        tabs.ControlAdded+=(_,e)=>{if(e.Control is TabPage page)Attach(page);};
+    }
+    /// <summary>掛上子類別；已掛過或不需要（DevToolsPage）時回 false。handle 尚未建立時先登記，建立時才 AssignHandle。</summary>
+    internal static bool Attach(TabPage page){
+        if(!NeedsSubclass(page)||attached.TryGetValue(page,out _))return false;
+        attached.Add(page,new PageWindow(page));
+        return true;
+    }
+    sealed class PageWindow:NativeWindow {
+        readonly TabPage page;
+        public PageWindow(TabPage page){this.page=page;page.HandleCreated+=(_,_)=>Hook();Hook();}
+        void Hook(){
+            if(!page.IsHandleCreated||Handle==page.Handle)return;
+            // 舊 handle 一般已在 WM_NCDESTROY 由 NativeWindow 自動釋放；仍殘留時先放掉再掛新的。
+            if(Handle!=IntPtr.Zero)ReleaseHandle();
+            AssignHandle(page.Handle);
+        }
+        protected override void WndProc(ref Message m){
+            if(TryHide(ref m))return;
+            base.WndProc(ref m);
+        }
     }
     [System.Runtime.InteropServices.DllImport("user32.dll")] static extern uint InSendMessageEx(IntPtr reserved);
 }
