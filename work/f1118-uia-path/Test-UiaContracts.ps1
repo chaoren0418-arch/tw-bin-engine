@@ -1,4 +1,4 @@
-param([Parameter(Mandatory)][string]$EvidenceDirectory)
+﻿param([Parameter(Mandatory)][string]$EvidenceDirectory)
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
 $ev=[IO.Path]::GetFullPath($EvidenceDirectory)
@@ -94,6 +94,60 @@ Check 'tab-selection-dual-readback' {
     }
     Assert ($itemPattern.SelectCalls -eq 5 -and $tabSelection.Reads -eq 5) 'Selection must execute once and read both sides per call'
     [pscustomobject]@{Accepted=$accepted;Rejections=$cases.ToArray();SelectCalls=$itemPattern.SelectCalls;ReadCalls=$tabSelection.Reads;LegacyCallError=$legacyError}
+}
+Check 'read-error-keeps-node-identity' {
+    # #1173 G06: a node with Name=null used to keep only Error, so the broken control could not be named (#1178).
+    $nullName=New-FixtureElement 'placeholder' 'Text'
+    $nullName.Current.Name=$null;$nullName.Current.AutomationId='sceneStatus';$nullName.Current.ClassName='FixtureParagraph'
+    $node=Read-UiaElement $nullName -MaskPassword
+    Assert ($null -ne $node.PSObject.Properties['Error']) 'Null Name must still be an error node'
+    Assert ($node.Error.Contains("UIA property 'Name' is null")) 'Error must name the failing property'
+    Assert ($node.Type -ceq 'ControlType.Text' -and $node.Id -ceq 'sceneStatus' -and $node.Class -ceq 'FixtureParagraph') 'Readable Type/Id/Class must be kept'
+    Assert ($node.Rectangle -ceq '0,0,1,1' -and $node.Enabled -eq $true -and $null -eq $node.Name) 'Readable Rectangle/Enabled must be kept; Name stays null'
+    # One property throwing (provider text preserved) must not hide the rest either.
+    $throwing=New-FixtureElement 'kept name' 'Image'
+    $throwing.Current | Add-Member ScriptProperty ClassName {throw 'fixture ClassName provider original text'} -Force
+    $partial=Read-UiaElement $throwing
+    Assert ($partial.Error.Contains('ClassName') -and $partial.Error.Contains('fixture ClassName provider original text')) 'Throwing property text lost'
+    Assert ($partial.Name -ceq 'kept name' -and $partial.Type -ceq 'ControlType.Image' -and $null -eq $partial.Class) 'Other properties must survive a throwing one'
+    # The G06 judgement is not relaxed: the tree still counts it, Find still skips it.
+    $root=New-FixtureElement 'root' 'Window';$root.Children=@($nullName,(New-FixtureElement 'live' 'Text'))
+    $tree=@(Get-UiaTree $root)
+    $treeErrors=@($tree | Where-Object {$_.PSObject.Properties['Error']})
+    Assert ($tree.Count -eq 3 -and $treeErrors.Count -eq 1 -and $treeErrors[0].Id -ceq 'sceneStatus') 'Tree must report the error node with its identity'
+    $readErrors=$null;$skipped=$null
+    try {$null=Find-UiaControl $root -AutomationId 'sceneStatus' -ReadErrors ([ref]$readErrors)} catch {$skipped=$_.Exception.Message}
+    Assert ($null -ne $skipped -and $skipped.Contains('found 0') -and @($readErrors).Count -eq 1) 'Find must keep error nodes out of matching and list them as read errors'
+    [pscustomobject]@{NullName=$node;ThrowingClass=$partial;FindError=$skipped}
+}
+Check 'tab-select-refuses-disabled' {
+    # #1173 N01: in CharacterList the service tabs are Enabled=false; the helper must say so and not Select (#1178).
+    $results=[Collections.Generic.List[object]]::new()
+    foreach($scenario in @('item-disabled','tab-disabled','tab-enabled-read-error')){
+        $item=New-FixtureElement '聲音' 'TabItem'
+        $pattern=[pscustomobject]@{Current=[pscustomobject]@{IsSelected=$false};SelectCalls=0}
+        $pattern | Add-Member ScriptMethod Select {$this.SelectCalls++}
+        $item | Add-Member NoteProperty Pattern $pattern
+        $item | Add-Member ScriptMethod GetCurrentPattern {param($p) $this.Pattern}
+        $tab=New-FixtureElement '開發工具服務分頁' 'Tab';$tab.Children=@($item)
+        $tabPattern=[pscustomobject]@{Current=[pscustomobject]@{Selected=@()}}
+        $tabPattern.Current | Add-Member ScriptMethod GetSelection {$this.Selected}
+        $tab | Add-Member NoteProperty Pattern $tabPattern
+        $tab | Add-Member ScriptMethod GetCurrentPattern {param($p) $this.Pattern}
+        switch($scenario){
+            'item-disabled' {$item.Current.IsEnabled=$false;$tab.Current.IsEnabled=$false}
+            'tab-disabled' {$tab.Current.IsEnabled=$false}
+            'tab-enabled-read-error' {$tab.Current | Add-Member ScriptProperty IsEnabled {throw 'fixture IsEnabled provider original text'} -Force}
+        }
+        $failure=$null
+        try {$null=Select-UiaTab $tab '聲音'} catch {$failure=$_.Exception.ToString()}
+        Assert ($null -ne $failure -and $failure.Contains('IsEnabled') -and $failure.Contains('TabItemIsEnabled') -and $failure.Contains('TabIsEnabled')) "Missing IsEnabled observation for $scenario"
+        Assert ($failure.Contains('RequestedName')) "Missing RequestedName for $scenario"
+        Assert ($pattern.SelectCalls -eq 0) "Select must not be called for $scenario"
+        if($scenario -eq 'tab-enabled-read-error'){Assert ($failure.Contains('fixture IsEnabled provider original text')) 'IsEnabled provider text lost'}
+        $results.Add([pscustomobject]@{Scenario=$scenario;SelectCalls=$pattern.SelectCalls;Error=$failure})
+    }
+    $results.ToArray()
 }
 Check 'find-scope-children-outer-tab' {
     # Service page shape (#1165): dev window -> outer Tab -> TabItem -> nested service Tab.

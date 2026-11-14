@@ -1,6 +1,6 @@
 # UIA／GDI 操作工具（#1126／#1138）
 
-記事本前置改為 **UIA 聚焦＋SendInput Unicode 輸入＋TextPattern 讀回**。Windows 10 記事本編輯區是 `ControlType.Document`（Class `Edit`、AutomationId `15`），只提供 `TextPattern`／`ScrollPattern`，不支援 `ValuePattern`。不要把狀態列的五個 `ControlType.Edit` 當編輯區。#1138 實機結果見下方報告；記事本 #1149 已通過；客戶端最新實證見下方 **#1165**：七職業 GUI 建角完成，分頁 helper 有 API 呼叫錯誤；#1171 已修正 helper（見「分頁 helper 修正」節），實機待重測。
+記事本前置改為 **UIA 聚焦＋SendInput Unicode 輸入＋TextPattern 讀回**。Windows 10 記事本編輯區是 `ControlType.Document`（Class `Edit`、AutomationId `15`），只提供 `TextPattern`／`ScrollPattern`，不支援 `ValuePattern`。不要把狀態列的五個 `ControlType.Edit` 當編輯區。#1138 實機結果見下方報告；記事本 #1149 已通過；客戶端最新實證見下方 **#1165**：七職業 GUI 建角完成，分頁 helper 有 API 呼叫錯誤；#1171 已修正 helper（見「分頁 helper 修正」節），實機待重測。#1173 G06（網頁面板 Name=null）與 N01（選角時服務子頁停用）的修正見「網頁面板 Name=null 與停用分頁（#1178）」節，實機待 `f1173-retest`。
 
 ## 客戶端最新實證（#1165）
 
@@ -69,6 +69,26 @@ Invoke-UiaButton (Find-UiaControl $dialog -Name '取消' -Type Button)
 - `Find-UiaControl` 新增 `-Scope Children|Descendants`（預設 `Descendants`，既有呼叫行為不變）。服務頁同時可見外層 Tab 與巢狀「開發工具服務分頁」Tab，取外層一律用 `-Scope Children`。
 - `Test-UiaContracts.ps1` 的 fixture 改成真實形狀（pattern 只有 `Current`，`Current.GetSelection()`），並斷言 pattern 上呼叫 `GetCurrentSelection` 必定失敗、受控型別反射仍無此方法；新增 `find-scope-children-outer-tab`（巢狀兩層 Tab 時 Children 只回外層）。
 
+## 網頁面板 Name=null 與停用分頁（#1178，待 `f1173-retest` 實機重測）
+
+[報告](../../docs/reports/issue-1178.md)。來源是 [#1173](https://github.com/chaoren0418-arch/tw-bin-engine/issues/1173) 的 G06、N01 兩項 ❌（分流見 [#1176](../../docs/reports/issue-1176.md)）。本輪**沒有對任何視窗執行**，以下修正後行為都還沒在真機驗證。
+
+#1173 實機失敗（保留原結果）：
+
+- **G06**：開發工具預設「網頁面板」的樹共 183 個節點，零起算第 54 個是 Error，原文 `System.Management.Automation.RuntimeException: UIA property 'Name' is null`。前一個節點是 Image／`sceneImage`，後一個是 StatusBar／`incomingAttack`，整棵樹沒有 `sceneStatus`，所以壞的位置正好是 `engine/web/index.html:16` 的 `<p id="sceneStatus">`。舊版 `Read-UiaElement` 一遇到 null 就只留 `Error`，因此當時不能直接指出是哪個控制項；一次性包裝腳本用 `.Type` 篩選時也因為 Error 節點沒有 Type 而中斷。
+- **N01**：在 CharacterList 狀態對「開發工具服務分頁」做 `Select-UiaTab` 聲音／血盟，讀回 `IsSelected=false`、`TabSelection=背包`。根因是測試條件：`engine/source/ProductEntry.cs:73` `normalPanels.Enabled=login.State==LoginState.InWorld`，`n01-nested-tree.json` 裡這個 Tab 與 16 個 TabItem 全部 `Enabled=false`，停用的 TabControl 不接受選取（設計如此，不改）。
+
+**前提（切服務子頁前必讀）**：「開發工具服務分頁」（巢狀 Tab）只在 **InWorld** 時啟用；CharacterList 時它和所有 TabItem 都是 `Enabled=false`，切頁必定失敗。N01 這類子頁切換要先進入世界再做。外層 Tab（`DevToolsForm.pages`，G07）沒有被停用，選角時也能切。
+
+本張修正：
+
+- `engine/web/panel.js`：`sceneStatus`、`incomingAttack`、`missingObjects`、`magicVitals`、`magicNotice` 改用 `setText(id,value)`，**文字不同才寫**。原本選角時主程式每 50 ms 送一次 `scene`（`available=false`），每次都重寫同樣的「尚未進入世界」，換掉文字節點，讓 Chromium 的無障礙節點一直重建（推測根因，見報告）。文字內容、順序與顯示條件都沒變。
+- `Read-UiaElement`：逐一讀屬性。某個屬性 null 或拋錯時，節點仍輸出讀得到的 `Type`／`Id`／`Class`／`Rectangle`／`Enabled`／`Offscreen`／`Patterns`，`Error` 寫出是哪個屬性（例如 `UIA property 'Name' is null`；拋錯時保留 provider 原文，多個錯誤用 ` | ` 串接）。**有 `Error` 的節點仍是錯誤**：`Get-UiaTree` 照樣計入 read errors（G06 判定不放寬），`Find-UiaControl` 照樣列入 read errors、不參與比對。
+- `Select-UiaTab`：`Select()` 之前先讀 TabItem 與 Tab 的 `Current.IsEnabled`。任一不是 `true`（含讀取失敗）就丟出 `Select-UiaTab refused: TabItem or Tab is not enabled (IsEnabled); Select was not called: {RequestedName, TabItemIsEnabled, TabIsEnabled, TabItemIsEnabledError, TabIsEnabledError}`，不呼叫 Select，也沒有鍵盤或座標退路。兩邊都啟用時，後面的雙向讀回判定不變。
+- `Test-UiaContracts.ps1` 新增 `read-error-keeps-node-identity`（Name=null 時同時有 Error 與 Type／Id；單一屬性拋錯不影響其他屬性；Tree 仍算錯誤、Find 仍跳過）與 `tab-select-refuses-disabled`（TabItem 停用、Tab 停用、Tab 的 IsEnabled 讀取失敗三種情況都丟出含 IsEnabled 的錯誤，且 Select 呼叫 0 次）。
+
+重測（交 `f1173-retest`）：G06 連讀網頁面板樹 3 次都要 0 個 Error；若還有 Error，看該節點的 `Type`／`Id`／`Class` 指出控制項。N01 改在 InWorld 時做；若錯誤是 `Select-UiaTab refused ... IsEnabled`，表示還沒進入世界，不是 helper 失敗。
+
 G07 重測步驟（交 `f1165-retest`）：
 
 ```powershell
@@ -124,10 +144,10 @@ finally 留一張 GDI 圖並關閉自啟記事本；若出現儲存對話框，�
 | 函式 | 用法與判定 |
 |---|---|
 | `Get-UiaWindow -ProcessId $ownedProcessId -Title $title -IncludeOwned` | 查同 PID 頂層與其 descendants 的 Window，標題採 ordinal 完全相符、RuntimeId 去重，仍必須唯一。省略 IncludeOwned 保留頂層搜尋。 |
-| `Get-UiaTree $window` | 單一元素失效、null 屬性或列舉例外輸出 `{ Error = 原文 }`，繼續讀其他已取得元素；不把錯誤當空樹。provider 永不返回的 FindAll 不在這次逾時保護範圍。 |
+| `Get-UiaTree $window` | 單一元素失效、null 屬性或列舉例外輸出 `{ Error = 原文 }`，繼續讀其他已取得元素；不把錯誤當空樹。#1178 起個別屬性失敗時，同一節點仍保留讀得到的 Type／Id／Class／Rectangle／Enabled，`Error` 寫明哪個屬性失敗；節點仍算錯誤。provider 永不返回的 FindAll 不在這次逾時保護範圍。 |
 | `Find-UiaControl $window -Name $name -Type Button -ReadErrors ([ref]$errors)` | 忽略不可讀元素，錯誤以 `{ Error = 原文 }` 存入 `$errors`；仍只回傳唯一 element。也可立即用 `Get-UiaReadErrors` 讀最近一次 Find／Tree 的錯誤；找不到或多筆時仍丟錯並附原文。#1171 起可加 `-Scope Children` 只查直接子節點（預設 `Descendants`）；開發工具外層分頁用 `Find-UiaControl $dev -Type Tab -Scope Children`。 |
 | `Invoke-UiaButton $button -TimeoutSeconds 5` | 預設最多等待 5 秒，包含取得 InvokePattern。背景 MTA 呼叫無自動重試；逾時只停止等待，provider 可能仍在執行。**動作可能已生效，先截圖核對，不要重送**。 |
-| `Select-UiaTab $tab '登入／選角'` | 對 TabItem 呼叫 `SelectionItemPattern.Select()` 後雙向核對：TabItem 讀 `SelectionItemPattern.Current.IsSelected`＋名稱，Tab 讀 `SelectionPattern.Current.GetSelection()`（受控 API；#1171 修正，#1165 實機時誤呼叫不存在的 `GetCurrentSelection()` 而失敗）。`$tab` 須以 `-Scope Children` 取得 dev 外層 Tab。錯誤含兩邊原始觀察／例外；沒有鍵盤或座標退路。修正後實機待 `f1165-retest` 驗證。 |
+| `Select-UiaTab $tab '登入／選角'` | 對 TabItem 呼叫 `SelectionItemPattern.Select()` 後雙向核對：TabItem 讀 `SelectionItemPattern.Current.IsSelected`＋名稱，Tab 讀 `SelectionPattern.Current.GetSelection()`（受控 API；#1171 修正，#1165 實機時誤呼叫不存在的 `GetCurrentSelection()` 而失敗）。`$tab` 須以 `-Scope Children` 取得 dev 外層 Tab。錯誤含兩邊原始觀察／例外；沒有鍵盤或座標退路。修正後實機待 `f1165-retest` 驗證。#1178 起 Select 前先查 TabItem 與 Tab 的 `IsEnabled`，任一不是 true 就丟出含兩個 IsEnabled 原值的錯誤、不呼叫 Select；服務巢狀分頁只在 InWorld 啟用（`ProductEntry.cs:73`）。 |
 | `$sentUtc = Send-UiaEvidenceKey $window` | 前景核對同 PID 後送 **Ctrl+Shift+F12**，回傳送出前的 UTC DateTime；沿用 Send-ClientKey 的逐次原生 PID 保護與 JSONL。 |
 | `Get-UiaNewEvidence $directory $sentUtc` | 列出該目錄 `LastWriteTimeUtc` 嚴格晚於送鍵 UTC 的 `manual-*.png`；不遞迴、不等待，零筆不能算擷取成功。 |
 | `Send-UiaF12 $window` | 舊名只為相容保留，轉呼叫 Send-UiaEvidenceKey；現在送組合鍵，**單鍵 F12 不是證據鍵**。 |
@@ -150,7 +170,7 @@ $newEvidence | Select-Object Name, LastWriteTimeUtc
 ```powershell
 # 只開記事本，另存新檔對話框直接取消，結束時關閉自啟 PID；使用新的證據目錄。
 powershell.exe -NoProfile -ExecutionPolicy Bypass -STA -File work/f1118-uia-path/Test-UiaHelpers.ps1 -EvidenceDirectory scratch/uia-helpers
-# 純單元 fixture：錯誤保留、分頁雙向核對（真實 API 形狀）、-Scope Children、逾時不重試、檔案時間篩選，不算客戶端實證。
+# 純單元 fixture：錯誤保留（含壞節點身分）、分頁雙向核對（真實 API 形狀）、停用分頁拒絕、-Scope Children、逾時不重試、檔案時間篩選，不算客戶端實證。
 powershell.exe -NoProfile -ExecutionPolicy Bypass -STA -File work/f1118-uia-path/Test-UiaContracts.ps1 -EvidenceDirectory scratch/uia-contracts
 ```
 

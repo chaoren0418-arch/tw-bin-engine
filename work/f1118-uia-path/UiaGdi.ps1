@@ -101,19 +101,48 @@ $script:UiaReadErrors=@()
 function Get-UiaReadErrors { $script:UiaReadErrors }
 function Read-UiaElement {
     # A disappearing element is evidence, not a reason to discard the other nodes.
+    # Each property is read on its own (#1178): a failing or null property no longer hides the others,
+    # so an error node still carries whatever Type/Id/Class/Rectangle/Enabled could be read.
+    # Any failure still yields an Error property (the node remains a read error for callers).
     param($Element,[switch]$MaskPassword)
-    try {
-        $c=$Element.Current
-        foreach($property in @('Name','ControlType','AutomationId','ClassName','BoundingRectangle')){
-            if($null -eq $c.$property){throw "UIA property '$property' is null"}
+    $errors=[Collections.Generic.List[string]]::new()
+    $c=$null
+    try {$c=$Element.Current;if($null -eq $c){$errors.Add("UIA property 'Current' is null")}}
+    catch {$errors.Add("UIA property 'Current' failed: $($_.Exception.ToString())")}
+    $values=[ordered]@{Name=$null;Type=$null;Id=$null;Class=$null;Enabled=$null;Offscreen=$null;Rectangle=$null;Patterns=$null}
+    if($null -ne $c){
+        # Required properties: null is an error. Field name -> UIA property / conversion.
+        $required=@(
+            @{Field='Name';Property='Name';Get={param($v) $v}},
+            @{Field='Type';Property='ControlType';Get={param($v) if($null -eq $v.ProgrammaticName){throw 'UIA ControlType.ProgrammaticName is null'};$v.ProgrammaticName}},
+            @{Field='Id';Property='AutomationId';Get={param($v) $v}},
+            @{Field='Class';Property='ClassName';Get={param($v) $v}},
+            @{Field='Rectangle';Property='BoundingRectangle';Get={param($v) $v.ToString()}}
+        )
+        foreach($r in $required){
+            try {
+                $v=$c.($r.Property)
+                if($null -eq $v){$errors.Add("UIA property '$($r.Property)' is null");continue}
+                $values[$r.Field]=& $r.Get $v
+            } catch {$errors.Add("UIA property '$($r.Property)' failed: $($_.Exception.ToString())")}
         }
-        if($null -eq $c.ControlType.ProgrammaticName){throw "UIA ControlType.ProgrammaticName is null"}
-        $patterns=@(foreach($pattern in $Element.GetSupportedPatterns()){
+        foreach($pair in @(@('Enabled','IsEnabled'),@('Offscreen','IsOffscreen'))){
+            try {$values[$pair[0]]=$c.($pair[1])}
+            catch {$errors.Add("UIA property '$($pair[1])' failed: $($_.Exception.ToString())")}
+        }
+        if($MaskPassword -and $null -ne $values.Name){
+            try {if($c.IsPassword){$values.Name='[PASSWORD]'}}
+            catch {$values.Name=$null;$errors.Add("UIA property 'IsPassword' failed (Name withheld): $($_.Exception.ToString())")}
+        }
+    }
+    try {
+        $values.Patterns=@(foreach($pattern in $Element.GetSupportedPatterns()){
             if($null -eq $pattern -or $null -eq $pattern.ProgrammaticName){throw 'UIA pattern ProgrammaticName is null'}
             $pattern.ProgrammaticName
         })
-        [pscustomobject]@{Name=$(if($MaskPassword -and $c.IsPassword){'[PASSWORD]'}else{$c.Name});Type=$c.ControlType.ProgrammaticName;Id=$c.AutomationId;Class=$c.ClassName;Enabled=$c.IsEnabled;Offscreen=$c.IsOffscreen;Rectangle=$c.BoundingRectangle.ToString();Patterns=$patterns}
-    } catch { [pscustomobject]@{Error=$_.Exception.ToString()} }
+    } catch {$values.Patterns=$null;$errors.Add("UIA GetSupportedPatterns failed: $($_.Exception.ToString())")}
+    if($errors.Count -gt 0){$values['Error']=$errors -join ' | '}
+    [pscustomobject]$values
 }
 function Find-UiaControl {
     # -Scope Children limits the search to direct children (e.g. the dev window's outer Tab
@@ -182,6 +211,16 @@ function Invoke-UiaButton {
 function Select-UiaTab {
     param([Parameter(Mandatory)]$Tab,[Parameter(Mandatory)][string]$Name)
     $item=Find-UiaControl $Tab -Name $Name -Type TabItem
+    # A disabled TabControl/TabItem rejects selection by design (#1173 N01: the dev window's service
+    # tabs are only enabled InWorld, ProductEntry.cs normalPanels.Enabled). Check first and stop:
+    # no Select, no keyboard/coordinate fallback. Read failures are reported, not treated as enabled.
+    $itemEnabled=$null;$tabEnabled=$null;$itemEnabledError=$null;$tabEnabledError=$null
+    try {$itemEnabled=$item.Current.IsEnabled} catch {$itemEnabledError=$_.Exception.ToString()}
+    try {$tabEnabled=$Tab.Current.IsEnabled} catch {$tabEnabledError=$_.Exception.ToString()}
+    if($itemEnabled -ne $true -or $tabEnabled -ne $true){
+        $enabledObservation=[pscustomobject]@{RequestedName=$Name;TabItemIsEnabled=$itemEnabled;TabIsEnabled=$tabEnabled;TabItemIsEnabledError=$itemEnabledError;TabIsEnabledError=$tabEnabledError}
+        throw "Select-UiaTab refused: TabItem or Tab is not enabled (IsEnabled); Select was not called: $($enabledObservation | ConvertTo-Json -Depth 5 -Compress)"
+    }
     ($item.GetCurrentPattern([Windows.Automation.SelectionItemPattern]::Pattern)).Select()
     # Read both sides independently, even if one side fails, preserving provider text.
     $itemState=$null;$tabState=$null;$itemError=$null;$tabError=$null
