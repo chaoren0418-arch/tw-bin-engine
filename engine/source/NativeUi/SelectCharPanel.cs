@@ -25,7 +25,8 @@ namespace P06.NativeUi;
 //   children by their Height (Vertical="1") or Width.
 // - Paint order inside a window: siblings in reverse XML order (backgrounds come last in the XML), a parent before its
 //   children. Hit testing is the reverse of the paint order. Same rule as #761/#763, extended to nested elements.
-// - Window size: declared Width/Height, else BaseSurf image, else Back_Image image.
+// - Window size: declared Width/Height, else BaseSurf image, else Back_Image image. #1206: Character_Select_Window without a
+//   declared size covers the whole canvas (FullScreen), Message_Window grows to hold its pieces (CoverPieces); see below.
 // - "_Multi"/"_multi" images duplicate the "_Screen" ones; only the screen variant is built.
 // - BigSlot_List has 4 Slot_Controls = the visible rows. Row r = scroll + slot index. r < characters → Select_Button (or
 //   WaitDelete_Button + WaitToDel_Image when the server marks the character for 7-day deletion, class 32–38); r < Slots →
@@ -394,7 +395,8 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
             if(name is not (MainWindow or MessageWindow)){b.Skipped.Add(w.Path);continue;}
             if(name==MainWindow&&main!=null||name==MessageWindow&&message!=null)throw new UiLayoutException(layout.FileName,w.Path,$"Window {name} 重複");
             var built=b.Window(w);
-            if(name==MainWindow)main=built;else message=built;
+            bool declared=(w.TryInt("Width")??0)>0&&(w.TryInt("Height")??0)>0;
+            if(name==MainWindow)main=FullScreen(built,declared);else message=CoverPieces(built);
         }
         if(main==null)throw new UiLayoutException(layout.FileName,top.Path,$"沒有 {MainWindow}");
         if(message==null)throw new UiLayoutException(layout.FileName,top.Path,$"沒有 {MessageWindow}（無法確認刪除）");
@@ -403,6 +405,34 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
         foreach(var ev in new[]{EnterEvent,BackEvent})if(!main.Pieces.Any(p=>p.MouseEvent==ev))throw new UiLayoutException(layout.FileName,top.Path,$"沒有 {ev} 按鈕");
         LayoutFile=layout.FileName;Main=main;Message=message;Missing=b.Missing;Skipped=b.Skipped;Rows=rows;lookup=surf;
         Unavailable=main.Size.IsEmpty?$"{layout.FileName}: {MainWindow} 沒有大小":message.Size.IsEmpty?$"{layout.FileName}: {MessageWindow} 底圖都缺，無法定出確認框範圍":null;
+    }
+
+    // ---- #1206 window geometry ---------------------------------------------------------------------------------------------
+    // #1186 SM07: SelectUI.xml gives Character_Select_Window no Width/Height and BaseSurf 6421. In both clients 6421 is
+    // Sprite08/6421.img, a 60×80 class portrait (0-客戶端 sha256 4E2BC47C…, kor25 1A5AB3F8…), so "size = BaseSurf" made the
+    // whole screen a 60×80 box at (0,0): UiRoot.Compose clips Paint to Bounds and UiRoot.HitTest uses Bounds, so only that
+    // portrait showed (top left of the SM07 capture), the world layer's "等待真實世界初始化" stayed visible, and clicks went to
+    // the world. The select screen is a full-screen scene like CreateUI's two scenes (declared 800×600 in CreateUI.xml):
+    // without a declared size the window now covers the logical canvas from its origin. Message_Window (BaseSurf 6488, also
+    // a 60×80 .img) is widened to hold its own pieces (Message_Label 394×190, Ok/Cancel at Y 237), so the delete confirm and the
+    // result notice can be read and clicked. Whether TW16 draws 6421 / 6488 at all is 待驗證; they are drawn as the XML says.
+
+    /// <summary>#1206: a window without a declared Width/Height covers the logical canvas from its origin.</summary>
+    internal static CharUiWindow FullScreen(CharUiWindow w,bool declared){
+        if(declared)return w;
+        var size=new Size(UiRoot.LogicalWidth-w.Origin.X,UiRoot.LogicalHeight-w.Origin.Y);
+        return size.Width>0&&size.Height>0?w with{Size=size}:w;
+    }
+    /// <summary>#1206: a sized window grows to hold its pieces (offsets ≥ 0); an unsized one stays empty (→ unavailable).</summary>
+    internal static CharUiWindow CoverPieces(CharUiWindow w){
+        if(w.Size.IsEmpty)return w;
+        int width=w.Size.Width,height=w.Size.Height;
+        foreach(var p in w.Pieces){
+            var r=p.HitLocal;
+            if(r.IsEmpty||r.X<0||r.Y<0)continue;
+            width=Math.Max(width,r.Right);height=Math.Max(height,r.Bottom);
+        }
+        return width==w.Size.Width&&height==w.Size.Height?w:w with{Size=new(width,height)};
     }
 
     // ---- state ------------------------------------------------------------------------------------------------------------
@@ -510,6 +540,9 @@ public sealed class SelectCharPanel(UiResources? resources=null,UiRoot? root=nul
 
     public void Paint(UiCanvas canvas){
         if(!Visible||Main==null)return;
+        // #1206: a full-screen modal scene. Back_Image (X 0, Y 0, no Surf) is set at run time in TW16 and is not built (待驗證),
+        // so the area under the screen is cleared to black instead of letting the world layer / lower windows show through.
+        canvas.Graphics.FillRectangle(Brushes.Black,Main.Bounds);
         PaintWindow(canvas,Main);
         if(Shown!=CharSelectMessage.None&&Message!=null)PaintWindow(canvas,Message);
     }

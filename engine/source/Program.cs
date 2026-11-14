@@ -179,6 +179,7 @@ public sealed partial class ClientForm:Form {
         e.Graphics.SetClip(viewport);e.Graphics.InterpolationMode=InterpolationMode.NearestNeighbor;e.Graphics.PixelOffsetMode=PixelOffsetMode.Half;
         lastPaintMode=OnlineMode?(login.World.Renderable?"online-supported":login.World.Ready?"online-unsupported":"waiting"):"offline";lastPaintActorId=OnlineMode&&login.World.Renderable?login.World.Actor?.ObjectId:null;
         if(OnlineMode&&!login.World.Renderable){
+            if(!WaitingTextShown(OnlineMode,login.World.Renderable,NativeSelectScreenShown()))return;   // #1206: the native select screen covers it
             string message=login.World.TeleportPending?$"{login.World.TeleportNotice}\n{login.World.MapResourceNotice}":login.World.Ready?$"真實世界已連線\nmap {login.World.MapId} / gfx {login.World.Actor?.Gfx}\n{login.World.MapResourceNotice}\n{login.World.AppearanceNotice}":"等待真實世界初始化\n可取消連線或回離線預覽。";
             e.Graphics.DrawString(message,Font,Brushes.White,new PointF(viewport.Left+20,viewport.Top+80));return;
         }
