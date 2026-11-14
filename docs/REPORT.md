@@ -511,3 +511,4 @@
 - 2026-11-14 — #1243 f1211-player-appearance: f1211-player-appearance: 自己的外觀沒有 profile 就整個世界黑畫面並停止移動／戰鬥——男妖精 gfx 138、變身 1062 都中（#1211 SM58 ❌、SM20 妖精、阻塞 SM43／SM48）（code，claude-local，PR 已合併）→ [報告](reports/issue-1243.md)
 - 2026-11-14 — #1259 分流：tw-bin-engine#1222 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1260 已合併）→ [報告](reports/issue-1259.md)
 - 2026-11-14 — #1235 f1215-retest: f1215-retest: 用持久 map4 fixture 只重測 #1215 F07 與 #1188／#1197 M01（資源法師進世界後地圖 4／80048001 可載入；取代 #1216）（test，codex-local，PR 已合併）→ [報告](reports/issue-1235.md)
+- 2026-11-14 — #1262 f1222-board-ruling: f1222-board-ruling: 請使用者裁定 SM27 公告板／SM29 盟屋拍賣板的測試準備方式——GM `.2` 暫時召出（會留正常 GM 稽核紀錄）、單列世界表寫入、或列已知限制（#1222 R12、R13 ⚠️）（design，claude-local，PR #1265 已合併）→ [報告](reports/issue-1262.md)
