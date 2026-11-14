@@ -6,21 +6,25 @@ public sealed class CharacterCreationDialog : Form {
     readonly ComboBox sex=new(){Width=200,DropDownStyle=ComboBoxStyle.DropDownList};
     readonly NumericUpDown[] stats=Enumerable.Range(0,6).Select(_=>new NumericUpDown{Width=100,Minimum=0,Maximum=75}).ToArray();
     readonly Label notice=new(){AutoSize=false,Width=380,Height=70};
-    readonly Button create=new(){Text="建立角色",AutoSize=true};
+    readonly Button create=new(){Text="建立角色",AutoSize=true,AccessibleName="建立角色"};
     readonly int count,slots;
+    internal static readonly string[] StatNames=["力量","敏捷","體質","精神","魅力","智力"];
     public CharacterCreation? Creation {get;private set;}
     CharacterCreation Read()=>new(characterName.Text,(byte)characterClass.SelectedIndex,(byte)sex.SelectedIndex,(byte)stats[0].Value,(byte)stats[1].Value,(byte)stats[2].Value,(byte)stats[3].Value,(byte)stats[4].Value,(byte)stats[5].Value);
     public CharacterCreationDialog(int count,int slots){
-        this.count=count;this.slots=slots;Text="建立角色";ClientSize=new(440,590);FormBorderStyle=FormBorderStyle.FixedDialog;MaximizeBox=MinimizeBox=false;StartPosition=FormStartPosition.CenterParent;
+        this.count=count;this.slots=slots;Text="建立角色";
+        // #1162 (#1150 F01/R07): unique UIA names so automation can find each field while the dialog is open.
+        characterName.AccessibleName="角色名稱";characterClass.AccessibleName="職業";sex.AccessibleName="性別";notice.AccessibleName="本機檢查";
+        for(int i=0;i<6;i++)stats[i].AccessibleName=StatNames[i];
+ClientSize=new(440,590);FormBorderStyle=FormBorderStyle.FixedDialog;MaximizeBox=MinimizeBox=false;StartPosition=FormStartPosition.CenterParent;
         var layout=new TableLayoutPanel{Dock=DockStyle.Fill,Padding=new(16),ColumnCount=2,RowCount=13};layout.ColumnStyles.Add(new(SizeType.Absolute,100));layout.ColumnStyles.Add(new(SizeType.Percent,100));Controls.Add(layout);
         void Row(int row,string label,Control control){layout.Controls.Add(new Label{Text=label,AutoSize=true,Padding=new(0,5,0,0)},0,row);layout.Controls.Add(control,1,row);}
         Row(0,"角色名稱",characterName);Row(1,"職業",characterClass);Row(2,"性別",sex);
         characterClass.Items.AddRange(CharacterManagementPackets.Classes.Cast<object>().ToArray());sex.Items.AddRange(["男性","女性"]);sex.SelectedIndex=0;
-        string[] labels=["力量","敏捷","體質","精神","魅力","智力"];
-        for(int i=0;i<6;i++){Row(i+3,labels[i],stats[i]);stats[i].ValueChanged+=(_,_)=>ValidateCreation();}
+        for(int i=0;i<6;i++){Row(i+3,StatNames[i],stats[i]);stats[i].ValueChanged+=(_,_)=>ValidateCreation();}
         layout.Controls.Add(notice,0,9);layout.SetColumnSpan(notice,2);
         var policy=new Label{Text="名稱最多 12 個 Big5 位元組／5 個雙位元組字。\n職業開放、禁用名稱與重名由伺服器最後檢查。",Width=390,Height=48};layout.Controls.Add(policy,0,10);layout.SetColumnSpan(policy,2);
-        var buttons=new FlowLayoutPanel{AutoSize=true};var cancel=new Button{Text="取消",DialogResult=DialogResult.Cancel};buttons.Controls.AddRange([create,cancel]);layout.Controls.Add(buttons,0,11);layout.SetColumnSpan(buttons,2);CancelButton=cancel;AcceptButton=create;
+        var buttons=new FlowLayoutPanel{AutoSize=true};var cancel=new Button{Text="取消",AccessibleName="取消",DialogResult=DialogResult.Cancel};buttons.Controls.AddRange([create,cancel]);layout.Controls.Add(buttons,0,11);layout.SetColumnSpan(buttons,2);CancelButton=cancel;AcceptButton=create;
         characterClass.SelectedIndexChanged+=(_,_)=>{byte[] minimum=CharacterManagementPackets.BaseStats(characterClass.SelectedIndex);int points=CharacterManagementPackets.AvailablePoints(characterClass.SelectedIndex);for(int i=0;i<6;i++){stats[i].Minimum=0;stats[i].Maximum=minimum[i]+points;stats[i].Value=minimum[i];stats[i].Minimum=minimum[i];}ValidateCreation();};
         characterName.TextChanged+=(_,_)=>ValidateCreation();sex.SelectedIndexChanged+=(_,_)=>ValidateCreation();
         create.Click+=(_,_)=>{var request=Read();if(CharacterManagementPackets.Validate(request,count,slots)!=null){ValidateCreation();return;}Creation=request;DialogResult=DialogResult.OK;Close();};
@@ -44,13 +48,24 @@ public sealed partial class ClientForm {
         Controls.Add(switchCharacter);switchCharacter.Enter+=(_,_)=>LeaveGameFocus("character-switch");
         charactersBox.FormattingEnabled=true;charactersBox.Format+=(_,e)=>{if(e.ListItem is string name&&login.Characters.FirstOrDefault(c=>c.Name==name) is {} character)e.Value=CharacterManagementPackets.Display(character);};
         charactersBox.SelectedIndexChanged+=(_,_)=>SyncCharacterManagement();
-        createCharacter.Click+=async(_,_)=>await OpenCharacterCreationDialog();
-        deleteCharacter.Click+=async(_,_)=>{
+        // #1162 (#1150 F01/R07): UIA InvokePattern.Invoke runs Click synchronously on the UI thread, so a ShowDialog / MessageBox.Show
+        // inside Click kept Invoke pending until the client timed out (0x80131505) and queued UIA requests behind it. Click now only
+        // stamps session / revision and posts the modal with BeginInvoke, so Click (and Invoke) return at once.
+        createCharacter.Click+=(_,_)=>{
+            if(!BeginCharacterModal("character-create",out int session,out int revision))return;
+            PostCharacterModal(async()=>await OpenCharacterCreationDialog(session,revision));
+        };
+        deleteCharacter.Click+=(_,_)=>{
             if(charactersBox.SelectedItem is not string name||login.Characters.FirstOrDefault(c=>c.Name==name) is not {} character)return;
-            ClearInput("character-delete");int session=login.SessionGeneration,revision=login.Revision;
+            if(!BeginCharacterModal("character-delete",out int session,out int revision))return;
             string message=CharacterManagementPackets.PendingDeletion(character)?$"要取消「{character.Name}」的七日刪除排程嗎？":$"確定刪除「{character.Name}」嗎？\n伺服器可能立即刪除，或依等級設定七日刪除排程。";
-            bool confirmed=MessageBox.Show(this,message,"確認角色刪除",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2)==DialogResult.Yes;
-            ShowCharacterAction(await login.DeleteCharacter(character.Name,confirmed,session,revision),session);
+            PostCharacterModal(async()=>{
+                bool confirmed;
+                try{confirmed=!IsDisposed&&MessageBox.Show(this,message,"確認角色刪除",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2)==DialogResult.Yes;}
+                finally{characterModal.Exit();}
+                if(!CharacterModalGate.StillCurrent(session,login.SessionGeneration,IsDisposed))return;
+                ShowCharacterAction(await login.DeleteCharacter(character.Name,confirmed,session,revision),session);
+            });
         };
         switchCharacter.Click+=async(_,_)=>{ClearInput("character-switch");int session=login.SessionGeneration;ShowCharacterAction(await login.SwitchCharacter(session,login.Revision),session);};
         Resize+=(_,_)=>PositionCharacterSwitch();
@@ -88,10 +103,30 @@ public sealed partial class ClientForm {
     }
     bool NativeLoginScreenUsable()=>NativeUiRoot is {} root&&root.Find(P06.NativeUi.LoginPanel.PanelId) is P06.NativeUi.LoginPanel p&&p.Available&&!root.Faulted.Contains(p);
     bool NativeSelectScreenUsable()=>NativeUiRoot is {} root&&root.Find(P06.NativeUi.SelectCharPanel.PanelId) is P06.NativeUi.SelectCharPanel p&&p.Available&&!root.Faulted.Contains(p);
-    async Task OpenCharacterCreationDialog(){
-        ClearInput("character-create");int session=login.SessionGeneration,revision=login.Revision;
-        using var dialog=new CharacterCreationDialog(login.Characters.Count,login.Slots);
-        if(dialog.ShowDialog(this)==DialogResult.OK&&dialog.Creation is {} request)ShowCharacterAction(await login.CreateCharacter(request,session,revision),session);
+    // #1162: one character-management modal (create dialog or delete confirmation) at a time, counted from the Click that
+    // scheduled it until the modal closes; a second Click meanwhile is ignored instead of stacking another modal.
+    readonly CharacterModalGate characterModal=new();
+    /// <summary>Click-time half: claim the gate, clear game input, and stamp session / revision (false = a modal is already pending).</summary>
+    bool BeginCharacterModal(string input,out int session,out int revision){
+        session=revision=0;
+        if(!characterModal.TryEnter())return false;
+        ClearInput(input);session=login.SessionGeneration;revision=login.Revision;return true;
+    }
+    /// <summary>Queue the modal behind the current message so the Click / UIA Invoke that requested it returns first.</summary>
+    void PostCharacterModal(Action open){
+        try{BeginInvoke(open);}catch{characterModal.Exit();throw;}
+    }
+    /// <summary>Show the creation dialog for a claimed gate (released when the dialog closes) and send it with the Click-time stamps.</summary>
+    async Task OpenCharacterCreationDialog(int session,int revision){
+        CharacterCreation? request=null;
+        try{
+            if(!IsDisposed){
+                using var dialog=new CharacterCreationDialog(login.Characters.Count,login.Slots);
+                if(dialog.ShowDialog(this)==DialogResult.OK)request=dialog.Creation;
+            }
+        }finally{characterModal.Exit();}
+        if(request==null||!CharacterModalGate.StillCurrent(session,login.SessionGeneration,IsDisposed))return;
+        ShowCharacterAction(await login.CreateCharacter(request,session,revision),session);
     }
     // T327 (#765) native routing only: with the native UI on and SelectUI.xml / CreateUI.xml usable, the native select and create
     // screens show the character list (same LoginControl / LoginConnection calls and stamps as the WinForms controls). Otherwise
@@ -122,7 +157,8 @@ public sealed partial class ClientForm {
             var r=await form.login.DeleteCharacter(name,true,stamp.Generation,stamp.Revision);form.ShowCharacterAction(r,stamp.Generation);return r;
         }
         public void Logout()=>form.CancelLogin(form.login.SessionGeneration,false);
-        public void CreateFallback()=>_=form.OpenCharacterCreationDialog();
+        // Native SelectUI path: not inside a UIA Invoke, so the dialog still opens immediately (same stamps and gate as the button).
+        public void CreateFallback(){if(form.BeginCharacterModal("character-create",out int session,out int revision))_=form.OpenCharacterCreationDialog(session,revision);}
     }
     void PositionCharacterSwitch(){switchCharacter.Location=new(Math.Max(0,ClientSize.Width-(webHost.Visible?webHost.Width:0)-switchCharacter.Width-12),8);switchCharacter.BringToFront();}
     void ShowCharacterAction(LoginAction action,int session){if(IsDisposed||session!=login.SessionGeneration)return;characterUiNotice=action.Accepted?"":action.Message;characterNoticeRevision=login.Revision;SyncLoginControls();}
@@ -131,5 +167,39 @@ public sealed partial class ClientForm {
         deleteCharacter.Text=charactersBox.SelectedItem is string name&&login.Characters.FirstOrDefault(c=>c.Name==name) is {} character&&CharacterManagementPackets.PendingDeletion(character)?"取消七日刪除":"刪除角色";
         switchCharacter.Visible=login.State==LoginState.InWorld;switchCharacter.Enabled=login.CanSwitchCharacter;PositionCharacterSwitch();
         if(characterNoticeRevision!=login.Revision)characterUiNotice="";
+    }
+}
+
+/// <summary>
+/// #1162 (#1150 F01/R07): re-entrancy guard for the character create / delete modals opened from the dev-tools buttons. Single UI
+/// thread only; held from the Click that schedules a modal until that modal closes.
+/// </summary>
+internal sealed class CharacterModalGate {
+    bool busy;
+    public bool Busy=>busy;
+    /// <summary>True = the caller now owns the gate and must <see cref="Exit"/> it; false = a modal is already open or scheduled.</summary>
+    public bool TryEnter(){if(busy)return false;busy=true;return true;}
+    public void Exit()=>busy=false;
+    /// <summary>A closed modal may submit only if the form is alive and the login session is the one stamped at Click time.</summary>
+    public static bool StillCurrent(int stampedSession,int currentSession,bool disposed)=>!disposed&&stampedSession==currentSession;
+}
+
+static class CharacterModalGateTests {
+    // Pure logic only: no form, no window, no network. Run by --module-tests (name character-modal-gate).
+    [WorldModuleTest("character-modal-gate")]
+    static void Run(WorldModuleTestContext t){
+        var gate=new CharacterModalGate();
+        t.Check(!gate.Busy&&gate.TryEnter()&&gate.Busy,"first Click claims the gate");
+        t.Check(!gate.TryEnter()&&gate.Busy,"second Click while the modal is scheduled / open is ignored");
+        gate.Exit();
+        t.Check(!gate.Busy&&gate.TryEnter(),"after the modal closes a new Click opens again");
+        gate.Exit();gate.Exit();
+        t.Check(!gate.Busy&&gate.TryEnter()&&!gate.TryEnter(),"double Exit does not let two modals through");
+        gate.Exit();
+        t.Check(CharacterModalGate.StillCurrent(3,3,false),"same session, form alive → submit");
+        t.Check(!CharacterModalGate.StillCurrent(3,4,false),"session changed while the modal was open → do not submit");
+        t.Check(!CharacterModalGate.StillCurrent(3,3,true),"form disposed → do not submit");
+        string[] names=CharacterCreationDialog.StatNames;
+        t.Check(names.Length==6&&names.Distinct().Count()==6&&string.Join("",names)=="力量敏捷體質精神魅力智力","six distinct stat AccessibleNames in dialog order");
     }
 }
