@@ -58,6 +58,16 @@
   - `task/1160` 和 `origin/main`（`6f7051fb`）同步，沒有衝突。
 - 推測：failed 可能是因為上次的 RESULT 包在程式碼區塊裡，不是以 `=== RESULT ===` 開頭。這次會直接印出。
 
+## 第 3 次嘗試（2026-11-14）的補正
+
+- 第 2 次一樣被標 failed、沒寫原因；`task/1160` 也還沒有 PR（調度器要審查通過後才會開）。
+- 比對已合併的同類分流 #1159（PR #1161）：它把來源驗收 #1150 的報告與證據帶進 main。#1155 沒有 PR（`gh pr list --head task/1155` 是空的），報告只在 `origin/task/1155`，後續任務在 main 讀不到。
+- 本次補正：
+  - 從 `origin/task/1155` 原樣帶入 `docs/reports/issue-1155.md`、`docs/reports/issue-1155-summary.json`，內容不改。
+  - `f1155-capture-n03` 的來源說明改成「已帶進 main」。
+  - 合併 `origin/main`（`1580924e`），沒有衝突。
+- 分流結論、任務切法、#1156 的處理都和前兩次相同。
+
 ## 未驗證／推測
 
 - 推測：原版 3.81 在登入畫面也不處理 Ctrl+P（WM_CHAR 分派在遊戲世界的處理函式裡）。**沒有查證**，交給 `f1155-capture-n03` 第 1 步。
@@ -66,6 +76,7 @@
 ## 產出路徑
 
 - `docs/plans/issue-1160.json`、`docs/reports/issue-1160.md`
+- 帶入的來源報告：`docs/reports/issue-1155.md`、`docs/reports/issue-1155-summary.json`（取自 `origin/task/1155`，內容不改）
 - 產生腳本：`scratch/make_plan_1160.py`（不進 git）
 
 ## 給下一棒的提示
