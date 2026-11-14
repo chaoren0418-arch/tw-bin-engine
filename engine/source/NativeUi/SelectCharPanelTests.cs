@@ -160,7 +160,7 @@ static class SelectCharPanelTests {
         t.Check(p.Available,"synthetic layout usable",p.Unavailable);
         t.Equal("SelectUI.xml",p.LayoutFile,"layout file recorded");
         t.Equal(2,p.Rows,"two Slot_Controls = two visible rows");
-        t.Equal(new Rectangle(0,0,400,300),p.Main!.Bounds,"select window: X/Y + BaseSurf size");
+        t.Equal(new Rectangle(0,0,800,600),p.Main!.Bounds,"select window without Width/Height: full screen from X/Y (#1206; BaseSurf size is not the screen)");
         t.Equal(new Rectangle(100,100,200,100),p.Message!.Bounds,"message window: X/Y + BaseSurf size (flag ;3 ignored)");
         var m=p.Main;
         var slot1=m.Pieces.First(x=>x.Name=="Select_Button"&&x.Slot==1);
@@ -186,7 +186,7 @@ static class SelectCharPanelTests {
         var host=new Host(ViewOf(4,Char("甲",0,52),Char("乙",33,40),Char("丙",2,7)));
         t.Check(!p.Visible,"no host → hidden");
         p.Attach(host);
-        t.Check(p.Visible&&p.Bounds==new Rectangle(0,0,400,300),"host on the character list → shown full screen");
+        t.Check(p.Visible&&p.Bounds==new Rectangle(0,0,800,600),"host on the character list → shown full screen");
         t.Equal("甲",p.Selected,"first character selected by default");
         t.Equal(4,p.TotalRows,"rows = max(visible rows, slots, characters)");t.Equal(2,p.MaxScroll,"scroll range");
         t.Check(p.Row(0)==SelectCharPanel.RowKind.Character&&p.Row(1)==SelectCharPanel.RowKind.Pending&&p.Row(3)==SelectCharPanel.RowKind.Empty&&p.Row(4)==SelectCharPanel.RowKind.Locked,"row kinds");
