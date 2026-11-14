@@ -477,3 +477,4 @@
 - 2026-11-14 — #1154 f1145-native-input: f1145-native-input: 原生 UI 客戶端的 GDI 工作區截圖＋客戶端座標 SendInput 點擊／按鍵工具與 Test-NativeClient.ps1（靜態實作，#1145 N01–N04 的工具）（code，claude-local，PR 已合併）→ [報告](reports/issue-1154.md)
 - 2026-11-14 — #1159 分流：tw-bin-engine#1150 實機驗收的失敗項目 → 修正任務＋重測（design，claude-local，PR #1161 已合併）→ [報告](reports/issue-1159.md)
 - 2026-11-14 — #1162 f1150-modal-invoke: f1150-modal-invoke: 「建立角色／刪除角色」按鈕改為延後開 modal，讓 UIA Invoke 立即返回；建角對話框控制項補 AccessibleName（#1150 F01／R07）（code，claude-local，PR 已合併）→ [報告](reports/issue-1162.md)
+- 2026-11-14 — #1163 f1150-devtools-tab-uia: f1150-devtools-tab-uia: 開發工具分頁的 UIA TabItem 名稱與實際分頁錯一格、前兩個分頁不在樹中——查明並修正（#1150 G07）（code，claude-local，PR #1167 已合併）→ [報告](reports/issue-1163.md)
