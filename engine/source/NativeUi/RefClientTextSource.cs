@@ -137,4 +137,114 @@ public sealed class RefClientTextSource {
         lock(gate){cache[(kind,value)]=text;}
         return text;
     }
+
+    /// <summary>#1208: true when the record behind (kind, value) exists and is a "dummyNNNN" placeholder (not drawn by Text).</summary>
+    public bool IsPlaceholder(string kind,string value){
+        if(kind==null||value==null||RecordId(value) is not {} id||Table(kind) is not {} t||id>=t.Table.Count)return false;
+        return t.Table[id].StartsWith(PlaceholderPrefix,StringComparison.OrdinalIgnoreCase);
+    }
+}
+
+// #1208 (SM57 of #1186): kor25's desc-c.tbl / string-c.tbl hold "dummyNNNN" placeholders for every OptionUI.xml label of the
+// option window except 18809 and the String ids 613/1994–1997/893–896 (Desc 18792–18814, 20818–20832, 20862, 20863, 21145,
+// 21391; String 4042–4045, 4408), so the eight 常用選項 check buttons were drawn without names. The names are not run-time
+// Captions: they are these Desc ids. Four other local clients' desc-c.tbl / string-c.tbl carry real text at exactly those
+// ids, the same text in all four (小草, 超人760, 雷雨, 韓版; read-only, docs/reports/issue-1208.md), and every name matches its
+// MouseEvent (18805 → ShowDropItemNameBtn …).
+//
+// Rule (only the option window uses it): the reference text wins; only when the reference record is a dummy placeholder
+// is the same kind and id read from a second client ("fill"). The fill table is used only when its ids line up with the
+// reference table: over the ids both tables have real text, at least MinAgreement must be identical (kor25 vs 小草: desc
+// 97.9 %, string 90.8 %); otherwise nothing is filled (logged once). Fill root: TW_REF_TEXT_FILL (non-empty path; "off" =
+// none) → default 小草 (a 3.81 client like kor25). The tables are read in memory only and identified by SHA-256 in the
+// UI log ("ui-text-fill"); nothing is copied into the repository.
+public sealed class RefClientTextFill {
+    public const string EnvironmentVariable="TW_REF_TEXT_FILL";
+    public const string DefaultRoot=@"D:\381懶人包小草(原)";
+    /// <summary>SHA-256 of the decoded 小草 tables (Text.pak records 4339 / 32852, read-only, 2026-11-14). Compared and logged only.</summary>
+    public const string XiaocaoDescSha256="eaf72c1a3d12785fc6b22f49e47b13fb5471ebc940eaec1d3c5864efe140bdb4";
+    public const string XiaocaoStringSha256="6e14b267509cd3d9eefd0caf42b64c2277ccad19a5738ea7951470d2782c754d";
+    /// <summary>Share of identical records (over the ids both tables have real text) needed before the fill table is used.</summary>
+    public const double MinAgreement=0.8;
+    /// <summary>At least this many shared records are needed to judge the alignment.</summary>
+    public const int MinShared=100;
+
+    readonly RefClientTextSource primary;
+    readonly RefClientTextSource? fill;
+    readonly object gate=new();
+    readonly Dictionary<string,double?> agreement=new(StringComparer.Ordinal);
+    readonly Dictionary<(string,string),string?> cache=new();
+
+    public RefClientTextFill(RefClientTextSource primary,RefClientTextSource? fill){this.primary=primary;this.fill=fill;}
+    public RefClientTextSource Primary=>primary;
+    public RefClientTextSource? Fill=>fill;
+
+    /// <summary>TW_REF_TEXT_FILL (non-empty; "off" / "0" / "false" = none) → DefaultRoot. Null = no fill.</summary>
+    public static (string? Root,string Source) ResolveRoot(string? environment){
+        if(!string.IsNullOrWhiteSpace(environment)){
+            var v=environment.Trim();
+            return v.Equals("off",StringComparison.OrdinalIgnoreCase)||v=="0"||v.Equals("false",StringComparison.OrdinalIgnoreCase)?(null,"env"):(v,"env");
+        }
+        return (DefaultRoot,"default");
+    }
+
+    /// <summary>The fill source for a reference text source: null when turned off, not absolute, or the same folder.</summary>
+    public static RefClientTextSource? ConfiguredFill(RefClientTextSource primary,string? environment){
+        var (root,source)=ResolveRoot(environment);
+        if(root==null){UiResourceLog.Write("ui-text-fill off");return null;}
+        if(!Path.IsPathFullyQualified(root)){UiResourceLog.Write($"ui-text-fill 路徑不是絕對路徑，忽略：{root}");return null;}
+        var full=Path.GetFullPath(root);
+        if(string.Equals(Path.TrimEndingDirectorySeparator(full),Path.TrimEndingDirectorySeparator(primary.Root),StringComparison.OrdinalIgnoreCase))return null;
+        if(!File.Exists(Path.Combine(full,"Text.idx"))){UiResourceLog.Write($"ui-text-fill {full} 沒有 Text.idx，佔位字不補");return null;}
+        return new RefClientTextSource(full,source);
+    }
+
+    /// <summary>The option window's TextResolver: reference text, dummy placeholders filled from the fill client. Null = no reference.</summary>
+    public static Func<string,string,string?>? Resolver(UiResources? resources){
+        if(resources?.Text is not {} text)return null;
+        text.Preload();
+        var fill=ConfiguredFill(text,Environment.GetEnvironmentVariable(EnvironmentVariable));
+        if(fill==null)return text.Resolve;
+        fill.Preload();
+        return new RefClientTextFill(text,fill).Resolve;
+    }
+
+    /// <summary>Share of identical records over the ids both tables have real (non-empty, non-placeholder) text; null = too few.</summary>
+    public static double? Agreement(ServerStringTable a,ServerStringTable b){
+        int shared=0,same=0;
+        for(int i=0,n=Math.Min(a.Count,b.Count);i<n;i++){
+            if(RefClientTextSource.Text(a,i) is not {} x||RefClientTextSource.Text(b,i) is not {} y)continue;
+            shared++;if(x.Trim()==y.Trim())same++;
+        }
+        return shared<MinShared?null:(double)same/shared;
+    }
+
+    /// <summary>True when the fill table of this kind lines up with the reference table (computed once, logged).</summary>
+    public bool Aligned(string kind){
+        if(fill==null)return false;
+        lock(gate){
+            if(!agreement.TryGetValue(kind,out var share)){
+                var p=primary.Table(kind);var f=fill.Table(kind);
+                share=p!=null&&f!=null?Agreement(p.Table,f.Table):null;
+                agreement[kind]=share;
+                if(f!=null){
+                    bool known=f.PlainSha256.Equals(f.FileName==RefClientTextSource.DescFileName?XiaocaoDescSha256:XiaocaoStringSha256,StringComparison.OrdinalIgnoreCase);
+                    UiResourceLog.Write($"ui-text-fill {f.FileName} -> {f.Root}\\Text.pak:#{f.Record} plain sha256 {f.PlainSha256} (count {f.Table.Count}, {fill.Source}{(known?", 與小草相同":", 不是已知的小草版本")})，"
+                        +(share is double s?$"與參考表相同 {s:P1}{(s>=MinAgreement?"，佔位字照此補":"，未達門檻，不補")}":"無法比對，不補"));
+                }
+            }
+            return share>=MinAgreement;
+        }
+    }
+
+    /// <summary>(TextKind, TextValue) → reference text; a dummy placeholder → the fill client's text at the same id (or null).</summary>
+    public string? Resolve(string kind,string value){
+        if(kind==null||value==null)return null;
+        if(primary.Resolve(kind,value) is {} text)return text;
+        if(fill==null)return null;
+        lock(gate){if(cache.TryGetValue((kind,value),out var hit))return hit;}
+        string? filled=primary.IsPlaceholder(kind,value)&&Aligned(kind)?fill.Resolve(kind,value):null;
+        lock(gate){cache[(kind,value)]=filled;}
+        return filled;
+    }
 }
