@@ -1,0 +1,1261 @@
+{
+  "schemaVersion": 1,
+  "issue": 1209,
+  "environment": "P24Lab",
+  "databasePort": 43324,
+  "gamePort": 42061,
+  "status": "partial",
+  "readyForRetest": false,
+  "smokeExecuted": false,
+  "reason": "SM27／SM29 均找到不持久化 NPC 的 .2 召出方式；但 GM200 會自動 INSERT log_GM指令，尚待裁定是否可列為 B。本張未召出、未寫 DB；其餘 #1209 準備結果沿用，非 SM 驗收。",
+  "credentialSource": "沿用 P24Lab 既有 p243db6e／p244db6e／p245db6e 測試憑證，本檔不含密碼。",
+  "characters": [
+    {
+      "account": "p243db6e",
+      "name": "煙王甲",
+      "objid": 1900252001,
+      "profession": "王族",
+      "type": 0,
+      "classId": 0,
+      "level": 52,
+      "exp": 127941146,
+      "hp": 500,
+      "mp": 300,
+      "gm": 0,
+      "online": 0,
+      "position": {
+        "map": 0,
+        "x": 32640,
+        "y": 32955
+      },
+      "skills": [
+        {
+          "id": 1,
+          "name": "初級治癒術"
+        },
+        {
+          "id": 4,
+          "name": "光箭"
+        },
+        {
+          "id": 114,
+          "name": "激勵士氣"
+        }
+      ],
+      "items": [
+        {
+          "objid": 1900252101,
+          "itemId": 40308,
+          "name": "金幣",
+          "count": 100000
+        },
+        {
+          "objid": 1900252102,
+          "itemId": 40010,
+          "name": "治癒藥水",
+          "count": 30
+        },
+        {
+          "objid": 1900252103,
+          "itemId": 40013,
+          "name": "自我加速藥水",
+          "count": 5
+        },
+        {
+          "objid": 1900252104,
+          "itemId": 40056,
+          "name": "肉",
+          "count": 10
+        },
+        {
+          "objid": 1900252105,
+          "itemId": 40079,
+          "name": "傳送回家的卷軸",
+          "count": 5
+        },
+        {
+          "objid": 1900252136,
+          "itemId": 31,
+          "name": "長劍",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "account": "p243db6e",
+      "name": "煙騎甲",
+      "objid": 1900252002,
+      "profession": "騎士",
+      "type": 1,
+      "classId": 61,
+      "level": 52,
+      "exp": 127941146,
+      "hp": 500,
+      "mp": 300,
+      "gm": 0,
+      "online": 0,
+      "position": {
+        "map": 0,
+        "x": 32641,
+        "y": 32955
+      },
+      "skills": [
+        {
+          "id": 1,
+          "name": "初級治癒術"
+        },
+        {
+          "id": 87,
+          "name": "衝擊之暈"
+        },
+        {
+          "id": 88,
+          "name": "增幅防禦"
+        }
+      ],
+      "items": [
+        {
+          "objid": 1900252106,
+          "itemId": 40308,
+          "name": "金幣",
+          "count": 100000
+        },
+        {
+          "objid": 1900252107,
+          "itemId": 40010,
+          "name": "治癒藥水",
+          "count": 30
+        },
+        {
+          "objid": 1900252108,
+          "itemId": 40013,
+          "name": "自我加速藥水",
+          "count": 5
+        },
+        {
+          "objid": 1900252109,
+          "itemId": 40056,
+          "name": "肉",
+          "count": 10
+        },
+        {
+          "objid": 1900252110,
+          "itemId": 40079,
+          "name": "傳送回家的卷軸",
+          "count": 5
+        },
+        {
+          "objid": 1900252137,
+          "itemId": 52,
+          "name": "雙手劍",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "account": "p243db6e",
+      "name": "煙妖甲",
+      "objid": 1900252003,
+      "profession": "妖精",
+      "type": 2,
+      "classId": 138,
+      "level": 52,
+      "exp": 127941146,
+      "hp": 500,
+      "mp": 300,
+      "gm": 0,
+      "online": 0,
+      "position": {
+        "map": 0,
+        "x": 32642,
+        "y": 32955
+      },
+      "skills": [
+        {
+          "id": 1,
+          "name": "初級治癒術"
+        },
+        {
+          "id": 4,
+          "name": "光箭"
+        },
+        {
+          "id": 25,
+          "name": "燃燒的火球"
+        },
+        {
+          "id": 130,
+          "name": "心靈轉換"
+        },
+        {
+          "id": 132,
+          "name": "三重矢"
+        }
+      ],
+      "items": [
+        {
+          "objid": 1900252111,
+          "itemId": 40308,
+          "name": "金幣",
+          "count": 100000
+        },
+        {
+          "objid": 1900252112,
+          "itemId": 40010,
+          "name": "治癒藥水",
+          "count": 30
+        },
+        {
+          "objid": 1900252113,
+          "itemId": 40013,
+          "name": "自我加速藥水",
+          "count": 5
+        },
+        {
+          "objid": 1900252114,
+          "itemId": 40056,
+          "name": "肉",
+          "count": 10
+        },
+        {
+          "objid": 1900252115,
+          "itemId": 40079,
+          "name": "傳送回家的卷軸",
+          "count": 5
+        },
+        {
+          "objid": 1900252138,
+          "itemId": 173,
+          "name": "短弓",
+          "count": 1
+        },
+        {
+          "objid": 1900252143,
+          "itemId": 40743,
+          "name": "箭",
+          "count": 200
+        },
+        {
+          "objid": 1900252144,
+          "itemId": 40744,
+          "name": "銀箭",
+          "count": 200
+        },
+        {
+          "objid": 1900252145,
+          "itemId": 40319,
+          "name": "精靈玉",
+          "count": 30
+        }
+      ]
+    },
+    {
+      "account": "p244db6e",
+      "name": "煙法甲",
+      "objid": 1900252004,
+      "profession": "法師",
+      "type": 3,
+      "classId": 734,
+      "level": 52,
+      "exp": 127941146,
+      "hp": 500,
+      "mp": 300,
+      "gm": 0,
+      "online": 0,
+      "position": {
+        "map": 0,
+        "x": 32643,
+        "y": 32955
+      },
+      "skills": [
+        {
+          "id": 1,
+          "name": "初級治癒術"
+        },
+        {
+          "id": 3,
+          "name": "保護罩"
+        },
+        {
+          "id": 4,
+          "name": "光箭"
+        },
+        {
+          "id": 25,
+          "name": "燃燒的火球"
+        },
+        {
+          "id": 29,
+          "name": "緩速術"
+        },
+        {
+          "id": 51,
+          "name": "召喚術"
+        }
+      ],
+      "items": [
+        {
+          "objid": 1900252116,
+          "itemId": 40308,
+          "name": "金幣",
+          "count": 100000
+        },
+        {
+          "objid": 1900252117,
+          "itemId": 40010,
+          "name": "治癒藥水",
+          "count": 30
+        },
+        {
+          "objid": 1900252118,
+          "itemId": 40013,
+          "name": "自我加速藥水",
+          "count": 5
+        },
+        {
+          "objid": 1900252119,
+          "itemId": 40056,
+          "name": "肉",
+          "count": 10
+        },
+        {
+          "objid": 1900252120,
+          "itemId": 40079,
+          "name": "傳送回家的卷軸",
+          "count": 5
+        },
+        {
+          "objid": 1900252139,
+          "itemId": 125,
+          "name": "巫術魔法杖",
+          "count": 1
+        },
+        {
+          "objid": 1900252146,
+          "itemId": 20284,
+          "name": "召喚控制戒指",
+          "count": 1
+        },
+        {
+          "objid": 1900252147,
+          "itemId": 40318,
+          "name": "魔法寶石",
+          "count": 60
+        },
+        {
+          "objid": 1900252148,
+          "itemId": 20288,
+          "name": "傳送控制戒指",
+          "count": 1
+        },
+        {
+          "objid": 1900252149,
+          "itemId": 40100,
+          "name": "瞬間移動卷軸",
+          "count": 20
+        },
+        {
+          "objid": 1900252150,
+          "itemId": 41255,
+          "name": "料理書：1階段",
+          "count": 1
+        },
+        {
+          "objid": 1900252151,
+          "itemId": 40057,
+          "name": "漂浮之眼肉",
+          "count": 10
+        },
+        {
+          "objid": 1900252152,
+          "itemId": 41260,
+          "name": "柴火",
+          "count": 5
+        },
+        {
+          "objid": 1900252153,
+          "itemId": 41294,
+          "name": "短釣竿",
+          "count": 1
+        },
+        {
+          "objid": 1900252154,
+          "itemId": 41295,
+          "name": "餌",
+          "count": 30
+        },
+        {
+          "objid": 1900252155,
+          "itemId": 41245,
+          "name": "溶解劑",
+          "count": 5
+        },
+        {
+          "objid": 1900252156,
+          "itemId": 20114,
+          "name": "綿質長袍",
+          "count": 1
+        },
+        {
+          "objid": 1900252157,
+          "itemId": 40887,
+          "name": "魔法卷軸 (緩速術)",
+          "count": 5
+        }
+      ]
+    },
+    {
+      "account": "p244db6e",
+      "name": "煙暗甲",
+      "objid": 1900252005,
+      "profession": "黑暗妖精",
+      "type": 4,
+      "classId": 2786,
+      "level": 52,
+      "exp": 127941146,
+      "hp": 500,
+      "mp": 300,
+      "gm": 0,
+      "online": 0,
+      "position": {
+        "map": 0,
+        "x": 32644,
+        "y": 32955
+      },
+      "skills": [
+        {
+          "id": 97,
+          "name": "暗隱術"
+        },
+        {
+          "id": 99,
+          "name": "影之防護"
+        }
+      ],
+      "items": [
+        {
+          "objid": 1900252121,
+          "itemId": 40308,
+          "name": "金幣",
+          "count": 100000
+        },
+        {
+          "objid": 1900252122,
+          "itemId": 40010,
+          "name": "治癒藥水",
+          "count": 30
+        },
+        {
+          "objid": 1900252123,
+          "itemId": 40013,
+          "name": "自我加速藥水",
+          "count": 5
+        },
+        {
+          "objid": 1900252124,
+          "itemId": 40056,
+          "name": "肉",
+          "count": 10
+        },
+        {
+          "objid": 1900252125,
+          "itemId": 40079,
+          "name": "傳送回家的卷軸",
+          "count": 5
+        },
+        {
+          "objid": 1900252140,
+          "itemId": 31,
+          "name": "長劍",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "account": "p244db6e",
+      "name": "煙龍甲",
+      "objid": 1900252006,
+      "profession": "龍騎士",
+      "type": 5,
+      "classId": 6658,
+      "level": 52,
+      "exp": 127941146,
+      "hp": 500,
+      "mp": 300,
+      "gm": 0,
+      "online": 0,
+      "position": {
+        "map": 0,
+        "x": 32645,
+        "y": 32955
+      },
+      "skills": [
+        {
+          "id": 181,
+          "name": "龍之護鎧"
+        },
+        {
+          "id": 182,
+          "name": "燃燒擊砍"
+        }
+      ],
+      "items": [
+        {
+          "objid": 1900252126,
+          "itemId": 40308,
+          "name": "金幣",
+          "count": 100000
+        },
+        {
+          "objid": 1900252127,
+          "itemId": 40010,
+          "name": "治癒藥水",
+          "count": 30
+        },
+        {
+          "objid": 1900252128,
+          "itemId": 40013,
+          "name": "自我加速藥水",
+          "count": 5
+        },
+        {
+          "objid": 1900252129,
+          "itemId": 40056,
+          "name": "肉",
+          "count": 10
+        },
+        {
+          "objid": 1900252130,
+          "itemId": 40079,
+          "name": "傳送回家的卷軸",
+          "count": 5
+        },
+        {
+          "objid": 1900252141,
+          "itemId": 31,
+          "name": "長劍",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "account": "p245db6e",
+      "name": "煙幻甲",
+      "objid": 1900252007,
+      "profession": "幻術師",
+      "type": 6,
+      "classId": 6671,
+      "level": 52,
+      "exp": 127941146,
+      "hp": 500,
+      "mp": 300,
+      "gm": 0,
+      "online": 0,
+      "position": {
+        "map": 0,
+        "x": 32646,
+        "y": 32955
+      },
+      "skills": [
+        {
+          "id": 201,
+          "name": "鏡像"
+        },
+        {
+          "id": 202,
+          "name": "混亂"
+        }
+      ],
+      "items": [
+        {
+          "objid": 1900252131,
+          "itemId": 40308,
+          "name": "金幣",
+          "count": 100000
+        },
+        {
+          "objid": 1900252132,
+          "itemId": 40010,
+          "name": "治癒藥水",
+          "count": 30
+        },
+        {
+          "objid": 1900252133,
+          "itemId": 40013,
+          "name": "自我加速藥水",
+          "count": 5
+        },
+        {
+          "objid": 1900252134,
+          "itemId": 40056,
+          "name": "肉",
+          "count": 10
+        },
+        {
+          "objid": 1900252135,
+          "itemId": 40079,
+          "name": "傳送回家的卷軸",
+          "count": 5
+        },
+        {
+          "objid": 1900252142,
+          "itemId": 125,
+          "name": "巫術魔法杖",
+          "count": 1
+        }
+      ]
+    }
+  ],
+  "emptySlots": [
+    {
+      "account": "p24svc01",
+      "occupied": 3,
+      "baseSlots": 4,
+      "empty": 1
+    },
+    {
+      "account": "p245db6e",
+      "occupied": 2,
+      "baseSlots": 4,
+      "empty": 2
+    }
+  ],
+  "locations": [
+    {
+      "npcId": 60007,
+      "spawnId": 268,
+      "name": "凱倫",
+      "map": 4,
+      "x": 32608,
+      "y": 32787,
+      "spawnCount": 1,
+      "movementDistance": 100
+    },
+    {
+      "npcId": 70773,
+      "spawnId": 763,
+      "name": "馬賓",
+      "map": 4,
+      "x": 32604,
+      "y": 33200,
+      "spawnCount": 1,
+      "movementDistance": 100
+    },
+    {
+      "npcId": 81161,
+      "spawnId": 1016,
+      "name": "拍賣佈告欄",
+      "map": 4,
+      "x": 32611,
+      "y": 32775,
+      "spawnCount": 0,
+      "movementDistance": 0,
+      "currentWorldAvailability": false,
+      "auctionRows": 6,
+      "route": "B-candidate-awaiting-authorization",
+      "requiredGm": 200,
+      "onlyInRetest": true,
+      "executed": false,
+      "persistsNpc": false,
+      "writesWorldTables": false,
+      "automaticDatabaseWrite": "p24_accounts.log_GM指令（伺服器正常稽核，不停用或規避）",
+      "temporarySpawnCount": 1,
+      "range": 0,
+      "lifetimeSeconds": null,
+      "lifetime": "spawnRx 最後參數0，不設定自動到期；直到物件被刪除或伺服器停止。重測中不得重開遊戲伺服器，否則需重新準備。",
+      "steps": [
+        "執行前重新核對 JAR SHA、NPC模板、commands.2、有效 p24lab lease；GM 稽核副作用須先取得裁定。",
+        "依 #160／#175 完整備份後，僅測試角色離線暫設 GM200；登入同一台實驗伺服器，站到指定精確座標。",
+        "執行一次 .2 指令，記錄 log 中新 NPC objid 與實際座標；移開角色以便一般玩家點擊。",
+        "角色登出後依授權改回 GM0，再登入同一遊戲伺服器；不可為了降 GM 重開伺服器。",
+        "以一般玩家進行指定 SM；收尾停止自己啟動的伺服器，使暫時 NPC 消失。"
+      ],
+      "command": ".2 81161 1 0",
+      "sm": [
+        "SM29"
+      ],
+      "exactPositionRequired": true,
+      "houseIdRange": [
+        524289,
+        524294
+      ],
+      "auctionDeadlineLocal": "2026-11-19 01:00:00",
+      "minCurrentPrice": 100000,
+      "bidderCandidate": {
+        "objid": 1900249001,
+        "name": "服務驗證",
+        "level": 59,
+        "clanId": 10171,
+        "role": "王族盟主",
+        "houseId": 0
+      },
+      "notes": "範圍必須0；任意座標或33959,33253會得到空清單。開 Bid 需LV15以上王族盟主且無盟屋；重測先重新確認期限與資金。"
+    },
+    {
+      "npcId": 81161,
+      "spawnId": 1017,
+      "name": "拍賣佈告欄",
+      "map": 4,
+      "x": 33959,
+      "y": 33253,
+      "spawnCount": 0,
+      "movementDistance": 0,
+      "currentWorldAvailability": false,
+      "auctionRows": 0
+    },
+    {
+      "npcId": 81161,
+      "spawnId": 1018,
+      "name": "拍賣佈告欄",
+      "map": 4,
+      "x": 33585,
+      "y": 33235,
+      "spawnCount": 0,
+      "movementDistance": 0,
+      "currentWorldAvailability": false,
+      "auctionRows": 11
+    },
+    {
+      "npcId": 81161,
+      "spawnId": 1019,
+      "name": "拍賣佈告欄",
+      "map": 4,
+      "x": 33421,
+      "y": 32823,
+      "spawnCount": 0,
+      "movementDistance": 0,
+      "currentWorldAvailability": false,
+      "auctionRows": 45
+    },
+    {
+      "npcId": 70773,
+      "spawnId": 1108,
+      "name": "馬賓",
+      "map": 4,
+      "x": 33426,
+      "y": 32821,
+      "spawnCount": 1,
+      "movementDistance": 0
+    },
+    {
+      "npcId": 70009,
+      "spawnId": 1275,
+      "name": "story npc 70009",
+      "map": 0,
+      "x": 32560,
+      "y": 33086,
+      "spawnCount": 1,
+      "movementDistance": 0
+    },
+    {
+      "npcId": 70014,
+      "spawnId": 1300,
+      "name": "潘朵拉",
+      "map": 0,
+      "x": 32645,
+      "y": 32951,
+      "spawnCount": 1,
+      "movementDistance": 0
+    },
+    {
+      "npcId": 70011,
+      "spawnId": 1324,
+      "name": "港口主人",
+      "map": 0,
+      "x": 32633,
+      "y": 32968,
+      "spawnCount": 1,
+      "movementDistance": 0
+    },
+    {
+      "npcId": 70022,
+      "spawnId": 1325,
+      "name": "港口主人",
+      "map": 4,
+      "x": 32560,
+      "y": 32723,
+      "spawnCount": 1,
+      "movementDistance": 100
+    },
+    {
+      "npcId": 70642,
+      "spawnId": 729,
+      "name": "海克特",
+      "map": 4,
+      "x": 33471,
+      "y": 32775,
+      "spawnCount": 1,
+      "movementDistance": 100
+    },
+    {
+      "npcId": 80072,
+      "spawnId": 968,
+      "name": "炎魔的鐵匠",
+      "map": 602,
+      "x": 32724,
+      "y": 32828,
+      "spawnCount": 1,
+      "movementDistance": 0
+    },
+    {
+      "route": "B-candidate-awaiting-authorization",
+      "requiredGm": 200,
+      "onlyInRetest": true,
+      "executed": false,
+      "persistsNpc": false,
+      "writesWorldTables": false,
+      "automaticDatabaseWrite": "p24_accounts.log_GM指令（伺服器正常稽核，不停用或規避）",
+      "spawnCount": 0,
+      "temporarySpawnCount": 1,
+      "range": 0,
+      "lifetimeSeconds": null,
+      "lifetime": "spawnRx 最後參數0，不設定自動到期；直到物件被刪除或伺服器停止。重測中不得重開遊戲伺服器，否則需重新準備。",
+      "steps": [
+        "執行前重新核對 JAR SHA、NPC模板、commands.2、有效 p24lab lease；GM 稽核副作用須先取得裁定。",
+        "依 #160／#175 完整備份後，僅測試角色離線暫設 GM200；登入同一台實驗伺服器，站到指定精確座標。",
+        "執行一次 .2 指令，記錄 log 中新 NPC objid 與實際座標；移開角色以便一般玩家點擊。",
+        "角色登出後依授權改回 GM0，再登入同一遊戲伺服器；不可為了降 GM 重開伺服器。",
+        "以一般玩家進行指定 SM；收尾停止自己啟動的伺服器，使暫時 NPC 消失。"
+      ],
+      "npcId": 80006,
+      "name": "佈告欄（待裁定暫時召出）",
+      "sm": [
+        "SM27"
+      ],
+      "map": 4,
+      "x": 32612,
+      "y": 32775,
+      "command": ".2 80006 1 0",
+      "positionStatus": "候選準備位置；未進遊戲核對地形或碰撞"
+    }
+  ],
+  "dungeonEntrances": [
+    {
+      "note": "說話之島>說話之島往古魯丁的船",
+      "new_x": 32733,
+      "new_y": 32797,
+      "src_x": 32630,
+      "src_y": 32983,
+      "new_mapid": 5,
+      "src_mapid": 0,
+      "new_heading": 4,
+      "require_item_id": 40299
+    },
+    {
+      "note": "說話之島>說話之島往古魯丁的船",
+      "new_x": 32733,
+      "new_y": 32797,
+      "src_x": 32631,
+      "src_y": 32983,
+      "new_mapid": 5,
+      "src_mapid": 0,
+      "new_heading": 4,
+      "require_item_id": 40299
+    },
+    {
+      "note": "說話之島>說話之島往古魯丁的船",
+      "new_x": 32733,
+      "new_y": 32797,
+      "src_x": 32632,
+      "src_y": 32983,
+      "new_mapid": 5,
+      "src_mapid": 0,
+      "new_heading": 4,
+      "require_item_id": 40299
+    },
+    {
+      "note": "亞丁大陸>亞丁大陸往說話之島的船",
+      "new_x": 32735,
+      "new_y": 32795,
+      "src_x": 32540,
+      "src_y": 32728,
+      "new_mapid": 6,
+      "src_mapid": 4,
+      "new_heading": 4,
+      "require_item_id": 40298
+    },
+    {
+      "note": "亞丁大陸>亞丁大陸往說話之島的船",
+      "new_x": 32735,
+      "new_y": 32795,
+      "src_x": 32542,
+      "src_y": 32728,
+      "new_mapid": 6,
+      "src_mapid": 4,
+      "new_heading": 4,
+      "require_item_id": 40298
+    },
+    {
+      "note": "亞丁大陸>亞丁大陸往說話之島的船",
+      "new_x": 32735,
+      "new_y": 32795,
+      "src_x": 32543,
+      "src_y": 32728,
+      "new_mapid": 6,
+      "src_mapid": 4,
+      "new_heading": 4,
+      "require_item_id": 40298
+    },
+    {
+      "note": "亞丁大陸>亞丁大陸往說話之島的船",
+      "new_x": 32735,
+      "new_y": 32795,
+      "src_x": 32544,
+      "src_y": 32728,
+      "new_mapid": 6,
+      "src_mapid": 4,
+      "new_heading": 4,
+      "require_item_id": 40298
+    },
+    {
+      "note": "說話之島>冒險洞窟 1樓",
+      "new_x": 32669,
+      "new_y": 32802,
+      "src_x": 32477,
+      "src_y": 32851,
+      "new_mapid": 1,
+      "src_mapid": 0,
+      "new_heading": 4,
+      "require_item_id": 0
+    }
+  ],
+  "fishing": {
+    "map": 5300,
+    "rod": 41294,
+    "bait": 41295,
+    "minimumBait": 2,
+    "coordinateEvidence": "唯讀伺服器 map 5300＋FishingPole/L1V1Map 位元碼",
+    "coordinates": [
+      {
+        "stand": [
+          32792,
+          32784
+        ],
+        "target": [
+          32792,
+          32781
+        ],
+        "standTile": 19,
+        "waterTiles": [
+          16,
+          16,
+          16,
+          16,
+          16
+        ]
+      }
+    ],
+    "nativeVerified": false
+  },
+  "cooking": {
+    "character": 1900252004,
+    "book": 41255,
+    "recipeIndex": 0,
+    "material": 40057,
+    "materialCount": 1,
+    "fuel": 41260,
+    "steps": "使用柴火，在 gfx5943 火堆三格內雙擊料理書、製作第一項；本張未製作。"
+  },
+  "dissolve": {
+    "character": 1900252004,
+    "reagent": 41245,
+    "target": 20114,
+    "result": 41246,
+    "resultMin": 1,
+    "resultMax": 20
+  },
+  "slow": {
+    "character": 1900252004,
+    "scroll": 40887,
+    "skill": 29,
+    "gem": 40318,
+    "hastePotion": 40013
+  },
+  "pets": {
+    "account": "p24svc01",
+    "character": 10334,
+    "collarObjid": 1900251101,
+    "petObjid": 1900251199,
+    "petName": "資源牧羊",
+    "existingInventory": [
+      {
+        "id": 1900251101,
+        "Lotto": null,
+        "bless": 0,
+        "count": 1,
+        "gamno": null,
+        "is_id": 1,
+        "char_id": 10334,
+        "greater": 0,
+        "item_id": 40314,
+        "is_sealed": 0,
+        "item_name": "項圈",
+        "last_used": null,
+        "durability": 0,
+        "enchantlvl": 0,
+        "is_equipped": 0,
+        "charge_count": 0,
+        "remaining_time": 0,
+        "magic_stone_time": null,
+        "attr_enchant_kind": 0,
+        "magic_stone_level": 0,
+        "attr_enchant_level": 0,
+        "magic_stone_item_id": 0
+      },
+      {
+        "id": 1900251102,
+        "Lotto": null,
+        "bless": 0,
+        "count": 9,
+        "gamno": null,
+        "is_id": 1,
+        "char_id": 10334,
+        "greater": 0,
+        "item_id": 41160,
+        "is_sealed": 0,
+        "item_name": "寵物召喚笛",
+        "last_used": null,
+        "durability": 0,
+        "enchantlvl": 0,
+        "is_equipped": 0,
+        "charge_count": 0,
+        "remaining_time": 0,
+        "magic_stone_time": null,
+        "attr_enchant_kind": 0,
+        "magic_stone_level": 0,
+        "attr_enchant_level": 0,
+        "magic_stone_item_id": 0
+      },
+      {
+        "id": 1900251103,
+        "Lotto": null,
+        "bless": 0,
+        "count": 57,
+        "gamno": null,
+        "is_id": 1,
+        "char_id": 10334,
+        "greater": 0,
+        "item_id": 40318,
+        "is_sealed": 0,
+        "item_name": "魔法寶石",
+        "last_used": null,
+        "durability": 0,
+        "enchantlvl": 0,
+        "is_equipped": 0,
+        "charge_count": 0,
+        "remaining_time": 0,
+        "magic_stone_time": null,
+        "attr_enchant_kind": 0,
+        "magic_stone_level": 0,
+        "attr_enchant_level": 0,
+        "magic_stone_item_id": 0
+      },
+      {
+        "id": 1900252158,
+        "Lotto": null,
+        "bless": 0,
+        "count": 1,
+        "gamno": null,
+        "is_id": 1,
+        "char_id": 10334,
+        "greater": 0,
+        "item_id": 20284,
+        "is_sealed": 0,
+        "item_name": "召喚控制戒指",
+        "last_used": null,
+        "durability": 0,
+        "enchantlvl": 0,
+        "is_equipped": 0,
+        "charge_count": 0,
+        "remaining_time": 0,
+        "magic_stone_time": null,
+        "attr_enchant_kind": 0,
+        "magic_stone_level": 0,
+        "attr_enchant_level": 0,
+        "magic_stone_item_id": 0
+      },
+      {
+        "id": 1900252159,
+        "Lotto": null,
+        "bless": 0,
+        "count": 20,
+        "gamno": null,
+        "is_id": 1,
+        "char_id": 10334,
+        "greater": 0,
+        "item_id": 40010,
+        "is_sealed": 0,
+        "item_name": "治癒藥水",
+        "last_used": null,
+        "durability": 0,
+        "enchantlvl": 0,
+        "is_equipped": 0,
+        "charge_count": 0,
+        "remaining_time": 0,
+        "magic_stone_time": null,
+        "attr_enchant_kind": 0,
+        "magic_stone_level": 0,
+        "attr_enchant_level": 0,
+        "magic_stone_item_id": 0
+      }
+    ],
+    "addedItems": [
+      {
+        "id": 1900252158,
+        "Lotto": null,
+        "bless": 0,
+        "count": 1,
+        "gamno": null,
+        "is_id": 1,
+        "char_id": 10334,
+        "greater": 0,
+        "item_id": 20284,
+        "is_sealed": 0,
+        "item_name": "召喚控制戒指",
+        "last_used": null,
+        "durability": 0,
+        "enchantlvl": 0,
+        "is_equipped": 0,
+        "charge_count": 0,
+        "remaining_time": 0,
+        "magic_stone_time": null,
+        "attr_enchant_kind": 0,
+        "magic_stone_level": 0,
+        "attr_enchant_level": 0,
+        "magic_stone_item_id": 0
+      },
+      {
+        "id": 1900252159,
+        "Lotto": null,
+        "bless": 0,
+        "count": 20,
+        "gamno": null,
+        "is_id": 1,
+        "char_id": 10334,
+        "greater": 0,
+        "item_id": 40010,
+        "is_sealed": 0,
+        "item_name": "治癒藥水",
+        "last_used": null,
+        "durability": 0,
+        "enchantlvl": 0,
+        "is_equipped": 0,
+        "charge_count": 0,
+        "remaining_time": 0,
+        "magic_stone_time": null,
+        "attr_enchant_kind": 0,
+        "magic_stone_level": 0,
+        "attr_enchant_level": 0,
+        "magic_stone_item_id": 0
+      }
+    ],
+    "summonSkill": 51,
+    "summonLevel": 52,
+    "notes": "沿用既有寵物，不新造空項圈、不寫寵物表；召喚控制戒指配技能51；52級保留高等級停用格。"
+  },
+  "clan": {
+    "existing": [
+      {
+        "objid": "1900240001",
+        "char_name": "透明王子",
+        "ClanID": "10171",
+        "Clanname": "資源血盟",
+        "ClanRank": "8"
+      },
+      {
+        "objid": "1900249001",
+        "char_name": "服務驗證",
+        "ClanID": "10171",
+        "Clanname": "資源血盟",
+        "ClanRank": "4"
+      }
+    ],
+    "newCrown": 1900252001,
+    "createCost": {
+      "itemId": 40308,
+      "count": 30000
+    },
+    "steps": "可沿用資源血盟10171。若需新空盟倉，煙王甲在遊戲血盟管理輸入煙盟甲按建立（C222，消耗3萬金幣）；另一帳號角色與盟主相鄰面對面按申請加入（C194），盟主Y接受。未假定 /create 或 /join 聊天別名可用；不直接寫血盟表。"
+  },
+  "appearance": {
+    "character": 1900252004,
+    "commands": [
+      ".poly 煙法甲 1062",
+      ".poly 煙法甲 1461",
+      ".poly 煙法甲 1395"
+    ],
+    "requiredGm": 200,
+    "onlyInRetest": true,
+    "staticHeading": 6,
+    "staticAlternateGfx": 1410,
+    "notes": "commands.poly→L1Poly，doPoly 允許無 polymorphs 列的 gfx；只列方法，未執行。準備後還原 GM0，再作一般玩家觀測；原始場景未找到1395/1410出生列。"
+  },
+  "news": {
+    "source": "DB",
+    "contentTable": "p24_world.公告_登入顯示",
+    "switchTable": "p24_world.server_event",
+    "switch": {
+      "eventclass": "LoginNewsSet",
+      "eventstart": 0
+    },
+    "modified": false
+  },
+  "blockedFixtures": [
+    {
+      "sm": [
+        "SM27"
+      ],
+      "route": "C-authorization-gate",
+      "reason": "A無現成板子；B候選 .2 80006 1 0 不寫世界表但自動增加GM稽核DB紀錄，待使用者裁定。不得直接執行，也不得改 spawnlist_npc。",
+      "candidateCommand": ".2 80006 1 0",
+      "evidence": "docs/reports/issue-1222.md"
+    },
+    {
+      "sm": [
+        "SM29"
+      ],
+      "route": "C-authorization-gate",
+      "reason": "A無現成板子；B候選 .2 81161 1 0 不寫世界表但自動增加GM稽核DB紀錄，待使用者裁定。不得直接執行，也不得改 spawnlist_npc。",
+      "candidateCommand": ".2 81161 1 0",
+      "evidence": "docs/reports/issue-1222.md"
+    }
+  ],
+  "backup": {
+    "utc": "2026-11-14T07:21:37.481009+00:00",
+    "source": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\db-data",
+    "backup": "D:\\lineage開發\\TW1608262200研究\\scratch\\wt\\task-1209\\environments\\p24\\backups\\issue-1209-before",
+    "files": 1722,
+    "bytes": 279507053,
+    "manifestSha256": "cf27f301533e42568fabef9620fbe3f23dd8a57c98a4b29f28e5234178995928",
+    "verified": true,
+    "lease": {
+      "name": "p24lab",
+      "holder": "chaoren0418-arch/tw-bin-engine#1209",
+      "since": 1794640580.3330011,
+      "exp": 1794645980.3330011
+    },
+    "preservedBackup": "D:\\lineage開發\\TW1608262200研究\\environments\\p24\\backups\\issue-1209-before",
+    "preservedByIssue": 1222,
+    "preservationVerified": true
+  },
+  "restoreSql": "docs/reports/issue-1209-restore.sql",
+  "dataDiff": "docs/reports/issue-1209-data-diff.json",
+  "finalState": {
+    "characterCount": 24,
+    "gmCount": 0,
+    "onlineCount": 0,
+    "listeners": [],
+    "ownProcessesStopped": true
+  },
+  "updatedByIssue": 1222,
+  "sourceFixtureCommit": "fadb1e4f090e353ecc1d89f53540a53001fdab71",
+  "boardFixtureInvestigation": {
+    "issue": 1222,
+    "report": "docs/reports/issue-1222.md",
+    "evidence": "docs/reports/issue-1222-evidence.json",
+    "smokeExecuted": false,
+    "databaseWritten": false,
+    "knownUnsupported": false,
+    "approvalPending": true
+  }
+}
